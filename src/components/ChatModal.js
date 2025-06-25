@@ -93,7 +93,7 @@ export default function ChatModal({ fact, input, setInput, onClose }) {
             boxShadow: "1px 1px 2px rgba(0,0,0,0.2)",
           }}
         >
-          Welcome to the 90s Character Chat! Type your vibe and I'll create a character for you.
+          {"Welcome to the 90s Character Chat! Type your vibe and I'll create a character for you."}
         </div>
       </section>
 

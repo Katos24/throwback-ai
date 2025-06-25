@@ -121,7 +121,7 @@ export default function Yearbook() {
       return;
     }
 
-   const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, and expression, with high realism and minimal distortion img.`;
+   const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
 
 
     try {

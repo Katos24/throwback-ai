@@ -1,14 +1,18 @@
-/* globals.css */
-html, body, #__next {
+/* styles/globals.css */
+
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+}
+
+html, body, #__next {
+  width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #9bbc0f;
-  font-family: monospace;
-  color: #0f380f;
+  font-family: 'Inter', monospace, monospace;
+  color: #00ffe7;
+  background: linear-gradient(135deg, #0f2027, #203a43);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

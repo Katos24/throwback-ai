@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
+import { useRouter } from "next/router";
+import { loadStripe } from "@stripe/stripe-js";
 
 const characterOptions = [
   {
@@ -89,13 +91,20 @@ const characterOptions = [
   },
 ];
 
-
 export default function Yearbook() {
+  const router = useRouter();
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
+
+  useEffect(() => {
+    if (router.query.success === "true") {
+      setIsPremiumUnlocked(true);
+    }
+  }, [router.query]);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
@@ -116,13 +125,7 @@ export default function Yearbook() {
       (c) => c.value === selectedStyle
     );
 
-    if (!selectedCharacter) {
-      alert("Invalid style selected");
-      return;
-    }
-
-   const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
-
+    const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
 
     try {
       const compressedFile = await imageCompression(photo, {
@@ -156,9 +159,25 @@ export default function Yearbook() {
 
       const data = await response.json();
       setResultImageUrl(data.imageUrl);
+      setIsLoading(false);
     } catch (error) {
       alert("Error generating image");
       setIsLoading(false);
+    }
+  };
+
+  const handlePremiumCheckout = async () => {
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+    });
+
+    const data = await res.json();
+    if (data?.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Failed to redirect to Stripe");
     }
   };
 
@@ -235,6 +254,7 @@ export default function Yearbook() {
         ))}
       </div>
 
+      {/* Free Option */}
       <button
         onClick={handlePhotoMakerGenerate}
         style={{
@@ -245,10 +265,48 @@ export default function Yearbook() {
           border: "2px dashed #00FFCC",
           fontSize: 16,
           cursor: "pointer",
+          marginBottom: 20,
         }}
       >
-        🖼️ Generate My Yearbook Look
+        🎨 Generate Free Look
       </button>
+
+      {/* Premium Option */}
+      {isPremiumUnlocked ? (
+        <button
+          onClick={() => alert("Premium endpoint not connected yet")}
+          style={{
+            padding: "12px 24px",
+            borderRadius: 6,
+            backgroundColor: "#FF00FF",
+            color: "#000",
+            fontWeight: "bold",
+            border: "2px solid #FF00FF",
+            fontSize: 16,
+            cursor: "pointer",
+            marginBottom: 40,
+          }}
+        >
+          ✨ Generate Premium Look
+        </button>
+      ) : (
+        <button
+          onClick={handlePremiumCheckout}
+          style={{
+            padding: "12px 24px",
+            borderRadius: 6,
+            backgroundColor: "#222",
+            color: "#FF00FF",
+            fontWeight: "bold",
+            border: "2px dashed #FF00FF",
+            fontSize: 16,
+            cursor: "pointer",
+            marginBottom: 40,
+          }}
+        >
+          💳 Unlock Premium Yearbook Look ($9.99)
+        </button>
+      )}
 
       {isLoading && <p style={{ marginTop: 20 }}>🌀 Applying 90s filters...</p>}
 

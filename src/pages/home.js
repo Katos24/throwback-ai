@@ -15,7 +15,7 @@ export default function Home() {
     <>
       {/* Header */}
       <header className={styles.header}>
-        <div className={styles.logo}>📼 Retro Recommender</div>
+        <div className={styles.logo}>🌀 Throwback AI 📼 </div>
 
         {/* Hamburger Button (Mobile) */}
         <button
@@ -47,6 +47,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <h1>Back to the 90s — Reimagined</h1>
+        <h2>Your gateway to vintage vibes and classic memories</h2>  {/* NEW H2 */}
         <p>Create a nostalgic yearbook photo or explore your own retro house.</p>
         <div className={styles.heroButtons}>
           <button className={styles.cta} onClick={() => router.push("/house")}>
@@ -57,6 +58,7 @@ export default function Home() {
           </button>
         </div>
       </section>
+
 
       {/* Features */}
       <section className={styles.features}>

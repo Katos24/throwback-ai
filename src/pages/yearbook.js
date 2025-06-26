@@ -4,91 +4,28 @@ import imageCompression from "browser-image-compression";
 import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 
+
+console.log("Stripe publishable key:", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+
+
 const characterOptions = [
-  {
-    label: "🎸 Grunge Guy",
-    value: "grunge",
-    promptDesc:
-      "1990s grunge style clothes with flannel shirts, ripped jeans, band tees, and messy long hair",
-  },
-  {
-    label: "🧢 Rap Guy",
-    value: "rap",
-    promptDesc:
-      "90s hip-hop fashion with baggy jeans, oversized jerseys, gold chains, Timberland boots, and snapback caps",
-  },
-  {
-    label: "💿 Mall Goth",
-    value: "goth",
-    promptDesc:
-      "mall goth clothes with black fishnets, heavy eyeliner, band tees, studded accessories, and platform boots",
-  },
-  {
-    label: "🏀 Jock",
-    value: "jock",
-    promptDesc:
-      "90s high school jock look with varsity jacket, basketball shorts, Nike sneakers, and sweatbands",
-  },
-  {
-    label: "🧼 Preppy Kid",
-    value: "preppy",
-    promptDesc:
-      "preppy 90s style with polo shirts, khaki pants or shorts, sweater tied around shoulders, and loafers",
-  },
-  {
-    label: "🦄 Lisa Frank Girl",
-    value: "lisa",
-    promptDesc:
-      "colorful Lisa Frank-inspired 90s fashion with neon colors, glittery accessories, pastel tops, and printed leggings",
-  },
-  {
-    label: "📼 Nerd",
-    value: "nerd",
-    promptDesc:
-      "90s nerdy fashion with tucked-in plaid shirts, suspenders, thick glasses, high-waisted pants, and pocket protectors",
-  },
-  {
-    label: "🎨 Bob Ross",
-    value: "bobross",
-    promptDesc:
-      "gentle 90s art teacher look with permed hair, denim shirt, paint palette, and soothing expression like Bob Ross",
-  },
-  {
-    label: "🕶️ Cool Skater",
-    value: "skater",
-    promptDesc:
-      "90s skater look with baggy cargo pants, graphic tee, Vans shoes, backwards cap, and holding a skateboard",
-  },
-  {
-    label: "📺 TV Show Kid",
-    value: "tvkid",
-    promptDesc:
-      "dressed like a 90s sitcom teen from Saved by the Bell or Fresh Prince with bright patterned shirt, mom jeans, and high-top sneakers",
-  },
-  {
-    label: "🧙‍♂️ Fantasy Geek",
-    value: "fantasy",
-    promptDesc:
-      "90s fantasy geek with Dungeons and Dragons books, graphic fantasy tee, long hair or ponytail, and wireframe glasses",
-  },
-  {
-    label: "📟 Tech Whiz",
-    value: "techwhiz",
-    promptDesc:
-      "90s tech whiz with oversized glasses, digital watch, holding a floppy disk or Game Boy, and wearing a tucked-in shirt",
-  },
-  {
-    label: "🐢 Ninja Turtle Fan",
-    value: "tmntfan",
-    promptDesc:
-      "90s Ninja Turtles fan with a TMNT tee, bandana tied around head, cargo shorts, and sneakers, maybe holding a toy sword",
-  },
-  {
-    label: "🎤 Pop Star Wannabe",
-    value: "popstar",
-    promptDesc:
-      "90s pop star look with sparkly outfit, crop top, low-rise pants, platform shoes, microphone prop, and bold makeup like Britney or Christina",
-  },
+  { label: "🎸 Grunge Guy", value: "grunge", promptDesc: "1990s grunge style clothes with flannel shirts, ripped jeans, band tees, and messy long hair" },
+  { label: "🧢 Rap Guy", value: "rap", promptDesc: "90s hip-hop fashion with baggy jeans, oversized jerseys, gold chains, Timberland boots, and snapback caps" },
+  { label: "💿 Mall Goth", value: "goth", promptDesc: "mall goth clothes with black fishnets, heavy eyeliner, band tees, studded accessories, and platform boots" },
+  { label: "🏀 Jock", value: "jock", promptDesc: "90s high school jock look with varsity jacket, basketball shorts, Nike sneakers, and sweatbands" },
+  { label: "🧼 Preppy Kid", value: "preppy", promptDesc: "preppy 90s style with polo shirts, khaki pants or shorts, sweater tied around shoulders, and loafers" },
+  { label: "🦄 Lisa Frank Girl", value: "lisa", promptDesc: "colorful Lisa Frank-inspired 90s fashion with neon colors, glittery accessories, pastel tops, and printed leggings" },
+  { label: "📼 Nerd", value: "nerd", promptDesc: "90s nerdy fashion with tucked-in plaid shirts, suspenders, thick glasses, high-waisted pants, and pocket protectors" },
+  { label: "🎨 Bob Ross", value: "bobross", promptDesc: "gentle 90s art teacher look with permed hair, denim shirt, paint palette, and soothing expression like Bob Ross" },
+  { label: "🕶️ Cool Skater", value: "skater", promptDesc: "90s skater look with baggy cargo pants, graphic tee, Vans shoes, backwards cap, and holding a skateboard" },
+  { label: "📺 TV Show Kid", value: "tvkid", promptDesc: "dressed like a 90s sitcom teen from Saved by the Bell or Fresh Prince with bright patterned shirt, mom jeans, and high-top sneakers" },
+  { label: "🧙‍♂️ Fantasy Geek", value: "fantasy", promptDesc: "90s fantasy geek with Dungeons and Dragons books, graphic fantasy tee, long hair or ponytail, and wireframe glasses" },
+  { label: "📟 Tech Whiz", value: "techwhiz", promptDesc: "90s tech whiz with oversized glasses, digital watch, holding a floppy disk or Game Boy, and wearing a tucked-in shirt" },
+  { label: "🐢 Ninja Turtle Fan", value: "tmntfan", promptDesc: "90s Ninja Turtles fan with a TMNT tee, bandana tied around head, cargo shorts, and sneakers, maybe holding a toy sword" },
+  { label: "🎤 Pop Star Wannabe", value: "popstar", promptDesc: "90s pop star look with sparkly outfit, crop top, low-rise pants, platform shoes, microphone prop, and bold makeup like Britney or Christina" },
 ];
 
 export default function Yearbook() {
@@ -115,15 +52,13 @@ export default function Yearbook() {
     }
   };
 
-  const handlePhotoMakerGenerate = async () => {
+  const generateImage = async (endpoint) => {
     if (!photo || !selectedStyle) {
       alert("Upload photo and select a style");
       return;
     }
 
-    const selectedCharacter = characterOptions.find(
-      (c) => c.value === selectedStyle
-    );
+    const selectedCharacter = characterOptions.find((c) => c.value === selectedStyle);
 
     const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
 
@@ -145,7 +80,7 @@ export default function Yearbook() {
       setIsLoading(true);
       setResultImageUrl(null);
 
-      const response = await fetch("/api/photomaker", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64, prompt }),
@@ -166,18 +101,22 @@ export default function Yearbook() {
     }
   };
 
+  const handleFreeGenerate = () => generateImage("/api/photomaker");
+  const handlePremiumGenerate = () => generateImage("/api/premiumPhotomaker");
+
   const handlePremiumCheckout = async () => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-    const res = await fetch("/api/checkout", {
+    const res = await fetch("/api/create-checkout-session", {
       method: "POST",
     });
 
     const data = await res.json();
-    if (data?.url) {
-      window.location.href = data.url;
+
+    if (data?.sessionId) {
+      stripe.redirectToCheckout({ sessionId: data.sessionId });
     } else {
-      alert("Failed to redirect to Stripe");
+      alert("Stripe checkout failed. Please try again.");
     }
   };
 
@@ -239,10 +178,7 @@ export default function Yearbook() {
             style={{
               padding: "10px 16px",
               borderRadius: 8,
-              border:
-                selectedStyle === char.value
-                  ? "2px solid #FF00FF"
-                  : "1px solid #00FFCC",
+              border: selectedStyle === char.value ? "2px solid #FF00FF" : "1px solid #00FFCC",
               backgroundColor: selectedStyle === char.value ? "#111" : "#000",
               color: "#00FFCC",
               cursor: "pointer",
@@ -256,7 +192,7 @@ export default function Yearbook() {
 
       {/* Free Option */}
       <button
-        onClick={handlePhotoMakerGenerate}
+        onClick={handleFreeGenerate}
         style={{
           padding: "12px 24px",
           borderRadius: 6,
@@ -274,7 +210,7 @@ export default function Yearbook() {
       {/* Premium Option */}
       {isPremiumUnlocked ? (
         <button
-          onClick={() => alert("Premium endpoint not connected yet")}
+          onClick={handlePremiumGenerate}
           style={{
             padding: "12px 24px",
             borderRadius: 6,
@@ -310,35 +246,31 @@ export default function Yearbook() {
 
       {isLoading && <p style={{ marginTop: 20 }}>🌀 Applying 90s filters...</p>}
 
-      {resultImageUrl &&
-        typeof resultImageUrl === "string" &&
-        resultImageUrl.startsWith("http") && (
-          <div
-            style={{
-              position: "relative",
-              marginTop: 30,
-              display: "inline-block",
-            }}
-          >
-            <h3 style={{ marginBottom: 10, color: "#00FFCC" }}>
-              🖼️ Your 90s Yearbook Photo
-            </h3>
+      {resultImageUrl && typeof resultImageUrl === "string" && resultImageUrl.startsWith("http") && (
+        <div
+          style={{
+            position: "relative",
+            marginTop: 30,
+            display: "inline-block",
+          }}
+        >
+          <h3 style={{ marginBottom: 10, color: "#00FFCC" }}>🖼️ Your 90s Yearbook Photo</h3>
 
-            <Image
-              src={resultImageUrl}
-              alt="Yearbook Result"
-              width={500}
-              height={500}
-              unoptimized
-              style={{
-                borderRadius: 10,
-                border: "3px groove #00FFCC",
-                maxWidth: "100%",
-                height: "auto",
-              }}
-            />
-          </div>
-        )}
+          <Image
+            src={resultImageUrl}
+            alt="Yearbook Result"
+            width={500}
+            height={500}
+            unoptimized
+            style={{
+              borderRadius: 10,
+              border: "3px groove #00FFCC",
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

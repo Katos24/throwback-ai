@@ -47,7 +47,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <h1>Back to the 90s — Reimagined</h1>
-        <h2>Your gateway to vintage vibes and classic memories</h2>  {/* NEW H2 */}
+        <h2>Your gateway to vintage vibes and classic memories</h2>
         <p>Create a nostalgic yearbook photo or explore your own retro house.</p>
         <div className={styles.heroButtons}>
           <button className={styles.cta} onClick={() => router.push("/house")}>
@@ -58,7 +58,6 @@ export default function Home() {
           </button>
         </div>
       </section>
-
 
       {/* Features */}
       <section className={styles.features}>
@@ -102,6 +101,20 @@ export default function Home() {
             <p>Description text goes here for the second info block.</p>
           </div>
         </div>
+      </section>
+
+      {/* SEO Text for 90s Keywords */}
+      <section className={styles.seoText} aria-label="90s Nostalgia and Retro Culture">
+        <h2>Experience the Best of the 90s with Throwback AI</h2>
+        <p>
+          Dive deep into the nostalgia of the 1990s with our AI-powered retro experiences.
+          Whether you're looking to relive the iconic 90s fashion, vintage gaming vibes, classic music hits, or the unforgettable pop culture moments, Throwback AI brings the decade back to life.
+          Explore authentic 90s style yearbook photos, interact with a virtual 90s house, and unlock exclusive content that celebrates everything from neon colors and cassette tapes to grunge and early internet culture.
+        </p>
+        <p>
+          Perfect for 90s kids, millennials, and anyone passionate about retro trends, our platform offers a unique blend of nostalgia and cutting-edge AI technology.
+          Rediscover your favorite decade with Throwback AI — your ultimate 90s time capsule.
+        </p>
       </section>
 
       {/* Footer */}

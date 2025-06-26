@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import Hotspot from "../components/Hotspot";
 import ChatModal from "../components/ChatModal";
-import TriviaPoster from "../components/TriviaPoster"; // import your TriviaPoster
+import TriviaPoster from "../components/TriviaPoster";
+import Modal from "../components/Modal";
+import LoginForm from "../components/LoginForm";
+import SignupForm from "../components/SignupForm";
+import styles from "../styles/Home.module.css";
 
 const onThisDayFacts = [
   "On June 23, 1996, the Nintendo 64 was released in Japan.",
@@ -29,12 +33,15 @@ const mockTrivia = [
   },
 ];
 
-export default function Home() {
+export default function Room() {
+  const [showMenu, setShowMenu] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [fact, setFact] = useState("");
   const [input, setInput] = useState("");
   const [showTrivia, setShowTrivia] = useState(false);
   const [trivia, setTrivia] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   useEffect(() => {
     const randomFact = onThisDayFacts[Math.floor(Math.random() * onThisDayFacts.length)];
@@ -61,46 +68,60 @@ export default function Home() {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: "url('/images/bedroom-background.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        width: "100vw",
-        height: "100vh",
-        position: "relative",
-        fontFamily: "'Courier New', Courier, monospace",
-        color: "#0f380f",
-      }}
-    >
-      {/* 🔥 Interactive Zones */}
-      <Hotspot
-        position={{ top: "10%", left: "10%", width: "20vw", height: "20vh" }}
-        onClick={() => handleClick("Top Left")}
-      />
-      <Hotspot
-        position={{ top: "40%", left: "40%", width: "20vw", height: "20vh" }}
-        onClick={() => handleClick("Center")}
-      />
-
-      {/* 💬 Character Chat Modal */}
-      {showChat && (
-        <ChatModal
-          fact={fact}
-          input={input}
-          setInput={setInput}
-          onClose={() => setShowChat(false)}
+    <>
+      <main
+        style={{
+          backgroundImage: "url('/images/bedroom-background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          width: "100vw",
+          height: "100vh", // Full viewport height since no header/footer
+          position: "relative",
+          fontFamily: "'Courier New', Courier, monospace",
+          color: "#0f380f",
+          overflow: "hidden",
+        }}
+      >
+        {/* 🔥 Interactive Zones */}
+        <Hotspot
+          position={{ top: "10%", left: "10%", width: "20vw", height: "20vh" }}
+          onClick={() => handleClick("Top Left")}
         />
+        <Hotspot
+          position={{ top: "40%", left: "40%", width: "20vw", height: "20vh" }}
+          onClick={() => handleClick("Center")}
+        />
+
+        {/* 💬 Character Chat Modal */}
+        {showChat && (
+          <ChatModal
+            fact={fact}
+            input={input}
+            setInput={setInput}
+            onClose={() => setShowChat(false)}
+          />
+        )}
+
+        {/* 🎯 Trivia Modal */}
+        {showTrivia && trivia && (
+          <TriviaPoster trivia={trivia} onClose={() => setShowTrivia(false)} />
+        )}
+      </main>
+
+      {/* Login Modal */}
+      {showLogin && (
+        <Modal onClose={() => setShowLogin(false)}>
+          <LoginForm onClose={() => setShowLogin(false)} />
+        </Modal>
       )}
 
-      {/* 🎯 Trivia Modal */}
-      {showTrivia && trivia && (
-        <TriviaPoster
-          trivia={trivia}
-          onClose={() => setShowTrivia(false)}
-        />
+      {/* Signup Modal */}
+      {showSignUp && (
+        <Modal onClose={() => setShowSignUp(false)}>
+          <SignupForm onClose={() => setShowSignUp(false)} />
+        </Modal>
       )}
-    </div>
+    </>
   );
 }

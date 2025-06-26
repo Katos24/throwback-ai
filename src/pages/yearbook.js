@@ -5,10 +5,6 @@ import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
 
 
-console.log("Stripe publishable key:", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
 
 
 const characterOptions = [

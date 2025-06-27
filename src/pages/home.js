@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image"; // Added for image optimization
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 import styles from "../styles/Home.module.css";
@@ -82,8 +83,20 @@ export default function Home() {
       <section className={styles.infoWrap}>
         <div className={styles.infoBlock}>
           <div className={styles.beforeAfterContainer}>
-            <img src="/images/info-1-before.png" alt="Before" className={styles.beforeImage} />
-            <img src="/images/info-1-after.png" alt="After" className={styles.afterImage} />
+            <Image
+              src="/images/info-1-before.png"
+              alt="Before"
+              className={styles.beforeImage}
+              width={400}  // adjust these to your actual image sizes
+              height={300}
+            />
+            <Image
+              src="/images/info-1-after.png"
+              alt="After"
+              className={styles.afterImage}
+              width={400}
+              height={300}
+            />
           </div>
           <div className={styles.infoText}>
             <h2>First Info Title</h2>
@@ -93,8 +106,20 @@ export default function Home() {
 
         <div className={`${styles.infoBlock} ${styles.reverse}`}>
           <div className={styles.beforeAfterContainer}>
-            <img src="/images/info-2-before.png" alt="Before" className={styles.beforeImage} />
-            <img src="/images/info-2-after.png" alt="After" className={styles.afterImage} />
+            <Image
+              src="/images/info-2-before.png"
+              alt="Before"
+              className={styles.beforeImage}
+              width={400}
+              height={300}
+            />
+            <Image
+              src="/images/info-2-after.png"
+              alt="After"
+              className={styles.afterImage}
+              width={400}
+              height={300}
+            />
           </div>
           <div className={styles.infoText}>
             <h2>Second Info Title</h2>
@@ -140,7 +165,7 @@ export default function Home() {
 function FeatureCard({ icon, title, desc }) {
   return (
     <div className={styles.card}>
-      <img src={icon} alt={title} className={styles.icon} />
+      <Image src={icon} alt={title} width={48} height={48} className={styles.icon} />
       <h3>{title}</h3>
       <p>{desc}</p>
     </div>

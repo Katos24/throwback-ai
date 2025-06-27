@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export default function House() {
@@ -24,10 +25,10 @@ export default function House() {
           <span className={styles.bar}></span>
         </button>
         <nav className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
-          <a href="/" className={styles.navLink}>Home</a>
-          <a href="/house" className={styles.navLink}>90s Room</a>
-          <a href="/yearbook" className={styles.navLink}>AI Yearbook</a>
-          <a href="/about" className={styles.navLink}>About</a>
+          <Link href="/" className={styles.navLink}>Home</Link>
+          <Link href="/house" className={styles.navLink}>90s Room</Link>
+          <Link href="/yearbook" className={styles.navLink}>AI Yearbook</Link>
+          <Link href="/about" className={styles.navLink}>About</Link>
           <button className={styles.navBtn}>Login</button>
           <button className={styles.navBtn}>Sign Up</button>
         </nav>

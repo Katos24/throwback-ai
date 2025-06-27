@@ -133,7 +133,7 @@ export default function Home() {
         <h2>Experience the Best of the 90s with Throwback AI</h2>
         <p>
           Dive deep into the nostalgia of the 1990s with our AI-powered retro experiences.
-          Whether you're looking to relive the iconic 90s fashion, vintage gaming vibes, classic music hits, or the unforgettable pop culture moments, Throwback AI brings the decade back to life.
+          Whether you&apos;re looking to relive the iconic 90s fashion, vintage gaming vibes, classic music hits, or the unforgettable pop culture moments, Throwback AI brings the decade back to life.
           Explore authentic 90s style yearbook photos, interact with a virtual 90s house, and unlock exclusive content that celebrates everything from neon colors and cassette tapes to grunge and early internet culture.
         </p>
         <p>

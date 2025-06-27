@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
 import Hotspot from "../components/Hotspot";
 import ChatModal from "../components/ChatModal";
 import TriviaPoster from "../components/TriviaPoster";
@@ -69,6 +72,8 @@ export default function Room() {
 
   return (
     <>
+      <Header />
+
       <main
         style={{
           backgroundImage: "url('/images/bedroom-background.png')",
@@ -76,7 +81,7 @@ export default function Room() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           width: "100vw",
-          height: "100vh", // Full viewport height since no header/footer
+          height: "calc(100vh - 120px)", // adjust for header/footer height approx
           position: "relative",
           fontFamily: "'Courier New', Courier, monospace",
           color: "#0f380f",
@@ -108,6 +113,8 @@ export default function Room() {
           <TriviaPoster trivia={trivia} onClose={() => setShowTrivia(false)} />
         )}
       </main>
+
+      <Footer />
 
       {/* Login Modal */}
       {showLogin && (

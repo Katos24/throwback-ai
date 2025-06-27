@@ -1,7 +1,17 @@
 // /pages/api/checkout.js
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripeSecretKey =
+  process.env.NODE_ENV === 'production'
+    ? process.env.STRIPE_SECRET_KEY_PROD
+    : process.env.STRIPE_SECRET_KEY_TEST;
+
+const priceId =
+  process.env.NODE_ENV === 'production'
+    ? process.env.STRIPE_PRICE_ID_PROD
+    : process.env.STRIPE_PRICE_ID_TEST;
+
+const stripe = new Stripe(stripeSecretKey);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -11,7 +21,7 @@ export default async function handler(req, res) {
         mode: 'payment',
         line_items: [
           {
-            price: 'price_1Re00HGx3WYrtzsPIbXP2VZy', // Your Stripe price ID
+            price: priceId,
             quantity: 1,
           },
         ],
@@ -21,6 +31,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ url: session.url });
     } catch (err) {
+      console.error('Stripe Checkout Error:', err);
       res.status(500).json({ error: err.message });
     }
   } else {

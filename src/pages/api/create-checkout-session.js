@@ -1,9 +1,7 @@
 import Stripe from "stripe";
 
-const stripeSecretKey =
-  process.env.NODE_ENV === "production"
-    ? process.env.STRIPE_SECRET_KEY_PROD
-    : process.env.STRIPE_SECRET_KEY_TEST;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const priceId = process.env.STRIPE_PRICE_ID;
 
 const stripe = new Stripe(stripeSecretKey);
 
@@ -19,7 +17,7 @@ export default async function handler(req, res) {
       mode: "payment",
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID, // Use env var for price ID
+          price: priceId,
           quantity: 1,
         },
       ],

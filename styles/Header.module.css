@@ -1,0 +1,132 @@
+/* Header.module.css */
+
+/* === Header Container === */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #222;
+  transition: background-color 0.3s ease;
+}
+
+/* === Logo === */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* === Navigation === */
+.nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Links inside nav */
+.navLink {
+  color: #eee;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.navLink:hover,
+.navLink:focus {
+  background: #00ffe7;
+  color: #0a0a0a;
+  outline: none;
+}
+
+/* Nav buttons (login/signup) */
+.navBtn {
+  background: transparent;
+  border: 1px solid #888;
+  color: #eee;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navBtn:hover,
+.navBtn:focus {
+  background: #00ffe7;
+  color: #0a0a0a;
+  border-color: #00ffe7;
+  outline: none;
+}
+
+/* === Hamburger menu button === */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.bar {
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  transition: 0.3s ease;
+}
+
+/* === Show menu on hamburger toggle === */
+.showMenu {
+  display: flex !important;
+}
+
+/* === Responsive styles === */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    background: #111;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    width: 200px;
+    gap: 12px;
+    display: none;
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+    z-index: 100;
+    transition: all 0.3s ease;
+  }
+
+  .navLink,
+  .navBtn {
+    width: 100%;
+    text-align: left;
+  }
+
+  .header {
+    padding: 12px 20px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}

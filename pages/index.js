@@ -1,134 +1,120 @@
-import { useState, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-import Hotspot from "../components/Hotspot";
-import ChatModal from "../components/ChatModal";
-import TriviaPoster from "../components/TriviaPoster";
-import Modal from "../components/Modal";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+// pages/home.js
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-const onThisDayFacts = [
-  "On June 23, 1996, the Nintendo 64 was released in Japan.",
-  "On June 23, 1991, Sonic the Hedgehog launched on the Sega Genesis.",
-  "On June 23, 1993, Jurassic Park broke box office records.",
-  "On June 23, 1994, Friends premiered on NBC.",
-  "On June 23, 1998, Google was founded.",
-];
-
-const mockTrivia = [
-  {
-    question: "Which 90s sitcom featured a group of six friends living in NYC?",
-    correctAnswer: "Friends",
-    incorrectAnswers: ["Seinfeld", "Full House", "Boy Meets World"],
-  },
-  {
-    question: "What 90s handheld pet toy became a worldwide obsession?",
-    correctAnswer: "Tamagotchi",
-    incorrectAnswers: ["Digivice", "Pikachu Pager", "NanoPet"],
-  },
-  {
-    question: "Which 90s video game let you race with Mario and friends?",
-    correctAnswer: "Mario Kart 64",
-    incorrectAnswers: ["F-Zero X", "Wave Race", "Crash Team Racing"],
-  },
-];
-
-export default function Room() {
-  const [showMenu, setShowMenu] = useState(false);
-  const [showChat, setShowChat] = useState(false);
-  const [fact, setFact] = useState("");
-  const [input, setInput] = useState("");
-  const [showTrivia, setShowTrivia] = useState(false);
-  const [trivia, setTrivia] = useState(null);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
-
-  useEffect(() => {
-    const randomFact = onThisDayFacts[Math.floor(Math.random() * onThisDayFacts.length)];
-    setFact(randomFact);
-  }, []);
-
-  const handleClick = (section) => {
-    switch (section) {
-      case "Center":
-        setShowChat(true);
-        setInput("");
-        break;
-
-      case "Top Left":
-        const randomTrivia = mockTrivia[Math.floor(Math.random() * mockTrivia.length)];
-        setTrivia(randomTrivia);
-        setShowTrivia(true);
-        break;
-
-      default:
-        alert(`You clicked section: ${section}`);
-        break;
-    }
-  };
+export default function Home() {
+  const router = useRouter();
 
   return (
     <>
-      <Header />
+      {/* Hero Section */}
+      <section className={styles.hero}>
+        <h1>Back to the 90s — Reimagined</h1>
+        <h2>Your gateway to vintage vibes and classic memories</h2>
+        <p>Create a nostalgic yearbook photo or explore your own retro house.</p>
+        <div className={styles.heroButtons}>
+          <button className={styles.cta} onClick={() => router.push("/house")}>
+            🛋️ Explore My 90s Room
+          </button>
+          <button className={styles.cta} onClick={() => router.push("/yearbook")}>
+            📸 Try AI Yearbook
+          </button>
+        </div>
+      </section>
 
-      <main
-        style={{
-          backgroundImage: "url('/images/bedroom-background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          width: "100vw",
-          height: "calc(100vh - 120px)", // adjust for header/footer height approx
-          position: "relative",
-          fontFamily: "'Courier New', Courier, monospace",
-          color: "#0f380f",
-          overflow: "hidden",
-        }}
-      >
-        {/* 🔥 Interactive Zones */}
-        <Hotspot
-          position={{ top: "10%", left: "10%", width: "20vw", height: "20vh" }}
-          onClick={() => handleClick("Top Left")}
+      {/* Features */}
+      <section className={styles.features}>
+        <FeatureCard
+          icon="/icons/ai.svg"
+          title="AI Yearbook Styles"
+          desc="Turn your photo into a high-school throwback using AI magic."
         />
-        <Hotspot
-          position={{ top: "40%", left: "40%", width: "20vw", height: "20vh" }}
-          onClick={() => handleClick("Center")}
+        <FeatureCard
+          icon="/icons/gamepad.svg"
+          title="Interactive 90s House"
+          desc="Walk through your own virtual bedroom, kitchen, and more."
         />
+        <FeatureCard
+          icon="/icons/star.svg"
+          title="Premium Content"
+          desc="Unlock collectible styles, secret rooms, and bonus designs."
+        />
+      </section>
 
-        {/* 💬 Character Chat Modal */}
-        {showChat && (
-          <ChatModal
-            fact={fact}
-            input={input}
-            setInput={setInput}
-            onClose={() => setShowChat(false)}
-          />
-        )}
+      {/* Info Blocks */}
+      <section className={styles.infoWrap}>
+        <div className={styles.infoBlock}>
+          <div className={styles.beforeAfterContainer}>
+            <Image
+              src="/images/info-1-before.png"
+              alt="Before"
+              className={styles.beforeImage}
+              width={400}
+              height={300}
+            />
+            <Image
+              src="/images/info-1-after.png"
+              alt="After"
+              className={styles.afterImage}
+              width={400}
+              height={300}
+            />
+          </div>
+          <div className={styles.infoText}>
+            <h2>First Info Title</h2>
+            <p>Description text goes here for the first info block.</p>
+          </div>
+        </div>
 
-        {/* 🎯 Trivia Modal */}
-        {showTrivia && trivia && (
-          <TriviaPoster trivia={trivia} onClose={() => setShowTrivia(false)} />
-        )}
-      </main>
+        <div className={`${styles.infoBlock} ${styles.reverse}`}>
+          <div className={styles.beforeAfterContainer}>
+            <Image
+              src="/images/info-2-before.png"
+              alt="Before"
+              className={styles.beforeImage}
+              width={400}
+              height={300}
+            />
+            <Image
+              src="/images/info-2-after.png"
+              alt="After"
+              className={styles.afterImage}
+              width={400}
+              height={300}
+            />
+          </div>
+          <div className={styles.infoText}>
+            <h2>Second Info Title</h2>
+            <p>Description text goes here for the second info block.</p>
+          </div>
+        </div>
+      </section>
 
-      <Footer />
-
-      {/* Login Modal */}
-      {showLogin && (
-        <Modal onClose={() => setShowLogin(false)}>
-          <LoginForm onClose={() => setShowLogin(false)} />
-        </Modal>
-      )}
-
-      {/* Signup Modal */}
-      {showSignUp && (
-        <Modal onClose={() => setShowSignUp(false)}>
-          <SignupForm onClose={() => setShowSignUp(false)} />
-        </Modal>
-      )}
+      {/* SEO Text for 90s Keywords */}
+      <section className={styles.seoText} aria-label="90s Nostalgia and Retro Culture">
+        <h2>Experience the Best of the 90s with Throwback AI</h2>
+        <p>
+          Dive deep into the nostalgia of the 1990s with our AI-powered retro experiences.
+          Whether you&apos;re looking to relive the iconic 90s fashion, vintage gaming vibes, classic music hits, or the unforgettable pop culture moments, Throwback AI brings the decade back to life.
+          Explore authentic 90s style yearbook photos, interact with a virtual 90s house, and unlock exclusive content that celebrates everything from neon colors and cassette tapes to grunge and early internet culture.
+        </p>
+        <p>
+          Perfect for 90s kids, millennials, and anyone passionate about retro trends, our platform offers a unique blend of nostalgia and cutting-edge AI technology.
+          Rediscover your favorite decade with Throwback AI — your ultimate 90s time capsule.
+        </p>
+      </section>
     </>
+  );
+}
+
+function FeatureCard({ icon, title, desc }) {
+  return (
+    <div className={styles.card}>
+      <Image src={icon} alt={title} width={48} height={48} className={styles.icon} />
+      <h3>{title}</h3>
+      <p>{desc}</p>
+    </div>
   );
 }

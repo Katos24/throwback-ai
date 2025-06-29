@@ -1,84 +1,69 @@
-import { useState } from "react";
+// pages/house.js
 import { useRouter } from "next/router";
-import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export default function House() {
   const router = useRouter();
-  const [showMenu, setShowMenu] = useState(false);
 
   const handleGoUpstairs = () => router.push("/room/upstairs");
   const handleGoLivingRoom = () => router.push("/room/livingroom");
+  const handleGoKitchen = () => router.push("/room/kitchen"); // ✅ NEW
 
   return (
-    <>
-      {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.logo}>🌀 Throwback AI 📼 </div>
-        <button
-          className={styles.hamburger}
-          onClick={() => setShowMenu(!showMenu)}
-          aria-label="Toggle menu"
-        >
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-        </button>
-        <nav className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
-          <Link href="/" className={styles.navLink}>Home</Link>
-          <Link href="/house" className={styles.navLink}>90s Room</Link>
-          <Link href="/yearbook" className={styles.navLink}>AI Yearbook</Link>
-          <Link href="/about" className={styles.navLink}>About</Link>
-          <button className={styles.navBtn}>Login</button>
-          <button className={styles.navBtn}>Sign Up</button>
-        </nav>
-      </header>
-
-      {/* Main content */}
-      <main
+    <main
+      style={{
+        backgroundImage: "url('/images/house.png')",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        width: "100%",
+        height: "80vh",
+        position: "relative",
+        margin: "0 auto",
+        maxWidth: "1200px",
+      }}
+    >
+      {/* Hotspot: Go Upstairs */}
+      <div
+        onClick={handleGoUpstairs}
         style={{
-          backgroundImage: "url('/images/house.png')",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "80vh",
-          position: "relative",
-          margin: "0 auto",
-          maxWidth: "1200px",
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "30%",
+          height: "100%",
+          cursor: "pointer",
         }}
-      >
-        {/* Hotspots */}
-        <div
-          onClick={handleGoUpstairs}
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            width: "30%",
-            height: "100%",
-            cursor: "pointer",
-          }}
-          title="Go Upstairs"
-        />
-        <div
-          onClick={handleGoLivingRoom}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "30%",
-            height: "100%",
-            cursor: "pointer",
-          }}
-          title="Go to Living Room"
-        />
-      </main>
+        title="Go Upstairs"
+      />
 
-      {/* Footer */}
-      <footer className={styles.footer}>
-        © 2025 Retro Recommender • Built with love + VHS static
-      </footer>
-    </>
+      {/* Hotspot: Go to Living Room */}
+      <div
+        onClick={handleGoLivingRoom}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "30%",
+          height: "100%",
+          cursor: "pointer",
+        }}
+        title="Go to Living Room"
+      />
+
+      {/* Hotspot: Go to Kitchen */}
+      <div
+        onClick={handleGoKitchen}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "30%",
+          width: "40%",
+          height: "100%",
+          cursor: "pointer",
+        }}
+        title="Go to Kitchen"
+      />
+    </main>
   );
 }

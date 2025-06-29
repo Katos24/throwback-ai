@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
-import { useRouter } from "next/router";
 import { loadStripe } from "@stripe/stripe-js";
-
-
 
 
 const characterOptions = [
@@ -26,6 +24,7 @@ const characterOptions = [
 
 export default function Yearbook() {
   const router = useRouter();
+
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -55,7 +54,6 @@ export default function Yearbook() {
     }
 
     const selectedCharacter = characterOptions.find((c) => c.value === selectedStyle);
-
     const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
 
     try {
@@ -102,13 +100,8 @@ export default function Yearbook() {
 
   const handlePremiumCheckout = async () => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
-    const res = await fetch("/api/create-checkout-session", {
-      method: "POST",
-    });
-
+    const res = await fetch("/api/create-checkout-session", { method: "POST" });
     const data = await res.json();
-
     if (data?.sessionId) {
       stripe.redirectToCheckout({ sessionId: data.sessionId });
     } else {
@@ -117,11 +110,9 @@ export default function Yearbook() {
   };
 
   return (
-    <div
+    <main
       style={{
         minHeight: "100vh",
-        maxHeight: "100vh",
-        overflowY: "auto",
         backgroundColor: "#000",
         color: "#00FFCC",
         fontFamily: "'Courier New', monospace",
@@ -130,9 +121,7 @@ export default function Yearbook() {
       }}
     >
       <h1 style={{ fontSize: 28, marginBottom: 10 }}>📸 AI Yearbook Generator</h1>
-      <p style={{ marginBottom: 30 }}>
-        Pick your style and upload your photo to get 90s-ified!
-      </p>
+      <p style={{ marginBottom: 30 }}>Pick your style and upload your photo to get 90s-ified!</p>
 
       <input
         type="file"
@@ -186,7 +175,6 @@ export default function Yearbook() {
         ))}
       </div>
 
-      {/* Free Option */}
       <button
         onClick={handleFreeGenerate}
         style={{
@@ -203,7 +191,6 @@ export default function Yearbook() {
         🎨 Generate Free Look
       </button>
 
-      {/* Premium Option */}
       {isPremiumUnlocked ? (
         <button
           onClick={handlePremiumGenerate}
@@ -242,16 +229,9 @@ export default function Yearbook() {
 
       {isLoading && <p style={{ marginTop: 20 }}>🌀 Applying 90s filters...</p>}
 
-      {resultImageUrl && typeof resultImageUrl === "string" && resultImageUrl.startsWith("http") && (
-        <div
-          style={{
-            position: "relative",
-            marginTop: 30,
-            display: "inline-block",
-          }}
-        >
+      {resultImageUrl && resultImageUrl.startsWith("http") && (
+        <div style={{ position: "relative", marginTop: 30, display: "inline-block" }}>
           <h3 style={{ marginBottom: 10, color: "#00FFCC" }}>🖼️ Your 90s Yearbook Photo</h3>
-
           <Image
             src={resultImageUrl}
             alt="Yearbook Result"
@@ -267,6 +247,6 @@ export default function Yearbook() {
           />
         </div>
       )}
-    </div>
+    </main>
   );
 }

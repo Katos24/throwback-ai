@@ -1,8 +1,8 @@
-// components/Header.js
 import Link from "next/link";
 import styles from "../styles/Header.module.css";
+import AuthButton from "./AuthButton";
 
-export default function Header({ showMenu, setShowMenu, onLoginClick, onSignUpClick }) {
+export default function Header({ showMenu, setShowMenu }) {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>🌀 Throwback AI 📼</div>
@@ -23,12 +23,9 @@ export default function Header({ showMenu, setShowMenu, onLoginClick, onSignUpCl
         <Link href="/yearbook" className={styles.navLink}>AI Yearbook</Link>
         <Link href="/about" className={styles.navLink}>About</Link>
 
-        <button className={styles.navBtn} onClick={onLoginClick}>
-          Login
-        </button>
-        <button className={styles.navBtn} onClick={onSignUpClick}>
-          Sign Up
-        </button>
+        <div className={styles.authWrapper}>
+          <AuthButton />
+        </div>
       </nav>
     </header>
   );

@@ -1,33 +1,33 @@
-import Stripe from "stripe";
+import Stripe from 'stripe';
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const priceId = process.env.STRIPE_PRICE_ID;
 
-const stripe = new Stripe(stripeSecretKey);
-
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method Not Allowed" });
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  const { supabaseUserId } = req.body;
+
+  if (!supabaseUserId) {
+    return res.status(400).json({ error: 'Missing supabaseUserId' });
   }
 
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      success_url: `${req.headers.origin}/yearbook?success=true`,
-      cancel_url: `${req.headers.origin}/yearbook`,
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${req.headers.origin}/success`,
+      cancel_url: `${req.headers.origin}/cancel`,
+      metadata: { supabaseUserId },
     });
 
-    res.status(200).json({ sessionId: session.id });
-  } catch (err) {
-    console.error("Stripe Checkout Error:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(200).json({ url: session.url });
+  } catch (error) {
+    console.error('Stripe checkout error:', error);
+    res.status(500).json({ error: error.message });
   }
 }

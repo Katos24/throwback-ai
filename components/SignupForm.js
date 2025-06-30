@@ -1,20 +1,19 @@
-// /components/SignupForm.js
-
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { supabase } from '../lib/supabaseClient';
 
-export default function SignupForm({ onSuccess }) {
-  const [fullName, setFullName] = useState('');
+export default function SignupForm({ onSuccess, onError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg('');
 
+    // 1. Sign up user
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -25,18 +24,35 @@ export default function SignupForm({ onSuccess }) {
       },
     });
 
-    setLoading(false);
-
     if (error) {
-      setErrorMsg(error.message);
-    } else {
-      if (onSuccess) onSuccess();
-      alert('✅ Signup successful! Please check your email to confirm.');
-      // Clear form
-      setFullName('');
-      setEmail('');
-      setPassword('');
+      if (onError) onError(error.message);
+      setLoading(false);
+      return;
     }
+
+    // 2. Update profile table with full_name (if you use one)
+    const user = data.user;
+    if (user) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ full_name: fullName })
+        .eq('id', user.id);
+
+      if (profileError) {
+        if (onError) onError(profileError.message);
+        setLoading(false);
+        return;
+      }
+    }
+
+    if (onSuccess) onSuccess();
+    router.push('/signup-success');
+
+    // Reset form
+    setEmail('');
+    setPassword('');
+    setFullName('');
+    setLoading(false);
   };
 
   return (
@@ -52,6 +68,7 @@ export default function SignupForm({ onSuccess }) {
         required
         style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
       />
+
       <input
         type="email"
         placeholder="Email"
@@ -69,6 +86,7 @@ export default function SignupForm({ onSuccess }) {
         minLength={6}
         style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
       />
+
       <button
         type="submit"
         disabled={loading}
@@ -84,7 +102,6 @@ export default function SignupForm({ onSuccess }) {
       >
         {loading ? 'Signing up...' : 'Sign Up'}
       </button>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
     </form>
   );
 }

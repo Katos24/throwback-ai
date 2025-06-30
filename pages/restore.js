@@ -1,6 +1,5 @@
-// pages/restore.js
-
 import { useState } from "react";
+import Image from "next/image";
 
 export default function RestorePage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,7 +28,7 @@ export default function RestorePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           imageBase64: base64,
-          prompt: "Restore this photo with best quality" // ✅ Use your desired prompt
+          prompt: "Restore this photo with best quality",
         }),
       });
 
@@ -79,11 +78,15 @@ export default function RestorePage() {
       {restoredUrl && (
         <div style={{ marginTop: "2rem" }}>
           <h2>✨ Restored Photo:</h2>
-          <img
+
+          <Image
             src={restoredUrl}
             alt="Restored"
-            style={{ maxWidth: "400px", borderRadius: "8px" }}
+            width={400}
+            height={400} // Adjust as needed or calculate dynamically
+            style={{ borderRadius: "8px" }}
           />
+
           <div style={{ marginTop: "1rem" }}>
             <button onClick={handleDownload}>⬇️ Download</button>
             {" | "}

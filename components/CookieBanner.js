@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
@@ -11,22 +12,29 @@ export default function CookieBanner() {
   const acceptCookies = () => {
     localStorage.setItem("cookieConsent", "accepted");
     setShowBanner(false);
+    // TODO: Enable analytics or cookies here
   };
 
   const rejectCookies = () => {
     localStorage.setItem("cookieConsent", "rejected");
     setShowBanner(false);
+    // TODO: Disable analytics or clear cookies here
   };
 
   if (!showBanner) return null;
 
   return (
-    <div style={bannerStyle}>
+    <section
+      role="region"
+      aria-label="Cookie consent banner"
+      aria-live="polite"
+      style={bannerStyle}
+    >
       <p style={{ margin: 0, flex: 1 }}>
         We use cookies to improve your experience. By using our site, you agree to our{" "}
-        <a href="/privacy" style={{ color: "#fff", textDecoration: "underline" }}>
-          Privacy Policy
-        </a>.
+        <Link href="/privacy" passHref>
+          <a style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a>
+        </Link>.
       </p>
       <div>
         <button onClick={rejectCookies} style={rejectButtonStyle}>
@@ -36,7 +44,7 @@ export default function CookieBanner() {
           Accept
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -1,44 +1,48 @@
 import { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Subscribe() {
   const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {
     setLoading(true);
-    try {
-      const res = await fetch('/api/create-checkout-session', { method: 'POST' });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url; // Redirect to Stripe Checkout
-      } else {
-        alert('Error starting checkout.');
-        setLoading(false);
-      }
-    } catch (err) {
-      alert('Error starting checkout.');
+
+    // Get currently logged-in user
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error || !user) {
+      alert('You must be signed in to subscribe.');
+      setLoading(false);
+      return;
+    }
+
+    // Call your API to create Stripe checkout session, passing supabaseUserId
+    const res = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ supabaseUserId: user.id }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.url) {
+      // Redirect user to Stripe checkout
+      window.location.href = data.url;
+    } else {
+      alert(data.error || 'Checkout error');
       setLoading(false);
     }
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif', maxWidth: 600, margin: 'auto' }}>
+    <div>
       <h1>Subscribe to Premium</h1>
-      <p>Unlock unlimited AI image generation, advanced 90s styles, and priority support for $6.99/month.</p>
-      <button
-        onClick={handleSubscribe}
-        disabled={loading}
-        style={{
-          backgroundColor: '#ff0080',
-          color: 'white',
-          padding: '1rem 2rem',
-          fontSize: '1.25rem',
-          border: 'none',
-          borderRadius: 6,
-          cursor: loading ? 'not-allowed' : 'pointer',
-        }}
-      >
+      <button onClick={handleSubscribe} disabled={loading}>
         {loading ? 'Processing...' : 'Subscribe Now'}
       </button>
-    </main>
+    </div>
   );
 }

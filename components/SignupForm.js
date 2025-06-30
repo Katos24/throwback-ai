@@ -1,20 +1,18 @@
+
 // components/SignupForm.js
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
-
-export default function SignupForm({ onSuccess }) {
+export default function SignupForm({ onSuccess, onError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg('');
 
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -22,11 +20,11 @@ export default function SignupForm({ onSuccess }) {
     setLoading(false);
 
     if (error) {
-      setErrorMsg(error.message);
+      if (onError) onError(error.message);
     } else {
-      // Signup success - call onSuccess callback if any
       if (onSuccess) onSuccess();
-      alert('Signup successful! Please check your email to confirm.');
+      setEmail('');
+      setPassword('');
     }
   };
 
@@ -64,7 +62,6 @@ export default function SignupForm({ onSuccess }) {
       >
         {loading ? 'Signing up...' : 'Sign Up'}
       </button>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
     </form>
   );
 }

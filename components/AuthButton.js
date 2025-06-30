@@ -1,9 +1,30 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
+import { useRouter } from "next/router";
 
 export default function AuthButton() {
-  const { data: session, status } = useSession();
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  if (status === "loading") {
+  useEffect(() => {
+    // Get current session on mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    // Listen for auth state changes
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  if (loading) {
     return <p>Loading...</p>;
   }
 
@@ -11,13 +32,26 @@ export default function AuthButton() {
     return (
       <div>
         <p>Signed in as {session.user.email}</p>
-        <button onClick={() => signOut()}>Sign out</button>
+        <button
+          onClick={async () => {
+            await supabase.auth.signOut();
+            router.push("/signin");
+          }}
+        >
+          Sign out
+        </button>
       </div>
     );
   }
 
   return (
-    <button onClick={() => signIn("github")}>
+    <button
+      onClick={async () => {
+        // Redirect user to GitHub OAuth sign in
+        const { error } = await supabase.auth.signInWithOAuth({ provider: "github" });
+        if (error) alert(error.message);
+      }}
+    >
       Sign in with GitHub
     </button>
   );

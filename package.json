@@ -14,7 +14,7 @@
     "browser-image-compression": "^2.0.2",
     "formidable": "^3.5.4",
     "next": "15.3.4",
-    "next-auth": "^4.24.11",
+    "nodemailer": "^6.10.1",
     "openai": "^5.5.1",
     "react": "^19.0.0",
     "react-confetti": "^6.4.0",
@@ -22,7 +22,8 @@
     "react95": "^4.0.0",
     "replicate": "^1.0.1",
     "stripe": "^18.2.1",
-    "styled-components": "^5.3.11"
+    "styled-components": "^5.3.11",
+    "styled-jsx": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,3 +1,4 @@
+// ...your existing imports
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
@@ -7,12 +8,10 @@ export default function Header({ showMenu, setShowMenu }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Get current session user on mount
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
 
-    // Listen for changes in auth state
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
@@ -42,6 +41,9 @@ export default function Header({ showMenu, setShowMenu }) {
 
         {user ? (
           <>
+            <Link href="/profile" className={styles.navLink}>Profile</Link>
+            <Link href="/premium" className={styles.navLink}>Premium</Link>
+            
             <span className={styles.navUser}>Signed in as {user.email}</span>
             <button
               onClick={async () => {

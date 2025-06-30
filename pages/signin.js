@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
 import Link from "next/link";
 
 export default function SignIn() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,9 +25,8 @@ export default function SignIn() {
     if (error) {
       setErrorMsg(error.message);
     } else {
-      // Redirect or update UI on success
-      alert("Signed in successfully!");
-      // e.g. router.push('/dashboard');
+      // Redirect to home page on successful sign-in
+      router.push("/");
     }
   };
 

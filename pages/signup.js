@@ -1,90 +1,32 @@
+// pages/signup.js
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import SignupForm from "../components/SignupForm";
 
-export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+export default function SignUp() {
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const signInWithGithub = async () => {
+  const handleSuccess = () => {
+    setSuccessMsg("✅ Signup successful! Check your email to confirm your account.");
     setErrorMsg("");
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-    });
-    if (error) setErrorMsg(error.message);
-    setLoading(false);
   };
 
-  const signInWithEmail = async (e) => {
-    e.preventDefault();
-    setErrorMsg("");
+  const handleError = (msg) => {
+    setErrorMsg(msg);
     setSuccessMsg("");
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
-      setSuccessMsg("Check your email for the login link!");
-      setEmail("");
-    }
-    setLoading(false);
   };
 
   return (
     <main style={{ maxWidth: 400, margin: "2rem auto", fontFamily: "sans-serif" }}>
-      <h1>Sign In</h1>
-
-      <button
-        type="button"
-        onClick={signInWithGithub}
-        disabled={loading}
-        style={{
-          width: "100%",
-          padding: "0.75rem",
-          marginBottom: "1rem",
-          cursor: loading ? "not-allowed" : "pointer",
-        }}
-      >
-        {loading ? "Loading..." : "Sign in with GitHub"}
-      </button>
+      <h1>Sign Up</h1>
 
       {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
       {successMsg && <p style={{ color: "green" }}>{successMsg}</p>}
 
-      <hr style={{ margin: "2rem 0" }} />
-
-      <form onSubmit={signInWithEmail}>
-        <input
-          type="email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            marginBottom: "1rem",
-            boxSizing: "border-box",
-          }}
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "0.75rem",
-            cursor: loading ? "not-allowed" : "pointer",
-          }}
-        >
-          {loading ? "Sending..." : "Send Magic Link"}
-        </button>
-      </form>
+      <SignupForm onSuccess={handleSuccess} onError={handleError} />
 
       <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-        Don’t have an account? <a href="/signup">Sign up here</a>
+        Already have an account? <a href="/signin">Sign in here</a>
       </p>
     </main>
   );

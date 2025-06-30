@@ -1,0 +1,30 @@
+// pages/premium-test.js
+
+import { useEffect, useState } from 'react';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+
+export default function PremiumTest() {
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      console.log('user:', data?.user);
+      setUser(data?.user);
+    };
+
+    getUser();
+  }, [supabase]);
+
+  return (
+    <main style={{ padding: '2rem' }}>
+      <h1>✅ Premium Test</h1>
+      {user ? (
+        <p>Welcome, {user.email} (ID: {user.id})</p>
+      ) : (
+        <p>Loading user...</p>
+      )}
+    </main>
+  );
+}

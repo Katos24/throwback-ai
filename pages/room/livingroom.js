@@ -46,7 +46,7 @@ export default function LivingRoom() {
             borderRadius: "12px",
             boxShadow: "0 0 10px #000",
           }}
-          src={`https://www.youtube.com/playlist?list=PL7DA3D097D6FDBC02&autoplay=1&controls=1`}
+          src={`https://www.youtube.com/embed/videoseries?list=${playlistId}&autoplay=1&controls=1`}
           title="90s Playlist"
           frameBorder="0"
           allow="autoplay; encrypted-media"

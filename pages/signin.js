@@ -71,7 +71,7 @@ export default function SignIn() {
       </form>
 
       <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-        Don't have an account? <Link href="/signup">Sign up here</Link>
+        Don&apos;t have an account? <Link href="/signup">Sign up here</Link>
       </p>
     </main>
   );

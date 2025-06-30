@@ -1,6 +1,6 @@
-// pages/signup.js
 import { useState } from "react";
 import SignupForm from "../components/SignupForm";
+import Link from "next/link";  // <-- import Link
 
 export default function SignUp() {
   const [successMsg, setSuccessMsg] = useState("");
@@ -26,7 +26,7 @@ export default function SignUp() {
       <SignupForm onSuccess={handleSuccess} onError={handleError} />
 
       <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-        Already have an account? <a href="/signin">Sign in here</a>
+        Already have an account? <Link href="/signin">Sign in here</Link>
       </p>
     </main>
   );

@@ -1,3 +1,4 @@
+// pages/signup.js
 import { useState } from "react";
 import Link from "next/link";
 import SignupForm from "../components/SignupForm";
@@ -18,7 +19,7 @@ export default function SignUp() {
 
   return (
     <main style={{ maxWidth: 400, margin: "2rem auto", fontFamily: "sans-serif" }}>
-      <h1>Sign Up</h1>
+      <h1 style={{ marginBottom: "2rem" }}>Sign Up</h1> {/* Increased marginBottom */}
 
       {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
       {successMsg && <p style={{ color: "green" }}>{successMsg}</p>}

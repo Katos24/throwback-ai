@@ -13,6 +13,7 @@
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #222;
   transition: background-color 0.3s ease;
+  position: relative; /* needed for absolute hamburger */
 }
 
 /* === Logo === */
@@ -22,6 +23,7 @@
   color: #ffffff;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  margin-left: 56px; /* shift right to clear hamburger */
 }
 
 /* === Navigation === */
@@ -60,7 +62,7 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;  /* ADD THIS */
+  text-decoration: none;  /* no underline */
 }
 
 .navBtn:hover,
@@ -74,6 +76,9 @@
 /* === Hamburger menu button === */
 .hamburger {
   display: none;
+  position: absolute; /* position on left */
+  left: 16px;
+  top: 24px;
   flex-direction: column;
   gap: 5px;
   background: none;
@@ -129,5 +134,6 @@
 
   .logo {
     font-size: 1.2rem;
+    margin-left: 56px; /* keep shifted right on mobile */
   }
 }

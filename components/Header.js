@@ -1,27 +1,27 @@
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/Header.module.css";
 
 export default function Header({ showMenu, setShowMenu, onLoginClick }) {
-  const [user, setUser] = useState(null);
+  const navRef = useRef(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+    function handleClickOutside(event) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
 
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
 
-    return () => subscription.unsubscribe();
-  }, []);
-
-  // Close menu on nav click
-  const handleLinkClick = () => {
-    setShowMenu(false);
-  };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu, setShowMenu]);
 
   return (
     <header className={styles.header}>
@@ -37,51 +37,28 @@ export default function Header({ showMenu, setShowMenu, onLoginClick }) {
         <span className={styles.bar}></span>
       </button>
 
-      <nav className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
-        <Link href="/" className={styles.navLink} onClick={handleLinkClick}>
-          Home
-        </Link>
-        <Link href="/house" className={styles.navLink} onClick={handleLinkClick}>
-          90s Room
-        </Link>
-        <Link href="/yearbook" className={styles.navLink} onClick={handleLinkClick}>
-          AI Yearbook
-        </Link>
-        <Link href="/about" className={styles.navLink} onClick={handleLinkClick}>
-          About
-        </Link>
+      <nav
+        ref={navRef}
+        className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}
+      >
+        <Link href="/" className={styles.navLink} onClick={() => setShowMenu(false)}>Home</Link>
+        <Link href="/house" className={styles.navLink} onClick={() => setShowMenu(false)}>90s Room</Link>
+        <Link href="/yearbook" className={styles.navLink} onClick={() => setShowMenu(false)}>AI Yearbook</Link>
+        <Link href="/about" className={styles.navLink} onClick={() => setShowMenu(false)}>About</Link>
 
-        {user ? (
-          <>
-            <Link href="/profile" className={styles.navLink} onClick={handleLinkClick}>
-              Profile
-            </Link>
-            <Link href="/premium" className={styles.navLink} onClick={handleLinkClick}>
-              Premium
-            </Link>
+        <button
+          className={styles.navBtn}
+          onClick={() => {
+            onLoginClick();
+            setShowMenu(false);
+          }}
+        >
+          Login
+        </button>
 
-            <span className={styles.navUser}>Signed in as {user.email}</span>
-            <button
-              onClick={async () => {
-                await supabase.auth.signOut();
-                setUser(null);
-                setShowMenu(false);
-              }}
-              className={styles.navBtn}
-            >
-              Sign Out
-            </button>
-          </>
-        ) : (
-          <>
-            <Link href="/signin" className={styles.navLink} onClick={handleLinkClick}>
-              Sign In
-            </Link>
-            <Link href="/signup" className={styles.navLink} onClick={handleLinkClick}>
-              Sign Up
-            </Link>
-          </>
-        )}
+        <Link href="/signup" className={styles.navBtn} onClick={() => setShowMenu(false)}>
+          Sign Up
+        </Link>
       </nav>
     </header>
   );

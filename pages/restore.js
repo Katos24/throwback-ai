@@ -23,22 +23,28 @@ export default function RestorePage() {
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
 
-      const response = await fetch("/api/restore", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imageBase64: base64,
-          prompt: "Restore this photo with best quality",
-        }),
-      });
+      try {
+        const response = await fetch("/api/restore", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            imageBase64: base64,
+            // prompt removed, not needed for GFPGAN
+          }),
+        });
 
-      const data = await response.json();
-      if (data.imageUrl) {
-        setRestoredUrl(data.imageUrl);
-      } else {
-        alert("Failed to restore image.");
+        const data = await response.json();
+        if (response.ok && data.imageUrl) {
+          setRestoredUrl(data.imageUrl);
+        } else {
+          alert(data.error || "Failed to restore image.");
+        }
+      } catch (error) {
+        alert("Network or server error. Please try again.");
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     reader.readAsDataURL(selectedFile);
@@ -79,12 +85,10 @@ export default function RestorePage() {
         <div style={{ marginTop: "2rem" }}>
           <h2>✨ Restored Photo:</h2>
 
-          <Image
+          <img
             src={restoredUrl}
             alt="Restored"
-            width={400}
-            height={400} // Adjust as needed or calculate dynamically
-            style={{ borderRadius: "8px" }}
+            style={{ width: 400, height: 400, borderRadius: "8px" }}
           />
 
           <div style={{ marginTop: "1rem" }}>

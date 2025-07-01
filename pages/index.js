@@ -76,6 +76,10 @@ export default function Home() {
           <button className={styles.cta} onClick={() => router.push("/restore")}>
             🧽 Restore Old Photo
           </button>
+          {/* New button for Cartoon Generator */}
+          <button className={styles.cta} onClick={() => router.push("/cartoon")}>
+            🎨 Generate 90s Cartoon
+          </button>
         </div>
       </section>
 

@@ -3,8 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 
 export default function Profile() {
   const [profile, setProfile] = useState({
-    full_name: '',
-    avatar_url: '',
+    username: '',
     email: '',
   });
   const [loading, setLoading] = useState(true);
@@ -25,7 +24,7 @@ export default function Profile() {
 
       const { data, error } = await supabase
         .from('profiles')
-        .select('full_name, avatar_url')
+        .select('username')
         .eq('id', user.id)
         .single();
 
@@ -33,9 +32,8 @@ export default function Profile() {
         setMessage(`Failed to load profile: ${error.message}`);
       } else if (data) {
         setProfile({
-          full_name: data.full_name || '',
-          avatar_url: data.avatar_url || '',
-          email: user.email, // Set email from auth user, NOT editable
+          username: data.username || '',
+          email: user.email,
         });
       }
       setLoading(false);
@@ -68,8 +66,7 @@ export default function Profile() {
       .from('profiles')
       .upsert({
         id: user.id,
-        full_name: profile.full_name,
-        avatar_url: profile.avatar_url,
+        username: profile.username,
         updated_at: new Date(),
       });
 
@@ -105,26 +102,15 @@ export default function Profile() {
           />
         </label>
         <label>
-          Full Name
+          Username
           <input
             type="text"
-            name="full_name"
-            placeholder="Full Name"
-            value={profile.full_name}
+            name="username"
+            placeholder="Username"
+            value={profile.username}
             onChange={handleChange}
             style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
             required
-          />
-        </label>
-        <label>
-          Avatar URL
-          <input
-            type="text"
-            name="avatar_url"
-            placeholder="Avatar URL"
-            value={profile.avatar_url}
-            onChange={handleChange}
-            style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
           />
         </label>
         <button

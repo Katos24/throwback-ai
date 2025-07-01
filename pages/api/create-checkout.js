@@ -1,6 +1,8 @@
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Use a single static price ID from your .env
 const priceId = process.env.STRIPE_PRICE_ID;
 
 export default async function handler(req, res) {
@@ -21,7 +23,7 @@ export default async function handler(req, res) {
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${req.headers.origin}/success`,
-      cancel_url: `${req.headers.origin}/cancel`,
+      cancel_url: `${req.headers.origin}/pricing`,
       metadata: { supabaseUserId },
     });
 

@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
-import { loadStripe } from "@stripe/stripe-js";
-
 
 const characterOptions = [
   { label: "🎸 Grunge Guy", value: "grunge", promptDesc: "1990s grunge style clothes with flannel shirts, ripped jeans, band tees, and messy long hair" },
@@ -98,15 +96,9 @@ export default function Yearbook() {
   const handleFreeGenerate = () => generateImage("/api/photomaker");
   const handlePremiumGenerate = () => generateImage("/api/premiumPhotomaker");
 
-  const handlePremiumCheckout = async () => {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-    const res = await fetch("/api/create-checkout-session", { method: "POST" });
-    const data = await res.json();
-    if (data?.sessionId) {
-      stripe.redirectToCheckout({ sessionId: data.sessionId });
-    } else {
-      alert("Stripe checkout failed. Please try again.");
-    }
+  // ✅ NEW: Just push to /pricing when they click Unlock Premium
+  const handlePremiumCheckout = () => {
+    router.push("/pricing");
   };
 
   return (

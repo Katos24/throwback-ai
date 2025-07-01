@@ -9,19 +9,20 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { imageBase64, version = "v1.4", scale = 2 } = req.body;
+  const { imageBase64, prompt } = req.body;
 
-  if (!imageBase64) {
-    return res.status(400).json({ error: "Missing imageBase64" });
+  if (!imageBase64 || !prompt) {
+    return res.status(400).json({ error: "Missing image or prompt" });
   }
 
   try {
     const prediction = await replicate.predictions.create({
-      version: "0fbacf7afc6c144e5be9767cff80f25aff23e52b0708f17e20f9879b2f21516c", // GFPGAN model version ID
+      version: "0f1178f5a27e9aa2d2d39c8a43c110f7fa7cbf64062ff04a04cd40899e546065", // flux-kontext-pro 90s cartoon model version ID
       input: {
-        img: `data:image/png;base64,${imageBase64}`,
-        version,
-        scale,
+        input_image: `data:image/png;base64,${imageBase64}`,
+        prompt,
+        aspect_ratio: "1:1",
+        seed: 1234,
       },
     });
 
@@ -39,9 +40,12 @@ export default async function handler(req, res) {
     };
 
     const output = await poll(prediction.id);
-    res.status(200).json({ imageUrl: output });
+
+    const imageUrl = Array.isArray(output) ? output[0] : output;
+
+    res.status(200).json({ imageUrl });
   } catch (error) {
-    console.error("Error calling Replicate restore model:", error);
-    res.status(500).json({ error: "Failed to restore image" });
+    console.error("Error calling Replicate:", error);
+    res.status(500).json({ error: "Failed to generate image" });
   }
 }

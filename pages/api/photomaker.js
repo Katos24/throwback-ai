@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { imageBase64, prompt } = req.body;
+  const { imageBase64, prompt, negativePrompt } = req.body;
 
   if (!imageBase64 || !prompt) {
     return res.status(400).json({ error: "Missing image or prompt" });
@@ -21,6 +21,7 @@ export default async function handler(req, res) {
       input: {
         input_image: `data:image/png;base64,${imageBase64}`,
         prompt,
+        ...(negativePrompt ? { negative_prompt: negativePrompt } : {}), // add negative prompt if provided
       },
     });
 

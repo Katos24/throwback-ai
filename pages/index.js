@@ -65,21 +65,45 @@ export default function Home() {
       <section className={styles.hero}>
         <h1>Back to the 90s — Reimagined</h1>
         <h2>Your gateway to vintage vibes and classic memories</h2>
-        <p>Create a nostalgic yearbook photo or explore your own retro house.</p>
-        <div className={styles.heroButtons}>
-          <button className={styles.cta} onClick={() => router.push("/house")}>
-            🛋️ Explore My 90s Room
-          </button>
-          <button className={styles.cta} onClick={() => router.push("/yearbook")}>
-            📸 Try AI Yearbook
-          </button>
-          <button className={styles.cta} onClick={() => router.push("/restore")}>
-            🧽 Restore Old Photo
-          </button>
-          {/* New button for Cartoon Generator */}
-          <button className={styles.cta} onClick={() => router.push("/cartoon")}>
-            🎨 Generate 90s Cartoon
-          </button>
+        <p>Choose your throwback experience:</p>
+
+        <div className={styles.optionGrid}>
+          <OptionCard
+            emoji="📸"
+            title="AI Yearbook Photo"
+            desc="Recreate your retro high school yearbook portrait."
+            onClick={() => router.push("/yearbook")}
+          />
+          <OptionCard
+            emoji="🤖"
+            title="AI Avatar"
+            desc="Make a nostalgic 90s-style avatar."
+            onClick={() => router.push("/avatar")}
+          />
+          <OptionCard
+            emoji="🧽"
+            title="Restore Basic"
+            desc="Quick fix for faded photos."
+            onClick={() => router.push("/restore-basic")}
+          />
+          <OptionCard
+            emoji="💎"
+            title="Restore Premium"
+            desc="High-quality professional restoration."
+            onClick={() => router.push("/restore-premium")}
+          />
+          <OptionCard
+            emoji="🛋️"
+            title="Virtual 90s Room"
+            desc="Walk through your own digital retro bedroom."
+            onClick={() => router.push("/house")}
+          />
+          <OptionCard
+            emoji="🎨"
+            title="90s Cartoon"
+            desc="Transform yourself into a Saturday morning cartoon."
+            onClick={() => router.push("/cartoon")}
+          />
         </div>
       </section>
 
@@ -175,6 +199,18 @@ export default function Home() {
   );
 }
 
+// ✅ New OptionCard component
+function OptionCard({ emoji, title, desc, onClick }) {
+  return (
+    <div className={styles.optionCard} onClick={onClick}>
+      <div className={styles.optionEmoji}>{emoji}</div>
+      <h3>{title}</h3>
+      <p>{desc}</p>
+    </div>
+  );
+}
+
+// ✅ Existing FeatureCard component
 function FeatureCard({ icon, title, desc }) {
   return (
     <div className={styles.card}>

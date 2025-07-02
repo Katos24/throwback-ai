@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import imageCompression from "browser-image-compression";
+import styles from "../styles/AiPage.module.css";
 
 const characterOptions = [
   { label: "🎸 Grunge Guy", value: "grunge", promptDesc: "1990s grunge style clothes with flannel shirts, ripped jeans, band tees, and messy long hair" },
@@ -19,6 +19,9 @@ const characterOptions = [
   { label: "🐢 Ninja Turtle Fan", value: "tmntfan", promptDesc: "90s Ninja Turtles fan with a TMNT tee, bandana tied around head, cargo shorts, and sneakers, maybe holding a toy sword" },
   { label: "🎤 Pop Star Wannabe", value: "popstar", promptDesc: "90s pop star look with sparkly outfit, crop top, low-rise pants, platform shoes, microphone prop, and bold makeup like Britney or Christina" },
 ];
+
+const DEFAULT_NEGATIVE_PROMPT =
+  "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group, crowd, background people, other persons";
 
 export default function Yearbook() {
   const router = useRouter();
@@ -52,7 +55,7 @@ export default function Yearbook() {
     }
 
     const selectedCharacter = characterOptions.find((c) => c.value === selectedStyle);
-    const prompt = `A person wearing ${selectedCharacter.promptDesc} in a school yearbook photo. Keep the face exactly as in the uploaded photo, preserving all facial features including beard, hairstyle, skin color, and expression, with high realism and minimal distortion img.`;
+    const prompt = `Headshot portrait of a single person wearing ${selectedCharacter.promptDesc} in a school yearbook photo style. The photo should focus tightly on one persons face and upper shoulders only, no other people visible. Preserve all facial features including beard, hairstyle, skin color, and expression with high realism and minimal distortion img.`;
 
     try {
       const compressedFile = await imageCompression(photo, {
@@ -75,7 +78,11 @@ export default function Yearbook() {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: base64, prompt }),
+        body: JSON.stringify({
+          imageBase64: base64,
+          prompt,
+          negativePrompt: DEFAULT_NEGATIVE_PROMPT, // <-- always send this negative prompt
+        }),
       });
 
       if (!response.ok) {
@@ -96,71 +103,38 @@ export default function Yearbook() {
   const handleFreeGenerate = () => generateImage("/api/photomaker");
   const handlePremiumGenerate = () => generateImage("/api/premiumPhotomaker");
 
-  // ✅ NEW: Just push to /pricing when they click Unlock Premium
   const handlePremiumCheckout = () => {
     router.push("/pricing");
   };
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#000",
-        color: "#00FFCC",
-        fontFamily: "'Courier New', monospace",
-        padding: 30,
-        textAlign: "center",
-      }}
-    >
-      <h1 style={{ fontSize: 28, marginBottom: 10 }}>📸 AI Yearbook Generator</h1>
-      <p style={{ marginBottom: 30 }}>Pick your style and upload your photo to get 90s-ified!</p>
+    <main className={styles.container}>
+      <h1 className={styles.title}>📸 AI Yearbook Generator</h1>
+      <p className={styles.subtitle}>Pick your style and upload your photo to get 90s-ified!</p>
 
       <input
         type="file"
         accept="image/*"
         onChange={handlePhotoUpload}
-        style={{ marginBottom: 10 }}
+        className={styles.fileInput}
       />
 
       {previewUrl && (
-        <div style={{ marginTop: 10 }}>
-          <Image
+        <div className={styles.previewContainer}>
+          <img
             src={previewUrl}
             alt="Uploaded"
-            width={400}
-            height={400}
-            style={{
-              borderRadius: 8,
-              border: "2px solid #00FFCC",
-              maxWidth: "100%",
-              height: "auto",
-            }}
+            className={styles.previewImage}
           />
         </div>
       )}
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: 12,
-          margin: "30px 0",
-        }}
-      >
+      <div className={styles.characterButtons}>
         {characterOptions.map((char) => (
           <button
             key={char.value}
             onClick={() => setSelectedStyle(char.value)}
-            style={{
-              padding: "10px 16px",
-              borderRadius: 8,
-              border: selectedStyle === char.value ? "2px solid #FF00FF" : "1px solid #00FFCC",
-              backgroundColor: selectedStyle === char.value ? "#111" : "#000",
-              color: "#00FFCC",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
+            className={`${styles.characterButton} ${selectedStyle === char.value ? styles.selectedCharacter : ""}`}
           >
             {char.label}
           </button>
@@ -169,16 +143,7 @@ export default function Yearbook() {
 
       <button
         onClick={handleFreeGenerate}
-        style={{
-          padding: "12px 24px",
-          borderRadius: 6,
-          backgroundColor: "#111",
-          color: "#00FFCC",
-          border: "2px dashed #00FFCC",
-          fontSize: 16,
-          cursor: "pointer",
-          marginBottom: 20,
-        }}
+        className={styles.generateButton}
       >
         🎨 Generate Free Look
       </button>
@@ -186,56 +151,28 @@ export default function Yearbook() {
       {isPremiumUnlocked ? (
         <button
           onClick={handlePremiumGenerate}
-          style={{
-            padding: "12px 24px",
-            borderRadius: 6,
-            backgroundColor: "#FF00FF",
-            color: "#000",
-            fontWeight: "bold",
-            border: "2px solid #FF00FF",
-            fontSize: 16,
-            cursor: "pointer",
-            marginBottom: 40,
-          }}
+          className={`${styles.generateButton} ${styles.premiumButton}`}
         >
           ✨ Generate Premium Look
         </button>
       ) : (
         <button
           onClick={handlePremiumCheckout}
-          style={{
-            padding: "12px 24px",
-            borderRadius: 6,
-            backgroundColor: "#222",
-            color: "#FF00FF",
-            fontWeight: "bold",
-            border: "2px dashed #FF00FF",
-            fontSize: 16,
-            cursor: "pointer",
-            marginBottom: 40,
-          }}
+          className={`${styles.generateButton} ${styles.premiumButtonLocked}`}
         >
           💳 Unlock Premium Yearbook Look ($9.99)
         </button>
       )}
 
-      {isLoading && <p style={{ marginTop: 20 }}>🌀 Applying 90s filters...</p>}
+      {isLoading && <p className={styles.loadingText}>🌀 Applying 90s filters...</p>}
 
       {resultImageUrl && resultImageUrl.startsWith("http") && (
-        <div style={{ position: "relative", marginTop: 30, display: "inline-block" }}>
-          <h3 style={{ marginBottom: 10, color: "#00FFCC" }}>🖼️ Your 90s Yearbook Photo</h3>
-          <Image
+        <div className={styles.resultContainer}>
+          <h3 className={styles.resultTitle}>🖼️ Your 90s Yearbook Photo</h3>
+          <img
             src={resultImageUrl}
             alt="Yearbook Result"
-            width={500}
-            height={500}
-            unoptimized
-            style={{
-              borderRadius: 10,
-              border: "3px groove #00FFCC",
-              maxWidth: "100%",
-              height: "auto",
-            }}
+            className={styles.resultImage}
           />
         </div>
       )}

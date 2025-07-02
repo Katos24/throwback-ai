@@ -1,28 +1,57 @@
-/* styles/globals.css */
-
+/* Reset & box model */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Root and base */
 html, body, #__next {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: 'Inter', monospace, monospace;
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #00ffe7;
-  background: linear-gradient(135deg, #0f2027, #203a43);
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
-/* === Modal Styles === */
+/* Links */
+a {
+  color: #00ffe7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #66fff2;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+/* Modals */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 999;
+  backdrop-filter: blur(4px);
 }
 
 .modal-content {
@@ -30,13 +59,13 @@ html, body, #__next {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #1a1a1a;
+  background: #0a0a0a;
   color: #00ffe7;
-  padding: 24px;
+  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 0 20px #00ffe7aa;
+  box-shadow: 0 0 30px #00ffe799;
   width: 90%;
-  max-width: 360px;
+  max-width: 400px;
   z-index: 1000;
   text-align: center;
   border: 1px solid #00ffe7;
@@ -51,4 +80,53 @@ html, body, #__next {
   color: #00ffe7;
   font-size: 24px;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #66fff2;
+}
+
+/* Utility: Smooth images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add this for a slightly brighter, cleaner base vibe */
+body {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  background-attachment: fixed;
+}
+
+/* Global button styles */
+button {
+  background-color: #00ffe7;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 10px #00ffe7aa;
+  font-family: 'Inter', monospace, monospace;
+  user-select: none;
+}
+
+button:hover,
+button:focus {
+  background-color: #66fff2;
+  color: #000;
+  outline: none;
+  box-shadow: 0 0 20px #66fff2cc, 0 0 30px #00ffe7cc;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  background-color: #008f94;
+  color: #222;
 }

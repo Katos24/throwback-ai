@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Image from "next/image";
+import styles from "../styles/AiPage.module.css";
 
 export default function RestorePage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,7 +10,7 @@ export default function RestorePage() {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setRestoredUrl(""); // Clear previous result
+      setRestoredUrl("");
     }
   };
 
@@ -27,10 +27,7 @@ export default function RestorePage() {
         const response = await fetch("/api/restore", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            imageBase64: base64,
-            // prompt removed, not needed for GFPGAN
-          }),
+          body: JSON.stringify({ imageBase64: base64 }),
         });
 
         const data = await response.json();
@@ -68,32 +65,21 @@ export default function RestorePage() {
   };
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+    <main className={styles.container}>
       <h1>🕹️ Restore Your Vintage Photo</h1>
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
 
-      <button
-        onClick={handleRestore}
-        disabled={!selectedFile || loading}
-        style={{ marginLeft: "1rem" }}
-      >
+      <button onClick={handleRestore} disabled={!selectedFile || loading}>
         {loading ? "Restoring..." : "Restore"}
       </button>
 
       {restoredUrl && (
-        <div style={{ marginTop: "2rem" }}>
+        <div>
           <h2>✨ Restored Photo:</h2>
-
-          <img
-            src={restoredUrl}
-            alt="Restored"
-            style={{ width: 400, height: 400, borderRadius: "8px" }}
-          />
-
-          <div style={{ marginTop: "1rem" }}>
+          <img src={restoredUrl} alt="Restored" className={styles.restoredImage} />
+          <div className={styles.downloadButtons}>
             <button onClick={handleDownload}>⬇️ Download</button>
-            {" | "}
             <button onClick={() => alert("Next: Send to Avatar flow here!")}>
               ➡️ Send to Avatar
             </button>

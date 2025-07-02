@@ -1,0 +1,94 @@
+/* styles/AiPage.module.css */
+
+.container {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  background: #f9fafb; /* very light gray */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #222;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.container input[type="file"] {
+  margin: 1.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  transition: border-color 0.3s ease;
+}
+
+.container input[type="file"]:hover {
+  border-color: #888;
+}
+
+.container button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1rem;
+  font-family: inherit;
+}
+
+.container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #99c2ff;
+  margin-left: 0;
+}
+
+.container button:hover:not(:disabled) {
+  background-color: #005bb5;
+}
+
+.restoredImage {
+  margin-top: 2rem;
+  border-radius: 12px;
+  max-width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  display: inline-block;
+}
+
+.downloadButtons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.downloadButtons button {
+  background: transparent;
+  color: #0070f3;
+  border: 1px solid #0070f3;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-left: 0;
+  font-weight: 600;
+}
+
+.downloadButtons button:hover {
+  background: #0070f3;
+  color: #fff;
+}

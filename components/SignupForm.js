@@ -24,36 +24,45 @@ export default function SignupForm({ onSuccess }) {
       return;
     }
 
-    // Insert username to profiles table
-    const { error: profileError } = await supabase.from('profiles').insert([
-      { id: user.id, username }
-    ]);
 
-    setLoading(false);
+    console.log('Updating username:', username, 'for user id:', user.id);
 
-    if (profileError) {
-      setErrorMsg('Profile creation failed: ' + profileError.message);
-      return;
+    if (user && username) {
+      try {
+        const res = await fetch('/api/update-profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.id, username, email }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to update profile');
+      } catch (error) {
+        setLoading(false);
+        setErrorMsg('Failed to update username: ' + error.message);
+        return;
+      }
     }
 
-    alert('Signup successful! Please check your email to confirm.');
+
+    setLoading(false);
+    alert('Signup successful! Please check your email to confirm your account.');
     if (onSuccess) onSuccess();
   };
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-       <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-        />
-      
-      
+      <label htmlFor="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+      />
+
       <label htmlFor="email">Email</label>
       <input
         id="email"
@@ -66,17 +75,16 @@ export default function SignupForm({ onSuccess }) {
       />
 
       <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password (min 6 chars)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-          style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-        />
-
+      <input
+        id="password"
+        type="password"
+        placeholder="Password (min 6 chars)"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        minLength={6}
+        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+      />
 
       <button
         type="submit"

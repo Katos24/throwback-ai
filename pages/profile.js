@@ -2,39 +2,38 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function Profile() {
-  const [profile, setProfile] = useState({
-    username: '',
-    email: '',
-  });
+  const [profile, setProfile] = useState({ username: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchProfile() {
+      setLoading(true);
+      setMessage(null);
+      setError(null);
+
       const {
         data: { user },
         error: userError,
       } = await supabase.auth.getUser();
 
       if (userError || !user) {
-        setMessage('You must be logged in to view your profile.');
+        setError('You must be logged in to view your profile.');
         setLoading(false);
         return;
       }
 
-      const { data, error } = await supabase
+      const { data, error: profileError } = await supabase
         .from('profiles')
         .select('username')
         .eq('id', user.id)
         .single();
 
-      if (error) {
-        setMessage(`Failed to load profile: ${error.message}`);
+      if (profileError) {
+        setError(`Failed to load profile: ${profileError.message}`);
       } else if (data) {
-        setProfile({
-          username: data.username || '',
-          email: user.email,
-        });
+        setProfile({ username: data.username || '', email: user.email });
       }
       setLoading(false);
     }
@@ -43,13 +42,14 @@ export default function Profile() {
   }, []);
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+    setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
+    setError(null);
 
     const {
       data: { user },
@@ -57,21 +57,21 @@ export default function Profile() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-      setMessage('You must be logged in to update your profile.');
+      setError('You must be logged in to update your profile.');
       setLoading(false);
       return;
     }
 
-    const { error } = await supabase
+    const { error: updateError } = await supabase
       .from('profiles')
       .upsert({
         id: user.id,
         username: profile.username,
-        updated_at: new Date(),
+        updated_at: new Date().toISOString(),
       });
 
-    if (error) {
-      setMessage(`Update failed: ${error.message}`);
+    if (updateError) {
+      setError(`Update failed: ${updateError.message}`);
     } else {
       setMessage('Profile updated successfully!');
     }
@@ -83,7 +83,8 @@ export default function Profile() {
   return (
     <main style={{ maxWidth: 400, margin: '2rem auto', fontFamily: 'Arial, sans-serif' }}>
       <h1>Your Profile</h1>
-      {message && <p>{message}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && <p style={{ color: 'green' }}>{message}</p>}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <label>
           Email (read-only)

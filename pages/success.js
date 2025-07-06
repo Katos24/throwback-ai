@@ -1,41 +1,42 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Confetti from "react-confetti";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Success() {
-  const router = useRouter();
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const [profile, setProfile] = useState(null);
+
+  // Assume premium true optimistically right away
+  const optimisticPremium = true;
 
   useEffect(() => {
-    // Mark user as premium for this session
-    sessionStorage.setItem("premiumPaid", "true");
+    // Start fetch in background, but UI already shows premium
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) return;
+      supabase
+        .from("profiles")
+        .select("is_premium")
+        .eq("id", user.id)
+        .single()
+        .then(({ data }) => setProfile(data));
+    });
 
     // Redirect after 5 seconds
-    const timer = setTimeout(() => router.push("/"), 5000);
-
-    // Get window size for confetti
-    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    const timer = setTimeout(() => {
+      window.location.href = "/";
+    }, 5000);
 
     return () => clearTimeout(timer);
-  }, [router]);
+  }, []);
 
   return (
-    <>
-      <Confetti width={windowSize.width} height={windowSize.height} />
-      <main
-        style={{
-          padding: "2rem",
-          fontFamily: "Arial, sans-serif",
-          maxWidth: 600,
-          margin: "auto",
-          textAlign: "center",
-        }}
-      >
-        <h1>🎉 Payment Successful!</h1>
-        <p>Thank you for subscribing to Throwback AI Premium.</p>
-        <p>You now have access to unlimited AI images and advanced 90s styles.</p>
-        <p>Redirecting to home page...</p>
-      </main>
-    </>
+    <div>
+      <h1>🎉 Thank you for your purchase!</h1>
+      <p>
+        {profile?.is_premium === false && "Your upgrade is processing..."}
+        {(profile?.is_premium || optimisticPremium) &&
+          "Congrats, you’re now a premium user! Enjoy your perks."}
+      </p>
+      <p>Redirecting to home in 5 seconds...</p>
+    </div>
   );
 }

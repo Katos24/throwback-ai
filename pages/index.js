@@ -72,25 +72,25 @@ export default function Home() {
             emoji="📸"
             title="AI Yearbook Photo"
             desc="Recreate your retro high school yearbook portrait."
-            onClick={() => router.push("/yearbook")}
+            onClick={() => router.push("/replicate/yearbook")}
           />
           <OptionCard
             emoji="🤖"
             title="AI Avatar"
             desc="Make a nostalgic 90s-style avatar."
-            onClick={() => router.push("/avatar")}
+            onClick={() => router.push("/replicate/avatar")}
           />
           <OptionCard
             emoji="🧽"
             title="Restore Basic"
             desc="Quick fix for faded photos."
-            onClick={() => router.push("/restore-basic")}
+            onClick={() => router.push("/replicate/restore-basic")}
           />
           <OptionCard
             emoji="💎"
             title="Restore Premium"
             desc="High-quality professional restoration."
-            onClick={() => router.push("/restore-premium")}
+            onClick={() => router.push("/replicate/restore-premium")}
           />
           <OptionCard
             emoji="🛋️"
@@ -102,7 +102,7 @@ export default function Home() {
             emoji="🎨"
             title="90s Cartoon"
             desc="Transform yourself into a Saturday morning cartoon."
-            onClick={() => router.push("/cartoon")}
+            onClick={() => router.push("/replicate/cartoon")}
           />
         </div>
       </section>

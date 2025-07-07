@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function Profile() {
-  const [profile, setProfile] = useState({ username: '', email: '' });
+  const [profile, setProfile] = useState({ username: '', email: '', is_premium: false });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -26,14 +26,14 @@ export default function Profile() {
 
       const { data, error: profileError } = await supabase
         .from('profiles')
-        .select('username')
+        .select('username, is_premium')
         .eq('id', user.id)
         .single();
 
       if (profileError) {
         setError(`Failed to load profile: ${profileError.message}`);
       } else if (data) {
-        setProfile({ username: data.username || '', email: user.email });
+        setProfile({ username: data.username || '', email: user.email, is_premium: data.is_premium || false });
       }
       setLoading(false);
     }
@@ -114,6 +114,14 @@ export default function Profile() {
             required
           />
         </label>
+
+        <p>
+          Subscription status:{' '}
+          <strong style={{ color: profile.is_premium ? 'green' : 'gray' }}>
+            {profile.is_premium ? 'Premium User' : 'Free User'}
+          </strong>
+        </p>
+
         <button
           type="submit"
           disabled={loading}

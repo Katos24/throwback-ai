@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient"; // ✅ Your Supabase client
+import { supabase } from "../../lib/supabaseClient"; // ✅ Your Supabase client
 import styles from "../styles/AiPage.module.css";
 
 export default function RestorePage() {

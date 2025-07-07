@@ -3,18 +3,18 @@ import { supabase } from "../lib/supabaseClient";
 
 export default function Pricing() {
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) {
-        setUserId(data.user.id);
+        setUser(data.user);
       }
     });
   }, []);
 
   const handleUpgrade = async () => {
-    if (!userId) {
+    if (!user) {
       alert("Please log in before upgrading.");
       return;
     }
@@ -25,7 +25,7 @@ export default function Pricing() {
       const res = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ supabaseUserId: userId }),
+        body: JSON.stringify({ supabaseUserId: user.id, email: user.email }),
       });
 
       if (!res.ok) throw new Error('Checkout session creation failed');
@@ -85,19 +85,21 @@ export default function Pricing() {
             <li>Basic 90s styles</li>
             <li>Access to community gallery</li>
           </ul>
+          {/* Disable if user is premium */}
           <button
             style={{
               marginTop: "1rem",
               padding: "0.75rem 2rem",
-              backgroundColor: "#999",
+              backgroundColor: user?.is_premium ? "#999" : "#ff0080",
               border: "none",
               borderRadius: 6,
               color: "white",
-              cursor: "not-allowed",
+              cursor: user?.is_premium ? "not-allowed" : "pointer",
             }}
-            disabled
+            disabled={user?.is_premium}
+            onClick={() => alert('You are already a premium user')}
           >
-            Current Plan
+            {user?.is_premium ? "You are Premium" : "Current Plan"}
           </button>
         </div>
 
@@ -138,9 +140,9 @@ export default function Pricing() {
               cursor: loading ? "wait" : "pointer",
             }}
             onClick={handleUpgrade}
-            disabled={loading}
+            disabled={loading || user?.is_premium}
           >
-            {loading ? "Redirecting..." : "Upgrade Now"}
+            {loading ? "Redirecting..." : user?.is_premium ? "Already Premium" : "Upgrade Now"}
           </button>
         </div>
       </div>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
-import { createClient } from "@supabase/supabase-js";
-import styles from "../styles/AiPage.module.css";
+import { supabase } from "../lib/supabaseClient";
+import styles from "../../styles/AiPage.module.css";
+import { supabase } from "../../lib/supabaseClient";
 
 const characterOptions = [
   { label: "🎸 Grunge Guy", value: "grunge", promptDesc: "1990s grunge style clothes with flannel shirts, ripped jeans, band tees, and messy long hair" },

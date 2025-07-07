@@ -8,20 +8,30 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
-  const { supabaseUserId } = req.body;
+  const { supabaseUserId, email } = req.body;
 
   if (!supabaseUserId) {
     return res.status(400).json({ error: 'Missing supabaseUserId' });
   }
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    mode: 'subscription',
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${req.headers.origin}/success`,
-    cancel_url: `${req.headers.origin}/`,
-    metadata: { supabaseUserId },
-  });
+  if (!priceId) {
+    return res.status(500).json({ error: 'Stripe price ID is not configured' });
+  }
 
-  res.status(200).json({ url: session.url });
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${req.headers.origin}/success`,
+      cancel_url: `${req.headers.origin}/`,
+      metadata: { supabaseUserId },
+      customer_email: email, // optional, can be undefined
+    });
+
+    res.status(200).json({ url: session.url });
+  } catch (error) {
+    console.error('Stripe checkout session error:', error);
+    res.status(500).json({ error: error.message });
+  }
 }

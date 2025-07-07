@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
+import styles from "../../styles/AiPage.module.css";
+
 
 export default function TestRestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);

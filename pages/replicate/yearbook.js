@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
-import { supabase } from "../lib/supabaseClient";
 import styles from "../../styles/AiPage.module.css";
 import { supabase } from "../../lib/supabaseClient";
 
@@ -25,10 +24,7 @@ const characterOptions = [
 const DEFAULT_NEGATIVE_PROMPT =
   "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group, crowd, background people, other persons";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+
 
 export default function Yearbook() {
   const router = useRouter();

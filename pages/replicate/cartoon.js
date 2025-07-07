@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import styles from "../../styles/AiPage.module.css";
+
 
 export default function CartoonPage() {
   const [file, setFile] = useState(null);

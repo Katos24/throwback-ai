@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
+import { supabase } from "../../lib/supabaseClient";
+import styles from "../../styles/AiPage.module.css";;
+
 
 export default function AiAvatarsTest() {
   const [photo, setPhoto] = useState(null);

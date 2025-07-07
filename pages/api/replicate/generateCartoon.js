@@ -3,7 +3,7 @@ import Replicate from "replicate";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '10mb', // increase as needed for your image size
+      sizeLimit: '10mb', // increase as needed for your image sizee
     },
   },
 };

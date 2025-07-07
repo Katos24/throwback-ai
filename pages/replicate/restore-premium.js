@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/AiPage.module.css";
 
-
-export default function TestRestorePremium() {
+export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,9 +35,15 @@ export default function TestRestorePremium() {
 
       if (profileError) {
         setError("Failed to load profile data.");
-      } else if (!profile.is_premium) {
+      } else if (!profile?.is_premium) {
         setError(
-          "This feature is available for premium users only. Please upgrade your subscription."
+          <>
+            This feature is available for premium users only. Please{" "}
+            <Link href="/pricing">
+              <a className={styles.link}>upgrade here</a>
+            </Link>
+            .
+          </>
         );
       } else {
         setIsPremium(true);
@@ -48,15 +54,22 @@ export default function TestRestorePremium() {
     fetchPremiumStatus();
   }, []);
 
-  if (loadingProfile) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loadingProfile) return <p className={styles.loadingText}>Loading...</p>;
+
+  if (error)
+    return (
+      <p className={styles.errorText} style={{ color: "red" }}>
+        {error}
+      </p>
+    );
+
   if (!isPremium)
     return (
-      <p>
+      <p className={styles.errorText}>
         This feature requires a premium subscription.{" "}
-        <a href="/pricing" style={{ color: "blue" }}>
-          Upgrade here
-        </a>
+        <Link href="/pricing">
+          <a className={styles.link}>Upgrade here</a>
+        </Link>
         .
       </p>
     );
@@ -120,33 +133,45 @@ export default function TestRestorePremium() {
   };
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Test Restore Premium</h1>
+    <main className={styles.container} style={{ fontFamily: "sans-serif" }}>
+      <h1 className={styles.title}>Restore Premium</h1>
 
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className={styles.fileInput}
+      />
 
       <button
         onClick={handleRestore}
         disabled={!selectedFile || loading}
+        className={styles.primaryButton}
         style={{ marginLeft: "1rem" }}
       >
         {loading ? "Restoring..." : "Restore"}
       </button>
 
       {restoredUrl && (
-        <div style={{ marginTop: "2rem" }}>
-          <h2>✨ Restored Photo:</h2>
+        <div className={styles.resultContainer} style={{ marginTop: "2rem" }}>
+          <h2 className={styles.subtitle}>✨ Restored Photo:</h2>
 
           <img
             src={restoredUrl}
             alt="Restored"
+            className={styles.restoredImage}
             style={{ width: 400, height: 400, borderRadius: "8px" }}
           />
 
           <div style={{ marginTop: "1rem" }}>
-            <button onClick={handleDownload}>⬇️ Download</button>
+            <button onClick={handleDownload} className={styles.secondaryButton}>
+              ⬇️ Download
+            </button>
             {" | "}
-            <button onClick={() => alert("Next: Send to Avatar flow here!")}>
+            <button
+              onClick={() => alert("Next: Send to Avatar flow here!")}
+              className={styles.secondaryButton}
+            >
               ➡️ Send to Avatar
             </button>
           </div>

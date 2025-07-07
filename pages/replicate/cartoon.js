@@ -30,7 +30,7 @@ export default function CartoonPage() {
 
     try {
       const base64 = await toBase64(file);
-      const response = await fetch("/api/generateCartoon", {
+      const response = await fetch("/api/replicate/generateCartoon", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64, prompt }),

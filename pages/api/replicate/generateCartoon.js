@@ -3,7 +3,7 @@ import Replicate from "replicate";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '10mb', // increase as needed for your image sizee
+      sizeLimit: "10mb", // increase as needed for your image size
     },
   },
 };
@@ -24,10 +24,15 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Ensure imageBase64 does NOT include the "data:image/png;base64," prefix
+    const base64Data = imageBase64.startsWith("data:")
+      ? imageBase64.split(",")[1]
+      : imageBase64;
+
     const prediction = await replicate.predictions.create({
       version: "0f1178f5a27e9aa2d2d39c8a43c110f7fa7cbf64062ff04a04cd40899e546065", // flux-kontext-pro 90s cartoon model version ID
       input: {
-        input_image: `data:image/png;base64,${imageBase64}`,
+        input_image: `data:image/png;base64,${base64Data}`,
         prompt,
         aspect_ratio: "1:1",
         seed: 1234,
@@ -40,7 +45,8 @@ export default async function handler(req, res) {
       while (attempts < maxAttempts) {
         const result = await replicate.predictions.get(id);
         if (result.status === "succeeded") return result.output;
-        if (result.status === "failed") throw new Error("Prediction failed");
+        if (result.status === "failed")
+          throw new Error(result.error || "Prediction failed");
         await new Promise((r) => setTimeout(r, interval));
         attempts++;
       }
@@ -54,6 +60,6 @@ export default async function handler(req, res) {
     res.status(200).json({ imageUrl });
   } catch (error) {
     console.error("Error calling Replicate:", error);
-    res.status(500).json({ error: "Failed to generate image" });
+    res.status(500).json({ error: error.message || "Failed to generate image" });
   }
 }

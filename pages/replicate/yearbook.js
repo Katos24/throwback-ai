@@ -125,7 +125,7 @@ export default function Yearbook() {
     }
   };
 
-  const handleFreeGenerate = () => generateImage("/api/replicate/photomaker");
+  const handleFreeGenerate = () => generateImage("/api/replicate/yearbook");
   const handlePremiumGenerate = () => generateImage("/api/replicate/premiumPhotomaker");
 
   const handlePremiumCheckout = () => {

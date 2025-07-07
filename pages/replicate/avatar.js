@@ -46,7 +46,7 @@ export default function AiAvatarsTest() {
       setIsLoading(true);
       setResultImageUrl(null);
 
-      const response = await fetch("/api/aiAvatars", {
+      const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64, prompt }),

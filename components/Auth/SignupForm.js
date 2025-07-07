@@ -1,5 +1,7 @@
+// components/SignupForm.js
 import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
+
 
 export default function SignupForm({ onSuccess }) {
   const [email, setEmail] = useState('');
@@ -12,31 +14,20 @@ export default function SignupForm({ onSuccess }) {
     setLoading(true);
     setErrorMsg('');
 
-    const { data: { user }, error: signUpError } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
-    if (signUpError) {
-      setLoading(false);
-      setErrorMsg(signUpError.message);
-      return;
-    }
-
-    // Insert a profile row for this new user
-    const { error: profileError } = await supabase.from('profiles').insert([
-      { id: user.id }
-    ]);
-
     setLoading(false);
 
-    if (profileError) {
-      setErrorMsg('Profile creation failed: ' + profileError.message);
-      return;
+    if (error) {
+      setErrorMsg(error.message);
+    } else {
+      // Signup success - call onSuccess callback if any
+      if (onSuccess) onSuccess();
+      alert('Signup successful! Please check your email to confirm.');
     }
-
-    alert('Signup successful! Please check your email to confirm.');
-    if (onSuccess) onSuccess();
   };
 
   return (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
+import { createClient } from "@supabase/supabase-js";
 import styles from "../styles/AiPage.module.css";
 
 const characterOptions = [
@@ -23,6 +24,11 @@ const characterOptions = [
 const DEFAULT_NEGATIVE_PROMPT =
   "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group, crowd, background people, other persons";
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export default function Yearbook() {
   const router = useRouter();
 
@@ -32,12 +38,28 @@ export default function Yearbook() {
   const [resultImageUrl, setResultImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     if (router.query.success === "true") {
       setIsPremiumUnlocked(true);
     }
   }, [router.query]);
+
+  // Correct async user session fetch for Supabase v2
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error getting session:", error);
+        return;
+      }
+      if (session?.user) {
+        setUserId(session.user.id);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
@@ -51,6 +73,11 @@ export default function Yearbook() {
   const generateImage = async (endpoint) => {
     if (!photo || !selectedStyle) {
       alert("Upload photo and select a style");
+      return;
+    }
+
+    if (!userId) {
+      alert("Please log in to generate images.");
       return;
     }
 
@@ -81,7 +108,8 @@ export default function Yearbook() {
         body: JSON.stringify({
           imageBase64: base64,
           prompt,
-          negativePrompt: DEFAULT_NEGATIVE_PROMPT, // <-- always send this negative prompt
+          negativePrompt: DEFAULT_NEGATIVE_PROMPT,
+          userId, // send userId with request!
         }),
       });
 
@@ -100,8 +128,8 @@ export default function Yearbook() {
     }
   };
 
-  const handleFreeGenerate = () => generateImage("/api/photomaker");
-  const handlePremiumGenerate = () => generateImage("/api/premiumPhotomaker");
+  const handleFreeGenerate = () => generateImage("/api/replicate/photomaker");
+  const handlePremiumGenerate = () => generateImage("/api/replicate/premiumPhotomaker");
 
   const handlePremiumCheckout = () => {
     router.push("/pricing");

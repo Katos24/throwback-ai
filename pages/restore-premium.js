@@ -23,7 +23,7 @@ export default function TestRestorePremium() {
       const base64 = reader.result.split(",")[1];
 
       try {
-        const response = await fetch("/api/restorePremium", {
+        const response = await fetch("/api/replicate/restorePremium", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ imageBase64: base64 }),

@@ -1,5 +1,6 @@
 // pages/login.js
-import LoginForm from '../components/LoginForm'; // adjust path if needed
+import LoginForm from '../components/Auth/LoginForm';
+
 
 export default function LoginPage() {
   return (

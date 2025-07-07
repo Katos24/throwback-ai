@@ -1,106 +1,79 @@
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { supabase } from "../lib/supabaseClient";
-import styles from "../styles/Header.module.css";
+import { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 
-export default function Header({ showMenu, setShowMenu, onLoginClick }) {
-  const navRef = useRef(null);
-  const [user, setUser] = useState(null);
+export default function SignupForm({ onSuccess }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user || null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg('');
+
+    const { data: { user }, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
     });
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user || null);
-      }
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        setShowMenu(false);
-      }
+    if (signUpError) {
+      setLoading(false);
+      setErrorMsg(signUpError.message);
+      return;
     }
 
-    if (showMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+    // Insert a profile row for this new user
+    const { error: profileError } = await supabase.from('profiles').insert([
+      { id: user.id }
+    ]);
+
+    setLoading(false);
+
+    if (profileError) {
+      setErrorMsg('Profile creation failed: ' + profileError.message);
+      return;
     }
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showMenu, setShowMenu]);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    setShowMenu(false);
+    alert('Signup successful! Please check your email to confirm.');
+    if (onSuccess) onSuccess();
   };
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>🌀 Throwback AI 📼</div>
-
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+      />
+      <input
+        type="password"
+        placeholder="Password (min 6 chars)"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        minLength={6}
+        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+      />
       <button
-        className={styles.hamburger}
-        onClick={() => setShowMenu(!showMenu)}
-        aria-label="Toggle menu"
+        type="submit"
+        disabled={loading}
+        style={{
+          backgroundColor: '#8bac0f',
+          color: '#0f380f',
+          fontWeight: 'bold',
+          padding: '10px',
+          borderRadius: 6,
+          border: 'none',
+          cursor: loading ? 'not-allowed' : 'pointer',
+        }}
       >
-        <span className={styles.bar}></span>
-        <span className={styles.bar}></span>
-        <span className={styles.bar}></span>
+        {loading ? 'Signing up...' : 'Sign Up'}
       </button>
-
-      <nav
-        ref={navRef}
-        className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}
-      >
-        <Link href="/" className={styles.navLink} onClick={() => setShowMenu(false)}>Home</Link>
-        <Link href="/house" className={styles.navLink} onClick={() => setShowMenu(false)}>90s Room</Link>
-        <Link href="/yearbook" className={styles.navLink} onClick={() => setShowMenu(false)}>AI Yearbook</Link>
-        <Link href="/about" className={styles.navLink} onClick={() => setShowMenu(false)}>About</Link>
-        <Link href="/pricing" className={styles.navLink} onClick={() => setShowMenu(false)}>Pricing</Link>
-
-        {user ? (
-          <>
-            <Link href="/profile" className={styles.navBtn} onClick={() => setShowMenu(false)}>
-              {user.email || "Profile"}
-            </Link>
-            <button
-              onClick={handleSignOut}
-              className={styles.navBtn}
-              style={{ marginLeft: '8px', cursor: 'pointer' }}
-            >
-              Sign Out
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              className={styles.navBtn}
-              onClick={() => {
-                onLoginClick();
-                setShowMenu(false);
-              }}
-            >
-              Login
-            </button>
-
-            <Link href="/signup" className={styles.navBtn} onClick={() => setShowMenu(false)}>
-              Sign Up
-            </Link>
-          </>
-        )}
-      </nav>
-    </header>
+      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+    </form>
   );
 }

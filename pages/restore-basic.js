@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../lib/supabaseClient"; // ✅ Your Supabase client
 import styles from "../styles/AiPage.module.css";
 
 export default function RestorePage() {
@@ -19,18 +20,38 @@ export default function RestorePage() {
 
     setLoading(true);
 
+    // ✅ 1) Get current user session/token
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error || !session) {
+      alert("Please sign in to restore your photo!");
+      setLoading(false);
+      return;
+    }
+
+    const token = session.access_token;
+
+    // ✅ 2) Convert image to Base64
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
 
       try {
-        const response = await fetch("/api/restore", {
+        // ✅ 3) Send image & token to your secure API route
+        const response = await fetch("/api/replicate/restore", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify({ imageBase64: base64 }),
         });
 
         const data = await response.json();
+
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
         } else {

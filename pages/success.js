@@ -5,28 +5,50 @@ export default function Success() {
   const [supabase] = useState(() => createPagesBrowserClient());
   const [profile, setProfile] = useState(null);
 
-  // Assume premium true optimistically right away
+  // Optimistic UI assumes premium immediately
   const optimisticPremium = true;
 
   useEffect(() => {
-    // Start fetch in background, but UI already shows premium
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    let intervalId;
+
+    async function checkPremium() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       if (!user) return;
-      supabase
+
+      const { data, error } = await supabase
         .from("profiles")
         .select("is_premium")
         .eq("id", user.id)
-        .single()
-        .then(({ data }) => setProfile(data));
-    });
+        .single();
 
-    // Redirect after 5 seconds
+      if (error) {
+        console.error("Error fetching profile:", error);
+        return;
+      }
+
+      setProfile(data);
+
+      if (data?.is_premium) {
+        clearInterval(intervalId);
+      }
+    }
+
+    checkPremium(); // immediate first check
+    intervalId = setInterval(checkPremium, 3000); // every 3 seconds
+
+    // Redirect after 10 seconds
     const timer = setTimeout(() => {
       window.location.href = "/";
-    }, 5000);
+    }, 10000);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timer);
+    };
+  }, [supabase]);
 
   return (
     <div>
@@ -36,7 +58,7 @@ export default function Success() {
         {(profile?.is_premium || optimisticPremium) &&
           "Congrats, you’re now a premium user! Enjoy your perks."}
       </p>
-      <p>Redirecting to home in 5 seconds...</p>
+      <p>Redirecting to home in 10 seconds...</p>
     </div>
   );
 }

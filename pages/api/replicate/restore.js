@@ -1,3 +1,11 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb",
+    },
+  },
+};
+
 import Replicate from "replicate";
 import { createClient } from "@supabase/supabase-js";
 
@@ -67,7 +75,7 @@ export default async function handler(req, res) {
 
     // Create prediction with correct input key `img`
     const prediction = await replicate.predictions.create({
-      version: "0fbacf7afc6c144e5be9767cff80f25aff23e52b0708f17e20f9879b2f21516c", // your working model version
+      version: "0fbacf7afc6c144e5be9767cff80f25aff23e52b0708f17e20f9879b2f21516c",
       input: {
         img: `data:image/png;base64,${imageBase64}`,
         prompt,

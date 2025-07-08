@@ -219,10 +219,9 @@ export default function Home() {
 }
 
 // OptionCard component
-function OptionCard({ emoji, title, desc, onClick, className }) {
+function OptionCard({ title, desc, onClick, className }) {
   return (
     <div className={className} onClick={onClick}>
-      <div className={styles.optionEmoji}>{emoji}</div>
       <h3>{title}</h3>
       <p>{desc}</p>
     </div>

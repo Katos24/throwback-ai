@@ -1,6 +1,6 @@
 /* Header.module.css */
 
-/* === Header Container === */
+/* === Reimagined Header for Mobile & Desktop === */
 .header {
   position: sticky;
   top: 0;
@@ -8,77 +8,72 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 48px;
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(12px);
+  padding: 20px 32px;
+  height: 72px;
+  background: linear-gradient(to right, rgba(15, 15, 15, 0.6), rgba(30, 30, 30, 0.5));
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid #222;
-  transition: background-color 0.3s ease;
-  position: relative; /* needed for absolute hamburger */
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 /* === Logo === */
 .logo {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 0.05em;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fefefe;
+  letter-spacing: 0.06em;
   white-space: nowrap;
-  margin-left: 56px; /* shift right to clear hamburger */
+  margin-left: 64px;
+  font-family: 'GFS Didot', serif;
 }
 
-/* === Navigation === */
+/* === Navigation Links === */
 .nav {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
 }
 
-/* Links inside nav */
+/* Nav links */
 .navLink {
-  color: #eee;
+  color: #ddd;
   text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.95rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 18px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.navLink:hover,
-.navLink:focus {
-  background: #00ffe7;
-  color: #0a0a0a;
-  outline: none;
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #00ffe7;
 }
 
-/* Nav buttons (login/signup) */
+/* Auth buttons */
 .navBtn {
   background: transparent;
-  border: 1px solid #888;
-  color: #eee;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.95rem;
+  border: 1px solid #555;
+  color: #ddd;
+  padding: 10px 18px;
+  border-radius: 18px;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;  /* no underline */
 }
 
-.navBtn:hover,
-.navBtn:focus {
+.navBtn:hover {
   background: #00ffe7;
-  color: #0a0a0a;
+  color: #111;
   border-color: #00ffe7;
-  outline: none;
 }
 
-/* === Hamburger menu button === */
+/* === Hamburger Menu === */
 .hamburger {
   display: none;
-  position: absolute; /* position on left */
-  left: 16px;
-  top: 24px;
+  position: absolute;
+  left: 20px;
+  top: 22px;
   flex-direction: column;
   gap: 5px;
   background: none;
@@ -88,18 +83,18 @@
 }
 
 .bar {
-  width: 24px;
-  height: 2px;
+  width: 26px;
+  height: 3px;
   background-color: #fff;
   transition: 0.3s ease;
 }
 
-/* === Show menu on hamburger toggle === */
+/* Show menu toggle */
 .showMenu {
   display: flex !important;
 }
 
-/* === Responsive styles === */
+/* === Responsive Styles === */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -107,33 +102,31 @@
 
   .nav {
     position: absolute;
-    top: 64px;
+    top: 72px;
     left: 0;
-    background: #111;
+    background: rgba(20, 20, 20, 0.95);
     flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    width: 200px;
-    gap: 12px;
+    padding: 24px;
+    width: 100%;
+    gap: 18px;
     display: none;
-    border-right: 1px solid #333;
     border-bottom: 1px solid #333;
-    z-index: 100;
-    transition: all 0.3s ease;
   }
 
   .navLink,
   .navBtn {
     width: 100%;
     text-align: left;
-  }
-
-  .header {
-    padding: 12px 20px;
+    font-size: 1rem;
   }
 
   .logo {
-    font-size: 1.2rem;
-    margin-left: 56px; /* keep shifted right on mobile */
+    font-size: 1.5rem;
+    margin-left: 60px;
+  }
+
+  .header {
+    padding: 16px 20px;
+    height: 80px;
   }
 }

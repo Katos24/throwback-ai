@@ -447,74 +447,84 @@
   box-shadow: 0 0 12px rgba(0, 255, 231, 0.3);
 }
 
-/* === Option Cards inside Hero with Colors === */
+ /* === Enhanced Translucency for "Anastasis" Hero Option Cards === */
 .optionGridHero {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
-  margin-top: 40px;
+  gap: 32px;
+  margin-top: 48px;
 }
 
-.optionCardBasic {
-  background: #00ffe733;  /* translucent teal */
-  border: 2px solid #00ffe7;
-  color: #001f1f;  /* dark heading color */
-  border-radius: 12px;
-  padding: 20px;
-  width: 220px;
+.optionCardBasic,
+.optionCardPremium {
+  background: rgba(255, 255, 255, 0.5); /* increased translucency */
+  border: 1.5px solid rgba(0, 30, 90, 0.2);
+  color: #1a1a1a;
+  border-radius: 16px;
+  padding: 30px 38px;
+  width: 360px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 255, 231, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  transition: all 0.25s ease;
+  font-family: 'GFS Didot', serif;
+  backdrop-filter: blur(10px); /* stronger glass effect */
 }
 
 .optionCardPremium {
-  background: #ff00ff33;  /* translucent magenta */
-  border: 2px solid #ff00ff;
-  color: #330033;  /* dark heading color */
-  border-radius: 12px;
-  padding: 20px;
-  width: 220px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.15);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  background: rgba(255, 235, 250, 0.5);
+  border-color: rgba(120, 60, 150, 0.2);
+  color: #340033;
 }
 
 .optionCardBasic:hover,
 .optionCardPremium:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 16px rgba(0, 255, 231, 0.3);
-}
-
-.optionGridHero .optionEmoji {
-  font-size: 2rem;
-  margin-bottom: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.65);
 }
 
 .optionGridHero .optionCard h3 {
-  font-size: 1.1rem;
-  margin: 4px 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 8px 0 14px;
+  color: inherit;
+  text-shadow: none;
 }
 
 .optionGridHero .optionCard p {
-  font-size: 0.9rem;
-  color: #fff;  /* solid white for strong contrast */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);  /* strong dark shadow for legibility */
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  flex-grow: 1;
+  margin: 0;
+  color: inherit;
+  text-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
 }
 
 @media (max-width: 600px) {
-  .optionGridHero {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
   .optionCardBasic,
   .optionCardPremium {
     width: 100%;
-    max-width: 280px;
+    max-width: 360px;
+    height: auto;
+    padding: 26px 30px;
+  }
+
+  .optionGridHero .optionCard h3 {
+    font-size: 1.6rem;
+  }
+
+  .optionGridHero .optionCard p {
+    font-size: 1.05rem;
   }
 }

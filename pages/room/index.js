@@ -1,36 +1,3 @@
-import { useState, useEffect } from "react";
-
-import Hotspot from "../../components/Hotspot";
-import ChatModal from "../../components/ChatModal";
-import TriviaPoster from "../../components/TriviaPoster";
-import styles from "../../styles/Home.module.css";
-
-const onThisDayFacts = [
-  "On June 23, 1996, the Nintendo 64 was released in Japan.",
-  "On June 23, 1991, Sonic the Hedgehog launched in the US.",
-  "On June 23, 1993, Jurassic Park broke box office records.",
-  "On June 23, 1994, Friends premiered on NBC.",
-  "On June 23, 1998, Google was founded.",
-];
-
-const mockTrivia = [
-  {
-    question: "Which 90s sitcom featured a group of six friends living in NYC?",
-    correctAnswer: "Friends",
-    incorrectAnswers: ["Seinfeld", "Full House", "Boy Meets World"],
-  },
-  {
-    question: "What 90s handheld pet toy became a worldwide obsession?",
-    correctAnswer: "Tamagotchi",
-    incorrectAnswers: ["Digivice", "Pikachu Pager", "NanoPet"],
-  },
-  {
-    question: "Which 90s video game let you race with Mario and friends?",
-    correctAnswer: "Mario Kart 64",
-    incorrectAnswers: ["F-Zero X", "Wave Race", "Crash Team Racing"],
-  },
-];
-
 export default function Room() {
   const [showChat, setShowChat] = useState(false);
   const [fact, setFact] = useState("");
@@ -62,6 +29,13 @@ export default function Room() {
     }
   };
 
+  // New function for your fixed trivia button:
+  const openRandomTrivia = () => {
+    const randomTrivia = mockTrivia[Math.floor(Math.random() * mockTrivia.length)];
+    setTrivia(randomTrivia);
+    setShowTrivia(true);
+  };
+
   return (
     <main
       style={{
@@ -77,7 +51,7 @@ export default function Room() {
         overflow: "hidden",
       }}
     >
-      {/* 🔥 Interactive Zones */}
+      {/* Your existing Hotspots */}
       <Hotspot
         position={{ top: "10%", left: "10%", width: "20vw", height: "20vh" }}
         onClick={() => handleClick("Top Left")}
@@ -87,7 +61,7 @@ export default function Room() {
         onClick={() => handleClick("Center")}
       />
 
-      {/* 💬 Character Chat Modal */}
+      {/* Chat Modal */}
       {showChat && (
         <ChatModal
           fact={fact}
@@ -97,10 +71,32 @@ export default function Room() {
         />
       )}
 
-      {/* 🎯 Trivia Modal */}
+      {/* Trivia Modal */}
       {showTrivia && trivia && (
         <TriviaPoster trivia={trivia} onClose={() => setShowTrivia(false)} />
       )}
+
+      {/* Fixed Trivia Button */}
+      <button
+        onClick={openRandomTrivia}
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          padding: "10px 15px",
+          fontSize: "1rem",
+          borderRadius: "8px",
+          border: "none",
+          backgroundColor: "#0f380f",
+          color: "#a3d977",
+          cursor: "pointer",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+          zIndex: 9999,
+        }}
+        aria-label="Show 90s Trivia"
+      >
+        🎯 Trivia
+      </button>
     </main>
   );
 }

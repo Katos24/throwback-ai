@@ -65,44 +65,20 @@ export default function Home() {
       <section className={styles.hero}>
         <h1>Back to the 90s — Reimagined</h1>
         <h2>Your gateway to vintage vibes and classic memories</h2>
-        <p>Choose your throwback experience:</p>
+        <p>Choose your photo restoration experience:</p>
 
         <div className={styles.optionGrid}>
           <OptionCard
-            emoji="📸"
-            title="AI Yearbook Photo"
-            desc="Recreate your retro high school yearbook portrait."
-            onClick={() => router.push("/replicate/yearbook")}
-          />
-          <OptionCard
-            emoji="🤖"
-            title="AI Avatar"
-            desc="Make a nostalgic 90s-style avatar."
-            onClick={() => router.push("/replicate/avatar")}
-          />
-          <OptionCard
             emoji="🧽"
             title="Restore Basic"
-            desc="Quick fix for faded photos."
+            desc="Quick fix for faded black & white photos."
             onClick={() => router.push("/replicate/restore-basic")}
           />
           <OptionCard
             emoji="💎"
             title="Restore Premium"
-            desc="High-quality professional restoration."
+            desc="High-quality color restoration and enhancements."
             onClick={() => router.push("/replicate/restore-premium")}
-          />
-          <OptionCard
-            emoji="🛋️"
-            title="Virtual 90s Room"
-            desc="Walk through your own digital retro bedroom."
-            onClick={() => router.push("/house")}
-          />
-          <OptionCard
-            emoji="🎨"
-            title="90s Cartoon"
-            desc="Transform yourself into a Saturday morning cartoon."
-            onClick={() => router.push("/replicate/cartoon")}
           />
         </div>
       </section>

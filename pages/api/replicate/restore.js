@@ -1,3 +1,6 @@
+console.log("METHOD:", req.method);
+console.log("HEADERS:", req.headers);
+
 export const config = {
   api: {
     bodyParser: {

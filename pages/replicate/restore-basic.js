@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { supabase } from "../../lib/supabaseClient"; // ✅ Your Supabase client
+import imageCompression from "browser-image-compression";
+import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/AiPage.module.css";
 
 export default function RestorePage() {
@@ -7,11 +8,22 @@ export default function RestorePage() {
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedFile(file);
-      setRestoredUrl("");
+      try {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1024,
+          useWebWorker: true,
+        });
+        setSelectedFile(compressedFile);
+        setRestoredUrl("");
+      } catch (error) {
+        console.error("Image compression error:", error);
+        setSelectedFile(file); // fallback to original if compression fails
+        setRestoredUrl("");
+      }
     }
   };
 
@@ -20,7 +32,6 @@ export default function RestorePage() {
 
     setLoading(true);
 
-    // ✅ 1) Get current user session/token
     const {
       data: { session },
       error,
@@ -34,13 +45,11 @@ export default function RestorePage() {
 
     const token = session.access_token;
 
-    // ✅ 2) Convert image to Base64
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
 
       try {
-        // ✅ 3) Send image, prompt & token to your secure API route
         const response = await fetch("/api/replicate/restore", {
           method: "POST",
           headers: {
@@ -49,7 +58,7 @@ export default function RestorePage() {
           },
           body: JSON.stringify({
             imageBase64: base64,
-            prompt: "Restore this vintage photo img", // <-- added prompt here
+            prompt: "Restore this vintage photo",
           }),
         });
 

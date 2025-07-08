@@ -1,5 +1,4 @@
-console.log("METHOD:", req.method);
-console.log("HEADERS:", req.headers);
+console.log("REQ METHOD:", req.method);
 
 export const config = {
   api: {

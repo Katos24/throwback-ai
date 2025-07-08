@@ -1,5 +1,3 @@
-console.log("REQ METHOD:", req.method);
-
 export const config = {
   api: {
     bodyParser: {
@@ -42,6 +40,8 @@ async function spendCredits(userId, amount) {
 }
 
 export default async function handler(req, res) {
+  console.log("REQ METHOD:", req.method);  // <-- Log the HTTP method here
+
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });

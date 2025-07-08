@@ -2,7 +2,6 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient"; // ✅ Your Supabase client
 import styles from "../../styles/AiPage.module.css";
 
-
 export default function RestorePage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
@@ -41,14 +40,17 @@ export default function RestorePage() {
       const base64 = reader.result.split(",")[1];
 
       try {
-        // ✅ 3) Send image & token to your secure API route
+        // ✅ 3) Send image, prompt & token to your secure API route
         const response = await fetch("/api/replicate/restore", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ imageBase64: base64 }),
+          body: JSON.stringify({
+            imageBase64: base64,
+            prompt: "Restore this vintage photo img", // <-- added prompt here
+          }),
         });
 
         const data = await response.json();

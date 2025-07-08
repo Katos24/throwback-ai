@@ -87,6 +87,20 @@ export default function RestorePremium() {
 
     setLoading(true);
 
+    // ✅ Get user session & token
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    if (sessionError || !session) {
+      alert("Please sign in to restore your photo!");
+      setLoading(false);
+      return;
+    }
+
+    const token = session.access_token; // ✅ Correct way to pass token
+
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
@@ -94,8 +108,13 @@ export default function RestorePremium() {
       try {
         const response = await fetch("/api/replicate/restorePremium", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imageBase64: base64 }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ Important fix
+          },
+          body: JSON.stringify({
+            imageBase64: base64,
+          }),
         });
 
         const data = await response.json();

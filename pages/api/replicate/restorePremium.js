@@ -1,10 +1,48 @@
 import Replicate from "replicate";
+import { createClient } from "@supabase/supabase-js";
+import { modelCosts } from "../../../lib/replicate/modelCosts";
+
+
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-// Helper: concat Uint8Arrays
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// ✅ Helper to spend credits
+async function spendCredits(userId, amount) {
+  const { data: profile, error: profileError } = await supabaseAdmin
+    .from("profiles")
+    .select("credits_remaining")
+    .eq("id", userId)
+    .single();
+
+  if (profileError) throw profileError;
+  if (!profile || profile.credits_remaining < amount) {
+    throw new Error("Insufficient credits");
+  }
+
+  const { error: rpcError } = await supabaseAdmin.rpc("deduct_credits", {
+    uid: userId,
+    amt: amount,
+  });
+  if (rpcError) throw rpcError;
+
+  const { error: insertError } = await supabaseAdmin
+    .from("credit_transactions")
+    .insert({
+      user_id: userId,
+      amount: -amount,
+      type: "spend",
+    });
+  if (insertError) throw insertError;
+}
+
+// ✅ Helper: concat Uint8Arrays
 function concatUint8Arrays(arrays) {
   let totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
   let result = new Uint8Array(totalLength);
@@ -16,14 +54,11 @@ function concatUint8Arrays(arrays) {
   return result;
 }
 
-// Helper: convert Uint8Array to base64
 function uint8ToBase64(u8Arr) {
-  // Convert Uint8Array to string of raw bytes
   let binary = "";
   for (let i = 0; i < u8Arr.length; i++) {
     binary += String.fromCharCode(u8Arr[i]);
   }
-  // Encode binary string to base64
   return Buffer.from(binary, "binary").toString("base64");
 }
 
@@ -38,15 +73,38 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Missing imageBase64" });
   }
 
+  // ✅ Require auth header to get user
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ error: "Missing Authorization header" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  // ✅ Verify Supabase JWT
+  const { data, error } = await supabaseAdmin.auth.getUser(token);
+  const user = data?.user;
+
+  if (error || !user) {
+    console.error("JWT verification failed:", error);
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const userId = user.id;
+
   try {
+    // ✅ Deduct credits first
+    await spendCredits(userId, modelCosts.restorePremium);
+
+    // ✅ Call Replicate as before
     const input = {
       input_image: `data:image/png;base64,${imageBase64}`,
     };
 
-    // Call Replicate model (returns ReadableStream of image bytes)
-    const outputStream = await replicate.run("flux-kontext-apps/restore-image", { input });
+    const outputStream = await replicate.run("flux-kontext-apps/restore-image", {
+      input,
+    });
 
-    // Read stream fully as Uint8Arrays
     const reader = outputStream.getReader();
     let chunks = [];
     while (true) {
@@ -55,20 +113,15 @@ export default async function handler(req, res) {
       chunks.push(value);
     }
 
-    // Concatenate all chunks
     const fullBytes = concatUint8Arrays(chunks);
-
-    // Convert bytes to base64 string
     const base64Image = uint8ToBase64(fullBytes);
-
-    // Add data URI prefix
     const imageUrl = `data:image/png;base64,${base64Image}`;
 
-    console.log("Final imageUrl sent:", imageUrl.slice(0, 50) + "...");
+    console.log("✅ Final imageUrl:", imageUrl.slice(0, 50) + "...");
 
     res.status(200).json({ imageUrl });
   } catch (error) {
-    console.error("Error calling Replicate restore-image model:", error);
-    res.status(500).json({ error: "Failed to restore image" });
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message || "Failed to restore image or deduct credits" });
   }
 }

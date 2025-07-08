@@ -5,99 +5,110 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-const supabase = createClient(
+const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+const MODEL_COST = 1;
+
+async function spendCredits(userId, amount) {
+  const { data: profile, error: profileError } = await supabaseAdmin
+    .from("profiles")
+    .select("credits_remaining")
+    .eq("id", userId)
+    .single();
+
+  if (profileError) throw profileError;
+  if (!profile || profile.credits_remaining < amount) {
+    throw new Error("Insufficient credits");
+  }
+
+  const { error: rpcError } = await supabaseAdmin.rpc("deduct_credits", {
+    uid: userId,
+    amt: amount,
+  });
+  if (rpcError) throw rpcError;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { imageBase64, version = "v1.4", scale = 2, userId } = req.body;
-
-  if (!imageBase64) {
-    return res.status(400).json({ error: "Missing imageBase64" });
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ error: "Missing Authorization header" });
   }
-  if (!userId) {
-    return res.status(400).json({ error: "Missing userId" });
+
+  const token = authHeader.split(" ")[1];
+
+  // Verify user token with Supabase
+  const { data, error } = await supabaseAdmin.auth.getUser(token);
+  const user = data?.user;
+
+  if (error || !user) {
+    console.error("JWT verification failed:", error);
+    return res.status(401).json({ error: "Invalid token" });
+  }
+
+  const userId = user.id;
+
+  const { imageBase64, prompt, negativePrompt } = req.body;
+
+  if (!imageBase64 || !prompt) {
+    return res.status(400).json({ error: "Missing imageBase64 or prompt" });
   }
 
   try {
-    // Step 1: Insert new ai_requests row with status 'pending'
-    const { data: insertData, error: insertError } = await supabase
-      .from("ai_requests")
-      .insert({
-        user_id: userId,
-        request_data: { version, scale },
-        status: "pending",
-      })
-      .select()
-      .single();
+    // Deduct credits first
+    await spendCredits(userId, MODEL_COST);
 
-    if (insertError) {
-      console.error("Error inserting ai_request:", insertError);
-      return res.status(500).json({ error: "Failed to create AI request" });
-    }
-
-    const requestId = insertData.id;
-
-    // Step 2: Call Replicate API
+    // Create prediction with correct input key `img`
     const prediction = await replicate.predictions.create({
-      version: "0fbacf7afc6c144e5be9767cff80f25aff23e52b0708f17e20f9879b2f21516c", // GFPGAN model version ID
+      version: "0fbacf7afc6c144e5be9767cff80f25aff23e52b0708f17e20f9879b2f21516c", // your working model version
       input: {
         img: `data:image/png;base64,${imageBase64}`,
-        version,
-        scale,
+        prompt,
+        ...(negativePrompt ? { negative_prompt: negativePrompt } : {}),
       },
     });
 
-    // Poll for completion
-    const poll = async (id, maxAttempts = 30, interval = 1500) => {
-      let attempts = 0;
-      while (attempts < maxAttempts) {
+    // Poll prediction
+    const poll = async (id) => {
+      while (true) {
         const result = await replicate.predictions.get(id);
         if (result.status === "succeeded") return result.output;
         if (result.status === "failed") throw new Error("Prediction failed");
-        await new Promise((r) => setTimeout(r, interval));
-        attempts++;
+        await new Promise((r) => setTimeout(r, 1500));
       }
-      throw new Error("Prediction polling timed out");
     };
 
     const output = await poll(prediction.id);
+    const imageUrl = Array.isArray(output) ? output[0] : output;
 
-    // Step 3: Update ai_requests row with result_url and status 'completed'
-    const { error: updateError } = await supabase
-      .from("ai_requests")
-      .update({
-        result_url: output,
-        status: "completed",
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", requestId);
+    // Insert AI request with credits used
+    const { error: insertError } = await supabaseAdmin.from("ai_requests").insert({
+      user_id: userId,
+      request_data: {
+        prompt,
+        negativePrompt: negativePrompt || null,
+        prediction_id: prediction.id,
+      },
+      status: "succeeded",
+      result_url: imageUrl,
+      credits_used: MODEL_COST,
+    }, { returning: "minimal" });
 
-    if (updateError) {
-      console.error("Error updating ai_request:", updateError);
-      return res.status(500).json({ error: "Image restored but failed to update request" });
+    if (insertError) {
+      console.error("Supabase insert error:", insertError);
     }
 
-    res.status(200).json({ imageUrl: output, requestId });
+    return res.status(200).json({ imageUrl });
+
   } catch (error) {
-    console.error("Error calling Replicate restore model:", error);
-
-    // Optional: update ai_requests status to 'failed' if requestId exists
-    if (requestId) {
-      await supabase
-        .from("ai_requests")
-        .update({
-          status: "failed",
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", requestId);
-    }
-
-    res.status(500).json({ error: "Failed to restore image" });
+    console.error("Error:", error);
+    return res.status(500).json({ error: error.message || "Failed to generate image or deduct credits" });
   }
 }

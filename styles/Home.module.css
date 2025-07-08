@@ -338,3 +338,183 @@
     color: #bbb;
   }
 }
+
+/* === Greek Section Styles === */
+.infoGreek {
+  margin: 2rem auto;
+  max-width: 600px;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  background: #f9f7f4;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.greekBackground {
+  width: 100%;
+  min-height: 600px;  /* Increase min-height for a bigger hero */
+  height: auto;
+
+  background-image: url('/images/greek-theme.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  position: relative;
+  color: #fff;
+  font-family: 'Georgia', serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 3rem 2rem;  /* More vertical padding to balance bigger height */
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .greekBackground {
+    min-height: 400px;  /* Adjust for smaller screens */
+    padding: 2rem 1rem;
+  }
+}
+
+
+/* Optional overlay layer to tint the background */
+.greekBackground::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 51, 102, 0.5); /* deep Greek blue overlay */
+  z-index: 0;
+}
+
+/* Text container inside with higher z-index */
+.greekBackground > .content,
+.greekBackground > .greekContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;           /* center horizontally */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .greekBackground {
+    min-height: 220px;
+    padding: 1rem 1rem;
+  }
+
+  .greekBackground > .content,
+  .greekBackground > .greekContent {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+
+/* === Greek Before & After Section === */
+.beforeAfterSection {
+  text-align: center;
+  max-width: 900px;
+  margin: 60px auto;
+}
+
+.beforeAfterSection h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  color: #00ffe7;
+}
+
+.beforeAfterImagesGreek {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.beforeAfterImagesGreek img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 0 12px rgba(0, 255, 231, 0.3);
+}
+
+/* === Option Cards inside Hero with Colors === */
+.optionGridHero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.optionCardBasic {
+  background: #00ffe733;  /* translucent teal */
+  border: 2px solid #00ffe7;
+  color: #001f1f;  /* dark heading color */
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.optionCardPremium {
+  background: #ff00ff33;  /* translucent magenta */
+  border: 2px solid #ff00ff;
+  color: #330033;  /* dark heading color */
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.optionCardBasic:hover,
+.optionCardPremium:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 16px rgba(0, 255, 231, 0.3);
+}
+
+.optionGridHero .optionEmoji {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.optionGridHero .optionCard h3 {
+  font-size: 1.1rem;
+  margin: 4px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.optionGridHero .optionCard p {
+  font-size: 0.9rem;
+  color: #fff;  /* solid white for strong contrast */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);  /* strong dark shadow for legibility */
+}
+
+@media (max-width: 600px) {
+  .optionGridHero {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .optionCardBasic,
+  .optionCardPremium {
+    width: 100%;
+    max-width: 280px;
+  }
+}

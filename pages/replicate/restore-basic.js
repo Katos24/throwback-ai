@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/AiPage.module.css";
@@ -7,10 +7,36 @@ export default function RestorePage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [credits, setCredits] = useState(0);
+
+  // ✅ Load user credits on mount
+  useEffect(() => {
+    const fetchCredits = async () => {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+      if (error || !session) return;
+
+      const { data, error: profileError } = await supabase
+        .from("profiles")
+        .select("credits_remaining")
+        .eq("id", session.user.id)
+        .single();
+
+      if (!profileError && data) {
+        setCredits(data.credits_remaining);
+      }
+    };
+
+    fetchCredits();
+  }, []);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      setProcessing(true);
       try {
         const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
@@ -18,10 +44,11 @@ export default function RestorePage() {
           useWebWorker: true,
         });
         setSelectedFile(compressedFile);
-        setRestoredUrl("");
       } catch (error) {
         console.error("Image compression error:", error);
-        setSelectedFile(file); // fallback to original if compression fails
+        setSelectedFile(file);
+      } finally {
+        setProcessing(false);
         setRestoredUrl("");
       }
     }
@@ -66,6 +93,7 @@ export default function RestorePage() {
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
+          setCredits((prev) => prev - 2);
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -101,22 +129,29 @@ export default function RestorePage() {
     <main className={styles.container}>
       <h1>🕹️ Restore Your Vintage Photo</h1>
 
+      <p>💎 This costs <strong>2 credits</strong> per restore</p>
+      <p>🔢 You have <strong>{credits}</strong> credits remaining</p>
+
       <input type="file" accept="image/*" onChange={handleFileChange} />
 
-      <button onClick={handleRestore} disabled={!selectedFile || loading}>
-        {loading ? "Restoring..." : "Restore"}
+      {processing && <p>⏳ Processing image...</p>}
+
+      <button
+        onClick={handleRestore}
+        disabled={!selectedFile || loading || processing}
+      >
+        {loading
+          ? "Restoring..."
+          : processing
+          ? "Processing..."
+          : "Restore"}
       </button>
 
       {restoredUrl && (
         <div>
           <h2>✨ Restored Photo:</h2>
           <img src={restoredUrl} alt="Restored" className={styles.restoredImage} />
-          <div className={styles.downloadButtons}>
-            <button onClick={handleDownload}>⬇️ Download</button>
-            <button onClick={() => alert("Next: Send to Avatar flow here!")}>
-              ➡️ Send to Avatar
-            </button>
-          </div>
+          <button onClick={handleDownload}>⬇️ Download</button>
         </div>
       )}
     </main>

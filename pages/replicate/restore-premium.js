@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import imageCompression from "browser-image-compression";
 import Link from "next/link";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/AiPage.module.css";
@@ -7,9 +8,11 @@ export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [isPremium, setIsPremium] = useState(false);
   const [error, setError] = useState(null);
+  const [credits, setCredits] = useState(0);
 
   useEffect(() => {
     async function fetchPremiumStatus() {
@@ -29,7 +32,7 @@ export default function RestorePremium() {
 
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select("is_premium")
+        .select("is_premium, credits_remaining")
         .eq("id", user.id)
         .single();
 
@@ -47,6 +50,7 @@ export default function RestorePremium() {
         );
       } else {
         setIsPremium(true);
+        setCredits(profile.credits_remaining || 0);
       }
       setLoadingProfile(false);
     }
@@ -74,11 +78,24 @@ export default function RestorePremium() {
       </p>
     );
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedFile(file);
-      setRestoredUrl("");
+      setProcessing(true);
+      try {
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1024,
+          useWebWorker: true,
+        });
+        setSelectedFile(compressedFile);
+      } catch (error) {
+        console.error("Image compression error:", error);
+        setSelectedFile(file);
+      } finally {
+        setProcessing(false);
+        setRestoredUrl("");
+      }
     }
   };
 
@@ -87,7 +104,7 @@ export default function RestorePremium() {
 
     setLoading(true);
 
-    // ✅ Get user session & token
+    // Get user session & token
     const {
       data: { session },
       error: sessionError,
@@ -99,7 +116,7 @@ export default function RestorePremium() {
       return;
     }
 
-    const token = session.access_token; // ✅ Correct way to pass token
+    const token = session.access_token;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -110,7 +127,7 @@ export default function RestorePremium() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ Important fix
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             imageBase64: base64,
@@ -120,6 +137,7 @@ export default function RestorePremium() {
         const data = await response.json();
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
+          setCredits((prev) => prev - 2);
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -155,6 +173,9 @@ export default function RestorePremium() {
     <main className={styles.container} style={{ fontFamily: "sans-serif" }}>
       <h1 className={styles.title}>Restore Premium</h1>
 
+      <p>💎 This costs <strong>40 credits</strong> per restore</p>
+      <p>🔢 You have <strong>{credits}</strong> credits remaining</p>
+
       <input
         type="file"
         accept="image/*"
@@ -162,13 +183,15 @@ export default function RestorePremium() {
         className={styles.fileInput}
       />
 
+      {processing && <p>⏳ Processing image...</p>}
+
       <button
         onClick={handleRestore}
-        disabled={!selectedFile || loading}
+        disabled={!selectedFile || loading || processing}
         className={styles.primaryButton}
         style={{ marginLeft: "1rem" }}
       >
-        {loading ? "Restoring..." : "Restore"}
+        {loading ? "Restoring..." : processing ? "Processing..." : "Restore"}
       </button>
 
       {restoredUrl && (
@@ -185,13 +208,6 @@ export default function RestorePremium() {
           <div style={{ marginTop: "1rem" }}>
             <button onClick={handleDownload} className={styles.secondaryButton}>
               ⬇️ Download
-            </button>
-            {" | "}
-            <button
-              onClick={() => alert("Next: Send to Avatar flow here!")}
-              className={styles.secondaryButton}
-            >
-              ➡️ Send to Avatar
             </button>
           </div>
         </div>

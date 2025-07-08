@@ -1,13 +1,5 @@
-export default async function handler(req, res) {
-  console.log("REQ METHOD:", req.method, "URL:", req.url, "Headers:", req.headers);
-
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  // ... rest of your logic here
-}
+import Replicate from "replicate";
+import { createClient } from "@supabase/supabase-js";
 
 export const config = {
   api: {
@@ -16,9 +8,6 @@ export const config = {
     },
   },
 };
-
-import Replicate from "replicate";
-import { createClient } from "@supabase/supabase-js";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -51,7 +40,7 @@ async function spendCredits(userId, amount) {
 }
 
 export default async function handler(req, res) {
-  console.log("REQ METHOD:", req.method);  // <-- Log the HTTP method here
+  console.log("REQ METHOD:", req.method, "URL:", req.url, "Headers:", req.headers);
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");

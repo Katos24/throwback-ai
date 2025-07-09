@@ -1,7 +1,7 @@
 // components/Auth/SignupForm.js
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-
+import styles from '../../styles/AuthPage.module.css';
 
 export default function SignupForm({ onSuccess }) {
   const [email, setEmail] = useState('');
@@ -14,57 +14,66 @@ export default function SignupForm({ onSuccess }) {
     setLoading(true);
     setErrorMsg('');
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      setLoading(false);
+      setErrorMsg(error.message);
+      return;
+    }
+
+    const { user } = data;
+
+    // ✅ Check if profile already exists
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user?.id)
+      .single();
 
     setLoading(false);
 
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
-      // Signup success - call onSuccess callback if any
-      if (onSuccess) onSuccess();
-      alert('Signup successful! Please check your email to confirm.');
+    if (profileError && profileError.code !== 'PGRST116') {
+      setErrorMsg('Error checking profile: ' + profileError.message);
+      return;
     }
+
+    if (profile) {
+      alert('Profile already exists. You can sign in instead.');
+      return;
+    }
+
+    if (onSuccess) onSuccess();
+    alert('Signup successful! Please check your email to confirm.');
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <form onSubmit={handleSubmit} className={styles.signupForm}>
       <input
         type="email"
         placeholder="Email"
+        className={styles.inputField}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
       />
       <input
         type="password"
         placeholder="Password (min 6 chars)"
+        className={styles.inputField}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
         minLength={6}
-        style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
       />
       <button
         type="submit"
         disabled={loading}
-        style={{
-          backgroundColor: '#8bac0f',
-          color: '#0f380f',
-          fontWeight: 'bold',
-          padding: '10px',
-          borderRadius: 6,
-          border: 'none',
-          cursor: loading ? 'not-allowed' : 'pointer',
-        }}
+        className={styles.submitButton}
       >
         {loading ? 'Signing up...' : 'Sign Up'}
       </button>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+      {errorMsg && <p className={styles.formError}>{errorMsg}</p>}
     </form>
   );
 }

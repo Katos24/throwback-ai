@@ -26,7 +26,16 @@ export default function useCredits() {
         if (error || !data) {
           setCredits(0);
         } else {
-          setCredits(data.credits_remaining || 0);
+          // If new user has no credits or zero credits, initialize to 10
+          if (!data.credits_remaining || data.credits_remaining === 0) {
+            await supabase
+              .from("profiles")
+              .update({ credits_remaining: 10 })
+              .eq("id", session.user.id);
+            setCredits(10);
+          } else {
+            setCredits(data.credits_remaining);
+          }
         }
       } else {
         // Not logged in — use localStorage

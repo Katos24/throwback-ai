@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import imageCompression from "browser-image-compression";
 import Link from "next/link";
 import { supabase } from "../../lib/supabaseClient";
+import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 
 export default function RestorePremium() {
@@ -9,74 +10,8 @@ export default function RestorePremium() {
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [loadingProfile, setLoadingProfile] = useState(true);
-  const [isPremium, setIsPremium] = useState(false);
-  const [error, setError] = useState(null);
-  const [credits, setCredits] = useState(0);
 
-  useEffect(() => {
-    async function fetchPremiumStatus() {
-      setLoadingProfile(true);
-      setError(null);
-
-      const { data: userData, error: userError } = await supabase.auth.getUser();
-
-      if (userError || !userData?.user) {
-        setError("You must be logged in to access this page.");
-        setLoadingProfile(false);
-        return;
-      }
-
-      const user = userData.user;
-
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("is_premium, credits_remaining")
-        .eq("id", user.id)
-        .single();
-
-      if (profileError) {
-        setError("Failed to load profile data.");
-      } else if (!profile?.is_premium) {
-        setError(
-          <>
-            This feature is available for premium users only. Please{" "}
-            <Link href="/pricing">
-              <a className={styles.link}>upgrade here</a>
-            </Link>
-            .
-          </>
-        );
-      } else {
-        setIsPremium(true);
-        setCredits(profile.credits_remaining || 0);
-      }
-
-      setLoadingProfile(false);
-    }
-
-    fetchPremiumStatus();
-  }, []);
-
-  if (loadingProfile) return <p className={styles.loadingText}>Loading...</p>;
-
-  if (error)
-    return (
-      <p className={styles.errorText} style={{ color: "red" }}>
-        {error}
-      </p>
-    );
-
-  if (!isPremium)
-    return (
-      <p className={styles.errorText}>
-        This feature requires a premium subscription.{" "}
-        <Link href="/pricing">
-          <a className={styles.link}>Upgrade here</a>
-        </Link>
-        .
-      </p>
-    );
+  const { credits, deductCredits } = useCredits();
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -104,11 +39,24 @@ export default function RestorePremium() {
 
     setLoading(true);
 
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    const { data: sessionData } = await supabase.auth.getSession();
+    const user = sessionData?.session?.user;
 
-    if (sessionError || !sessionData?.session) {
-      alert("Please sign in to restore your photo!");
-      setLoading(false);
+    if (!user) {
+      alert("Please sign up or log in to use Restore Premium.");
+      window.location.href = "/signup";
+      return;
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("is_premium")
+      .eq("id", user.id)
+      .single();
+
+    if (!profile?.is_premium) {
+      alert("Restore Premium is for paid subscribers only.");
+      window.location.href = "/pricing";
       return;
     }
 
@@ -125,16 +73,14 @@ export default function RestorePremium() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            imageBase64: base64,
-          }),
+          body: JSON.stringify({ imageBase64: base64 }),
         });
 
         const data = await response.json();
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          setCredits((prev) => prev - 40);
+          deductCredits(40); // Use hook
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -167,15 +113,11 @@ export default function RestorePremium() {
   };
 
   return (
-    <main className={styles.container} style={{ fontFamily: "sans-serif" }}>
-      <h1 className={styles.title}>Restore Premium</h1>
+    <main className={styles.container}>
+      <h1>Restore Premium</h1>
 
-      <p>
-        💎 This costs <strong>40 credits</strong> per restore
-      </p>
-      <p>
-        🔢 You have <strong>{credits}</strong> credits remaining
-      </p>
+      <p>💎 This costs <strong>40 credits</strong> per restore</p>
+      <p>🔢 You have <strong>{credits}</strong> credits remaining</p>
 
       <input
         type="file"
@@ -200,20 +142,6 @@ export default function RestorePremium() {
           <p style={{ marginTop: 8, fontWeight: "bold" }}>
             {loading ? "Restoring..." : "Processing image..."}
           </p>
-          <p
-            style={{
-              fontStyle: "italic",
-              fontSize: 14,
-              marginTop: 8,
-              color: "#555",
-              maxWidth: 400,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            The restore process can take a minute or sometimes a bit longer.<br />
-            Please be patient and do not close this window.
-          </p>
         </div>
       )}
 
@@ -221,42 +149,23 @@ export default function RestorePremium() {
         onClick={handleRestore}
         disabled={!selectedFile || loading || processing}
         className={styles.primaryButton}
-        style={{ marginLeft: "1rem" }}
       >
         Restore
       </button>
 
       {restoredUrl && (
-        <div
-          className={styles.resultContainer}
-          style={{ marginTop: "2rem", textAlign: "center" }}
-        >
-          <h2 className={styles.subtitle}>✨ Restored Photo:</h2>
-
+        <div style={{ marginTop: "2rem", textAlign: "center" }}>
+          <h2>✨ Restored Photo:</h2>
           <img
             src={restoredUrl}
             alt="Restored"
-            className={styles.restoredImage}
-            style={{ width: 600, height: 600, borderRadius: "8px", objectFit: "contain" }}
+            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
           />
-
-          <div style={{ marginTop: "1rem" }}>
-            <button
-              onClick={handleDownload}
-              className={styles.secondaryButton}
-            >
-              ⬇️ Download
-            </button>
-          </div>
+          <button onClick={handleDownload} style={{ marginTop: 12 }}>
+            ⬇️ Download
+          </button>
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg);}
-          100% { transform: rotate(360deg);}
-        }
-      `}</style>
     </main>
   );
 }

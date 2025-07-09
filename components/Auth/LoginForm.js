@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'next/router';
+import styles from '../../styles/AuthPage.module.css';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -14,26 +15,23 @@ export default function LoginForm() {
     setLoading(true);
     setErrorMsg('');
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     setLoading(false);
 
     if (error) {
       setErrorMsg(error.message);
     } else {
-      // Redirect to /house on successful login
       router.push('/house');
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} className={styles.inputGroup}>
       <input
         type="email"
         placeholder="Email"
+        className={styles.inputField}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -41,14 +39,15 @@ export default function LoginForm() {
       <input
         type="password"
         placeholder="Password"
+        className={styles.inputField}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button type="submit" disabled={loading}>
+      <button type="submit" disabled={loading} className={styles.inputField}>
         {loading ? 'Logging in...' : 'Log In'}
       </button>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
     </form>
   );
 }

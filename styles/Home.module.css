@@ -422,9 +422,10 @@
 
 /* === Greek Before & After Section === */
 .beforeAfterSection {
-  text-align: center;
-  max-width: 900px;
-  margin: 60px auto;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 100%);
+  box-shadow: inset 0 0 40px 5px rgba(0, 255, 231, 0.2), inset 0 0 60px 10px rgba(255, 0, 255, 0.15);
+  padding: 60px 20px;
+  border-radius: 20px;
 }
 
 .beforeAfterSection h2 {
@@ -528,3 +529,151 @@
     font-size: 1.05rem;
   }
 }
+
+
+
+/* === Restore Journey Section === */
+.restoreJourney {
+  background: #0f0f0f;
+  padding: 60px 20px;
+  color: #eee;
+  text-align: center;
+}
+
+.restoreJourney h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #00ffe7;
+}
+
+.journeySteps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.journeyCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 0 12px rgba(0, 255, 231, 0.05);
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.journeyCard:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.journeyCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #00ffe7;
+}
+
+.journeyCard p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.journeyCard {
+  animation: fadeSlideUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+/* Staggered delays for each card */
+.journeySteps > div:nth-child(1) { animation-delay: 0.1s; }
+.journeySteps > div:nth-child(2) { animation-delay: 0.2s; }
+.journeySteps > div:nth-child(3) { animation-delay: 0.3s; }
+.journeySteps > div:nth-child(4) { animation-delay: 0.4s; }
+.journeySteps > div:nth-child(5) { animation-delay: 0.5s; }
+
+/* Responsive vertical stacking */
+@media (max-width: 768px) {
+  .journeySteps {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* === Modern FAQ Section: Collapsible Glass Cards === */
+.faqSection {
+  background: #f8f8f8;
+  padding: 80px 20px;
+  color: #222;
+  text-align: center;
+}
+
+.faqSection h2 {
+  font-size: 2.4rem;
+  margin-bottom: 2.5rem;
+  color: #005580;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.faqAccordion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 840px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Individual card styling */
+.faqCard {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(200, 200, 200, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.faqCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Question and answer styling */
+.faqCard h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #004466;
+  font-weight: 600;
+}
+
+.faqCard p {
+  font-size: 1.05rem;
+  margin-top: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Expanded card style */
+.open {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 255, 231, 0.1);
+  border-color: #00ffe7;
+}
+

@@ -73,68 +73,92 @@ export default function Profile() {
     if (updateError) {
       setError(`Update failed: ${updateError.message}`);
     } else {
-      setMessage('Profile updated successfully!');
+      setMessage('✅ Profile updated successfully!');
     }
     setLoading(false);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p style={{ textAlign: 'center', marginTop: '2rem' }}>Loading profile...</p>;
 
   return (
-    <main style={{ maxWidth: 400, margin: '2rem auto', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Your Profile</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <main
+      style={{
+        maxWidth: 440,
+        margin: '3rem auto',
+        padding: '2rem',
+        fontFamily: 'Segoe UI, Arial, sans-serif',
+        background: '#fff',
+        borderRadius: 12,
+        boxShadow: '0 0 20px rgba(0,0,0,0.08)',
+      }}
+    >
+      <h1 style={{ fontSize: '1.8rem', marginBottom: '1rem', textAlign: 'center' }}>🧍 Your Profile</h1>
+
+      {error && <p style={{ color: '#c00', background: '#fee', padding: 8, borderRadius: 6 }}>{error}</p>}
+      {message && <p style={{ color: '#060', background: '#e6ffe6', padding: 8, borderRadius: 6 }}>{message}</p>}
+
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <label>
-          Email (read-only)
+          <span style={{ fontWeight: 600 }}>Email</span>
           <input
             type="email"
             name="email"
             value={profile.email}
             readOnly
             style={{
-              padding: 8,
-              borderRadius: 4,
+              padding: 10,
+              borderRadius: 6,
               border: '1px solid #ccc',
-              backgroundColor: '#f0f0f0',
+              backgroundColor: '#f5f5f5',
+              fontSize: '1rem',
               cursor: 'not-allowed',
+              marginTop: 4,
             }}
           />
         </label>
+
         <label>
-          Username
+          <span style={{ fontWeight: 600 }}>Username</span>
           <input
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="Your display name"
             value={profile.username}
             onChange={handleChange}
-            style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+            style={{
+              padding: 10,
+              borderRadius: 6,
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+              marginTop: 4,
+            }}
             required
           />
         </label>
 
-        <p>
-          Subscription status:{' '}
-          <strong style={{ color: profile.is_premium ? 'green' : 'gray' }}>
-            {profile.is_premium ? 'Premium User' : 'Free User'}
+        <div style={{ marginTop: 6 }}>
+          <span style={{ fontWeight: 600 }}>Subscription Status:</span>{' '}
+          <strong style={{ color: profile.is_premium ? '#2e8b57' : '#555' }}>
+            {profile.is_premium ? '🌟 Premium User' : 'Free User'}
           </strong>
-        </p>
+        </div>
 
         <button
           type="submit"
           disabled={loading}
           style={{
-            backgroundColor: '#4CAF50',
+            backgroundColor: loading ? '#888' : '#0077cc',
             color: 'white',
-            padding: '10px',
-            borderRadius: 6,
+            padding: '12px 16px',
+            borderRadius: 8,
             border: 'none',
+            fontSize: '1rem',
             cursor: loading ? 'not-allowed' : 'pointer',
+            marginTop: '1rem',
+            transition: 'background 0.3s ease',
           }}
         >
-          {loading ? 'Saving...' : 'Update Profile'}
+          {loading ? 'Saving...' : 'Save Changes'}
         </button>
       </form>
     </main>

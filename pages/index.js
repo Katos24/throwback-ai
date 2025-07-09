@@ -2,6 +2,31 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
+
+const faqData = [
+  {
+    q: "What types of old photos can be restored with Anastasis?",
+    a: "Anastasis restores scanned family photos, vintage prints, faded Polaroids, black & white portraits, historical images, and heirloom photographs. Our AI-powered service enhances fine details, color accuracy, and clarity — ideal for genealogy projects, memory albums, or memorial tributes.",
+  },
+  {
+    q: "Do I need to scan my physical photograph before uploading?",
+    a: "Yes. For best results, upload a clear digital scan of your old photo. Most users use a smartphone or home scanner — just make sure the image is well-lit, flat, and in focus. The higher the resolution, the better the restoration outcome.",
+  },
+  {
+    q: "Is Anastasis photo restoration free to try?",
+    a: "Absolutely! You can test our AI restoration on one image free of charge. There’s no signup, no credit card required — just upload and preview your revived photo instantly. For advanced enhancements like full colorization or blemish correction, upgrade options are available.",
+  },
+  {
+    q: "How does Anastasis protect my privacy and image data?",
+    a: "We value your family’s legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
+  },
+  {
+    q: "Can I use restored images for commercial or personal projects?",
+    a: "Once your photo is restored, it's fully yours to use — for personal keepsakes, scrapbook printing, family gifts, social media sharing, Etsy shops, or heritage art projects. We believe memories should be cherished and shared freely.",
+  },
+];
+
 
 export default function Home() {
   const router = useRouter();
@@ -14,70 +39,17 @@ export default function Home() {
           name="description"
           content="Anastasis powered by Throwback AI restores your vintage photos to life with advanced AI technology."
         />
-
-        {/* Open Graph / Facebook */}
-        <meta
-          property="og:title"
-          content="Anastasis — Resurrection of Memories, powered by Throwback AI"
-        />
-        <meta
-          property="og:description"
-          content="Anastasis powered by Throwback AI restores your vintage photos to life with advanced AI technology."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://throwback-ai.vercel.app" />
-        <meta
-          property="og:image"
-          content="https://throwback-ai.vercel.app/og-image.png"
-        />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Anastasis — Resurrection of Memories, powered by Throwback AI"
-        />
-        <meta
-          name="twitter:description"
-          content="Anastasis powered by Throwback AI restores your vintage photos to life with advanced AI technology."
-        />
-        <meta
-          name="twitter:image"
-          content="https://throwback-ai.vercel.app/info-2.png"
-        />
-
-        {/* Structured Data JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Anastasis",
-              url: "https://throwback-ai.vercel.app/",
-              description:
-                "Anastasis powered by Throwback AI restores your vintage photos to life with advanced AI technology.",
-              potentialAction: {
-                "@type": "SearchAction",
-                target:
-                  "https://throwback-ai.vercel.app/search?q={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
       </Head>
 
-      {/* Greek Themed Hero Section */}
+      {/* === Hero Section === */}
       <section className={styles.greekBackground}>
         <div className={styles.greekContent}>
           <h1>Anastasis — The Resurrection of Memories</h1>
           <p>
-            Restore your vintage photos with Greek-inspired brilliance, powered by
-            Throwback AI.
+            Restore your vintage photos with Greek-inspired brilliance,
+            powered by Throwback AI.
           </p>
 
-          {/* Restore Options in Hero */}
           <div className={styles.optionGridHero}>
             <OptionCard
               emoji="🧽"
@@ -97,26 +69,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Greek Before & After Section */}
-      <section className={styles.beforeAfterSection}>
-        <h2>Before & After — Greek Restoration</h2>
-        <div className={styles.beforeAfterImagesGreek}>
-          <Image
-            src="/images/greek-before.png"
-            alt="Greek Before"
-            width={600}
-            height={400}
-          />
-          <Image
-            src="/images/greek-after.png"
-            alt="Greek After"
-            width={600}
-            height={400}
-          />
-        </div>
-      </section>
-
-      {/* Greek Explanation Section */}
+      {/* === Greek Origin Explanation === */}
       <section className={styles.infoGreek}>
         <p>
           <strong>Anastasis</strong> (Greek for “resurrection”) represents bringing your
@@ -124,38 +77,19 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Features */}
-      <section className={styles.features}>
-        <FeatureCard
-          icon="/icons/ai.svg"
-          title="AI Yearbook Styles"
-          desc="Turn your photo into a high-school throwback using AI magic."
-        />
-        <FeatureCard
-          icon="/icons/gamepad.svg"
-          title="Interactive 90s House"
-          desc="Walk through your own virtual bedroom, kitchen, and more."
-        />
-        <FeatureCard
-          icon="/icons/star.svg"
-          title="Premium Content"
-          desc="Unlock collectible styles, secret rooms, and bonus designs."
-        />
-      </section>
-
-      {/* Info Blocks */}
+      {/* === Before/After Info Blocks === */}
       <section className={styles.infoWrap}>
         <div className={styles.infoBlock}>
           <div className={styles.beforeAfterContainer}>
             <Image
-              src="/images/info-1-before.png"
+              src="/images/greek-after.png"
               alt="Before"
               className={styles.beforeImage}
               width={400}
               height={300}
             />
             <Image
-              src="/images/info-1-after.png"
+              src="/images/greek-before.png"
               alt="After"
               className={styles.afterImage}
               width={400}
@@ -163,8 +97,8 @@ export default function Home() {
             />
           </div>
           <div className={styles.infoText}>
-            <h2>First Info Title</h2>
-            <p>Description text goes here for the first info block.</p>
+            <h2>Every Scar Tells a Story</h2>
+            <p>Creases, stains, and tears — our AI doesn’t erase history, it enhances it. Celebrate each mark as part of your legacy.</p>
           </div>
         </div>
 
@@ -186,61 +120,104 @@ export default function Home() {
             />
           </div>
           <div className={styles.infoText}>
-            <h2>Second Info Title</h2>
-            <p>Description text goes here for the second info block.</p>
+            <h2>Revive Connections</h2>
+            <p>Remember the warmth in someone’s smile or the look in their eyes. Anastasis helps you reconnect with cherished faces and moments.</p>
           </div>
         </div>
       </section>
 
-      {/* SEO Text for 90s Keywords */}
+
+      {/* === Restore Journey Section === */}
+<section className={styles.restoreJourney}>
+  <h2>The Anastasis Restore Journey</h2>
+  <div className={styles.journeySteps}>
+    <div className={styles.journeyCard}>
+      <h3>📤 Upload</h3>
+      <p>Choose a vintage photo — scanned or snapped. We recommend clear lighting for best results.</p>
+    </div>
+    <div className={styles.journeyCard}>
+      <h3>🧠 AI Restoration</h3>
+      <p>Throwback AI enhances your image with detailed colorization and texture repair. No edits are manual.</p>
+    </div>
+    <div className={styles.journeyCard}>
+      <h3>👁️ Preview</h3>
+      <p>See your restored photo instantly. Compare before/after and decide if you’d like premium refinements.</p>
+    </div>
+    <div className={styles.journeyCard}>
+      <h3>🕒 Privacy Guarantee</h3>
+      <p>Your image is deleted automatically after 1 hour. We never store, share, or use it to train models. Period.</p>
+    </div>
+    <div className={styles.journeyCard}>
+      <h3>📥 Download & Share</h3>
+      <p>Download your revived legacy photo — ready for family gifts, tributes, or public display.</p>
+    </div>
+  </div>
+</section>
+
+
+      {/* === FAQ Section: Collapsible Cards === */}
+      <section className={styles.faqSection}>
+        <h2>Frequently Asked Questions</h2>
+        <div className={styles.faqAccordion}>
+          {faqData.map((item, idx) => (
+            <FAQItem key={idx} question={item.q} answer={item.a} />
+          ))}
+        </div>
+      </section>
+
+      {/* === SEO Text Block === */}
       <section
         className={styles.seoText}
-        aria-label="90s Nostalgia and Retro Culture"
+        aria-label="Anastasis Photo Restoration AI"
       >
-        <h2>Experience the Best of the 90s with Throwback AI</h2>
+        <h2>Restore and Revive Your Memories with Anastasis</h2>
         <p>
-          Dive deep into the nostalgia of the 1990s with our AI-powered retro experiences.
-          Whether you&apos;re looking to relive the iconic 90s fashion, vintage gaming
-          vibes, classic music hits, or the unforgettable pop culture moments, Throwback AI
-          brings the decade back to life. Explore authentic 90s style yearbook photos,
-          interact with a virtual 90s house, and unlock exclusive content that celebrates
-          everything from neon colors and cassette tapes to grunge and early internet
-          culture.
+          Anastasis — inspired by the Greek word for “resurrection” — breathes new life
+          into your old, damaged, or faded photos. Powered by Throwback AI, our
+          cutting-edge restoration service revives your vintage family portraits,
+          cherished moments, and historical images with stunning clarity and detail.
         </p>
         <p>
-          Perfect for 90s kids, millennials, and anyone passionate about retro trends, our
-          platform offers a unique blend of nostalgia and cutting-edge AI technology.
-          Rediscover your favorite decade with Throwback AI — your ultimate 90s time
-          capsule.
+          From basic black and white touch-ups to premium colorization and advanced
+          enhancements, Anastasis offers AI photo restoration that combines the timeless
+          beauty of Greek heritage with state-of-the-art technology. Rediscover the
+          stories behind every photograph and preserve your family legacy for generations
+          to come.
+        </p>
+         <p>
+          While other AI platforms focus on chat or generic editing, Anastasis is purpose-built for photo restoration. 
+          This isn’t just talk — our advanced image models revive lost detail with forensic precision, emotional depth, 
+          and respect for your history. 
+          Uploaded images are processed securely and deleted after one hour. Nothing is stored, shared, or reused. Anastasis isn’t a chatbot — it’s a memory revival studio.
+        </p>
+        <p>
+          Trusted by history lovers, genealogists, and families worldwide, Anastasis makes
+          it easy to resurrect your memories. Experience the rebirth of your treasured
+          images — brought back to life with the power of Throwback AI.
         </p>
       </section>
     </>
   );
 }
 
-// OptionCard component
-function OptionCard({ title, desc, onClick, className }) {
+// === OptionCard Component ===
+function OptionCard({ emoji, title, desc, onClick, className }) {
   return (
     <div className={className} onClick={onClick}>
-      <h3>{title}</h3>
+      <h3>{emoji} {title}</h3>
       <p>{desc}</p>
     </div>
   );
 }
 
-// FeatureCard component
-function FeatureCard({ icon, title, desc }) {
+// === FAQ Collapsible Card Component ===
+function FAQItem({ question, answer }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className={styles.card}>
-      <Image
-        src={icon}
-        alt={title}
-        width={48}
-        height={48}
-        className={styles.icon}
-      />
-      <h3>{title}</h3>
-      <p>{desc}</p>
+    <div className={`${styles.faqCard} ${open ? styles.open : ""}`} onClick={() => setOpen(!open)}>
+      <h3 className={styles.faqQuestion}>{question}</h3>
+      {open && <p className={styles.faqAnswer}>{answer}</p>}
     </div>
   );
 }

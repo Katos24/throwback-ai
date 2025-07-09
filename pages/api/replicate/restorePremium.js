@@ -1,8 +1,14 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '5mb', // or larger, e.g. '10mb'
+    },
+  },
+};
+
 import Replicate from "replicate";
 import { createClient } from "@supabase/supabase-js";
 import { modelCosts } from "../../../lib/replicate/modelCosts";
-
-
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -13,7 +19,7 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// ✅ Helper to spend credits
+// Deduct credits from user; throws if insufficient
 async function spendCredits(userId, amount) {
   const { data: profile, error: profileError } = await supabaseAdmin
     .from("profiles")
@@ -42,7 +48,7 @@ async function spendCredits(userId, amount) {
   if (insertError) throw insertError;
 }
 
-// ✅ Helper: concat Uint8Arrays
+// Helper to concatenate Uint8Arrays
 function concatUint8Arrays(arrays) {
   let totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
   let result = new Uint8Array(totalLength);
@@ -54,6 +60,7 @@ function concatUint8Arrays(arrays) {
   return result;
 }
 
+// Helper to convert Uint8Array to base64 string
 function uint8ToBase64(u8Arr) {
   let binary = "";
   for (let i = 0; i < u8Arr.length; i++) {
@@ -73,7 +80,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Missing imageBase64" });
   }
 
-  // ✅ Require auth header to get user
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ error: "Missing Authorization header" });
@@ -81,7 +87,7 @@ export default async function handler(req, res) {
 
   const token = authHeader.split(" ")[1];
 
-  // ✅ Verify Supabase JWT
+  // Verify JWT token to get user
   const { data, error } = await supabaseAdmin.auth.getUser(token);
   const user = data?.user;
 
@@ -93,10 +99,10 @@ export default async function handler(req, res) {
   const userId = user.id;
 
   try {
-    // ✅ Deduct credits first
+    // Deduct credits first (40 credits per restore)
     await spendCredits(userId, modelCosts.restorePremium);
 
-    // ✅ Call Replicate as before
+    // Call Replicate model
     const input = {
       input_image: `data:image/png;base64,${imageBase64}`,
     };

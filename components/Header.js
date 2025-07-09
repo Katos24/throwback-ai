@@ -70,12 +70,23 @@ export default function Header({ showMenu, setShowMenu }) {
         <Link href="/" className={styles.navLink} onClick={() => setShowMenu(false)}>
           Home
         </Link>
-        <Link href="/house" className={styles.navLink} onClick={() => setShowMenu(false)}>
-          90s Room
+
+        {/* Updated links */}
+        <Link
+          href="/replicate/restore-basic"
+          className={styles.navLink}
+          onClick={() => setShowMenu(false)}
+        >
+          Restore Image Basic
         </Link>
-        <Link href="/yearbook" className={styles.navLink} onClick={() => setShowMenu(false)}>
-          AI Yearbook
+        <Link
+          href="/replicate/restore-premium"
+          className={styles.navLink}
+          onClick={() => setShowMenu(false)}
+        >
+          Restore Premium
         </Link>
+
         <Link href="/about" className={styles.navLink} onClick={() => setShowMenu(false)}>
           About
         </Link>

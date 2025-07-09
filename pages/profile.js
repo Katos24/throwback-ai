@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Profile() {
-  const [profile, setProfile] = useState({ username: '', email: '', is_premium: false });
+  const [profile, setProfile] = useState({
+    username: "",
+    email: "",
+    is_premium: false,
+    credits_remaining: 0,  // add this default
+  });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -19,21 +24,26 @@ export default function Profile() {
       } = await supabase.auth.getUser();
 
       if (userError || !user) {
-        setError('You must be logged in to view your profile.');
+        setError("You must be logged in to view your profile.");
         setLoading(false);
         return;
       }
 
       const { data, error: profileError } = await supabase
-        .from('profiles')
-        .select('username, is_premium')
-        .eq('id', user.id)
+        .from("profiles")
+        .select("username, is_premium, credits_remaining")  // add credits_remaining here
+        .eq("id", user.id)
         .single();
 
       if (profileError) {
         setError(`Failed to load profile: ${profileError.message}`);
       } else if (data) {
-        setProfile({ username: data.username || '', email: user.email, is_premium: data.is_premium || false });
+        setProfile({
+          username: data.username || "",
+          email: user.email,
+          is_premium: data.is_premium || false,
+          credits_remaining: data.credits_remaining || 0,
+        });
       }
       setLoading(false);
     }
@@ -57,47 +67,54 @@ export default function Profile() {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-      setError('You must be logged in to update your profile.');
+      setError("You must be logged in to update your profile.");
       setLoading(false);
       return;
     }
 
-    const { error: updateError } = await supabase
-      .from('profiles')
-      .upsert({
-        id: user.id,
-        username: profile.username,
-        updated_at: new Date().toISOString(),
-      });
+    const { error: updateError } = await supabase.from("profiles").upsert({
+      id: user.id,
+      username: profile.username,
+      updated_at: new Date().toISOString(),
+    });
 
     if (updateError) {
       setError(`Update failed: ${updateError.message}`);
     } else {
-      setMessage('✅ Profile updated successfully!');
+      setMessage("✅ Profile updated successfully!");
     }
     setLoading(false);
   };
 
-  if (loading) return <p style={{ textAlign: 'center', marginTop: '2rem' }}>Loading profile...</p>;
+  if (loading)
+    return <p style={{ textAlign: "center", marginTop: "2rem" }}>Loading profile...</p>;
 
   return (
     <main
       style={{
         maxWidth: 440,
-        margin: '3rem auto',
-        padding: '2rem',
-        fontFamily: 'Segoe UI, Arial, sans-serif',
-        background: '#fff',
+        margin: "3rem auto",
+        padding: "2rem",
+        fontFamily: "Segoe UI, Arial, sans-serif",
+        background: "#fff",
         borderRadius: 12,
-        boxShadow: '0 0 20px rgba(0,0,0,0.08)',
+        boxShadow: "0 0 20px rgba(0,0,0,0.08)",
       }}
     >
-      <h1 style={{ fontSize: '1.8rem', marginBottom: '1rem', textAlign: 'center' }}>🧍 Your Profile</h1>
+      <h1 style={{ fontSize: "1.8rem", marginBottom: "1rem", textAlign: "center" }}>
+        🧍 Your Profile
+      </h1>
 
-      {error && <p style={{ color: '#c00', background: '#fee', padding: 8, borderRadius: 6 }}>{error}</p>}
-      {message && <p style={{ color: '#060', background: '#e6ffe6', padding: 8, borderRadius: 6 }}>{message}</p>}
+      {error && (
+        <p style={{ color: "#c00", background: "#fee", padding: 8, borderRadius: 6 }}>{error}</p>
+      )}
+      {message && (
+        <p style={{ color: "#060", background: "#e6ffe6", padding: 8, borderRadius: 6 }}>
+          {message}
+        </p>
+      )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <label>
           <span style={{ fontWeight: 600 }}>Email</span>
           <input
@@ -108,10 +125,10 @@ export default function Profile() {
             style={{
               padding: 10,
               borderRadius: 6,
-              border: '1px solid #ccc',
-              backgroundColor: '#f5f5f5',
-              fontSize: '1rem',
-              cursor: 'not-allowed',
+              border: "1px solid #ccc",
+              backgroundColor: "#f5f5f5",
+              fontSize: "1rem",
+              cursor: "not-allowed",
               marginTop: 4,
             }}
           />
@@ -128,8 +145,8 @@ export default function Profile() {
             style={{
               padding: 10,
               borderRadius: 6,
-              border: '1px solid #ccc',
-              fontSize: '1rem',
+              border: "1px solid #ccc",
+              fontSize: "1rem",
               marginTop: 4,
             }}
             required
@@ -137,28 +154,33 @@ export default function Profile() {
         </label>
 
         <div style={{ marginTop: 6 }}>
-          <span style={{ fontWeight: 600 }}>Subscription Status:</span>{' '}
-          <strong style={{ color: profile.is_premium ? '#2e8b57' : '#555' }}>
-            {profile.is_premium ? '🌟 Premium User' : 'Free User'}
+          <span style={{ fontWeight: 600 }}>Subscription Status:</span>{" "}
+          <strong style={{ color: profile.is_premium ? "#2e8b57" : "#555" }}>
+            {profile.is_premium ? "🌟 Premium User" : "Free User"}
           </strong>
+        </div>
+
+        <div style={{ marginTop: 6 }}>
+          <span style={{ fontWeight: 600 }}>Credits Remaining:</span>{" "}
+          <strong style={{ color: "#0077cc" }}>{profile.credits_remaining}</strong>
         </div>
 
         <button
           type="submit"
           disabled={loading}
           style={{
-            backgroundColor: loading ? '#888' : '#0077cc',
-            color: 'white',
-            padding: '12px 16px',
+            backgroundColor: loading ? "#888" : "#0077cc",
+            color: "white",
+            padding: "12px 16px",
             borderRadius: 8,
-            border: 'none',
-            fontSize: '1rem',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            marginTop: '1rem',
-            transition: 'background 0.3s ease',
+            border: "none",
+            fontSize: "1rem",
+            cursor: loading ? "not-allowed" : "pointer",
+            marginTop: "1rem",
+            transition: "background 0.3s ease",
           }}
         >
-          {loading ? 'Saving...' : 'Save Changes'}
+          {loading ? "Saving..." : "Save Changes"}
         </button>
       </form>
     </main>

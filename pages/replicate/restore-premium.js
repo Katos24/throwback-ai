@@ -19,16 +19,15 @@ export default function RestorePremium() {
       setLoadingProfile(true);
       setError(null);
 
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+      const { data: userData, error: userError } = await supabase.auth.getUser();
 
-      if (userError || !user) {
+      if (userError || !userData?.user) {
         setError("You must be logged in to access this page.");
         setLoadingProfile(false);
         return;
       }
+
+      const user = userData.user;
 
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
@@ -52,6 +51,7 @@ export default function RestorePremium() {
         setIsPremium(true);
         setCredits(profile.credits_remaining || 0);
       }
+
       setLoadingProfile(false);
     }
 
@@ -104,19 +104,15 @@ export default function RestorePremium() {
 
     setLoading(true);
 
-    // Get user session & token
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession();
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
-    if (sessionError || !session) {
+    if (sessionError || !sessionData?.session) {
       alert("Please sign in to restore your photo!");
       setLoading(false);
       return;
     }
 
-    const token = session.access_token;
+    const token = sessionData.session.access_token;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -135,9 +131,10 @@ export default function RestorePremium() {
         });
 
         const data = await response.json();
+
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          setCredits((prev) => prev - 2);
+          setCredits((prev) => prev - 40);
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -173,8 +170,12 @@ export default function RestorePremium() {
     <main className={styles.container} style={{ fontFamily: "sans-serif" }}>
       <h1 className={styles.title}>Restore Premium</h1>
 
-      <p>💎 This costs <strong>40 credits</strong> per restore</p>
-      <p>🔢 You have <strong>{credits}</strong> credits remaining</p>
+      <p>
+        💎 This costs <strong>40 credits</strong> per restore
+      </p>
+      <p>
+        🔢 You have <strong>{credits}</strong> credits remaining
+      </p>
 
       <input
         type="file"
@@ -183,7 +184,38 @@ export default function RestorePremium() {
         className={styles.fileInput}
       />
 
-      {processing && <p>⏳ Processing image...</p>}
+      {(processing || loading) && (
+        <div style={{ marginTop: "1rem", textAlign: "center" }}>
+          <div
+            style={{
+              margin: "0 auto",
+              border: "4px solid #ccc",
+              borderTop: "4px solid #0077cc",
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              animation: "spin 1s linear infinite",
+            }}
+          />
+          <p style={{ marginTop: 8, fontWeight: "bold" }}>
+            {loading ? "Restoring..." : "Processing image..."}
+          </p>
+          <p
+            style={{
+              fontStyle: "italic",
+              fontSize: 14,
+              marginTop: 8,
+              color: "#555",
+              maxWidth: 400,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            The restore process can take a minute or sometimes a bit longer.<br />
+            Please be patient and do not close this window.
+          </p>
+        </div>
+      )}
 
       <button
         onClick={handleRestore}
@@ -191,27 +223,40 @@ export default function RestorePremium() {
         className={styles.primaryButton}
         style={{ marginLeft: "1rem" }}
       >
-        {loading ? "Restoring..." : processing ? "Processing..." : "Restore"}
+        Restore
       </button>
 
       {restoredUrl && (
-        <div className={styles.resultContainer} style={{ marginTop: "2rem" }}>
+        <div
+          className={styles.resultContainer}
+          style={{ marginTop: "2rem", textAlign: "center" }}
+        >
           <h2 className={styles.subtitle}>✨ Restored Photo:</h2>
 
           <img
             src={restoredUrl}
             alt="Restored"
             className={styles.restoredImage}
-            style={{ width: 400, height: 400, borderRadius: "8px" }}
+            style={{ width: 600, height: 600, borderRadius: "8px", objectFit: "contain" }}
           />
 
           <div style={{ marginTop: "1rem" }}>
-            <button onClick={handleDownload} className={styles.secondaryButton}>
+            <button
+              onClick={handleDownload}
+              className={styles.secondaryButton}
+            >
               ⬇️ Download
             </button>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg);}
+          100% { transform: rotate(360deg);}
+        }
+      `}</style>
     </main>
   );
 }

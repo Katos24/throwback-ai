@@ -10,7 +10,6 @@ export default function RestorePage() {
   const [processing, setProcessing] = useState(false);
   const [credits, setCredits] = useState(0);
 
-  // ✅ Load user credits on mount
   useEffect(() => {
     const fetchCredits = async () => {
       const {
@@ -134,26 +133,71 @@ export default function RestorePage() {
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
 
-      {processing && <p>⏳ Processing image...</p>}
+      {(processing || loading) && (
+        <div style={{ marginTop: "1rem", textAlign: "center" }}>
+          <div
+            style={{
+              margin: "0 auto",
+              border: "4px solid #ccc",
+              borderTop: "4px solid #0077cc",
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              animation: "spin 1s linear infinite",
+            }}
+          />
+          <p style={{ marginTop: 8, fontWeight: "bold" }}>
+            {loading ? "Restoring..." : "Processing image..."}
+          </p>
+          <p
+            style={{
+              fontStyle: "italic",
+              fontSize: 14,
+              marginTop: 8,
+              color: "#555",
+              maxWidth: 400,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            The restore process can take a minute or sometimes a bit longer.<br />
+            Please be patient and do not close this window.
+          </p>
+        </div>
+      )}
 
       <button
         onClick={handleRestore}
         disabled={!selectedFile || loading || processing}
       >
-        {loading
-          ? "Restoring..."
-          : processing
-          ? "Processing..."
-          : "Restore"}
+        Restore
       </button>
 
       {restoredUrl && (
-        <div>
+        <div style={{ marginTop: "2rem", textAlign: "center" }}>
           <h2>✨ Restored Photo:</h2>
-          <img src={restoredUrl} alt="Restored" className={styles.restoredImage} />
-          <button onClick={handleDownload}>⬇️ Download</button>
+          <img
+            src={restoredUrl}
+            alt="Restored"
+            className={styles.restoredImage}
+            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
+          />
+          <button onClick={handleDownload} style={{ marginTop: 12 }}>
+            ⬇️ Download
+          </button>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </main>
   );
 }

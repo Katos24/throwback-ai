@@ -1,33 +1,56 @@
-// components/Auth/SignupForm.js
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-
 
 export default function SignupForm({ onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg('');
+    setSuccessMsg('');
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
-    setLoading(false);
-
     if (error) {
       setErrorMsg(error.message);
-    } else {
-      // Signup success - call onSuccess callback if any
-      if (onSuccess) onSuccess();
-      alert('Signup successful! Please check your email to confirm.');
+      setLoading(false);
+      return;
     }
+
+    if (data?.user) {
+      // Insert profile row for new user
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert([
+          {
+            id: data.user.id,
+            email: data.user.email,
+            username: '',
+            credits: 10,
+            credits_remaining: 10,
+            is_premium: false,
+          },
+        ]);
+
+      if (profileError) {
+        setErrorMsg('Failed to create profile: ' + profileError.message);
+        setLoading(false);
+        return;
+      }
+    }
+
+    setLoading(false);
+    setSuccessMsg('✅ Signup successful! Please check your email to confirm.');
+
+    if (onSuccess) onSuccess();
   };
 
   return (
@@ -65,6 +88,7 @@ export default function SignupForm({ onSuccess }) {
         {loading ? 'Signing up...' : 'Sign Up'}
       </button>
       {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+      {successMsg && <p style={{ color: 'green' }}>{successMsg}</p>}
     </form>
   );
 }

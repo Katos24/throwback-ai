@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
+import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 
 export default function RestorePage() {
@@ -8,29 +9,9 @@ export default function RestorePage() {
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [credits, setCredits] = useState(0);
 
-  useEffect(() => {
-    const fetchCredits = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-      if (error || !session) return;
-
-      const { data, error: profileError } = await supabase
-        .from("profiles")
-        .select("credits_remaining")
-        .eq("id", session.user.id)
-        .single();
-
-      if (!profileError && data) {
-        setCredits(data.credits_remaining);
-      }
-    };
-
-    fetchCredits();
-  }, []);
+  // Use new hook — start guests with 10 credits
+  const { credits, deductCredits } = useCredits(10);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -55,6 +36,11 @@ export default function RestorePage() {
 
   const handleRestore = async () => {
     if (!selectedFile) return;
+
+    if (credits < 2) {
+      alert("You don't have enough credits to restore this image.");
+      return;
+    }
 
     setLoading(true);
 
@@ -92,7 +78,7 @@ export default function RestorePage() {
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          setCredits((prev) => prev - 2);
+          await deductCredits(2); // deduct credits from hook
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -168,7 +154,7 @@ export default function RestorePage() {
 
       <button
         onClick={handleRestore}
-        disabled={!selectedFile || loading || processing}
+        disabled={!selectedFile || loading || processing || credits < 2}
       >
         Restore
       </button>
@@ -190,12 +176,8 @@ export default function RestorePage() {
 
       <style jsx>{`
         @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
     </main>

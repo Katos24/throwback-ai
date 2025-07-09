@@ -51,7 +51,7 @@ export default function Header({ showMenu, setShowMenu }) {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>🌀 Throwback AI 📼</div>
+      <div className={styles.logo}>🌀 ANASTASIS AI 📼</div>
 
       <button
         className={styles.hamburger}

@@ -23,13 +23,15 @@ export default function useCredits() {
       if (error || !data) {
         setCredits(0);
       } else {
-        if (!data.credits_remaining || data.credits_remaining === 0) {
+        if (data.credits_remaining == null) {
+          // Initialize only if credits_remaining is null or undefined
           await supabase
             .from("profiles")
             .update({ credits_remaining: 10 })
             .eq("id", session.user.id);
           setCredits(10);
         } else {
+          // Use existing credits_remaining value, even if 0
           setCredits(data.credits_remaining);
         }
       }
@@ -47,10 +49,6 @@ export default function useCredits() {
     setLoading(false);
   };
 
-  useEffect(() => {
-    refreshCredits();
-  }, []);
-
   // Just update frontend state; backend deduct is separate
   const deductCredits = (amount) => {
     if (isLoggedIn) {
@@ -63,6 +61,10 @@ export default function useCredits() {
       setCredits(newCredits);
     }
   };
+
+  useEffect(() => {
+    refreshCredits();
+  }, []);
 
   return { credits, deductCredits, loading, isLoggedIn, refreshCredits };
 }

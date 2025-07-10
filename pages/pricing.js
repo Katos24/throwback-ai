@@ -1,150 +1,110 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 
+const CREDIT_PACKS = [
+  {
+    id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
+    name: "Dawn Pack",
+    credits: 400,
+    price: "$4.99",
+  },
+  {
+    id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
+    name: "Revival Pack",
+    credits: 1000,
+    price: "$9.99",
+  },
+  {
+    id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
+    name: "Resurgence Pack",
+    credits: 1600,
+    price: "$14.99",
+  },
+  {
+    id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
+    name: "Eternal Pack",
+    credits: 3500,
+    price: "$29.99",
+  },
+];
+
 export default function Pricing() {
-  const [loading, setLoading] = useState(false);
+  const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
-        setUser(data.user);
-      }
+      if (data.user) setUser(data.user);
     });
   }, []);
 
-  const handleUpgrade = async () => {
+  const handlePurchase = async (selectedPriceId) => {
     if (!user) {
-      alert("Please log in before upgrading.");
+      alert("Please log in to make a purchase.");
       return;
     }
 
-    setLoading(true);
+    console.log("Purchasing priceId:", selectedPriceId);
+    setLoadingId(selectedPriceId);
 
     try {
-      const res = await fetch('/api/stripe/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ supabaseUserId: user.id, email: user.email }),
+      const res = await fetch("/api/stripe/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          supabaseUserId: user.id,
+          email: user.email,
+          selectedPriceId,
+        }),
       });
 
-      if (!res.ok) throw new Error('Checkout session creation failed');
+      if (!res.ok) throw new Error("Failed to create checkout session");
 
       const { url } = await res.json();
-
       window.location.href = url;
-    } catch (error) {
-      alert(error.message);
-      setLoading(false);
+    } catch (err) {
+      alert(err.message);
+      setLoadingId(null);
     }
   };
 
   return (
-    <main
-      style={{
-        padding: "2rem",
-        fontFamily: "Arial, sans-serif",
-        maxWidth: 900,
-        margin: "auto",
-      }}
-    >
-      <h1>Choose the Plan That Fits You Best</h1>
-      <p>
-        Get access to awesome AI-generated 90s-style images with plans designed
-        for casual creators and power users alike.
-      </p>
+    <main style={{ maxWidth: 900, margin: "auto", padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+      <h1>Buy Credit Packs</h1>
+      <p>Choose a pack and get credits for Anastasis AI image restoration.</p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          marginTop: "2rem",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Free Plan */}
-        <div
-          style={{
-            flex: 1,
-            border: "2px solid #ccc",
-            borderRadius: 10,
-            padding: "1.5rem",
-            textAlign: "center",
-          }}
-        >
-          <h2>Free</h2>
-          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>$0 / month</p>
-          <ul
+      <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", marginTop: "2rem" }}>
+        {CREDIT_PACKS.map(({ id, name, credits, price }) => (
+          <div
+            key={id}
             style={{
-              textAlign: "left",
-              listStyle: "disc",
-              paddingLeft: "1.5rem",
+              flex: "1 1 200px",
+              border: "2px solid #ff0080",
+              borderRadius: 10,
+              padding: "1.5rem",
+              textAlign: "center",
             }}
           >
-            <li>Generate up to 5 images per day</li>
-            <li>Basic 90s styles</li>
-            <li>Access to community gallery</li>
-          </ul>
-          {/* Disable if user is premium */}
-          <button
-            style={{
-              marginTop: "1rem",
-              padding: "0.75rem 2rem",
-              backgroundColor: user?.is_premium ? "#999" : "#ff0080",
-              border: "none",
-              borderRadius: 6,
-              color: "white",
-              cursor: user?.is_premium ? "not-allowed" : "pointer",
-            }}
-            disabled={user?.is_premium}
-            onClick={() => alert('You are already a premium user')}
-          >
-            {user?.is_premium ? "You are Premium" : "Current Plan"}
-          </button>
-        </div>
-
-        {/* Premium Plan */}
-        <div
-          style={{
-            flex: 1,
-            border: "2px solid #ff0080",
-            borderRadius: 10,
-            padding: "1.5rem",
-            textAlign: "center",
-          }}
-        >
-          <h2>Premium</h2>
-          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-            $6.99 / month
-          </p>
-          <ul
-            style={{
-              textAlign: "left",
-              listStyle: "disc",
-              paddingLeft: "1.5rem",
-            }}
-          >
-            <li>Unlimited image generation</li>
-            <li>Advanced 90s styles & HD quality</li>
-            <li>Priority support</li>
-            <li>Early access to new features</li>
-          </ul>
-          <button
-            style={{
-              marginTop: "1rem",
-              padding: "0.75rem 2rem",
-              backgroundColor: "#ff0080",
-              border: "none",
-              borderRadius: 6,
-              color: "white",
-              cursor: loading ? "wait" : "pointer",
-            }}
-            onClick={handleUpgrade}
-            disabled={loading || user?.is_premium}
-          >
-            {loading ? "Redirecting..." : user?.is_premium ? "Already Premium" : "Upgrade Now"}
-          </button>
-        </div>
+            <h2>{name}</h2>
+            <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{price}</p>
+            <p><strong>{credits} credits</strong></p>
+            <button
+              onClick={() => handlePurchase(id)}
+              disabled={loadingId === id}
+              style={{
+                marginTop: "1rem",
+                padding: "0.75rem 2rem",
+                backgroundColor: "#ff0080",
+                border: "none",
+                borderRadius: 6,
+                color: "white",
+                cursor: loadingId === id ? "wait" : "pointer",
+              }}
+            >
+              {loadingId === id ? "Processing..." : "Buy Now"}
+            </button>
+          </div>
+        ))}
       </div>
     </main>
   );

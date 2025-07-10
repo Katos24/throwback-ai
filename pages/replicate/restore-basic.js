@@ -50,60 +50,64 @@ export default function RestorePage() {
   };
 
   const handleRestore = async () => {
-    if (!selectedFile) return;
+  if (!selectedFile) return;
 
-    if (credits < 1) {
-      if (!isLoggedIn) {
-        alert("You’ve used your free attempts. Sign up to get 10 more!");
-      } else {
-        alert("You don’t have enough credits to restore this image.");
-      }
-      return;
+  if (credits < 1) {
+    if (!isLoggedIn) {
+      alert("You’ve used your free attempts. Sign up to get 10 more!");
+    } else {
+      alert("You don’t have enough credits to restore this image.");
     }
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    if (session?.access_token) {
-      headers.Authorization = `Bearer ${session.access_token}`;
-    }
-
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64 = reader.result.split(",")[1];
-
-      try {
-        const response = await fetch("/api/replicate/restore", {
-          method: "POST",
-          headers,
-          body: JSON.stringify({
-            imageBase64: base64,
-            prompt: "Restore this vintage photo",
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.imageUrl) {
-          setRestoredUrl(data.imageUrl);
-          if (isLoggedIn) {
-            await refreshCredits();
-          }
-        } else {
-          alert(data.error || "Failed to restore image.");
-        }
-      } catch (error) {
-        alert("Network or server error. Please try again.");
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    reader.readAsDataURL(selectedFile);
+  const headers = {
+    "Content-Type": "application/json",
   };
+  if (session?.access_token) {
+    headers.Authorization = `Bearer ${session.access_token}`;
+  }
+
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64 = reader.result.split(",")[1];
+
+    try {
+      const response = await fetch("/api/replicate/restore", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          imageBase64: base64,
+          prompt: "Restore this vintage photo",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.imageUrl) {
+        setRestoredUrl(data.imageUrl);
+        if (isLoggedIn) {
+          await refreshCredits();
+        } else {
+          // ✅ NEW: deduct 1 for guests
+          deductCredits(1);
+        }
+      } else {
+        alert(data.error || "Failed to restore image.");
+      }
+    } catch (error) {
+      alert("Network or server error. Please try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  reader.readAsDataURL(selectedFile);
+};
+
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
@@ -135,7 +139,7 @@ export default function RestorePage() {
         </p>
       ) : (
         <p>
-          💎 Each restore costs <strong>1 credit</strong>.<br />
+          💎 Each restore costs <strong>2 credits</strong>.<br />
           Basic restores clean black & white photos.<br />
           <strong>Premium restores</strong> add colorization and advanced enhancements.<br />
           🔢 You have <strong>{credits}</strong> credits remaining.

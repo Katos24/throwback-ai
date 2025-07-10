@@ -12,7 +12,7 @@ export default function RestorePage() {
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
 
-  const { credits, isLoggedIn, refreshCredits } = useCredits();
+  const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
 
   useEffect(() => {
     async function getSession() {

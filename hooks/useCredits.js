@@ -1,4 +1,3 @@
-// /hooks/useCredits.js
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
@@ -7,86 +6,63 @@ export default function useCredits() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const checkCredits = async () => {
-      setLoading(true);
-      // 1. Check if user is logged in
-      const { data: { session } } = await supabase.auth.getSession();
+  const refreshCredits = async () => {
+    setLoading(true);
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-      if (session?.user) {
-        setIsLoggedIn(true);
-
-        // Get profile credits
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("credits_remaining")
-          .eq("id", session.user.id)
-          .single();
-
-        if (error || !data) {
-          setCredits(0);
-        } else {
-          // If new user has no credits or zero credits, initialize to 10
-          if (!data.credits_remaining || data.credits_remaining === 0) {
-            await supabase
-              .from("profiles")
-              .update({ credits_remaining: 10 })
-              .eq("id", session.user.id);
-            setCredits(10);
-          } else {
-            setCredits(data.credits_remaining);
-          }
-        }
-      } else {
-        // Not logged in — use localStorage
-        setIsLoggedIn(false);
-
-        const stored = localStorage.getItem("guest_credits");
-        if (stored) {
-          setCredits(parseInt(stored, 10));
-        } else {
-          // First time visitor → give 10 credits
-          localStorage.setItem("guest_credits", "10");
-          setCredits(10);
-        }
-      }
-      setLoading(false);
-    };
-
-    checkCredits();
-  }, []);
-
-  // Deduct credits (both Supabase and localStorage)
-  const deductCredits = async (amount) => {
-    if (isLoggedIn) {
-      const { data: { session } } = await supabase.auth.getSession();
-      const userId = session?.user?.id;
-
-      const { data: profile, error } = await supabase
+    if (session?.user) {
+      setIsLoggedIn(true);
+      const { data, error } = await supabase
         .from("profiles")
         .select("credits_remaining")
-        .eq("id", userId)
+        .eq("id", session.user.id)
         .single();
 
-      if (profile && !error) {
-        const newCredits = Math.max(0, profile.credits_remaining - amount);
-        const { error: updateError } = await supabase
-          .from("profiles")
-          .update({ credits_remaining: newCredits })
-          .eq("id", userId);
-
-        if (!updateError) {
-          setCredits(newCredits);
+      if (error || !data) {
+        setCredits(0);
+      } else {
+        if (!data.credits_remaining || data.credits_remaining === 0) {
+          await supabase
+            .from("profiles")
+            .update({ credits_remaining: 10 })
+            .eq("id", session.user.id);
+          setCredits(10);
+        } else {
+          setCredits(data.credits_remaining);
         }
       }
     } else {
-      const stored = localStorage.getItem("guest_credits");
-      const current = stored ? parseInt(stored, 10) : 10;
+      setIsLoggedIn(false);
+
+      const stored = localStorage.getItem("guest_attempts");
+      if (stored !== null) {
+        setCredits(parseInt(stored, 10));
+      } else {
+        localStorage.setItem("guest_attempts", "3");
+        setCredits(3);
+      }
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    refreshCredits();
+  }, []);
+
+  // Just update frontend state; backend deduct is separate
+  const deductCredits = (amount) => {
+    if (isLoggedIn) {
+      setCredits((prev) => Math.max(0, prev - amount));
+    } else {
+      const stored = localStorage.getItem("guest_attempts");
+      const current = stored ? parseInt(stored, 10) : 3;
       const newCredits = Math.max(0, current - amount);
-      localStorage.setItem("guest_credits", newCredits.toString());
+      localStorage.setItem("guest_attempts", newCredits.toString());
       setCredits(newCredits);
     }
   };
 
-  return { credits, deductCredits, loading };
+  return { credits, deductCredits, loading, isLoggedIn, refreshCredits };
 }

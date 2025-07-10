@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -6,17 +6,27 @@ import styles from "../../styles/AiPage.module.css";
 
 export default function RestorePage() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedPreviewUrl, setSelectedPreviewUrl] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [session, setSession] = useState(null);
 
-  // Use new hook — start guests with 10 credits
-  const { credits, deductCredits } = useCredits(10);
+  const { credits, isLoggedIn, refreshCredits } = useCredits();
+
+  useEffect(() => {
+    async function getSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
+    }
+    getSession();
+  }, []);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setProcessing(true);
+      setRestoredUrl(""); // clear old restore
       try {
         const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
@@ -24,12 +34,17 @@ export default function RestorePage() {
           useWebWorker: true,
         });
         setSelectedFile(compressedFile);
+
+        const previewUrl = URL.createObjectURL(compressedFile);
+        setSelectedPreviewUrl(previewUrl);
       } catch (error) {
         console.error("Image compression error:", error);
         setSelectedFile(file);
+
+        const previewUrl = URL.createObjectURL(file);
+        setSelectedPreviewUrl(previewUrl);
       } finally {
         setProcessing(false);
-        setRestoredUrl("");
       }
     }
   };
@@ -37,25 +52,23 @@ export default function RestorePage() {
   const handleRestore = async () => {
     if (!selectedFile) return;
 
-    if (credits < 2) {
-      alert("You don't have enough credits to restore this image.");
+    if (credits < 1) {
+      if (!isLoggedIn) {
+        alert("You’ve used your free attempts. Sign up to get 10 more!");
+      } else {
+        alert("You don’t have enough credits to restore this image.");
+      }
       return;
     }
 
     setLoading(true);
 
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error || !session) {
-      alert("Please sign in to restore your photo!");
-      setLoading(false);
-      return;
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (session?.access_token) {
+      headers.Authorization = `Bearer ${session.access_token}`;
     }
-
-    const token = session.access_token;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -64,10 +77,7 @@ export default function RestorePage() {
       try {
         const response = await fetch("/api/replicate/restore", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          headers,
           body: JSON.stringify({
             imageBase64: base64,
             prompt: "Restore this vintage photo",
@@ -78,7 +88,9 @@ export default function RestorePage() {
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          await deductCredits(2); // deduct credits from hook
+          if (isLoggedIn) {
+            await refreshCredits();
+          }
         } else {
           alert(data.error || "Failed to restore image.");
         }
@@ -114,10 +126,69 @@ export default function RestorePage() {
     <main className={styles.container}>
       <h1>🕹️ Restore Your Vintage Photo</h1>
 
-      <p>💎 This costs <strong>2 credits</strong> per restore</p>
-      <p>🔢 You have <strong>{credits}</strong> credits remaining</p>
+      {!isLoggedIn ? (
+        <p>
+          🎉 You get <strong>3 free basic restores</strong> (black & white cleanup only).<br />
+          Sign up to get <strong>5 more basic restores</strong>!<br />
+          Upgrade to <strong>Premium</strong> for enhanced restores with colorization and amazing enhancements.<br />
+          🔢 Remaining attempts: <strong>{credits}</strong>
+        </p>
+      ) : (
+        <p>
+          💎 Each restore costs <strong>1 credit</strong>.<br />
+          Basic restores clean black & white photos.<br />
+          <strong>Premium restores</strong> add colorization and advanced enhancements.<br />
+          🔢 You have <strong>{credits}</strong> credits remaining.
+        </p>
+      )}
 
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <input type="file" accept="image/*" onChange={handleFileChange} style={{ marginTop: "1rem" }} />
+
+      {/* Before preview below file input */}
+      <div style={{ marginTop: "1rem", textAlign: "center" }}>
+        <strong>Before</strong>
+        <div
+          style={{
+            marginTop: 8,
+            width: 200,
+            height: 200,
+            border: "1px solid #ccc",
+            borderRadius: 8,
+            backgroundColor: "#f9f9f9",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          {selectedPreviewUrl ? (
+            <img
+              src={selectedPreviewUrl}
+              alt="Before upload preview"
+              style={{ maxWidth: "100%", maxHeight: "100%", borderRadius: 6 }}
+            />
+          ) : (
+            <span style={{ color: "#aaa" }}>No image selected</span>
+          )}
+        </div>
+      </div>
+
+      {/* Restored image below the Before preview */}
+      {restoredUrl && (
+        <div style={{ marginTop: "2rem", textAlign: "center" }}>
+          <h2>✨ Restored Photo:</h2>
+          <img
+            src={restoredUrl}
+            alt="Restored"
+            className={styles.restoredImage}
+            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
+          />
+          <button onClick={handleDownload} style={{ marginTop: 12 }}>
+            ⬇️ Download
+          </button>
+        </div>
+      )}
 
       {(processing || loading) && (
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
@@ -146,7 +217,8 @@ export default function RestorePage() {
               marginRight: "auto",
             }}
           >
-            The restore process can take a minute or sometimes a bit longer.<br />
+            The restore process can take a minute or sometimes a bit longer.
+            <br />
             Please be patient and do not close this window.
           </p>
         </div>
@@ -154,25 +226,11 @@ export default function RestorePage() {
 
       <button
         onClick={handleRestore}
-        disabled={!selectedFile || loading || processing || credits < 2}
+        disabled={!selectedFile || loading || processing || credits < 1}
+        style={{ marginTop: "1.5rem" }}
       >
-        Restore
+        {isLoggedIn ? "Restore (1 credit)" : "Restore Free"}
       </button>
-
-      {restoredUrl && (
-        <div style={{ marginTop: "2rem", textAlign: "center" }}>
-          <h2>✨ Restored Photo:</h2>
-          <img
-            src={restoredUrl}
-            alt="Restored"
-            className={styles.restoredImage}
-            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
-          />
-          <button onClick={handleDownload} style={{ marginTop: 12 }}>
-            ⬇️ Download
-          </button>
-        </div>
-      )}
 
       <style jsx>{`
         @keyframes spin {

@@ -98,7 +98,7 @@ export default function Home() {
       <div className={styles.heroInfoCard}>
         <h3>Greek-Inspired Brilliance</h3>
         <p>
-          From the word "Anastasis" meaning resurrection, our design blends legacy, elegance, and a touch of mythology.
+          From the word &quot;Anastasis&quot; meaning resurrection, our design blends legacy, elegance, and a touch of mythology.
         </p>
       </div>
       <div className={styles.heroInfoCard}>
@@ -302,7 +302,7 @@ export default function Home() {
       >
         <h2>Restore and Revive Your Memories with Anastasis</h2>
         <p>
-          Anastasis — inspired by the Greek word for “resurrection” — breathes new life
+          Anastasis — inspired by the Greek word for &quot;resurrection&quot; — breathes new life
           into your old, damaged, or faded photos. Powered by Throwback AI, our
           cutting-edge restoration service revives your vintage family portraits,
           cherished moments, and historical images with stunning clarity and detail.

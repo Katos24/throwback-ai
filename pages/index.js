@@ -52,7 +52,7 @@ export default function Home() {
 
     <div className={styles.heroIntroBlock}>
       <p>
-        Whether it’s your grandfather’s black-and-white portrait, a faded wedding photo, or an old family snapshot — <strong>Anastasis</strong> lets you restore it in seconds.
+        Whether its your grandfathers black-and-white portrait, a faded wedding photo, or an old family snapshot — <strong>Anastasis</strong> lets you restore it in seconds.
       </p>
       <p>
         🌀 <strong>Restore Basic is free</strong> for your first 3 images. No account, no commitment. Just upload and enjoy the results.
@@ -61,7 +61,7 @@ export default function Home() {
         🌈 Want full-color and advanced detail revival? <strong>Restore Premium</strong> is available via simple one-time credit purchases.
       </p>
       <p>
-        ✨ There’s no subscription, no app download, and no personal info required — just pure restoration, fast and clean.
+        ✨ There is no subscription, no app download, and no personal info required — just pure restoration, fast and clean.
       </p>
       <button className={styles.heroBigCTA} onClick={() => router.push("/replicate/restore-basic")}>
         🎉 Try Anastasis Free — 3 Restorations, No Signup

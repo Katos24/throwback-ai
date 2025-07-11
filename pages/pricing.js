@@ -90,7 +90,7 @@ export default function Pricing() {
         Credit Packs for Timeless Restorations
       </h1>
       <p style={{ fontSize: "1rem", color: "#5a5a5a", textAlign: "center" }}>
-        Whether you're reviving faded memories, curating holiday albums, or preserving family heritage — Anastasis Credit Packs give you the power to restore with precision and beauty.
+        Whether you are reviving faded memories, curating holiday albums, or preserving family heritage — Anastasis Credit Packs give you the power to restore with precision and beauty.
       </p>
 
       <div

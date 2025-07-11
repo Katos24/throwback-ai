@@ -51,7 +51,9 @@ export default function Header({ showMenu, setShowMenu }) {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>🌀 ANASTASIS AI 📼</div>
+      <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
+        ANASTASIS 🌀
+      </Link>
 
       <button
         className={styles.hamburger}

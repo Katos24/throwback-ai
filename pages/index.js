@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const faqData = [
   {
@@ -41,33 +42,88 @@ export default function Home() {
         />
       </Head>
 
-      {/* === Hero Section === */}
-      <section className={styles.greekBackground}>
-        <div className={styles.greekContent}>
-          <h1>Anastasis — The Resurrection of Memories</h1>
-          <p>
-            Restore your vintage photos with Greek-inspired brilliance,
-            powered by Throwback AI.
-          </p>
 
-          <div className={styles.optionGridHero}>
-            <OptionCard
-              emoji="🧽"
-              title="Restore Basic"
-              desc="Quick fix for faded black & white photos."
-              onClick={() => router.push("/replicate/restore-basic")}
-              className={`${styles.optionCard} ${styles.optionCardBasic}`}
-            />
-            <OptionCard
-              emoji="💎"
-              title="Restore Premium"
-              desc="High-quality color restoration and enhancements."
-              onClick={() => router.push("/replicate/restore-premium")}
-              className={`${styles.optionCard} ${styles.optionCardPremium}`}
-            />
-          </div>
-        </div>
-      </section>
+ 
+    {/* === Cinematic Hero Section === */}
+      <section className={styles.hero}>
+  <div className={styles.heroContent}>
+    <h1 className={styles.heroTitle}>Anastasis</h1>
+    <p className={styles.heroSubtitle}>The Resurrection of Memories</p>
+
+    <div className={styles.heroIntroBlock}>
+      <p>
+        Whether it’s your grandfather’s black-and-white portrait, a faded wedding photo, or an old family snapshot — <strong>Anastasis</strong> lets you restore it in seconds.
+      </p>
+      <p>
+        🌀 <strong>Restore Basic is free</strong> for your first 3 images. No account, no commitment. Just upload and enjoy the results.
+      </p>
+      <p>
+        🌈 Want full-color and advanced detail revival? <strong>Restore Premium</strong> is available via simple one-time credit purchases.
+      </p>
+      <p>
+        ✨ There’s no subscription, no app download, and no personal info required — just pure restoration, fast and clean.
+      </p>
+      <button className={styles.heroBigCTA} onClick={() => router.push("/replicate/restore-basic")}>
+        🎉 Try Anastasis Free — 3 Restorations, No Signup
+      </button>
+    </div>
+
+    <div className={styles.heroActionGrid}>
+      <div className={styles.heroActionCard}>
+        <h3>🌀 Restore Basic</h3>
+        <p><strong>Free for 3 attempts.</strong> No account needed. Clean grayscale restoration with emotional impact.</p>
+        <button onClick={() => router.push("/replicate/restore-basic")}>
+          Try Free Now
+        </button>
+      </div>
+      <div className={styles.heroActionCard}>
+        <h3>🌈 Restore Premium</h3>
+        <p><strong>Full-color resurrection.</strong> One-time credit purchase — no subscription, no strings attached.</p>
+        <button onClick={() => router.push("/replicate/restore-premium")}>
+          Try Premium Now
+        </button>
+      </div>
+    </div>
+
+    <div className={styles.heroCTAContainer}>
+      <p className={styles.heroCTAText}>
+        Ready to go deeper? Credits unlock Premium restoration and high-resolution downloads — <strong>no recurring fees</strong>.
+      </p>
+      <Link href="/pricing" className={styles.heroCTAButton}>
+        🧮 View Credit Plans (One-Time Purchase)
+      </Link>
+    </div>
+
+    <div className={styles.heroCardGrid}>
+      <div className={styles.heroInfoCard}>
+        <h3>Greek-Inspired Brilliance</h3>
+        <p>
+          From the word "Anastasis" meaning resurrection, our design blends legacy, elegance, and a touch of mythology.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>No Account Required</h3>
+        <p>
+          Drag and drop — no signups, storage, or hidden terms. Your moments, your control.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>Powered by Throwback AI</h3>
+        <p>
+          Cutting-edge models restore texture, revive color, and preserve the emotional soul of every image.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>Preserve Family Heritage</h3>
+        <p>
+          Whether you're a genealogist or memory-keeper, Anastasis helps future generations see the past clearly.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* === Greek Origin Explanation === */}
       <section className={styles.infoGreek}>
@@ -77,37 +133,37 @@ export default function Home() {
         </p>
       </section>
 
-
+  
 
       {/* === Restore Comparison Section === */}
-      <section className={styles.restoreComparison}>
-        <h2 className={styles.restoreTitle}>Witness the Transformation</h2>
-        <div className={styles.restoreRow}>
-          {/* Intro Frame */}
-          <div className={styles.restoreIntro}>
-            <h3>From Ordinary to Iconic</h3>
-          </div>
+          <section className={styles.restoreComparison}>
+            <h2 className={styles.restoreTitle}>Witness the Transformation</h2>
+            <div className={styles.restoreRow}>
+              <div className={styles.restoreIntro}>
+            
+              </div>
 
-          <div className={styles.restoreItem}>
-            <Image src="/images/restore-original.png" alt="Original Photo" width={300} height={300} />
-            <h4>Original</h4>
-          </div>
+              <div className={styles.restoreItem}>
+                <Image src="/images/restore-original.png" alt="Original Photo" width={300} height={300} />
+                <h4>Original</h4>
+              </div>
 
-          <div className={styles.restoreArrow}>→</div>
+              <div className={styles.restoreArrow}>→</div>
 
-          <div className={styles.restoreItem}>
-            <Image src="/images/restore-basic.png" alt="Basic Restoration" width={300} height={300} />
-            <h4>Basic Restore</h4>
-          </div>
+              <div className={styles.restoreItem}>
+                <Image src="/images/restore-basic.png" alt="Basic Restoration" width={300} height={300} />
+                <h4>Basic Restore</h4>
+              </div>
 
-          <div className={styles.restoreArrow}>→</div>
+              <div className={styles.restoreArrow}>→</div>
 
-          <div className={styles.restoreItem}>
-            <Image src="/images/restore-premium.png" alt="Premium Restoration" width={300} height={300} />
-            <h4>Premium Restore</h4>
-          </div>
-        </div>
-      </section>
+              <div className={styles.restoreItem}>
+                <Image src="/images/restore-premium.png" alt="Premium Restoration" width={300} height={300} />
+                <h4>Premium Restore</h4>
+              </div>
+            </div>
+          </section>
+
 
 
 
@@ -188,6 +244,45 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+{/* === Testimonials Section === */}
+<section className={styles.testimonials}>
+  <h2>What Our Users Say</h2>
+  <div className={styles.testimonialGrid}>
+    <blockquote>
+      <p>“Anastasis brought my grandparents’ wedding photo back to life. It made my mom cry — in the best way!”</p>
+      <cite>— Emily R., Texas</cite>
+    </blockquote>
+    <blockquote>
+      <p>“The colors and details are stunning. I couldn’t believe the difference!”</p>
+      <cite>— Mark S., UK</cite>
+    </blockquote>
+    <blockquote>
+      <p>“Super easy — I restored our family album in an afternoon.”</p>
+      <cite>— Priya D., Australia</cite>
+    </blockquote>
+  </div>
+</section>
+
+{/* === Trust Badges === */}
+<section className={styles.trustBadges}>
+  <h2>Your Privacy, Guaranteed</h2>
+  <div className={styles.badgeGrid}>
+    <div className={styles.badgeItem}>
+      <Image src="/icons/lock.svg" alt="Secure Uploads" width={40} height={40} />
+      <p>Secure Uploads</p>
+    </div>
+    <div className={styles.badgeItem}>
+      <Image src="/icons/delete.svg" alt="Auto Delete" width={40} height={40} />
+      <p>Auto Delete in 1 Hour</p>
+    </div>
+    <div className={styles.badgeItem}>
+      <Image src="/icons/no-share.svg" alt="Never Shared" width={40} height={40} />
+      <p>Never Shared or Sold</p>
+    </div>
+  </div>
+</section>
+
 
 
       {/* === FAQ Section: Collapsible Cards === */}

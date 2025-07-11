@@ -250,11 +250,11 @@ export default function Home() {
   <h2>What Our Users Say</h2>
   <div className={styles.testimonialGrid}>
     <blockquote>
-      <p>“Anastasis brought my grandparents’ wedding photo back to life. It made my mom cry — in the best way!”</p>
+      <p>“Anastasis brought my grandparents wedding photo back to life. It made my mom cry — in the best way!”</p>
       <cite>— Emily R., Texas</cite>
     </blockquote>
     <blockquote>
-      <p>“The colors and details are stunning. I couldn’t believe the difference!”</p>
+      <p>“The colors and details are stunning. I could not believe the difference!”</p>
       <cite>— Mark S., UK</cite>
     </blockquote>
     <blockquote>

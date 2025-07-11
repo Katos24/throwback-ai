@@ -1,15 +1,16 @@
+// pages/api/stripe/webhook.js
 import Stripe from "stripe";
-import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import { buffer } from "micro";
+import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const priceToCredits = {
-  [process.env.NEXT_PUBLIC_PRICE_DAWN_PACK]: 400,
-  [process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK]: 1000,
-  [process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK]: 1600,
-  [process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK]: 3500,
+  "price_1RjP8QIGCXozWG1evxpKurM8": 400,
+  "price_1RjP8uIGCXozWG1eB0GiU1EY": 1000,
+  "price_1RjP9IIGCXozWG1etaY5RT3g": 1600,
+  "price_1RjP9hIGCXozWG1eU0wWPCbb": 3500,
 };
 
 export const config = { api: { bodyParser: false } };
@@ -24,60 +25,67 @@ export default async function handler(req, res) {
   try {
     event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
   } catch (err) {
-    console.error("⚠️ Webhook signature verification failed.", err.message);
+    console.error("❌ Webhook signature failed:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  try {
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
-      const supabaseUserId = session.metadata?.supabaseUserId;
-      const priceId = session.metadata?.selectedPriceId;
+  console.log(`📩 Stripe event: ${event.type}`);
 
-      if (!supabaseUserId || !priceId) {
-        console.error("❌ Missing metadata in webhook session");
-        return res.status(400).send("Missing metadata");
-      }
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
 
-      const creditsToAdd = priceToCredits[priceId];
-      if (!creditsToAdd) {
-        console.error("❌ Unknown priceId in webhook:", priceId);
-        return res.status(400).send("Unknown product priceId");
-      }
+    const supabaseUserId = session.metadata?.supabaseUserId;
+    const priceId = session.metadata?.selectedPriceId;
 
-      // Save stripe_customer_id if available
-      if (session.customer) {
-        const { error: custErr } = await supabaseAdmin
-          .from("profiles")
-          .update({ stripe_customer_id: session.customer })
-          .eq("id", supabaseUserId);
+    console.log("✅ Metadata received:", { supabaseUserId, priceId });
 
-        if (custErr) {
-          console.warn("⚠️ Could not update stripe_customer_id:", custErr.message);
-        }
-      }
-
-      // Increment credits (example using raw SQL, adjust for your setup)
-      const { error: creditsError } = await supabaseAdmin
-        .from("profiles")
-        .update({
-          credits: supabaseAdmin.raw(`credits + ${creditsToAdd}`),
-        })
-        .eq("id", supabaseUserId);
-
-      if (creditsError) {
-        console.error("❌ Failed to update credits:", creditsError.message);
-        return res.status(500).send("Failed to update credits");
-      }
-
-      console.log(`✅ Added ${creditsToAdd} credits for user: ${supabaseUserId}`);
-      return res.json({ received: true });
+    if (!supabaseUserId || !priceId) {
+      console.error("❌ Missing metadata in session");
+      return res.status(400).send("Missing metadata");
     }
 
-    console.log(`⚙️ Unhandled event type: ${event.type}`);
-    res.json({ received: true });
-  } catch (err) {
-    console.error("❌ Error processing webhook event:", err);
-    res.status(500).send("Webhook handler error");
+    const creditsToAdd = priceToCredits[priceId];
+    if (!creditsToAdd) {
+      console.error(`❌ Unknown priceId: ${priceId}`);
+      return res.status(400).send("Unknown product priceId");
+    }
+
+    // Fetch current credits and credits_remaining
+    const { data: profile, error: fetchError } = await supabaseAdmin
+      .from("profiles")
+      .select("credits, credits_remaining")
+      .eq("id", supabaseUserId)
+      .single();
+
+    if (fetchError) {
+      console.error("❌ Failed to fetch user:", fetchError.message);
+      return res.status(500).send("Could not fetch user");
+    }
+
+    const currentCredits = profile?.credits ?? 0;
+    const currentCreditsRemaining = profile?.credits_remaining ?? 0;
+
+    const newCredits = currentCredits + creditsToAdd;
+    const newCreditsRemaining = currentCreditsRemaining + creditsToAdd;
+
+    // Update both credits and credits_remaining
+    const { error: updateError } = await supabaseAdmin
+      .from("profiles")
+      .update({
+        credits: newCredits,
+        credits_remaining: newCreditsRemaining,
+      })
+      .eq("id", supabaseUserId);
+
+    if (updateError) {
+      console.error("❌ Failed to update credits:", updateError.message);
+      return res.status(500).send("Could not update credits");
+    }
+
+    console.log(`✅ Added ${creditsToAdd} credits to user ${supabaseUserId}`);
+    return res.status(200).json({ received: true });
   }
+
+  console.log(`ℹ️ Unhandled event: ${event.type}`);
+  res.json({ received: true });
 }

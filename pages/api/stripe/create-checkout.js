@@ -1,22 +1,16 @@
+// pages/api/stripe/create-checkout.js
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).end("Method Not Allowed");
-  }
-
-  console.log("Received checkout request:", req.body);
+  if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
   const { supabaseUserId, email, selectedPriceId } = req.body;
+  console.log("[create-checkout] received:", { supabaseUserId, email, selectedPriceId });
 
-  if (!supabaseUserId) {
-    return res.status(400).json({ error: "Missing supabaseUserId" });
-  }
-  if (!selectedPriceId) {
-    return res.status(400).json({ error: "Missing selectedPriceId" });
-  }
+  if (!supabaseUserId) return res.status(400).json({ error: "Missing supabaseUserId" });
+  if (!selectedPriceId) return res.status(400).json({ error: "Missing selectedPriceId" });
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -32,9 +26,10 @@ export default async function handler(req, res) {
       customer_email: email || undefined,
     });
 
+    console.log("[create-checkout] session.url:", session.url);
     res.status(200).json({ url: session.url });
-  } catch (error) {
-    console.error("Stripe checkout session error:", error);
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error("❌ Stripe checkout error:", err);
+    res.status(500).json({ error: err.message });
   }
 }

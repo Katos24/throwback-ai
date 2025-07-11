@@ -77,7 +77,41 @@ export default function Home() {
         </p>
       </section>
 
-      {/* === Before/After Info Blocks === */}
+
+
+      {/* === Restore Comparison Section === */}
+      <section className={styles.restoreComparison}>
+        <h2 className={styles.restoreTitle}>Witness the Transformation</h2>
+        <div className={styles.restoreRow}>
+          {/* Intro Frame */}
+          <div className={styles.restoreIntro}>
+            <h3>From Ordinary to Iconic</h3>
+          </div>
+
+          <div className={styles.restoreItem}>
+            <Image src="/images/restore-original.png" alt="Original Photo" width={300} height={300} />
+            <h4>Original</h4>
+          </div>
+
+          <div className={styles.restoreArrow}>→</div>
+
+          <div className={styles.restoreItem}>
+            <Image src="/images/restore-basic.png" alt="Basic Restoration" width={300} height={300} />
+            <h4>Basic Restore</h4>
+          </div>
+
+          <div className={styles.restoreArrow}>→</div>
+
+          <div className={styles.restoreItem}>
+            <Image src="/images/restore-premium.png" alt="Premium Restoration" width={300} height={300} />
+            <h4>Premium Restore</h4>
+          </div>
+        </div>
+      </section>
+
+
+
+          {/* === Before/After Info Blocks === */}
       <section className={styles.infoWrap}>
         <div className={styles.infoBlock}>
           <div className={styles.beforeAfterContainer}>
@@ -125,6 +159,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
 
       {/* === Restore Journey Section === */}

@@ -116,7 +116,7 @@ export default function Home() {
       <div className={styles.heroInfoCard}>
         <h3>Preserve Family Heritage</h3>
         <p>
-          Whether you're a genealogist or memory-keeper, Anastasis helps future generations see the past clearly.
+          Whether you are a genealogist or memory-keeper, Anastasis helps future generations see the past clearly.
         </p>
       </div>
     </div>

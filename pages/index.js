@@ -43,86 +43,70 @@ export default function Home() {
       </Head>
 
 
- 
-    {/* === Cinematic Hero Section === */}
-      <section className={styles.hero}>
+{/* === Cinematic Hero Section === */}
+<section className={styles.hero}>
   <div className={styles.heroContent}>
     <h1 className={styles.heroTitle}>Anastasis</h1>
     <p className={styles.heroSubtitle}>The Resurrection of Memories</p>
 
-    <div className={styles.heroIntroBlock}>
-      <p>
-        Whether its your grandfathers black-and-white portrait, a faded wedding photo, or an old family snapshot — <strong>Anastasis</strong> lets you restore it in seconds.
-      </p>
-      <p>
-        🌀 <strong>Restore Basic is free</strong> for your first 3 images. No account, no commitment. Just upload and enjoy the results.
-      </p>
-      <p>
-        🌈 Want full-color and advanced detail revival? <strong>Restore Premium</strong> is available via simple one-time credit purchases.
-      </p>
-      <p>
-        ✨ There is no subscription, no app download, and no personal info required — just pure restoration, fast and clean.
-      </p>
-      <button className={styles.heroBigCTA} onClick={() => router.push("/replicate/restore-basic")}>
-        🎉 Try Anastasis Free — 3 Restorations, No Signup
-      </button>
-    </div>
 
+    {/* Action Cards */}
     <div className={styles.heroActionGrid}>
       <div className={styles.heroActionCard}>
         <h3>🌀 Restore Basic</h3>
-        <p><strong>Free for 3 attempts.</strong> No account needed. Clean grayscale restoration with emotional impact.</p>
+        <p><strong>3 Free Restorations.</strong> No account needed. Clean up grayscale images instantly.</p>
         <button onClick={() => router.push("/replicate/restore-basic")}>
           Try Free Now
         </button>
       </div>
       <div className={styles.heroActionCard}>
         <h3>🌈 Restore Premium</h3>
-        <p><strong>Full-color resurrection.</strong> One-time credit purchase — no subscription, no strings attached.</p>
+        <p><strong>Advanced detail revival.</strong> Full-color, high-definition magic — no subscriptions.</p>
         <button onClick={() => router.push("/replicate/restore-premium")}>
           Try Premium Now
         </button>
       </div>
     </div>
 
+        {/* CTA Section */}
     <div className={styles.heroCTAContainer}>
-      <p className={styles.heroCTAText}>
-        Ready to go deeper? Credits unlock Premium restoration and high-resolution downloads — <strong>no recurring fees</strong>.
-      </p>
       <Link href="/pricing" className={styles.heroCTAButton}>
-        🧮 View Credit Plans (One-Time Purchase)
+        🧮 View Credit Plans
       </Link>
     </div>
 
-    <div className={styles.heroCardGrid}>
-      <div className={styles.heroInfoCard}>
-        <h3>Greek-Inspired Brilliance</h3>
+
+    {/* Intro Bubble */}
+    <div className={styles.heroBubbleGrid}>
+      <div className={styles.heroBubble}>
+        <h3>📸 Restore the Past</h3>
         <p>
-          From the word &quot;Anastasis&quot; meaning resurrection, our design blends legacy, elegance, and a touch of mythology.
-        </p>
-      </div>
-      <div className={styles.heroInfoCard}>
-        <h3>No Account Required</h3>
-        <p>
-          Drag and drop — no signups, storage, or hidden terms. Your moments, your control.
-        </p>
-      </div>
-      <div className={styles.heroInfoCard}>
-        <h3>Powered by Throwback AI</h3>
-        <p>
-          Cutting-edge models restore texture, revive color, and preserve the emotional soul of every image.
-        </p>
-      </div>
-      <div className={styles.heroInfoCard}>
-        <h3>Preserve Family Heritage</h3>
-        <p>
-          Whether you are a genealogist or memory-keeper, Anastasis helps future generations see the past clearly.
+          A grandfather’s portrait. A faded wedding photo. A lost childhood snapshot. 
+          <strong> Anastasis </strong> brings forgotten images back to life.
         </p>
       </div>
     </div>
-  </div>
-</section>
 
+
+
+    {/* Feature Bubbles */}
+    <div className={styles.heroFeatureGrid}>
+      <div className={styles.heroFeatureBubble}>
+        <h4>🧮 Simple Pricing</h4>
+        <p>Buy credits only when you need them — no recurring charges.</p>
+      </div>
+      <div className={styles.heroFeatureBubble}>
+        <h4>✨ No App or Signup</h4>
+        <p>No downloads. No login. Just fast, beautiful restoration.</p>
+      </div>
+      <div className={styles.heroFeatureBubble}>
+        <h4>🎯 Ideal for Families</h4>
+        <p>Perfect for memorials, genealogy, and legacy albums.</p>
+      </div>
+    </div>
+
+
+   
 
 
       {/* === Greek Origin Explanation === */}
@@ -165,6 +149,35 @@ export default function Home() {
           </section>
 
 
+         {/* Hoverable Info Cards */}
+    <div className={styles.heroCardGrid}>
+      <div className={styles.heroInfoCard}>
+        <h3>Greek-Inspired Brilliance</h3>
+        <p>
+          “Anastasis” means resurrection. Our interface draws inspiration from myth, legacy, and timeless design.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>No Account Required</h3>
+        <p>
+          Drag and drop your image — no signups, storage, or hidden terms.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>Powered by Throwback AI</h3>
+        <p>
+          Cutting-edge restoration models revive texture, tone, and lost detail with emotional precision.
+        </p>
+      </div>
+      <div className={styles.heroInfoCard}>
+        <h3>Preserve Family Heritage</h3>
+        <p>
+          Designed for genealogists and memory-keepers to give the past a vibrant second life.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
           {/* === Before/After Info Blocks === */}

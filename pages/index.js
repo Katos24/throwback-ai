@@ -16,15 +16,15 @@ const faqData = [
   },
   {
     q: "Is Anastasis photo restoration free to try?",
-    a: "Absolutely! You can test our AI restoration on one image free of charge. There’s no signup, no credit card required — just upload and preview your revived photo instantly. For advanced enhancements like full colorization or blemish correction, upgrade options are available.",
+    a: "Absolutely! You can test our AI restoration on one image free of charge. There is no signup, no credit card required — just upload and preview your revived photo instantly. For advanced enhancements like full colorization or blemish correction, upgrade options are available.",
   },
   {
     q: "How does Anastasis protect my privacy and image data?",
-    a: "We value your family’s legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
+    a: "We value your familys legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
   },
   {
     q: "Can I use restored images for commercial or personal projects?",
-    a: "Once your photo is restored, it's fully yours to use — for personal keepsakes, scrapbook printing, family gifts, social media sharing, Etsy shops, or heritage art projects. We believe memories should be cherished and shared freely.",
+    a: "Once your photo is restored, its fully yours to use — for personal keepsakes, scrapbook printing, family gifts, social media sharing, Etsy shops, or heritage art projects. We believe memories should be cherished and shared freely.",
   },
 ];
 

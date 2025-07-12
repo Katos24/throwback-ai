@@ -1,0 +1,72 @@
+.restoreRow {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  max-width: 1000px;
+  text-align: center; /* Ensures child content aligns on mobile */
+}
+
+/* Restore stage cards */
+.restoreItem {
+  flex: 1 1 280px;
+  max-width: 320px;
+  background: linear-gradient(145deg, #fdfdfd, #f7f7f7);
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #eae3cf;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.restoreItem:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.1);
+  border-color: #c2b084;
+}
+
+.restoreItem img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  object-fit: cover;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.restoreItem h4 {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c2c2c;
+  letter-spacing: 0.3px;
+}
+
+
+@media (max-width: 600px) {
+  .restoreRow {
+    padding: 0 16px;
+    gap: 1.25rem;
+  }
+
+  .restoreItem {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+
+  .restoreItem img {
+    max-width: 100%;
+  }
+
+  .restoreItem h4 {
+    font-size: 1rem;
+  }
+}

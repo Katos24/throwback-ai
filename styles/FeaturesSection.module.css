@@ -1,0 +1,44 @@
+.featuresSection {
+  padding: 3rem 2rem;
+  background: radial-gradient(circle at center, #fbf9f4 0%, #e8e3d7 100%);
+  border-radius: 24px;
+  box-shadow: 0 0 40px rgba(125, 103, 63, 0.08);
+  text-align: center;
+}
+
+.heroFeatureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.heroFeatureBubble {
+  background: linear-gradient(135deg, #fffef9, #ebe4d8);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #d6cbb1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.heroFeatureBubble:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.heroFeatureBubble h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #5a5549;
+  margin-bottom: 0.5rem;
+}
+
+.heroFeatureBubble p {
+  font-size: 0.95rem;
+  color: #6b6558;
+  line-height: 1.5;
+}

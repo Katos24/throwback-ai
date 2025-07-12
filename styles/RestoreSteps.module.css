@@ -1,0 +1,60 @@
+.restoreJourney {
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom right, #fcf9f4, #eae5d8);
+  border-radius: 24px;
+  box-shadow: 0 0 60px rgba(125, 103, 63, 0.07);
+  text-align: center;
+}
+
+.restoreTitle {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #4c473a;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 12px rgba(255, 215, 130, 0.2);
+}
+
+.stepGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.stepCard {
+  background: linear-gradient(135deg, #fffef9, #f0ede7);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #d4c5aa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.stepCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.stepEmoji {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5a5549;
+  margin-bottom: 0.75rem;
+}
+
+.stepDescription {
+  font-size: 0.95rem;
+  color: #6b6558;
+  line-height: 1.5;
+}

@@ -1,0 +1,117 @@
+.hero {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  text-align: center;
+  background: url('/images/greek-theme.png') center/cover no-repeat;
+  background-color: #111;
+  color: #f0f0f0;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.heroTitle {
+  font-size: clamp(2.5rem, 6vw + 1rem, 4.75rem);
+  font-family: 'GFS Didot', serif;
+  font-weight: 900;
+  color: #fefefe;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+  position: relative;
+margin-bottom: 1rem;
+}
+
+.heroTitle::after {
+  content: '🌿';
+  font-size: 1.5rem;
+  position: absolute;
+  right: -2rem;
+  top: 0.5rem;
+  opacity: 0.8;
+}
+
+.heroSubtitle {
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
+  font-style: italic;
+  font-weight: 600;
+  color: #ffdba0;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+}
+
+.heroSubText {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #e0ddcc;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.5;
+}
+
+/* === CTA Container === */
+.heroCTAContainer {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+/* === CTA Button === */
+.heroCTAButton {
+  background: linear-gradient(90deg, #00ffe7, #ff00ff);
+  color: #0a0a0a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 255, 231, 0.3), 0 0 18px rgba(255, 0, 255, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  backdrop-filter: blur(2px);
+}
+
+.heroCTAButton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 24px rgba(0, 255, 231, 0.4), 0 0 30px rgba(255, 0, 255, 0.25);
+}
+
+
+@media (max-width: 600px) {
+  .greekBackground {
+    min-height: 220px;
+    padding: 1rem 1rem;
+  }
+  .greekBackground > .content,
+  .greekBackground > .greekContent {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .heroTitle {
+    font-size: 2.75rem;
+  }
+}

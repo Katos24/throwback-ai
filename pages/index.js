@@ -10,10 +10,8 @@ import optionCardStyles from "../styles/OptionCards.module.css";
 import infoStyles from "../styles/InfoSection.module.css";
 import featureStyles from "../styles/FeaturesSection.module.css";
 import faqStyles from "../styles/FAQSection.module.css";
-import testimonialStyles from "../styles/TestimonialsBadges.module.css";
-import trustStyles from "../styles/TestimonialsBadges.module.css";
+import testimonialStyles from "../styles/TestimonialsBadges.module.css"; // ✅ single import for both testimonials + trust badges
 import restoreStyles from "../styles/BeforeAfter.module.css";
-
 
 const faqData = [
   {
@@ -30,7 +28,7 @@ const faqData = [
   },
   {
     q: "How does Anastasis protect my privacy and image data?",
-    a: "We value your familys legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
+    a: "We value your family's legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
   },
   {
     q: "Can I use restored images for commercial or personal projects?",
@@ -41,99 +39,99 @@ const faqData = [
 const testimonials = [
   {
     quote: "Anastasis brought my grandparents wedding photo back to life. It made my mom cry — in the best way!",
-    author: "Emily R., Texas"
+    author: "Emily R., Texas",
   },
   {
     quote: "The colors and details are stunning. I could not believe the difference!",
-    author: "Mark S., UK"
+    author: "Mark S., UK",
   },
   {
     quote: "Super easy — I restored our family album in an afternoon.",
-    author: "Priya D., Australia"
-  }
+    author: "Priya D., Australia",
+  },
 ];
 
 const trustBadges = [
   {
     icon: "/icons/lock.svg",
     alt: "Secure Uploads",
-    text: "Secure Uploads"
+    text: "Secure Uploads",
   },
   {
     icon: "/icons/delete.svg",
     alt: "Auto Delete",
-    text: "Auto Delete in 1 Hour"
+    text: "Auto Delete in 1 Hour",
   },
   {
     icon: "/icons/no-share.svg",
     alt: "Never Shared",
-    text: "Never Shared or Sold"
-  }
+    text: "Never Shared or Sold",
+  },
 ];
 
 const journeySteps = [
   {
     emoji: "📤",
     title: "Upload",
-    description: "Choose a vintage photo — scanned or snapped. We recommend clear lighting for best results."
+    description: "Choose a vintage photo — scanned or snapped. We recommend clear lighting for best results.",
   },
   {
     emoji: "🧠",
     title: "AI Restoration",
-    description: "Throwback AI enhances your image with detailed colorization and texture repair. No edits are manual."
+    description: "Throwback AI enhances your image with detailed colorization and texture repair. No edits are manual.",
   },
   {
     emoji: "👁️",
     title: "Preview",
-    description: "See your restored photo instantly. Compare before/after and decide if you would like premium refinements."
+    description: "See your restored photo instantly. Compare before/after and decide if you would like premium refinements.",
   },
   {
     emoji: "🕒",
     title: "Privacy Guarantee",
-    description: "Your image is deleted automatically after 1 hour. We never store, share, or use it to train models. Period."
+    description: "Your image is deleted automatically after 1 hour. We never store, share, or use it to train models. Period.",
   },
   {
     emoji: "📥",
     title: "Download & Share",
-    description: "Download your revived legacy photo — ready for family gifts, tributes, or public display."
-  }
+    description: "Download your revived legacy photo — ready for family gifts, tributes, or public display.",
+  },
 ];
 
 const features = [
   {
     emoji: "🧮",
     title: "Simple Pricing",
-    description: "Buy credits only when you need them — no recurring charges."
+    description: "Buy credits only when you need them — no recurring charges.",
   },
   {
     emoji: "✨",
     title: "No App or Signup",
-    description: "No downloads. Just fast, beautiful restoration."
+    description: "No downloads. Just fast, beautiful restoration.",
   },
   {
     emoji: "🎯",
     title: "Ideal for Families",
-    description: "Perfect for memorials, genealogy, and legacy albums."
-  }
+    description: "Perfect for memorials, genealogy, and legacy albums.",
+  },
 ];
 
 const infoCards = [
   {
     title: "Greek-Inspired Brilliance",
-    description: "\"Anastasis\" means resurrection. Myth, legacy, and timeless design."
+    description: "&quot;Anastasis&quot; means resurrection. Myth, legacy, and timeless design.", // ✅ escaped quotes
   },
   {
     title: "No Account Required",
-    description: "Drag and drop — no storage or hidden terms."
+    description: "Drag and drop — no storage or hidden terms.",
   },
   {
     title: "Powered by Throwback AI",
-    description: "Advanced AI models revive texture, tone, and lost detail."
+    description: "Advanced AI models revive texture, tone, and lost detail.",
   },
   {
     title: "Preserve Family Heritage",
-    description: "Perfect for genealogists and memory-keepers."
-  }
+    description: "Perfect for genealogists and memory-keepers.",
+  },
 ];
 
 function FAQItem({ question, answer }) {
@@ -180,7 +178,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Restore Options - optionCards*/}
+      {/* Restore Options */}
       <section className={optionCardStyles.restoreOptions}>
         <div className={optionCardStyles.heroActionGrid}>
           <div className={optionCardStyles.heroActionCard}>
@@ -200,8 +198,7 @@ export default function Home() {
         </div>
       </section>
 
-
-          {/* Features Section - simple pricing,  No App or Signup*/}
+      {/* Features Section */}
       <section className={featureStyles.featuresSection}>
         <div className={featureStyles.heroFeatureGrid}>
           {features.map((feature, index) => (
@@ -213,8 +210,7 @@ export default function Home() {
         </div>
       </section>
 
-
-        {/* Before/After Showcase */}
+      {/* Before/After Showcase */}
       <section className={restoreStyles.beforeAfter}>
         <h2 className={restoreStyles.sectionTitle}>See the Difference</h2>
 
@@ -275,15 +271,10 @@ export default function Home() {
         </div>
       </section>
 
-
-     
-
-  
       {/* Greek Origin */}
       <section className={infoStyles.infoGreek}>
         <p>
-          <strong>Anastasis</strong> (Greek for "resurrection") represents bringing your
-          old photos back to life, restoring memories with the magic of AI.
+          <strong>Anastasis</strong> (Greek for &quot;resurrection&quot;) represents bringing your old photos back to life, restoring memories with the magic of AI.
         </p>
       </section>
 
@@ -297,7 +288,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Info Blocks - Every scar tells a story section */}
+      {/* Info Blocks */}
       <section className={infoStyles.infoWrap}>
         <div className={infoStyles.infoBlock}>
           <div className={infoStyles.beforeAfterContainer}>
@@ -307,8 +298,7 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Every Scar Tells a Story</h2>
             <p>
-              Creases, stains, and tears — our AI doesnt erase history, it enhances it.
-              Celebrate each mark as part of your legacy.
+              Creases, stains, and tears — our AI doesn't erase history, it enhances it. Celebrate each mark as part of your legacy.
             </p>
           </div>
         </div>
@@ -320,27 +310,25 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Revive Connections</h2>
             <p>
-              Remember the warmth in someones smile or the look in their eyes.
-              Anastasis helps you reconnect with cherished faces and moments.
+              Remember the warmth in someone's smile or the look in their eyes. Anastasis helps you reconnect with cherished faces and moments.
             </p>
           </div>
         </div>
       </section>
 
-    {/* Restore Steps Section */}
-    <section className={restoreStyles.restoreJourney}>
-      <h2 className={restoreStyles.restoreTitle}>Restore Steps</h2>
-      <div className={restoreStyles.stepGrid}>
-        {journeySteps.map((step, index) => (
-          <div key={index} className={restoreStyles.stepCard}>
-            <div className={restoreStyles.stepEmoji}>{step.emoji}</div>
-            <h3 className={restoreStyles.stepTitle}>{step.title}</h3>
-            <p className={restoreStyles.stepDescription}>{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
+      {/* Restore Steps Section */}
+      <section className={restoreStyles.restoreJourney}>
+        <h2 className={restoreStyles.restoreTitle}>Restore Steps</h2>
+        <div className={restoreStyles.stepGrid}>
+          {journeySteps.map((step, index) => (
+            <div key={index} className={restoreStyles.stepCard}>
+              <div className={restoreStyles.stepEmoji}>{step.emoji}</div>
+              <h3 className={restoreStyles.stepTitle}>{step.title}</h3>
+              <p className={restoreStyles.stepDescription}>{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Testimonials */}
       <section className={testimonialStyles.testimonials}>
@@ -348,7 +336,7 @@ export default function Home() {
         <div className={testimonialStyles.testimonialGrid}>
           {testimonials.map((testimonial, index) => (
             <blockquote key={index}>
-              <p>"{testimonial.quote}"</p>
+              <p>{testimonial.quote}</p> {/* ✅ removed extra wrapping quotes */}
               <cite>— {testimonial.author}</cite>
             </blockquote>
           ))}
@@ -356,11 +344,11 @@ export default function Home() {
       </section>
 
       {/* Trust Badges */}
-      <section className={trustStyles.trustBadges}>
+      <section className={testimonialStyles.trustBadges}> {/* ✅ use testimonialStyles */}
         <h2>Your Privacy, Guaranteed</h2>
-        <div className={trustStyles.badgeGrid}>
+        <div className={testimonialStyles.badgeGrid}>
           {trustBadges.map((badge, index) => (
-            <div key={index} className={trustStyles.badgeItem}>
+            <div key={index} className={testimonialStyles.badgeItem}>
               <Image src={badge.icon} alt={badge.alt} width={40} height={40} />
               <p>{badge.text}</p>
             </div>
@@ -381,7 +369,7 @@ export default function Home() {
       {/* SEO Text */}
       <section className={homeStyles.seoText} aria-label="Anastasis Photo Restoration AI">
         <h2>Restore and Revive Your Memories with Anastasis</h2>
-        <p> {/* ...SEO text unchanged... */} </p>
+        <p>{/* ...SEO text unchanged... */}</p>
       </section>
     </>
   );

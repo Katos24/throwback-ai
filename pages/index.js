@@ -307,7 +307,7 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Every Scar Tells a Story</h2>
             <p>
-              Creases, stains, and tears — our AI doesn&rsquo;t erase history, it enhances it.
+              Creases, stains, and tears — our AI doesnt erase history, it enhances it.
               Celebrate each mark as part of your legacy.
             </p>
           </div>
@@ -320,7 +320,7 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Revive Connections</h2>
             <p>
-              Remember the warmth in someone&rsquo;s smile or the look in their eyes.
+              Remember the warmth in someones smile or the look in their eyes.
               Anastasis helps you reconnect with cherished faces and moments.
             </p>
           </div>

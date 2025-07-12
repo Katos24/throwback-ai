@@ -30,11 +30,11 @@ const faqData = [
   },
   {
     q: "How does Anastasis protect my privacy and image data?",
-    a: "We value your family's legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
+    a: "We value your familys legacy and privacy. Uploaded photos are processed in a secure, temporary environment. Your images are never stored permanently — they are automatically wiped after one hour. We do not share, sell, or repurpose your data. Privacy is built into our DNA.",
   },
   {
     q: "Can I use restored images for commercial or personal projects?",
-    a: "Once your photo is restored, it's fully yours to use — for personal keepsakes, scrapbook printing, family gifts, social media sharing, Etsy shops, or heritage art projects. We believe memories should be cherished and shared freely.",
+    a: "Once your photo is restored, it is fully yours to use — for personal keepsakes, scrapbook printing, family gifts, social media sharing, Etsy shops, or heritage art projects. We believe memories should be cherished and shared freely.",
   },
 ];
 
@@ -85,7 +85,7 @@ const journeySteps = [
   {
     emoji: "👁️",
     title: "Preview",
-    description: "See your restored photo instantly. Compare before/after and decide if you'd like premium refinements."
+    description: "See your restored photo instantly. Compare before/after and decide if you would like premium refinements."
   },
   {
     emoji: "🕒",
@@ -307,7 +307,7 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Every Scar Tells a Story</h2>
             <p>
-              Creases, stains, and tears — our AI doesn't erase history, it enhances it.
+              Creases, stains, and tears — our AI doesn&rsquo;t erase history, it enhances it.
               Celebrate each mark as part of your legacy.
             </p>
           </div>
@@ -320,7 +320,7 @@ export default function Home() {
           <div className={infoStyles.infoText}>
             <h2>Revive Connections</h2>
             <p>
-              Remember the warmth in someone's smile or the look in their eyes.
+              Remember the warmth in someone&rsquo;s smile or the look in their eyes.
               Anastasis helps you reconnect with cherished faces and moments.
             </p>
           </div>

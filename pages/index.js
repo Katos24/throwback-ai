@@ -221,10 +221,11 @@ export default function Home() {
             <li>🔒 Privacy-first — Your memories stay yours (unlike cloud services)</li>
           </ul>
 
-          <div className={heroStyles.heroWhisper}>
-            <span className={heroStyles.quoteMark}>"</span>
-            <span className={heroStyles.quoteText}>Finally, an app that gets family history.</span>
-          </div>
+         <div className={heroStyles.heroWhisper}>
+          <span className={heroStyles.quoteMark}>&ldquo;</span>
+          <span className={heroStyles.quoteText}>Finally, an app that gets family history.</span>
+          <span className={heroStyles.quoteMark}>&rdquo;</span>
+        </div>
 
           <div className={heroStyles.scrollHint}>Discover why genealogists choose us ↓</div>
         </div>

@@ -1,60 +1,120 @@
 .restoreJourney {
-  padding: 4rem 2rem;
-  background: linear-gradient(to bottom right, #fcf9f4, #eae5d8);
-  border-radius: 24px;
-  box-shadow: 0 0 60px rgba(125, 103, 63, 0.07);
+  padding: 3.5rem 1.25rem;
+  background: #fdfcfb;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(125, 103, 63, 0.04);
   text-align: center;
 }
 
 .restoreTitle {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: #4c473a;
-  margin-bottom: 2.5rem;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 12px rgba(255, 215, 130, 0.2);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3e3a31;
+  margin-bottom: 2rem;
+  font-family: 'GFS Didot', serif;
+  letter-spacing: 0.5px;
 }
 
+/* Step Grid: Responsive columns */
 .stepGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  max-width: 1000px;
+  counter-reset: step-counter;
+  max-width: 980px;
   margin: 0 auto;
-  justify-items: center;
+  padding: 0 1rem;
 }
 
+/* Individual Step Card */
 .stepCard {
-  background: linear-gradient(135deg, #fffef9, #f0ede7);
-  border-radius: 16px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 280px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  border: 1px solid #d4c5aa;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2ddcc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.035);
+  padding: 2rem 1.5rem;
+  text-align: left;
+  counter-increment: step-counter;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
 }
 
+/* Step Number Badge */
+.stepCard::before {
+  content: counter(step-counter);
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 36px;
+  height: 36px;
+  background: #ffdba0;
+  color: #222;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'GFS Didot', serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover Lift */
 .stepCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Emoji Icon */
 .stepEmoji {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.stepTitle {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #5a5549;
+  font-size: 1.6rem;
   margin-bottom: 0.75rem;
+  display: block;
 }
 
+/* Step Title */
+.stepTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #2c2c2c;
+}
+
+/* Step Description */
 .stepDescription {
-  font-size: 0.95rem;
-  color: #6b6558;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  color: #4d4d4d;
+  line-height: 1.6;
+}
+
+/* Scroll Animation Keyframes */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+  .stepCard {
+    text-align: center;
+  }
+
+  .stepEmoji {
+    font-size: 1.5rem;
+  }
+
+  .stepTitle {
+    font-size: 1.05rem;
+  }
+
+  .stepDescription {
+    font-size: 0.95rem;
+  }
 }

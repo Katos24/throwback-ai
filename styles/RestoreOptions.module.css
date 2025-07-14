@@ -1,3 +1,9 @@
+.restoreOptions {
+  padding: 3rem 1.5rem;
+  background-color: #111;
+}
+
+
 .restoreRow {
   display: flex;
   justify-content: center;

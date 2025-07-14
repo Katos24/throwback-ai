@@ -10,8 +10,10 @@ import optionCardStyles from "../styles/OptionCards.module.css";
 import infoStyles from "../styles/InfoSection.module.css";
 import featureStyles from "../styles/FeaturesSection.module.css";
 import faqStyles from "../styles/FAQSection.module.css";
-import testimonialStyles from "../styles/TestimonialsBadges.module.css"; // ✅ single import for both testimonials + trust badges
+import testimonialStyles from "../styles/TestimonialsBadges.module.css";
 import restoreStyles from "../styles/BeforeAfter.module.css";
+import infoCardStyles from "../styles/InfoCardsSection.module.css"; // ✅ new
+import journeySteps from "../styles/RestoreSteps.module.css";
 
 const faqData = [
   {
@@ -69,33 +71,29 @@ const trustBadges = [
   },
 ];
 
-const journeySteps = [
+const restoreStepsData = [
   {
     emoji: "📤",
-    title: "Upload",
-    description: "Choose a vintage photo — scanned or snapped. We recommend clear lighting for best results.",
+    title: "Upload Photo",
+    description: "Scan or snap a vintage image. Clear lighting helps — no signup required.",
   },
   {
-    emoji: "🧠",
-    title: "AI Restoration",
-    description: "Throwback AI enhances your image with detailed colorization and texture repair. No edits are manual.",
+    emoji: "✨",
+    title: "Restore Image",
+    description: "Basic: Enhance clarity and fix wear. Premium: Bring black & white to full color.",
   },
   {
     emoji: "👁️",
-    title: "Preview",
-    description: "See your restored photo instantly. Compare before/after and decide if you would like premium refinements.",
-  },
-  {
-    emoji: "🕒",
-    title: "Privacy Guarantee",
-    description: "Your image is deleted automatically after 1 hour. We never store, share, or use it to train models. Period.",
+    title: "Preview & Refine",
+    description: "Compare before/after. Apply premium upgrades if you want vivid colorization.",
   },
   {
     emoji: "📥",
     title: "Download & Share",
-    description: "Download your revived legacy photo — ready for family gifts, tributes, or public display.",
+    description: "Save your restored photo instantly. Perfect for gifts, memorials, or heritage projects.",
   },
 ];
+
 
 const features = [
   {
@@ -118,21 +116,37 @@ const features = [
 const infoCards = [
   {
     title: "Greek-Inspired Brilliance",
-    description: "&quot;Anastasis&quot; means resurrection. Myth, legacy, and timeless design.", // ✅ escaped quotes
-  },
-  {
-    title: "No Account Required",
-    description: "Drag and drop — no storage or hidden terms.",
-  },
-  {
-    title: "Powered by Throwback AI",
-    description: "Advanced AI models revive texture, tone, and lost detail.",
+    description: "Anastasis means resurrection. Myth, legacy, and timeless design.",
+    category: "heritage",
   },
   {
     title: "Preserve Family Heritage",
     description: "Perfect for genealogists and memory-keepers.",
+    category: "heritage",
+  },
+  {
+    title: "No Account Required",
+    description: "Drag and drop — no storage or hidden terms.",
+    category: "trust",
+  },
+  {
+    title: "Secure & Private",
+    description: "Auto delete in 1 hour. We never store or sell your photos.",
+    category: "trust",
+  },
+  {
+    title: "Powered by Throwback AI",
+    description: "Advanced models revive texture, tone, and lost detail.",
+    category: "tech",
+  },
+  {
+    title: "Lifelike Restorations",
+    description: "Instant colorization, detail repair, and memory enhancement.",
+    category: "tech",
   },
 ];
+
+
 
 function FAQItem({ question, answer }) {
   const [open, setOpen] = useState(false);
@@ -154,29 +168,43 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Anastasis — Resurrection of Memories, powered by Throwback AI</title>
+        <title>Anastasis — Rediscover the Past with Throwback AI</title>
         <meta
           name="description"
-          content="Anastasis powered by Throwback AI restores your vintage photos to life with advanced AI technology."
+          content="Anastasis, powered by Throwback AI, breathes life into your vintage memories using advanced restoration technology. Reimagine the moments that shaped you."
         />
       </Head>
 
       {/* Hero Section */}
       <section className={heroStyles.hero}>
-        <div className={heroStyles.heroContent}>
-          <h1 className={heroStyles.heroTitle}>Anastasis</h1>
-          <p className={heroStyles.heroSubtitle}>The Resurrection of Memories</p>
-          <button
-            className={heroStyles.heroCTAButton}
-            onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-          >
-            Upload Your Photo — Try Free
-          </button>
-          <p className={heroStyles.heroSubText}>
-            Get a free preview. No account needed. Premium upgrades available.
-          </p>
-        </div>
-      </section>
+      <div className={heroStyles.heroContent}>
+        <h1 className={heroStyles.heroTitle}>Anastasis</h1>
+        <p className={heroStyles.heroSubtitle}>The Resurrection of Memories</p>
+
+        <p className={heroStyles.heroLeadText}>
+          Restore your family's legacy with lifelike color, clarity, and warmth — powered by AI.
+        </p>
+
+        <button
+          className={heroStyles.heroCTAButton}
+          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+        >
+          Upload Your Photo — Try Free
+        </button>
+
+        <ul className={heroStyles.heroChecklist}>
+          <li>✅ Free preview — no account needed</li>
+          <li>✅ Privacy-first — auto delete in 1 hour</li>
+          <li>✅ Trusted by genealogists & memory keepers</li>
+        </ul>
+
+        <p className={heroStyles.heroWhisper}>
+          &ldquo;The photo looked like it was taken yesterday.&rdquo;
+        </p>
+      </div>
+    </section>
+
+
 
       {/* Restore Options */}
       <section className={optionCardStyles.restoreOptions}>
@@ -278,15 +306,65 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Info Cards */}
-      <div className={heroStyles.heroCardGrid}>
-        {infoCards.map((card, index) => (
-          <div key={index} className={heroStyles.heroInfoCard}>
-            <h3>{card.title}</h3>
-            <p>{card.description}</p>
+      
+      {/* Restore Steps Section */}
+        <section className={journeySteps.restoreJourney}>
+        <h2 className={journeySteps.restoreTitle}>Restore Steps</h2>
+        <div className={journeySteps.stepGrid}>
+          {restoreStepsData.map((step, index) => (
+            <div key={index} className={journeySteps.stepCard}>
+              <div className={journeySteps.stepEmoji}>{step.emoji}</div>
+              <h3 className={journeySteps.stepTitle}>{step.title}</h3>
+              <p className={journeySteps.stepDescription}>{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+      {/* Info Cards - info card section */}
+        <section className={infoCardStyles.infoCardsSection}>
+        <h2 className={infoCardStyles.infoCardsTitle}>Why Choose Anastasis</h2>
+
+        {/* Heritage */}
+        <div className={infoCardStyles.infoGroup}>
+          <h3 className={infoCardStyles.infoGroupTitle}>Heritage</h3>
+          <div className={infoCardStyles.infoCardsGrid}>
+            {infoCards.filter(card => card.category === "heritage").map((card, index) => (
+              <div key={index} className={infoCardStyles.infoCard}>
+                <h4>{card.title}</h4>
+                <p>{card.description}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+
+        {/* Trust */}
+        <div className={infoCardStyles.infoGroup}>
+          <h3 className={infoCardStyles.infoGroupTitle}>Trust</h3>
+          <div className={infoCardStyles.infoCardsGrid}>
+            {infoCards.filter(card => card.category === "trust").map((card, index) => (
+              <div key={index} className={infoCardStyles.infoCard}>
+                <h4>{card.title}</h4>
+                <p>{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Technology */}
+        <div className={infoCardStyles.infoGroup}>
+          <h3 className={infoCardStyles.infoGroupTitle}>Technology</h3>
+          <div className={infoCardStyles.infoCardsGrid}>
+            {infoCards.filter(card => card.category === "tech").map((card, index) => (
+              <div key={index} className={infoCardStyles.infoCard}>
+                <h4>{card.title}</h4>
+                <p>{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Info Blocks */}
       <section className={infoStyles.infoWrap}>
@@ -318,19 +396,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Restore Steps Section */}
-      <section className={restoreStyles.restoreJourney}>
-        <h2 className={restoreStyles.restoreTitle}>Restore Steps</h2>
-        <div className={restoreStyles.stepGrid}>
-          {journeySteps.map((step, index) => (
-            <div key={index} className={restoreStyles.stepCard}>
-              <div className={restoreStyles.stepEmoji}>{step.emoji}</div>
-              <h3 className={restoreStyles.stepTitle}>{step.title}</h3>
-              <p className={restoreStyles.stepDescription}>{step.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section className={testimonialStyles.testimonials}>

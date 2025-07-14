@@ -1,13 +1,14 @@
 .hero {
   position: relative;
-  min-height: 600px;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 3rem 2rem;
   text-align: center;
-  background: url('/images/greek-theme.png') center/cover no-repeat;
+  background: url('/images/greek-theme.png') center center no-repeat fixed;
+  background-size: contain;
   background-color: #111;
   color: #f0f0f0;
   overflow: hidden;
@@ -26,22 +27,32 @@
 .heroContent {
   position: relative;
   z-index: 1;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
+  animation: fadeInHero 1.8s ease-out;
 }
 
+@keyframes fadeInHero {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .heroTitle {
-  font-size: clamp(2.5rem, 6vw + 1rem, 4.75rem);
+  font-size: clamp(2.75rem, 6vw + 1rem, 4.75rem);
   font-family: 'GFS Didot', serif;
   font-weight: 900;
   color: #fefefe;
-  margin-bottom: 0.4rem;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
   letter-spacing: 1px;
+  margin-bottom: 1rem;
   position: relative;
-margin-bottom: 1rem;
 }
 
 .heroTitle::after {
@@ -60,7 +71,15 @@ margin-bottom: 1rem;
   color: #ffdba0;
   margin-bottom: 2rem;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  margin-bottom: 2rem;
+}
+
+.heroLeadText {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e0ddcc;
+  opacity: 0.95;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .heroSubText {
@@ -73,45 +92,130 @@ margin-bottom: 1rem;
   line-height: 1.5;
 }
 
-/* === CTA Container === */
-.heroCTAContainer {
-  margin-top: 2.5rem;
-  text-align: center;
-}
-
-/* === CTA Button === */
+/* CTA Button */
 .heroCTAButton {
   background: linear-gradient(90deg, #00ffe7, #ff00ff);
   color: #0a0a0a;
   font-size: 1.1rem;
   font-weight: 700;
-  padding: 1rem 2rem;
+  padding: 1rem 2.2rem;
   border-radius: 50px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 12px rgba(0, 255, 231, 0.3), 0 0 18px rgba(255, 0, 255, 0.2);
+  box-shadow:
+    0 0 8px rgba(0, 255, 231, 0.3),
+    0 0 12px rgba(255, 0, 255, 0.2),
+    inset 0 0 4px rgba(255, 255, 255, 0.2);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   backdrop-filter: blur(2px);
 }
 
 .heroCTAButton:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 24px rgba(0, 255, 231, 0.4), 0 0 30px rgba(255, 0, 255, 0.25);
+  box-shadow:
+    0 0 24px rgba(0, 255, 231, 0.4),
+    0 0 30px rgba(255, 0, 255, 0.25);
 }
 
+/* Checklist */
+.heroChecklist {
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+}
 
+.heroChecklist li {
+  padding-left: 1.6rem;
+  position: relative;
+  font-size: 1rem;
+  color: #fefefe;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.heroChecklist li::before {
+  content: "✔️";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Whisper Quote */
+.heroWhisper {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #eaeaea;
+  opacity: 0.7;
+  margin-top: 2rem;
+}
+
+/* Scroll Hint (optional) */
+.scrollHint {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #fefefe;
+  opacity: 0.6;
+  animation: fadeInUp 2s ease-in;
+}
+
+@keyframes fadeInUp {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0.6; }
+}
+
+/* Mobile */
 @media (max-width: 600px) {
-  .greekBackground {
-    min-height: 220px;
-    padding: 1rem 1rem;
-  }
-  .greekBackground > .content,
-  .greekBackground > .greekContent {
-    max-width: 100%;
-    padding: 0 1rem;
+  .hero {
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
   }
 
   .heroTitle {
     font-size: 2.75rem;
+  }
+
+  .heroLeadText {
+    font-size: 1rem;
+  }
+
+  .heroChecklist li {
+    font-size: 0.95rem;
+  }
+
+  .heroWhisper {
+    font-size: 0.9rem;
+  }
+}
+
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.heroText {
+  /* existing text styles or container */
+}
+
+.heroImage {
+  text-align: center;
+}
+
+.heroImage img {
+  border-radius: 1rem;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

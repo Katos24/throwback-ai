@@ -1,0 +1,166 @@
+.whyAnastasis {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(180deg, #0d0d0d 0%, #111 100%);
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #fefefe;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.comparisonGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.comparisonRow {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.competitorCard,
+.anastasisCard {
+  flex: 1;
+  min-width: 280px;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(5px);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition: transform 0.25s ease;
+}
+
+.competitorCard {
+  border-top: 3px solid #ff3b3b;
+}
+
+.anastasisCard {
+  border-top: 3px solid #00ffe7;
+}
+
+.competitorCard:hover,
+.anastasisCard:hover {
+  transform: translateY(-3px);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffdba0;
+}
+.cardTitle::before {
+  content: attr(data-icon);
+  font-size: 1.3rem;
+}
+.featureList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.featureList li {
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  opacity: 0.9;
+  margin-bottom: 0.6rem;
+  text-align: left;
+}
+
+
+
+
+/* Kaze inspired */
+.kazeSection {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+  color: #4b2e83; /* Deep purple accent */
+}
+
+.kazeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.kazeIntro {
+  flex: 1;
+  min-width: 280px;
+}
+
+.kazeIntro h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.kazeIntro p {
+  font-size: 1rem;
+  color: #5c4d91;
+  margin-bottom: 1.5rem;
+}
+
+.kazeCTA {
+  background-color: #4b2e83;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 32px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.kazeCTA:hover {
+  background-color: #3a236b;
+}
+
+.kazeFeatures {
+  flex: 1;
+  min-width: 280px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.kazeCard {
+  background-color: #f7f5ff;
+  border-left: 4px solid #c3b1e1;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.kazeEmoji {
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.kazeCard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #4b2e83;
+}
+
+.kazeCard p {
+  font-size: 0.85rem;
+  color: #5c4d91;
+  opacity: 0.9;
+}

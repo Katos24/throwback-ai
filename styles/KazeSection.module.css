@@ -1,0 +1,110 @@
+.kazeSection {
+  background-color: #ffffff;
+  padding: 2.5rem 1.5rem;
+  color: #4b2e83;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.kazeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 960px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+/* Left Column: Title, Description, CTA */
+.kazeIntro {
+  flex: 1;
+  min-width: 280px;
+  text-align: left;
+}
+
+.kazeIntro h2 {
+  font-size: 1.65rem;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  color: #3a236b;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 1px 0 #ffffff, 0 0 1px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.kazeIntro h2::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background-color: #c3b1e1;
+  margin-top: 0.4rem;
+}
+
+.kazeIntro p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #4b2e83;
+  font-weight: 500;
+  max-width: 520px;
+  opacity: 0.95;
+  margin-bottom: 1.75rem;
+}
+
+/* CTA Button */
+.kazeCTA {
+  background-color: #4b2e83;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+  border-radius: 24px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kazeCTA:hover {
+  background-color: #3a236b;
+}
+
+/* Right Column: Feature Cards */
+.kazeFeatures {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+}
+
+.kazeCard {
+  background-color: #f8f6ff;
+  border-left: 3px solid #c3b1e1;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.kazeEmoji {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.kazeCard h3 {
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+  color: #4b2e83;
+  font-weight: 500;
+}
+
+.kazeCard p {
+  font-size: 0.75rem;
+  color: #5c4d91;
+  opacity: 0.85;
+  line-height: 1.35;
+}

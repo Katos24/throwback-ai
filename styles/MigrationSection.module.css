@@ -1,0 +1,61 @@
+.switchToAnastasis {
+  padding: 4rem 1.5rem;
+  background-color: #121212;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fefefe;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.sectionLead {
+  font-size: 1rem;
+  color: #cfcfcf;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+
+.migrationOffer {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(5px);
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.offerTitle {
+  font-size: 1.4rem;
+  color: #ffdba0;
+  margin-bottom: 0.75rem;
+}
+
+.offerDescription {
+  font-size: 0.95rem;
+  color: #f0f0f0;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.offerButton {
+  background: linear-gradient(90deg, #00ffe7, #ff00ff);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  box-shadow:
+    0 0 10px rgba(255, 219, 160, 0.1),
+    0 0 18px rgba(0, 255, 231, 0.1);
+}
+
+.offerButton:hover {
+  transform: translateY(-2px);
+}

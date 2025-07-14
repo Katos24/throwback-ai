@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,37 +131,61 @@
 
 /* Checklist */
 .heroChecklist {
-  list-style: none;
-  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
   padding: 0;
 }
 
 .heroChecklist li {
-  padding-left: 1.6rem;
+  background-color: #181818;
+  border: 1px solid #2e2e2e;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+  color: #eeeeee;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   position: relative;
-  font-size: 1rem;
-  color: #fefefe;
-  opacity: 0.9;
-  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 
 .heroChecklist li::before {
-  content: "✔️";
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 1rem;
-  opacity: 0.8;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  color: #ffdba0;
 }
+
 
 /* Whisper Quote */
 .heroWhisper {
+  display: block;
+  text-align: center;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #eaeaea;
-  opacity: 0.7;
-  margin-top: 2rem;
+  background: rgba(255,255,255,0.03);
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
+  margin: 1rem auto 0;
+  width: fit-content;
+  backdrop-filter: blur(2px);
 }
+
+
+.quoteMark {
+  font-size: 1.2rem;
+  color: #ffdba0;
+  opacity: 0.8;
+}
+
+.quoteText {
+  font-size: 0.85rem;
+}
+
+
 
 /* Scroll Hint */
 .scrollHint {

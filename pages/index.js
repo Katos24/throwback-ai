@@ -7,7 +7,6 @@ import { useState } from "react";
 
 import homeStyles from "../styles/Home.module.css";
 import heroStyles from "../styles/HeroSection.module.css";
-import optionCardStyles from "../styles/OptionCards.module.css";
 import infoStyles from "../styles/InfoSection.module.css";
 import featureStyles from "../styles/FeaturesSection.module.css";
 import faqStyles from "../styles/FAQSection.module.css";
@@ -20,6 +19,8 @@ import techStyles from "../styles/TechnicalSection.module.css"; // NEW
 import pricingStyles from "../styles/PricingSection.module.css"; // NEW
 import migrationStyles from "../styles/MigrationSection.module.css"; // NEW
 import styles from "../styles/KazeSection.module.css";
+import optionCardStyles from "../styles/RestoreOptions.module.css";
+import RestoreOptionsStyles from "../styles/RestoreOptions.module.css";
 
 
 
@@ -232,25 +233,67 @@ export default function Home() {
       </section>
 
 
-      {/* Restore Options */}
-      <section className={optionCardStyles.restoreOptions}>
-        <div className={optionCardStyles.heroActionGrid}>
-          <div className={optionCardStyles.heroActionCard}>
-            <h3>🌀 Restore Basic</h3>
-            <p><strong>3 Free Restorations.</strong> Clean up grayscale images instantly.</p>
-            <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-              Escape App Subscriptions - Try Free
-            </button>
-          </div>
-          <div className={optionCardStyles.heroActionCard}>
-            <h3>🌈 Restore Premium</h3>
-            <p><strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.</p>
-            <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-              Experience Heritage-Grade Restoration
-            </button>
-          </div>
-        </div>
-      </section>
+
+    {/* Restore Options */}
+<section className={RestoreOptionsStyles.restoreOptions}>
+  <div className={RestoreOptionsStyles.restoreCardGrid}>
+
+    {/* Restore Basic */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div className={RestoreOptionsStyles.imagePair}>
+        <img
+          src="/images/basic-before.jpg"
+          alt="Basic restoration - before"
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <img
+          src="/images/basic-after.jpg"
+          alt="Basic restoration - after"
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <h3>🌀 Restore Basic</h3>
+        <p><strong>3 Free Restorations.</strong> Clean up grayscale images instantly.</p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
+          Escape App Subscriptions – Try Free
+        </button>
+      </div>
+    </div>
+
+    {/* Restore Premium */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div className={RestoreOptionsStyles.imagePair}>
+        <img
+          src="/images/premium-before.jpg"
+          alt="Premium restoration - before"
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <img
+          src="/images/premium-after.jpg"
+          alt="Premium restoration - after"
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <h3>🌈 Restore Premium</h3>
+        <p><strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.</p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+          Experience Heritage-Grade Restoration
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
 
       {/* NEW: Kaze-Inspired Highlight Block */}
       <section className={styles.kazeSection}>

@@ -40,7 +40,7 @@
 
 /* Mobile Scroll Behavior */
 @media (max-width: 640px) {
-  .stepGrid {
+    .stepGrid {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -50,16 +50,22 @@
   }
 
   .stepCard {
-    min-width: 240px;
+    min-width: 88vw; /* Ensures card fits within screen width */
+    max-width: 88vw;
     flex: 0 0 auto;
     scroll-snap-align: start;
     margin-right: 1rem;
     text-align: center;
   }
+}
 
-  .stepEmoji {
-    font-size: 1.3rem;
-  }
+.swipePrompt {
+  font-size: 0.9rem;
+  color: #7a7263;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  opacity: 0.8;
 }
 
 .stepCard {

@@ -309,6 +309,9 @@ export default function Home() {
       
       {/* Restore Steps Section */}
         <section className={journeySteps.restoreJourney}>
+        <p className={journeySteps.restoreIntro}>
+          Every photo tells a story. Let&apos;s bring yours back to life — one step at a time.
+        </p>
         <h2 className={journeySteps.restoreTitle}>Restore Steps</h2>
         <div className={journeySteps.stepGrid}>
           {restoreStepsData.map((step, index) => (
@@ -322,49 +325,57 @@ export default function Home() {
       </section>
 
 
-      {/* Info Cards - info card section */}
+      {/* Info Cards Section - Dropdown Accordion Layout */}
         <section className={infoCardStyles.infoCardsSection}>
-        <h2 className={infoCardStyles.infoCardsTitle}>Why Choose Anastasis</h2>
+          <h2 className={infoCardStyles.infoCardsTitle}>Why Choose Anastasis</h2>
 
-        {/* Heritage */}
-        <div className={infoCardStyles.infoGroup}>
-          <h3 className={infoCardStyles.infoGroupTitle}>Heritage</h3>
-          <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards.filter(card => card.category === "heritage").map((card, index) => (
-              <div key={index} className={infoCardStyles.infoCard}>
-                <h4>{card.title}</h4>
-                <p>{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+          {/* Heritage */}
+          <details className={infoCardStyles.infoGroup} open>
+            <summary className={infoCardStyles.infoGroupTitle}>Heritage</summary>
+            <div className={infoCardStyles.infoCardsGrid}>
+              {infoCards
+                .filter(card => card.category === "heritage")
+                .map((card, index) => (
+                  <div key={index} className={infoCardStyles.infoCard}>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+            </div>
+          </details>
 
-        {/* Trust */}
-        <div className={infoCardStyles.infoGroup}>
-          <h3 className={infoCardStyles.infoGroupTitle}>Trust</h3>
-          <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards.filter(card => card.category === "trust").map((card, index) => (
-              <div key={index} className={infoCardStyles.infoCard}>
-                <h4>{card.title}</h4>
-                <p>{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+          {/* Trust */}
+          <details className={infoCardStyles.infoGroup}>
+            <summary className={infoCardStyles.infoGroupTitle}>Trust</summary>
+            <div className={infoCardStyles.infoCardsGrid}>
+              {infoCards
+                .filter(card => card.category === "trust")
+                .map((card, index) => (
+                  <div key={index} className={infoCardStyles.infoCard}>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+            </div>
+          </details>
 
-        {/* Technology */}
-        <div className={infoCardStyles.infoGroup}>
-          <h3 className={infoCardStyles.infoGroupTitle}>Technology</h3>
-          <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards.filter(card => card.category === "tech").map((card, index) => (
-              <div key={index} className={infoCardStyles.infoCard}>
-                <h4>{card.title}</h4>
-                <p>{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          {/* Technology */}
+          <details className={infoCardStyles.infoGroup}>
+            <summary className={infoCardStyles.infoGroupTitle}>Technology</summary>
+            <div className={infoCardStyles.infoCardsGrid}>
+              {infoCards
+                .filter(card => card.category === "tech")
+                .map((card, index) => (
+                  <div key={index} className={infoCardStyles.infoCard}>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                  </div>
+                ))}
+            </div>
+          </details>
+        </section>
+
+
 
       {/* Info Blocks */}
       <section className={infoStyles.infoWrap}>

@@ -1,36 +1,45 @@
-.restoreHighlight {
-  padding: 3rem 2rem;
-  background-color: #faf6f1;
-  border-top: 1px solid #e3ddcb;
-  text-align: center;
+.checklistSection {
+  padding: 4rem 2rem;
+  max-width: 780px;
+  margin: 4rem auto;
+  background: linear-gradient(to bottom right, #fdfcfb, #f5f7fa);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2dac6; /* subtle warm tone */
+  text-align: left;
 }
 
-.highlightContent {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.highlightList {
+.checklist {
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin-bottom: 2rem;
 }
 
-.highlightList li {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  color: #3a3555;
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  border-bottom: 1px solid #e1e1e1;
+  color: #2c2c2c;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
 }
 
-.highlightQuote {
-  font-size: 1.3rem;
-  font-style: italic;
-  color: #6d5a86;
-  margin-bottom: 1rem;
+.checklistItem:hover {
+  background-color: #f0f4f8;
+  padding-left: 0.5rem; /* slight slide effect on hover */
 }
 
-.highlightCTA {
-  font-size: 1rem;
-  color: #443c5e;
-  font-weight: 500;
+.checklistItem:last-child {
+  border-bottom: none;
+}
+
+.checklistItem::before {
+  content: "🧿"; /* Evil eye emoji only */
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #0a84ff; /* or your preferred color */
 }

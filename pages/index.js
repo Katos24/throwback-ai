@@ -1,28 +1,80 @@
-// pages/index.js
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
-import homeStyles from "../styles/Home.module.css";
 import heroStyles from "../styles/HeroSection.module.css";
-import infoStyles from "../styles/InfoSection.module.css";
-import featureStyles from "../styles/FeaturesSection.module.css";
-import faqStyles from "../styles/FAQSection.module.css";
-import testimonialStyles from "../styles/TestimonialsBadges.module.css";
-import restoreStyles from "../styles/BeforeAfter.module.css";
-import infoCardStyles from "../styles/InfoCardsSection.module.css";
-import journeySteps from "../styles/RestoreSteps.module.css";
-import competitorStyles from "../styles/CompetitorSection.module.css"; // NEW
-import techStyles from "../styles/TechnicalSection.module.css"; // NEW
-import pricingStyles from "../styles/PricingSection.module.css"; // NEW
-import migrationStyles from "../styles/MigrationSection.module.css"; // NEW
-import styles from "../styles/KazeSection.module.css";
-import optionCardStyles from "../styles/RestoreOptions.module.css";
 import RestoreOptionsStyles from "../styles/RestoreOptions.module.css";
+import featureStyles from "../styles/FeaturesSection.module.css";
+import pricingStyles from "../styles/PricingSection.module.css";
+import testimonialStyles from "../styles/TestimonialsBadges.module.css";
+import faqStyles from "../styles/FAQSection.module.css";
+import infoCardStyles from "../styles/InfoCardsSection.module.css";
+import infoStyles from "../styles/InfoSection.module.css";
+import migrationStyles from "../styles/MigrationSection.module.css";
 
+const features = [
+  {
+    emoji: "🧬",
+    title: "Heritage DNA Technology",
+    description:
+      "Our AI understands vintage photography techniques, film grain, and historical contexts better than generic apps.",
+  },
+  {
+    emoji: "🎯",
+    title: "Genealogy-Grade Quality",
+    description:
+      "Trusted by family historians and archivists. Results suitable for heritage documentation and professional genealogy work.",
+  },
+  {
+    emoji: "⚡",
+    title: "No Subscription Scams",
+    description:
+      "While others lock you into monthly fees, we charge fairly per restoration. Your money, your choice.",
+  },
+  {
+    emoji: "🔐",
+    title: "Fort Knox Privacy",
+    description:
+      "Your photos never leave secure processing and are auto-deleted within one hour.",
+  },
+];
 
+const testimonials = [
+  {
+    quote:
+      "Tried Remini and MyHeritage first - Anastasis blew them away. The historical accuracy is incredible.",
+    author: "Sarah M., Professional Genealogist",
+  },
+  {
+    quote:
+      "Finally escaped the subscription trap! Anastasis gave me museum-quality results without the monthly fees.",
+    author: "David L., Family Historian",
+  },
+  {
+    quote:
+      "After disappointing results from mainstream apps, Anastasis understood my 1920s family portrait perfectly.",
+    author: "Elena R., Heritage Researcher",
+  },
+];
+
+const trustBadges = [
+  {
+    icon: "/icons/lock.svg",
+    alt: "Secure Uploads",
+    text: "Secure Uploads",
+  },
+  {
+    icon: "/icons/delete.svg",
+    alt: "Auto Delete",
+    text: "Auto Delete in 1 Hour",
+  },
+  {
+    icon: "/icons/no-share.svg",
+    alt: "Never Shared",
+    text: "Never Shared or Sold",
+  },
+];
 
 const faqData = [
   {
@@ -55,118 +107,6 @@ const faqData = [
   },
 ];
 
-const testimonials = [
-  {
-    quote: "Tried Remini and MyHeritage first - Anastasis blew them away. The historical accuracy is incredible.",
-    author: "Sarah M., Professional Genealogist",
-  },
-  {
-    quote: "Finally escaped the subscription trap! Anastasis gave me museum-quality results without the monthly fees.",
-    author: "David L., Family Historian",
-  },
-  {
-    quote: "After disappointing results from mainstream apps, Anastasis understood my 1920s family portrait perfectly.",
-    author: "Elena R., Heritage Researcher",
-  },
-];
-
-const trustBadges = [
-  {
-    icon: "/icons/lock.svg",
-    alt: "Secure Uploads",
-    text: "Secure Uploads",
-  },
-  {
-    icon: "/icons/delete.svg",
-    alt: "Auto Delete",
-    text: "Auto Delete in 1 Hour",
-  },
-  {
-    icon: "/icons/no-share.svg",
-    alt: "Never Shared",
-    text: "Never Shared or Sold",
-  },
-];
-
-const restoreStepsData = [
-  {
-    emoji: "📤",
-    title: "Upload Photo",
-    description: "Scan or snap a vintage image. Clear lighting helps — no signup required.",
-  },
-  {
-    emoji: "✨",
-    title: "Restore Image",
-    description: "Basic: Enhance clarity and fix wear. Premium: Bring black & white to full color.",
-  },
-  {
-    emoji: "👁️",
-    title: "Preview & Refine",
-    description: "Compare before/after. Apply premium upgrades if you want vivid colorization.",
-  },
-  {
-    emoji: "📥",
-    title: "Download & Share",
-    description: "Save your restored photo instantly. Perfect for gifts, memorials, or heritage projects.",
-  },
-];
-
-const features = [
-  {
-    emoji: "🧬",
-    title: "Heritage DNA Technology",
-    description: "Our AI understands vintage photography techniques, film grain, and historical contexts better than generic apps.",
-  },
-  {
-    emoji: "🎯",
-    title: "Genealogy-Grade Quality",
-    description: "Trusted by family historians and archivists. Results suitable for heritage documentation and professional genealogy work.",
-  },
-  {
-    emoji: "⚡",
-    title: "No Subscription Scams",
-    description: "While others lock you into monthly fees, we charge fairly per restoration. Your money, your choice.",
-  },
-  {
-    emoji: "🔐",
-    title: "Fort Knox Privacy",
-    description: "Unlike cloud-based competitors, your photos never leave secure processing. Auto-deleted in 1 hour, guaranteed.",
-  },
-];
-
-const infoCards = [
-  {
-    title: "Greek-Inspired Brilliance",
-    description: "Anastasis means resurrection. Myth, legacy, and timeless design.",
-    category: "heritage",
-  },
-  {
-    title: "Preserve Family Heritage",
-    description: "Perfect for genealogists and memory-keepers.",
-    category: "heritage",
-  },
-  {
-    title: "No Account Required",
-    description: "Drag and drop — no storage or hidden terms.",
-    category: "trust",
-  },
-  {
-    title: "Secure & Private",
-    description: "Auto delete in 1 hour. We never store or sell your photos.",
-    category: "trust",
-  },
-  {
-    title: "Powered by Throwback AI",
-    description: "Advanced models revive texture, tone, and lost detail.",
-    category: "tech",
-  },
-  {
-    title: "Lifelike Restorations",
-    description: "Instant colorization, detail repair, and memory enhancement.",
-    category: "tech",
-  },
-];
-
 function FAQItem({ question, answer }) {
   const [open, setOpen] = useState(false);
   return (
@@ -187,7 +127,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Anastasis — Heritage Photo Restoration That Outperforms Mainstream Apps</title>
+        <title>
+          Anastasis — Heritage Photo Restoration That Outperforms Mainstream Apps
+        </title>
         <meta
           name="description"
           content="Tired of generic photo apps? Anastasis uses heritage-specific AI to restore family photos with genealogy-grade quality. No subscriptions, superior results."
@@ -197,461 +139,282 @@ export default function Home() {
       {/* Hero Section */}
       <section className={heroStyles.hero}>
         <div className={heroStyles.heroContent}>
-          {/* Competitive Hook */}
           <p className={heroStyles.competitiveHook}>
             Tired of generic photo apps that miss the soul of your memories?
           </p>
-
-          <h1 className={heroStyles.heroTitle}>While others restore photos, we resurrect memories</h1>
-          <p className={heroStyles.heroSubtitle}>Anastasis - Where Heritage Meets Tomorrow</p>
-
-          <p className={heroStyles.heroLeadText}>
-            Experience heritage-focused AI that understands your family&apos;s story, not just pixels.
+          <h1 className={heroStyles.heroTitle}>
+            While others restore photos, we resurrect memories
+          </h1>
+          <p className={heroStyles.heroSubtitle}>
+            Anastasis - Where Heritage Meets Tomorrow
           </p>
-
+          <p className={heroStyles.heroLeadText}>
+            Experience heritage-focused AI that understands your family&apos;s
+            story, not just pixels.
+          </p>
           <button
             className={heroStyles.heroCTAButton}
             onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
           >
             Try the AI That Understands History
           </button>
-
-          <ul className={heroStyles.heroChecklist}>
-            <li>✨ Industry-leading AI — Superior to mainstream apps</li>
-            <li>🏛️ Heritage-focused — Built for family legacy, not social media</li>
-            <li>🔒 Privacy-first — Your memories stay yours (unlike cloud services)</li>
-          </ul>
-
-         <div className={heroStyles.heroWhisper}>
-          <span className={heroStyles.quoteMark}>&ldquo;</span>
-          <span className={heroStyles.quoteText}>Finally, an app that gets family history.</span>
-          <span className={heroStyles.quoteMark}>&rdquo;</span>
+          <div className={heroStyles.heroWhisper}>
+            <span className={heroStyles.quoteMark}>&ldquo;</span>
+            <span className={heroStyles.quoteText}>
+              Finally, an app that gets family history.
+            </span>
+            <span className={heroStyles.quoteMark}>&rdquo;</span>
+          </div>
+          <div className={heroStyles.scrollHint}>
+            Discover why genealogists choose us ↓
+          </div>
         </div>
+      </section>
 
-          <div className={heroStyles.scrollHint}>Discover why genealogists choose us ↓</div>
+      {/* Restore Options + Before/After */}
+      <section className={RestoreOptionsStyles.restoreOptions}>
+        <h2>Choose Your Restoration Level</h2>
+        <div className={RestoreOptionsStyles.restoreCardGrid}>
+          {/* Restore Basic */}
+          <div className={RestoreOptionsStyles.restoreCard}>
+            <div className={RestoreOptionsStyles.imagePair}>
+              <img
+                src="/images/basic-before.jpg"
+                alt="Basic restoration - before"
+                className={RestoreOptionsStyles.pairedImage}
+              />
+              <img
+                src="/images/basic-after.jpg"
+                alt="Basic restoration - after"
+                className={RestoreOptionsStyles.pairedImage}
+              />
+            </div>
+            <div className={RestoreOptionsStyles.cardContent}>
+              <h3>🌀 Restore Basic</h3>
+              <p>
+                <strong>3 Free Restorations.</strong> Clean up grayscale images
+                instantly.
+              </p>
+              <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
+                Escape App Subscriptions – Try Free
+              </button>
+            </div>
+          </div>
+          {/* Restore Premium */}
+          <div className={RestoreOptionsStyles.restoreCard}>
+            <div className={RestoreOptionsStyles.imagePair}>
+              <img
+                src="/images/premium-before.jpg"
+                alt="Premium restoration - before"
+                className={RestoreOptionsStyles.pairedImage}
+              />
+              <img
+                src="/images/premium-after.jpg"
+                alt="Premium restoration - after"
+                className={RestoreOptionsStyles.pairedImage}
+              />
+            </div>
+            <div className={RestoreOptionsStyles.cardContent}>
+              <h3>🌈 Restore Premium</h3>
+              <p>
+                <strong>Full-color, HD magic.</strong> Advanced detail revival —
+                no subscriptions.
+              </p>
+              <button
+                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+              >
+                Experience Heritage-Grade Restoration
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
 
-
-    {/* Restore Options */}
-<section className={RestoreOptionsStyles.restoreOptions}>
-  <div className={RestoreOptionsStyles.restoreCardGrid}>
-
-    {/* Restore Basic */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <div className={RestoreOptionsStyles.imagePair}>
-        <img
-          src="/images/basic-before.jpg"
-          alt="Basic restoration - before"
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <img
-          src="/images/basic-after.jpg"
-          alt="Basic restoration - after"
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <h3>🌀 Restore Basic</h3>
-        <p><strong>3 Free Restorations.</strong> Clean up grayscale images instantly.</p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-          Escape App Subscriptions – Try Free
-        </button>
-      </div>
+{/* CLEAN FEATURES SECTION */}
+<section className={featureStyles.featuresSection}>
+  <h2>Built for Historical Photo Restoration</h2>
+  
+  {/* Three Key Points */}
+  <div className={featureStyles.keyPointsGrid}>
+    <div className={featureStyles.keyPoint}>
+      <div className={featureStyles.keyPointIcon}>🎞️</div>
+      <h3>Historical Accuracy</h3>
+      <p>AI trained for period-specific restoration</p>
     </div>
-
-    {/* Restore Premium */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <div className={RestoreOptionsStyles.imagePair}>
-        <img
-          src="/images/premium-before.jpg"
-          alt="Premium restoration - before"
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <img
-          src="/images/premium-after.jpg"
-          alt="Premium restoration - after"
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <h3>🌈 Restore Premium</h3>
-        <p><strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.</p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-          Experience Heritage-Grade Restoration
-        </button>
-      </div>
+    <div className={featureStyles.keyPoint}>
+      <div className={featureStyles.keyPointIcon}>🔒</div>
+      <h3>Privacy First</h3>
+      <p>No accounts, pay-per-use pricing</p>
     </div>
-
+    <div className={featureStyles.keyPoint}>
+      <div className={featureStyles.keyPointIcon}>🏛️</div>
+      <h3>Archival Quality</h3>
+      <p>Professional genealogy standards</p>
+    </div>
   </div>
 </section>
 
 
 
-
-
-
-
-
-
-      {/* NEW: Kaze-Inspired Highlight Block */}
-      <section className={styles.kazeSection}>
-        <div className={styles.kazeContainer}>
-          {/* Left Side */}
-          <div className={styles.kazeIntro}>
-            <h2>Why Anastasis Is Built for Families</h2>
-            <p>
-              Designed with legacy in mind — not likes. Anastasis restores your photos with emotional depth, historical context, and privacy-first values.
-            </p>
-            <button className={styles.kazeCTA}>Explore Features</button>
-          </div>
-
-          {/* Right Side */}
-          <div className={styles.kazeFeatures}>
-            {features.map((feature, index) => (
-              <div key={index} className={styles.kazeCard}>
-                <span className={styles.kazeEmoji}>{feature.emoji}</span>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-
-
-
-
-      {/* NEW: Competitive Differentiation Section */}
-      <section className={competitorStyles.whyAnastasis}>
-        <h2 className={competitorStyles.sectionTitle}>Why Anastasis Outperforms the Rest</h2>
-
-        <div className={competitorStyles.comparisonGrid}>
-          <div className={competitorStyles.comparisonRow}>
-            <div className={competitorStyles.competitorCard}>
-              <h3 className={competitorStyles.cardTitle} data-icon="❌">Other Apps</h3>
-              <ul className={competitorStyles.featureList}>
-                <li>One-size-fits-all filters</li>
-                <li>Designed for socials, not legacy</li>
-                <li>Recurring subscription payments</li>
-                <li>Low privacy standards</li>
-              </ul>
-            </div>
-            <div className={competitorStyles.anastasisCard}>
-              <h3 className={competitorStyles.cardTitle} data-icon="✅">Anastasis</h3>
-              <ul className={competitorStyles.featureList}>
-                <li>Crafted for historical photos</li>
-                <li>Focused on family legacy & restoration</li>
-                <li>Fair pay-per-use pricing</li>
-                <li>Privacy-first, no account required</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* Enhanced Features Section */}
-      <section className={featureStyles.featuresSection}>
-        <div className={featureStyles.heroFeatureGrid}>
-          {features.map((feature, index) => (
-            <div key={index} className={featureStyles.heroFeatureBubble}>
-              <h4>{feature.emoji} {feature.title}</h4>
-              <p>{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* NEW: Technical Superiority Section */}
-      <section className={techStyles.technicalEdge}>
-        <div className={techStyles.container}>
-          <h2 className={techStyles.sectionTitle}>The Throwback AI Advantage</h2>
-          <div className={techStyles.techGrid}>
-            <div className={techStyles.techCard}>
-              <div className={techStyles.techIcon}>🎞️</div>
-              <h3 className={techStyles.techTitle}>Period-Specific Processing</h3>
-              <p className={techStyles.techDescription}>
-                Our models understand 1890s daguerreotypes differently than 1970s Polaroids - unlike generic apps that treat all photos the same.
-              </p>
-            </div>
-            <div className={techStyles.techCard}>
-              <div className={techStyles.techIcon}>🔬</div>
-              <h3 className={techStyles.techTitle}>Archival-Grade Results</h3>
-              <p className={techStyles.techDescription}>
-                Museum and library quality standards. Your restored photos meet professional genealogy and archival requirements.
-              </p>
-            </div>
-            <div className={techStyles.techCard}>
-              <div className={techStyles.techIcon}>🏛️</div>
-              <h3 className={techStyles.techTitle}>Historical Context Awareness</h3>
-              <p className={techStyles.techDescription}>
-                Clothing, settings, and skin tones restored with historical accuracy that mainstream apps completely miss.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NEW: Pricing Transparency Section */}
+      {/* Pricing & Privacy Section */}
       <section className={pricingStyles.honestPricing}>
-        <div className={pricingStyles.container}>
-          <h2 className={migrationStyles.sectionTitle}>
-          Frustrated with Generic Photo Apps? You&apos;re Not Alone.
-        </h2>
-          <p className={pricingStyles.leadText}>
-            Stop paying for features you don’t use. With Anastasis, you only pay when you restore — no subscriptions, no strings.
-          </p>
+  <h2 className={pricingStyles.pricingHeading}>
+    One-Time Purchase <span className={pricingStyles.vsAccent}>vs</span> Monthly Subscriptions
+  </h2>
+  <p className={pricingStyles.subtitle}>
+    Buy credits once, use them whenever you need. No recurring charges. No hidden strings.
+  </p>
+          
           <div className={pricingStyles.pricingComparison}>
-            <div className={pricingStyles.competitorPricing}>
-              <h3 className={pricingStyles.pricingTitle}>Other Apps</h3>
-              <div className={pricingStyles.pricingAmount}>$9.99/month</div>
-              <p className={pricingStyles.pricingNote}>$119.88/year if you restore 10 photos</p>
-              <ul className={pricingStyles.pricingFeatures}>
-                <li>❌ Forced monthly payments</li>
+            <div className={pricingStyles.competitorCard}>
+              <h3>Other Apps</h3>
+              <div className={pricingStyles.priceDisplay}>
+                <span className={pricingStyles.currency}>$</span>
+                <span className={pricingStyles.amount}>9.99</span>
+                <span className={pricingStyles.perUnit}>per month</span>
+              </div>
+              <p className={pricingStyles.priceNote}>$120/year whether you use it or not</p>
+              <ul className={pricingStyles.featureList}>
+                <li>❌ Monthly recurring charges</li>
                 <li>❌ Pay even when not using</li>
-                <li>❌ Hard to cancel</li>
+                <li>❌ Account required</li>
               </ul>
             </div>
-            <div className={pricingStyles.anastasisPricing}>
-              <h3 className={pricingStyles.pricingTitle}>Anastasis</h3>
-              <div className={pricingStyles.pricingAmount}>$2.99 per photo</div>
-              <p className={pricingStyles.pricingNote}>$29.90 for 10 photos - pay as you go</p>
-              <ul className={pricingStyles.pricingFeatures}>
-                <li>✅ Pay only when you restore</li>
-                <li>✅ No monthly commitments</li>
-                <li>✅ Nothing to cancel</li>
+
+            <div className={pricingStyles.anastasisCard}>
+              <h3>Anastasis</h3>
+              <div className={pricingStyles.priceDisplay}>
+                <span className={pricingStyles.currency}>$</span>
+                <span className={pricingStyles.amount}>2.99</span>
+                <span className={pricingStyles.perUnit}>per photo</span>
+              </div>
+              <p className={pricingStyles.priceNote}>Buy credits, use anytime</p>
+              <ul className={pricingStyles.featureList}>
+                <li>✅ One-time purchase</li>
+                <li>✅ Credits never expire</li>
+                <li>✅ Buy more as needed</li>
               </ul>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Before/After Showcase */}
-      <section className={restoreStyles.beforeAfter}>
-        <h2 className={restoreStyles.sectionTitle}>See the Difference</h2>
-        <div className={restoreStyles.splitGrid}>
-          <div className={`${restoreStyles.flipCard} ${restoreStyles.restoreFadeIn}`}>
-            <div className={restoreStyles.flipCardInner}>
-              <div className={restoreStyles.flipCardFront}>
-                <Image
-                  src="/images/restore-original.png"
-                  alt="Original (Basic side)"
-                  width={300}
-                  height={360}
-                />
-                <h4>Original → Basic</h4>
-              </div>
-              <div className={restoreStyles.flipCardBack}>
-                <Image
-                  src="/images/restore-basic.png"
-                  alt="Basic Restore"
-                  width={300}
-                  height={360}
-                />
-                <h4>Basic Restored</h4>
-              </div>
-            </div>
-            <p className={restoreStyles.restoreCaption}>
-              Quick cleanup with visible enhancements — powered by AI.
-            </p>
-          </div>
-          <div className={`${restoreStyles.flipCard} ${restoreStyles.restoreFadeIn}`}>
-            <div className={restoreStyles.flipCardInner}>
-              <div className={restoreStyles.flipCardFront}>
-                <Image
-                  src="/images/restore-original.png"
-                  alt="Original (Premium side)"
-                  width={300}
-                  height={360}
-                />
-                <h4>Original → Premium</h4>
-              </div>
-              <div className={restoreStyles.flipCardBack}>
-                <Image
-                  src="/images/restore-premium.png"
-                  alt="Premium Restore"
-                  width={300}
-                  height={360}
-                />
-                <h4>Premium Restored</h4>
-              </div>
-            </div>
-            <p className={restoreStyles.restoreCaption}>
-              Full-color resurrection with lifelike vibrance and depth.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Greek Origin */}
-      <section className={infoStyles.infoGreek}>
-        <p>
-          <strong>Anastasis</strong> (Greek for &quot;resurrection&quot;) represents bringing your old photos back to life, restoring memories with the magic of AI.
-        </p>
-      </section>
-
-      {/* Restore Steps Section */}
-      <section className={journeySteps.restoreJourney}>
-        <p className={journeySteps.restoreIntro}>
-          Every photo tells a story. Let&apos;s bring yours back to life — one step at a time.
-        </p>
-        <h2 className={journeySteps.restoreTitle}>Restore Steps</h2>
-        <p className={journeySteps.swipePrompt}>Swipe to explore the journey →</p>
-        <div className={journeySteps.stepGrid}>
-          {restoreStepsData.map((step, index) => (
-            <div key={index} className={journeySteps.stepCard}>
-              <div className={journeySteps.stepEmoji}>{step.emoji}</div>
-              <h3 className={journeySteps.stepTitle}>{step.title}</h3>
-              <p className={journeySteps.stepDescription}>{step.description}</p>
+          <div className={pricingStyles.trustCardsGrid}>
+          {[
+            { icon: "🔒", label: "No account required" },
+            { icon: "💳", label: "Credits never expire" },
+            { icon: "🗑️", label: "Photos deleted after 24hrs" },
+          ].map((point, i) => (
+            <div key={i} className={pricingStyles.trustCard}>
+              <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
+              <p className={pricingStyles.trustCardLabel}>{point.label}</p>
             </div>
           ))}
-        </div>
+        </div> 
       </section>
 
-      {/* Info Cards Section */}
+      {/* Our Story & Heritage */}
       <section className={infoCardStyles.infoCardsSection}>
-        <h2 className={infoCardStyles.infoCardsTitle}>Why Choose Anastasis</h2>
-        <details className={infoCardStyles.infoGroup} open>
-          <summary className={infoCardStyles.infoGroupTitle}>Heritage</summary>
+        <h2>Our Story & Heritage</h2>
+        <p>
+          <strong>Anastasis</strong> (Greek for &quot;resurrection&quot;) means
+          bringing old photos back to life, restoring memories with the magic of
+          AI.
+        </p>
+
+        {/* Info Cards grouped by category */}
+        <details open>
+          <summary>Heritage</summary>
           <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards
-              .filter(card => card.category === "heritage")
-              .map((card, index) => (
-                <div key={index} className={infoCardStyles.infoCard}>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-          </div>
-        </details>
-        <details className={infoCardStyles.infoGroup}>
-          <summary className={infoCardStyles.infoGroupTitle}>Trust</summary>
-          <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards
-              .filter(card => card.category === "trust")
-              .map((card, index) => (
-                <div key={index} className={infoCardStyles.infoCard}>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-          </div>
-        </details>
-        <details className={infoCardStyles.infoGroup}>
-          <summary className={infoCardStyles.infoGroupTitle}>Technology</summary>
-          <div className={infoCardStyles.infoCardsGrid}>
-            {infoCards
-              .filter(card => card.category === "tech")
-              .map((card, index) => (
-                <div key={index} className={infoCardStyles.infoCard}>
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                </div>
-              ))}
-          </div>
-        </details>
-      </section>
-
-      {/* Info Blocks */}
-      <section className={infoStyles.infoWrap}>
-        <div className={infoStyles.infoBlock}>
-          <div className={infoStyles.beforeAfterContainer}>
-            <Image src="/images/greek-after.png" alt="Before restoration" width={400} height={300} />
-            <Image src="/images/greek-before.png" alt="After restoration" width={400} height={300} />
-          </div>
-          <div className={infoStyles.infoText}>
-            <h2>Every Scar Tells a Story</h2>
-            <p>
-              Creases, stains, and tears — our AI doesn&apos;t erase history, it enhances it.
-              Celebrate each mark as part of your legacy.
-            </p>
-          </div>
-        </div>
-        <div className={`${infoStyles.infoBlock} ${infoStyles.reverse}`}>
-          <div className={infoStyles.beforeAfterContainer}>
-            <Image src="/images/info-2-before.png" alt="Before restoration" width={400} height={300} />
-            <Image src="/images/info-2-after.png" alt="After restoration" width={400} height={300} />
-          </div>
-          <div className={infoStyles.infoText}>
-            <h2>Revive Connections</h2>
-            <p>
-              Remember the warmth in someone&apos;s smile or the look in their eyes.
-              Anastasis helps you reconnect with cherished faces and moments.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* NEW: Migration Section */}
-      <section className={migrationStyles.switchToAnastasis}>
-        <div className={migrationStyles.container}>
-          <h2 className={migrationStyles.sectionTitle}>Ready to Switch from Generic Apps?</h2>
-          <p className={migrationStyles.sectionLead}>
-            We built Anastasis for families who care about legacy, not likes.
-          </p>
-          <div className={migrationStyles.migrationOffer}>
-            <h3 className={migrationStyles.offerTitle}>Special Offer for App Refugees</h3>
-            <p className={migrationStyles.offerDescription}>
-              Disappointed by mainstream photo apps? Try Anastasis with 5 free premium restorations and experience the difference heritage-focused AI makes.
-            </p>
-            <button 
-              className={migrationStyles.offerButton}
-              onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-            >
-              Claim Your Upgrade
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Testimonials */}
-      <section className={testimonialStyles.testimonials}>
-        <h2>What Our Users Say</h2>
-        <div className={testimonialStyles.testimonialGrid}>
-          {testimonials.map((testimonial, index) => (
-            <blockquote key={index}>
-              <p>{testimonial.quote}</p>
-              <cite>— {testimonial.author}</cite>
-            </blockquote>
-          ))}
-        </div>
-      </section>
-
-      {/* Trust Badges */}
-      <section className={testimonialStyles.trustBadges}>
-        <h2>Your Privacy, Guaranteed</h2>
-        <div className={testimonialStyles.badgeGrid}>
-          {trustBadges.map((badge, index) => (
-            <div key={index} className={testimonialStyles.badgeItem}>
-              <Image src={badge.icon} alt={badge.alt} width={40} height={40} />
-              <p>{badge.text}</p>
+            <div className={infoCardStyles.infoCard}>
+              <h3>Greek-Inspired Brilliance</h3>
+              <p>Myth, legacy, and timeless design.</p>
             </div>
-          ))}
-        </div>
+            <div className={infoCardStyles.infoCard}>
+              <h3>Preserve Family Heritage</h3>
+              <p>Perfect for genealogists and memory-keepers.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Trust</summary>
+          <div className={infoCardStyles.infoCardsGrid}>
+            <div className={infoCardStyles.infoCard}>
+              <h3>No Account Required</h3>
+              <p>Drag and drop — no storage or hidden terms.</p>
+            </div>
+            <div className={infoCardStyles.infoCard}>
+              <h3>Secure & Private</h3>
+              <p>Auto delete in 1 hour. We never store or sell your photos.</p>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Technology</summary>
+          <div className={infoCardStyles.infoCardsGrid}>
+            <div className={infoCardStyles.infoCard}>
+              <h3>Powered by Throwback AI</h3>
+              <p>Advanced models revive texture, tone, and lost detail.</p>
+            </div>
+            <div className={infoCardStyles.infoCard}>
+              <h3>Lifelike Restorations</h3>
+              <p>Instantly see your memories renewed — no filters.</p>
+            </div>
+          </div>
+        </details>
       </section>
 
-      {/* Enhanced FAQ */}
+      {/* Switch to Anastasis (Migration Offer + Checklist) */}
+      <section className={migrationStyles.migrationOffer}>
+        <h2>Switch to Anastasis with Confidence</h2>
+        <p>
+          Ready to leave subscription traps behind? We’ll help migrate your
+          restorations quickly — no data lost, no hassle.
+        </p>
+        <ul>
+          <li>No signups or accounts required</li>
+          <li>Pay-per-use with no recurring fees</li>
+          <li>Heritage-focused AI models you won’t find anywhere else</li>
+          <li>Secure and private — your family photos are safe with us</li>
+        </ul>
+        <button onClick={() => router.push("/migration-offer")}>
+          Claim Your Migration Offer
+        </button>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={testimonialStyles.testimonialsSection}>
+        <h2>What Genealogists Say</h2>
+        {testimonials.map(({ quote, author }, index) => (
+          <blockquote key={index} className={testimonialStyles.testimonial}>
+            <p>“{quote}”</p>
+            <footer>— {author}</footer>
+          </blockquote>
+        ))}
+      </section>
+
+      {/* FAQ Section */}
       <section className={faqStyles.faqSection}>
         <h2>Frequently Asked Questions</h2>
-        <div className={faqStyles.faqAccordion}>
-          {faqData.map((item, index) => (
-            <FAQItem key={index} question={item.q} answer={item.a} />
-          ))}
-        </div>
+        {faqData.map(({ q, a }, i) => (
+          <FAQItem key={i} question={q} answer={a} />
+        ))}
       </section>
 
       {/* SEO Text */}
-      <section className={homeStyles.seoText} aria-label="Anastasis Photo Restoration AI">
-        <h2>Restore and Revive Your Memories with Anastasis</h2>
+      <section className={infoStyles.seoTextSection}>
+        <h2>About Anastasis AI Photo Restoration</h2>
         <p>
-          Anastasis combines advanced AI technology with heritage expertise to restore your precious family photos. 
-          Unlike generic photo apps, our specialized algorithms understand historical photography techniques and contexts, 
-          delivering genealogy-grade results without subscription fees.
+          Anastasis is the only photo restoration service designed from the
+          ground up with genealogy and family heritage in mind. Unlike generic
+          photo apps, Anastasis uses AI trained on decades of vintage photo
+          styles to revive your old pictures with unmatched detail and accuracy.
+          Our pay-per-use model lets you restore only what you want, avoiding
+          costly subscriptions. Privacy and family legacy are our top priority —
+          your images are secure and auto-deleted after one hour. Choose
+          Anastasis for heritage-grade photo revival trusted by professional
+          genealogists and family historians worldwide.
         </p>
       </section>
     </>

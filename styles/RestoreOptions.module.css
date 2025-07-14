@@ -77,3 +77,13 @@
 .cardContent button:hover {
   background-color: #3a236b;
 }
+
+.restoreOptions > h2 {
+  font-size: 2.8rem;          /* Larger size for impact */
+  font-weight: 700;           /* Bold but not too heavy */
+  color: #f0f0f0;             /* Soft white for good contrast on #111 */
+  text-align: center;         /* Centered horizontally */
+  margin-bottom: 3rem;        /* Spacing below the title */
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* subtle shadow to lift text */
+}

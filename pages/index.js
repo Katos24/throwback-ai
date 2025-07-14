@@ -182,7 +182,7 @@ export default function Home() {
         <p className={heroStyles.heroSubtitle}>The Resurrection of Memories</p>
 
         <p className={heroStyles.heroLeadText}>
-          Restore your family's legacy with lifelike color, clarity, and warmth — powered by AI.
+          Restore your family&apos;s legacy with lifelike color, clarity, and warmth — powered by AI.
         </p>
 
         <button

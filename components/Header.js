@@ -51,10 +51,12 @@ export default function Header({ showMenu, setShowMenu }) {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
-        ANASTASIS 🌀
-      </Link>
+      {/* ✅ LOGO LINK */}
+     <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
+      ANASTASIS 🌀
+    </Link>
 
+      {/* Hamburger */}
       <button
         className={styles.hamburger}
         onClick={() => setShowMenu(!showMenu)}
@@ -65,45 +67,47 @@ export default function Header({ showMenu, setShowMenu }) {
         <span className={styles.bar}></span>
       </button>
 
+      {/* Nav Menu */}
       <nav
         ref={navRef}
         className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}
       >
-        <Link href="/" className={styles.navLink} onClick={() => setShowMenu(false)}>
-          Home
+        <Link href="/" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Home
+          </a>
         </Link>
 
-        {/* Updated links */}
-        <Link
-          href="/replicate/restore-basic"
-          className={styles.navLink}
-          onClick={() => setShowMenu(false)}
-        >
-          Restore Image Basic
-        </Link>
-        <Link
-          href="/replicate/restore-premium"
-          className={styles.navLink}
-          onClick={() => setShowMenu(false)}
-        >
-          Restore Premium
+        <Link href="/replicate/restore-basic" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Restore Image Basic
+          </a>
         </Link>
 
-        <Link href="/about" className={styles.navLink} onClick={() => setShowMenu(false)}>
-          About
+        <Link href="/replicate/restore-premium" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Restore Premium
+          </a>
         </Link>
-        <Link href="/pricing" className={styles.navLink} onClick={() => setShowMenu(false)}>
-          Pricing
+
+        <Link href="/about" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>
+            About
+          </a>
+        </Link>
+
+        <Link href="/pricing" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Pricing
+          </a>
         </Link>
 
         {user ? (
           <>
-            <Link
-              href="/profile"
-              className={styles.navBtn}
-              onClick={() => setShowMenu(false)}
-            >
-              {user.email || "Profile"}
+            <Link href="/profile" legacyBehavior>
+              <a className={styles.navBtn} onClick={() => setShowMenu(false)}>
+                {user.email || "Profile"}
+              </a>
             </Link>
             <button
               onClick={handleSignOut}
@@ -122,19 +126,15 @@ export default function Header({ showMenu, setShowMenu }) {
           </>
         ) : (
           <>
-            <Link
-              href="/login"
-              className={styles.navBtn}
-              onClick={() => setShowMenu(false)}
-            >
-              Login
+            <Link href="/login" legacyBehavior>
+              <a className={styles.navBtn} onClick={() => setShowMenu(false)}>
+                Login
+              </a>
             </Link>
-            <Link
-              href="/signup"
-              className={styles.navBtn}
-              onClick={() => setShowMenu(false)}
-            >
-              Sign Up
+            <Link href="/signup" legacyBehavior>
+              <a className={styles.navBtn} onClick={() => setShowMenu(false)}>
+                Sign Up
+              </a>
             </Link>
           </>
         )}

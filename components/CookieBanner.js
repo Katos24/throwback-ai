@@ -32,8 +32,11 @@ export default function CookieBanner() {
     >
       <p style={{ margin: 0, flex: 1 }}>
         We use cookies to improve your experience. By using our site, you agree to our{" "}
-        <Link href="/privacy" passHref>
-          <a style={{ color: "#fff", textDecoration: "underline" }}>Privacy Policy</a>
+        <Link
+          href="/privacy"
+          style={{ color: "#fff", textDecoration: "underline" }}
+        >
+          Privacy Policy
         </Link>.
       </p>
       <div>

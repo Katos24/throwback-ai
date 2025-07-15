@@ -136,40 +136,41 @@ export default function Home() {
         />
       </Head>
 
-      {/* Hero Section */}
-      <section className={heroStyles.hero}>
-        <div className={heroStyles.heroContent}>
-          <p className={heroStyles.competitiveHook}>
-            Tired of generic photo apps that miss the soul of your memories?
-          </p>
-          <h1 className={heroStyles.heroTitle}>
-            While others restore photos, we resurrect memories
-          </h1>
-          <p className={heroStyles.heroSubtitle}>
-            Anastasis - Where Heritage Meets Tomorrow
-          </p>
-          <p className={heroStyles.heroLeadText}>
-            Experience heritage-focused AI that understands your family&apos;s
-            story, not just pixels.
-          </p>
-          <button
-            className={heroStyles.heroCTAButton}
-            onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-          >
-            Try the AI That Understands History
-          </button>
-          <div className={heroStyles.heroWhisper}>
-            <span className={heroStyles.quoteMark}>&ldquo;</span>
-            <span className={heroStyles.quoteText}>
-              Finally, an app that gets family history.
-            </span>
-            <span className={heroStyles.quoteMark}>&rdquo;</span>
-          </div>
-          <div className={heroStyles.scrollHint}>
-            Discover why genealogists choose us ↓
-          </div>
-        </div>
-      </section>
+     {/* Hero Section */}
+<section className={heroStyles.hero}>
+  <div className={heroStyles.heroContent}>
+    <h1 className={heroStyles.heroTitle}>
+      Your grandmother's wedding photo deserves more than a generic filter.
+    </h1>
+    <p className={heroStyles.heroLeadText}>
+      Trained on vintage archives. Designed for legacy.
+    </p>
+    <button
+      className={heroStyles.heroCTAButton}
+      onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+    >
+      See Your History in Full Color
+    </button>
+
+    <div className={heroStyles.heroVideoDemo}>
+      <p className={heroStyles.videoLabel}>Watch it unfold:</p>
+      <video
+        src="/images/transformation.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={heroStyles.transformationVideo}
+      />
+    </div>
+
+    <div className={heroStyles.scrollHint}>
+      Discover the power of preservation ↓
+    </div>
+  </div>
+</section>
+
+
 
       {/* Restore Options + Before/After */}
       <section className={RestoreOptionsStyles.restoreOptions}>

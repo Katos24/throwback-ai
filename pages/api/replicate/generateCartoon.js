@@ -3,7 +3,7 @@ import Replicate from "replicate";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb", // increase as needed for your image size
+      sizeLimit: "10mb", // increase if needed for large images
     },
   },
 };
@@ -14,6 +14,7 @@ const replicate = new Replicate({
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Ensure imageBase64 does NOT include the "data:image/png;base64," prefix
+    // Defensive: strip data URL prefix if it exists
     const base64Data = imageBase64.startsWith("data:")
       ? imageBase64.split(",")[1]
       : imageBase64;
@@ -39,14 +40,13 @@ export default async function handler(req, res) {
       },
     });
 
-    // Poll for completion
+    // Poll for prediction result
     const poll = async (id, maxAttempts = 30, interval = 1500) => {
       let attempts = 0;
       while (attempts < maxAttempts) {
         const result = await replicate.predictions.get(id);
         if (result.status === "succeeded") return result.output;
-        if (result.status === "failed")
-          throw new Error(result.error || "Prediction failed");
+        if (result.status === "failed") throw new Error(result.error || "Prediction failed");
         await new Promise((r) => setTimeout(r, interval));
         attempts++;
       }
@@ -54,12 +54,11 @@ export default async function handler(req, res) {
     };
 
     const output = await poll(prediction.id);
-
     const imageUrl = Array.isArray(output) ? output[0] : output;
 
-    res.status(200).json({ imageUrl });
+    return res.status(200).json({ imageUrl });
   } catch (error) {
     console.error("Error calling Replicate:", error);
-    res.status(500).json({ error: error.message || "Failed to generate image" });
+    return res.status(500).json({ error: error.message || "Failed to generate image" });
   }
 }

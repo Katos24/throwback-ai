@@ -1,0 +1,82 @@
+/* === HERO BUBBLE GRID === */
+.heroBubbleGrid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Individual larger "heroBubble" style */
+.heroBubble {
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e6dcc6;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  max-width: 700px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  color: #2c2c2c;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.heroBubble:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.heroBubble h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: #2c3e50;
+}
+
+.heroBubble p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* === FEATURE BUBBLE GRID === */
+.heroFeatureGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+  max-width: 900px;
+}
+
+/* Smaller "feature bubbles" */
+.heroFeatureBubble {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d8cbb2;
+  border-radius: 2rem;
+  padding: 1.25rem 1.5rem;
+  max-width: 280px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  color: #2c2c2c;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.heroFeatureBubble:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.heroFeatureBubble h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.heroFeatureBubble p {
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.4;
+}

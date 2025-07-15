@@ -1,5 +1,6 @@
 import Replicate from "replicate";
 import { createClient } from "@supabase/supabase-js";
+import { modelCosts, modelVersions } from "../../lib/modelCosts";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,

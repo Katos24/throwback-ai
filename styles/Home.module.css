@@ -1,394 +1,6 @@
-/* === HERO SECTION === */
-.hero {
-  position: relative;
-  padding: clamp(3rem, 6vw, 5rem) 1rem;
-  text-align: center;
-  background-image: url('/images/greek-theme.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #111;
-  overflow: hidden;
-  color: #f0f0f0;
-  z-index: 10;
-}
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1;
-}
 
-.heroContent {
-  position: relative;
-  z-index: 2;
-  max-width: 1000px;
-  margin: 0 auto;
-}
 
-.heroTitle {
-  font-size: clamp(2.5rem, 6vw + 1rem, 4.75rem);
-  font-family: 'GFS Didot', serif;
-  font-weight: 900;
-  color: #fefefe;
-  margin-bottom: 0.4rem;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
-  letter-spacing: 1px;
-  position: relative;
-}
-
-.heroTitle::after {
-  content: '🌿';
-  font-size: 1.5rem;
-  position: absolute;
-  right: -2rem;
-  top: 0.5rem;
-  opacity: 0.8;
-}
-
-.heroSubtitle {
-  font-size: clamp(1.2rem, 3vw, 1.4rem);
-  font-style: italic;
-  font-weight: 600;
-  color: #ffdba0;
-  margin-bottom: 2rem;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-/* === CTA BUTTON === */
-.heroCTAContainer {
-  margin-top: 2.5rem;
-  text-align: center;
-}
-
-.heroCTAButton {
-  display: inline-block;
-  background-color: #bfae82;
-  color: #111;
-  padding: 0.75rem 1.75rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.heroCTAButton:hover,
-.heroCTAButton:focus {
-  background-color: #a4926a;
-  transform: scale(1.05);
-  outline: none;
-}
-
-/* === FEATURE BUBBLES === */
-.heroFeatureGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 2rem auto 4rem;
-  padding: 0 1rem;
-  max-width: 900px;
-}
-
-.heroFeatureBubble {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #d8cbb2;
-  border-radius: 2rem;
-  padding: 1.25rem 1.5rem;
-  max-width: 280px;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  color: #2c2c2c;
-  backdrop-filter: blur(5px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.heroFeatureBubble:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.1);
-}
-
-.heroFeatureBubble h4 {
-  font-size: 1rem;
-  margin-bottom: 0.4rem;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.heroFeatureBubble p {
-  font-size: 0.85rem;
-  color: #444;
-  line-height: 1.4;
-}
-
-/* === RESTORE JOURNEY === */
-.restoreJourney {
-  background: #0f0f0f;
-  padding: 60px 20px;
-  color: #eee;
-  text-align: center;
-}
-
-.restoreJourney h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #00ffe7;
-  font-weight: 700;
-}
-
-.journeySteps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 32px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.journeyCard {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 0 12px rgba(0, 255, 231, 0.05);
-  text-align: left;
-  transition: transform 0.2s ease;
-  animation: fadeSlideUp 0.8s ease forwards;
-  opacity: 0;
-}
-
-.journeyCard:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.journeyCard h3 {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  color: #00ffe7;
-}
-
-.journeyCard p {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #ccc;
-}
-
-/* Staggered animation delays */
-.journeySteps > div:nth-child(1) { animation-delay: 0.1s; }
-.journeySteps > div:nth-child(2) { animation-delay: 0.2s; }
-.journeySteps > div:nth-child(3) { animation-delay: 0.3s; }
-.journeySteps > div:nth-child(4) { animation-delay: 0.4s; }
-.journeySteps > div:nth-child(5) { animation-delay: 0.5s; }
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === SEO TEXT SECTION === */
-.seoText {
-  max-width: 700px;
-  margin: 2rem auto;
-  color: #666;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  padding: 0 1rem;
-}
-
-/* === FOOTER === */
-.footer {
-  background: #0a0a0a;
-  color: #666;
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 0.9rem;
-}
-
-/* === GREEK THEME SECTION === */
-.infoGreek {
-  margin: 2rem auto;
-  max-width: 600px;
-  font-style: italic;
-  font-size: 1.1rem;
-  color: #555;
-  text-align: center;
-  background: #f9f7f4;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
-}
-
-.greekBackground {
-  width: 100%;
-  min-height: 600px; 
-  height: auto;
-  background-image: url('/images/greek-theme.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  position: relative;
-  color: #fff;
-  font-family: 'Georgia', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem 2rem;
-  box-sizing: border-box;
-}
-
-.greekBackground::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 51, 102, 0.5);
-  z-index: 0;
-}
-
-.greekBackground > .content,
-.greekBackground > .greekContent {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-@media (max-width: 600px) {
-  .greekBackground {
-    min-height: 220px;
-    padding: 1rem 1rem;
-  }
-  .greekBackground > .content,
-  .greekBackground > .greekContent {
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-}
-
-/* === GREEK BEFORE & AFTER === */
-.beforeAfterSection {
-  background: radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 100%);
-  box-shadow: inset 0 0 40px 5px rgba(0, 255, 231, 0.2), inset 0 0 60px 10px rgba(255, 0, 255, 0.15);
-  padding: 60px 20px;
-  border-radius: 20px;
-}
-
-.beforeAfterSection h2 {
-  font-size: 2rem;
-  margin-bottom: 24px;
-  color: #00ffe7;
-}
-
-.beforeAfterImagesGreek {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.beforeAfterImagesGreek img {
-  border-radius: 8px;
-  max-width: 100%;
-  height: auto;
-  box-shadow: 0 0 12px rgba(0, 255, 231, 0.3);
-}
-
-/* === OPTION CARDS (Hero) === */
-.optionGridHero {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px;
-  margin-top: 48px;
-}
-
-.optionCardBasic,
-.optionCardPremium {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1.5px solid rgba(0, 30, 90, 0.2);
-  color: #1a1a1a;
-  border-radius: 16px;
-  padding: 30px 38px;
-  width: 360px;
-  height: 210px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-family: 'GFS Didot', serif;
-  backdrop-filter: blur(10px);
-}
-
-.optionCardPremium {
-  background: rgba(255, 235, 250, 0.5);
-  border-color: rgba(120, 60, 150, 0.2);
-  color: #340033;
-}
-
-.optionCardBasic:hover,
-.optionCardPremium:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.65);
-}
-
-.optionGridHero .optionCard h3 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 8px 0 14px;
-  color: inherit;
-  text-shadow: none;
-}
-
-.optionGridHero .optionCard p {
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 1.5;
-  flex-grow: 1;
-  margin: 0;
-  color: inherit;
-  text-shadow: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 6px;
-}
-
-@media (max-width: 600px) {
-  .optionCardBasic,
-  .optionCardPremium {
-    width: 100%;
-    max-width: 360px;
-    height: auto;
-    padding: 26px 30px;
-  }
-
-  .optionGridHero .optionCard h3 {
-    font-size: 1.6rem;
-  }
-
-  .optionGridHero .optionCard p {
-    font-size: 1.05rem;
-  }
-}
 
 /* === RESTORE ROW === */
 .restoreRow {
@@ -431,33 +43,45 @@
   color: #333;
 }
 
-/* === RESPONSIVE TWEAKS === */
-@media (max-width: 768px) {
-  .journeySteps {
-    grid-template-columns: 1fr;
-  }
+
+
+.footer {
+  background-color: #111;
+  color: #ccc;
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
 }
 
-@media (max-width: 640px) {
-  .heroTitle {
-    font-size: 2.75rem;
-  }
+.footerInner {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-  .heroFeatureGrid {
-    flex-direction: column;
-    align-items: center;
-  }
+.footerText {
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
 
-  .heroFeatureBubble {
-    max-width: 100%;
-    padding: 1.25rem;
-  }
+.footerLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-weight: 500;
+}
 
-  .optionCardBasic,
-  .optionCardPremium {
-    width: 100%;
-    max-width: 360px;
-    height: auto;
-    padding: 26px 30px;
-  }
+.footerLinks a {
+  color: #ffdba0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: #fff;
+}
+
+.separator {
+  opacity: 0.6;
 }

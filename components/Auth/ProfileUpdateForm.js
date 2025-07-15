@@ -1,6 +1,6 @@
 // components/ProfileUpdateForm.js
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 export default function ProfileUpdateForm() {
   const [profile, setProfile] = useState({ username: '', email: '' });

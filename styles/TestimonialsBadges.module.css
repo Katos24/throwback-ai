@@ -1,6 +1,6 @@
-/* Testimonials Section */
+/* 🌟 Testimonials Section */
 .testimonials {
-  padding: 4rem 1.5rem;
+  padding: 5rem 1.5rem; /* more breathing space top/bottom */
   background-color: #f5f3ed;
   color: #2c3e50;
   font-family: 'Playfair Display', serif;
@@ -8,11 +8,12 @@
 }
 
 .testimonials h2 {
-  font-size: 1.9rem;
+  font-size: 2.2rem;  /* slightly larger for prominence */
   margin-bottom: 2.5rem;
   font-weight: 700;
   color: #3b3b3b;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .testimonialGrid {
@@ -24,12 +25,12 @@
 }
 
 .testimonialGrid blockquote {
-  background-color: #fff;
-  padding: 1.75rem;
+  background-color: #ffffff;
+  padding: 2rem; /* slightly more for breathing room */
   border-radius: 16px;
   font-style: italic;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: #3c3c3c;
   border-left: 4px solid #bfae82;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
@@ -44,7 +45,7 @@
 
 .testimonialGrid blockquote::before {
   content: "“";
-  font-size: 3.25rem;
+  font-size: 3.5rem;
   color: #bfae82;
   position: absolute;
   top: -18px;
@@ -54,41 +55,42 @@
 
 .testimonialGrid cite {
   display: block;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   font-size: 0.9rem;
   color: #666;
   font-style: normal;
+  letter-spacing: 0.2px;
 }
 
 
-/* Trust Badges */
-
+/* ✅ Trust Badges Section */
 .trustBadges {
-  padding: 3.5rem 1.5rem;
+  padding: 4rem 1.5rem; /* match vertical rhythm */
   background: linear-gradient(135deg, #fafaf9, #f1efe6);
   font-family: 'Playfair Display', serif;
   color: #2c3e50;
+  text-align: center;
 }
 
 .badgeGrid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.75rem;  /* slightly wider gaps for balance */
   max-width: 960px;
   margin: 0 auto;
 }
 
 .badgeItem {
-  background: #fff;
-  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  padding: 1.5rem 1.75rem; /* more generous inner space */
   border-radius: 12px;
   border: 1px solid #e3dbc2;
   box-shadow: 0 4px 16px rgba(0,0,0,0.04);
   font-family: 'Lato', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #3b3b3b;
-  line-height: 1.5;
+  line-height: 1.55;
   text-align: center;
   min-width: 160px;
   max-width: 200px;

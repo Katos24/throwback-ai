@@ -9,7 +9,6 @@
   opacity: 0.5;
 }
 
-
 .infoCardsSection {
   padding: 5rem 1.5rem;
   background-color: #121212;
@@ -20,7 +19,6 @@
   margin: 0 auto;
   border-radius: 20px;
 }
-
 
 .infoCardsTitle {
   text-align: center;
@@ -65,6 +63,8 @@
   opacity: 0.12;
 }
 
+
+
 .infoCard:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
@@ -83,7 +83,7 @@
   line-height: 1.6;
 }
 
-/* Category group heading */
+/* Accordion/Details Container */
 .infoGroup {
   margin-bottom: 2.5rem;
   border: 1px solid #2c2c2c;
@@ -92,16 +92,19 @@
   overflow: hidden;
 }
 
+/* Accordion Title */
 .infoGroupTitle {
-  padding: 1rem 1.25rem;
-  font-size: 1.15rem;
-  font-weight: 600;
+  display: block;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;  /* Increased size */
+  font-weight: 700;
   color: #ffdba0;
   cursor: pointer;
   background-color: #1f1f1f;
   border-bottom: 1px solid #2c2c2c;
+  font-family: 'GFS Didot', serif;
+  letter-spacing: 0.5px;
 }
-
 
 .infoGroupTitle::after {
   content: "▼";
@@ -111,6 +114,7 @@
   color: #ffdba0;
 }
 
-.infoGroup[open] .infoGroupTitle::after {
+details[open] .infoGroupTitle::after {
   transform: rotate(180deg);
 }
+

@@ -12,6 +12,7 @@ import faqStyles from "../styles/FAQSection.module.css";
 import infoCardStyles from "../styles/InfoCardsSection.module.css";
 import infoStyles from "../styles/InfoSection.module.css";
 import migrationStyles from "../styles/MigrationSection.module.css";
+import styles from '../styles/TopBanner.module.css';
 
 const features = [
   {
@@ -119,41 +120,43 @@ export default function Home() {
         />
       </Head>
 
-     {/* Hero Section */}
-<section className={heroStyles.hero}>
-  <div className={heroStyles.heroContent}>
-    <h1 className={heroStyles.heroTitle}>
-      Your grandmother&apos;s wedding photo deserves more than a generic filter.
-    </h1>
-    <p className={heroStyles.heroLeadText}>
-      Bring your family&apos;s forgotten photos back to life as vivid as you remember.
-    </p>
-    <button
-      className={heroStyles.heroCTAButton}
-      onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-    >
-      See Your History in Full Color
-    </button>
-
-    <div className={heroStyles.heroVideoDemo}>
-      <p className={heroStyles.videoLabel}>Watch it unfold:</p>
+      
+{/* Enhanced Top Banner with Video */}
+<section className={styles.topBanner}>
+  <h1>Bring Your Memories Back to Life</h1>
+  <p>
+    Try Anastasis AI Restoration for free — no account required.
+    See your photos renewed instantly with stunning detail and vivid colors.
+  </p>
+  <button className={styles.topBannerButton} onClick={() => alert('Get Started!')}>
+    Get Early Access
+  </button>
+  <div className={styles.bannerVideoContainer}>
+    <p className={styles.bannerVideoLabel}>Watch the transformation:</p>
+    <div className={styles.bannerVideoWrapper}>
       <video
         src="/images/transformation.mp4"
         autoPlay
         loop
         muted
         playsInline
-        className={heroStyles.transformationVideo}
+        className={styles.bannerVideo}
       />
-    </div>
-
-    <div className={heroStyles.scrollHint}>
-      Discover the power of preservation ↓
     </div>
   </div>
 </section>
 
 
+
+{/* Hero Section */}
+<section className={heroStyles.hero}>
+  <h1>Your grandmother's wedding photo deserves more than a generic filter.</h1>
+  <p>Bring your family's forgotten photos back to life as vivid as you remember.</p>
+  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
+    See Your History in Full Color
+  </button>
+  <div className={heroStyles.scrollHint}>Discover the power of preservation ↓</div>
+</section>
 
       {/* Restore Options + Before/After */}
       <section className={RestoreOptionsStyles.restoreOptions}>
@@ -294,90 +297,104 @@ export default function Home() {
             </div>
           </div>
 
-          
+          <div className={pricingStyles.trustCardsGrid}>
+          {[
+            { icon: "🔒", label: "No account required" },
+            { icon: "💳", label: "Credits never expire" },
+            { icon: "🗑️", label: "Photos deleted after 24hrs" },
+          ].map((point, i) => (
+            <div key={i} className={pricingStyles.trustCard}>
+              <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
+              <p className={pricingStyles.trustCardLabel}>{point.label}</p>
+            </div>
+          ))}
+        </div> 
       </section>
 
       {/* Our Story & Heritage */}
-      <section className={infoCardStyles.infoCardsSection}>
-        <h2>Our Story & Heritage</h2>
-        <p>
-          <strong>Anastasis</strong> (Greek for &quot;resurrection&quot;) means
-          bringing old photos back to life, restoring memories with the magic of
-          AI.
-        </p>
+<section className={infoCardStyles.infoCardsSection}>
+  <h2 className={infoCardStyles.infoCardsTitle}>Our Story & Heritage</h2>
+  <p>
+    <strong>Anastasis</strong> (Greek for &quot;resurrection&quot;) means
+    bringing old photos back to life, restoring memories with the magic of
+    AI.
+  </p>
 
-        {/* Info Cards grouped by category */}
-        <details open>
-          <summary>Heritage</summary>
-          <div className={infoCardStyles.infoCardsGrid}>
-            <div className={infoCardStyles.infoCard}>
-              <h3>Greek-Inspired Brilliance</h3>
-              <p>Myth, legacy, and timeless design.</p>
-            </div>
-            <div className={infoCardStyles.infoCard}>
-              <h3>Preserve Family Heritage</h3>
-              <p>Perfect for genealogists and memory-keepers.</p>
-            </div>
-          </div>
-        </details>
+  {/* Info Cards grouped by category */}
+  <details open>
+    <summary className={infoCardStyles.infoGroupTitle}>Heritage</summary>
+    <div className={infoCardStyles.infoCardsGrid}>
+      <div className={infoCardStyles.infoCard}>
+        <h3>Greek-Inspired Brilliance</h3>
+        <p>Myth, legacy, and timeless design.</p>
+      </div>
+      <div className={infoCardStyles.infoCard}>
+        <h3>Preserve Family Heritage</h3>
+        <p>Perfect for genealogists and memory-keepers.</p>
+      </div>
+    </div>
+  </details>
 
-        <details>
-          <summary>Trust</summary>
-          <div className={infoCardStyles.infoCardsGrid}>
-            <div className={infoCardStyles.infoCard}>
-              <h3>No Account Required</h3>
-              <p>Drag and drop — no storage or hidden terms.</p>
-            </div>
-            <div className={infoCardStyles.infoCard}>
-              <h3>Secure & Private</h3>
-              <p>Auto delete in 1 hour. We never store or sell your photos.</p>
-            </div>
-          </div>
-        </details>
+  <details>
+    <summary className={infoCardStyles.infoGroupTitle}>Trust</summary>
+    <div className={infoCardStyles.infoCardsGrid}>
+      <div className={infoCardStyles.infoCard}>
+        <h3>No Account Required</h3>
+        <p>Drag and drop — no storage or hidden terms.</p>
+      </div>
+      <div className={infoCardStyles.infoCard}>
+        <h3>Secure & Private</h3>
+        <p>Auto delete in 1 hour. We never store or sell your photos.</p>
+      </div>
+    </div>
+  </details>
 
-        <details>
-          <summary>Technology</summary>
-          <div className={infoCardStyles.infoCardsGrid}>
-            <div className={infoCardStyles.infoCard}>
-              <h3>Powered by Throwback AI</h3>
-              <p>Advanced models revive texture, tone, and lost detail.</p>
-            </div>
-            <div className={infoCardStyles.infoCard}>
-              <h3>Lifelike Restorations</h3>
-              <p>Instantly see your memories renewed — no filters.</p>
-            </div>
-          </div>
-        </details>
-      </section>
+  <details>
+    <summary className={infoCardStyles.infoGroupTitle}>Technology</summary>
+    <div className={infoCardStyles.infoCardsGrid}>
+      <div className={infoCardStyles.infoCard}>
+        <h3>Powered by Throwback AI</h3>
+        <p>Advanced models revive texture, tone, and lost detail.</p>
+      </div>
+      <div className={infoCardStyles.infoCard}>
+        <h3>Lifelike Restorations</h3>
+        <p>Instantly see your memories renewed — no filters.</p>
+      </div>
+    </div>
+  </details>
+</section>
+
 
       {/* Switch to Anastasis (Migration Offer + Checklist) */}
-      <section className={migrationStyles.migrationOffer}>
-        <h2>Switch to Anastasis with Confidence</h2>
-        <p>
-          Ready to leave subscription traps behind? We’ll help migrate your
-          restorations quickly — no data lost, no hassle.
-        </p>
-        <ul>
-          <li>No signups or accounts required</li>
-          <li>Pay-per-use with no recurring fees</li>
-          <li>Heritage-focused AI models you won’t find anywhere else</li>
-          <li>Secure and private — your family photos are safe with us</li>
-        </ul>
-        <button onClick={() => router.push("/migration-offer")}>
-          Claim Your Migration Offer
-        </button>
-      </section>
+ <section className={migrationStyles.switchToAnastasis}>
+  <h2 className={migrationStyles.sectionTitle}>Switch to Anastasis with Confidence</h2>
+  <p className={migrationStyles.sectionLead}>
+    Ready to leave subscription traps behind? We’ll help migrate your restorations quickly — no data lost, no hassle.
+  </p>
+  <ul className={migrationStyles.migrationOfferList}>
+    <li>No signups or accounts required</li>
+    <li>Pay-per-use with no recurring fees</li>
+    <li>Heritage-focused AI models you won’t find anywhere else</li>
+    <li>Secure and private — your family photos are safe with us</li>
+  </ul>
+  <button className={migrationStyles.offerButton} onClick={() => router.push("/migration-offer")}>
+    Claim Your Migration Offer
+  </button>
+</section>
 
       {/* Testimonials Section */}
-      <section className={testimonialStyles.testimonialsSection}>
+      <section className={testimonialStyles.testimonials}>
         <h2>What Genealogists Say</h2>
-        {testimonials.map(({ quote, author }, index) => (
-          <blockquote key={index} className={testimonialStyles.testimonial}>
-            <p>“{quote}”</p>
-            <footer>— {author}</footer>
-          </blockquote>
-        ))}
+        <div className={testimonialStyles.testimonialGrid}>
+          {testimonials.map(({ quote, author }, index) => (
+            <blockquote key={index}>
+              <p>{quote}</p>
+              <cite>— {author}</cite>
+            </blockquote>
+          ))}
+        </div>
       </section>
+
 
       {/* FAQ Section */}
       <section className={faqStyles.faqSection}>

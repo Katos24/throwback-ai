@@ -86,12 +86,61 @@
   text-align: center;
 }
 
+/* UPDATED TITLE STYLE: MAKE IT POP & READABLE */
 .cardContent h3 {
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 0.8rem;
-  color: #ffd46d;
-  text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #fff8cc; /* lighter pale yellow */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 8px rgba(255, 220, 100, 0.9),
+    0 0 20px rgba(255, 165, 0, 0.8),
+    0 2px 6px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(90deg, #fff8cc, #ffbb33);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 2;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.cardContent h3::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 1.4em;
+  background: rgba(0,0,0,0.35);
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.cardContent h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 8px auto 0 auto;
+  background: linear-gradient(90deg, #ffb347, #ff9500);
+  border-radius: 2px;
+  box-shadow: 0 0 12px #ffb347;
+}
+
+.restoreCard:hover .cardContent h3 {
+  text-shadow:
+    0 0 12px #fff9cc,
+    0 0 28px #ffca50,
+    0 0 40px #ffb347,
+    0 2px 6px rgba(0, 0, 0, 1);
+  cursor: pointer;
 }
 
 .cardContent p {
@@ -170,7 +219,7 @@
   }
 
   .cardContent h3 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
 
   .cardContent p {
@@ -190,7 +239,7 @@
   }
 
   .cardContent h3 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .cardContent p {

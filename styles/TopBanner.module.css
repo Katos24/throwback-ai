@@ -1,30 +1,15 @@
 .topBanner {
-  background: linear-gradient(135deg, #0d1a26 0%, #1c3651 35%, #fddfb0 100%);
+  background: linear-gradient(135deg, #0d1a26, #1c3651, #fddfb0);
   color: #fdfdfc;
   text-align: center;
-  padding: 1.25rem 2.5rem;    /* Slimmer vertical padding, wider horizontal */
+  padding: 2rem 2.5rem;
   border-radius: 14px;
-  max-width: 1400px;          /* Wider max width */
-  margin: 1rem auto;
-  box-shadow: 
-    0 14px 40px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(255, 230, 160, 0.15);
+  max-width: 1400px;
+  margin: 2rem auto;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
   font-family: 'GFS Didot', serif;
   position: relative;
   overflow: hidden;
-}
-
-.topBanner::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 30% 20%, rgba(255, 230, 160, 0.07) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(28, 54, 81, 0.1) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 .topBanner::after {
@@ -33,231 +18,119 @@
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 60px;
   height: 2px;
   background: linear-gradient(90deg, transparent, #ffd46d, transparent);
-  border-radius: 2px;
-  opacity: 0.6;
+  opacity: 0.5;
+  border-radius: 1px;
   pointer-events: none;
-  z-index: 1;
 }
 
 .topBanner h1 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(2rem, 4vw, 2.6rem);
   font-weight: 700;
-  margin-bottom: 1rem;
-  letter-spacing: 0.3px;
+  margin-bottom: 0.5rem;
   color: #ffe8b0;
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
-  line-height: 1.1;
-  position: relative;
-  z-index: 2;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .topBanner p {
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
   font-weight: 500;
-  max-width: 700px;
-  margin: 0 auto 1.5rem;
+  max-width: 680px;
+  margin: 0 auto 1.2rem;
   color: #f5f5f3;
-  text-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.25);
-  line-height: 1.4;
   opacity: 0.9;
-  position: relative;
-  z-index: 2;
 }
 
+/* CTA Button */
 .topBannerButton {
-  background: linear-gradient(135deg, #ffe6a0 0%, #ffd46d 50%, #ffb347 100%);
+  background: #ffd46d;
   color: #1c3651;
   font-weight: 700;
   font-size: 1rem;
-  padding: 0.9rem 2.5rem;
+  padding: 0.8rem 2rem;
   border-radius: 40px;
   border: none;
   cursor: pointer;
-  box-shadow:
-    0 6px 18px rgba(255, 230, 160, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 222, 143, 0.3);
   font-family: 'Poppins', sans-serif;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  z-index: 2;
-}
-
-.topBannerButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.topBannerButton:hover::before {
-  left: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 0.5rem;
 }
 
 .topBannerButton:hover {
-  background: linear-gradient(135deg, #fddfb0 0%, #ffb347 50%, #ff9500 100%);
+  background: #fddfb0;
   color: #ffffff;
-  transform: translateY(-4px);
-  box-shadow: 
-    0 15px 40px rgba(255, 222, 143, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 222, 143, 0.5);
 }
 
-/* Video Section */
+/* 🎥 Video Section */
 .bannerVideoContainer {
-  margin-top: 2.5rem;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+  margin-top: 2rem;
 }
 
 .bannerVideoLabel {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #ffd46d;
-  margin-bottom: 1rem;
-  opacity: 0.9;
-  position: relative;
-  z-index: 2;
-}
-
-.bannerVideoLabel::before,
-.bannerVideoLabel::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #ffd46d, transparent);
-}
-
-.bannerVideoLabel::before {
-  left: -80px;
-}
-
-.bannerVideoLabel::after {
-  right: -80px;
+  margin-bottom: 0.8rem;
 }
 
 .bannerVideoWrapper {
-  position: relative;
-  max-width: 680px;
+  max-width: 660px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.6),
-    0 0 0 2px rgba(255, 219, 160, 0.2);
-  transition: all 0.4s ease;
-  z-index: 2;
-}
-
-.bannerVideoWrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, 
-    rgba(255, 219, 160, 0.1) 0%, 
-    transparent 50%, 
-    rgba(255, 219, 160, 0.1) 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.bannerVideoWrapper:hover {
-  transform: translateY(-6px);
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.7),
-    0 0 0 3px rgba(255, 219, 160, 0.3);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
 }
 
 .bannerVideo {
   width: 100%;
   height: auto;
   display: block;
-  position: relative;
-  z-index: 0;
 }
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .topBanner {
-    padding: 1rem 2rem;
-    max-width: 95%;
-    margin: 1rem auto;
-  }
-  .topBanner h1 {
-    font-size: 1.9rem;
-    margin-bottom: 0.8rem;
-  }
-  .topBanner p {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-  .topBannerButton {
-    font-size: 0.95rem;
-    padding: 0.8rem 2rem;
-    margin-bottom: 1rem;
-  }
-  .bannerVideoWrapper {
-    max-width: 100%;
-  }
-  .bannerVideoLabel::before,
-  .bannerVideoLabel::after {
-    width: 40px;
-  }
-  .bannerVideoLabel::before {
-    left: -50px;
-  }
-  .bannerVideoLabel::after {
-    right: -50px;
-  }
-}
-
+/* 📱 Mobile Responsive */
 @media (max-width: 768px) {
   .topBanner {
-    padding: 1rem 1.5rem;
-    max-width: 100%;
-    margin: 1rem 1rem;
+    padding: 1.5rem 1.25rem;
   }
+
   .topBanner h1 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
+
   .topBanner p {
     font-size: 1rem;
-    margin-bottom: 1rem;
   }
+
   .topBannerButton {
-    font-size: 0.9rem;
-    padding: 0.75rem 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    padding: 0.7rem 1.8rem;
+  }
+
+  .bannerVideoWrapper {
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .topBanner {
-    padding: 0.9rem 1rem;
+    padding: 1.2rem 1rem;
   }
+
   .topBanner h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
+
   .topBannerButton {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     padding: 0.7rem 1.5rem;
   }
-  .bannerVideoLabel::before,
-  .bannerVideoLabel::after {
-    display: none;
+
+  .bannerVideoLabel {
+    font-size: 0.95rem;
   }
 }

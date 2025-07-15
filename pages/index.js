@@ -159,12 +159,13 @@ export default function Home() {
 </section>
 
       {/* Restore Options + Before/After */}
-      <section className={RestoreOptionsStyles.restoreOptions}>
+<section className={RestoreOptionsStyles.restoreOptions}>
   <h2>Choose Your Restoration Level</h2>
   <div className={RestoreOptionsStyles.restoreCardGrid}>
 
     {/* Restore Basic */}
     <div className={RestoreOptionsStyles.restoreCard}>
+      <h3>🌀 Restore Basic</h3> {/* 👈 TITLE MOVED UP */}
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/basic-before.jpg"
@@ -182,7 +183,6 @@ export default function Home() {
         />
       </div>
       <div className={RestoreOptionsStyles.cardContent}>
-        <h3>🌀 Restore Basic</h3>
         <p>
           <strong>3 Free Restorations.</strong> Clean up grayscale images instantly.
         </p>
@@ -194,6 +194,7 @@ export default function Home() {
 
     {/* Restore Premium */}
     <div className={RestoreOptionsStyles.restoreCard}>
+      <h3>🌈 Restore Premium</h3> {/* 👈 TITLE MOVED UP */}
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/premium-before.jpg"
@@ -211,7 +212,6 @@ export default function Home() {
         />
       </div>
       <div className={RestoreOptionsStyles.cardContent}>
-        <h3>🌈 Restore Premium</h3>
         <p>
           <strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.
         </p>

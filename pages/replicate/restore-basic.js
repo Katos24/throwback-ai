@@ -139,7 +139,7 @@ export default function RestorePage() {
         </p>
       ) : (
         <p>
-          💎 Each restore costs <strong>2 credits</strong>.<br />
+          💎 Each restore costs <strong>1 credit</strong>.<br />
           Basic restores clean black & white photos.<br />
           <strong>Premium restores</strong> add colorization and advanced enhancements.<br />
           🔢 You have <strong>{credits}</strong> credits remaining.
@@ -150,49 +150,65 @@ export default function RestorePage() {
 
       {/* Before preview below file input */}
       <div style={{ marginTop: "1rem", textAlign: "center" }}>
-        <strong>Before</strong>
-        <div
-          style={{
-            marginTop: 8,
-            width: 200,
-            height: 200,
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            backgroundColor: "#f9f9f9",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
-          {selectedPreviewUrl ? (
-            <img
-              src={selectedPreviewUrl}
-              alt="Before upload preview"
-              style={{ maxWidth: "100%", maxHeight: "100%", borderRadius: 6 }}
-            />
-          ) : (
-            <span style={{ color: "#aaa" }}>No image selected</span>
-          )}
-        </div>
-      </div>
+  <strong>Before</strong>
+  <div
+    style={{
+      marginTop: 8,
+      display: "inline-block",
+      maxWidth: "100%",
+      maxHeight: "80vh",  // ✅ stops huge photos from overflowing screen
+      border: "1px solid #ccc",
+      borderRadius: 8,
+      overflow: "hidden",
+    }}
+  >
+    {selectedPreviewUrl ? (
+      <img
+        src={selectedPreviewUrl}
+        alt="Before upload preview"
+        style={{
+          display: "block",
+          maxWidth: "100%",
+          height: "auto",
+        }}
+      />
+    ) : (
+      <span style={{ color: "#aaa" }}>No image selected</span>
+    )}
+  </div>
+</div>
 
-      {/* Restored image below the Before preview */}
-      {restoredUrl && (
-        <div style={{ marginTop: "2rem", textAlign: "center" }}>
-          <h2>✨ Restored Photo:</h2>
-          <img
-            src={restoredUrl}
-            alt="Restored"
-            className={styles.restoredImage}
-            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
-          />
-          <button onClick={handleDownload} style={{ marginTop: 12 }}>
-            ⬇️ Download
-          </button>
-        </div>
-      )}
+{/* Restored image below the Before preview */}
+{restoredUrl && (
+  <div style={{ marginTop: "2rem", textAlign: "center" }}>
+    <h2>✨ Restored Photo:</h2>
+    <div
+      style={{
+        display: "inline-block",
+        maxWidth: "100%",
+        maxHeight: "80vh",   // ✅ keep big images inside viewport
+        border: "1px solid #ccc",
+        borderRadius: 8,
+        overflow: "hidden",
+      }}
+    >
+      <img
+        src={restoredUrl}
+        alt="Restored"
+        style={{
+          display: "block",
+          maxWidth: "100%",
+          height: "auto",     // ✅ natural aspect ratio!
+          borderRadius: 8,
+        }}
+      />
+    </div>
+
+    <button onClick={handleDownload} style={{ marginTop: 12 }}>
+      ⬇️ Download
+    </button>
+  </div>
+)}
 
       {(processing || loading) && (
         <div style={{ marginTop: "1rem", textAlign: "center" }}>

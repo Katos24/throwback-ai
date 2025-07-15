@@ -157,60 +157,69 @@ export default function RestorePremium() {
       />
 
       {/* Before preview */}
-      <div
-        style={{
-          marginTop: "1rem",
-          textAlign: "center",
-        }}
-      >
+      <div style={{ marginTop: "1rem", textAlign: "center" }}>
         <strong>Before</strong>
         <div
           style={{
             marginTop: 8,
-            width: 200,
-            height: 200,
+            display: "inline-block",
+            maxWidth: "100%",
+            maxHeight: "80vh",  // ✅ so big images don't overflow
             border: "1px solid #ccc",
             borderRadius: 8,
-            backgroundColor: "#f9f9f9",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginLeft: "auto",
-            marginRight: "auto",
+            overflow: "hidden",
           }}
         >
           {selectedPreviewUrl ? (
             <img
               src={selectedPreviewUrl}
               alt="Before upload preview"
-              style={{ maxWidth: "100%", maxHeight: "100%", borderRadius: 6 }}
+              style={{
+                display: "block",
+                maxWidth: "100%",
+                height: "auto",   // ✅ keeps natural aspect ratio
+              }}
             />
           ) : (
-            <span style={{ color: "#aaa" }}>No image selected</span>
+            <span style={{ color: "#aaa", padding: "2rem", display: "block" }}>
+              No image selected
+            </span>
           )}
         </div>
       </div>
 
+
       {/* Restored image */}
-      {restoredUrl && (
-        <div
-          style={{
-            marginTop: "2rem",
-            textAlign: "center",
-          }}
-        >
-          <h2>✨ Restored Photo:</h2>
-          <img
-            src={restoredUrl}
-            alt="Restored"
-            className={styles.restoredImage}
-            style={{ width: 600, height: 600, borderRadius: 8, objectFit: "contain" }}
-          />
-          <button onClick={handleDownload} style={{ marginTop: 12 }}>
-            ⬇️ Download
-          </button>
-        </div>
-      )}
+        {restoredUrl && (
+          <div style={{ marginTop: "2rem", textAlign: "center" }}>
+            <h2>✨ Restored Photo:</h2>
+            <div
+              style={{
+                display: "inline-block",
+                maxWidth: "100%",
+                maxHeight: "80vh",  // ✅ keeps it within viewport
+                border: "1px solid #ccc",
+                borderRadius: 8,
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={restoredUrl}
+                alt="Restored"
+                style={{
+                  display: "block",
+                  maxWidth: "100%",
+                  height: "auto",   // ✅ keeps aspect ratio
+                }}
+              />
+            </div>
+
+            <button onClick={handleDownload} style={{ marginTop: 12 }}>
+              ⬇️ Download
+            </button>
+          </div>
+        )}
+
 
       {/* Processing / Loading spinner and message */}
       {(processing || loading) && (

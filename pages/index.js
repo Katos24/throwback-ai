@@ -122,16 +122,20 @@ export default function Home() {
 
       
 {/* Enhanced Top Banner with Video */}
-<section className={styles.topBanner}>
-  <h1>Bring Your Memories Back to Life</h1>
-  <p>
-    Try Anastasis AI Restoration for free — no account required.
-    See your photos renewed instantly with stunning detail and vivid colors.
-  </p>
-  <button className={styles.topBannerButton} onClick={() => alert('Get Started!')}>
-    Get Early Access
-  </button>
-  <div className={styles.bannerVideoContainer}>
+<section className={styles.topBannerTwoColumn}>
+  <div className={styles.bannerTextBlock}>
+    <p className={styles.bannerIntro}>No filters. No fakes. Just honest revival.</p>
+    <h1>Your Memories Deserve More Than a Generic Filter</h1>
+    <p>
+      Try Anastasis AI Restoration for free — no account required.
+      See your photos renewed instantly with stunning detail and vivid colors.
+    </p>
+    <button className={styles.topBannerButton} onClick={() => alert('Get Started!')}>
+      Get Early Access
+    </button>
+  </div>
+
+  <div className={styles.bannerVideoBlock}>
     <p className={styles.bannerVideoLabel}>Watch the transformation:</p>
     <div className={styles.bannerVideoWrapper}>
       <video
@@ -145,6 +149,7 @@ export default function Home() {
     </div>
   </div>
 </section>
+
 
 
 
@@ -253,6 +258,40 @@ export default function Home() {
   </div>
 </section>
 
+
+{/* Scrollable Gallery Section */}
+<section className={featureStyles.gallerySection}>
+  <h2 className={featureStyles.galleryHeading}>Before & After Gallery</h2>
+  <div className={featureStyles.galleryScroll}>
+    <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before1.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after1.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+
+    <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before2.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after2.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+
+    <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before3.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after3.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+    {/* Add more cards as needed */}
+  </div>
+</section>
 
 
 

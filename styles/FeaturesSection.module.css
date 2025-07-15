@@ -139,3 +139,94 @@
     max-width: none;
   }
 }
+
+
+/* Gallery Selection */
+.gallerySection {
+  padding: 3rem 1.5rem;
+  background-color: #0e0e0e;
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.galleryHeading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffd46d;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Scroll Container */
+.galleryScroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.galleryScroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.galleryScroll::-webkit-scrollbar-thumb {
+  background: #ffd46d;
+  border-radius: 10px;
+}
+
+.galleryScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Card */
+.galleryCard {
+  flex: 0 0 auto;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  scroll-snap-align: start;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.galleryCard:hover {
+  transform: translateY(-4px);
+}
+
+/* Image Wrapper */
+.galleryImageWrapper {
+  width: 100%;
+  aspect-ratio: 2 / 3; /* Portrait ratio */
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.galleryImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .galleryHeading {
+    font-size: 1.6rem;
+  }
+
+  .galleryCard {
+    width: 180px;
+    padding: 0.75rem;
+  }
+}

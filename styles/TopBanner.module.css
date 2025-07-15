@@ -1,90 +1,92 @@
-.topBanner {
+.topBannerTwoColumn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   background: linear-gradient(135deg, #0d1a26, #1c3651, #fddfb0);
   color: #fdfdfc;
-  text-align: center;
-  padding: 2rem 2.5rem;
-  border-radius: 14px;
+  padding: 3rem 2rem;
   max-width: 1400px;
-  margin: 2rem auto;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  margin: 3rem auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  gap: 3rem;
   font-family: 'GFS Didot', serif;
-  position: relative;
-  overflow: hidden;
 }
 
-.topBanner::after {
-  content: "";
-  position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #ffd46d, transparent);
-  opacity: 0.5;
-  border-radius: 1px;
-  pointer-events: none;
+.bannerTextBlock {
+  text-align: left;
 }
 
-.topBanner h1 {
-  font-size: clamp(2rem, 4vw, 2.6rem);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+.bannerIntro {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffd46d;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+  font-family: 'Poppins', sans-serif;
+}
+
+.topBannerTwoColumn h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
   color: #ffe8b0;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-.topBanner p {
-  font-size: clamp(1rem, 1.7vw, 1.25rem);
-  font-weight: 500;
-  max-width: 680px;
-  margin: 0 auto 1.2rem;
+.topBannerTwoColumn p {
+  font-size: 1.1rem;
   color: #f5f5f3;
-  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* CTA Button */
 .topBannerButton {
   background: #ffd46d;
   color: #1c3651;
   font-weight: 700;
   font-size: 1rem;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 2.2rem;
   border-radius: 40px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 222, 143, 0.3);
-  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 6px 20px rgba(255, 222, 143, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 0.5rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .topBannerButton:hover {
   background: #fddfb0;
   color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(255, 222, 143, 0.5);
+  box-shadow: 0 10px 30px rgba(255, 222, 143, 0.5);
 }
 
-/* 🎥 Video Section */
-.bannerVideoContainer {
-  margin-top: 2rem;
+.bannerVideoBlock {
+  text-align: center;
 }
 
 .bannerVideoLabel {
   font-size: 1rem;
   font-weight: 600;
   color: #ffd46d;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.75rem;
 }
 
 .bannerVideoWrapper {
-  max-width: 660px;
-  margin: 0 auto;
+  margin-top: 2rem;
+  padding: 1rem;
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 660px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
+
 
 .bannerVideo {
   width: 100%;
@@ -92,45 +94,19 @@
   display: block;
 }
 
-/* 📱 Mobile Responsive */
-@media (max-width: 768px) {
-  .topBanner {
-    padding: 1.5rem 1.25rem;
+/* Responsive */
+@media (max-width: 900px) {
+  .topBannerTwoColumn {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
   }
 
-  .topBanner h1 {
-    font-size: 1.8rem;
-  }
-
-  .topBanner p {
-    font-size: 1rem;
-  }
-
-  .topBannerButton {
-    font-size: 0.95rem;
-    padding: 0.7rem 1.8rem;
-  }
-
-  .bannerVideoWrapper {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .topBanner {
-    padding: 1.2rem 1rem;
-  }
-
-  .topBanner h1 {
-    font-size: 1.6rem;
+  .bannerTextBlock {
+    text-align: center;
   }
 
   .topBannerButton {
-    font-size: 0.9rem;
-    padding: 0.7rem 1.5rem;
-  }
-
-  .bannerVideoLabel {
-    font-size: 0.95rem;
+    margin-bottom: 2rem;
   }
 }

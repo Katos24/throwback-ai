@@ -210,12 +210,14 @@
   }
 
   .imagePair {
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* keep side by side */
     gap: 0.75rem;
+    overflow-x: auto; /* optional: allow horizontal scroll if needed */
   }
 
   .pairedImage {
-    width: 100%;
+    width: 48%; /* side by side */
+    min-width: 140px; /* optional: prevent images from shrinking too small */
   }
 
   .cardContent h3 {

@@ -1,12 +1,61 @@
-/* CLEAN FEATURES SECTION */
+/* 🚀 Updated Features Section Container */
 .featuresSection {
-  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 6rem auto; /* ✅ Added top & bottom space */
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #f0f2f5, #ffffff);
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.05);
+}
+
+/* 📊 Horizontal Row of Stat Cards */
+.featuresRow {
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
   max-width: 900px;
   margin: 0 auto;
+}
+
+/* 💎 Individual Stat Card */
+.featureCard {
+  flex: 1 1 180px;
+  max-width: 220px;
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
   text-align: center;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+}
+
+/* ⭐ Stat Number Styling */
+.featureStat {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* 📘 Stat Label Styling */
+.featureLabel {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+/* 🌟 Optional Star Icon */
+.starIcon {
+  font-size: 1.4rem;
+  color: #ffc107;
+  margin-left: 0.25rem;
 }
 
 /* Key Points Grid */
@@ -74,17 +123,18 @@
 @media (max-width: 768px) {
   .featuresSection {
     padding: 3rem 1rem;
+    margin: 4rem auto; /* ✅ Consistent breathing on mobile */
   }
-  
+
   .keyPointsGrid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .featuresSection h2 {
     font-size: 1.8rem;
   }
-  
+
   .keyPoint p {
     max-width: none;
   }

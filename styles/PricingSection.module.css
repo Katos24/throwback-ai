@@ -1,71 +1,57 @@
-/* PRICING SECTION */
+/* 🧭 PRICING SECTION CONTAINER */
 .honestPricing {
-  padding: 5rem clamp(2rem, 5vw, 6rem);
+  padding: 4rem clamp(1.5rem, 4vw, 5rem);
   text-align: center;
-  background: linear-gradient(135deg, #fffefb 0%, #f7f8fa 100%);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
-  max-width: 1280px;
-  margin: 0 auto;
+  background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  max-width: 1100px;
+  margin: 6rem auto; /* ✅ Added top & bottom spacing */
+  color: #f0f0f0;
+  position: relative;
 }
 
-.pricingHeading {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #1e3d59;
+/* 🎯 HEADINGS */
+.honestPricing h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
   letter-spacing: 0.5px;
 }
 
-.vsAccent {
-  color: #cc4444;
-  font-weight: 600;
-}
-
+.pricingHeading,
 .subtitle {
   font-size: 1.1rem;
-  color: #4a4a4a;
-  line-height: 1.6;
-}
-
-.honestPricing h2 {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  font-weight: 700;
   margin-bottom: 1rem;
+  color: #cccccc;
 }
 
-
-
-/* Pricing Comparison */
+/* 📊 COMPARISON GRID */
 .pricingComparison {
   display: grid;
-  gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   margin-top: 2rem;
 }
 
-
-.competitorCard, .anastasisCard {
-  background: #ffffff;
-  border: 2px solid #ecf0f1;
-  border-radius: 12px;
-  padding: 2rem;
-  text-align: center;
-}
-
+/* 💼 CARD STYLING */
+.competitorCard,
 .anastasisCard {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ecf0f1;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  background: #2f2f2f;
+  border: 1px solid #444;
+  border-radius: 14px;
+  padding: 1.75rem;
+  color: #eaeaea;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .competitorCard:hover,
 .anastasisCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
 }
 
 .anastasisCard::before {
@@ -75,56 +61,53 @@
   left: 50%;
   transform: translateX(-50%);
   background: #3498db;
-  color: #ffffff;
+  color: #fff;
   padding: 0.35rem 1rem;
   border-radius: 30px;
   font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-.competitorCard h3, .anastasisCard h3 {
-  font-size: 1.4rem;
-  color: #34495e;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
+/* 💰 PRICE TYPOGRAPHY */
 .priceDisplay {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.5rem; /* slightly increased */
   margin-bottom: 0.5rem;
+}
+
+.currency,
+.amount,
+.perUnit {
+  color: #f5f5f5;
 }
 
 .currency {
   font-size: 1.2rem;
-  color: #34495e;
   font-weight: 600;
 }
 
 .amount {
-  font-size: 2.8rem;
-  color: #2c3e50;
+  font-size: 2.6rem;
   font-weight: 800;
   line-height: 1;
 }
 
 .perUnit {
   font-size: 0.9rem;
-  color: #7f8c8d;
   font-weight: 500;
-  margin-bottom: 0.3rem;
 }
 
 .priceNote {
-  color: #7f8c8d;
+  color: #aaaaaa;
   font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
+/* 📋 FEATURE LIST */
 .featureList {
   list-style: none;
   padding: 0;
@@ -133,12 +116,13 @@
 }
 
 .featureList li {
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   font-size: 0.9rem;
-  color: #34495e;
+  color: #dddddd;
+  border-bottom: 1px dashed #444;
 }
 
-/* Trust Points */
+/* ✅ TRUST POINTS */
 .trustPoints {
   display: grid;
   gap: 2rem;
@@ -151,77 +135,54 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.5rem; /* a bit more horizontal padding */
 }
 
 .trustIcon {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
+  color: #ffc107;
 }
 
 .trustPoint span:last-child {
-  color: #34495e;
+  color: #e0e0e0;
   font-weight: 500;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* Mobile Responsiveness */
+/* 📱 MOBILE BREAKPOINTS */
 @media (max-width: 768px) {
   .honestPricing {
     padding: 3rem 1rem;
+    margin: 4rem auto; /* smaller gap for mobile */
   }
-  
+
   .honestPricing h2 {
     font-size: 2rem;
   }
-  
+
   .pricingComparison {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .amount {
     font-size: 2.2rem;
   }
-  
+
   .trustPoints {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 }
 
-
-.trustCardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-
-.trustCard {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.trustCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
-}
-
-.trustCardIcon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  display: block;
-}
-
-.trustCardLabel {
-  font-size: 1rem;
-  color: #2c3e50;
-  line-height: 1.4;
+/* 🌌 OPTIONAL TEXTURED OVERLAY */
+.honestPricing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }

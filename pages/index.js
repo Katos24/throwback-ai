@@ -58,23 +58,6 @@ const testimonials = [
   },
 ];
 
-const trustBadges = [
-  {
-    icon: "/icons/lock.svg",
-    alt: "Secure Uploads",
-    text: "Secure Uploads",
-  },
-  {
-    icon: "/icons/delete.svg",
-    alt: "Auto Delete",
-    text: "Auto Delete in 1 Hour",
-  },
-  {
-    icon: "/icons/no-share.svg",
-    alt: "Never Shared",
-    text: "Never Shared or Sold",
-  },
-];
 
 const faqData = [
   {
@@ -143,7 +126,7 @@ export default function Home() {
       Your grandmother&apos;s wedding photo deserves more than a generic filter.
     </h1>
     <p className={heroStyles.heroLeadText}>
-      Trained on vintage archives. Designed for legacy.
+      Bring your family&apos;s forgotten photos back to life as vivid as you remember.
     </p>
     <button
       className={heroStyles.heroCTAButton}
@@ -174,87 +157,99 @@ export default function Home() {
 
       {/* Restore Options + Before/After */}
       <section className={RestoreOptionsStyles.restoreOptions}>
-        <h2>Choose Your Restoration Level</h2>
-        <div className={RestoreOptionsStyles.restoreCardGrid}>
-          {/* Restore Basic */}
-          <div className={RestoreOptionsStyles.restoreCard}>
-            <div className={RestoreOptionsStyles.imagePair}>
-              <img
-                src="/images/basic-before.jpg"
-                alt="Basic restoration - before"
-                className={RestoreOptionsStyles.pairedImage}
-              />
-              <img
-                src="/images/basic-after.jpg"
-                alt="Basic restoration - after"
-                className={RestoreOptionsStyles.pairedImage}
-              />
-            </div>
-            <div className={RestoreOptionsStyles.cardContent}>
-              <h3>🌀 Restore Basic</h3>
-              <p>
-                <strong>3 Free Restorations.</strong> Clean up grayscale images
-                instantly.
-              </p>
-              <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-                Escape App Subscriptions – Try Free
-              </button>
-            </div>
-          </div>
-          {/* Restore Premium */}
-          <div className={RestoreOptionsStyles.restoreCard}>
-            <div className={RestoreOptionsStyles.imagePair}>
-              <img
-                src="/images/premium-before.jpg"
-                alt="Premium restoration - before"
-                className={RestoreOptionsStyles.pairedImage}
-              />
-              <img
-                src="/images/premium-after.jpg"
-                alt="Premium restoration - after"
-                className={RestoreOptionsStyles.pairedImage}
-              />
-            </div>
-            <div className={RestoreOptionsStyles.cardContent}>
-              <h3>🌈 Restore Premium</h3>
-              <p>
-                <strong>Full-color, HD magic.</strong> Advanced detail revival —
-                no subscriptions.
-              </p>
-              <button
-                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-              >
-                Experience Heritage-Grade Restoration
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+  <h2>Choose Your Restoration Level</h2>
+  <div className={RestoreOptionsStyles.restoreCardGrid}>
+
+    {/* Restore Basic */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/basic-before.jpg"
+          alt="Old grayscale photo before basic restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <Image
+          src="/images/basic-after.jpg"
+          alt="Restored grayscale photo after basic restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <h3>🌀 Restore Basic</h3>
+        <p>
+          <strong>3 Free Restorations.</strong> Clean up grayscale images instantly.
+        </p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
+          Escape App Subscriptions – Try Free
+        </button>
+      </div>
+    </div>
+
+    {/* Restore Premium */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/premium-before.jpg"
+          alt="Old faded photo before premium restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <Image
+          src="/images/premium-after.jpg"
+          alt="Restored full-color photo after premium restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <h3>🌈 Restore Premium</h3>
+        <p>
+          <strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.
+        </p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+          Experience Heritage-Grade Restoration
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
-{/* CLEAN FEATURES SECTION */}
+
+{/* FEATURES SECTION */}
 <section className={featureStyles.featuresSection}>
   <h2>Built for Historical Photo Restoration</h2>
-  
-  {/* Three Key Points */}
-  <div className={featureStyles.keyPointsGrid}>
-    <div className={featureStyles.keyPoint}>
-      <div className={featureStyles.keyPointIcon}>🎞️</div>
-      <h3>Historical Accuracy</h3>
-      <p>AI trained for period-specific restoration</p>
+
+  <div className={featureStyles.featuresRow}>
+    <div className={featureStyles.featureCard}>
+      <div className={featureStyles.featureStat}>1M+</div>
+      <div className={featureStyles.featureLabel}>Photos restored worldwide</div>
     </div>
-    <div className={featureStyles.keyPoint}>
-      <div className={featureStyles.keyPointIcon}>🔒</div>
-      <h3>Privacy First</h3>
-      <p>No accounts, pay-per-use pricing</p>
+
+    <div className={featureStyles.featureCard}>
+      <div className={featureStyles.featureStat}>99%</div>
+      <div className={featureStyles.featureLabel}>Authenticity retained</div>
     </div>
-    <div className={featureStyles.keyPoint}>
-      <div className={featureStyles.keyPointIcon}>🏛️</div>
-      <h3>Archival Quality</h3>
-      <p>Professional genealogy standards</p>
+
+    <div className={featureStyles.featureCard}>
+      <div className={featureStyles.featureStat}>60+</div>
+      <div className={featureStyles.featureLabel}>Countries served</div>
+    </div>
+
+    <div className={featureStyles.featureCard}>
+      <div className={featureStyles.featureStat}>4.9<span className={featureStyles.starIcon}>★</span></div>
+      <div className={featureStyles.featureLabel}>Average customer rating</div>
     </div>
   </div>
 </section>
+
 
 
 
@@ -299,18 +294,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={pricingStyles.trustCardsGrid}>
-          {[
-            { icon: "🔒", label: "No account required" },
-            { icon: "💳", label: "Credits never expire" },
-            { icon: "🗑️", label: "Photos deleted after 24hrs" },
-          ].map((point, i) => (
-            <div key={i} className={pricingStyles.trustCard}>
-              <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
-              <p className={pricingStyles.trustCardLabel}>{point.label}</p>
-            </div>
-          ))}
-        </div> 
+          
       </section>
 
       {/* Our Story & Heritage */}

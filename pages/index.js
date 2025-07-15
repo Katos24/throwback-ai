@@ -140,7 +140,7 @@ export default function Home() {
 <section className={heroStyles.hero}>
   <div className={heroStyles.heroContent}>
     <h1 className={heroStyles.heroTitle}>
-      Your grandmother's wedding photo deserves more than a generic filter.
+      Your grandmother&apos;s wedding photo deserves more than a generic filter.
     </h1>
     <p className={heroStyles.heroLeadText}>
       Trained on vintage archives. Designed for legacy.

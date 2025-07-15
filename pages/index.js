@@ -150,8 +150,8 @@ export default function Home() {
 
 {/* Hero Section */}
 <section className={heroStyles.hero}>
-  <h1>Your grandmother's wedding photo deserves more than a generic filter.</h1>
-  <p>Bring your family's forgotten photos back to life as vivid as you remember.</p>
+  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
+  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
   <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
     See Your History in Full Color
   </button>

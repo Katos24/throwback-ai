@@ -4,27 +4,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
 >
   <url>
-    <loc>https://throwback-ai.vercel.app/</loc>
+    <loc>https://throwbackai.app/</loc>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://throwback-ai.vercel.app/house</loc>
+    <loc>https://throwbackai.app/house</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://throwback-ai.vercel.app/yearbook</loc>
+    <loc>https://throwbackai.app/yearbook</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://throwback-ai.vercel.app/restore</loc>
+    <loc>https://throwbackai.app/restore</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://throwback-ai.vercel.app/terms</loc>
+    <loc>https://throwbackai.app/terms</loc>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://throwback-ai.vercel.app/privacy</loc>
+    <loc>https://throwbackai.app/privacy</loc>
     <priority>0.50</priority>
   </url>
 </urlset>

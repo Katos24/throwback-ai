@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://throwback-ai.vercel.app/sitemap.xml
+Sitemap: https://throwbackai.app/sitemap.xml

@@ -93,7 +93,7 @@ export default function Profile() {
     setResetLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(profile.email, {
-      redirectTo: "https://throwback-ai.vercel.app/reset-password",
+      redirectTo: "https://throwbackai.app/reset-password",
     });
 
     if (error) {

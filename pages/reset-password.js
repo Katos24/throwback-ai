@@ -4,30 +4,23 @@ import { supabase } from "../lib/supabaseClient";
 
 export default function ResetPassword() {
   const router = useRouter();
-  const [isLinkValid, setIsLinkValid] = useState(false);
+  const [sessionLoaded, setSessionLoaded] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function verifyLink() {
-      try {
-        // supabase handles the URL param parsing internally
-        const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
-        if (error) {
-          setStatus(`❌ ${error.message}`);
-          setIsLinkValid(false);
-        } else {
-          setIsLinkValid(true);
-        }
-      } catch (err) {
-        setStatus(`❌ ${err.message || "Invalid recovery link."}`);
-        setIsLinkValid(false);
+    async function handleRecovery() {
+      const { error } = await supabase.auth.exchangeCodeForSession();
+      if (error) {
+        setStatus(`❌ ${error.message}`);
+        setSessionLoaded(false);
+      } else {
+        setSessionLoaded(true);
       }
     }
-
-    verifyLink();
+    handleRecovery();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -38,9 +31,7 @@ export default function ResetPassword() {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.auth.updateUser({
-      password: password,
-    });
+    const { error } = await supabase.auth.updateUser({ password });
     if (error) {
       setStatus(`❌ ${error.message}`);
     } else {
@@ -54,7 +45,7 @@ export default function ResetPassword() {
     <main style={{ maxWidth: 400, margin: "3rem auto", padding: 20 }}>
       <h1>🔑 Reset Your Password</h1>
       {status && <p>{status}</p>}
-      {!isLinkValid ? (
+      {!sessionLoaded ? (
         <p>Validating link...</p>
       ) : (
         <form

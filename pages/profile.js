@@ -12,6 +12,7 @@ export default function Profile() {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const [resetMessage, setResetMessage] = useState(null);
+  const [resetLoading, setResetLoading] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -89,6 +90,7 @@ export default function Profile() {
 
   const handleResetPassword = async () => {
     setResetMessage(null);
+    setResetLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(profile.email, {
       redirectTo: "https://throwback-ai.vercel.app/reset-password",
@@ -99,6 +101,7 @@ export default function Profile() {
     } else {
       setResetMessage("📧 Password reset email sent! Check your inbox.");
     }
+    setResetLoading(false);
   };
 
   if (loading)
@@ -206,18 +209,19 @@ export default function Profile() {
         <button
           type="button"
           onClick={handleResetPassword}
+          disabled={resetLoading}
           style={{
             marginTop: "1rem",
-            backgroundColor: "#555",
+            backgroundColor: resetLoading ? "#888" : "#555",
             color: "white",
             padding: "12px 16px",
             borderRadius: 8,
             border: "none",
             fontSize: "1rem",
-            cursor: "pointer",
+            cursor: resetLoading ? "not-allowed" : "pointer",
           }}
         >
-          Reset Password
+          {resetLoading ? "Sending..." : "Reset Password"}
         </button>
       </form>
     </main>

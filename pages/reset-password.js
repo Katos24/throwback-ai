@@ -4,71 +4,59 @@ import { supabase } from "../lib/supabaseClient";
 
 export default function ResetPassword() {
   const router = useRouter();
-  const [sessionLoaded, setSessionLoaded] = useState(false);
-  const [status, setStatus] = useState("Validating link...");
-  const [error, setError] = useState(null);
+  const [isLinkValid, setIsLinkValid] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function verifyRecovery() {
+    async function verifyLink() {
       try {
-        // Check if URL has recovery token query params
-        const urlParams = new URLSearchParams(window.location.search);
-        const accessToken = urlParams.get("access_token");
-        const type = urlParams.get("type");
-
-        if (accessToken && type === "recovery") {
-          const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
-          if (error) {
-            setError(error.message);
-            setStatus(null);
-          } else {
-            setSessionLoaded(true);
-            setStatus(null);
-          }
+        // supabase handles the URL param parsing internally
+        const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
+        if (error) {
+          setStatus(`❌ ${error.message}`);
+          setIsLinkValid(false);
         } else {
-          setError("Invalid or expired recovery link.");
-          setStatus(null);
+          setIsLinkValid(true);
         }
       } catch (err) {
-        setError("Unexpected error: " + err.message);
-        setStatus(null);
+        setStatus(`❌ ${err.message || "Invalid recovery link."}`);
+        setIsLinkValid(false);
       }
     }
-    verifyRecovery();
+
+    verifyLink();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("");
-    setError(null);
-
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setStatus("❌ Passwords do not match.");
       return;
     }
-
     setLoading(true);
-    const { error } = await supabase.auth.updateUser({ password });
-    setLoading(false);
-
+    const { error } = await supabase.auth.updateUser({
+      password: password,
+    });
     if (error) {
-      setError(error.message);
+      setStatus(`❌ ${error.message}`);
     } else {
-      setStatus("✅ Password updated! Redirecting to login...");
+      setStatus("✅ Password updated! Redirecting...");
       setTimeout(() => router.push("/login"), 2000);
     }
+    setLoading(false);
   };
 
   return (
     <main style={{ maxWidth: 400, margin: "3rem auto", padding: 20 }}>
       <h1>🔑 Reset Your Password</h1>
       {status && <p>{status}</p>}
-      {error && <p style={{ color: "red" }}>❌ {error}</p>}
-
-      {!sessionLoaded ? null : (
+      {!isLinkValid ? (
+        <p>Validating link...</p>
+      ) : (
         <form
           onSubmit={handleSubmit}
           style={{ display: "flex", flexDirection: "column", gap: 12 }}

@@ -35,7 +35,7 @@ export default function ResetPassword() {
     if (error) {
       setStatus(`❌ ${error.message}`);
     } else {
-      setStatus("✅ Password updated! Redirecting...");
+      setStatus("✅ Password updated! Redirecting....");
       setTimeout(() => router.push("/login"), 2000);
     }
     setLoading(false);

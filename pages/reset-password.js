@@ -5,52 +5,74 @@ import { supabase } from "../lib/supabaseClient";
 export default function ResetPassword() {
   const router = useRouter();
   const [sessionLoaded, setSessionLoaded] = useState(false);
+  const [status, setStatus] = useState("Validating link...");
+  const [error, setError] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleRecovery = async () => {
-      const { error } = await supabase.auth.exchangeCodeForSession();
-      if (error) {
-        console.error("Session exchange error:", error.message);
-        setStatus(`❌ ${error.message}`);
-      } else {
-        setSessionLoaded(true);
+    async function verifyRecovery() {
+      try {
+        // Check if URL has recovery token query params
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessToken = urlParams.get("access_token");
+        const type = urlParams.get("type");
+
+        if (accessToken && type === "recovery") {
+          const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
+          if (error) {
+            setError(error.message);
+            setStatus(null);
+          } else {
+            setSessionLoaded(true);
+            setStatus(null);
+          }
+        } else {
+          setError("Invalid or expired recovery link.");
+          setStatus(null);
+        }
+      } catch (err) {
+        setError("Unexpected error: " + err.message);
+        setStatus(null);
       }
-    };
-    handleRecovery();
+    }
+    verifyRecovery();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("");
+    setError(null);
+
     if (password !== confirmPassword) {
-      setStatus("❌ Passwords do not match.");
+      setError("Passwords do not match.");
       return;
     }
+
     setLoading(true);
-    const { error } = await supabase.auth.updateUser({
-      password: password,
-    });
+    const { error } = await supabase.auth.updateUser({ password });
+    setLoading(false);
+
     if (error) {
-      setStatus(`❌ ${error.message}`);
+      setError(error.message);
     } else {
-      setStatus("✅ Password updated! Redirecting...");
+      setStatus("✅ Password updated! Redirecting to login...");
       setTimeout(() => router.push("/login"), 2000);
     }
-    setLoading(false);
   };
 
   return (
     <main style={{ maxWidth: 400, margin: "3rem auto", padding: 20 }}>
       <h1>🔑 Reset Your Password</h1>
       {status && <p>{status}</p>}
-      {!sessionLoaded ? (
-        <p>Validating link...</p>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {error && <p style={{ color: "red" }}>❌ {error}</p>}
+
+      {!sessionLoaded ? null : (
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: 12 }}
+        >
           <input
             type="password"
             placeholder="New password"
@@ -86,4 +108,3 @@ export default function ResetPassword() {
     </main>
   );
 }
-

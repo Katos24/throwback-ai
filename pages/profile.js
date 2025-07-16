@@ -6,11 +6,12 @@ export default function Profile() {
     username: "",
     email: "",
     is_premium: false,
-    credits_remaining: 0,  // add this default
+    credits_remaining: 0,
   });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const [resetMessage, setResetMessage] = useState(null);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -31,7 +32,7 @@ export default function Profile() {
 
       const { data, error: profileError } = await supabase
         .from("profiles")
-        .select("username, is_premium, credits_remaining")  // add credits_remaining here
+        .select("username, is_premium, credits_remaining")
         .eq("id", user.id)
         .single();
 
@@ -86,6 +87,20 @@ export default function Profile() {
     setLoading(false);
   };
 
+  const handleResetPassword = async () => {
+    setResetMessage(null);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(profile.email, {
+      redirectTo: "https://throwback-ai.vercel.app/reset-password",
+    });
+
+    if (error) {
+      setResetMessage(`❌ ${error.message}`);
+    } else {
+      setResetMessage("📧 Password reset email sent! Check your inbox.");
+    }
+  };
+
   if (loading)
     return <p style={{ textAlign: "center", marginTop: "2rem" }}>Loading profile...</p>;
 
@@ -111,6 +126,11 @@ export default function Profile() {
       {message && (
         <p style={{ color: "#060", background: "#e6ffe6", padding: 8, borderRadius: 6 }}>
           {message}
+        </p>
+      )}
+      {resetMessage && (
+        <p style={{ marginTop: 8, background: "#f0f8ff", padding: 8, borderRadius: 6 }}>
+          {resetMessage}
         </p>
       )}
 
@@ -181,6 +201,23 @@ export default function Profile() {
           }}
         >
           {loading ? "Saving..." : "Save Changes"}
+        </button>
+
+        <button
+          type="button"
+          onClick={handleResetPassword}
+          style={{
+            marginTop: "1rem",
+            backgroundColor: "#555",
+            color: "white",
+            padding: "12px 16px",
+            borderRadius: 8,
+            border: "none",
+            fontSize: "1rem",
+            cursor: "pointer",
+          }}
+        >
+          Reset Password
         </button>
       </form>
     </main>

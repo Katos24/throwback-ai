@@ -286,7 +286,7 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      <section className={styles.testimonials}>
+     <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
         <blockquote>
           "Restore Premium brought my wedding photos back to life in full color. Incredible!" <span>– Sarah M.</span>
@@ -295,6 +295,7 @@ export default function RestorePremium() {
           "Worth every credit. The facial reconstruction and colorization blew me away." <span>– Daniel K.</span>
         </blockquote>
       </section>
+
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely and temporarily.

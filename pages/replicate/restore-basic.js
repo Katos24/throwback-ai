@@ -294,15 +294,16 @@ export default function RestorePage() {
         </div>
       </section>
 
-      <section className={styles.testimonials}>
+     <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
         <blockquote>
-          "Unbelievable results. This brought my grandparents' photo back to life!" <span>– Jamie R.</span>
+          "Unbelievable results. This brought my grandparents&apos; photo back to life!" <span>– Jamie R.</span>
         </blockquote>
         <blockquote>
           "I cried when I saw my childhood photo restored. Thank you." <span>– Marcus L.</span>
         </blockquote>
       </section>
+
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything

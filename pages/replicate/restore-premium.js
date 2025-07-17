@@ -289,12 +289,13 @@ export default function RestorePremium() {
      <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
         <blockquote>
-          "Restore Premium brought my wedding photos back to life in full color. Incredible!" <span>– Sarah M.</span>
+          &quot;Restore Premium brought my wedding photos back to life in full color. Incredible!&quot; <span>– Sarah M.</span>
         </blockquote>
         <blockquote>
-          "Worth every credit. The facial reconstruction and colorization blew me away." <span>– Daniel K.</span>
+          &quot;Worth every credit. The facial reconstruction and colorization blew me away.&quot; <span>– Daniel K.</span>
         </blockquote>
       </section>
+
 
 
       <div className={styles.privacyStatement}>

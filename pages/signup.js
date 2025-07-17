@@ -26,7 +26,7 @@ export default function SignUp() {
       />
 
       <p className={styles.bottomLink}>
-        Already have an account? <Link href="/signin">Sign in here</Link>
+        Already have an account? <Link href="/login">Login here</Link>
       </p>
     </main>
   );

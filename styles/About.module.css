@@ -1,0 +1,210 @@
+/* styles/About.module.css */
+.main {
+  max-width: 720px;
+  margin: 4rem auto;
+  padding: 3rem;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  line-height: 1.8;
+  color: #1a1a1a;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.main:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 32px 64px rgba(0, 0, 0, 0.08),
+    0 16px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(139, 92, 246, 0.1);
+}
+
+.heading {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, #2c205b 0%, #6a48c9 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(44, 32, 91, 0.1);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.paragraph {
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  color: #374151;
+  text-wrap: balance;
+  line-height: 1.7;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.paragraph:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.paragraph:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.link {
+  color: #6a48c9;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #6a48c9, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6a48c9, #8b5cf6);
+  border-radius: 1px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.link:hover::before {
+  width: 100%;
+}
+
+.link:active {
+  transform: translateY(0);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .main {
+    color: #e5e7eb;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 8px 16px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .heading {
+    background: linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #e879f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .paragraph {
+    color: #d1d5db;
+  }
+  
+  .link {
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .link::before {
+    background: linear-gradient(90deg, #a78bfa, #c084fc);
+  }
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .main {
+    margin: 2rem 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .heading {
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+  }
+  
+  .paragraph {
+    font-size: 1.0625rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .main,
+  .link,
+  .link::before {
+    transition: none;
+  }
+  
+  .main:hover {
+    transform: none;
+  }
+  
+  .heading,
+  .paragraph {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .main::before {
+    animation: none;
+  }
+}

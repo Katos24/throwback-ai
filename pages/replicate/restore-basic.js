@@ -16,7 +16,9 @@ export default function RestorePage() {
 
   useEffect(() => {
     async function getSession() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
@@ -26,7 +28,7 @@ export default function RestorePage() {
     const file = e.target.files[0];
     if (file) {
       setProcessing(true);
-      setRestoredUrl(""); // clear old restore
+      setRestoredUrl("");
       try {
         const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
@@ -34,15 +36,11 @@ export default function RestorePage() {
           useWebWorker: true,
         });
         setSelectedFile(compressedFile);
-
-        const previewUrl = URL.createObjectURL(compressedFile);
-        setSelectedPreviewUrl(previewUrl);
+        setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
       } catch (error) {
         console.error("Image compression error:", error);
         setSelectedFile(file);
-
-        const previewUrl = URL.createObjectURL(file);
-        setSelectedPreviewUrl(previewUrl);
+        setSelectedPreviewUrl(URL.createObjectURL(file));
       } finally {
         setProcessing(false);
       }
@@ -50,64 +48,58 @@ export default function RestorePage() {
   };
 
   const handleRestore = async () => {
-  if (!selectedFile) return;
+    if (!selectedFile) return;
 
-  if (credits < 1) {
-    if (!isLoggedIn) {
-      alert("You’ve used your free attempts. Sign up to get 10 more!");
-    } else {
-      alert("You don’t have enough credits to restore this image.");
+    if (credits < 1) {
+      alert(
+        isLoggedIn
+          ? "You don’t have enough credits to restore this image."
+          : "You’ve used your free attempts. Sign up to get 10 more!"
+      );
+      return;
     }
-    return;
-  }
 
-  setLoading(true);
+    setLoading(true);
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  if (session?.access_token) {
-    headers.Authorization = `Bearer ${session.access_token}`;
-  }
+    const headers = { "Content-Type": "application/json" };
+    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
 
-  const reader = new FileReader();
-  reader.onloadend = async () => {
-    const base64 = reader.result.split(",")[1];
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64 = reader.result.split(",")[1];
 
-    try {
-      const response = await fetch("/api/replicate/restore", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          imageBase64: base64,
-          prompt: "Restore this vintage photo",
-        }),
-      });
+      try {
+        const response = await fetch("/api/replicate/restore", {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            imageBase64: base64,
+            prompt: "Restore this vintage photo",
+          }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.ok && data.imageUrl) {
-        setRestoredUrl(data.imageUrl);
-        if (isLoggedIn) {
-          await refreshCredits();
+        if (response.ok && data.imageUrl) {
+          setRestoredUrl(data.imageUrl);
+          if (isLoggedIn) {
+            await refreshCredits();
+          } else {
+            deductCredits(1);
+          }
         } else {
-          // ✅ NEW: deduct 1 for guests
-          deductCredits(1);
+          alert(data.error || "Failed to restore image.");
         }
-      } else {
-        alert(data.error || "Failed to restore image.");
+      } catch (error) {
+        alert("Network or server error. Please try again.");
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      alert("Network or server error. Please try again.");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    reader.readAsDataURL(selectedFile);
   };
-
-  reader.readAsDataURL(selectedFile);
-};
-
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
@@ -131,85 +123,42 @@ export default function RestorePage() {
       <h1>🕹️ Restore Your Vintage Photo</h1>
 
       {!isLoggedIn ? (
-        <p>
-          🎉 You get <strong>3 free basic restores</strong> (black & white cleanup only).<br />
-          Sign up to get <strong>5 more basic restores</strong>!<br />
-          Upgrade to <strong>Premium</strong> for enhanced restores with colorization and amazing enhancements.<br />
-          🔢 Remaining attempts: <strong>{credits}</strong>
-        </p>
+        <div className={styles.creditsInfo}>
+          <p>
+            🎉 You get <strong>3 free basic restores</strong> (black & white cleanup only).
+            <br />
+            Sign up to get <strong>5 more basic restores</strong>!
+            <br />
+            Upgrade to <strong>Premium</strong> for enhanced restores with colorization and amazing enhancements.
+            <br />
+            🔢 Remaining attempts: <strong>{credits}</strong>
+          </p>
+        </div>
       ) : (
-        <p>
-          💎 Each restore costs <strong>1 credit</strong>.<br />
-          Basic restores clean black & white photos.<br />
-          <strong>Premium restores</strong> add colorization and advanced enhancements.<br />
-          🔢 You have <strong>{credits}</strong> credits remaining.
-        </p>
+        <div className={`${styles.creditsInfo} ${styles.premium}`}>
+          <p>
+            💎 Each restore costs <strong>1 credit</strong>.
+            <br />
+            Basic restores clean black & white photos.
+            <br />
+            <strong>Premium restores</strong> add colorization and advanced enhancements.
+            <br />
+            🔢 You have <strong>{credits}</strong> credits remaining.
+          </p>
+        </div>
       )}
 
-      <input type="file" accept="image/*" onChange={handleFileChange} style={{ marginTop: "1rem" }} />
+      {selectedFile && (
+        <button
+          onClick={handleRestore}
+          disabled={loading || processing || credits < 1}
+          className={styles.restoreButton}
+        >
+          {isLoggedIn ? "💎 Restore (1 credit)" : "🆓 Restore Free"}
+        </button>
+      )}
 
-      {/* Before preview below file input */}
-      <div style={{ marginTop: "1rem", textAlign: "center" }}>
-  <strong>Before</strong>
-  <div
-    style={{
-      marginTop: 8,
-      display: "inline-block",
-      maxWidth: "100%",
-      maxHeight: "80vh",  // ✅ stops huge photos from overflowing screen
-      border: "1px solid #ccc",
-      borderRadius: 8,
-      overflow: "hidden",
-    }}
-  >
-    {selectedPreviewUrl ? (
-      <img
-        src={selectedPreviewUrl}
-        alt="Before upload preview"
-        style={{
-          display: "block",
-          maxWidth: "100%",
-          height: "auto",
-        }}
-      />
-    ) : (
-      <span style={{ color: "#aaa" }}>No image selected</span>
-    )}
-  </div>
-</div>
-
-{/* Restored image below the Before preview */}
-{restoredUrl && (
-  <div style={{ marginTop: "2rem", textAlign: "center" }}>
-    <h2>✨ Restored Photo:</h2>
-    <div
-      style={{
-        display: "inline-block",
-        maxWidth: "100%",
-        maxHeight: "80vh",   // ✅ keep big images inside viewport
-        border: "1px solid #ccc",
-        borderRadius: 8,
-        overflow: "hidden",
-      }}
-    >
-      <img
-        src={restoredUrl}
-        alt="Restored"
-        style={{
-          display: "block",
-          maxWidth: "100%",
-          height: "auto",     // ✅ natural aspect ratio!
-          borderRadius: 8,
-        }}
-      />
-    </div>
-
-    <button onClick={handleDownload} style={{ marginTop: 12 }}>
-      ⬇️ Download
-    </button>
-  </div>
-)}
-
+      {/* Spinner / Loading Indicator above images */}
       {(processing || loading) && (
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
           <div
@@ -244,20 +193,127 @@ export default function RestorePage() {
         </div>
       )}
 
-      <button
-        onClick={handleRestore}
-        disabled={!selectedFile || loading || processing || credits < 1}
-        style={{ marginTop: "1.5rem" }}
-      >
-        {isLoggedIn ? "Restore (1 credit)" : "Restore Free"}
-      </button>
+      {(selectedPreviewUrl || restoredUrl) && (
+        <div className={styles.imageComparisonContainer}>
+          <div className={styles.imageBox}>
+            <strong>Before</strong>
+            <div className={styles.imageWrapper}>
+              {selectedPreviewUrl ? (
+                <img
+                  src={selectedPreviewUrl}
+                  alt="Before upload preview"
+                  className={styles.image}
+                />
+              ) : (
+                <span style={{ color: "#aaa" }}>No image selected</span>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.imageBox}>
+            <strong>After</strong>
+            <div className={styles.imageWrapper}>
+              {restoredUrl ? (
+                <>
+                  <img
+                    src={restoredUrl}
+                    alt="Restored"
+                    className={styles.image}
+                  />
+                  <button onClick={handleDownload} style={{ marginTop: 12 }}>
+                    ⬇️ Download
+                  </button>
+                </>
+              ) : (
+                <span style={{ color: "#aaa" }}>No restored image yet</span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedFile ? (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ marginTop: "2rem" }}
+        />
+      ) : (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ marginTop: "1rem" }}
+        />
+      )}
 
       <style jsx>{`
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
         }
       `}</style>
+
+      <div className={styles.howItWorksSection}>
+        <h3>🛠️ How it works</h3>
+        <ol className={styles.howItWorksList}>
+          <li>
+            <span>📤</span> Upload your old or damaged photo
+          </li>
+          <li>
+            <span>✨</span> AI analyzes and restores details
+          </li>
+          <li>
+            <span>📥</span> Download your newly restored image
+          </li>
+        </ol>
+      </div>
+
+      <section className={styles.faqSection}>
+        <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
+        <div className={styles.accordion}>
+          <details>
+            <summary>What does the restore actually do?</summary>
+            <p>
+              It removes scratches, corrects blur, and enhances faded sections.
+              Premium restores also colorize and fix facial features.
+            </p>
+          </details>
+          <details>
+            <summary>Is my image private?</summary>
+            <p>
+              Yes. We never store your images long-term and do not use them for
+              training or sharing.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section className={styles.testimonials}>
+        <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
+        <blockquote>
+          "Unbelievable results. This brought my grandparents’ photo back to life!"{" "}
+          <span>– Jamie R.</span>
+        </blockquote>
+        <blockquote>
+          "I cried when I saw my childhood photo restored. Thank you."{" "}
+          <span>– Marcus L.</span>
+        </blockquote>
+      </section>
+
+      <div className={styles.privacyStatement}>
+        🔒 We respect your privacy. Photos are never stored or shared — everything
+        is processed securely and temporarily.
+      </div>
+
+      <div className={styles.poweredBy}>
+        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
+      </div>
     </main>
   );
 }

@@ -12,7 +12,7 @@ export default function RestorePremium() {
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
 
-  const { credits, deductCredits } = useCredits();
+  const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
 
   useEffect(() => {
     async function getSession() {
@@ -28,7 +28,7 @@ export default function RestorePremium() {
     const file = e.target.files[0];
     if (file) {
       setProcessing(true);
-      setRestoredUrl(""); // clear old restore
+      setRestoredUrl("");
       try {
         const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
@@ -36,15 +36,11 @@ export default function RestorePremium() {
           useWebWorker: true,
         });
         setSelectedFile(compressedFile);
-
-        const previewUrl = URL.createObjectURL(compressedFile);
-        setSelectedPreviewUrl(previewUrl);
+        setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
       } catch (error) {
         console.error("Image compression error:", error);
         setSelectedFile(file);
-
-        const previewUrl = URL.createObjectURL(file);
-        setSelectedPreviewUrl(previewUrl);
+        setSelectedPreviewUrl(URL.createObjectURL(file));
       } finally {
         setProcessing(false);
       }
@@ -56,19 +52,17 @@ export default function RestorePremium() {
 
     if (credits < 40) {
       alert(
-        "You do not have enough credits to use Restore Premium. Please visit our Pricing page to get more credits."
+        isLoggedIn
+          ? "You don’t have enough credits to use Restore Premium."
+          : "You’ve used your free attempts. Sign up or buy credits to restore with Premium."
       );
       return;
     }
 
     setLoading(true);
 
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    if (session?.access_token) {
-      headers.Authorization = `Bearer ${session.access_token}`;
-    }
+    const headers = { "Content-Type": "application/json" };
+    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -80,6 +74,7 @@ export default function RestorePremium() {
           headers,
           body: JSON.stringify({
             imageBase64: base64,
+            prompt: "Restore and colorize this vintage photo with premium AI",
           }),
         });
 
@@ -87,25 +82,10 @@ export default function RestorePremium() {
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-
-          // Deduct 40 credits after success
-          const { data: profile, error: profileError } = await supabase
-            .from("profiles")
-            .select("credits")
-            .eq("id", session.user.id)
-            .single();
-
-          if (!profileError && profile) {
-            const { error: updateError } = await supabase
-              .from("profiles")
-              .update({ credits: profile.credits - 40 })
-              .eq("id", session.user.id);
-
-            if (updateError) {
-              console.error("Error deducting credits:", updateError);
-            } else {
-              deductCredits(40);
-            }
+          if (isLoggedIn) {
+            await refreshCredits();
+          } else {
+            deductCredits(40);
           }
         } else {
           alert(data.error || "Failed to restore image.");
@@ -142,86 +122,39 @@ export default function RestorePremium() {
     <main className={styles.container}>
       <h1>💎 Restore Premium</h1>
 
-      <p>
-        This costs <strong>40 credits</strong> per restore.
-      </p>
-      <p>
-        You have <strong>{credits}</strong> credits remaining.
-      </p>
-
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        style={{ marginTop: "1rem" }}
-      />
-
-      {/* Before preview */}
-      <div style={{ marginTop: "1rem", textAlign: "center" }}>
-        <strong>Before</strong>
-        <div
-          style={{
-            marginTop: 8,
-            display: "inline-block",
-            maxWidth: "100%",
-            maxHeight: "80vh",  // ✅ so big images don't overflow
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            overflow: "hidden",
-          }}
-        >
-          {selectedPreviewUrl ? (
-            <img
-              src={selectedPreviewUrl}
-              alt="Before upload preview"
-              style={{
-                display: "block",
-                maxWidth: "100%",
-                height: "auto",   // ✅ keeps natural aspect ratio
-              }}
-            />
-          ) : (
-            <span style={{ color: "#aaa", padding: "2rem", display: "block" }}>
-              No image selected
-            </span>
-          )}
+      {!isLoggedIn ? (
+        <div className={styles.creditsInfo}>
+          <p>
+            🔥 Try Restore Premium with enhanced AI colorization and detail reconstruction.
+            <br />
+            Sign up to get access and buy credits for premium restores.
+            <br />
+            🔢 Remaining credits: <strong>{credits}</strong>
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className={`${styles.creditsInfo} ${styles.premium}`}>
+          <p>
+            💎 Each restore costs <strong>40 credits</strong>.
+            <br />
+            Premium restores include colorization and advanced facial reconstruction.
+            <br />
+            🔢 You have <strong>{credits}</strong> credits remaining.
+          </p>
+        </div>
+      )}
 
+      {selectedFile && (
+        <button
+          onClick={handleRestore}
+          disabled={loading || processing || credits < 40}
+          className={styles.restoreButton}
+        >
+          {isLoggedIn ? "💎 Restore Premium (40 credits)" : "🔒 Sign up to Restore Premium"}
+        </button>
+      )}
 
-      {/* Restored image */}
-        {restoredUrl && (
-          <div style={{ marginTop: "2rem", textAlign: "center" }}>
-            <h2>✨ Restored Photo:</h2>
-            <div
-              style={{
-                display: "inline-block",
-                maxWidth: "100%",
-                maxHeight: "80vh",  // ✅ keeps it within viewport
-                border: "1px solid #ccc",
-                borderRadius: 8,
-                overflow: "hidden",
-              }}
-            >
-              <img
-                src={restoredUrl}
-                alt="Restored"
-                style={{
-                  display: "block",
-                  maxWidth: "100%",
-                  height: "auto",   // ✅ keeps aspect ratio
-                }}
-              />
-            </div>
-
-            <button onClick={handleDownload} style={{ marginTop: 12 }}>
-              ⬇️ Download
-            </button>
-          </div>
-        )}
-
-
-      {/* Processing / Loading spinner and message */}
+      {/* Spinner / Loading Indicator above images */}
       {(processing || loading) && (
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
           <div
@@ -256,13 +189,52 @@ export default function RestorePremium() {
         </div>
       )}
 
-      <button
-        onClick={handleRestore}
-        disabled={!selectedFile || loading || processing || credits < 40}
-        style={{ marginTop: "1.5rem" }}
-      >
-        Restore
-      </button>
+      {(selectedPreviewUrl || restoredUrl) && (
+        <div className={styles.imageComparisonContainer}>
+          <div className={styles.imageBox}>
+            <strong>Before</strong>
+            <div className={styles.imageWrapper}>
+              {selectedPreviewUrl ? (
+                <img src={selectedPreviewUrl} alt="Before upload preview" className={styles.image} />
+              ) : (
+                <span style={{ color: "#aaa" }}>No image selected</span>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.imageBox}>
+            <strong>After</strong>
+            <div className={styles.imageWrapper}>
+              {restoredUrl ? (
+                <>
+                  <img src={restoredUrl} alt="Restored" className={styles.image} />
+                  <button onClick={handleDownload} style={{ marginTop: 12 }}>
+                    ⬇️ Download
+                  </button>
+                </>
+              ) : (
+                <span style={{ color: "#aaa" }}>No restored image yet</span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedFile ? (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ marginTop: "2rem" }}
+        />
+      ) : (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ marginTop: "1rem" }}
+        />
+      )}
 
       <style jsx>{`
         @keyframes spin {
@@ -274,6 +246,63 @@ export default function RestorePremium() {
           }
         }
       `}</style>
+
+      <div className={styles.howItWorksSection}>
+        <h3>💎 How Restore Premium Works</h3>
+        <ol className={styles.howItWorksList}>
+          <li>
+            <span>📤</span> Upload your highest quality photo
+          </li>
+          <li>
+            <span>🤖</span> Advanced AI analyzes damage, facial features, and colors
+          </li>
+          <li>
+            <span>🌈</span> Receive a fully colorized, high-resolution, enhanced restoration
+          </li>
+        </ol>
+      </div>
+
+      <section className={styles.faqSection}>
+        <h2 className={styles.sectionTitle}>❓ Restore Premium FAQ</h2>
+        <div className={styles.accordion}>
+          <details>
+            <summary>What extra features does Restore Premium include?</summary>
+            <p>
+              It colorizes black & white photos, reconstructs missing facial details, and enhances resolution for printing.
+            </p>
+          </details>
+          <details>
+            <summary>Is the premium restore worth the higher credit cost?</summary>
+            <p>
+              Yes! The results are professional quality and ideal for cherished photos or prints.
+            </p>
+          </details>
+          <details>
+            <summary>Are my photos kept private?</summary>
+            <p>
+              Absolutely. We never store your images permanently or share them.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section className={styles.testimonials}>
+        <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
+        <blockquote>
+          "Restore Premium brought my wedding photos back to life in full color. Incredible!" <span>– Sarah M.</span>
+        </blockquote>
+        <blockquote>
+          "Worth every credit. The facial reconstruction and colorization blew me away." <span>– Daniel K.</span>
+        </blockquote>
+      </section>
+
+      <div className={styles.privacyStatement}>
+        🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely and temporarily.
+      </div>
+
+      <div className={styles.poweredBy}>
+        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
+      </div>
     </main>
   );
 }

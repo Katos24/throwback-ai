@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -199,9 +200,12 @@ export default function RestorePage() {
             <strong>Before</strong>
             <div className={styles.imageWrapper}>
               {selectedPreviewUrl ? (
-                <img
+                <Image
                   src={selectedPreviewUrl}
                   alt="Before upload preview"
+                  width={500}
+                  height={500}
+                  style={{ objectFit: "contain" }}
                   className={styles.image}
                 />
               ) : (
@@ -215,9 +219,12 @@ export default function RestorePage() {
             <div className={styles.imageWrapper}>
               {restoredUrl ? (
                 <>
-                  <img
+                  <Image
                     src={restoredUrl}
                     alt="Restored"
+                    width={500}
+                    height={500}
+                    style={{ objectFit: "contain" }}
                     className={styles.image}
                   />
                   <button onClick={handleDownload} style={{ marginTop: 12 }}>
@@ -294,16 +301,15 @@ export default function RestorePage() {
         </div>
       </section>
 
-     <section className={styles.testimonials}>
+      <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
         <blockquote>
-          "Unbelievable results. This brought my grandparents&apos; photo back to life!" <span>– Jamie R.</span>
+          &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot; <span>– Jamie R.</span>
         </blockquote>
         <blockquote>
-          "I cried when I saw my childhood photo restored. Thank you." <span>– Marcus L.</span>
+          &quot;I cried when I saw my childhood photo restored. Thank you.&quot; <span>– Marcus L.</span>
         </blockquote>
       </section>
-
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything

@@ -13,6 +13,8 @@ import infoCardStyles from "../styles/InfoCardsSection.module.css";
 import infoStyles from "../styles/InfoSection.module.css";
 import migrationStyles from "../styles/MigrationSection.module.css";
 import styles from '../styles/TopBanner.module.css';
+import ImageCompareSlider from "../components/ImageCompareSlider";
+
 
 const features = [
   {
@@ -151,6 +153,17 @@ export default function Home() {
 </section>
 
 
+{/* Image Compare Slider Section for Basic Restore */}
+<section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
+  <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+    Experience the Basic Restore Before & After
+  </h2>
+  <ImageCompareSlider
+    beforeImage="/images/basic-demo-before.jpg"
+    afterImage="/images/basic-demo-after.jpg"
+  />
+</section>
+
 
 
 {/* Hero Section */}
@@ -287,6 +300,14 @@ export default function Home() {
       </div>
       <div className={featureStyles.galleryImageWrapper}>
         <Image src="/images/after3.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+    <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before4.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after4.jpg" alt="After" width={300} height={450} />
       </div>
     </div>
     {/* Add more cards as needed */}

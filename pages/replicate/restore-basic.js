@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 
-export default function RestorePage() {
+export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedPreviewUrl, setSelectedPreviewUrl] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
@@ -18,9 +17,7 @@ export default function RestorePage() {
 
   useEffect(() => {
     async function getSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
@@ -52,14 +49,18 @@ export default function RestorePage() {
   const handleRestoreClick = () => {
     if (!showFileInput) {
       setShowFileInput(true);
+      setRestoredUrl("");
       setSelectedFile(null);
       setSelectedPreviewUrl(null);
-      setRestoredUrl("");
-    } else if (selectedFile) {
-      handleRestore();
-    } else {
-      alert("Please select an image first.");
+      return;
     }
+
+    if (!selectedFile) {
+      alert("Please upload an image first.");
+      return;
+    }
+
+    handleRestore();
   };
 
   const handleRestore = async () => {
@@ -69,13 +70,12 @@ export default function RestorePage() {
       alert(
         isLoggedIn
           ? "You don’t have enough credits to restore this image."
-          : "You’ve used your free attempts. Sign up to get 10 more!"
+          : "You’ve used your free attempts. Sign up to get more credits!"
       );
       return;
     }
 
     setLoading(true);
-
     const headers = { "Content-Type": "application/json" };
     if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
 
@@ -129,306 +129,166 @@ export default function RestorePage() {
     document.body.appendChild(a);
     a.click();
     a.remove();
-
     window.URL.revokeObjectURL(url);
   };
 
   return (
-    <main className={styles.container}>
-      <section>
-        <h1>🕹️ Restore Your Vintage Photo</h1>
-
-        {!isLoggedIn ? (
-          <div className={styles.creditsInfo}>
-            <p>
-              🎉 You get <strong>3 free basic restores</strong> (black & white cleanup only).
-              <br />
-              Sign up to get <strong>5 more basic restores</strong>!
-              <br />
-              Upgrade to <strong>Premium</strong> for enhanced restores with colorization and amazing enhancements.
-              <br />
-              🔢 Remaining attempts: <strong>{credits}</strong>
+    <main>
+      <section className={styles.topBanner}>
+        <div className={styles.topBannerContent}>
+          <div className={styles.topBannerTop}>
+            <h2 className={styles.topBannerTitle}>🕹️ Restore Your Vintage Photo</h2>
+            <p className={styles.topBannerSubtitle}>
+              Basic restores clean black & white photos with AI-powered scratch removal and clarity boost.
+              Sign up for premium features like colorization and advanced restoration.
             </p>
-          </div>
-        ) : (
-          <div className={`${styles.creditsInfo} ${styles.premium}`}>
-            <p>
-              💎 Each restore costs <strong>1 credit</strong>.
-              <br />
-              Basic restores clean black & white photos.
-              <br />
-              <strong>Premium restores</strong> add colorization and advanced enhancements.
-              <br />
-              🔢 You have <strong>{credits}</strong> credits remaining.
-            </p>
-          </div>
-        )}
 
-        <button
-          onClick={handleRestoreClick}
-          disabled={loading || processing || (!showFileInput && credits < 1)}
-          className={styles.restoreButton}
-          style={{ marginTop: "1.5rem", width: "100%" }}
-        >
-          {loading || processing ? (
-            <>
-              {loading ? "Restoring..." : "Processing..."}
-              <span
-                style={{
-                  marginLeft: 8,
-                  border: "3px solid #ccc",
-                  borderTop: "3px solid #0077cc",
-                  borderRadius: "50%",
-                  width: 16,
-                  height: 16,
-                  display: "inline-block",
-                  animation: "spin 1s linear infinite",
-                  verticalAlign: "middle",
-                }}
+            {showFileInput && (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                disabled={loading || processing}
+                className={`${styles.fileInput} ${styles.visible}`}
               />
-            </>
-          ) : !showFileInput ? (
-            isLoggedIn ? "💎 Restore Image" : "🆓 Restore Image"
-          ) : selectedFile ? (
-            "🚀 Start Restore"
-          ) : (
-            "Choose File to Restore"
-          )}
-        </button>
+            )}
 
-        {showFileInput && (
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            disabled={loading || processing}
-            style={{ marginTop: "1rem", width: "100%" }}
-          />
-        )}
-
-        {(selectedPreviewUrl || restoredUrl) && (
-  <div
-    style={{
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      alignItems: "flex-start",
-      gap: "2rem",
-      marginTop: "2rem",
-    }}
-  >
-    {/* Before */}
-    <div style={{ textAlign: "center" }}>
-      <strong>Before</strong>
-      <div
-        style={{
-          marginTop: 8,
-          border: "1px solid #ddd",
-          padding: 8,
-          borderRadius: 8,
-          width: 300,
-          height: 300,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#fafafa",
-        }}
-      >
-        {selectedPreviewUrl ? (
-          <Image
-            src={selectedPreviewUrl}
-            alt="Before preview"
-            width={280}
-            height={280}
-            style={{ objectFit: "contain" }}
-          />
-        ) : (
-          <span>No image selected</span>
-        )}
-      </div>
-    </div>
-
-    {/* After */}
-    <div style={{ textAlign: "center" }}>
-      <strong>After</strong>
-      <div
-        style={{
-          marginTop: 8,
-          border: "1px solid #ddd",
-          padding: 8,
-          borderRadius: 8,
-          width: 300,
-          height: 300,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#fafafa",
-        }}
-      >
-        {restoredUrl ? (
-          <div>
-            <Image
-              src={restoredUrl}
-              alt="Restored image"
-              width={280}
-              height={280}
-              style={{ objectFit: "contain" }}
-            />
-            <div>
-              <button onClick={handleDownload} style={{ marginTop: 12 }}>
-                ⬇️ Download
-              </button>
-            </div>
-          </div>
-        ) : (
-          <span>No restored image yet</span>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
-
-        {(processing || loading) && (
-          <div style={{ marginTop: "1rem", textAlign: "center" }}>
-            <div
-              style={{
-                margin: "0 auto",
-                border: "4px solid #ccc",
-                borderTop: "4px solid #0077cc",
-                borderRadius: "50%",
-                width: 40,
-                height: 40,
-                animation: "spin 1s linear infinite",
-              }}
-            />
-            <p style={{ marginTop: 8, fontWeight: "bold" }}>
-              {loading ? "Restoring..." : "Processing image..."}
-            </p>
-            <p
-              style={{
-                fontStyle: "italic",
-                fontSize: 14,
-                marginTop: 8,
-                color: "#555",
-              }}
+            <button
+              className={styles.topBannerButton}
+              onClick={handleRestoreClick}
+              disabled={loading || processing || (!showFileInput && credits < 1)}
+              title={credits < 1 ? "Not enough credits" : ""}
             >
-              The restore process can take a minute or sometimes a bit longer.
-              <br />
-              Please be patient and do not close this window.
-            </p>
-          </div>
-        )}
+              {!loading && !processing && (
+                showFileInput
+                  ? isLoggedIn
+                    ? "🆓 Restore Basic (1 credit)"
+                    : "🔒 Sign up to Restore Basic"
+                  : "Restore"
+              )}
+              {(loading || processing) && (
+                <>
+                  <div className={styles.spinner} />
+                  <span className={styles.loadingText}>
+                    Please wait, this may take up to a minute...
+                  </span>
+                </>
+              )}
+            </button>
 
-        {/* Before & After Section */}
-        <div style={{ marginTop: "2rem", textAlign: "center" }}>
-          <h2>🖼️ Before & After</h2>
-
-          <div style={{ marginTop: 16 }}>
-            <strong>Before</strong>
-            <div style={{ marginTop: 8, border: "1px solid #ddd", padding: 8, borderRadius: 8 }}>
-              {selectedPreviewUrl ? (
-                <Image
-                  src={selectedPreviewUrl}
-                  alt="Before preview"
-                  width={480}
-                  height={320}
-                  style={{ objectFit: "contain" }}
-                />
+            <div className={styles.creditsInfo}>
+              {isLoggedIn ? (
+                <>Your credits: <strong>{credits}</strong></>
               ) : (
-                <span>No image selected</span>
+                <>Remaining free attempts: <strong>{credits}</strong>. Sign up to get more credits!</>
               )}
             </div>
           </div>
 
-          <div style={{ marginTop: 24 }}>
-            <strong>After</strong>
-            <div style={{ marginTop: 8, border: "1px solid #ddd", padding: 8, borderRadius: 8 }}>
-              {restoredUrl ? (
-                <>
-                  <Image
-                    src={restoredUrl}
-                    alt="Restored image"
-                    width={480}
-                    height={320}
+          <div className={styles.topBannerImages}>
+            <div className={styles.imageBox}>
+              <strong>Before</strong>
+              <div className={styles.imageWrapper}>
+                {selectedPreviewUrl ? (
+                  <img
+                    src={selectedPreviewUrl}
+                    alt="Before upload preview"
+                    className={styles.image}
                     style={{ objectFit: "contain" }}
                   />
-                  <button onClick={handleDownload} style={{ marginTop: 12 }}>
-                    ⬇️ Download
-                  </button>
-                </>
-              ) : (
-                <span>No restored image yet</span>
+                ) : (
+                  <span className={styles.placeholderText}>Upload an image</span>
+                )}
+              </div>
+            </div>
+
+            <div className={styles.imageBox}>
+              <strong>After</strong>
+              <div className={styles.imageWrapper}>
+                {restoredUrl ? (
+                  <img
+                    src={restoredUrl}
+                    alt="Restored"
+                    className={styles.image}
+                    style={{ objectFit: "contain" }}
+                  />
+                ) : (
+                  <span className={styles.placeholderText}>No restored image yet</span>
+                )}
+              </div>
+
+              {restoredUrl && (
+                <button
+                  onClick={handleDownload}
+                  className={styles.downloadButton}
+                  style={{ marginTop: "1rem" }}
+                >
+                  ⬇️ Download
+                </button>
               )}
             </div>
           </div>
-        </div>
-
-        <div className={styles.howItWorksSection} style={{ marginTop: "3rem" }}>
-          <h3>🛠️ How it works</h3>
-          <ol className={styles.howItWorksList}>
-            <li>
-              <span>📤</span> Upload your old or damaged photo
-            </li>
-            <li>
-              <span>✨</span> AI analyzes and restores details
-            </li>
-            <li>
-              <span>📥</span> Download your newly restored image
-            </li>
-          </ol>
-        </div>
-
-        <section className={styles.faqSection}>
-          <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
-          <div className={styles.accordion}>
-            <details>
-              <summary>What does the restore actually do?</summary>
-              <p>
-                It removes scratches, corrects blur, and enhances faded sections.
-                Premium restores also colorize and fix facial features.
-              </p>
-            </details>
-            <details>
-              <summary>Is my image private?</summary>
-              <p>
-                Yes. We never store your images long-term and do not use them for
-                training or sharing.
-              </p>
-            </details>
-          </div>
-        </section>
-
-        <section className={styles.testimonials}>
-          <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
-          <blockquote>
-            &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot; <span>– Jamie R.</span>
-          </blockquote>
-          <blockquote>
-            &quot;I cried when I saw my childhood photo restored. Thank you.&quot; <span>– Marcus L.</span>
-          </blockquote>
-        </section>
-
-        <div className={styles.privacyStatement} style={{ marginTop: "2rem" }}>
-          🔒 We respect your privacy. Photos are never stored or shared — everything
-          is processed securely and temporarily.
-        </div>
-
-        <div className={styles.poweredBy} style={{ marginTop: "1rem", textAlign: "center" }}>
-          ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
         </div>
       </section>
 
-      <style jsx>{`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
+      {/* How it works */}
+      <div className={styles.howItWorksSection}>
+        <h3>🛠️ How it works</h3>
+        <ol className={styles.howItWorksList}>
+          <li>
+            <span>📤</span>
+            <p>Upload your old or damaged photo</p>
+          </li>
+          <li>
+            <span>✨</span>
+            <p>AI analyzes and restores details in black & white</p>
+          </li>
+          <li>
+            <span>📥</span>
+            <p>Download your newly restored image</p>
+          </li>
+        </ol>
+      </div>
+
+      {/* FAQ */}
+      <section className={styles.faqSection}>
+        <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
+        <div className={styles.accordion}>
+          <details>
+            <summary>What does the restore actually do?</summary>
+            <p>
+              It removes scratches, corrects blur, and enhances faded sections.
+              Premium restores add colorization and facial reconstruction.
+            </p>
+          </details>
+          <details>
+            <summary>Is my image private?</summary>
+            <p>
+              Yes. We never store your images long-term and do not use them for training or sharing.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className={styles.testimonials}>
+        <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
+        <blockquote>
+          &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot; <span>– Jamie R.</span>
+        </blockquote>
+        <blockquote>
+          &quot;I cried when I saw my childhood photo restored. Thank you.&quot; <span>– Marcus L.</span>
+        </blockquote>
+      </section>
+
+      <div className={styles.privacyStatement}>
+        🔒 We respect your privacy. Photos are never stored or shared — everything
+        is processed securely and temporarily.
+      </div>
+
+      <div className={styles.poweredBy}>
+        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
+      </div>
     </main>
   );
 }

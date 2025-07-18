@@ -537,23 +537,23 @@ export default function RestorePremium() {
 
       {/* testimonials */}
      <section className={styles.testimonials}>
-        <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
-        <ul className={styles.testimonialsList}>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              "Restore Premium brought my wedding photos back to life in full color. Incredible!"
-            </p>
-            <span className={styles.testimonialAuthor}>– Sarah M.</span>
-          </li>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              "Worth every credit. The facial reconstruction and colorization blew me away."
-            </p>
-            <span className={styles.testimonialAuthor}>– Daniel K.</span>
-          </li>
-        </ul>
-      </section>
-
+            <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
+            <ul className={styles.testimonialsList}>
+              <li className={styles.testimonialCard}>
+                <p className={styles.testimonialText}>
+                  &quot;Restore Premium brought my wedding photos back to life in full color. Incredible!&quot;
+                </p>
+                <span className={styles.testimonialAuthor}>– Sarah M.</span>
+              </li>
+              <li className={styles.testimonialCard}>
+                <p className={styles.testimonialText}>
+                  &quot;Worth every credit. The facial reconstruction and colorization blew me away.&quot;
+                </p>
+                <span className={styles.testimonialAuthor}>– Daniel K.</span>
+              </li>
+            </ul>
+          </section>
+          
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely
         and temporarily.

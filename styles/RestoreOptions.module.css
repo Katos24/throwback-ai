@@ -253,3 +253,35 @@
     padding: 0.8rem 1.8rem;
   }
 }
+
+
+
+
+.hero {
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  background: linear-gradient(to bottom, #f5f7fa, #ffffff);
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.uploadButton {
+  background-color: #0070f3;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 1.5rem;
+}

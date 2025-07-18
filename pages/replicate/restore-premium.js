@@ -11,6 +11,7 @@ export default function RestorePremium() {
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
+  const [showFileInput, setShowFileInput] = useState(false);
 
   const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
 
@@ -45,6 +46,25 @@ export default function RestorePremium() {
         setProcessing(false);
       }
     }
+  };
+
+  const handleRestoreClick = () => {
+    if (!showFileInput) {
+      // First click: show the file input and reset state
+      setShowFileInput(true);
+      setRestoredUrl("");
+      setSelectedFile(null);
+      setSelectedPreviewUrl(null);
+      return;
+    }
+
+    if (!selectedFile) {
+      alert("Please upload an image first.");
+      return;
+    }
+
+    // Second click: do actual restore
+    handleRestore();
   };
 
   const handleRestore = async () => {
@@ -119,133 +139,92 @@ export default function RestorePremium() {
   };
 
   return (
-    <main className={styles.container}>
-      <h1>💎 Restore Premium</h1>
+    <main>
+      <section className={styles.topBanner}>
+        <div className={styles.topBannerContent}>
+          <div className={styles.topBannerTop}>
+            <h2 className={styles.topBannerTitle}>🏛️ Restore Timeless Beauty</h2>
+            <p className={styles.topBannerSubtitle}>
+              Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
+            </p>
 
-      {!isLoggedIn ? (
-        <div className={styles.creditsInfo}>
-          <p>
-            🔥 Try Restore Premium with enhanced AI colorization and detail reconstruction.
-            <br />
-            Sign up to get access and buy credits for premium restores.
-            <br />
-            🔢 Remaining credits: <strong>{credits}</strong>
-          </p>
-        </div>
-      ) : (
-        <div className={`${styles.creditsInfo} ${styles.premium}`}>
-          <p>
-            💎 Each restore costs <strong>40 credits</strong>.
-            <br />
-            Premium restores include colorization and advanced facial reconstruction.
-            <br />
-            🔢 You have <strong>{credits}</strong> credits remaining.
-          </p>
-        </div>
-      )}
+            {/* Only show file input if toggled on */}
+            {showFileInput && (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                disabled={loading || processing}
+                className={`${styles.fileInput} ${styles.visible}`}
+              />
+            )}
 
-      {selectedFile && (
-        <button
-          onClick={handleRestore}
-          disabled={loading || processing || credits < 40}
-          className={styles.restoreButton}
-        >
-          {isLoggedIn ? "💎 Restore Premium (40 credits)" : "🔒 Sign up to Restore Premium"}
-        </button>
-      )}
+            <button
+                className={styles.topBannerButton}
+                onClick={handleRestoreClick}
+                disabled={loading || processing || (!showFileInput && credits < 40)}
+                title={credits < 40 ? "Not enough credits" : ""}
+              >
+                {!loading && !processing && (
+                  showFileInput
+                    ? isLoggedIn
+                      ? "💎 Restore Premium (40 credits)"
+                      : "🔒 Sign up to Restore Premium"
+                    : "Restore"
+                )}
+                {(loading || processing) && (
+                  <>
+                    <div className={styles.spinner} />
+                    <span className={styles.loadingText}>
+                      Please wait, this may take up to a minute...
+                    </span>
+                  </>
+                )}
+              </button>
 
-      {/* Spinner / Loading Indicator above images */}
-      {(processing || loading) && (
-        <div style={{ marginTop: "1rem", textAlign: "center" }}>
-          <div
-            style={{
-              margin: "0 auto",
-              border: "4px solid #ccc",
-              borderTop: "4px solid #0077cc",
-              borderRadius: "50%",
-              width: 40,
-              height: 40,
-              animation: "spin 1s linear infinite",
-            }}
-          />
-          <p style={{ marginTop: 8, fontWeight: "bold" }}>
-            {loading ? "Restoring..." : "Processing image..."}
-          </p>
-          <p
-            style={{
-              fontStyle: "italic",
-              fontSize: 14,
-              marginTop: 8,
-              color: "#555",
-              maxWidth: 400,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            The restore process can take a minute or sometimes a bit longer.
-            <br />
-            Please be patient and do not close this window.
-          </p>
-        </div>
-      )}
 
-      {(selectedPreviewUrl || restoredUrl) && (
-        <div className={styles.imageComparisonContainer}>
-          <div className={styles.imageBox}>
-            <strong>Before</strong>
-            <div className={styles.imageWrapper}>
-              {selectedPreviewUrl ? (
-                <img src={selectedPreviewUrl} alt="Before upload preview" className={styles.image} />
+            <div className={styles.creditsInfo}>
+              {isLoggedIn ? (
+                <>Your credits: <strong>{credits}</strong></>
               ) : (
-                <span style={{ color: "#aaa" }}>No image selected</span>
+                <>Sign up to unlock full access and purchase credits. Remaining free attempts: <strong>{credits}</strong></>
               )}
             </div>
           </div>
 
-          <div className={styles.imageBox}>
-            <strong>After</strong>
-            <div className={styles.imageWrapper}>
-              {restoredUrl ? (
-                <>
-                  <img src={restoredUrl} alt="Restored" className={styles.image} />
-                  <button onClick={handleDownload} style={{ marginTop: 12 }}>
-                    ⬇️ Download
-                  </button>
-                </>
-              ) : (
-                <span style={{ color: "#aaa" }}>No restored image yet</span>
-              )}
+          <div className={styles.topBannerImages}>
+            <div className={styles.imageBox}>
+              <strong>Before</strong>
+              <div className={styles.imageWrapper}>
+                {selectedPreviewUrl ? (
+                  <img src={selectedPreviewUrl} alt="Before upload preview" className={styles.image} style={{ objectFit: "contain" }} />
+                ) : (
+                  <span className={styles.placeholderText}>Upload an image</span>
+                )}
+              </div>
+            </div>
+
+            <div className={styles.imageBox}>
+              <strong>After</strong>
+              <div className={styles.imageWrapper}>
+                {restoredUrl ? (
+                  <>
+                    <img src={restoredUrl} alt="Restored" className={styles.image} style={{ objectFit: "contain" }} />
+                    <button onClick={handleDownload} className={styles.downloadButton}>
+                      ⬇️ Download
+                    </button>
+                  </>
+                ) : (
+                  <span className={styles.placeholderText}>No restored image yet</span>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </section>
 
-      {selectedFile ? (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          style={{ marginTop: "2rem" }}
-        />
-      ) : (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          style={{ marginTop: "1rem" }}
-        />
-      )}
 
-      <style jsx>{`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
+      {/* Below sections remain the same */}
 
       <div className={styles.howItWorksSection}>
         <h3>💎 How Restore Premium Works</h3>
@@ -286,7 +265,7 @@ export default function RestorePremium() {
         </div>
       </section>
 
-     <section className={styles.testimonials}>
+      <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
         <blockquote>
           &quot;Restore Premium brought my wedding photos back to life in full color. Incredible!&quot; <span>– Sarah M.</span>
@@ -295,8 +274,6 @@ export default function RestorePremium() {
           &quot;Worth every credit. The facial reconstruction and colorization blew me away.&quot; <span>– Daniel K.</span>
         </blockquote>
       </section>
-
-
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely and temporarily.

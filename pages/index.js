@@ -165,6 +165,26 @@ export default function Home() {
       padding-bottom: 0 !important;
       width: 100% !important;
     }
+    
+    @media (max-width: 768px) {
+      .portrait-compare > div {
+        height: 450px !important;
+      }
+      .portrait-compare {
+        width: 280px !important;
+        height: 450px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .portrait-compare > div {
+        height: 400px !important;
+      }
+      .portrait-compare {
+        width: 250px !important;
+        height: 400px !important;
+      }
+    }
   `}</style>
   <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
     Compare Basic vs Premium Restoration
@@ -172,7 +192,7 @@ export default function Home() {
   <div style={{
     display: "flex",
     flexWrap: "wrap",
-    gap: "3rem",
+    gap: "2rem",
     justifyContent: "center",
     alignItems: "flex-start"
   }}>
@@ -180,16 +200,19 @@ export default function Home() {
     <div style={{
       flex: "0 0 auto",
       width: "400px",
+      maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
       <h3 style={{ marginBottom: "1rem" }}>Basic Restore</h3>
       <div className="portrait-compare" style={{
         width: "400px",
+        maxWidth: "100%",
         height: "600px",
         position: "relative",
         overflow: "hidden",
         borderRadius: "12px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
+        boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+        margin: "0 auto"
       }}>
         <ImageCompareSlider
           beforeImage="/images/basic-before.jpg"
@@ -201,16 +224,19 @@ export default function Home() {
     <div style={{
       flex: "0 0 auto",
       width: "400px",
+      maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
       <h3 style={{ marginBottom: "1rem" }}>Premium Restore</h3>
       <div className="portrait-compare" style={{
         width: "400px",
+        maxWidth: "100%",
         height: "600px",
         position: "relative",
         overflow: "hidden",
         borderRadius: "12px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
+        boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+        margin: "0 auto"
       }}>
         <ImageCompareSlider
           beforeImage="/images/premium-before.jpg"
@@ -220,7 +246,6 @@ export default function Home() {
     </div>
   </div>
 </section>
-
 
 
 {/* Hero Section */}

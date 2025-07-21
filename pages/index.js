@@ -159,8 +159,8 @@ export default function Home() {
     Experience the Basic Restore Before & After
   </h2>
   <ImageCompareSlider
-    beforeImage="/images/basic-demo-before.jpg"
-    afterImage="/images/basic-demo-after.jpg"
+    beforeImage="/images/basic-before.jpg"
+    afterImage="/images/basic-after.jpg"
   />
 </section>
 
@@ -308,6 +308,22 @@ export default function Home() {
       </div>
       <div className={featureStyles.galleryImageWrapper}>
         <Image src="/images/after4.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+     <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before5.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after5.jpg" alt="After" width={300} height={450} />
+      </div>
+    </div>
+     <div className={featureStyles.galleryCard}>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/before6.jpg" alt="Before" width={300} height={450} />
+      </div>
+      <div className={featureStyles.galleryImageWrapper}>
+        <Image src="/images/after6.jpg" alt="After" width={300} height={450} />
       </div>
     </div>
     {/* Add more cards as needed */}

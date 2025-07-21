@@ -12,6 +12,24 @@
   margin-bottom: 4rem;
 }
 
+/* Top Banner basic */
+.topBannerBasic {
+  width: 100vw; /* stretch full screen */
+  position: relative;
+  background: 
+  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  url("/images/retro-grid-basic.jpg") center/cover no-repeat;
+  padding: 6rem 2rem 4rem;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4rem;
+}
+
+
+
 
 
 .topBanner::before {

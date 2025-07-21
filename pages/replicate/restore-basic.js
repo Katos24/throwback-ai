@@ -3,6 +3,7 @@ import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
+import ImageCompareSlider from "../../components/ImageCompareSlider";
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -231,6 +232,47 @@ export default function RestoreBasic() {
         </div>
       </section>
 
+    {/* Image Compare Slider Section for Basic Restore */}
+      <section
+        style={{
+          padding: "3rem 1rem",
+          backgroundColor: "#121212",
+          color: "white",
+        }}
+      >
+        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          Experience the Basic Restore Before & After
+        </h2>
+        <ImageCompareSlider
+          beforeImage="/images/basicpage-before.jpg"
+          afterImage="/images/basicpage-after.jpg"
+        />
+      </section>
+
+      
+      {/* Feature Section – Basic */}
+<section className={styles.featurePromoSection}>
+  <div className={styles.featurePromoContent}>
+    <div className={styles.featurePromoText}>
+      <h2 className={styles.featurePromoTitle}>🧼 Clean up your photos with enhanced clarity</h2>
+      <p className={styles.featurePromoSubtitle}>
+        Restore Basic uses smart AI to remove noise, sharpen edges, and enhance the overall clarity of your photos —
+        whether black &amp; white or color. Black and white images stay true to their original tone, while color photos
+        are cleaned and subtly enriched for a crisper, more vivid look.
+      </p>
+    </div>
+    <div className={styles.featurePromoVisual}>
+      <img
+        src="/images/basic-restore-preview.jpg"
+        alt="Basic restored photo example"
+        className={`${styles.featurePromoImage} ${styles.tiltImage}`}
+      />
+    </div>
+  </div>
+</section>
+
+
+
       {/* How it works */}
       <div className={styles.howItWorksSection}>
         <h3>🛠️ How it works</h3>
@@ -270,16 +312,25 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-      {/* Testimonials */}
+     {/* Testimonials */}
       <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
-        <blockquote>
-          &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot; <span>– Jamie R.</span>
-        </blockquote>
-        <blockquote>
-          &quot;I cried when I saw my childhood photo restored. Thank you.&quot; <span>– Marcus L.</span>
-        </blockquote>
+        <ul className={styles.testimonialsList}>
+          <li className={styles.testimonialCard}>
+            <p className={styles.testimonialText}>
+              &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot;
+            </p>
+            <span className={styles.testimonialAuthor}>– Jamie R.</span>
+          </li>
+          <li className={styles.testimonialCard}>
+            <p className={styles.testimonialText}>
+              &quot;I cried when I saw my childhood photo restored. Thank you.&quot;
+            </p>
+            <span className={styles.testimonialAuthor}>– Marcus L.</span>
+          </li>
+        </ul>
       </section>
+
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything

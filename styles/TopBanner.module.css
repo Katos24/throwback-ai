@@ -1,72 +1,160 @@
-.topBannerTwoColumn {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* === TOP HERO SECTION === */
+.topBannerHero {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #0d1a26 0%, #1c3651 45%, #fddfb0 100%);
-  color: #fdfdfc;
-  padding: 4rem 2rem;
-  max-width: 1400px;
-  margin: 3rem auto;
-  border-radius: 20px;
-  box-shadow:
-    0 18px 48px rgba(0, 0, 0, 0.35),
-    0 0 0 2px rgba(255, 230, 160, 0.1);
-  gap: 3rem;
-  font-family: 'GFS Didot', serif;
-  transition: all 0.3s ease-in-out;
-}
-
-/* === LEFT TEXT SIDE === */
-.bannerTextBlock {
-  text-align: left;
-}
-
-.bannerIntro {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffd46d;
-  margin-bottom: 1rem;
-  opacity: 0.85;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 0.3px;
-}
-
-.topBannerTwoColumn h1 {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  color: #ffe8b0;
-  margin-bottom: 1.2rem;
-  line-height: 1.2;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-}
-
-.topBannerTwoColumn p {
-  font-size: 1.15rem;
-  color: #f5f5f3;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-  font-family: 'Poppins', sans-serif;
-  opacity: 0.95;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-
-/* === CTA BUTTON === */
-.topBannerButton {
-  background: linear-gradient(135deg, #ffe6a0, #ffd46d, #ffb347);
-  color: #1c3651;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 1rem 2.6rem;
-  border-radius: 40px;
-  border: none;
-  cursor: pointer;
-  box-shadow:
-    0 8px 25px rgba(255, 230, 160, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  background: linear-gradient(145deg, #0d0d0d, #1f2a38);
+  color: #f4f1ee;
+  padding: 6rem 2rem;
+  max-width: 1700px;
+  margin: 3rem auto 4rem;
+  border-radius: 24px;
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(47, 46, 45, 0.12),
+    0 0 0 1px rgba(212, 175, 127, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  font-family: 'GFS Didot', serif;
+}
+
+/* Greek-inspired decorative elements */
+.topBannerHero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(221, 170, 102, 0.08) 0%, transparent 30%),
+    radial-gradient(circle at 70% 80%, rgba(212, 175, 127, 0.06) 0%, transparent 40%);
+  animation: subtleFloat 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.topBannerHero::after {
+  content: '∞ ΑΝΑΣΤΑΣΙΣ ∞';
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(176, 156, 133, 0.4);
+  letter-spacing: 3px;
+  font-family: 'GFS Didot', serif;
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-10px, -15px) rotate(1deg); }
+  66% { transform: translate(8px, -8px) rotate(-0.5deg); }
+}
+
+/* Tagline with Greek accent */
+.bannerIntro {
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #b09c85, #a08c76);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.2rem;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.bannerIntro::before {
+  content: '◊';
+  position: absolute;
+  left: -2rem;
+  color: #d4af7f;
+  font-size: 1rem;
+}
+
+.bannerIntro::after {
+  content: '◊';
+  position: absolute;
+  right: -2rem;
+  color: #d4af7f;
+  font-size: 1rem;
+}
+
+/* Enhanced Main Headline */
+.topBannerHero h1 {
+  color: #f4e8d5; /* light vintage cream */
+  font-size: 3rem;
+  line-height: 1.2;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25); /* subtle depth */
+}
+
+.topBannerHero h1::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4af7f, transparent);
+  border-radius: 2px;
+}
+
+/* Enhanced Description */
+.topBannerHero p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  color: #4a453e;
+  font-family: 'Poppins', sans-serif;
+  max-width: 720px;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.topBannerHero p strong {
+  background: linear-gradient(135deg, #ddaa66, #d4af7f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  position: relative;
+}
+
+/* Dual CTA Button Setup */
+.ctaButtonContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Primary CTA Button */
+.topBannerButton {
+  background: linear-gradient(to right, #d6a24a, #e2b670);
+  background-size: 200% 200%;
+  color: #1a1a1a;
+  padding: 1rem 2.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 12px 32px rgba(221, 170, 102, 0.25),
+    0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .topBannerButton::before {
@@ -77,78 +165,296 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  transition: left 0.6s ease;
+}
+
+.topBannerButton:hover {
+  background-position: 100% 0;
+  background: linear-gradient(to right, #c8913f, #dba55c);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 16px 40px rgba(221, 170, 102, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .topBannerButton:hover::before {
   left: 100%;
 }
 
-.topBannerButton:hover {
-  background: linear-gradient(135deg, #fddfb0, #ffb347, #ff9500);
-  color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow:
-    0 15px 40px rgba(255, 222, 143, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-/* === RIGHT MEDIA SIDE === */
-.bannerVideoBlock {
-  text-align: center;
-}
-
-.bannerVideoLabel {
+/* Secondary CTA Button */
+.secondaryButton {
+  background: transparent;
+  color: #dba55c;
+  padding: 1rem 2.4rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #ffd46d;
-  margin-bottom: 1rem;
+  border: 1px solid #f4c06a;
+  border-radius: 16px;
+  cursor: pointer;
   font-family: 'Poppins', sans-serif;
-  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.secondaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #ddaa66, #d4af7f);
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.secondaryButton:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  background: #dba55c;
+  box-shadow: 0 8px 24px rgba(212, 175, 127, 0.3);
+}
+
+.secondaryButton:hover::before {
+  width: 100%;
+}
+
+/* Feature highlight badges */
+.featureHighlights {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.featureBadge {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 127, 0.2);
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f4c06a;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.featureBadge:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* === VIDEO SECTION === */
+.videoSection {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #0e1e2a, #1a2f3f);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 60px rgba(14, 30, 42, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffe9b8, transparent);
+}
+
+.videoSection h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffe9b8, #ffd89b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'GFS Didot', serif;
+  font-weight: 600;
+}
+
+.videoSection p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: #e8e8e8;
+  font-family: 'Poppins', sans-serif;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 233, 184, 0.1);
+}
+
+.videoWrapper video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .topBannerHero {
+    padding: 4rem 1.5rem;
+    margin: 2rem auto 3rem;
+  }
+  
+  .topBannerHero h1 {
+    font-size: 2.6rem;
+  }
+  
+  .topBannerHero p {
+    font-size: 1.15rem;
+    padding: 0 0.5rem;
+  }
+  
+  .ctaButtonContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .topBannerButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .featureHighlights {
+    gap: 1rem;
+  }
+  
+  .featureBadge {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.2rem;
+  }
+  
+  .bannerIntro::before,
+  .bannerIntro::after {
+    display: none;
+  }
+  
+  .videoSection {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .videoWrapper {
+    padding-bottom: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .topBannerHero {
+    padding: 3rem 1rem;
+  }
+  
+  .topBannerHero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .topBannerHero p {
+    font-size: 1.1rem;
+  }
+  
+  .bannerIntro {
+    font-size: 1rem;
+  }
+  
+  .videoSection h2 {
+    font-size: 1.8rem;
+  }
+  
+  .videoSection p {
+    font-size: 1rem;
+  }
+  
+  .featureHighlights {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.topBannerContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1600px;
+}
+
+.topBannerLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Change to 'flex-start' if you want left-align on large screens */
+  text-align: center;   /* Change to 'left' if desired */
+}
+
+.topBannerRight {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bannerVideoWrapper {
-  border-radius: 12px;
+  max-width: 100%;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  max-width: 640px;
-  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .bannerVideo {
   width: 100%;
   height: auto;
-  display: block;
+  border-radius: 20px;
+  object-fit: cover;
 }
 
-/* === RESPONSIVE STYLING === */
 @media (max-width: 900px) {
-  .topBannerTwoColumn {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 2.5rem 1.5rem;
-  }
-
-  .bannerTextBlock {
+  .topBannerContent {
+    flex-direction: column;
     text-align: center;
   }
 
-  .topBannerButton {
-    margin-bottom: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .topBannerTwoColumn h1 {
-    font-size: 2rem;
+  .topBannerLeft {
+    align-items: center;
+    text-align: center;
   }
 
-  .topBannerTwoColumn p {
-    font-size: 1rem;
+  .topBannerRight {
+    margin-top: 2rem;
   }
 
-  .topBannerButton {
-    font-size: 0.95rem;
-    padding: 0.8rem 2rem;
+  .bannerVideoWrapper {
+    width: 100%;
   }
 }

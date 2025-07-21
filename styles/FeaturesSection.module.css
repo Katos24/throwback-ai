@@ -23,12 +23,13 @@
 .galleryScroll {
   display: flex;
   overflow-x: auto;
-  gap: 1rem;
+  gap: 2.5rem; /* Increased horizontal gap */
   padding-bottom: 1rem;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;  /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
+  cursor: grab;
 }
 
 .galleryScroll::-webkit-scrollbar {
@@ -38,7 +39,7 @@
 /* Film strip style card */
 .galleryCard {
   flex: 0 0 auto;
-  background-color: #121a2b;
+  background-color: #000000;
   border: 2px solid #334155;
   border-radius: 12px;
   box-shadow:
@@ -101,4 +102,66 @@
 /* Slight zoom on hover for images */
 .galleryCard:hover .galleryImageWrapper img {
   transform: scale(1.05);
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 1024px) {
+  .galleryScroll {
+    gap: 2rem; /* slightly smaller gap on smaller desktops/tablets */
+  }
+  
+  .galleryCard {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galleryHeading {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .galleryScroll {
+    gap: 1.5rem; /* smaller gap for tablets */
+  }
+
+  .galleryCard {
+    width: 220px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .galleryCard::before,
+  .galleryCard::after {
+    top: 10px;
+    bottom: 10px;
+    width: 10px;
+    border-radius: 5px;
+    left: -14px;
+    right: -14px;
+  }
+
+  .galleryImageWrapper {
+    border-radius: 6px;
+  }
+
+  .galleryImageWrapper img {
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galleryHeading {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .galleryScroll {
+    gap: 1rem; /* smallest gap on small phones */
+    padding-bottom: 0.75rem;
+  }
+
+  .galleryCard {
+    width: 180px;
+    padding: 0.5rem 0.5rem;
+  }
 }

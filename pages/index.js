@@ -124,31 +124,54 @@ export default function Home() {
       </Head>
 
       
-{/* Enhanced Top Banner with Video */}
-<section className={styles.topBannerTwoColumn}>
-  <div className={styles.bannerTextBlock}>
-    <p className={styles.bannerIntro}>No filters. No fakes. Just honest revival.</p>
-    <h1>Your Memories Deserve More Than a Generic Filter</h1>
-    <p>
-      Try Anastasis AI Restoration for free — no account required.
-      See your photos renewed instantly with stunning detail and vivid colors.
-    </p>
-    <button className={styles.topBannerButton} onClick={() => alert('Get Started!')}>
-      Get Early Access
-    </button>
-  </div>
 
-  <div className={styles.bannerVideoBlock}>
-    <p className={styles.bannerVideoLabel}>Watch the transformation:</p>
-    <div className={styles.bannerVideoWrapper}>
-      <video
-        src="/images/transformation.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className={styles.bannerVideo}
-      />
+{/* Top Banner Section with Two Columns */}
+<section className={styles.topBannerHero}>
+  <div className={styles.topBannerContent}>
+    <div className={styles.topBannerLeft}>
+      <p className={styles.bannerIntro}>Revival, not replacement.</p>
+
+      <h1>Restore the Soul of Your Family Photos</h1>
+
+      <p>
+        <strong>Anastasis</strong> combines ancient Greek wisdom with modern AI.  
+        Try <strong>Restore Basic</strong> for clear, detailed photo fixes.  
+        Upgrade to <strong>Premium</strong> for authentic colorization and vintage effects.
+      </p>
+
+      <div className={styles.ctaButtonContainer}>
+        <button
+          className={styles.topBannerButton}
+          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+        >
+          Try Restore Basic
+        </button>
+        <button
+          className={styles.secondaryButton}
+          onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+        >
+          Explore Premium
+        </button>
+      </div>
+
+      <div className={styles.featureHighlights}>
+        <span className={styles.featureBadge}>✨ AI Restoration</span>
+        <span className={styles.featureBadge}>🎨 Authentic Colorization</span>
+        <span className={styles.featureBadge}>📜 Legacy Preservation</span>
+      </div>
+    </div>
+
+    <div className={styles.topBannerRight}>
+      <div className={styles.bannerVideoWrapper}>
+        <video
+          src="/images/transformation.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={styles.bannerVideo}
+        />
+      </div>
     </div>
   </div>
 </section>
@@ -187,9 +210,11 @@ export default function Home() {
       }
     }
   `}</style>
+
   <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
-    Compare Basic vs Premium Restoration
+    Product Demo
   </h2>
+
   <div style={{
     display: "flex",
     flexWrap: "wrap",
@@ -204,7 +229,6 @@ export default function Home() {
       maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
-      <h3 style={{ marginBottom: "1rem" }}>Basic Restore</h3>
       <div className="portrait-compare" style={{
         width: "400px",
         maxWidth: "100%",
@@ -220,7 +244,9 @@ export default function Home() {
           afterImage="/images/basic-after.jpg"
         />
       </div>
+      <h3 style={{ marginTop: "1rem" }}>Basic Restore</h3>
     </div>
+
     {/* Premium Restore */}
     <div style={{
       flex: "0 0 auto",
@@ -228,7 +254,6 @@ export default function Home() {
       maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
-      <h3 style={{ marginBottom: "1rem" }}>Premium Restore</h3>
       <div className="portrait-compare" style={{
         width: "400px",
         maxWidth: "100%",
@@ -244,9 +269,11 @@ export default function Home() {
           afterImage="/images/premium-after.jpg"
         />
       </div>
+      <h3 style={{ marginTop: "1rem" }}>Premium Restore</h3>
     </div>
   </div>
 </section>
+
 
 
 {/* Hero Section */}
@@ -495,7 +522,7 @@ export default function Home() {
           {[
             { icon: "🔒", label: "No account required" },
             { icon: "💳", label: "Credits never expire" },
-            { icon: "🗑️", label: "Photos deleted after 24hrs" },
+            { icon: "🗑️", label: "Photos deleted after 1 hr" },
           ].map((point, i) => (
             <div key={i} className={pricingStyles.trustCard}>
               <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
@@ -575,6 +602,7 @@ export default function Home() {
     Claim Your Migration Offer
   </button>
 </section>
+
 
       {/* Testimonials Section */}
       <section className={testimonialStyles.testimonials}>

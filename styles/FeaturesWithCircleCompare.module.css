@@ -1,3 +1,8 @@
+/* === FONT IMPORT === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+
+
 /* === MAIN SECTION CONTAINER === */
 .container {
   display: flex;
@@ -5,8 +10,7 @@
   gap: 4rem;
   padding: 5rem 2rem 6rem;
   justify-content: center;
-  background-color: #ffffff; /* ⬅ white background */
-  color: #1e293b; /* dark text for contrast */
+  background-color: #ffffff;
   max-width: 1500px;
   margin: 0 auto 6rem;
   border-radius: 20px;
@@ -15,18 +19,17 @@
     0 0 0 1px rgba(0, 0, 0, 0.03);
 }
 
-/* Unified Title */
+/* === SECTION TITLE === */
 .sectionTitle {
   width: 100%;
   text-align: center;
-  font-size: 2.4rem;
-  font-weight: 701;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: #1c3651;
   margin-bottom: 3.5rem;
-  text-shadow: none;
 }
 
-/* === LEFT SIDE: FEATURES === */
+/* === FEATURES SIDE (LEFT) === */
 .featuresSide {
   flex: 1 1 340px;
   min-width: 280px;
@@ -42,17 +45,16 @@
 }
 
 .featureCard {
-  background-color: #f4f6fa;
+  background-color: #f8fafc;
   padding: 1.75rem;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: background-color 0.3s ease;
-  cursor: default;
 }
 
 .featureCard:hover {
-  background-color: #e9edf3;
+  background-color: #e2e8f0;
 }
 
 .featureStat {
@@ -63,18 +65,18 @@
 }
 
 .starIcon {
-  color: #fbbf24;
+  color: #facc15;
   margin-left: 0.3rem;
   font-size: 1.2rem;
 }
 
 .featureLabel {
   font-weight: 500;
-  color: #475569;
+  color: #64748b;
   font-size: 1rem;
 }
 
-/* === RIGHT SIDE: CIRCULAR COMPARISON === */
+/* === COMPARISON SIDE (RIGHT) === */
 .circleCompareSide {
   flex: 1 1 520px;
   min-width: 320px;
@@ -83,6 +85,7 @@
   padding: 0 1rem;
 }
 
+/* === CIRCLE CONTAINER === */
 .circleContainer {
   position: relative;
   width: 500px;
@@ -91,12 +94,13 @@
   padding-top: 1.5rem;
 }
 
+/* === CIRCLE ITEMS === */
 .circleItem {
   position: absolute;
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background-color: #f4f6fa;
+  background-color: #f1f5f9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,6 +111,11 @@
   color: #1e293b;
   text-align: center;
   gap: 0.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.circleItem:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .compareImage {
@@ -115,6 +124,7 @@
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 0.3rem;
+  border: 2px solid #e2e8f0;
   transition: transform 0.3s ease;
 }
 
@@ -122,7 +132,7 @@
   transform: scale(1.08);
 }
 
-/* Positioning */
+/* === POSITIONING === */
 .original {
   top: 0;
   left: 50%;
@@ -139,7 +149,19 @@
   right: 10%;
 }
 
-/* === RESPONSIVENESS === */
+/* === CONNECTION LINE (OPTIONAL) === */
+.connectionLine {
+  position: absolute;
+  width: 2px;
+  height: 150px;
+  background-color: #cbd5e1;
+  left: 50%;
+  top: 180px;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* === MOBILE RESPONSIVENESS === */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -160,9 +182,9 @@
 
   .circleContainer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
     width: 100%;
     height: auto;
     padding-top: 1rem;
@@ -173,5 +195,10 @@
     width: 160px;
     height: 160px;
     margin: 0;
+    flex-shrink: 0;
+  }
+
+  .connectionLine {
+    display: none;
   }
 }

@@ -14,6 +14,7 @@ import infoStyles from "../styles/InfoSection.module.css";
 import migrationStyles from "../styles/MigrationSection.module.css";
 import styles from '../styles/TopBanner.module.css';
 import ImageCompareSlider from "../components/ImageCompareSlider";
+import featureCompareStyles from '../styles/FeaturesWithCircleCompare.module.css';
 
 
 const features = [
@@ -326,32 +327,67 @@ export default function Home() {
 
 
 
-{/* FEATURES SECTION */}
-<section className={featureStyles.featuresSection}>
-  <h2>Built for Historical Photo Restoration</h2>
+   <section className={featureCompareStyles.container}>
+  {/* Unified Section Title */}
+  <h2 className={featureCompareStyles.sectionTitle}>See the Restoration Impact</h2>
 
-  <div className={featureStyles.featuresRow}>
-    <div className={featureStyles.featureCard}>
-      <div className={featureStyles.featureStat}>1M+</div>
-      <div className={featureStyles.featureLabel}>Photos restored worldwide</div>
+  {/* Left: Feature Stats */}
+  <div className={featureCompareStyles.featuresSide}>
+    <div className={featureCompareStyles.featuresRow}>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>1M+</div>
+        <div className={featureCompareStyles.featureLabel}>Photos restored worldwide</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>99%</div>
+        <div className={featureCompareStyles.featureLabel}>Authenticity retained</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>60+</div>
+        <div className={featureCompareStyles.featureLabel}>Countries served</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>
+          4.9<span className={featureCompareStyles.starIcon}>★</span>
+        </div>
+        <div className={featureCompareStyles.featureLabel}>Average customer rating</div>
+      </div>
     </div>
+  </div>
 
-    <div className={featureStyles.featureCard}>
-      <div className={featureStyles.featureStat}>99%</div>
-      <div className={featureStyles.featureLabel}>Authenticity retained</div>
-    </div>
-
-    <div className={featureStyles.featureCard}>
-      <div className={featureStyles.featureStat}>60+</div>
-      <div className={featureStyles.featureLabel}>Countries served</div>
-    </div>
-
-    <div className={featureStyles.featureCard}>
-      <div className={featureStyles.featureStat}>4.9<span className={featureStyles.starIcon}>★</span></div>
-      <div className={featureStyles.featureLabel}>Average customer rating</div>
+  {/* Right: Circular Restoration Flow */}
+  <div className={featureCompareStyles.circleCompareSide}>
+    <div className={featureCompareStyles.circleContainer}>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.original}`}>
+        <img
+          src="/images/example-before.jpg"
+          alt="Original"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Original</span>
+      </div>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.basic}`}>
+        <img
+          src="/images/example-basic.jpg"
+          alt="Basic"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Restore Basic</span>
+      </div>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.premium}`}>
+        <img
+          src="/images/example-premium.jpg"
+          alt="Premium"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Restore Premium</span>
+      </div>
     </div>
   </div>
 </section>
+
+
+
 
 
 {/* Scrollable Gallery Section */}
@@ -563,7 +599,7 @@ export default function Home() {
       </section>
 
       {/* SEO Text */}
-      <section className={infoStyles.seoTextSection}>
+      <section className={faqStyles.seoTextSection}>
         <h2>About Anastasis AI Photo Restoration</h2>
         <p>
           Anastasis is the only photo restoration service designed from the

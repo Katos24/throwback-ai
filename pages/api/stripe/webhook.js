@@ -7,10 +7,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const priceToCredits = {
-  "price_1RjP8QIGCXozWG1evxpKurM8": 400,
-  "price_1RjP8uIGCXozWG1eB0GiU1EY": 1000,
-  "price_1RjP9IIGCXozWG1etaY5RT3g": 1600,
-  "price_1RjP9hIGCXozWG1eU0wWPCbb": 3500,
+  "price_1RjPFlIGCXozWG1ecszEk4MT": 400,
+  "price_1RjPFjIGCXozWG1eJqBcRJkQ": 1000,
+  "price_1RjPFfIGCXozWG1ef2xOFs6x": 1600,
+  "price_1RjPFcIGCXozWG1e1csgY6Z3": 3500,
 };
 
 export const config = { api: { bodyParser: false } };

@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabaseClient";
 
 const CREDIT_PACKS = [
   {
-    id: "price_1RjP8QIGCXozWG1evxpKurM8",
+    id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
     name: "Dawn Pack",
     credits: 400,
     price: "$4.99",

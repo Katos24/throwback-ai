@@ -153,15 +153,72 @@ export default function Home() {
 </section>
 
 
-{/* Image Compare Slider Section for Basic Restore */}
+
+
+{/* Full Portrait-Friendly ImageCompare Section */}
 <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-    Experience the Basic Restore Before & After
+  <style>{`
+    .portrait-compare > div {
+      max-width: none !important;
+      margin: 0 !important;
+      height: 600px !important;
+      padding-bottom: 0 !important;
+      width: 100% !important;
+    }
+  `}</style>
+  <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
+    Compare Basic vs Premium Restoration
   </h2>
-  <ImageCompareSlider
-    beforeImage="/images/basic-before.jpg"
-    afterImage="/images/basic-after.jpg"
-  />
+  <div style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "3rem",
+    justifyContent: "center",
+    alignItems: "flex-start"
+  }}>
+    {/* Basic Restore */}
+    <div style={{
+      flex: "0 0 auto",
+      width: "400px",
+      textAlign: "center"
+    }}>
+      <h3 style={{ marginBottom: "1rem" }}>Basic Restore</h3>
+      <div className="portrait-compare" style={{
+        width: "400px",
+        height: "600px",
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: "12px",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
+      }}>
+        <ImageCompareSlider
+          beforeImage="/images/basic-before.jpg"
+          afterImage="/images/basic-after.jpg"
+        />
+      </div>
+    </div>
+    {/* Premium Restore */}
+    <div style={{
+      flex: "0 0 auto",
+      width: "400px",
+      textAlign: "center"
+    }}>
+      <h3 style={{ marginBottom: "1rem" }}>Premium Restore</h3>
+      <div className="portrait-compare" style={{
+        width: "400px",
+        height: "600px",
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: "12px",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
+      }}>
+        <ImageCompareSlider
+          beforeImage="/images/premium-before.jpg"
+          afterImage="/images/premium-after.jpg"
+        />
+      </div>
+    </div>
+  </div>
 </section>
 
 

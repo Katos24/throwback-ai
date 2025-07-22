@@ -370,3 +370,36 @@
     width: 100%;
   }
 }
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 1rem; /* Adjust this value as needed */
+}
+
+.paragraph {
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+
+/* Scroll hint */
+.scrollHint {
+  margin-top: 2.5rem;
+  font-size: .9rem;
+  color: #ffd46d;
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
+}
+
+ 
+  .scrollHint {
+    font-size: 0.85rem;
+  }

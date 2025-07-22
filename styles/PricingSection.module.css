@@ -5,7 +5,7 @@
   background: linear-gradient(145deg, #0b0b0d, #16171a);
   border-radius: 20px;
   box-shadow: 0 24px 80px rgba(0, 255, 255, 0.06);
-  max-width: 1100px;
+  max-width: 1600px; /* wider than 1100 */
   margin: 6rem auto;
   color: #e3f5ff;
   position: relative;
@@ -28,12 +28,26 @@
   color: #a6bfcf;
 }
 
-/* 🧬 COMPARISON GRID */
+/* 🧬 COMPARISON GRID — includes Competitor + Packs */
 .pricingComparison {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   margin-top: 2rem;
+}
+
+/* ✅ 2x2 PACK GRID */
+.packGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .packGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* 🧪 CARD BASE STYLE */
@@ -49,8 +63,8 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.competitorCard:hover,
-.anastasisCard:hover {
+.anastasisCard:hover,
+.competitorCard:hover {
   transform: translateY(-6px);
   box-shadow:
     0 0 12px rgba(0, 255, 255, 0.12),
@@ -174,6 +188,95 @@
   text-align: center;
 }
 
+/* 💡 TRUST CARDS */
+.trustCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.trustCard {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  color: #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.trustCard:hover {
+  transform: translateY(-2px);
+}
+
+.trustCardIcon {
+  font-size: 1.3rem;
+  color: #bfae82;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.trustCardLabel {
+  font-weight: 500;
+  line-height: 1.3;
+  color: #ddd;
+}
+
+/* 🌌 TEXTURED OVERLAY */
+.honestPricing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 📏 DIVIDER LINE */
+.divider {
+  border: none;
+  border-top: 2px solid rgba(255, 255, 255, 0.08);
+  margin: 3rem auto 2rem;
+  width: 80%;
+}
+
+/* 🆚 COMPETITOR CARD CUSTOM STYLE */
+.competitorCard {
+  max-width: 500px;
+  margin: 2rem auto 0;
+  background: linear-gradient(145deg, #2d102f, #3c1d42); /* subtle plum */
+  color: #f0e6ff;
+  border: 1px solid rgba(255, 0, 255, 0.1);
+  border-radius: 18px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 32px rgba(255, 0, 255, 0.06);
+  transition: all 0.4s ease;
+}
+
+.competitorCard:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 12px rgba(255, 0, 255, 0.12),
+    0 0 24px rgba(255, 255, 255, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+.featureList li {
+  margin-bottom: 0.5rem;
+  color: #ffb8e5;
+}
+
 /* 📱 MOBILE BREAKPOINTS */
 @media (max-width: 768px) {
   .honestPricing {
@@ -186,7 +289,6 @@
   }
 
   .pricingComparison {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
@@ -200,12 +302,134 @@
   }
 }
 
-/* 🌌 TEXTURED OVERLAY */
-.honestPricing::before {
+
+
+
+
+/* 🔄 MAIN CONTAINER FOR SIDE-BY-SIDE LAYOUT */
+.mainPricingContainer {
+  display: flex;
+  gap: 3rem;
+  align-items: stretch; /* Make both sides take equal height */
+  margin-top: 2rem;
+}
+
+/* 📦 LEFT SECTION - ANASTASIS CARDS + TRUST CARDS */
+.anastasisSection {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 🏢 RIGHT SECTION - COMPETITOR CARD */
+.competitorSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  padding-left: 2rem;
+  border-left: 2px solid rgba(0, 255, 255, 0.15); /* Divider line */
+  position: relative;
+  align-self: center; /* Align to center of the 2x2 grid height */
+  height: 100%; /* Take full height of the container */
+}
+
+/* ✨ DIVIDER GLOW EFFECT */
+.competitorSection::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  left: -1px;
+  top: 10%;
+  bottom: 10%;
+  width: 2px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(0, 255, 255, 0.3) 20%, 
+    rgba(255, 0, 255, 0.3) 50%, 
+    rgba(0, 255, 255, 0.3) 80%, 
+    transparent 100%
+  );
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+}
+
+/* 🎯 COMPETITOR CARD ADJUSTMENTS FOR SIDE LAYOUT */
+.competitorSection .competitorCard {
+  margin: 0; /* Remove the auto centering margin */
+  width: 100%;
+  max-width: none; /* Allow it to use full width of its container */
+  min-height: 400px; /* Make it taller to better match the left side */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 🔄 VS ACCENT STYLING */
+.vsAccent {
+  background: linear-gradient(90deg, #00ffff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+}
+
+/* 📱 RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1200px) {
+  .mainPricingContainer {
+    gap: 2rem;
+  }
+  
+  .competitorSection {
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mainPricingContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .anastasisSection {
+    flex: 1;
+  }
+  
+  .competitorSection {
+    flex: 1;
+    border-left: none; /* Remove divider on mobile */
+    border-top: 2px solid rgba(0, 255, 255, 0.15); /* Add top divider instead */
+    padding-left: 0;
+    padding-top: 2rem;
+    position: relative;
+  }
+  
+  /* Mobile divider effect */
+  .competitorSection::before {
+    left: 10%;
+    right: 10%;
+    top: -1px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(0, 255, 255, 0.3) 20%, 
+      rgba(255, 0, 255, 0.3) 50%, 
+      rgba(0, 255, 255, 0.3) 80%, 
+      transparent 100%
+    );
+  }
+  
+  .competitorSection .competitorCard {
+    max-width: 500px; /* Restore max-width for stacked layout */
+    margin: 0 auto; /* Center it again when stacked */
+    min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .trustCardsGrid {
+    grid-template-columns: 1fr; /* Stack trust cards vertically on mobile */
+  }
 }

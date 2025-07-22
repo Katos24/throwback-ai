@@ -131,9 +131,9 @@ export default function Home() {
     <div className={styles.topBannerLeft}>
       <p className={styles.bannerIntro}>Revival, not replacement.</p>
 
-      <h1>Restore the Soul of Your Family Photos</h1>
+    <h1 className={styles.heading}>Restore the Soul of Your Family Photos</h1>
 
-      <p>
+      <p className={styles.paragraph}>
         <strong>Anastasis</strong> combines ancient Greek wisdom with modern AI.  
         Try <strong>Photo Fix</strong> for crystal-clear, detailed photo repairs.  
         Upgrade to <strong>Photo Revival</strong> for breathtaking colorization and vintage magic.
@@ -152,6 +152,9 @@ export default function Home() {
         >
           Explore Photo Revival
         </button>
+
+          <div className={styles.scrollHint}>Discover the power of preservation ↓</div>
+
       </div>
 
       
@@ -172,6 +175,73 @@ export default function Home() {
   </div>
 </section>
 
+
+
+{/* Restore Options + Before/After */}
+<section className={RestoreOptionsStyles.restoreOptions}>
+  <h2>Choose Your Restoration Level</h2>
+  <div className={RestoreOptionsStyles.restoreCardGrid}>
+
+    {/* Photo Fix */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <h3>🛠️ Photo Fix</h3> {/* 👈 TITLE MOVED UP */}
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/basic-before.jpg"
+          alt="Old grayscale photo before Photo Fix restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <Image
+          src="/images/basic-after.jpg"
+          alt="Restored grayscale photo after Photo Fix restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <p>
+          <strong>3 Free Fixes.</strong> Transform damaged photos into crisp, clear memories instantly.
+        </p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
+          Fix Your Photos Free – No Strings Attached
+        </button>
+      </div>
+    </div>
+
+    {/* Photo Revival */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <h3>✨ Photo Revival</h3> {/* 👈 TITLE MOVED UP */}
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/premium-before.jpg"
+          alt="Old faded photo before Photo Revival restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+        <Image
+          src="/images/premium-after.jpg"
+          alt="Restored full-color photo after Photo Revival restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+        />
+      </div>
+      <div className={RestoreOptionsStyles.cardContent}>
+        <p>
+          <strong>Full-color, HD magic.</strong> Breathe life back into faded memories with stunning detail revival.
+        </p>
+        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+          Experience Heritage-Grade Photo Revival
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
 
@@ -269,149 +339,6 @@ export default function Home() {
 </section>
 
 
-
-
-{/* Hero Section */}
-<section className={heroStyles.hero}>
-  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
-  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
-  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-    See Your History in Full Color
-  </button>
-  <div className={heroStyles.scrollHint}>Discover the power of preservation ↓</div>
-</section>
-
-      {/* Restore Options + Before/After */}
-<section className={RestoreOptionsStyles.restoreOptions}>
-  <h2>Choose Your Restoration Level</h2>
-  <div className={RestoreOptionsStyles.restoreCardGrid}>
-
-    {/* Photo Fix */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>🛠️ Photo Fix</h3> {/* 👈 TITLE MOVED UP */}
-      <div className={RestoreOptionsStyles.imagePair}>
-        <Image
-          src="/images/basic-before.jpg"
-          alt="Old grayscale photo before Photo Fix restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <Image
-          src="/images/basic-after.jpg"
-          alt="Restored grayscale photo after Photo Fix restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>3 Free Fixes.</strong> Transform damaged photos into crisp, clear memories instantly.
-        </p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-          Fix Your Photos Free – No Strings Attached
-        </button>
-      </div>
-    </div>
-
-    {/* Photo Revival */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>✨ Photo Revival</h3> {/* 👈 TITLE MOVED UP */}
-      <div className={RestoreOptionsStyles.imagePair}>
-        <Image
-          src="/images/premium-before.jpg"
-          alt="Old faded photo before Photo Revival restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <Image
-          src="/images/premium-after.jpg"
-          alt="Restored full-color photo after Photo Revival restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>Full-color, HD magic.</strong> Breathe life back into faded memories with stunning detail revival.
-        </p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-          Experience Heritage-Grade Photo Revival
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-   <section className={featureCompareStyles.container}>
-  {/* Unified Section Title */}
-  <h2 className={featureCompareStyles.sectionTitle}>See the Restoration Impact</h2>
-
-  {/* Left: Feature Stats */}
-  <div className={featureCompareStyles.featuresSide}>
-    <div className={featureCompareStyles.featuresRow}>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>1M+</div>
-        <div className={featureCompareStyles.featureLabel}>Photos restored worldwide</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>99%</div>
-        <div className={featureCompareStyles.featureLabel}>Authenticity retained</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>60+</div>
-        <div className={featureCompareStyles.featureLabel}>Countries served</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>
-          4.9<span className={featureCompareStyles.starIcon}>★</span>
-        </div>
-        <div className={featureCompareStyles.featureLabel}>Average customer rating</div>
-      </div>
-    </div>
-  </div>
-
-  {/* Right: Circular Restoration Flow */}
-  <div className={featureCompareStyles.circleCompareSide}>
-    <div className={featureCompareStyles.circleContainer}>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.original}`}>
-        <img
-          src="/images/example-before.jpg"
-          alt="Original"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Original</span>
-      </div>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.basic}`}>
-        <img
-          src="/images/example-basic.jpg"
-          alt="Photo Fix"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Photo Fix</span>
-      </div>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.premium}`}>
-        <img
-          src="/images/example-premium.jpg"
-          alt="Photo Revival"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Photo Revival</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
 {/* Scrollable Gallery Section */}
 <section className={featureStyles.gallerySection}>
   <h2 className={featureStyles.galleryHeading}>Before & After Gallery</h2>
@@ -472,60 +399,188 @@ export default function Home() {
 
 
 
+<section className={featureCompareStyles.container}>
+  {/* Unified Section Title */}
+  <h2 className={featureCompareStyles.sectionTitle}>See the Restoration Impact</h2>
+
+  {/* Left: Feature Stats */}
+  <div className={featureCompareStyles.featuresSide}>
+    <div className={featureCompareStyles.featuresRow}>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>1M+</div>
+        <div className={featureCompareStyles.featureLabel}>Photos restored worldwide</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>99%</div>
+        <div className={featureCompareStyles.featureLabel}>Authenticity retained</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>60+</div>
+        <div className={featureCompareStyles.featureLabel}>Countries served</div>
+      </div>
+      <div className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>
+          4.9<span className={featureCompareStyles.starIcon}>★</span>
+        </div>
+        <div className={featureCompareStyles.featureLabel}>Average customer rating</div>
+      </div>
+    </div>
+  </div>
+
+  {/* Right: Circular Restoration Flow */}
+  <div className={featureCompareStyles.circleCompareSide}>
+    <div className={featureCompareStyles.circleContainer}>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.original}`}>
+        <img
+          src="/images/example-before.jpg"
+          alt="Original"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Original</span>
+      </div>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.basic}`}>
+        <img
+          src="/images/example-basic.jpg"
+          alt="Photo Fix"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Photo Fix</span>
+      </div>
+      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.premium}`}>
+        <img
+          src="/images/example-premium.jpg"
+          alt="Photo Revival"
+          className={featureCompareStyles.compareImage}
+        />
+        <span>Photo Revival</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{/* Hero Section */}
+<section className={heroStyles.hero}>
+  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
+  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
+  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+    See Your History in Full Color
+  </button>
+</section>
+
+      
+
+
+
+   
+
+
+
+
+
+
+
       {/* Pricing & Privacy Section */}
-      <section className={pricingStyles.honestPricing}>
+<section className={pricingStyles.honestPricing}>
   <h2 className={pricingStyles.pricingHeading}>
     One-Time Purchase <span className={pricingStyles.vsAccent}>vs</span> Monthly Subscriptions
   </h2>
   <p className={pricingStyles.subtitle}>
     Buy credits once, use them whenever you need. No recurring charges. No hidden strings.
   </p>
-          
-          <div className={pricingStyles.pricingComparison}>
-            <div className={pricingStyles.competitorCard}>
-              <h3>Other Apps</h3>
-              <div className={pricingStyles.priceDisplay}>
-                <span className={pricingStyles.currency}>$</span>
-                <span className={pricingStyles.amount}>9.99</span>
-                <span className={pricingStyles.perUnit}>per month</span>
-              </div>
-              <p className={pricingStyles.priceNote}>$120/year whether you use it or not</p>
-              <ul className={pricingStyles.featureList}>
-                <li>❌ Monthly recurring charges</li>
-                <li>❌ Pay even when not using</li>
-                <li>❌ Account required</li>
-              </ul>
+  
+  {/* Main Layout Container */}
+  <div className={pricingStyles.mainPricingContainer}>
+    {/* Left Side: Anastasis Packs in 2x2 Layout */}
+    <div className={pricingStyles.anastasisSection}>
+      <div className={pricingStyles.packGrid}>
+        {[
+          {
+            name: "Dawn Pack",
+            price: "$4.99",
+            credits: 400,
+            revivals: 10,
+            tagline: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
+            useCase: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
+          },
+          {
+            name: "Revival Pack",
+            price: "$9.99",
+            credits: 1000,
+            revivals: 25,
+            tagline: "A solid bundle for breathing new life into vintage family shots.",
+            useCase: "Ideal for themed mini galleries, vacation snaps, or honoring loved ones with restored detail.",
+          },
+          {
+            name: "Resurgence Pack",
+            price: "$14.99",
+            credits: 1600,
+            revivals: 40,
+            tagline: "A popular pick for curating full-family albums and restoring event photos.",
+            useCase: "Great for birthdays, reunions, pet portraits, or weaving stories across generations.",
+          },
+          {
+            name: "Eternal Pack",
+            price: "$29.99",
+            credits: 3500,
+            revivals: 87,
+            tagline: "Built for legacy-level restoration — preserve history at scale.",
+            useCase: "Ideal for memory books, heritage tributes, holiday archives, and digital scrapbooking.",
+          },
+        ].map((pack, i) => (
+          <div key={i} className={pricingStyles.anastasisCard}>
+            <h3>{pack.name}</h3>
+            <div className={pricingStyles.priceDisplay}>
+              <span className={pricingStyles.currency}>{pack.price.slice(0, 1)}</span>
+              <span className={pricingStyles.amount}>{pack.price.slice(1)}</span>
+              <span className={pricingStyles.perUnit}>• {pack.credits} credits</span>
             </div>
-
-            <div className={pricingStyles.anastasisCard}>
-              <h3>Anastasis</h3>
-              <div className={pricingStyles.priceDisplay}>
-                <span className={pricingStyles.currency}>$</span>
-                <span className={pricingStyles.amount}>2.99</span>
-                <span className={pricingStyles.perUnit}>per photo</span>
-              </div>
-              <p className={pricingStyles.priceNote}>Buy credits, use anytime</p>
-              <ul className={pricingStyles.featureList}>
-                <li>✅ One-time purchase</li>
-                <li>✅ Credits never expire</li>
-                <li>✅ Buy more as needed</li>
-              </ul>
-            </div>
+            <p className={pricingStyles.priceNote}>{pack.tagline}</p>
+            <p className={pricingStyles.subtitle}>{pack.useCase}</p>
+            <p className={pricingStyles.revivalsInfo}>Premium Revivals: <strong>{pack.revivals}</strong></p>
+            <button className={pricingStyles.buyBtn}>Buy Now</button>
           </div>
+        ))}
+      </div>
+      
+      {/* Trust Cards below the 2x2 grid */}
+      <div className={pricingStyles.trustCardsGrid}>
+        {[
+          { icon: "🔒", label: "No subscription required" },
+          { icon: "💳", label: "Credits never expire" },
+          { icon: "🗑️", label: "Photos deleted after 1 hr" },
+        ].map((point, i) => (
+          <div key={i} className={pricingStyles.trustCard}>
+            <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
+            <p className={pricingStyles.trustCardLabel}>{point.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
 
-          <div className={pricingStyles.trustCardsGrid}>
-          {[
-            { icon: "🔒", label: "No account required" },
-            { icon: "💳", label: "Credits never expire" },
-            { icon: "🗑️", label: "Photos deleted after 1 hr" },
-          ].map((point, i) => (
-            <div key={i} className={pricingStyles.trustCard}>
-              <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
-              <p className={pricingStyles.trustCardLabel}>{point.label}</p>
-            </div>
-          ))}
-        </div> 
-      </section>
+    {/* Right Side: Competitor Card */}
+    <div className={pricingStyles.competitorSection}>
+      <div className={pricingStyles.competitorCard}>
+        <h3>Other Apps</h3>
+        <div className={pricingStyles.priceDisplay}>
+          <span className={pricingStyles.currency}>$</span>
+          <span className={pricingStyles.amount}>9.99</span>
+          <span className={pricingStyles.perUnit}>per month</span>
+        </div>
+        <p className={pricingStyles.priceNote}>$120/year whether you use it or not</p>
+        <ul className={pricingStyles.featureList}>
+          <li>❌ Monthly recurring charges</li>
+          <li>❌ Pay even when not using</li>
+          <li>❌ Account required</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
       {/* Our Story & Heritage */}
 <section className={infoCardStyles.infoCardsSection}>

@@ -14,7 +14,7 @@ export default function RestoreBasic() {
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
 
-  const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
+  const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 3 } = useCredits();
 
   useEffect(() => {
     async function getSession() {
@@ -61,24 +61,29 @@ export default function RestoreBasic() {
       return;
     }
 
+    // Check credits or free attempts before restoring
+    if (isLoggedIn) {
+      if (credits < 1) {
+        alert("You don’t have enough credits to restore this image. Please purchase more credits.");
+        return;
+      }
+    } else {
+      if (credits <= 0) {
+        alert("You’ve used your free attempts. Please sign up or purchase credits to continue.");
+        return;
+      }
+    }
+
     handleRestore();
   };
 
   const handleRestore = async () => {
     if (!selectedFile) return;
 
-    if (credits < 1) {
-      alert(
-        isLoggedIn
-          ? "You don’t have enough credits to restore this image."
-          : "You’ve used your free attempts. Sign up to get more credits!"
-      );
-      return;
-    }
-
     setLoading(true);
     const headers = { "Content-Type": "application/json" };
-    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+    if (session?.access_token)
+      headers.Authorization = `Bearer ${session.access_token}`;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -160,13 +165,12 @@ export default function RestoreBasic() {
               disabled={loading || processing || (!showFileInput && credits < 1)}
               title={credits < 1 ? "Not enough credits" : ""}
             >
-              {!loading && !processing && (
-                showFileInput
+              {!loading && !processing &&
+                (showFileInput
                   ? isLoggedIn
                     ? "🆓 Restore Basic (1 credit)"
-                    : "🔒 Sign up to Restore Basic"
-                  : "Restore"
-              )}
+                    : `🔒 Sign up to Restore Basic (Free attempts left: ${credits})`
+                  : "Restore")}
               {(loading || processing) && (
                 <>
                   <div className={styles.spinner} />
@@ -179,9 +183,49 @@ export default function RestoreBasic() {
 
             <div className={styles.creditsInfo}>
               {isLoggedIn ? (
-                <>Your credits: <strong>{credits}</strong></>
+                <>
+                  Your credits: <strong>{credits}</strong>
+                  {credits < 1 && (
+                    <div style={{ marginTop: "0.75rem" }}>
+                      <button
+                        onClick={() => (window.location.href = "/pricing")}
+                        className={styles.ctaButton}
+                        style={{
+                          backgroundColor: "#0070f3",
+                          color: "white",
+                          border: "none",
+                          padding: "0.5rem 1rem",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Buy More Credits
+                      </button>
+                    </div>
+                  )}
+                </>
               ) : (
-                <>Remaining free attempts: <strong>{credits}</strong>. Sign up to get more credits!</>
+                <>
+                  Remaining free attempts: <strong>{credits}</strong>. Sign up to get more credits!
+                  {credits < 1 && (
+                    <div style={{ marginTop: "0.75rem" }}>
+                      <button
+                        onClick={() => (window.location.href = "/signup")}
+                        className={styles.ctaButton}
+                        style={{
+                          backgroundColor: "#0070f3",
+                          color: "white",
+                          border: "none",
+                          padding: "0.5rem 1rem",
+                          borderRadius: "6px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Sign Up Now
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -232,7 +276,7 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-    {/* Image Compare Slider Section for Basic Restore */}
+      {/* Image Compare Slider Section for Basic Restore */}
       <section
         style={{
           padding: "3rem 1rem",
@@ -249,29 +293,26 @@ export default function RestoreBasic() {
         />
       </section>
 
-      
       {/* Feature Section – Basic */}
-<section className={styles.featurePromoSection}>
-  <div className={styles.featurePromoContent}>
-    <div className={styles.featurePromoText}>
-      <h2 className={styles.featurePromoTitle}>🧼 Clean up your photos with enhanced clarity</h2>
-      <p className={styles.featurePromoSubtitle}>
-        Restore Basic uses smart AI to remove noise, sharpen edges, and enhance the overall clarity of your photos —
-        whether black &amp; white or color. Black and white images stay true to their original tone, while color photos
-        are cleaned and subtly enriched for a crisper, more vivid look.
-      </p>
-    </div>
-    <div className={styles.featurePromoVisual}>
-      <img
-        src="/images/basic-restore-preview.jpg"
-        alt="Basic restored photo example"
-        className={`${styles.featurePromoImage} ${styles.tiltImage}`}
-      />
-    </div>
-  </div>
-</section>
-
-
+      <section className={styles.featurePromoSection}>
+        <div className={styles.featurePromoContent}>
+          <div className={styles.featurePromoText}>
+            <h2 className={styles.featurePromoTitle}>🧼 Clean up your photos with enhanced clarity</h2>
+            <p className={styles.featurePromoSubtitle}>
+              Restore Basic uses smart AI to remove noise, sharpen edges, and enhance the overall clarity of your photos —
+              whether black &amp; white or color. Black and white images stay true to their original tone, while color photos
+              are cleaned and subtly enriched for a crisper, more vivid look.
+            </p>
+          </div>
+          <div className={styles.featurePromoVisual}>
+            <img
+              src="/images/basic-restore-preview.jpg"
+              alt="Basic restored photo example"
+              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* How it works */}
       <div className={styles.howItWorksSection}>
@@ -312,7 +353,7 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-     {/* Testimonials */}
+      {/* Testimonials */}
       <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
         <ul className={styles.testimonialsList}>
@@ -330,7 +371,6 @@ export default function RestoreBasic() {
           </li>
         </ul>
       </section>
-
 
       <div className={styles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything

@@ -175,34 +175,34 @@ export default function Home() {
 
 
 
-{/* Full Portrait-Friendly ImageCompare Section */}
+{/* Full Landscape-Friendly ImageCompare Section */}
 <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
   <style>{`
-    .portrait-compare > div {
+    .landscape-compare > div {
       max-width: none !important;
       margin: 0 !important;
-      height: 600px !important;
-      padding-bottom: 0 !important;
       width: 100% !important;
+      height: 400px !important;
+      padding-bottom: 0 !important;
     }
-    
+
     @media (max-width: 768px) {
-      .portrait-compare > div {
-        height: 450px !important;
+      .landscape-compare > div {
+        height: 300px !important;
       }
-      .portrait-compare {
-        width: 280px !important;
-        height: 450px !important;
+      .landscape-compare {
+        width: 100% !important;
+        height: 300px !important;
       }
     }
-    
+
     @media (max-width: 480px) {
-      .portrait-compare > div {
-        height: 400px !important;
+      .landscape-compare > div {
+        height: 240px !important;
       }
-      .portrait-compare {
-        width: 250px !important;
-        height: 400px !important;
+      .landscape-compare {
+        width: 100% !important;
+        height: 240px !important;
       }
     }
   `}</style>
@@ -221,14 +221,13 @@ export default function Home() {
     {/* Photo Fix */}
     <div style={{
       flex: "0 0 auto",
-      width: "400px",
+      width: "600px",
       maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
-      <div className="portrait-compare" style={{
-        width: "400px",
-        maxWidth: "100%",
-        height: "600px",
+      <div className="landscape-compare" style={{
+        width: "100%",
+        height: "400px",
         position: "relative",
         overflow: "hidden",
         borderRadius: "12px",
@@ -246,14 +245,13 @@ export default function Home() {
     {/* Photo Revival */}
     <div style={{
       flex: "0 0 auto",
-      width: "400px",
+      width: "600px",
       maxWidth: "calc(100vw - 2rem)",
       textAlign: "center"
     }}>
-      <div className="portrait-compare" style={{
-        width: "400px",
-        maxWidth: "100%",
-        height: "600px",
+      <div className="landscape-compare" style={{
+        width: "100%",
+        height: "400px",
         position: "relative",
         overflow: "hidden",
         borderRadius: "12px",
@@ -269,6 +267,7 @@ export default function Home() {
     </div>
   </div>
 </section>
+
 
 
 

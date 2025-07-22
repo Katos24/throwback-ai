@@ -52,9 +52,14 @@ export default function Header({ showMenu, setShowMenu }) {
   return (
     <header className={styles.header}>
       {/* ✅ LOGO LINK */}
-     <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
-      ANASTASIS 🌀
+     <Link href="/" className={styles.logoGroup} onClick={() => setShowMenu(false)}>
+      <div>
+        <div className={styles.logoMain}>ANASTASIS 🌀</div>
+        <div className={styles.logoSub}>Powered by Throwback AI</div>
+      </div>
     </Link>
+
+
 
       {/* Hamburger */}
       <button
@@ -105,8 +110,8 @@ export default function Header({ showMenu, setShowMenu }) {
         {user ? (
           <>
             <Link href="/profile" legacyBehavior>
-              <a className={styles.navBtn} onClick={() => setShowMenu(false)}>
-                {user.email || "Profile"}
+              <a className={styles.profileBtn} onClick={() => setShowMenu(false)}>
+                Profile
               </a>
             </Link>
             <button

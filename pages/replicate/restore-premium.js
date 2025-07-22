@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";
+import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
@@ -15,6 +16,7 @@ export default function RestorePremium() {
   const [showFileInput, setShowFileInput] = useState(false);
 
   const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
+  const router = useRouter();
 
   useEffect(() => {
     async function getSession() {
@@ -49,7 +51,17 @@ export default function RestorePremium() {
     }
   };
 
-  const handleRestoreClick = () => {
+  const handleRestoreClick = async () => {
+    if (!isLoggedIn) {
+      router.push("/signup");
+      return;
+    }
+
+    if (credits < 40) {
+      router.push("/pricing");
+      return;
+    }
+
     if (!showFileInput) {
       setShowFileInput(true);
       setRestoredUrl("");
@@ -63,20 +75,11 @@ export default function RestorePremium() {
       return;
     }
 
-    handleRestore();
+    await handleRestore();
   };
 
   const handleRestore = async () => {
     if (!selectedFile) return;
-
-    if (credits < 40) {
-      alert(
-        isLoggedIn
-          ? "You don't have enough credits to use Restore Premium."
-          : "You've used your free attempts. Sign up or buy credits to restore with Premium."
-      );
-      return;
-    }
 
     setLoading(true);
     const headers = { "Content-Type": "application/json" };
@@ -137,7 +140,6 @@ export default function RestorePremium() {
 
   return (
     <main>
-      {/* Updated Banner Section — matches Basic style with side-by-side before/after images */}
       <section className={styles.topBanner}>
         <div className={styles.topBannerContent}>
           <div className={styles.topBannerTop}>
@@ -156,34 +158,46 @@ export default function RestorePremium() {
               />
             )}
 
+            {/* CTA Button */}
             <button
               className={styles.topBannerButton}
               onClick={handleRestoreClick}
-              disabled={loading || processing || (!showFileInput && credits < 40)}
-              title={credits < 40 ? "Not enough credits" : ""}
+              disabled={loading || processing}
             >
-              {!loading && !processing && (
-                showFileInput
-                  ? isLoggedIn
-                    ? "💎 Restore Premium (40 credits)"
-                    : "🔒 Sign up to Restore Premium"
-                  : "Restore"
-              )}
-              {(loading || processing) && (
+              {(loading || processing) ? (
                 <>
                   <div className={styles.spinner} />
-                  <span className={styles.loadingText}>
-                    Please wait, this may take up to a minute...
-                  </span>
+                  <span className={styles.loadingText}>Please wait, this may take up to a minute...</span>
                 </>
+              ) : !isLoggedIn ? (
+                "🔒 Sign up to Restore Premium"
+              ) : credits < 40 ? (
+                "💳 Buy More Credits"
+              ) : showFileInput ? (
+                "💎 Restore Premium (40 credits)"
+              ) : (
+                "Restore"
               )}
             </button>
 
+            {/* Inline Credit Info */}
             <div className={styles.creditsInfo}>
               {isLoggedIn ? (
-                <>Your credits: <strong>{credits}</strong></>
+                <>
+                  Your credits: <strong>{credits}</strong>
+                  {credits < 40 && (
+                    <>
+                      <br />
+                      <a href="/pricing" className={styles.link}>Need more? View pricing</a>
+                    </>
+                  )}
+                </>
               ) : (
-                <>Sign up to unlock full access and purchase credits. Remaining free attempts: <strong>{credits}</strong></>
+                <>
+                  You have <strong>{credits}</strong> free attempts left.
+                  <br />
+                  <a href="/signup" className={styles.link}>Sign up to unlock more credits</a>
+                </>
               )}
             </div>
           </div>
@@ -234,24 +248,24 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      {/* Image Compare Slider Section for Basic Restore */}
-        <section
-          style={{
-            padding: "3rem 1rem",
-            backgroundColor: "#121212",
-            color: "white",
-          }}
-        >
-          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-            Experience the Basic Restore Before & After
-          </h2>
-          <ImageCompareSlider
-            beforeImage="/images/demo-before.jpg"
-            afterImage="/images/demo-after.jpg"
-          />
-        </section>
+      {/* Basic Before/After Slider */}
+      <section
+        style={{
+          padding: "3rem 1rem",
+          backgroundColor: "#121212",
+          color: "white",
+        }}
+      >
+        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          Experience the Basic Restore Before & After
+        </h2>
+        <ImageCompareSlider
+          beforeImage="/images/demo-before.jpg"
+          afterImage="/images/demo-after.jpg"
+        />
+      </section>
 
-      {/* feature Section */}
+      {/* Feature Promo */}
       <section className={styles.featurePromoSection}>
         <div className={styles.featurePromoContent}>
           <div className={styles.featurePromoText}>
@@ -271,7 +285,7 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How It Works */}
       <div className={styles.howItWorksSection}>
         <h3>💎 How Restore Premium Works</h3>
         <ol className={styles.howItWorksList}>
@@ -290,7 +304,7 @@ export default function RestorePremium() {
         </ol>
       </div>
 
-      {/* FAQ section */}
+      {/* FAQ */}
       <section className={styles.faqSection}>
         <h2 className={styles.sectionTitle}>❓ Restore Premium FAQ</h2>
         <div className={styles.accordion}>
@@ -317,7 +331,7 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      {/* testimonials */}
+      {/* Testimonials */}
       <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
         <ul className={styles.testimonialsList}>

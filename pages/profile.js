@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import styles from "../styles/Profile.module.css";
 
 export default function Profile() {
   const [profile, setProfile] = useState({
@@ -108,101 +109,44 @@ export default function Profile() {
     return <p style={{ textAlign: "center", marginTop: "2rem" }}>Loading profile...</p>;
 
   return (
-    <main
-      style={{
-        maxWidth: 440,
-        margin: "3rem auto",
-        padding: "2rem",
-        fontFamily: "Segoe UI, Arial, sans-serif",
-        background: "#fff",
-        borderRadius: 12,
-        boxShadow: "0 0 20px rgba(0,0,0,0.08)",
-      }}
-    >
-      <h1 style={{ fontSize: "1.8rem", marginBottom: "1rem", textAlign: "center" }}>
-        🧍 Your Profile
-      </h1>
+    <main className={styles.profileContainer}>
+      <h1 className={styles.profileTitle}>🧍 Your Profile</h1>
 
-      {error && (
-        <p style={{ color: "#c00", background: "#fee", padding: 8, borderRadius: 6 }}>{error}</p>
-      )}
-      {message && (
-        <p style={{ color: "#060", background: "#e6ffe6", padding: 8, borderRadius: 6 }}>
-          {message}
-        </p>
-      )}
-      {resetMessage && (
-        <p style={{ marginTop: 8, background: "#f0f8ff", padding: 8, borderRadius: 6 }}>
-          {resetMessage}
-        </p>
-      )}
+      {error && <p className={styles.messageError}>{error}</p>}
+      {message && <p className={styles.messageSuccess}>{message}</p>}
+      {resetMessage && <p className={styles.messageInfo}>{resetMessage}</p>}
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <label>
-          <span style={{ fontWeight: 600 }}>Email</span>
+      <form onSubmit={handleSubmit} className={styles.profileForm}>
+        <label className={styles.label}>
+          <span className={styles.labelText}>Email</span>
           <input
             type="email"
             name="email"
             value={profile.email}
             readOnly
-            style={{
-              padding: 10,
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              backgroundColor: "#f5f5f5",
-              fontSize: "1rem",
-              cursor: "not-allowed",
-              marginTop: 4,
-            }}
+            className={styles.inputReadOnly}
           />
         </label>
 
-        <label>
-          <span style={{ fontWeight: 600 }}>Username</span>
+        <label className={styles.label}>
+          <span className={styles.labelText}>Username</span>
           <input
             type="text"
             name="username"
             placeholder="Your display name"
             value={profile.username}
             onChange={handleChange}
-            style={{
-              padding: 10,
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              fontSize: "1rem",
-              marginTop: 4,
-            }}
+            className={styles.input}
             required
           />
         </label>
 
-        <div style={{ marginTop: 6 }}>
-          <span style={{ fontWeight: 600 }}>Subscription Status:</span>{" "}
-          <strong style={{ color: profile.is_premium ? "#2e8b57" : "#555" }}>
-            {profile.is_premium ? "🌟 Premium User" : "Free User"}
-          </strong>
-        </div>
-
-        <div style={{ marginTop: 6 }}>
+        <div className={styles.statusText}>
           <span style={{ fontWeight: 600 }}>Credits Remaining:</span>{" "}
-          <strong style={{ color: "#0077cc" }}>{profile.credits_remaining}</strong>
+          <strong className={styles.creditsRemaining}>{profile.credits_remaining}</strong>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            backgroundColor: loading ? "#888" : "#0077cc",
-            color: "white",
-            padding: "12px 16px",
-            borderRadius: 8,
-            border: "none",
-            fontSize: "1rem",
-            cursor: loading ? "not-allowed" : "pointer",
-            marginTop: "1rem",
-            transition: "background 0.3s ease",
-          }}
-        >
+        <button type="submit" disabled={loading} className={styles.buttonPrimary}>
           {loading ? "Saving..." : "Save Changes"}
         </button>
 
@@ -210,16 +154,7 @@ export default function Profile() {
           type="button"
           onClick={handleResetPassword}
           disabled={resetLoading}
-          style={{
-            marginTop: "1rem",
-            backgroundColor: resetLoading ? "#888" : "#555",
-            color: "white",
-            padding: "12px 16px",
-            borderRadius: 8,
-            border: "none",
-            fontSize: "1rem",
-            cursor: resetLoading ? "not-allowed" : "pointer",
-          }}
+          className={styles.buttonSecondary}
         >
           {resetLoading ? "Sending..." : "Reset Password"}
         </button>

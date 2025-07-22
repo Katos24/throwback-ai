@@ -586,12 +586,12 @@ export default function Home() {
  <section className={migrationStyles.switchToAnastasis}>
   <h2 className={migrationStyles.sectionTitle}>Switch to Anastasis with Confidence</h2>
   <p className={migrationStyles.sectionLead}>
-    Ready to leave subscription traps behind? We'll help migrate your restorations quickly — no data lost, no hassle.
+    Ready to leave subscription traps behind? We&apos;ll help migrate your restorations quickly — no data lost, no hassle.
   </p>
   <ul className={migrationStyles.migrationOfferList}>
     <li>No signups or accounts required</li>
     <li>Pay-per-use with no recurring fees</li>
-    <li>Heritage-focused AI models you won't find anywhere else</li>
+    <li>Heritage-focused AI models you won&apos;t find anywhere else</li>
     <li>Secure and private — your family photos are safe with us</li>
   </ul>
   <button className={migrationStyles.offerButton} onClick={() => router.push("/migration-offer")}>

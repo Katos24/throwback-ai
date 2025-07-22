@@ -5,6 +5,7 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
+import Link from "next/link";
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -188,7 +189,9 @@ export default function RestorePremium() {
                   {credits < 40 && (
                     <>
                       <br />
-                      <a href="/pricing" className={styles.link}>Need more? View pricing</a>
+                      <Link href="/pricing" className={styles.link}>
+                        Need more? View pricing
+                      </Link>
                     </>
                   )}
                 </>
@@ -196,7 +199,9 @@ export default function RestorePremium() {
                 <>
                   You have <strong>{credits}</strong> free attempts left.
                   <br />
-                  <a href="/signup" className={styles.link}>Sign up to unlock more credits</a>
+                  <Link href="/signup" className={styles.link}>
+                    Sign up to unlock more credits
+                  </Link>
                 </>
               )}
             </div>

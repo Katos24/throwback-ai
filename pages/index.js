@@ -82,7 +82,7 @@ const faqData = [
   },
   {
     q: "Is Anastasis photo restoration free to try?",
-    a: "Absolutely! You can test our AI restoration on one image free of charge. There is no signup, no credit card required — just upload and preview your revived photo instantly. For advanced enhancements like full colorization or blemish correction, upgrade options are available.",
+    a: "Absolutely! You can test our Photo Fix service on one image free of charge. There is no signup, no credit card required — just upload and preview your revived photo instantly. For advanced enhancements like full colorization or blemish correction with Photo Revival, upgrade options are available.",
   },
   {
     q: "How does Anastasis protect my privacy and image data?",
@@ -135,8 +135,8 @@ export default function Home() {
 
       <p>
         <strong>Anastasis</strong> combines ancient Greek wisdom with modern AI.  
-        Try <strong>Restore Basic</strong> for clear, detailed photo fixes.  
-        Upgrade to <strong>Premium</strong> for authentic colorization and vintage effects.
+        Try <strong>Photo Fix</strong> for crystal-clear, detailed photo repairs.  
+        Upgrade to <strong>Photo Revival</strong> for breathtaking colorization and vintage magic.
       </p>
 
       <div className={styles.ctaButtonContainer}>
@@ -144,21 +144,17 @@ export default function Home() {
           className={styles.topBannerButton}
           onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
         >
-          Try Restore Basic
+          Try Photo Fix Free
         </button>
         <button
           className={styles.secondaryButton}
           onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
         >
-          Explore Premium
+          Explore Photo Revival
         </button>
       </div>
 
-      <div className={styles.featureHighlights}>
-        <span className={styles.featureBadge}>✨ AI Restoration</span>
-        <span className={styles.featureBadge}>🎨 Authentic Colorization</span>
-        <span className={styles.featureBadge}>📜 Legacy Preservation</span>
-      </div>
+      
     </div>
 
     <div className={styles.topBannerRight}>
@@ -222,7 +218,7 @@ export default function Home() {
     justifyContent: "center",
     alignItems: "flex-start"
   }}>
-    {/* Basic Restore */}
+    {/* Photo Fix */}
     <div style={{
       flex: "0 0 auto",
       width: "400px",
@@ -244,10 +240,10 @@ export default function Home() {
           afterImage="/images/basic-after.jpg"
         />
       </div>
-      <h3 style={{ marginTop: "1rem" }}>Basic Restore</h3>
+      <h3 style={{ marginTop: "1rem" }}>Photo Fix</h3>
     </div>
 
-    {/* Premium Restore */}
+    {/* Photo Revival */}
     <div style={{
       flex: "0 0 auto",
       width: "400px",
@@ -269,7 +265,7 @@ export default function Home() {
           afterImage="/images/premium-after.jpg"
         />
       </div>
-      <h3 style={{ marginTop: "1rem" }}>Premium Restore</h3>
+      <h3 style={{ marginTop: "1rem" }}>Photo Revival</h3>
     </div>
   </div>
 </section>
@@ -291,20 +287,20 @@ export default function Home() {
   <h2>Choose Your Restoration Level</h2>
   <div className={RestoreOptionsStyles.restoreCardGrid}>
 
-    {/* Restore Basic */}
+    {/* Photo Fix */}
     <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>🌀 Restore Basic</h3> {/* 👈 TITLE MOVED UP */}
+      <h3>🛠️ Photo Fix</h3> {/* 👈 TITLE MOVED UP */}
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/basic-before.jpg"
-          alt="Old grayscale photo before basic restoration"
+          alt="Old grayscale photo before Photo Fix restoration"
           width={500}
           height={500}
           className={RestoreOptionsStyles.pairedImage}
         />
         <Image
           src="/images/basic-after.jpg"
-          alt="Restored grayscale photo after basic restoration"
+          alt="Restored grayscale photo after Photo Fix restoration"
           width={500}
           height={500}
           className={RestoreOptionsStyles.pairedImage}
@@ -312,28 +308,28 @@ export default function Home() {
       </div>
       <div className={RestoreOptionsStyles.cardContent}>
         <p>
-          <strong>3 Free Restorations.</strong> Clean up grayscale images instantly.
+          <strong>3 Free Fixes.</strong> Transform damaged photos into crisp, clear memories instantly.
         </p>
         <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-          Escape App Subscriptions – Try Free
+          Fix Your Photos Free – No Strings Attached
         </button>
       </div>
     </div>
 
-    {/* Restore Premium */}
+    {/* Photo Revival */}
     <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>🌈 Restore Premium</h3> {/* 👈 TITLE MOVED UP */}
+      <h3>✨ Photo Revival</h3> {/* 👈 TITLE MOVED UP */}
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/premium-before.jpg"
-          alt="Old faded photo before premium restoration"
+          alt="Old faded photo before Photo Revival restoration"
           width={500}
           height={500}
           className={RestoreOptionsStyles.pairedImage}
         />
         <Image
           src="/images/premium-after.jpg"
-          alt="Restored full-color photo after premium restoration"
+          alt="Restored full-color photo after Photo Revival restoration"
           width={500}
           height={500}
           className={RestoreOptionsStyles.pairedImage}
@@ -341,10 +337,10 @@ export default function Home() {
       </div>
       <div className={RestoreOptionsStyles.cardContent}>
         <p>
-          <strong>Full-color, HD magic.</strong> Advanced detail revival — no subscriptions.
+          <strong>Full-color, HD magic.</strong> Breathe life back into faded memories with stunning detail revival.
         </p>
         <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-          Experience Heritage-Grade Restoration
+          Experience Heritage-Grade Photo Revival
         </button>
       </div>
     </div>
@@ -396,18 +392,18 @@ export default function Home() {
       <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.basic}`}>
         <img
           src="/images/example-basic.jpg"
-          alt="Basic"
+          alt="Photo Fix"
           className={featureCompareStyles.compareImage}
         />
-        <span>Restore Basic</span>
+        <span>Photo Fix</span>
       </div>
       <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.premium}`}>
         <img
           src="/images/example-premium.jpg"
-          alt="Premium"
+          alt="Photo Revival"
           className={featureCompareStyles.compareImage}
         />
-        <span>Restore Premium</span>
+        <span>Photo Revival</span>
       </div>
     </div>
   </div>
@@ -590,12 +586,12 @@ export default function Home() {
  <section className={migrationStyles.switchToAnastasis}>
   <h2 className={migrationStyles.sectionTitle}>Switch to Anastasis with Confidence</h2>
   <p className={migrationStyles.sectionLead}>
-    Ready to leave subscription traps behind? We’ll help migrate your restorations quickly — no data lost, no hassle.
+    Ready to leave subscription traps behind? We'll help migrate your restorations quickly — no data lost, no hassle.
   </p>
   <ul className={migrationStyles.migrationOfferList}>
     <li>No signups or accounts required</li>
     <li>Pay-per-use with no recurring fees</li>
-    <li>Heritage-focused AI models you won’t find anywhere else</li>
+    <li>Heritage-focused AI models you won't find anywhere else</li>
     <li>Secure and private — your family photos are safe with us</li>
   </ul>
   <button className={migrationStyles.offerButton} onClick={() => router.push("/migration-offer")}>

@@ -1,11 +1,11 @@
-/* === TOP HERO SECTION === */
+/* === MODERN FUTURISTIC HERO SECTION === */
 .topBannerHero {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: linear-gradient(145deg, #0d0d0d, #1f2a38);
-  color: #f4f1ee;
+  background: linear-gradient(160deg, #0a0f1c, #1e2747);
+  color: #e5f6ff;
   padding: 6rem 2rem;
   max-width: 1700px;
   margin: 3rem auto 4rem;
@@ -13,13 +13,12 @@
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 20px 60px rgba(47, 46, 45, 0.12),
-    0 0 0 1px rgba(212, 175, 127, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  font-family: 'GFS Didot', serif;
+    0 20px 60px rgba(0, 255, 255, 0.08),
+    0 0 0 1px rgba(100, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  font-family: 'Rajdhani', sans-serif;
 }
 
-/* Greek-inspired decorative elements */
 .topBannerHero::before {
   content: '';
   position: absolute;
@@ -28,23 +27,23 @@
   width: 200%;
   height: 200%;
   background: 
-    radial-gradient(circle at 30% 20%, rgba(221, 170, 102, 0.08) 0%, transparent 30%),
-    radial-gradient(circle at 70% 80%, rgba(212, 175, 127, 0.06) 0%, transparent 40%);
+    radial-gradient(circle at 30% 20%, rgba(93, 246, 255, 0.05) 0%, transparent 30%),
+    radial-gradient(circle at 70% 80%, rgba(217, 93, 255, 0.05) 0%, transparent 40%);
   animation: subtleFloat 12s ease-in-out infinite;
   pointer-events: none;
 }
 
 .topBannerHero::after {
-  content: '∞ ΑΝΑΣΤΑΣΙΣ ∞';
+  content: '⧉ ΑΝΑΣΤΑΣΙΣ ⧉';
   position: absolute;
   top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.85rem;
   font-weight: 300;
-  color: rgba(176, 156, 133, 0.4);
+  color: rgba(173, 255, 255, 0.3);
   letter-spacing: 3px;
-  font-family: 'GFS Didot', serif;
+  font-family: 'Orbitron', sans-serif;
 }
 
 @keyframes subtleFloat {
@@ -53,44 +52,37 @@
   66% { transform: translate(8px, -8px) rotate(-0.5deg); }
 }
 
-/* Tagline with Greek accent */
 .bannerIntro {
   font-size: 1.2rem;
-  font-weight: 500;
-  background: linear-gradient(135deg, #b09c85, #a08c76);
+  font-weight: 600;
+  background: linear-gradient(135deg, #00ffff, #ff00ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 1.2rem;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
   text-transform: uppercase;
   position: relative;
 }
 
-.bannerIntro::before {
-  content: '◊';
-  position: absolute;
-  left: -2rem;
-  color: #d4af7f;
-  font-size: 1rem;
-}
-
+.bannerIntro::before,
 .bannerIntro::after {
-  content: '◊';
-  position: absolute;
-  right: -2rem;
-  color: #d4af7f;
+  content: '◇';
+  color: #80ffff;
   font-size: 1rem;
+  position: absolute;
 }
+.bannerIntro::before { left: -2rem; }
+.bannerIntro::after { right: -2rem; }
 
-/* Enhanced Main Headline */
 .topBannerHero h1 {
-  color: #f4e8d5; /* light vintage cream */
+  color: #e5f6ff;
   font-size: 3rem;
   line-height: 1.2;
   font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25); /* subtle depth */
+  text-shadow: 1px 1px 3px rgba(0, 255, 255, 0.25);
+  position: relative;
 }
 
 .topBannerHero h1::after {
@@ -101,32 +93,28 @@
   transform: translateX(-50%);
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #d4af7f, transparent);
+  background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, transparent);
   border-radius: 2px;
 }
 
-/* Enhanced Description */
 .topBannerHero p {
   font-size: 1.25rem;
   line-height: 1.8;
   margin-bottom: 2.5rem;
-  color: #4a453e;
-  font-family: 'Poppins', sans-serif;
+  color: #b8dfff;
+  font-family: 'Rajdhani', sans-serif;
   max-width: 720px;
-  position: relative;
   padding: 0 1rem;
 }
 
 .topBannerHero p strong {
-  background: linear-gradient(135deg, #ddaa66, #d4af7f);
+  background: linear-gradient(135deg, #4af0e6, #a174ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
-  position: relative;
 }
 
-/* Dual CTA Button Setup */
 .ctaButtonContainer {
   display: flex;
   gap: 1rem;
@@ -135,121 +123,59 @@
   align-items: center;
 }
 
-/* Primary CTA Button */
 .topBannerButton {
-  background: linear-gradient(to right, #d6a24a, #e2b670);
-  background-size: 200% 200%;
-  color: #1a1a1a;
+  background: linear-gradient(to right, #00ffff, #ff00ff);
+  color: #0a0a0a;
   padding: 1rem 2.8rem;
   font-size: 1.1rem;
   font-weight: 700;
   border: none;
   border-radius: 16px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
   box-shadow: 
-    0 12px 32px rgba(221, 170, 102, 0.25),
-    0 4px 16px rgba(0, 0, 0, 0.1);
+    0 12px 32px rgba(0, 255, 255, 0.25),
+    0 4px 16px rgba(255, 0, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.topBannerButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .topBannerButton:hover {
-  background-position: 100% 0;
-  background: linear-gradient(to right, #c8913f, #dba55c);
+  background: linear-gradient(to right, #2ce8e0, #bf6aff);
   transform: translateY(-3px);
   box-shadow: 
-    0 16px 40px rgba(221, 170, 102, 0.35),
-    0 8px 24px rgba(0, 0, 0, 0.15);
+    0 16px 40px rgba(0, 255, 255, 0.35),
+    0 8px 24px rgba(255, 0, 255, 0.15);
 }
 
-.topBannerButton:hover::before {
-  left: 100%;
-}
-
-/* Secondary CTA Button */
 .secondaryButton {
   background: transparent;
-  color: #dba55c;
+  color: #78f2ff;
   padding: 1rem 2.4rem;
   font-size: 1rem;
   font-weight: 600;
-  border: 1px solid #f4c06a;
+  border: 1px solid #9ef1ff;
   border-radius: 16px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-
-.secondaryButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: linear-gradient(135deg, #ddaa66, #d4af7f);
-  transition: width 0.4s ease;
-  z-index: -1;
 }
 
 .secondaryButton:hover {
   color: #fff;
-  transform: translateY(-2px);
-  background: #dba55c;
-  box-shadow: 0 8px 24px rgba(212, 175, 127, 0.3);
+  background: #3ee2e2;
+  box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
 }
 
-.secondaryButton:hover::before {
-  width: 100%;
-}
+/* Add the video section styling as needed below (I can tailor that too) */
 
-/* Feature highlight badges */
-.featureHighlights {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.featureBadge {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 127, 0.2);
-  padding: 0.6rem 1.4rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #f4c06a;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.featureBadge:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
 
 /* === VIDEO SECTION === */
 .videoSection {
@@ -283,7 +209,6 @@
   background: linear-gradient(135deg, #ffe9b8, #ffd89b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-family: 'GFS Didot', serif;
   font-weight: 600;
 }
@@ -325,45 +250,36 @@
     padding: 4rem 1.5rem;
     margin: 2rem auto 3rem;
   }
-  
+
   .topBannerHero h1 {
     font-size: 2.6rem;
   }
-  
+
   .topBannerHero p {
     font-size: 1.15rem;
     padding: 0 0.5rem;
   }
-  
+
   .ctaButtonContainer {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .topBannerButton,
   .secondaryButton {
     width: 100%;
     max-width: 300px;
   }
-  
-  .featureHighlights {
-    gap: 1rem;
-  }
-  
-  .featureBadge {
-    font-size: 0.85rem;
-    padding: 0.5rem 1.2rem;
-  }
-  
+
   .bannerIntro::before,
   .bannerIntro::after {
     display: none;
   }
-  
+
   .videoSection {
     padding: 2.5rem 1.5rem;
   }
-  
+
   .videoWrapper {
     padding-bottom: 70%;
   }
@@ -373,33 +289,29 @@
   .topBannerHero {
     padding: 3rem 1rem;
   }
-  
+
   .topBannerHero h1 {
     font-size: 2.2rem;
   }
-  
+
   .topBannerHero p {
     font-size: 1.1rem;
   }
-  
+
   .bannerIntro {
     font-size: 1rem;
   }
-  
+
   .videoSection h2 {
     font-size: 1.8rem;
   }
-  
+
   .videoSection p {
     font-size: 1rem;
   }
-  
-  .featureHighlights {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
+/* === VIDEO POSITIONING ELEMENTS === */
 .topBannerContent {
   display: flex;
   flex-direction: row;
@@ -414,8 +326,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Change to 'flex-start' if you want left-align on large screens */
-  text-align: center;   /* Change to 'left' if desired */
+  align-items: center;
+  text-align: center;
 }
 
 .topBannerRight {

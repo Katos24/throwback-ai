@@ -154,40 +154,48 @@
 /* === Mobile === */
 @media (max-width: 768px) {
   .header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 
+      "hamburger logo"
+      "nav nav";
+    gap: 0.5rem;
     align-items: center;
-    justify-content: center;
     padding: 16px 20px;
-    position: relative;
   }
 
   .hamburger {
     display: flex;
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding-left: 0;
-    width: 40px;
-    height: 40px;
+    grid-area: hamburger;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
   }
 
   .logoWrapper {
-    text-align: center;
+    grid-area: logo;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .logoMain {
+    font-size: 1.2rem;
+  }
+
+  .logoSub {
+    font-size: 0.6rem;
   }
 
   .nav {
-    display: none;
+    grid-area: nav;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
     background: #1c1c1c;
-    padding: 24px;
-    gap: 18px;
-    border-bottom: 1px solid #444;
-    z-index: 101;
+    padding: 20px;
+    width: 100%;
+    gap: 16px;
+    border-top: 1px solid #444;
+    display: none;
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
@@ -202,23 +210,9 @@
   .navLink,
   .navBtn {
     width: 100%;
-    text-align: left;
     font-size: 1rem;
+    text-align: left;
   }
-
-  .logoMain {
-    font-size: 1.3rem;
-  }
-
-  .logoSub {
-    font-size: 0.6rem;
-  }
-}
-
-.showMenu {
-  display: flex;
-  opacity: 1;
-  pointer-events: auto;
 }
 
 /* === CTA Glow Button === */

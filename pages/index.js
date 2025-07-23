@@ -274,31 +274,42 @@ export default function Home() {
     }}
   >
     <div
-      style={{
-        flex: "0 0 auto",
-        width: "100%",
-        maxWidth: "900px",
-        textAlign: "center",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          aspectRatio: "16 / 9",
-          overflow: "hidden",
-          borderRadius: "12px",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
-          margin: "0 auto",
-          marginBottom: "0", // prevent extra spacing
-        }}
-      >
-        <ImageCompareSlider
-          beforeImage="/images/premium-before.jpg"
-          afterImage="/images/premium-after.jpg"
-        />
-      </div>
-    </div>
+  style={{
+    flex: "0 0 auto",
+    width: "100%",
+    maxWidth: "900px",
+    textAlign: "center",
+  }}
+>
+  <p
+    style={{
+      textAlign: "center",
+      marginBottom: "1rem",
+      fontSize: "1rem",
+      opacity: 0.85,
+    }}
+  >
+    ↔️ Slide to compare the original and restored photo
+  </p>
+
+  <div
+    style={{
+      position: "relative",
+      width: "100%",
+      aspectRatio: "16 / 9",
+      overflow: "hidden",
+      borderRadius: "12px",
+      boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
+      margin: "0 auto",
+    }}
+  >
+    <ImageCompareSlider
+      beforeImage="/images/premium-before.jpg"
+      afterImage="/images/premium-after.jpg"
+    />
+  </div>
+</div>
+
   </div>
 
   <style jsx>{`

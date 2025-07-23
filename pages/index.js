@@ -249,85 +249,28 @@ export default function Home() {
 
 {/* Full Landscape-Friendly ImageCompare Section */}
 <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <style>{`
-    .landscape-compare > div {
-      max-width: none !important;
-      margin: 0 !important;
-      width: 100% !important;
-      height: 400px !important;
-      padding-bottom: 0 !important;
-    }
-
-    @media (max-width: 768px) {
-      .landscape-compare > div {
-        height: 300px !important;
-      }
-      .landscape-compare {
-        width: 100% !important;
-        height: 300px !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .landscape-compare > div {
-        height: 240px !important;
-      }
-      .landscape-compare {
-        width: 100% !important;
-        height: 240px !important;
-      }
-    }
-  `}</style>
-
-  <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
-    Product Demo
+  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700", marginBottom: "0rem" }}>
+    Photo Revival Demo
   </h2>
 
   <div style={{
     display: "flex",
-    flexWrap: "wrap",
-    gap: "2rem",
     justifyContent: "center",
     alignItems: "flex-start"
   }}>
-    {/* Photo Fix */}
     <div style={{
       flex: "0 0 auto",
-      width: "600px",
-      maxWidth: "calc(100vw - 2rem)",
+      width: "100%",
+      maxWidth: "900px",
       textAlign: "center"
     }}>
-      <div className="landscape-compare" style={{
+      <div style={{
         width: "100%",
-        height: "400px",
+        height: "500px",
         position: "relative",
         overflow: "hidden",
         borderRadius: "12px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-        margin: "0 auto"
-      }}>
-        <ImageCompareSlider
-          beforeImage="/images/basic-before.jpg"
-          afterImage="/images/basic-after.jpg"
-        />
-      </div>
-      <h3 style={{ marginTop: "1rem" }}>Photo Fix</h3>
-    </div>
-
-    {/* Photo Revival */}
-    <div style={{
-      flex: "0 0 auto",
-      width: "600px",
-      maxWidth: "calc(100vw - 2rem)",
-      textAlign: "center"
-    }}>
-      <div className="landscape-compare" style={{
-        width: "100%",
-        height: "400px",
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: "12px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+        boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
         margin: "0 auto"
       }}>
         <ImageCompareSlider
@@ -335,10 +278,10 @@ export default function Home() {
           afterImage="/images/premium-after.jpg"
         />
       </div>
-      <h3 style={{ marginTop: "1rem" }}>Photo Revival</h3>
     </div>
   </div>
 </section>
+
 
 
 {/* Scrollable Gallery Section */}

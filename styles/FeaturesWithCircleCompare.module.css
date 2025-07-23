@@ -141,7 +141,7 @@
   color: #94a3b8;
 }
 
-/* === MOBILE === */
+/* === TABLET === */
 @media (max-width: 1024px) {
   .featuresGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -163,14 +163,23 @@
   }
 }
 
+/* === MOBILE === */
 @media (max-width: 640px) {
   .sectionTitle {
     font-size: 2rem;
   }
 
   .featuresGrid {
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .featureCard {
+    width: calc(50% - 1rem);
+    max-width: 180px;
+    margin: 0.5rem 0;
   }
 
   .processSteps {
@@ -189,5 +198,13 @@
 
   .stepArrow {
     transform: none;
+  }
+}
+
+/* === EXTRA SMALL MOBILE === */
+@media (max-width: 420px) {
+  .featureCard {
+    width: 100%;
+    max-width: 320px;
   }
 }

@@ -154,33 +154,32 @@
 /* === Mobile === */
 @media (max-width: 768px) {
   .header {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 
-      "hamburger logo"
-      "nav nav";
-    gap: 0.5rem;
-    align-items: center;
+    display: block;
+    position: relative;
     padding: 16px 20px;
   }
 
   .hamburger {
     display: flex;
-    grid-area: hamburger;
-    width: 32px;
-    height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
     justify-content: center;
     align-items: center;
+    width: 36px;
+    height: 36px;
+    z-index: 103;
   }
 
   .logoWrapper {
-    grid-area: logo;
-    text-align: left;
-    align-items: flex-start;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
   }
 
   .logoMain {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .logoSub {
@@ -188,14 +187,17 @@
   }
 
   .nav {
-    grid-area: nav;
-    flex-direction: column;
-    background: #1c1c1c;
-    padding: 20px;
-    width: 100%;
-    gap: 16px;
-    border-top: 1px solid #444;
     display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #1c1c1c;
+    padding: 24px;
+    gap: 18px;
+    border-bottom: 1px solid #444;
+    z-index: 101;
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
@@ -210,10 +212,11 @@
   .navLink,
   .navBtn {
     width: 100%;
-    font-size: 1rem;
     text-align: left;
+    font-size: 1rem;
   }
 }
+
 
 /* === CTA Glow Button === */
 .ctaGlowBtn {

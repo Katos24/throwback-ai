@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/Header.module.css";
 
 export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
+  const router = useRouter();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Get current user
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user || null);
     });
 
+    // Listen to auth state changes
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
     });
@@ -22,16 +26,14 @@ export default function Header({ showMenu, setShowMenu }) {
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setShowMenu(false);
       }
-    }
+    };
 
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
@@ -45,12 +47,17 @@ export default function Header({ showMenu, setShowMenu }) {
     setShowMenu(false);
   };
 
+  const goToPricing = () => {
+    setShowMenu(false);
+    router.push("/pricing");
+  };
+
   return (
     <header className={styles.header}>
-      {/* 🟣 Left Column: Hamburger */}
+      {/* 🍔 Hamburger Button */}
       <button
         className={styles.hamburger}
-        onClick={() => setShowMenu(!showMenu)}
+        onClick={() => setShowMenu((prev) => !prev)}
         aria-label="Toggle menu"
       >
         <span className={styles.bar}></span>
@@ -58,7 +65,7 @@ export default function Header({ showMenu, setShowMenu }) {
         <span className={styles.bar}></span>
       </button>
 
-      {/* 🏛️ Center Column: Logo */}
+      {/* 🌀 Logo */}
       <Link href="/" className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
         <div>
           <div className={styles.logoMain}>ANASTASIS 🌀</div>
@@ -66,7 +73,7 @@ export default function Header({ showMenu, setShowMenu }) {
         </div>
       </Link>
 
-      {/* 🧭 Right Column: Nav */}
+      {/* 🧭 Navigation */}
       <nav
         ref={navRef}
         className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}
@@ -83,9 +90,15 @@ export default function Header({ showMenu, setShowMenu }) {
         <Link href="/about" legacyBehavior>
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>About</a>
         </Link>
-        <Link href="/pricing" legacyBehavior>
-          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Pricing</a>
-        </Link>
+
+        {/* 🌟 Enhanced CTA Pricing Button */}
+        <button
+          onClick={goToPricing}
+          className={`${styles.navBtn} ${styles.ctaGlowBtn}`}
+          aria-label="See pricing plans"
+        >
+          💸 See Pricing Plans
+        </button>
 
         {user ? (
           <>

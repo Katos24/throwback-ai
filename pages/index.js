@@ -460,25 +460,8 @@ export default function Home() {
 
 
 
-{/* Hero Section */}
-<section className={heroStyles.hero}>
-  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
-  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
-  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-    See Your History in Full Color
-  </button>
-</section>
-
-      
-
-
 
    
-
-
-
-
-
 
 
       {/* Pricing & Privacy Section */}
@@ -582,6 +565,20 @@ export default function Home() {
 
 
 
+{/* Hero Section */}
+<section className={heroStyles.hero}>
+  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
+  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
+  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+    See Your History in Full Color
+  </button>
+</section>
+
+      
+
+
+
+
       {/* Our Story & Heritage */}
 <section className={infoCardStyles.infoCardsSection}>
   <h2 className={infoCardStyles.infoCardsTitle}>Our Story & Heritage</h2>
@@ -648,9 +645,12 @@ export default function Home() {
     <li>Heritage-focused AI models you won&apos;t find anywhere else</li>
     <li>Secure and private — your family photos are safe with us</li>
   </ul>
-  <button className={migrationStyles.offerButton} onClick={() => router.push("/migration-offer")}>
-    Claim Your Migration Offer
-  </button>
+     <button
+      className={migrationStyles.offerButton}
+      onClick={() => router.push("/pricing")}
+    >
+      View Pricing
+    </button>
 </section>
 
 

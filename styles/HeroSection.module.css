@@ -45,6 +45,7 @@
   line-height: 1.1;
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
 .hero p {
@@ -58,6 +59,7 @@
   opacity: 0.95;
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
 /* Use same button style */

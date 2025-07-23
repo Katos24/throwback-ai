@@ -25,6 +25,10 @@
   cursor: pointer;
   padding-left: 4px;
   z-index: 103;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
 }
 
 .bar {
@@ -60,13 +64,13 @@
   font-size: 0.75rem;
   font-weight: 500;
   color: #bfae82;
-  font-family: 'Playfair Display', serif; /* changed from Poppins to Playfair Display */
-  letter-spacing: 0.06em; /* similar spacing as logoMain */
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.06em;
   margin-top: 2px;
   margin-right: 35px;
   text-align: center;
-  opacity: 0.8; /* subtle tone for subtitle */
-  font-style: italic; /* optional: adds a bit of elegance */
+  opacity: 0.8;
+  font-style: italic;
 }
 
 /* === Navigation === */
@@ -150,22 +154,26 @@
 /* === Mobile === */
 @media (max-width: 768px) {
   .header {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "logo hamburger"
-      "nav nav";
-    grid-template-rows: auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 16px 20px;
-    row-gap: 1rem;
-  }
-
-  .logoWrapper {
-    justify-self: start;
+    position: relative;
   }
 
   .hamburger {
     display: flex;
-    justify-self: end;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .logoWrapper {
+    text-align: center;
   }
 
   .nav {
@@ -213,9 +221,7 @@
   pointer-events: auto;
 }
 
-
-
-
+/* === CTA Glow Button === */
 .ctaGlowBtn {
   background: linear-gradient(135deg, #a18cd1, #fbc2eb);
   color: #3c1361;

@@ -340,7 +340,7 @@
 }
 
 .bannerVideoWrapper {
-  max-width: 100%;
+  max-width: 600px; /* <-- Reduce this number to make video smaller */
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -405,3 +405,9 @@
   .scrollHint {
     font-size: 0.85rem;
   }
+
+  @media (max-width: 768px) {
+  .bannerVideoWrapper {
+    max-width: 90%;
+  }
+}

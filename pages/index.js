@@ -418,13 +418,12 @@ export default function Home() {
   <div className={featureCompareStyles.featuresGrid}>
     {/* Existing 4 feature cards */}
     {[
-      { icon: "📸", stat: "1M+", label: "Photos restored worldwide" },
-      { icon: "✨", stat: "99%", label: "Authenticity retained" },
-      { icon: "🌍", stat: "60+", label: "Countries served" },
-      { icon: "⭐", stat: "4.9★", label: "Average customer rating" }
+      { stat: "1M+", label: "Photos restored worldwide" },
+      { stat: "99%", label: "Authenticity retained" },
+      { stat: "60+", label: "Countries served" },
+      { stat: "4.9★", label: "Average customer rating" }
     ].map((item, i) => (
       <div key={i} className={`${featureCompareStyles.featureCard} ${featureCompareStyles.cardHover}`}>
-        <div className={featureCompareStyles.featureIcon}>{item.icon}</div>
         <div className={featureCompareStyles.featureStat}>{item.stat}</div>
         <div className={featureCompareStyles.featureLabel}>{item.label}</div>
       </div>

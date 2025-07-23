@@ -1,5 +1,6 @@
 .switchToAnastasis {
-  margin-top: 6rem; /* 👈 Adds space from previous section */
+  margin-top: 4rem; /* 👈 Adds space from previous section */
+  margin-bottom: 4rem;
   padding: 5rem 2rem;
   background-color: #121212;
   text-align: center;

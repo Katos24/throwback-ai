@@ -6,7 +6,8 @@
   border-radius: 20px;
   box-shadow: 0 24px 80px rgba(0, 255, 255, 0.06);
   max-width: 1600px; /* wider than 1100 */
-  margin: 6rem auto;
+  margin: 4rem auto;
+  margin-bottom: 4rem; /* space from previous section */
   color: #e3f5ff;
   position: relative;
   font-family: 'Rajdhani', sans-serif;

@@ -6,6 +6,7 @@
   height: 3px;
   background: linear-gradient(90deg, #ffdba0, #ffb366, #ffdba0);
   margin: 0 auto 3rem auto;
+
   border-radius: 3px;
   animation: glow-pulse 2s ease-in-out infinite alternate;
 }

@@ -249,7 +249,7 @@ export default function Home() {
 
 {/* Full Landscape-Friendly ImageCompare Section */}
 <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700", marginBottom: "0rem" }}>
+  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700", marginBottom: "1.5rem" }}>
     Photo Revival Demo
   </h2>
 
@@ -264,15 +264,17 @@ export default function Home() {
       maxWidth: "900px",
       textAlign: "center"
     }}>
-      <div style={{
-        width: "100%",
-        height: "500px",
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: "12px",
-        boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
-        margin: "0 auto"
-      }}>
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: "16 / 9", // ✅ replaces fixed height
+          overflow: "hidden",
+          borderRadius: "12px",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
+          margin: "0 auto"
+        }}
+      >
         <ImageCompareSlider
           beforeImage="/images/premium-before.jpg"
           afterImage="/images/premium-after.jpg"
@@ -281,6 +283,7 @@ export default function Home() {
     </div>
   </div>
 </section>
+
 
 
 

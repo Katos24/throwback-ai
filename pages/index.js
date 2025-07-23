@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
+import React from "react";
+
 
 import heroStyles from "../styles/HeroSection.module.css";
 import RestoreOptionsStyles from "../styles/RestoreOptions.module.css";
@@ -400,63 +402,51 @@ export default function Home() {
 
 
 <section className={featureCompareStyles.container}>
-  {/* Unified Section Title */}
-  <h2 className={featureCompareStyles.sectionTitle}>See the Restoration Impact</h2>
-
-  {/* Left: Feature Stats */}
-  <div className={featureCompareStyles.featuresSide}>
-    <div className={featureCompareStyles.featuresRow}>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>1M+</div>
-        <div className={featureCompareStyles.featureLabel}>Photos restored worldwide</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>99%</div>
-        <div className={featureCompareStyles.featureLabel}>Authenticity retained</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>60+</div>
-        <div className={featureCompareStyles.featureLabel}>Countries served</div>
-      </div>
-      <div className={featureCompareStyles.featureCard}>
-        <div className={featureCompareStyles.featureStat}>
-          4.9<span className={featureCompareStyles.starIcon}>★</span>
-        </div>
-        <div className={featureCompareStyles.featureLabel}>Average customer rating</div>
-      </div>
-    </div>
+  {/* Section Title */}
+  <div className={featureCompareStyles.titleWrapper}>
+    <h2 className={featureCompareStyles.sectionTitle}>
+      <span className={featureCompareStyles.titleGradient}>See the Restoration</span>
+      <span className={featureCompareStyles.titleAccent}>Impact</span>
+    </h2>
+    <div className={featureCompareStyles.titleUnderline}></div>
+    <p className={featureCompareStyles.subtitle}>
+      Transforming memories with cutting-edge AI technology
+    </p>
   </div>
 
-  {/* Right: Circular Restoration Flow */}
-  <div className={featureCompareStyles.circleCompareSide}>
-    <div className={featureCompareStyles.circleContainer}>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.original}`}>
-        <img
-          src="/images/example-before.jpg"
-          alt="Original"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Original</span>
+  {/* Feature Cards Grid */}
+  <div className={featureCompareStyles.featuresGrid}>
+    {/* Existing 4 feature cards */}
+    {[
+      { icon: "📸", stat: "1M+", label: "Photos restored worldwide" },
+      { icon: "✨", stat: "99%", label: "Authenticity retained" },
+      { icon: "🌍", stat: "60+", label: "Countries served" },
+      { icon: "⭐", stat: "4.9★", label: "Average customer rating" }
+    ].map((item, i) => (
+      <div key={i} className={`${featureCompareStyles.featureCard} ${featureCompareStyles.cardHover}`}>
+        <div className={featureCompareStyles.featureIcon}>{item.icon}</div>
+        <div className={featureCompareStyles.featureStat}>{item.stat}</div>
+        <div className={featureCompareStyles.featureLabel}>{item.label}</div>
       </div>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.basic}`}>
-        <img
-          src="/images/example-basic.jpg"
-          alt="Photo Fix"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Photo Fix</span>
-      </div>
-      <div className={`${featureCompareStyles.circleItem} ${featureCompareStyles.premium}`}>
-        <img
-          src="/images/example-premium.jpg"
-          alt="Photo Revival"
-          className={featureCompareStyles.compareImage}
-        />
-        <span>Photo Revival</span>
-      </div>
-    </div>
+    ))}
+
+
+  </div>
+
+  {/* Steps */}
+  <div className={featureCompareStyles.processSteps}>
+    {["Upload", "AI Process", "Download"].map((step, i) => (
+      <React.Fragment key={step}>
+        <div className={featureCompareStyles.step}>
+          <div className={featureCompareStyles.stepNumber}>{i + 1}</div>
+          <span>{step}</span>
+        </div>
+        {i < 2 && <div className={featureCompareStyles.stepArrow}>→</div>}
+      </React.Fragment>
+    ))}
   </div>
 </section>
+
 
 
 
@@ -527,19 +517,7 @@ export default function Home() {
         ))}
       </div>
       
-      {/* Trust Cards below the 2x2 grid */}
-      <div className={pricingStyles.trustCardsGrid}>
-        {[
-          { icon: "🔒", label: "No subscription required" },
-          { icon: "💳", label: "Credits never expire" },
-          { icon: "🗑️", label: "Photos deleted after 1 hr" },
-        ].map((point, i) => (
-          <div key={i} className={pricingStyles.trustCard}>
-            <span className={pricingStyles.trustCardIcon}>{point.icon}</span>
-            <p className={pricingStyles.trustCardLabel}>{point.label}</p>
-          </div>
-        ))}
-      </div>
+ 
     </div>
 
     {/* Right Side: Competitor Card */}
@@ -567,12 +545,18 @@ export default function Home() {
 
 {/* Hero Section */}
 <section className={heroStyles.hero}>
-  <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
-  <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
-  <button className={heroStyles.heroCTAButton} onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
+  <div className={heroStyles.heroText}>
+    <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
+    <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
+  </div>
+  <button
+    className={heroStyles.heroCTAButton}
+    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+  >
     See Your History in Full Color
   </button>
 </section>
+
 
       
 

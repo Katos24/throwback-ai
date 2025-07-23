@@ -188,42 +188,7 @@
   text-align: center;
 }
 
-/* 💡 TRUST CARDS */
-.trustCardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
 
-.trustCard {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  text-align: center;
-  color: #ccc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  font-size: 0.85rem;
-  transition: transform 0.2s ease;
-}
-
-.trustCard:hover {
-  transform: translateY(-2px);
-}
-
-.trustCardIcon {
-  font-size: 1.3rem;
-  color: #bfae82;
-  margin-bottom: 4px;
-  display: block;
-}
-
-.trustCardLabel {
-  font-weight: 500;
-  line-height: 1.3;
-  color: #ddd;
-}
 
 /* 🌌 TEXTURED OVERLAY */
 .honestPricing::before {

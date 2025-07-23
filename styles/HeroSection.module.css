@@ -1,8 +1,6 @@
 /* Hero styled like Top Banner */
 .hero {
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.75)),
-    url('/images/greek-theme.png') center/cover no-repeat;
+  background: linear-gradient(160deg, #0a0f1c, #1e2747);
   /* plus position, padding, min-height, color */
   position: relative;
   display: flex;
@@ -39,6 +37,7 @@
   font-size: clamp(2.8rem, 6vw, 4.2rem);
   font-weight: 800;
   margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
   letter-spacing: 0.5px;
   color: #ffe8b0;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -49,7 +48,7 @@
 }
 
 .hero p {
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-size: clamp(2.2rem, 2.2vw, 1.6rem);
   font-weight: 500;
   max-width: 750px;
   margin: 0 auto 2.5rem;
@@ -59,7 +58,7 @@
   opacity: 0.95;
   position: relative;
   z-index: 1;
-  text-align: left;
+  text-align: center;
 }
 
 /* Use same button style */

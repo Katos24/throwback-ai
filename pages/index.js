@@ -248,31 +248,49 @@ export default function Home() {
 
 
 {/* Full Landscape-Friendly ImageCompare Section */}
-<section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700" }}>
+<section
+  style={{
+    padding: "3rem 1rem",
+    backgroundColor: "#121212",
+    color: "white",
+  }}
+>
+  <h2
+    style={{
+      textAlign: "center",
+      fontSize: "2.25rem",
+      fontWeight: "700",
+      marginBottom: "1.5rem", // Make sure it's not too large
+    }}
+  >
     Photo Revival Demo
   </h2>
 
-  <div style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start"
-  }}>
-    <div style={{
-      flex: "0 0 auto",
-      width: "100%",
-      maxWidth: "900px",
-      textAlign: "center"
-    }}>
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-start",
+    }}
+  >
+    <div
+      style={{
+        flex: "0 0 auto",
+        width: "100%",
+        maxWidth: "900px",
+        textAlign: "center",
+      }}
+    >
       <div
         style={{
           position: "relative",
           width: "100%",
-          height: "600px", // <-- Taller demo
+          aspectRatio: "16 / 9",
           overflow: "hidden",
           borderRadius: "12px",
           boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
-          margin: "0 auto"
+          margin: "0 auto",
+          marginBottom: "0", // prevent extra spacing
         }}
       >
         <ImageCompareSlider
@@ -282,7 +300,19 @@ export default function Home() {
       </div>
     </div>
   </div>
+
+  <style jsx>{`
+    @media (max-width: 640px) {
+      section {
+        padding-bottom: 1.5rem !important;
+      }
+      section > div > div {
+        margin-bottom: 0 !important;
+      }
+    }
+  `}</style>
 </section>
+
 
 
 

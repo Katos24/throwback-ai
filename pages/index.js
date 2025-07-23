@@ -249,7 +249,7 @@ export default function Home() {
 
 {/* Full Landscape-Friendly ImageCompare Section */}
 <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700", marginBottom: "1.5rem" }}>
+  <h2 style={{ textAlign: "center", fontSize: "2.25rem", fontWeight: "700" }}>
     Photo Revival Demo
   </h2>
 
@@ -268,7 +268,7 @@ export default function Home() {
         style={{
           position: "relative",
           width: "100%",
-          aspectRatio: "16 / 9", // ✅ replaces fixed height
+          height: "600px", // <-- Taller demo
           overflow: "hidden",
           borderRadius: "12px",
           boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
@@ -283,6 +283,7 @@ export default function Home() {
     </div>
   </div>
 </section>
+
 
 
 

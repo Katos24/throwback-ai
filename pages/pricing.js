@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import styles from "../styles/PricingSection.module.css";
 
 const CREDIT_PACKS = [
   {
@@ -7,7 +8,7 @@ const CREDIT_PACKS = [
     name: "Dawn Pack",
     credits: 400,
     price: "$4.99",
-    revivals: 10, // Each photo revival costs 40 credits
+    revivals: 10,
     tagline: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
     useCase: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
   },
@@ -80,127 +81,31 @@ export default function Pricing() {
   };
 
   return (
-    <main
-      style={{
-        maxWidth: "1000px",
-        margin: "auto",
-        padding: "2rem",
-        fontFamily: "'Segoe UI', sans-serif",
-        backgroundColor: "#f9f7f3",
-        color: "#3b3b3b",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "2.5rem",
-          fontWeight: "700",
-          marginBottom: "1rem",
-          textAlign: "center",
-        }}
-      >
-        Credit Packs for Timeless Restorations
-      </h1>
-      <p
-        style={{
-          fontSize: "1rem",
-          color: "#5a5a5a",
-          textAlign: "center",
-        }}
-      >
-        Whether you are reviving faded memories, curating holiday albums, or
-        preserving family heritage — Anastasis Credit Packs give you the power
-        to restore with precision and beauty.
+    <section className={styles.honestPricing}>
+      <h1>Credit Packs for Timeless Restorations</h1>
+      <p className={styles.subtitle}>
+        Whether you're reviving faded memories, curating albums, or preserving heritage — Anastasis Credit Packs give you the power to restore with beauty.
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "2rem",
-          marginTop: "3rem",
-        }}
-      >
-        {CREDIT_PACKS.map(
-          ({ id, name, credits, price, tagline, useCase, revivals }) => (
-            <div
-              key={id}
-              style={{
-                border: "2px solid #bfae82",
-                borderRadius: "12px",
-                backgroundColor: "#fff",
-                padding: "1.75rem",
-                boxShadow: "0 6px 12px rgba(0, 0, 0, 0.07)",
-              }}
+      <div className={styles.packGrid}>
+        {CREDIT_PACKS.map(({ id, name, credits, price, tagline, useCase, revivals }) => (
+          <div key={id} className={styles.anastasisCard}>
+            <h2>{name}</h2>
+            <p><strong>{price}</strong> • {credits} credits</p>
+            <p><em>{tagline}</em></p>
+            <p>{useCase}</p>
+            <p className={styles.revivalsInfo}>Premium Revivals: {revivals}</p>
+
+            <button
+              className={styles.buyBtn}
+              onClick={() => handlePurchase(id)}
+              disabled={loadingId === id}
             >
-              <h2
-                style={{
-                  fontSize: "1.5rem",
-                  marginBottom: "0.5rem",
-                  color: "#5e2e82",
-                }}
-              >
-                {name}
-              </h2>
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1.2rem",
-                  marginBottom: "0.25rem",
-                }}
-              >
-                {price} • {credits} credits
-              </p>
-              <p
-                style={{
-                  fontStyle: "italic",
-                  color: "#6e6e6e",
-                  marginBottom: "1rem",
-                }}
-              >
-                {tagline}
-              </p>
-              <p
-                style={{
-                  fontSize: "0.95rem",
-                  color: "#4a4a4a",
-                }}
-              >
-                {useCase}
-              </p>
-
-              {/* Here is the hardcoded revivals line: */}
-              <p
-                style={{
-                  fontWeight: "600",
-                  marginTop: "0.5rem",
-                  color: "#5e2e82",
-                }}
-              >
-                Premium Revivals: {revivals}
-              </p>
-
-              <button
-                onClick={() => handlePurchase(id)}
-                disabled={loadingId === id}
-                style={{
-                  marginTop: "1.5rem",
-                  padding: "0.75rem 2rem",
-                  backgroundColor: "#5e2e82",
-                  border: "none",
-                  borderRadius: "6px",
-                  color: "white",
-                  fontWeight: "600",
-                  fontSize: "1rem",
-                  cursor: loadingId === id ? "wait" : "pointer",
-                  boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                {loadingId === id ? "Processing..." : "Buy Now"}
-              </button>
-            </div>
-          )
-        )}
+              {loadingId === id ? "Processing..." : "Buy Now"}
+            </button>
+          </div>
+        ))}
       </div>
-    </main>
+    </section>
   );
 }

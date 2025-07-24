@@ -213,7 +213,7 @@
 /* 🆚 COMPETITOR CARD CUSTOM STYLE */
 .competitorCard {
   max-width: 300px;
-  transform: scale(0.6);       /* Shrinks the size visually */
+  transform: scale(0.75);       /* Shrinks the size visually */
   margin: 2rem auto 0;
   background: linear-gradient(145deg, #2d102f, #3c1d42); /* subtle plum */
   color: #f0e6ff;

@@ -69,6 +69,14 @@ function uint8ToBase64(u8Arr) {
   return Buffer.from(binary, "binary").toString("base64");
 }
 
+// Timeout helper
+function withTimeout(promise, ms) {
+  const timeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Model timed out")), ms)
+  );
+  return Promise.race([promise, timeout]);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -99,17 +107,19 @@ export default async function handler(req, res) {
   const userId = user.id;
 
   try {
-    // Deduct credits first (40 credits per restore)
-    await spendCredits(userId, modelCosts.restorePremium);
-
-    // Call Replicate model
     const input = {
       input_image: `data:image/png;base64,${imageBase64}`,
     };
 
-    const outputStream = await replicate.run("flux-kontext-apps/restore-image", {
-      input,
-    });
+    // 🔒 Wrap with timeout (e.g. 60 seconds)
+    const outputStream = await withTimeout(
+      replicate.run("flux-kontext-apps/restore-image", { input }),
+      60000
+    );
+
+    if (!outputStream?.getReader) {
+      throw new Error("Model did not return a valid output stream");
+    }
 
     const reader = outputStream.getReader();
     let chunks = [];
@@ -122,6 +132,9 @@ export default async function handler(req, res) {
     const fullBytes = concatUint8Arrays(chunks);
     const base64Image = uint8ToBase64(fullBytes);
     const imageUrl = `data:image/png;base64,${base64Image}`;
+
+    // ✅ Only deduct after successful image
+    await spendCredits(userId, modelCosts.restorePremium);
 
     console.log("✅ Final imageUrl:", imageUrl.slice(0, 50) + "...");
 

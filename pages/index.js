@@ -515,7 +515,6 @@ export default function Home() {
     {/* Right Side: Competitor Card */}
     <div className={pricingStyles.competitorSection}>
       <div className={pricingStyles.competitorCard}>
-        <div className={pricingStyles.warningLabel}>NOT WORTH IT</div>
         <h3>Other Apps</h3>
         <div className={pricingStyles.priceDisplay}>
           <span className={pricingStyles.currency}>$</span>

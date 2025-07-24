@@ -2,7 +2,7 @@
 .topBanner {
   width: 100vw;
   position: relative;
-  background: url("/images/retro-grid-bg.webp") center/cover no-repeat;
+  background: url("/images/retro-grid-bg.jpg") center/cover no-repeat;
   padding: 6rem 2rem 4rem;
   color: #fff;
   overflow: hidden;
@@ -18,7 +18,7 @@
   position: relative;
   background:
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("/images/retro-grid-basic.webp") center/cover no-repeat;
+    url("/images/retro-grid-basic.jpg") center/cover no-repeat;
   padding: 6rem 2rem 4rem;
   color: #fff;
   overflow: hidden;

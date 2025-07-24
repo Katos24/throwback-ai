@@ -440,8 +440,7 @@ export default function Home() {
 
    
 
-
-      {/* Pricing & Privacy Section */}
+{/* Pricing & Privacy Section */}
 <section className={pricingStyles.honestPricing}>
   <h2 className={pricingStyles.pricingHeading}>
     One-Time Purchase <span className={pricingStyles.vsAccent}>vs</span> Monthly Subscriptions
@@ -454,6 +453,17 @@ export default function Home() {
   <div className={pricingStyles.mainPricingContainer}>
     {/* Left Side: Anastasis Packs in 2x2 Layout */}
     <div className={pricingStyles.anastasisSection}>
+
+      {/* New button ABOVE the pack grid */}
+      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+        <button
+          className={pricingStyles.buyBtn}
+          onClick={() => router.push("/pricing")}
+        >
+          See Pricing & Buy Credits
+        </button>
+      </div>
+
       <div className={pricingStyles.packGrid}>
         {[
           {
@@ -499,12 +509,19 @@ export default function Home() {
             <p className={pricingStyles.priceNote}>{pack.tagline}</p>
             <p className={pricingStyles.subtitle}>{pack.useCase}</p>
             <p className={pricingStyles.revivalsInfo}>Premium Revivals: <strong>{pack.revivals}</strong></p>
-            <button className={pricingStyles.buyBtn}>Buy Now</button>
           </div>
         ))}
       </div>
-      
- 
+
+      {/* Keep or remove the bottom button below grid as you like */}
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <button
+          className={pricingStyles.buyBtn}
+          onClick={() => router.push("/pricing")}
+        >
+          See Pricing & Buy Credits
+        </button>
+      </div>
     </div>
 
     {/* Right Side: Competitor Card */}
@@ -534,7 +551,6 @@ export default function Home() {
 <section className={heroStyles.hero}>
   <div className={heroStyles.heroText}>
     <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
-    <p>Bring your family&apos;s forgotten photos back to life as vivid as you remember.</p>
   </div>
   <button
     className={heroStyles.heroCTAButton}

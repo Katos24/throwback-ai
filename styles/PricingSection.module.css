@@ -17,7 +17,7 @@
 .honestPricing h2 {
   font-size: 2.6rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
   color: #ffffff;
   letter-spacing: 1px;
 }
@@ -47,7 +47,8 @@
 
 @media (max-width: 768px) {
   .packGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* ✅ Two cards per row on mobile */
+    gap: 1.5rem;
   }
 }
 
@@ -58,6 +59,7 @@
   border: 1px solid rgba(0, 255, 255, 0.1);
   border-radius: 18px;
   padding: 2rem 1.5rem;
+  padding-bottom: 10px; /* more space for content */
   color: #d0ecff;
   box-shadow: 0 12px 36px rgba(0, 255, 255, 0.08);
   position: relative;
@@ -211,13 +213,14 @@
 
 /* 🆚 COMPETITOR CARD CUSTOM STYLE */
 .competitorCard {
-  max-width: 500px;
+  max-width: 300px;
+  transform: scale(0.6);       /* Shrinks the size visually */
   margin: 2rem auto 0;
   background: linear-gradient(145deg, #2d102f, #3c1d42); /* subtle plum */
   color: #f0e6ff;
   border: 1px solid rgba(255, 0, 255, 0.1);
   border-radius: 18px;
-  padding: 2rem;
+  padding: 1rem; /* Reduce overall internal space */
   text-align: center;
   box-shadow: 0 10px 32px rgba(255, 0, 255, 0.06);
   transition: all 0.4s ease;
@@ -242,6 +245,27 @@
   margin-bottom: 0.5rem;
   color: #ffb8e5;
 }
+
+.competitorCard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.1rem; /* tighten title-subtitle space */
+}
+
+.competitorCard .subtitle {
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem; /* tighten subtitle-list space */
+}
+
+.competitorCard ul {
+  margin-top: 0;
+  padding-left: 1rem;
+}
+
+.competitorCard li {
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+}
+
 
 /* 📱 MOBILE BREAKPOINTS */
 @media (max-width: 768px) {
@@ -400,3 +424,43 @@
   }
 }
 
+.buyBtn {
+  font-size: 1.15rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(145deg, #00ffc3, #00c4ff);
+  color: #111;
+  font-weight: 700;
+  border: 2px solid #fff8e7;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.2),
+    0 0 25px rgba(0, 255, 195, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.buyBtn:hover {
+  background: linear-gradient(145deg, #00e6b2, #00aaff);
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.3),
+    0 0 35px rgba(0, 255, 195, 0.6),
+    inset 0 0 12px rgba(255, 255, 255, 0.15);
+  transform: scale(1.06);
+  letter-spacing: 0.5px;
+}
+
+
+
+.warningLabel {
+  background: #ff4d4f;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}

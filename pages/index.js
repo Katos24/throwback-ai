@@ -455,7 +455,7 @@ export default function Home() {
     <div className={pricingStyles.anastasisSection}>
 
       {/* New button ABOVE the pack grid */}
-      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+      <div style={{ textAlign: "center", marginBottom: ".3rem" }}>
         <button
           className={pricingStyles.buyBtn}
           onClick={() => router.push("/pricing")}
@@ -471,7 +471,6 @@ export default function Home() {
             price: "$4.99",
             credits: 400,
             revivals: 10,
-            tagline: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
             useCase: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
           },
           {
@@ -479,7 +478,6 @@ export default function Home() {
             price: "$9.99",
             credits: 1000,
             revivals: 25,
-            tagline: "A solid bundle for breathing new life into vintage family shots.",
             useCase: "Ideal for themed mini galleries, vacation snaps, or honoring loved ones with restored detail.",
           },
           {
@@ -487,7 +485,6 @@ export default function Home() {
             price: "$14.99",
             credits: 1600,
             revivals: 40,
-            tagline: "A popular pick for curating full-family albums and restoring event photos.",
             useCase: "Great for birthdays, reunions, pet portraits, or weaving stories across generations.",
           },
           {
@@ -495,7 +492,6 @@ export default function Home() {
             price: "$29.99",
             credits: 3500,
             revivals: 87,
-            tagline: "Built for legacy-level restoration — preserve history at scale.",
             useCase: "Ideal for memory books, heritage tributes, holiday archives, and digital scrapbooking.",
           },
         ].map((pack, i) => (
@@ -513,20 +509,13 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Keep or remove the bottom button below grid as you like */}
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <button
-          className={pricingStyles.buyBtn}
-          onClick={() => router.push("/pricing")}
-        >
-          See Pricing & Buy Credits
-        </button>
-      </div>
+   
     </div>
 
     {/* Right Side: Competitor Card */}
     <div className={pricingStyles.competitorSection}>
       <div className={pricingStyles.competitorCard}>
+        <div className={pricingStyles.warningLabel}>NOT WORTH IT</div>
         <h3>Other Apps</h3>
         <div className={pricingStyles.priceDisplay}>
           <span className={pricingStyles.currency}>$</span>

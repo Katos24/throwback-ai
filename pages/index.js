@@ -19,6 +19,8 @@ import ImageCompareSlider from "../components/ImageCompareSlider";
 import featureCompareStyles from '../styles/FeaturesWithCircleCompare.module.css';
 
 
+
+
 const features = [
   {
     emoji: "🧬",
@@ -154,24 +156,22 @@ export default function Home() {
         >
           Explore Photo Revival
         </button>
-
           <div className={styles.scrollHint}>Discover the power of preservation ↓</div>
-
       </div>
-
-      
     </div>
-
     <div className={styles.topBannerRight}>
       <div className={styles.bannerVideoWrapper}>
-        <video
-          src="/images/transformation.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={styles.bannerVideo}
-        />
+      <video
+        src="/images/transformation.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={styles.bannerVideo}
+        preload="auto"
+        disablePictureInPicture
+        controlsList="nodownload nofullscreen noremoteplayback"
+      />
       </div>
     </div>
   </div>

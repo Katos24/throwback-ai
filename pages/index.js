@@ -248,31 +248,22 @@ export default function Home() {
 
 
 
+{/* Image Compare Section */}
 <section className={imageCompare.imageCompareSection}>
   <h2 className={imageCompare.sectionTitle}>Photo Revival Demo</h2>
-  <div className={imageCompare.demoContainer}>
-    <div className={imageCompare.sideColumn}>
-      <img src="/images/left1.jpg" alt="Left side image 1" className={imageCompare.sideImage} />
-      <img src="/images/left2.jpg" alt="Left side image 2" className={imageCompare.sideImage} />
-    </div>
 
-    <div className={imageCompare.sliderWrapper}>
-      <p className={imageCompare.sliderHint}>↔️ Slide to compare the original and restored photo</p>
-      <div className={imageCompare.sliderContainer}>
-        <ImageCompareSlider
-          beforeImage="/images/premium-before.jpg"
-          afterImage="/images/premium-after.jpg"
-        />
-      </div>
+  <div className={imageCompare.sliderWrapper}>
+    <div className={imageCompare.sliderContainer}>
+      <ImageCompareSlider
+        beforeImage="/images/premium-before.jpg"
+        afterImage="/images/premium-after.jpg"
+      />
     </div>
-
-    <div className={imageCompare.sideColumn}>
-      <img src="/images/right1.jpg" alt="Right side image 1" className={imageCompare.sideImage} />
-      <img src="/images/right2.jpg" alt="Right side image 2" className={imageCompare.sideImage} />
-    </div>
+    <p className={imageCompare.directions}>
+      Use the slider to reveal the restored photo and see the transformation.
+    </p>
   </div>
 </section>
-
 
 
 

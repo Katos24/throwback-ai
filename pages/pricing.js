@@ -84,7 +84,7 @@ export default function Pricing() {
     <section className={styles.honestPricing}>
       <h1>Credit Packs for Timeless Restorations</h1>
       <p className={styles.subtitle}>
-        Whether you're reviving faded memories, curating albums, or preserving heritage — Anastasis Credit Packs give you the power to restore with beauty.
+        Whether you&apos;re reviving faded memories, curating albums, or preserving heritage — Anastasis Credit Packs give you the power to restore with beauty.
       </p>
 
       <div className={styles.packGrid}>

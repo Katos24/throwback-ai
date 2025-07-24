@@ -17,7 +17,7 @@ import migrationStyles from "../styles/MigrationSection.module.css";
 import styles from '../styles/TopBanner.module.css';
 import ImageCompareSlider from "../components/ImageCompareSlider";
 import featureCompareStyles from '../styles/FeaturesWithCircleCompare.module.css';
-
+import imageCompare from '../styles/ImageCompare.module.css';
 
 
 
@@ -247,83 +247,31 @@ export default function Home() {
 
 
 
-{/* Full Landscape-Friendly ImageCompare Section */}
-<section
-  style={{
-    padding: "3rem 1rem",
-    backgroundColor: "#121212",
-    color: "white",
-  }}
->
-  <h2
-    style={{
-      textAlign: "center",
-      fontSize: "2.25rem",
-      fontWeight: "700",
-      marginBottom: "1.5rem", // Make sure it's not too large
-    }}
-  >
-    Photo Revival Demo
-  </h2>
 
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "flex-start",
-    }}
-  >
-    <div
-  style={{
-    flex: "0 0 auto",
-    width: "100%",
-    maxWidth: "900px",
-    textAlign: "center",
-  }}
->
-  <p
-    style={{
-      textAlign: "center",
-      marginBottom: "1rem",
-      fontSize: "1rem",
-      opacity: 0.85,
-    }}
-  >
-    ↔️ Slide to compare the original and restored photo
-  </p>
+<section className={imageCompare.imageCompareSection}>
+  <h2 className={imageCompare.sectionTitle}>Photo Revival Demo</h2>
+  <div className={imageCompare.demoContainer}>
+    <div className={imageCompare.sideColumn}>
+      <img src="/images/left1.jpg" alt="Left side image 1" className={imageCompare.sideImage} />
+      <img src="/images/left2.jpg" alt="Left side image 2" className={imageCompare.sideImage} />
+    </div>
 
-  <div
-    style={{
-      position: "relative",
-      width: "100%",
-      aspectRatio: "16 / 9",
-      overflow: "hidden",
-      borderRadius: "12px",
-      boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
-      margin: "0 auto",
-    }}
-  >
-    <ImageCompareSlider
-      beforeImage="/images/premium-before.jpg"
-      afterImage="/images/premium-after.jpg"
-    />
+    <div className={imageCompare.sliderWrapper}>
+      <p className={imageCompare.sliderHint}>↔️ Slide to compare the original and restored photo</p>
+      <div className={imageCompare.sliderContainer}>
+        <ImageCompareSlider
+          beforeImage="/images/premium-before.jpg"
+          afterImage="/images/premium-after.jpg"
+        />
+      </div>
+    </div>
+
+    <div className={imageCompare.sideColumn}>
+      <img src="/images/right1.jpg" alt="Right side image 1" className={imageCompare.sideImage} />
+      <img src="/images/right2.jpg" alt="Right side image 2" className={imageCompare.sideImage} />
+    </div>
   </div>
-</div>
-
-  </div>
-
-  <style jsx>{`
-    @media (max-width: 640px) {
-      section {
-        padding-bottom: 1.5rem !important;
-      }
-      section > div > div {
-        margin-bottom: 0 !important;
-      }
-    }
-  `}</style>
 </section>
-
 
 
 

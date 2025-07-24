@@ -6,6 +6,7 @@ import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -212,12 +213,15 @@ export default function RestorePremium() {
               <strong>Before</strong>
               <div className={styles.imageWrapper}>
                 {selectedPreviewUrl ? (
-                  <img
-                    src={selectedPreviewUrl}
-                    alt="Before upload preview"
-                    className={styles.image}
-                    style={{ objectFit: "contain" }}
-                  />
+                  <Image
+                  src={selectedPreviewUrl}
+                  alt="Before upload preview"
+                  className={styles.image}
+                  style={{ objectFit: "contain" }}
+                  width={400}   // approximate current size in px
+                  height={300}  // approximate current size in px
+                  unoptimized={true} // because base64 or blob URL
+                />
                 ) : (
                   <span className={styles.placeholderText}>Upload an image</span>
                 )}
@@ -228,11 +232,14 @@ export default function RestorePremium() {
               <strong>After</strong>
               <div className={styles.imageWrapper}>
                 {restoredUrl ? (
-                  <img
+                 <Image
                     src={restoredUrl}
                     alt="Restored"
                     className={styles.image}
                     style={{ objectFit: "contain" }}
+                    width={400}     // set approximate width you want
+                    height={300}    // set approximate height you want
+                    unoptimized={true}  // needed for base64 or dynamic URLs
                   />
                 ) : (
                   <span className={styles.placeholderText}>No restored image yet</span>
@@ -281,11 +288,14 @@ export default function RestorePremium() {
             </p>
           </div>
           <div className={styles.featurePromoVisual}>
-            <img
-              src="/images/restore-preview.jpg"
-              alt="Restored example preview"
-              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
-            />
+            <Image
+                src="/images/restore-preview.jpg"
+                alt="Restored example preview"
+                className={`${styles.featurePromoImage} ${styles.tiltImage}`}
+                width={600}    // replace with your desired width
+                height={400}   // replace with your desired height
+                style={{ objectFit: "contain" }}  // optional if you want to keep that style
+              />
           </div>
         </div>
       </section>

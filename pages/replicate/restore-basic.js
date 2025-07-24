@@ -4,6 +4,7 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
+import Image from "next/image";
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -235,12 +236,15 @@ export default function RestoreBasic() {
               <strong>Before</strong>
               <div className={styles.imageWrapper}>
                 {selectedPreviewUrl ? (
-                  <img
-                    src={selectedPreviewUrl}
-                    alt="Before upload preview"
-                    className={styles.image}
-                    style={{ objectFit: "contain" }}
-                  />
+                   <Image
+                  src={selectedPreviewUrl}
+                  alt="Before upload preview"
+                  className={styles.image}
+                  style={{ objectFit: "contain" }}
+                  width={400}   // approximate current size in px
+                  height={300}  // approximate current size in px
+                  unoptimized={true} // because base64 or blob URL
+                />
                 ) : (
                   <span className={styles.placeholderText}>Upload an image</span>
                 )}
@@ -256,6 +260,7 @@ export default function RestoreBasic() {
                     alt="Restored"
                     className={styles.image}
                     style={{ objectFit: "contain" }}
+                    loading="lazy"
                   />
                 ) : (
                   <span className={styles.placeholderText}>No restored image yet</span>

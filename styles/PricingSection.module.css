@@ -47,8 +47,7 @@
 
 @media (max-width: 768px) {
   .packGrid {
-    grid-template-columns: repeat(2, 1fr); /* ✅ Two cards per row on mobile */
-    gap: 1.5rem;
+    grid-template-columns: 1fr; /* ❌ This stacks all cards in one column */
   }
 }
 

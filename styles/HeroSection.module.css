@@ -1,21 +1,20 @@
-/* Hero styled like Top Banner */
+/* styles/HeroSection.module.css */
+
 .hero {
   background: linear-gradient(160deg, #0a0f1c, #1e2747);
-  /* plus position, padding, min-height, color */
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem 2rem 3rem; /* slightly adjusted bottom padding to match top banner */
+  padding: 4rem 2rem 3rem;
   min-height: 40vh;
-  color: #fdfdfc; /* from top banner */
+  color: #fdfdfc;
   text-align: center;
-  border-radius: 20px; /* from top banner */
+  border-radius: 20px;
   max-width: 1280px;
-  margin: 2rem auto;
-  margin-bottom: 4rem; /* space from previous section */
-  box-shadow: 
+  margin: 2rem auto 4rem;
+  box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 230, 160, 0.15);
   font-family: 'GFS Didot', serif;
@@ -27,7 +26,7 @@
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 30% 20%, rgba(255, 230, 160, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(28, 54, 81, 0.15) 0%, transparent 50%);
   pointer-events: none;
@@ -62,7 +61,6 @@
   text-align: center;
 }
 
-/* Use same button style */
 .heroCTAButton {
   background: linear-gradient(135deg, #ffe6a0 0%, #ffd46d 50%, #ffb347 100%);
   color: #1c3651;
@@ -72,7 +70,7 @@
   border-radius: 50px;
   border: none;
   cursor: pointer;
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(255, 230, 160, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,14 +80,13 @@
   margin-bottom: 1rem;
   z-index: 1;
 }
+
 .heroCTAButton::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s ease;
 }
 
@@ -101,31 +98,26 @@
   background: linear-gradient(135deg, #fddfb0 0%, #ffb347 50%, #ff9500 100%);
   color: #ffffff;
   transform: translateY(-4px);
-  box-shadow: 
+  box-shadow:
     0 15px 40px rgba(255, 222, 143, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
-
-
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
   .hero {
     padding: 3rem 1.5rem 2.5rem;
-    margin: 1.5rem 1rem;
+    margin: 1.5rem 1rem 3rem;
     border-radius: 16px;
   }
-  
   .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
   }
-  
   .hero p {
     font-size: 1.1rem;
     margin-bottom: 2rem;
   }
-  
   .heroCTAButton {
     font-size: 1.1rem;
     padding: 1rem 2.5rem;
@@ -137,14 +129,11 @@
   .hero {
     padding: 2.5rem 1.25rem 2rem;
   }
-  
   .hero h1 {
     font-size: 2.2rem;
   }
-  
   .heroCTAButton {
     font-size: 1rem;
     padding: 0.9rem 2rem;
   }
- 
 }

@@ -2,20 +2,18 @@
 .restoreOptions {
   max-width: 1280px;
   margin: 3rem auto 4rem;
-  padding: 0 2rem 4rem; /* ⬅ ADDED bottom padding */
+  padding: 0 2rem 4rem;
   font-family: 'GFS Didot', serif;
   color: #fdfdfc;
   text-align: center;
   position: relative;
-  background: 
-    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4));
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.4));
   border-radius: 20px;
   box-shadow:
     0 20px 60px rgba(0,0,0,0.3),
     0 0 0 1px rgba(255, 230, 160, 0.15);
   overflow: hidden;
 }
-
 
 /* Section Heading */
 .restoreOptions h2 {
@@ -55,29 +53,35 @@
   box-shadow: 0 15px 45px rgba(0,0,0,0.5);
 }
 
-/* Image pair container */
+/* === IMAGE PAIR – GRID LAYOUT === */
 .imagePair {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.25rem;
   width: 100%;
-  justify-content: center;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+  margin-bottom: 1.5rem;
 }
 
-/* Paired images styling */
-.pairedImage {
-  width: 48%;
+/* Override Next/Image’s span wrapper */
+.imagePair > span {
+  display: block !important;
+  width: 100% !important;
   border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the actual <img> inside the wrapper */
+.imagePair > span > img {
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   transition: transform 0.3s ease;
 }
 
-.pairedImage:hover {
+/* Hover effect */
+.imagePair > span:hover img {
   transform: scale(1.03);
 }
 
@@ -92,12 +96,12 @@
   font-size: 2.2rem;
   font-weight: 900;
   margin-bottom: 1rem;
-  color: #fff8cc; /* lighter pale yellow */
+  color: #fff8cc;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-shadow:
     0 0 8px rgba(255, 220, 100, 0.9),
-    0 0 20px rgba(255, 165, 0, 0.8),
+    0 0 20px rgba(255, 165, 0.8),
     0 2px 6px rgba(0, 0, 0, 0.9);
   background: linear-gradient(90deg, #fff8cc, #ffbb33);
   -webkit-background-clip: text;
@@ -121,7 +125,6 @@
   z-index: -1;
   filter: blur(4px);
   pointer-events: none;
-  user-select: none;
 }
 
 .cardContent h3::after {
@@ -129,7 +132,7 @@
   display: block;
   width: 60px;
   height: 4px;
-  margin: 8px auto 0 auto;
+  margin: 8px auto 0;
   background: linear-gradient(90deg, #ffb347, #ff9500);
   border-radius: 2px;
   box-shadow: 0 0 12px #ffb347;
@@ -179,7 +182,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s ease;
   border-radius: 50px;
 }
@@ -211,14 +214,7 @@
   }
 
   .imagePair {
-    flex-wrap: nowrap; /* keep side by side */
-    gap: 0.75rem;
-    overflow-x: auto; /* optional: allow horizontal scroll if needed */
-  }
-
-  .pairedImage {
-    width: 48%; /* side by side */
-    min-width: 140px; /* optional: prevent images from shrinking too small */
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
   }
 
   .cardContent h3 {
@@ -254,5 +250,3 @@
     padding: 0.8rem 1.8rem;
   }
 }
-
-

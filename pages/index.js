@@ -1,25 +1,28 @@
-import { useRouter } from "next/router";
-import Head from "next/head";
-import Image from "next/image";
-import { useState } from "react";
-import React from "react";
+// pages/index.js
 
+import React, { useState, useRef, useEffect } from "react"
+import { useRouter } from "next/router"
+import Head from "next/head"
+import Image from "next/image"
 
-import heroStyles from "../styles/HeroSection.module.css";
-import RestoreOptionsStyles from "../styles/RestoreOptions.module.css";
-import featureStyles from "../styles/FeaturesSection.module.css";
-import pricingStyles from "../styles/PricingSection.module.css";
-import testimonialStyles from "../styles/TestimonialsBadges.module.css";
-import faqStyles from "../styles/FAQSection.module.css";
-import infoCardStyles from "../styles/InfoCardsSection.module.css";
-import infoStyles from "../styles/InfoSection.module.css";
-import migrationStyles from "../styles/MigrationSection.module.css";
-import styles from '../styles/TopBanner.module.css';
-import ImageCompareSlider from "../components/ImageCompareSlider";
-import featureCompareStyles from '../styles/FeaturesWithCircleCompare.module.css';
-import imageCompare from '../styles/ImageCompare.module.css';
+// Styles
+import heroStyles from "../styles/HeroSection.module.css"
+import RestoreOptionsStyles from "../styles/RestoreOptions.module.css"
+import featureStyles from "../styles/FeaturesSection.module.css"
+import pricingStyles from "../styles/PricingSection.module.css"
+import testimonialStyles from "../styles/TestimonialsBadges.module.css"
+import faqStyles from "../styles/FAQSection.module.css"
+import infoCardStyles from "../styles/InfoCardsSection.module.css"
+import infoStyles from "../styles/InfoSection.module.css"
+import migrationStyles from "../styles/MigrationSection.module.css"
+import styles from "../styles/TopBanner.module.css"
+import imageCompare from "../styles/ImageCompare.module.css"
 
+// This is the one driving our “See the Restoration Impact” grid + scroll-reveal
+import featureCompareStyles from "../styles/FeaturesWithCircleCompare.module.css"
 
+// Components
+import ImageCompareSlider from "../components/ImageCompareSlider"
 
 const features = [
   {
@@ -98,8 +101,9 @@ const faqData = [
   },
 ];
 
+
 function FAQItem({ question, answer }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <div
       className={`${faqStyles.faqCard} ${open ? faqStyles.open : ""}`}
@@ -108,12 +112,67 @@ function FAQItem({ question, answer }) {
       <h3 className={faqStyles.faqQuestion}>{question}</h3>
       {open && <p className={faqStyles.faqAnswer}>{answer}</p>}
     </div>
-  );
+  )
 }
 
 export default function Home() {
-  const router = useRouter();
-  const handleNavigateToRestore = (path) => router.push(path);
+  const router = useRouter()
+  const handleNavigateToRestore = (path) => router.push(path)
+
+  //
+  // PHOTO-REVIVAL DEMO SLIDER LOGIC
+  //
+  const [interacted, setInteracted] = useState(false)
+  const sliderRef = useRef(null)
+
+  // mark we’ve seen interaction (hide hint)
+  const handleInteraction = () => {
+    if (!interacted) setInteracted(true)
+  }
+
+  // arrow-key support for slider
+  useEffect(() => {
+    const onKey = (e) => {
+      if (!interacted) setInteracted(true)
+      const slider = sliderRef.current
+      if (!slider) return
+
+      let pos = slider.position || 0
+      if (e.key === "ArrowLeft") pos = Math.max(0, pos - 0.05)
+      if (e.key === "ArrowRight") pos = Math.min(1, pos + 0.05)
+      slider.setPosition(pos)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [interacted])
+
+  //
+  // SCROLL-REVEAL FOR "See the Restoration Impact"
+  //
+  const featuresRef = useRef(null)
+  const stepsRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) {
+            target.classList.add(featureCompareStyles.visible)
+            obs.unobserve(target)
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+    featuresRef.current
+      .querySelectorAll(`.${featureCompareStyles.featureCard}`)
+      .forEach((card) => observer.observe(card))
+    stepsRef.current
+      .querySelectorAll(`.${featureCompareStyles.stepCard}`)
+      .forEach((card) => observer.observe(card))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
@@ -127,143 +186,236 @@ export default function Home() {
         />
       </Head>
 
-      
+      {/* Top Banner Section */}
+      <section className={styles.topBannerHero}>
+        <div className={styles.topBannerContent}>
+          <div className={styles.topBannerLeft}>
+            <p className={styles.bannerIntro}>Revival, not replacement.</p>
+            <h1 className={styles.heading}>
+              Restore the Soul of Your Family Photos
+            </h1>
+            <p className={styles.paragraph}>
+              <strong>Anastasis</strong> combines ancient Greek wisdom with modern AI.  
+              Try <strong>Photo Fix</strong> for crystal-clear, detailed photo repairs.  
+              Upgrade to <strong>Photo Revival</strong> for breathtaking colorization and vintage magic.
+            </p>
+            <div className={styles.ctaButtonContainer}>
+              <button
+                className={styles.topBannerButton}
+                onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+              >
+                Try Photo Fix Free
+              </button>
+              <button
+                className={styles.secondaryButton}
+                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+              >
+                Explore Photo Revival
+              </button>
+              <div className={styles.scrollHint}>
+                Discover the power of preservation ↓
+              </div>
+            </div>
+          </div>
+          <div className={styles.topBannerRight}>
+            <div className={styles.bannerVideoWrapper}>
+              <video
+                src="/images/transformation.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.bannerVideo}
+                preload="auto"
+                disablePictureInPicture
+                controlsList="nodownload nofullscreen noremoteplayback"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-{/* Top Banner Section with Two Columns */}
-<section className={styles.topBannerHero}>
-  <div className={styles.topBannerContent}>
-    <div className={styles.topBannerLeft}>
-      <p className={styles.bannerIntro}>Revival, not replacement.</p>
+      {/* Restore Options + Before/After */}
+      <section className={RestoreOptionsStyles.restoreOptions}>
+        <h2>Choose Your Restoration Level</h2>
+        <div className={RestoreOptionsStyles.restoreCardGrid}>
+          {/* Photo Fix */}
+          <div className={RestoreOptionsStyles.restoreCard}>
+            <h3>🛠️ Photo Fix</h3>
+            <div className={RestoreOptionsStyles.imagePair}>
+              <Image
+                src="/images/before6.jpg"
+                alt="Old grayscale photo before Photo Fix"
+                width={500}
+                height={500}
+                className={RestoreOptionsStyles.pairedImage}
+              />
+              <Image
+                src="/images/basic-after6.jpg"
+                alt="After Photo Fix restoration"
+                width={500}
+                height={500}
+                className={RestoreOptionsStyles.pairedImage}
+              />
+            </div>
+            <div className={RestoreOptionsStyles.cardContent}>
+              <p>
+                <strong>3 Free Fixes.</strong> Transform damaged photos into crisp, clear memories instantly.
+              </p>
+              <button
+                onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+              >
+                Fix Your Photos Free – No Strings Attached
+              </button>
+            </div>
+          </div>
 
-    <h1 className={styles.heading}>Restore the Soul of Your Family Photos</h1>
+          {/* Photo Revival */}
+          <div className={RestoreOptionsStyles.restoreCard}>
+            <h3>✨ Photo Revival</h3>
+            <div className={RestoreOptionsStyles.imagePair}>
+              <Image
+                src="/images/before6.jpg"
+                alt="Old faded photo before Photo Revival"
+                width={500}
+                height={500}
+                className={RestoreOptionsStyles.pairedImage}
+              />
+              <Image
+                src="/images/after6.jpg"
+                alt="After Photo Revival restoration"
+                width={500}
+                height={500}
+                className={RestoreOptionsStyles.pairedImage}
+              />
+            </div>
+            <div className={RestoreOptionsStyles.cardContent}>
+              <p>
+                <strong>Full-color, HD magic.</strong> Breathe life back into faded memories with stunning detail revival.
+              </p>
+              <button
+                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+              >
+                Experience Heritage-Grade Photo Revival
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <p className={styles.paragraph}>
-        <strong>Anastasis</strong> combines ancient Greek wisdom with modern AI.  
-        Try <strong>Photo Fix</strong> for crystal-clear, detailed photo repairs.  
-        Upgrade to <strong>Photo Revival</strong> for breathtaking colorization and vintage magic.
-      </p>
 
-      <div className={styles.ctaButtonContainer}>
-        <button
-          className={styles.topBannerButton}
-          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+
+
+      {/* “See the Restoration Impact” Section */}
+      <section className={featureCompareStyles.container}>
+        <div className={featureCompareStyles.titleWrapper}>
+          <h2 className={featureCompareStyles.sectionTitle}>
+            <span className={featureCompareStyles.titleGradient}>
+              See the Restoration
+            </span>
+            <span className={featureCompareStyles.titleAccent}>
+              Impact
+            </span>
+          </h2>
+          <div className={featureCompareStyles.titleUnderline} />
+          <p className={featureCompareStyles.subtitle}>
+            Transforming memories with cutting-edge AI technology
+          </p>
+        </div>
+
+        <div
+          className={featureCompareStyles.featuresGrid}
+          ref={featuresRef}
         >
-          Try Photo Fix Free
-        </button>
-        <button
-          className={styles.secondaryButton}
-          onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+          {[
+            { stat: "1M+", label: "Photos restored worldwide" },
+            { stat: "99%", label: "Authenticity retained" },
+            { stat: "60+", label: "Countries served" },
+            { stat: "4.9★", label: "Average customer rating" }
+          ].map((item, i) => (
+            <div
+              key={i}
+              className={featureCompareStyles.featureCard}
+            >
+              <div className={featureCompareStyles.featureStat}>
+                {item.stat}
+              </div>
+              <div className={featureCompareStyles.featureLabel}>
+                {item.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className={featureCompareStyles.processStepsGrid}
+          ref={stepsRef}
         >
-          Explore Photo Revival
-        </button>
-          <div className={styles.scrollHint}>Discover the power of preservation ↓</div>
-      </div>
-    </div>
-    <div className={styles.topBannerRight}>
-      <div className={styles.bannerVideoWrapper}>
-      <video
-        src="/images/transformation.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className={styles.bannerVideo}
-        preload="auto"
-        disablePictureInPicture
-        controlsList="nodownload nofullscreen noremoteplayback"
-      />
-      </div>
-    </div>
-  </div>
-</section>
+          <div
+            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepUpload}`}
+          >
+            <h3>📤 Upload</h3>
+            <p>
+              Upload your scanned or digital photo — no login needed. Higher-resolution images give the best results.
+            </p>
+          </div>
+          <div
+            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepProcess}`}
+          >
+            <h3>⚙️ AI Processing</h3>
+            <p>
+              Our Replicate-powered model uses deep learning to sharpen faces, fix noise, and color-correct faded details.
+            </p>
+          </div>
+          <div
+            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepDownload}`}
+          >
+            <h3>🔒 Download & Done</h3>
+            <p>
+              Download your restored photo within seconds. We auto-delete all uploads within 1 hour for complete privacy.
+            </p>
+          </div>
+        </div>
+      </section>
 
 
 
-{/* Restore Options + Before/After */}
-<section className={RestoreOptionsStyles.restoreOptions}>
-  <h2>Choose Your Restoration Level</h2>
-  <div className={RestoreOptionsStyles.restoreCardGrid}>
-
-    {/* Photo Fix */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>🛠️ Photo Fix</h3> {/* 👈 TITLE MOVED UP */}
-      <div className={RestoreOptionsStyles.imagePair}>
-        <Image
-          src="/images/basic-before.jpg"
-          alt="Old grayscale photo before Photo Fix restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <Image
-          src="/images/basic-after.jpg"
-          alt="Restored grayscale photo after Photo Fix restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>3 Free Fixes.</strong> Transform damaged photos into crisp, clear memories instantly.
-        </p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-basic")}>
-          Fix Your Photos Free – No Strings Attached
-        </button>
-      </div>
-    </div>
-
-    {/* Photo Revival */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <h3>✨ Photo Revival</h3> {/* 👈 TITLE MOVED UP */}
-      <div className={RestoreOptionsStyles.imagePair}>
-        <Image
-          src="/images/premium-before.jpg"
-          alt="Old faded photo before Photo Revival restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-        <Image
-          src="/images/premium-after.jpg"
-          alt="Restored full-color photo after Photo Revival restoration"
-          width={500}
-          height={500}
-          className={RestoreOptionsStyles.pairedImage}
-        />
-      </div>
-      <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>Full-color, HD magic.</strong> Breathe life back into faded memories with stunning detail revival.
-        </p>
-        <button onClick={() => handleNavigateToRestore("/replicate/restore-premium")}>
-          Experience Heritage-Grade Photo Revival
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 
 
 
 {/* Image Compare Section */}
-<section className={imageCompare.imageCompareSection}>
-  <h2 className={imageCompare.sectionTitle}>Photo Revival Demo</h2>
+ <section className={imageCompare.imageCompareSection}>
+      <h2 className={imageCompare.sectionTitle}>Photo Revival Demo</h2>
 
-  <div className={imageCompare.sliderWrapper}>
-    <div className={imageCompare.sliderContainer}>
-      <ImageCompareSlider
-        beforeImage="/images/premium-before.jpg"
-        afterImage="/images/premium-after.jpg"
-      />
-    </div>
-    <p className={imageCompare.directions}>
-      Use the slider to reveal the restored photo and see the transformation.
-    </p>
-  </div>
-</section>
+      <div
+        className={`${imageCompare.sliderWrapper} ${interacted ? 'interacted' : ''}`}
+      >
+        <p className={imageCompare.sliderHint}>
+          Slide or press ←→ to reveal the restoration
+        </p>
+
+        <div
+          className={imageCompare.sliderContainer}
+          onMouseDown={handleInteraction}
+          onTouchStart={handleInteraction}
+        >
+          <ImageCompareSlider
+            ref={sliderRef}
+            beforeImage="/images/premium-before.jpg"
+            afterImage="/images/premium-after.jpg"
+            handleClassName={imageCompare.sliderHandle}
+            afterOverlayClassName={imageCompare.afterImageOverlay}
+            ariaLabelBefore="Original photo"
+            ariaLabelAfter="Restored photo"
+          />
+        </div>
+
+        <p className={imageCompare.directions}>
+          Use the slider or arrow keys to compare before & after.
+        </p>
+      </div>
+    </section>
 
 
 
@@ -326,52 +478,6 @@ export default function Home() {
   </div>
 </section>
 
-
-
-<section className={featureCompareStyles.container}>
-  {/* Section Title */}
-  <div className={featureCompareStyles.titleWrapper}>
-    <h2 className={featureCompareStyles.sectionTitle}>
-      <span className={featureCompareStyles.titleGradient}>See the Restoration</span>
-      <span className={featureCompareStyles.titleAccent}>Impact</span>
-    </h2>
-    <div className={featureCompareStyles.titleUnderline}></div>
-    <p className={featureCompareStyles.subtitle}>
-      Transforming memories with cutting-edge AI technology
-    </p>
-  </div>
-
-  {/* Feature Cards Grid */}
-  <div className={featureCompareStyles.featuresGrid}>
-    {/* Existing 4 feature cards */}
-    {[
-      { stat: "1M+", label: "Photos restored worldwide" },
-      { stat: "99%", label: "Authenticity retained" },
-      { stat: "60+", label: "Countries served" },
-      { stat: "4.9★", label: "Average customer rating" }
-    ].map((item, i) => (
-      <div key={i} className={`${featureCompareStyles.featureCard} ${featureCompareStyles.cardHover}`}>
-        <div className={featureCompareStyles.featureStat}>{item.stat}</div>
-        <div className={featureCompareStyles.featureLabel}>{item.label}</div>
-      </div>
-    ))}
-
-
-  </div>
-
-  {/* Steps */}
-  <div className={featureCompareStyles.processSteps}>
-    {["Upload", "AI Process", "Download"].map((step, i) => (
-      <React.Fragment key={step}>
-        <div className={featureCompareStyles.step}>
-          <div className={featureCompareStyles.stepNumber}>{i + 1}</div>
-          <span>{step}</span>
-        </div>
-        {i < 2 && <div className={featureCompareStyles.stepArrow}>→</div>}
-      </React.Fragment>
-    ))}
-  </div>
-</section>
 
 
 

@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
 
         <h2 className={styles.heading}>Contact Us</h2>
         <p className={styles.paragraph}>
-          Questions? Email <a className={styles.link} href="mailto:support@throwback-ai.vercel.app">support@throwback-ai.vercel.app</a>.
+          Questions? Email <a className={styles.link} href="mailto:hello@throwbackai.app">hello@throwbackai.app</a>.
         </p>
       </main>
     </>

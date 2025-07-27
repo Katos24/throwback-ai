@@ -69,7 +69,7 @@ export default function Terms() {
         <p className={styles.paragraph}>
           If you have any questions about these Terms of Use, please contact us at: <br />
           <strong>
-            <a className={styles.link} href="mailto:support@throwback-ai.vercel.app">support@throwback-ai.vercel.app</a>
+            <a className={styles.link} href="mailto:hello@throwbackai.app">hello@throwbackai.app</a>
           </strong>
         </p>
 

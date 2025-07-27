@@ -52,22 +52,42 @@ const features = [
 ];
 
 const testimonials = [
-  {
+   {
     quote:
-      "Tried Remini and MyHeritage first - Anastasis blew them away. The historical accuracy is incredible.",
-    author: "Sarah M., Professional Genealogist",
-  },
-  {
-    quote:
-      "Finally escaped the subscription trap! Anastasis gave me museum-quality results without the monthly fees.",
-    author: "David L., Family Historian",
-  },
-  {
-    quote:
-      "After disappointing results from mainstream apps, Anastasis understood my 1920s family portrait perfectly.",
-    author: "Elena R., Heritage Researcher",
-  },
-];
+      "I surprised my parents on their 50th wedding anniversary by colorizing their black-and-white wedding photos. They were in tears when they saw themselves in color for the very first time.",
+    author: "Michael T., Celebrating 50 Years"
+    },
+    {
+      quote:
+        "My daughter’s first birthday pictures from the early ’90s have never looked so vibrant. Anastasis works like pure magic—no more faded prints!",
+      author: "Samantha B., Proud Mom"
+    },
+    {
+      quote:
+        "As an event photographer, I’ve used countless tools, but Anastasis gave me flawless, museum-quality restorations of old Polaroids and negatives.",
+      author: "Jessica L., Photojournalist"
+    },
+    {
+      quote:
+        "I finally restored my grandparents’ 1940s army portraits—and the colorization made their stories leap off the page. My family can’t stop talking about it.",
+      author: "Ethan C., History Buff"
+    },
+    {
+      quote:
+        "After trying every app on the market, Anastasis delivered crystal-clear, lifelike restorations. These century-old heirlooms look brand new.",
+      author: "Olivia R., Family Archivist"
+    },
+    {
+      quote:
+        "My wife and I turned our black-and-white honeymoon snaps into living color. It felt like reliving our trip all over again—complete with sandy beaches and sunsets.",
+      author: "David & Anna, Newlyweds"
+    },
+    {
+      quote:
+        "No confusing subscriptions, just a one-time fee and endless restored memories. Anastasis is the gift that keeps on giving.",
+      author: "Lily M., Memory Keeper"
+    }
+  ];
 
 
 const faqData = [
@@ -676,7 +696,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className={testimonialStyles.testimonials}>
-        <h2>What Genealogists Say</h2>
+        <h2>Bringing Memories to Life: Real Stories</h2>
         <div className={testimonialStyles.testimonialGrid}>
           {testimonials.map(({ quote, author }, index) => (
             <blockquote key={index}>

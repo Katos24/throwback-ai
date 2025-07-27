@@ -1,0 +1,151 @@
+/* styles/CompareSlider.module.css */
+
+/* Container: full-width, max 800px, super-wide aspect ratio */
+.compareContainer {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 3rem auto;
+  aspect-ratio: 16 / 7;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  border: 2px solid rgba(255,255,255,0.1);
+  background-color: #000;
+  cursor: grab;
+  /* drives overlay & handle */
+  --slider-pos: 50%;
+}
+
+.compareContainer.grabbing {
+  cursor: grabbing;
+}
+
+/* Base “before” image: full container, show whole photo */
+.compareContainer > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Overlay “after” wrapper: driven by --slider-pos */
+.imageOverlay {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: var(--slider-pos);
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+}
+.imageOverlay img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Vertical handle line */
+.sliderHandle {
+  position: absolute;
+  top: 0;
+  left: var(--slider-pos);
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.3);
+  cursor: ew-resize;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+/* Draggable knob */
+.sliderHandle > div {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 32px; height: 32px;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+.sliderHandle > div > div {
+  width: 2px; height: 12px;
+  background: #444;
+  margin: 0 1px;
+  border-radius: 1px;
+}
+
+/* Top-corner labels */
+.beforeLabel, .afterLabel {
+  position: absolute;
+  top: 1rem;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 5;
+  user-select: none;
+  pointer-events: none;
+}
+.beforeLabel { left: 1rem; }
+.afterLabel  { right: 1rem; }
+
+/* Bottom instruction */
+.instructionText {
+  position: absolute;
+  bottom: 1rem; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  z-index: 5;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  user-select: none;
+  pointer-events: none;
+}
+.compareContainer.grabbing .instructionText {
+  opacity: 0;
+}
+
+/* Mobile breakpoints */
+@media (max-width: 768px) {
+  .compareContainer {
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .compareContainer {
+    aspect-ratio: 16 / 9;
+  }
+  .beforeLabel, .afterLabel {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .instructionText {
+    font-size: 0.55rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

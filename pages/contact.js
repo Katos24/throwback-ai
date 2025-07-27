@@ -6,7 +6,7 @@ export default function Contact() {
       <h1 className={styles.heading}>Contact Us</h1>
 
       <p className={styles.paragraph}>
-        We'd love to hear from you. Whether it’s a question, feedback, or a story to share, don’t hesitate to reach out.
+        We'd love to hear from you. Whether it&apos;s a question, feedback, or a story to share, don’t hesitate to reach out.
       </p>
 
       <p className={styles.paragraph}>

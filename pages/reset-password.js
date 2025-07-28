@@ -12,7 +12,7 @@ export default function ResetPassword() {
 
   useEffect(() => {
     async function handleRecovery() {
-      const { error } = await supabase.auth.exchangeCodeForSession();
+      const { data, error } = await supabase.auth.getSessionFromUrl();
       if (error) {
         setStatus(`❌ ${error.message}`);
         setSessionLoaded(false);

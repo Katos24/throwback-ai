@@ -171,26 +171,32 @@ export default function Home() {
   const stepsRef = useRef(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach(({ target, isIntersecting }) => {
-          if (isIntersecting) {
-            target.classList.add(featureCompareStyles.visible)
-            obs.unobserve(target)
-          }
-        })
-      },
-      { threshold: 0.2 }
-    )
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) {
+          target.classList.add(featureCompareStyles.visible)
+          obs.unobserve(target)
+        }
+      })
+    },
+    { threshold: 0.2 }
+  )
+
+  if (featuresRef.current) {
     featuresRef.current
       .querySelectorAll(`.${featureCompareStyles.featureCard}`)
       .forEach((card) => observer.observe(card))
+  }
+
+  if (stepsRef.current) {
     stepsRef.current
       .querySelectorAll(`.${featureCompareStyles.stepCard}`)
       .forEach((card) => observer.observe(card))
+  }
 
-    return () => observer.disconnect()
-  }, [])
+  return () => observer.disconnect()
+}, [])
 
   return (
     <>
@@ -215,7 +221,6 @@ export default function Home() {
             color: 'white',
             padding: '8px 0',
             textAlign: 'center',
-            position: 'sticky',
             top: 0,
             zIndex: 1000,
             fontFamily: 'Arial, sans-serif',
@@ -427,83 +432,58 @@ export default function Home() {
 
 
 
-      {/* "See the Restoration Impact" Section */}
-      <section className={featureCompareStyles.container}>
-        <div className={featureCompareStyles.titleWrapper}>
-          <h2 className={featureCompareStyles.sectionTitle}>
-            <span className={featureCompareStyles.titleGradient}>
-              See the Restoration
-            </span>
-            <span className={featureCompareStyles.titleAccent}>
-              Impact
-            </span>
-          </h2>
-          <div className={featureCompareStyles.titleUnderline} />
-          <p className={featureCompareStyles.subtitle}>
-            Trusted by families worldwide for preserving precious memories
-          </p>
-        </div>
+     {/* "How It Works" Section */}
+<section className={featureCompareStyles.container}>
+  <div className={featureCompareStyles.titleWrapper}>
+    <h2 className={featureCompareStyles.sectionTitle}>
+      <span className={featureCompareStyles.titleGradient}>How</span>
+      <span className={featureCompareStyles.titleAccent}>It Works</span>
+    </h2>
+    <div className={featureCompareStyles.titleUnderline} />
+    <p className={featureCompareStyles.subtitle}>
+      Seamless restoration powered by heritage-grade AI
+    </p>
+  </div>
 
-        <div
-          className={featureCompareStyles.featuresGrid}
-          ref={featuresRef}
-        >
-          {[
-            { stat: "1M+", label: "Photos restored worldwide" },
-            { stat: "99%", label: "Authenticity retained" },
-            { stat: "60+", label: "Countries served" },
-            { stat: "4.9★", label: "Average customer rating" }
-          ].map((item, i) => (
-            <div
-              key={i}
-              className={featureCompareStyles.featureCard}
-            >
-              <div className={featureCompareStyles.featureStat}>
-                {item.stat}
-              </div>
-              <div className={featureCompareStyles.featureLabel}>
-                {item.label}
-              </div>
-            </div>
-          ))}
+  <div className={featureCompareStyles.featuresGrid}>
+    {[
+      {
+        icon: '📤',
+        title: 'Upload Your Photo',
+        description:
+          'Upload a scanned or digital photo — no signup required. For best results, use a high-resolution image.',
+      },
+      {
+        icon: '🧠',
+        title: 'AI Restoration',
+        description:
+          'Our specialized AI analyzes vintage details to sharpen, repair, and colorize with lifelike accuracy.',
+      },
+      {
+        icon: '⚡',
+        title: 'Fast Processing',
+        description:
+          'Your photo is restored in under 2 minutes, using optimized cloud infrastructure for speed and precision.',
+      },
+      {
+        icon: '⬇️',
+        title: 'Download & Share',
+        description:
+          'Save your restored photo in high resolution. All uploads auto-delete within 1 hour for complete privacy.',
+      },
+    ].map((step, index) => (
+      <div key={index} className={featureCompareStyles.featureCard}>
+        <div className={featureCompareStyles.featureStat}>{step.icon}</div>
+        <div className={featureCompareStyles.featureLabel}>
+          <strong>{step.title}</strong>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', lineHeight: '1.5' }}>{step.description}</p>
         </div>
+      </div>
+    ))}
+  </div>
+</section>
 
-        <div
-          className={featureCompareStyles.processStepsGrid}
-          ref={stepsRef}
-        >
-          <div
-            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepUpload}`}
-          >
-            <h3>📤 Upload</h3>
-            <p>
-              Upload your scanned or digital photo — no login needed. Higher-resolution images give the best results.
-              <br />
-              <strong>Tip:</strong> Use your phone camera for quick scanning!
-            </p>
-          </div>
-          <div
-            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepProcess}`}
-          >
-            <h3>⚙️ AI Processing</h3>
-            <p>
-              Our heritage-trained AI analyzes vintage photography techniques to sharpen faces, fix damage, and restore authentic colors.
-              <br />
-              <strong>Speed:</strong> Most restorations complete in under 2 minutes.
-            </p>
-          </div>
-          <div
-            className={`${featureCompareStyles.stepCard} ${featureCompareStyles.stepDownload}`}
-          >
-            <h3>🔒 Download & Done</h3>
-            <p>
-              Download your restored photo in high resolution. We auto-delete all uploads within 1 hour for complete privacy.
-              <br />
-              <strong>Format:</strong> High-quality JPG ready for printing or sharing.
-            </p>
-          </div>
-        </div>
-      </section>
+
 
       {/* Image Compare Section */}
       <section className={imageCompare.imageCompareSection}>

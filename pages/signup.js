@@ -7,8 +7,10 @@ import { supabase } from "../lib/supabaseClient"; // Adjust path as needed
 export default function SignUp() {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const handleGoogleSignIn = async () => {
+    setIsRedirecting(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
@@ -22,6 +24,7 @@ export default function SignUp() {
     if (error) {
       setErrorMsg(error.message);
       setSuccessMsg("");
+      setIsRedirecting(false);
     }
   };
 
@@ -48,9 +51,16 @@ export default function SignUp() {
       <button
         className={styles.googleButton}
         onClick={handleGoogleSignIn}
+        disabled={isRedirecting}
       >
         Sign in with Google
       </button>
+
+      {isRedirecting && (
+        <p className={styles.infoText}>
+          Redirecting you securely to Google sign-in…
+        </p>
+      )}
 
       <p className={styles.bottomLink}>
         Already have an account? <Link href="/login">Login here</Link>

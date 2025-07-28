@@ -12,7 +12,10 @@ export default function SignUp() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin, // 👈 Redirect to home page after sign-in
+        redirectTo: window.location.origin, // 👈 Redirects to home after sign-in
+        queryParams: {
+          prompt: "select_account", // 👈 Always show Google account chooser
+        },
       },
     });
 

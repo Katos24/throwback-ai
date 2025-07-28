@@ -12,6 +12,7 @@ export default function ResetPassword() {
 
   useEffect(() => {
     async function handleRecovery() {
+      // getSessionFromUrl reads the token in URL hash and sets session
       const { data, error } = await supabase.auth.getSessionFromUrl();
       if (error) {
         setStatus(`❌ ${error.message}`);
@@ -26,16 +27,22 @@ export default function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("");
+
     if (password !== confirmPassword) {
       setStatus("❌ Passwords do not match.");
       return;
     }
+    if (password.length < 6) {
+      setStatus("❌ Password should be at least 6 characters.");
+      return;
+    }
+
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
     if (error) {
       setStatus(`❌ ${error.message}`);
     } else {
-      setStatus("✅ Password updated! Redirecting....");
+      setStatus("✅ Password updated! Redirecting...");
       setTimeout(() => router.push("/login"), 2000);
     }
     setLoading(false);
@@ -45,8 +52,9 @@ export default function ResetPassword() {
     <main style={{ maxWidth: 400, margin: "3rem auto", padding: 20 }}>
       <h1>🔑 Reset Your Password</h1>
       {status && <p>{status}</p>}
+
       {!sessionLoaded ? (
-        <p>Validating link...</p>
+        <p>Validating reset link...</p>
       ) : (
         <form
           onSubmit={handleSubmit}
@@ -77,7 +85,7 @@ export default function ResetPassword() {
               padding: "10px",
               borderRadius: 6,
               border: "none",
-              cursor: "pointer",
+              cursor: loading ? "default" : "pointer",
             }}
           >
             {loading ? "Updating..." : "Update Password"}

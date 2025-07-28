@@ -11,7 +11,11 @@ export default function SignUp() {
   const handleGoogleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: window.location.origin, // 👈 Redirect to home page after sign-in
+      },
     });
+
     if (error) {
       setErrorMsg(error.message);
       setSuccessMsg("");
@@ -39,7 +43,7 @@ export default function SignUp() {
       />
 
       <button
-        className={styles.googleButton} // Add CSS for styling if you want
+        className={styles.googleButton}
         onClick={handleGoogleSignIn}
       >
         Sign in with Google

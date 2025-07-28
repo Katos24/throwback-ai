@@ -1,17 +1,17 @@
-/* Restore Options Section Container */
+/* ==============================================
+   🎨 RESTORE OPTIONS CONTAINER
+   ============================================== */
 .restoreOptions {
   max-width: 1280px;
-  margin: 3rem auto 4rem;
-  padding: 0 2rem 4rem;
+  margin: 4rem auto 5rem;
+  padding: 0 2rem 5rem;
   font-family: 'GFS Didot', serif;
   color: #fdfdfc;
   text-align: center;
   position: relative;
-  background: linear-gradient(rgba(10,10,10,0.6), rgba(20,20,20,0.4)); /* Slightly deeper overlay */
+  background: linear-gradient(rgba(10,10,10,0.6), rgba(20,20,20,0.4));
   border-radius: 20px;
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.3),
-    0 0 0 1px rgba(255, 230, 160, 0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255, 230, 160, 0.15);
   overflow: hidden;
 }
 
@@ -20,32 +20,36 @@
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
   color: #ffe8b0;
-  text-shadow: 0 4px 14px rgba(0,0,0,0.45); /* Slight bump for clarity */
-  margin-bottom: 2.5rem;
+  text-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  margin-bottom: 3.5rem;
   letter-spacing: 0.6px;
 }
 
-/* Grid container for cards */
+/* ==============================================
+   📋 GRID LAYOUT
+   ============================================== */
 .restoreCardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Individual Card */
+/* ==============================================
+   🎴 CARD COMPONENTS
+   ============================================== */
 .restoreCard {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: default;
 }
 
 .restoreCard:hover {
@@ -53,7 +57,9 @@
   box-shadow: 0 15px 45px rgba(0,0,0,0.5);
 }
 
-/* === IMAGE PAIR – GRID LAYOUT === */
+/* ==============================================
+   🖼️ IMAGE PAIR STYLING
+   ============================================== */
 .imagePair {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -62,7 +68,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Override Next/Image’s span wrapper */
 .imagePair > span {
   display: block !important;
   width: 100% !important;
@@ -71,7 +76,6 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the actual <img> inside the wrapper */
 .imagePair > span > img {
   display: block;
   width: 100%;
@@ -80,22 +84,26 @@
   transition: transform 0.3s ease;
 }
 
-/* Hover effect */
 .imagePair > span:hover img {
   transform: scale(1.03);
 }
 
-/* Card Content Text */
+/* ==============================================
+   📝 CARD CONTENT
+   ============================================== */
 .cardContent {
   max-width: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* UPDATED TITLE STYLE: MAKE IT POP & READABLE */
 .cardContent h3 {
   font-size: 2.2rem;
   font-weight: 900;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1.4rem;
   color: #fff8cc;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -149,32 +157,87 @@
 
 .cardContent p {
   font-size: 1.05rem;
-  line-height: 1.4;
-  margin-bottom: 1.6rem;
+  line-height: 1.6;
+  margin: 0;
   color: #f5f5f3;
   text-shadow: 0 2px 6px rgba(0,0,0,0.3);
   font-family: 'Poppins', sans-serif;
 }
 
-/* Buttons consistent with hero CTA */
+/* ==============================================
+   🏷️ TIER LABELS (NEW STYLES)
+   ============================================== */
+.tierLabel {
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* Free/Basic Tier - Modern Blue */
+.tierLabel.free {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.tierLabel.premium {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* ==============================================
+   🔘 BUTTON STYLES (UPDATED FOR COLOR THEMES)
+   ============================================== */
 .cardContent button {
-  background: linear-gradient(135deg, #ffe6a0 0%, #ffd46d 50%, #ffb347 100%);
-  color: #1c3651;
   font-weight: 700;
   font-size: 1.1rem;
-  padding: 1rem 2.8rem;
-  border-radius: 50px;
+  margin-top: 1.2rem;
+  padding: 12px 24px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  box-shadow:
-    0 8px 25px rgba(255, 230, 160, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   font-family: 'Poppins', sans-serif;
   position: relative;
   overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+/* Free/Basic Button Theme - Modern Blue */
+.cardContent button.freeButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.cardContent button.freeButton:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Premium Button Theme - Modern Purple */
+.cardContent button.premiumButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.cardContent button.premiumButton:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+/* Shimmer effect for buttons */
 .cardContent button::before {
   content: '';
   position: absolute;
@@ -182,25 +245,35 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: left 0.5s ease;
-  border-radius: 50px;
+  transform: skewX(-20deg);
 }
 
 .cardContent button:hover::before {
   left: 100%;
 }
 
-.cardContent button:hover {
-  background: linear-gradient(135deg, #fddfb0 0%, #ffb347 50%, #ff9500 100%);
-  color: #fff;
-  transform: translateY(-4px);
-  box-shadow:
-    0 15px 40px rgba(255, 222, 143, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+/* ==============================================
+   ⏰ TIMING LABELS
+   ============================================== */
+.timingLabel {
+  font-size: 15px !important;
+  font-weight: bold;
+  margin-top: 1rem;
 }
 
-/* Responsive tweaks */
+.timingLabel.free {
+  color: #3b82f6;
+}
+
+.timingLabel.premium {
+  color: #8b5cf6;
+}
+
+/* ==============================================
+   📱 RESPONSIVE DESIGN
+   ============================================== */
 @media (max-width: 768px) {
   .restoreOptions {
     padding: 0 1.5rem;
@@ -227,7 +300,7 @@
 
   .cardContent button {
     font-size: 1rem;
-    padding: 0.9rem 2.2rem;
+    padding: 10px 20px;
   }
 }
 
@@ -247,38 +320,6 @@
 
   .cardContent button {
     font-size: 0.9rem;
-    padding: 0.8rem 1.8rem;
+    padding: 8px 16px;
   }
-}
-
-
-.badgeLabel {
-  background: linear-gradient(135deg, var(--accentStart), var(--accentEnd));
-  color: #fff;
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-.speedTag {
-  color: #ffe092;
-  font-weight: bold;
-  font-size: 0.9rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.restoreBtn {
-  background: linear-gradient(135deg, var(--accentStart), var(--accentEnd));
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 18px;
-  border-radius: 8px;
-  margin-top: 1rem;
-  border: none;
-  cursor: pointer;
 }

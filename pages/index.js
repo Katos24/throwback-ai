@@ -208,19 +208,26 @@ export default function Home() {
         <link rel="preload" href="/images/transformation.mp4" as="video" type="video/mp4" />
       </Head>
 
-      {/* Trust Badge Bar */}
-      <div style={{ 
-        background: 'linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%)', 
-        color: 'white', 
-        padding: '8px 0', 
-        textAlign: 'center',
-        position: 'sticky',
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '14px',
-        borderBottom: '1px solid #444'
-      }}>
-        🔒 <strong>Privacy Guaranteed</strong>  ⚡ <strong>Results in Under 2 Minutes</strong>  🆓 <strong>Try 3 Photos FREE</strong>
-      </div>
+     {/* Trust Badge Bar */}
+        <div
+          style={{
+            background: 'linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%)',
+            color: 'white',
+            padding: '8px 0',
+            textAlign: 'center',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1000,
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '14px',
+            borderBottom: '1px solid #444',
+          }}
+        >
+          <span style={{ marginRight: '16px' }}>🔒 <strong>Privacy Guaranteed</strong></span>
+          <span style={{ marginRight: '16px' }}>⚡ <strong>Results in Under 2 Minutes</strong></span>
+          <span>🆓 <strong>Try 3 Photos FREE</strong></span>
+        </div>
+        
 
       {/* Top Banner Section */}
       <section className={styles.topBannerHero}>
@@ -230,12 +237,8 @@ export default function Home() {
             <p className={styles.bannerIntro}>Transform Old Family Photos with AI</p>
             <h1 className={styles.heading}>
               Restore Faded Family Photos to Life
-              <span style={{ display: 'block', fontSize: '0.7em', fontWeight: 'normal', color: '#666', marginTop: '0.5rem' }}>
-                Perfect for Wedding Albums • Genealogy Projects • Family Reunions
-              </span>
             </h1>
-            <p className={styles.paragraph}>
-              <div className={styles.paragraph}>
+           <div className={styles.paragraph}>
               <div className={styles.featureLine}>
                 <strong>Photo Fix:</strong> Crystal-clear repairs and sharpening (3 FREE trials).
               </div>
@@ -243,7 +246,6 @@ export default function Home() {
                 <strong>Photo Revival:</strong> Full colorization with stunning vintage restoration magic.
               </div>
             </div>
-            </p>
             <div className={styles.ctaButtonContainer}>
               {/* Made free trial more prominent */}
               <button
@@ -253,12 +255,15 @@ export default function Home() {
               >
                 🎁 Try 3 Photos FREE - No Signup Required
               </button>
-              <button
+             <button
                 className={styles.secondaryButton}
                 onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
               >
-                See Full Colorization Magic
+                <span>See Full Colorization Magic</span>
               </button>
+              <p style={{ marginTop: "1rem", color: "#888", fontSize: "14px" }}>
+  🎉 Sign up today and get <strong>10 free credits</strong> — no subscription required.
+</p>
             </div>
             {/* Added urgency element */}
             
@@ -293,43 +298,42 @@ export default function Home() {
 
 
 
-      {/* Restore Options Section */}
-     <section className={RestoreOptionsStyles.restoreOptions}>
+{/* Restore Options Section */}
+<section className={RestoreOptionsStyles.restoreOptions}>
   <h2>Choose Your Restoration Level</h2>
-    <div
-      style={{
-        maxWidth: '680px',
-        margin: '0 auto 2rem auto',
-        padding: '12px 18px',
-        fontSize: '16px',
-        background: 'linear-gradient(to right, #ecf0f1, #ffffff)',
-        borderRadius: '12px',
-        color: '#2c3e50',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-        fontWeight: '500',
-        textAlign: 'center',
-        lineHeight: '1.6'
-      }}
-    >
-      <strong>New users get 3 FREE Photo Fix restorations</strong> • Upgrade anytime for full colorization
-    </div>
+  
+  {/* Improved intro banner */}
+  <div
+    style={{
+      maxWidth: '720px',
+      margin: '0 auto 2.5rem auto',
+      padding: '16px 24px',
+      fontSize: '16px',
+      background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+      borderRadius: '16px',
+      color: '#2c3e50',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+      fontWeight: '500',
+      textAlign: 'center',
+      lineHeight: '1.6',
+      border: '1px solid rgba(39, 174, 96, 0.2)'
+    }}
+  >
+    <strong style={{ color: '#27ae60' }}>🎁 New users get 3 FREE Photo Fix restorations</strong> • Upgrade anytime for full colorization
+  </div>
 
   <div className={RestoreOptionsStyles.restoreCardGrid}>
-    {/* Photo Fix */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <div style={{
-        background: 'linear-gradient(135deg, #27ae60, #2ecc71)',
-        color: 'white',
-        padding: '8px 16px',
-        borderRadius: '20px',
-        fontSize: '12px',
-        fontWeight: 'bold',
-        display: 'inline-block',
-        marginBottom: '1rem'
-      }}>
+    
+    {/* Photo Fix Card */}
+    <div 
+      className={RestoreOptionsStyles.restoreCard}
+      onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+      style={{ cursor: 'pointer' }}
+    >
+      <div className={`${RestoreOptionsStyles.tierLabel} ${RestoreOptionsStyles.free}`}>
         🎁 3 FREE TRIALS
       </div>
-
+      
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/before6.jpg"
@@ -348,44 +352,37 @@ export default function Home() {
           loading="lazy"
         />
       </div>
-
+      
       <h3>🛠️ Photo Fix</h3>
-
       <div className={RestoreOptionsStyles.cardContent}>
         <p>
           <strong>Perfect for:</strong> Sharpening blurry photos, removing scratches, fixing damaged areas
-          <br />
-          <span style={{ color: '#27ae60', fontWeight: 'bold' }}>⏰ Ready in 30-60 seconds</span>
+        </p>
+        <p className={`${RestoreOptionsStyles.timingLabel} ${RestoreOptionsStyles.free}`}>
+          ⏰ Ready in 30–60 seconds
         </p>
         <button
-          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-          style={{
-            background: 'linear-gradient(135deg, #27ae60, #2ecc71)',
-            color: 'white',
-            fontSize: '16px',
-            fontWeight: 'bold'
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card click when button is clicked
+            handleNavigateToRestore("/replicate/restore-basic");
           }}
+          className={`${RestoreOptionsStyles.freeButton}`}
         >
           Start FREE Trial – No Credit Card
         </button>
       </div>
     </div>
 
-    {/* Photo Revival */}
-    <div className={RestoreOptionsStyles.restoreCard}>
-      <div style={{
-        background: 'linear-gradient(135deg, #8e44ad, #9b59b6)',
-        color: 'white',
-        padding: '8px 16px',
-        borderRadius: '20px',
-        fontSize: '12px',
-        fontWeight: 'bold',
-        display: 'inline-block',
-        marginBottom: '1rem'
-      }}>
+    {/* Photo Revival Card */}
+    <div 
+      className={RestoreOptionsStyles.restoreCard}
+      onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+      style={{ cursor: 'pointer' }}
+    >
+      <div className={`${RestoreOptionsStyles.tierLabel} ${RestoreOptionsStyles.premium}`}>
         ✨ PREMIUM MAGIC
       </div>
-
+      
       <div className={RestoreOptionsStyles.imagePair}>
         <Image
           src="/images/before6.jpg"
@@ -404,17 +401,21 @@ export default function Home() {
           loading="lazy"
         />
       </div>
-
+      
       <h3>✨ Photo Revival</h3>
-
       <div className={RestoreOptionsStyles.cardContent}>
         <p>
           <strong>Perfect for:</strong> Full colorization, vintage enhancement, museum-quality restoration
-          <br />
-          <span style={{ color: '#8e44ad', fontWeight: 'bold' }}>⏰ Ready in 1-2 minutes</span>
         </p>
-        <button
-          onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+        <p className={`${RestoreOptionsStyles.timingLabel} ${RestoreOptionsStyles.premium}`}>
+          ⏰ Ready in 1–2 minutes
+        </p>
+        <button 
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card click when button is clicked
+            handleNavigateToRestore("/replicate/restore-premium");
+          }}
+          className={`${RestoreOptionsStyles.premiumButton}`}
         >
           See Full Color Transformation
         </button>
@@ -422,6 +423,9 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+
+
 
       {/* "See the Restoration Impact" Section */}
       <section className={featureCompareStyles.container}>
@@ -606,22 +610,9 @@ export default function Home() {
         <p className={pricingStyles.subtitle}>
           Buy credits once, use them whenever you need. No recurring charges, no auto-renewals, no surprises.
         </p>
-        
-        {/* Added value proposition */}
-        <div style={{ 
-          background: 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)',
-          color: 'white',
-          padding: '1rem',
-          borderRadius: '10px',
-          textAlign: 'center',
-          margin: '2rem 0',
-          fontSize: '16px'
-        }}>
-          <strong>💡 Smart Choice:</strong> Our customers save an average of $84/year compared to subscription apps
-        </div>
-        
         {/* Main Layout Container */}
         <div className={pricingStyles.mainPricingContainer}>
+          
           {/* Left Side: Anastasis Packs in 2x2 Layout */}
           <div className={pricingStyles.anastasisSection}>
 
@@ -648,7 +639,6 @@ export default function Home() {
                   price: "$4.99",
                   credits: 400,
                   revivals: 10,
-                  useCase: "Perfect for testing our premium features or restoring your most treasured family portraits.",
                   popular: false
                 },
                 {
@@ -656,7 +646,6 @@ export default function Home() {
                   price: "$9.99",
                   credits: 1000,
                   revivals: 25,
-                  useCase: "Most popular for vacation albums, wedding photos, or creating themed family galleries.",
                   popular: true
                 },
                 {
@@ -664,7 +653,6 @@ export default function Home() {
                   price: "$14.99",
                   credits: 1600,
                   revivals: 40,
-                  useCase: "Great for family reunions, milestone celebrations, or preserving generational memories.",
                   popular: false
                 },
                 {
@@ -672,7 +660,6 @@ export default function Home() {
                   price: "$29.99",
                   credits: 3500,
                   revivals: 87,
-                  useCase: "Best value for genealogy projects, heritage books, or comprehensive family archives.",
                   popular: false
                 },
               ].map((pack, i) => (
@@ -730,8 +717,12 @@ export default function Home() {
       </div>
     </div>
   </div>
-</section>
 
+{/* Added value proposition */}
+<div className={pricingStyles.valueProposition}>
+  <strong>💡 Smart Choice:</strong> Our customers save an average of $84/year compared to subscription apps
+</div>
+</section>
 
 
 
@@ -740,16 +731,28 @@ export default function Home() {
   <div className={heroStyles.heroText}>
     <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
   </div>
+  
   <button
     className={heroStyles.heroCTAButton}
     onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
   >
     See Your History in Full Color
   </button>
-                <span style={{ color: '#e74c3c', fontWeight: 'bold' }}>⏰ Results ready in under 2 minutes</span>
-
+  
+  {/* New subtitle line */}
+  <p style={{ 
+    fontSize: '1rem', 
+    fontWeight: '600', 
+    marginTop: '0.75rem', 
+    marginBottom: '0.5rem', 
+    color: '#666', 
+    textAlign: 'center' 
+  }}>
+    Perfect for Wedding Albums &bull; Genealogy Projects &bull; Family Reunions
+  </p>
+  
+  <span style={{ color: '#e74c3c', fontWeight: 'bold' }}>⏰ Results ready in under 2 minutes</span>
 </section>
-
 
       
 

@@ -49,6 +49,17 @@ export default function RestoreBasic() {
   };
 
   const handleRestoreClick = () => {
+    // Redirect if no credits
+    if (credits < 1) {
+      if (isLoggedIn) {
+        window.location.href = "/pricing";
+      } else {
+        window.location.href = "/signup";
+      }
+      return;
+    }
+
+    // Show file input only if user has credits
     if (!showFileInput) {
       setShowFileInput(true);
       setRestoredUrl("");
@@ -60,19 +71,6 @@ export default function RestoreBasic() {
     if (!selectedFile) {
       alert("Please upload an image first.");
       return;
-    }
-
-    // Check credits or free attempts before restoring
-    if (isLoggedIn) {
-      if (credits < 1) {
-        alert("You don’t have enough credits to restore this image. Please purchase more credits.");
-        return;
-      }
-    } else {
-      if (credits <= 0) {
-        alert("You’ve used your free attempts. Please sign up or purchase credits to continue.");
-        return;
-      }
     }
 
     handleRestore();
@@ -163,15 +161,19 @@ export default function RestoreBasic() {
             <button
               className={styles.topBannerButton}
               onClick={handleRestoreClick}
-              disabled={loading || processing || (!showFileInput && credits < 1)}
-              title={credits < 1 ? "Not enough credits" : ""}
+              disabled={loading || processing}
+              title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
             >
               {!loading && !processing &&
-                (showFileInput
+                (credits < 1
                   ? isLoggedIn
-                    ? "🆓 Restore Basic (1 credit)"
-                    : `🔒 Sign up to Restore Basic (Free attempts left: ${credits})`
-                  : "Restore")}
+                    ? "💳 Buy Credits"
+                    : "🔒 Sign Up to Restore"
+                  : showFileInput
+                    ? isLoggedIn
+                      ? "🆓 Restore Basic (1 credit)"
+                      : `🆓 Restore Basic (Free attempts left: ${credits})`
+                    : "Restore")}
               {(loading || processing) && (
                 <>
                   <div className={styles.spinner} />
@@ -207,25 +209,10 @@ export default function RestoreBasic() {
                 </>
               ) : (
                 <>
-                  Remaining free attempts: <strong>{credits}</strong>. Sign up to get more credits!
-                  {credits < 1 && (
-                    <div style={{ marginTop: "0.75rem" }}>
-                      <button
-                        onClick={() => (window.location.href = "/signup")}
-                        className={styles.ctaButton}
-                        style={{
-                          backgroundColor: "#0070f3",
-                          color: "white",
-                          border: "none",
-                          padding: "0.5rem 1rem",
-                          borderRadius: "6px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Sign Up Now
-                      </button>
-                    </div>
-                  )}
+                  Remaining free attempts: <strong>{credits}</strong>.{" "}
+                  <a href="/signup" className={styles.link}>
+                    Sign up to get more credits!
+                  </a>
                 </>
               )}
             </div>
@@ -236,15 +223,15 @@ export default function RestoreBasic() {
               <strong>Before</strong>
               <div className={styles.imageWrapper}>
                 {selectedPreviewUrl ? (
-                   <Image
-                  src={selectedPreviewUrl}
-                  alt="Before upload preview"
-                  className={styles.image}
-                  style={{ objectFit: "contain" }}
-                  width={400}   // approximate current size in px
-                  height={300}  // approximate current size in px
-                  unoptimized={true} // because base64 or blob URL
-                />
+                  <Image
+                    src={selectedPreviewUrl}
+                    alt="Before upload preview"
+                    className={styles.image}
+                    style={{ objectFit: "contain" }}
+                    width={400}
+                    height={300}
+                    unoptimized={true}
+                  />
                 ) : (
                   <span className={styles.placeholderText}>Upload an image</span>
                 )}
@@ -280,6 +267,7 @@ export default function RestoreBasic() {
           </div>
         </div>
       </section>
+
 
       {/* Image Compare Slider Section for Basic Restore */}
       <section

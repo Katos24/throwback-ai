@@ -4,12 +4,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: 
+  background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(20, 30, 48, 0.9) 50%, rgba(0, 0, 0, 0.85) 100%),
     url('/images/greek-theme.png') center/cover no-repeat;
   color: #e5f6ff;
   padding: 6rem 2rem;
   max-width: 1700px;
+  max-height: 700px;
   margin: 3rem auto 4rem;
   border-radius: 32px;
   position: relative;
@@ -24,7 +25,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Enhanced floating animation */
+/* Floating background animation */
 .topBannerHero::before {
   content: '';
   position: absolute;
@@ -32,7 +33,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: 
+  background:
     radial-gradient(circle at 25% 25%, rgba(93, 246, 255, 0.08) 0%, transparent 35%),
     radial-gradient(circle at 75% 75%, rgba(217, 93, 255, 0.08) 0%, transparent 40%),
     radial-gradient(circle at 50% 10%, rgba(255, 215, 109, 0.04) 0%, transparent 30%);
@@ -40,7 +41,7 @@
   pointer-events: none;
 }
 
-/* Improved brand mark */
+/* Brand mark */
 .topBannerHero::after {
   content: '⧉ ΑΝΑΣΤΑΣΙΣ ⧉';
   position: absolute;
@@ -62,7 +63,7 @@
   75% { transform: translate(-6px, 8px) rotate(0.2deg) scale(1.01); }
 }
 
-/* Enhanced intro text */
+/* Intro text with gradient and glow */
 .bannerIntro {
   font-size: 1.3rem;
   font-weight: 700;
@@ -79,11 +80,6 @@
   text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
-@keyframes textGlow {
-  0% { filter: brightness(1) drop-shadow(0 0 5px rgba(0, 255, 255, 0.3)); }
-  100% { filter: brightness(1.1) drop-shadow(0 0 15px rgba(255, 0, 255, 0.4)); }
-}
-
 .bannerIntro::before,
 .bannerIntro::after {
   content: '◇';
@@ -94,21 +90,32 @@
   transform: translateY(-50%);
   animation: sparkle 2s ease-in-out infinite alternate;
 }
-.bannerIntro::before { left: -2.5rem; }
-.bannerIntro::after { right: -2.5rem; }
+
+.bannerIntro::before {
+  left: -2.5rem;
+}
+
+.bannerIntro::after {
+  right: -2.5rem;
+}
+
+@keyframes textGlow {
+  0% { filter: brightness(1) drop-shadow(0 0 5px rgba(0, 255, 255, 0.3)); }
+  100% { filter: brightness(1.1) drop-shadow(0 0 15px rgba(255, 0, 255, 0.4)); }
+}
 
 @keyframes sparkle {
   0% { opacity: 0.5; transform: translateY(-50%) scale(0.8); }
   100% { opacity: 1; transform: translateY(-50%) scale(1.2); }
 }
 
-/* Enhanced main heading */
+/* Main heading style */
 .topBannerHero h1 {
   color: #e5f6ff;
   font-size: 3.2rem;
   line-height: 1.15;
   font-weight: 800;
-  text-shadow: 
+  text-shadow:
     2px 2px 4px rgba(0, 255, 255, 0.25),
     0 0 20px rgba(255, 255, 255, 0.1);
   position: relative;
@@ -134,11 +141,11 @@
   100% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); }
 }
 
-/* Enhanced paragraph styling */
+/* Paragraph styling */
 .topBannerHero p {
   font-size: 1.3rem;
   line-height: 1.7;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: #b8dfff;
   font-family: 'Rajdhani', sans-serif;
   max-width: 800px;
@@ -154,7 +161,7 @@
   font-weight: 800;
 }
 
-/* Enhanced button container */
+/* Buttons container */
 .ctaButtonContainer {
   display: flex;
   gap: 1.5rem;
@@ -162,19 +169,20 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+  margin-top: 1.5rem;
 }
 
-/* Enhanced primary button */
+/* Primary button */
 .topBannerButton {
   background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
   color: #0a0a0a;
-  padding: 1.2rem 3rem;
-  font-size: 1.15rem;
+  padding: 1.2rem 2.8rem;         /* matching padding */
+  font-size: 1.15rem;             /* matching font size */
   font-weight: 800;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  box-shadow: 
+  box-shadow:
     0 15px 40px rgba(0, 255, 255, 0.3),
     0 5px 20px rgba(255, 0, 255, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -184,6 +192,11 @@
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  width: 320px;                   /* fixed width */
+  box-sizing: border-box;         /* include padding/border */
+  display: inline-flex;           /* center text vertically/horizontally */
+  justify-content: center;
+  align-items: center;
   transform: perspective(1000px) rotateX(0deg);
 }
 
@@ -196,6 +209,7 @@
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.6s;
+  border-radius: 20px;
 }
 
 .topBannerButton:hover::before {
@@ -205,7 +219,7 @@
 .topBannerButton:hover {
   background: linear-gradient(135deg, #2ce8e0 0%, #bf6aff 100%);
   transform: translateY(-4px) perspective(1000px) rotateX(5deg);
-  box-shadow: 
+  box-shadow:
     0 20px 50px rgba(0, 255, 255, 0.4),
     0 10px 30px rgba(255, 0, 255, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -215,12 +229,14 @@
   transform: translateY(-2px) perspective(1000px) rotateX(2deg);
 }
 
-/* Enhanced secondary button */
+/* Secondary button */
 .secondaryButton {
+  position: relative;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.05);
   color: #78f2ff;
   padding: 1.2rem 2.8rem;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   border: 2px solid #9ef1ff;
   border-radius: 20px;
@@ -229,22 +245,25 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
+  width: 320px;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  z-index: 0; /* base stacking */
 }
+
 
 .secondaryButton::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: linear-gradient(135deg, #3ee2e2, #78f2ff);
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 18px;
+  z-index: -1;  /* behind button content */
 }
 
 .secondaryButton:hover::before {
@@ -252,9 +271,9 @@
 }
 
 .secondaryButton:hover {
-  color: #0a0a0a;
+  color: #0a0a0a; /* text color changes on hover */
   border-color: #3ee2e2;
-  box-shadow: 
+  box-shadow:
     0 12px 30px rgba(0, 255, 255, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
@@ -262,10 +281,14 @@
 
 .secondaryButton span {
   position: relative;
-  z-index: 1;
+  z-index: 2; /* Make sure it's above the ::before */
 }
 
-/* Enhanced content layout */
+.secondaryButton:hover span {
+  color: #0a0a0a; /* dark text on bright bg */
+}
+
+/* Content layout */
 .topBannerContent {
   display: flex;
   flex-direction: row;
@@ -290,15 +313,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 2;
 }
 
-/* Enhanced video wrapper */
+/* Video wrapper */
 .bannerVideoWrapper {
   max-width: 650px;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.25),
     0 8px 24px rgba(0, 255, 255, 0.1),
     0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -337,7 +361,20 @@
   filter: brightness(1.1) contrast(1.05);
 }
 
-/* Enhanced scroll hint */
+/* Subtitle below video */
+.topBannerSubtitle {
+  margin-top: 1.25rem;
+  font-size: 1.15rem;
+  color: #b8dfff;
+  font-weight: 600;
+  text-align: center;
+  max-width: 650px;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+/* Scroll hint */
 .scrollHint {
   margin-top: 2.5rem;
   font-size: 1rem;
@@ -351,21 +388,21 @@
 }
 
 @keyframes enhancedBounce {
-  0%, 20%, 50%, 80%, 100% { 
-    transform: translateY(0) scale(1); 
-    opacity: 0.8; 
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
   }
-  40% { 
-    transform: translateY(-12px) scale(1.05); 
-    opacity: 1; 
+  40% {
+    transform: translateY(-12px) scale(1.05);
+    opacity: 1;
   }
-  60% { 
-    transform: translateY(-6px) scale(1.02); 
-    opacity: 0.9; 
+  60% {
+    transform: translateY(-6px) scale(1.02);
+    opacity: 0.9;
   }
 }
 
-/* Enhanced typography */
+/* Additional typography */
 .heading {
   font-size: 3.2rem;
   margin-bottom: 1.5rem;
@@ -379,12 +416,12 @@
   font-weight: 500;
 }
 
-/* Enhanced responsive design */
+/* Responsive styles */
 @media (max-width: 1024px) {
   .topBannerContent {
     gap: 3rem;
   }
-  
+
   .bannerVideoWrapper {
     max-width: 550px;
     transform: perspective(1000px) rotateY(0deg);
@@ -446,6 +483,7 @@
     width: 100%;
     max-width: 320px;
     padding: 1.1rem 2rem;
+    font-size: 1.15rem;
   }
 
   .bannerIntro {
@@ -510,7 +548,7 @@
   }
 }
 
-/* Enhanced accessibility */
+/* Accessibility preferences */
 @media (prefers-reduced-motion: reduce) {
   .topBannerHero::before,
   .bannerIntro,
@@ -520,40 +558,42 @@
   .scrollHint {
     animation: none;
   }
-  
+
   .bannerVideoWrapper {
     transform: none;
   }
-  
+
   .bannerVideoWrapper:hover {
     transform: none;
   }
 }
 
-/* High contrast mode support */
+/* High contrast mode */
 @media (prefers-contrast: high) {
   .topBannerHero {
     border: 2px solid #fff;
   }
-  
+
   .topBannerButton {
     border: 2px solid #000;
   }
-  
+
   .secondaryButton {
     border-width: 3px;
   }
 }
 
-.featureBlock {
-  background: #f9f9f9;
-  padding: 12px;
-  border-radius: 6px;
+/* Feature line styling */
+.featureLine {
   margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
-.featureHeader {
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
-  color: #34495e;
+.featureLine strong {
+  background: linear-gradient(135deg, #4af0e6, #a174ff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
 }

@@ -233,12 +233,14 @@ export default function Home() {
               </span>
             </h1>
             <p className={styles.paragraph}>
+              <div className={styles.paragraph}>
               <div className={styles.featureLine}>
                 <strong>Photo Fix:</strong> Crystal-clear repairs and sharpening (3 FREE trials).
               </div>
               <div className={styles.featureLine}>
                 <strong>Photo Revival:</strong> Full colorization with stunning vintage restoration magic.
               </div>
+            </div>
             </p>
             <div className={styles.ctaButtonContainer}>
               {/* Made free trial more prominent */}

@@ -213,11 +213,13 @@ export default function Home() {
         background: 'linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%)', 
         color: 'white', 
         padding: '8px 0', 
-        textAlign: 'center', 
+        textAlign: 'center',
+        position: 'sticky',
+        fontFamily: 'Arial, sans-serif',
         fontSize: '14px',
         borderBottom: '1px solid #444'
       }}>
-        ✅ <strong>1M+ Photos Restored</strong> • 🔒 <strong>Privacy Guaranteed</strong> • ⚡ <strong>Results in Under 2 Minutes</strong> • 🆓 <strong>Try 3 Photos FREE</strong>
+        🔒 <strong>Privacy Guaranteed</strong>  ⚡ <strong>Results in Under 2 Minutes</strong>  🆓 <strong>Try 3 Photos FREE</strong>
       </div>
 
       {/* Top Banner Section */}
@@ -259,15 +261,7 @@ export default function Home() {
               </button>
             </div>
             {/* Added urgency element */}
-            <div style={{ 
-              marginTop: '1rem', 
-              padding: '10px', 
-              background: 'rgba(231, 76, 60, 0.1)', 
-              borderLeft: '4px solid #e74c3c',
-              fontSize: '14px'
-            }}>
-              <strong>🔥 Limited Time:</strong> 3 FREE Photo Fix restorations for new users. No credit card required.
-            </div>
+            
           </div>
           <div className={styles.topBannerRight}>
             <div className={styles.bannerVideoWrapper}>
@@ -297,115 +291,137 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Restore Options + Before/After */}
-      <section className={RestoreOptionsStyles.restoreOptions}>
-        <h2>Choose Your Restoration Level</h2>
-        {/* Added clearer distinction */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '16px', color: '#666' }}>
-          <strong>New users get 3 FREE Photo Fix restorations</strong> • Upgrade anytime for full colorization
-        </div>
-        <div className={RestoreOptionsStyles.restoreCardGrid}>
-          {/* Photo Fix */}
-          <div className={RestoreOptionsStyles.restoreCard}>
-            <div style={{ 
-              background: 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)',
-              color: 'white',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              display: 'inline-block',
-              marginBottom: '1rem'
-            }}>
-              🎁 3 FREE TRIALS
-            </div>
-            <h3>🛠️ Photo Fix</h3>
-            <div className={RestoreOptionsStyles.imagePair}>
-              <Image
-                src="/images/before6.jpg"
-                alt="Old grayscale photo before Photo Fix"
-                width={500}
-                height={500}
-                className={RestoreOptionsStyles.pairedImage}
-                loading="lazy"
-              />
-              <Image
-                src="/images/basic-after6.jpg"
-                alt="After Photo Fix restoration"
-                width={500}
-                height={500}
-                className={RestoreOptionsStyles.pairedImage}
-                loading="lazy"
-              />
-            </div>
-            <div className={RestoreOptionsStyles.cardContent}>
-              <p>
-                <strong>Perfect for:</strong> Sharpening blurry photos, removing scratches, fixing damaged areas
-                <br />
-                <span style={{ color: '#27ae60', fontWeight: 'bold' }}>⏰ Ready in 30-60 seconds</span>
-              </p>
-              <button
-                onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-                style={{ 
-                  background: 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)',
-                  color: 'white',
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                }}
-              >
-                Start FREE Trial - No Credit Card
-              </button>
-            </div>
-          </div>
 
-          {/* Photo Revival */}
-          <div className={RestoreOptionsStyles.restoreCard}>
-            <div style={{ 
-              background: 'linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%)',
-              color: 'white',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              display: 'inline-block',
-              marginBottom: '1rem'
-            }}>
-              ✨ PREMIUM MAGIC
-            </div>
-            <h3>✨ Photo Revival</h3>
-            <div className={RestoreOptionsStyles.imagePair}>
-              <Image
-                src="/images/before6.jpg"
-                alt="Old faded photo before Photo Revival"
-                width={500}
-                height={500}
-                className={RestoreOptionsStyles.pairedImage}
-                loading="lazy"
-              />
-              <Image
-                src="/images/after6.jpg"
-                alt="After Photo Revival restoration"
-                width={500}
-                height={500}
-                className={RestoreOptionsStyles.pairedImage}
-                loading="lazy"
-              />
-            </div>
-            <div className={RestoreOptionsStyles.cardContent}>
-              <p>
-                <strong>Perfect for:</strong> Full colorization, vintage enhancement, museum-quality restoration
-                <br />
-                <span style={{ color: '#8e44ad', fontWeight: 'bold' }}>⏰ Ready in 1-2 minutes</span>
-              </p>
-              <button
-                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-              >
-                See Full Color Transformation
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+
+      {/* Restore Options Section */}
+     <section className={RestoreOptionsStyles.restoreOptions}>
+  <h2>Choose Your Restoration Level</h2>
+    <div
+      style={{
+        maxWidth: '680px',
+        margin: '0 auto 2rem auto',
+        padding: '12px 18px',
+        fontSize: '16px',
+        background: 'linear-gradient(to right, #ecf0f1, #ffffff)',
+        borderRadius: '12px',
+        color: '#2c3e50',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+        fontWeight: '500',
+        textAlign: 'center',
+        lineHeight: '1.6'
+      }}
+    >
+      <strong>New users get 3 FREE Photo Fix restorations</strong> • Upgrade anytime for full colorization
+    </div>
+
+  <div className={RestoreOptionsStyles.restoreCardGrid}>
+    {/* Photo Fix */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div style={{
+        background: 'linear-gradient(135deg, #27ae60, #2ecc71)',
+        color: 'white',
+        padding: '8px 16px',
+        borderRadius: '20px',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        display: 'inline-block',
+        marginBottom: '1rem'
+      }}>
+        🎁 3 FREE TRIALS
+      </div>
+
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/before6.jpg"
+          alt="Old grayscale photo before Photo Fix"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+          loading="lazy"
+        />
+        <Image
+          src="/images/basic-after6.jpg"
+          alt="After Photo Fix restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+          loading="lazy"
+        />
+      </div>
+
+      <h3>🛠️ Photo Fix</h3>
+
+      <div className={RestoreOptionsStyles.cardContent}>
+        <p>
+          <strong>Perfect for:</strong> Sharpening blurry photos, removing scratches, fixing damaged areas
+          <br />
+          <span style={{ color: '#27ae60', fontWeight: 'bold' }}>⏰ Ready in 30-60 seconds</span>
+        </p>
+        <button
+          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+          style={{
+            background: 'linear-gradient(135deg, #27ae60, #2ecc71)',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold'
+          }}
+        >
+          Start FREE Trial – No Credit Card
+        </button>
+      </div>
+    </div>
+
+    {/* Photo Revival */}
+    <div className={RestoreOptionsStyles.restoreCard}>
+      <div style={{
+        background: 'linear-gradient(135deg, #8e44ad, #9b59b6)',
+        color: 'white',
+        padding: '8px 16px',
+        borderRadius: '20px',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        display: 'inline-block',
+        marginBottom: '1rem'
+      }}>
+        ✨ PREMIUM MAGIC
+      </div>
+
+      <div className={RestoreOptionsStyles.imagePair}>
+        <Image
+          src="/images/before6.jpg"
+          alt="Old faded photo before Photo Revival"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+          loading="lazy"
+        />
+        <Image
+          src="/images/after6.jpg"
+          alt="After Photo Revival restoration"
+          width={500}
+          height={500}
+          className={RestoreOptionsStyles.pairedImage}
+          loading="lazy"
+        />
+      </div>
+
+      <h3>✨ Photo Revival</h3>
+
+      <div className={RestoreOptionsStyles.cardContent}>
+        <p>
+          <strong>Perfect for:</strong> Full colorization, vintage enhancement, museum-quality restoration
+          <br />
+          <span style={{ color: '#8e44ad', fontWeight: 'bold' }}>⏰ Ready in 1-2 minutes</span>
+        </p>
+        <button
+          onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+        >
+          See Full Color Transformation
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* "See the Restoration Impact" Section */}
       <section className={featureCompareStyles.container}>

@@ -5,6 +5,7 @@ import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Image from "next/image";
+import Link from "next/link"; // Make sure this is imported at the top
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -210,9 +211,9 @@ export default function RestoreBasic() {
               ) : (
                 <>
                   Remaining free attempts: <strong>{credits}</strong>.{" "}
-                  <a href="/signup" className={styles.link}>
-                    Sign up to get more credits!
-                  </a>
+                 <Link href="/signup" legacyBehavior>
+                  <a className={styles.link}>Sign up to get more credits!</a>
+                </Link>
                 </>
               )}
             </div>

@@ -314,12 +314,6 @@ export default function Home() {
               <div className={aiShowcaseStyles.imageLabel}>BEFORE</div>
             </div>
 
-            <div className={aiShowcaseStyles.arrowDivider}>
-              <div className={aiShowcaseStyles.arrowLine}></div>
-              <div className={aiShowcaseStyles.arrowTip}>→</div>
-              <div className={aiShowcaseStyles.arrowLine}></div>
-            </div>
-
             <div className={aiShowcaseStyles.imageBox}>
               <img src={item.after} alt={`After restoration - ${item.category}`} />
               <div className={aiShowcaseStyles.imageLabel}>AFTER</div>
@@ -368,6 +362,7 @@ export default function Home() {
     <div className={aiShowcaseStyles.ctaGlow}></div>
   </button>
 </section>
+
 
 
 {/* Restore Options Section */}

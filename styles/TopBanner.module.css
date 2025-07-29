@@ -2,6 +2,7 @@
 .topBannerHero {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
   background:
@@ -9,10 +10,8 @@
     url('/images/greek-theme.png') center/cover no-repeat;
   color: #e5f6ff;
   padding: 6rem 2rem;
-  max-width: 1500px;
-  max-height: 700px;
-  margin: 3rem auto 4rem;
-  border-radius: 32px;
+
+
   position: relative;
   overflow: hidden;
   box-shadow:

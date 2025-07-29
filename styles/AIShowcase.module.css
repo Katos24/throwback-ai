@@ -72,8 +72,8 @@
 
 .transformationGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
   margin-bottom: 60px;
   position: relative;
   z-index: 2;
@@ -84,7 +84,7 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 30px;
+  padding: 16px;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -106,27 +106,22 @@
 }
 
 .transformationCard:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .imageContainer {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .beforeAfterWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 800px;
-  margin: 0 auto;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
 .imageBox {
-  flex: 1 1 45%;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -134,13 +129,13 @@
 
 .imageBox img {
   width: 100%;
-  height: 260px;
+  height: 220px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
 .transformationCard:hover .imageBox img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .imageLabel {
@@ -158,13 +153,13 @@
 
 .cardInfo {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 20px;
+  padding-top: 16px;
 }
 
 .photoMeta {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .year {
@@ -181,7 +176,7 @@
 .aiFeatures {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .featureTag {
@@ -197,7 +192,7 @@
 .showcaseStats {
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 40px;
   margin-bottom: 50px;
   position: relative;
   z-index: 2;
@@ -272,16 +267,16 @@
 @media (max-width: 768px) {
   .transformationGrid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
   }
 
   .beforeAfterWrapper {
-    gap: 8px;
-    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
   }
 
   .imageBox img {
-    height: 180px;
+    height: 160px;
   }
 
   .showcaseStats {
@@ -309,7 +304,7 @@
   }
 
   .imageBox img {
-    height: 150px;
+    height: 140px;
   }
 
   .statNumber {
@@ -320,26 +315,4 @@
     padding: 14px 0;
     font-size: 16px;
   }
-}
-
-
-
-.arrowLine {
-  height: 20px;
-  width: 2px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 2px 0;
-}
-
-.arrowTip {
-  color: white;
-  font-size: 18px;
-  font-weight: 700;
-  margin: 4px 0;
-  opacity: 0.8;
-  transition: transform 0.3s ease;
-}
-
-.transformationCard:hover .arrowTip {
-  transform: translateX(2px);
 }

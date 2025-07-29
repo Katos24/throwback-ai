@@ -1,25 +1,49 @@
 /* ==============================================
-   🎨 RESTORE OPTIONS CONTAINER
+   🎨 RESTORE OPTIONS CONTAINER (Scoped Variables)
    ============================================== */
 .restoreOptions {
+  /* Color & Theme Variables */
+  --clr-bg-start:             rgba(10,10,10,0.6);
+  --clr-bg-end:               rgba(20,20,20,0.4);
+  --clr-card-bg:              rgba(255,255,255,0.08);
+  --clr-text:                 #fdfdfc;
+  --clr-heading:              #ffe8b0;
+  --clr-accent-free:          #3b82f6;
+  --clr-accent-free-dark:     #1d4ed8;
+  --clr-accent-premium:       #8b5cf6;
+  --clr-accent-premium-dark:  #6d28d9;
+
+  /* Futuristic Button Outline */
+  --btn-border-width:         2px;
+  --btn-radius:               30px;
+  --btn-transition:           0.3s ease;
+
+  /* Fonts */
+  --font-serif:               'GFS Didot', serif;
+  --font-sans:                'Poppins', sans-serif;
+  --font-futuristic:          'Orbitron', sans-serif;
+
+  /* Layout & Glass */
   max-width: 1280px;
   margin: 4rem auto 5rem;
   padding: 0 2rem 5rem;
-  font-family: 'GFS Didot', serif;
-  color: #fdfdfc;
+  font-family: var(--font-serif);
+  color: var(--clr-text);
   text-align: center;
-  position: relative;
-  background: linear-gradient(rgba(10,10,10,0.6), rgba(20,20,20,0.4));
+  background: linear-gradient(var(--clr-bg-start), var(--clr-bg-end));
   border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255, 230, 160, 0.15);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(255,230,160,0.15);
   overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Section Heading */
 .restoreOptions h2 {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
-  color: #ffe8b0;
+  color: var(--clr-heading);
   text-shadow: 0 4px 14px rgba(0,0,0,0.45);
   margin-bottom: 3.5rem;
   letter-spacing: 0.6px;
@@ -41,8 +65,8 @@
    🎴 CARD COMPONENTS
    ============================================== */
 .restoreCard {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
+  background: var(--clr-card-bg);
+  backdrop-filter: blur(12px);
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.35);
   padding: 2rem 1.5rem;
@@ -51,7 +75,6 @@
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .restoreCard:hover {
   transform: translateY(-6px);
   box-shadow: 0 15px 45px rgba(0,0,0,0.5);
@@ -67,7 +90,6 @@
   width: 100%;
   margin-bottom: 1.5rem;
 }
-
 .imagePair > span {
   display: block !important;
   width: 100% !important;
@@ -75,7 +97,6 @@
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
-
 .imagePair > span > img {
   display: block;
   width: 100%;
@@ -83,7 +104,6 @@
   object-fit: cover;
   transition: transform 0.3s ease;
 }
-
 .imagePair > span:hover img {
   transform: scale(1.03);
 }
@@ -99,159 +119,124 @@
   gap: 1rem;
 }
 
+/* Title */
 .cardContent h3 {
   font-size: 2.2rem;
   font-weight: 900;
-  margin-top: 1rem;
-  margin-bottom: 1.4rem;
-  color: #fff8cc;
+  margin: 1rem 0 1.4rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  text-shadow:
-    0 0 8px rgba(255, 220, 100, 0.9),
-    0 0 20px rgba(255, 165, 0.8),
-    0 2px 6px rgba(0, 0, 0, 0.9);
   background: linear-gradient(90deg, #fff8cc, #ffbb33);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 8px rgba(255,220,100,0.9),
+    0 0 20px rgba(255,165,0.8),
+    0 2px 6px rgba(0,0,0,0.9);
   position: relative;
-  z-index: 2;
   user-select: none;
-  transition: color 0.3s ease;
+  transition: text-shadow 0.3s ease;
 }
-
 .cardContent h3::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 140%;
-  height: 1.4em;
+  top: 50%; left: 50%;
+  width: 140%; height: 1.4em;
   background: rgba(0,0,0,0.35);
   border-radius: 8px;
   transform: translate(-50%, -50%);
-  z-index: -1;
   filter: blur(4px);
-  pointer-events: none;
+  z-index: -1;
 }
-
 .cardContent h3::after {
-  content: "";
+  content: '';
   display: block;
-  width: 60px;
-  height: 4px;
+  width: 60px; height: 4px;
   margin: 8px auto 0;
   background: linear-gradient(90deg, #ffb347, #ff9500);
   border-radius: 2px;
   box-shadow: 0 0 12px #ffb347;
 }
-
 .restoreCard:hover .cardContent h3 {
   text-shadow:
     0 0 12px #fff9cc,
     0 0 28px #ffca50,
     0 0 40px #ffb347,
-    0 2px 6px rgba(0, 0, 0, 1);
+    0 2px 6px rgba(0,0,0,1);
   cursor: pointer;
 }
 
+/* Description */
 .cardContent p {
+  font-family: var(--font-sans);
   font-size: 1.05rem;
   line-height: 1.6;
   margin: 0;
   color: #f5f5f3;
   text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  font-family: 'Poppins', sans-serif;
 }
 
 /* ==============================================
-   🏷️ TIER LABELS (NEW STYLES)
+   🏷️ TIER LABELS
    ============================================== */
 .tierLabel {
   padding: 10px 18px;
   border-radius: 25px;
   font-size: 13px;
   font-weight: bold;
-  display: inline-block;
-  margin-bottom: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Free/Basic Tier - Modern Blue */
 .tierLabel.free {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, var(--clr-accent-free), var(--clr-accent-free-dark));
+  box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+  color: #fff;
 }
-
 .tierLabel.premium {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, var(--clr-accent-premium), var(--clr-accent-premium-dark));
+  box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+  color: #fff;
 }
 
 /* ==============================================
-   🔘 BUTTON STYLES (UPDATED FOR COLOR THEMES)
+   🔘 MINIMAL FUTURISTIC BUTTONS
    ============================================== */
 .cardContent button {
+  font-family: var(--font-futuristic);
   font-weight: 700;
-  font-size: 1.1rem;
-  margin-top: 1.2rem;
-  padding: 12px 24px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-  overflow: hidden;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  padding: 12px 28px;
+  border: none;               /* ← removed all borders */
+  background: transparent;    /* keep it clean */
+  color: var(--clr-text);
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
-/* Free/Basic Button Theme - Modern Blue */
+/* Free Button */
 .cardContent button.freeButton {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  border-image: linear-gradient(45deg, var(--clr-accent-free), var(--clr-accent-free-dark)) 1;
 }
-
 .cardContent button.freeButton:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: rgba(59,130,246,0.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-/* Premium Button Theme - Modern Purple */
+
+/* Premium Button */
 .cardContent button.premiumButton {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  border-image: linear-gradient(45deg, var(--clr-accent-premium), var(--clr-accent-premium-dark)) 1;
 }
-
 .cardContent button.premiumButton:hover {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  background: rgba(139,92,246,0.1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-}
-
-/* Shimmer effect for buttons */
-.cardContent button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s ease;
-  transform: skewX(-20deg);
-}
-
-.cardContent button:hover::before {
-  left: 100%;
 }
 
 /* ==============================================
@@ -262,13 +247,11 @@
   font-weight: bold;
   margin-top: 1rem;
 }
-
 .timingLabel.free {
-  color: #3b82f6;
+  color: var(--clr-accent-free);
 }
-
 .timingLabel.premium {
-  color: #8b5cf6;
+  color: var(--clr-accent-premium);
 }
 
 /* ==============================================
@@ -279,29 +262,17 @@
     padding: 0 1.5rem;
     margin: 2.5rem auto 3rem;
   }
-
   .restoreCardGrid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     max-width: 100%;
   }
-
   .imagePair {
     grid-template-columns: repeat(2, minmax(140px, 1fr));
   }
-
-  .cardContent h3 {
-    font-size: 1.7rem;
-  }
-
-  .cardContent p {
-    font-size: 1rem;
-  }
-
-  .cardContent button {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
+  .cardContent h3 { font-size: 1.7rem; }
+  .cardContent p  { font-size: 1rem; }
+  .cardContent button { font-size: 0.95rem; padding: 10px 24px; }
 }
 
 @media (max-width: 480px) {
@@ -309,17 +280,7 @@
     padding: 0 1rem;
     margin: 2rem auto 2.5rem;
   }
-
-  .cardContent h3 {
-    font-size: 1.4rem;
-  }
-
-  .cardContent p {
-    font-size: 0.9rem;
-  }
-
-  .cardContent button {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-  }
+  .cardContent h3 { font-size: 1.4rem; }
+  .cardContent p  { font-size: 0.9rem; }
+  .cardContent button { font-size: 0.85rem; padding: 8px 20px; }
 }

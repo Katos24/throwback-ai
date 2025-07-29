@@ -235,71 +235,76 @@ export default function Home() {
         
 
       {/* Top Banner Section */}
-      <section className={styles.topBannerHero}>
-        <div className={styles.topBannerContent}>
-          <div className={styles.topBannerLeft}>
-            {/* Updated messaging for clarity */}
-            <p className={styles.bannerIntro}>Transform Old Family Photos with AI</p>
-            <h1 className={styles.heading}>
-              Restore Faded Family Photos to Life
-            </h1>
-           <div className={styles.paragraph}>
-              <div className={styles.featureLine}>
-                <strong>Photo Fix:</strong> Crystal-clear repairs and sharpening (3 FREE trials).
-              </div>
-              <div className={styles.featureLine}>
-                <strong>Photo Revival:</strong> Full colorization with stunning vintage restoration magic.
-              </div>
-            </div>
-            <div className={styles.ctaButtonContainer}>
-              {/* Made free trial more prominent */}
-              <button
-                className={styles.topBannerButton}
-                onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-                
-              >
-                🎁 Try 3 Photos FREE - No Signup Required
-              </button>
-             <button
-                className={styles.secondaryButton}
-                onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-              >
-                <span>See Full Colorization Magic</span>
-              </button>
-              <p style={{ marginTop: "1rem", color: "#888", fontSize: "14px" }}>
-  🎉 Sign up today and get <strong>10 free credits</strong> — no subscription required.
-</p>
-            </div>
-            {/* Added urgency element */}
-            
-          </div>
-          <div className={styles.topBannerRight}>
-            <div className={styles.bannerVideoWrapper}>
-              <video
-                src="/images/transformation.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={styles.bannerVideo}
-                preload="metadata"
-                disablePictureInPicture
-                controlsList="nodownload nofullscreen noremoteplayback"
-              />
-              {/* Added fallback image for slow connections */}
-              <noscript>
-                <Image 
-                  src="/images/transformation-fallback.jpg" 
-                  alt="Photo restoration transformation"
-                  width={600}
-                  height={400}
-                  priority
-                />
-              </noscript>
-            </div>
-          </div>
-        </div>
-      </section>
+<section className={styles.topBannerHero}>
+  <div className={styles.topBannerContent}>
+    <div className={styles.topBannerLeft}>
+      {/* Updated messaging for clarity */}
+      <p className={styles.bannerIntro}>
+        Anastasis – AI-Powered Photo Restoration
+      </p>
+      <h1 className={styles.heading}>
+        Bring Old Family Photos Back to Life
+      </h1>
+      <div className={styles.paragraph}>
+    <div className={`${styles.featureLine} ${styles.free}`}>
+  <strong>Photo Fix</strong> Instant AI repair, sharpening & dust removal (3 free tries)
+</div>
+<div className={`${styles.featureLine} ${styles.premium}`}>
+  <strong>Photo Revival</strong> Full AI colorization + deep vintage magic (40 credits)
+</div>
+
+      </div>
+
+      <div className={styles.ctaButtonContainer}>
+        {/* Primary CTA */}
+        <button
+          className={styles.topBannerButton}
+          onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+        >
+          🎁 Try Photo Fix: FREE (1 Credit)
+        </button>
+
+        {/* Secondary CTA */}
+        <button
+          className={styles.secondaryButton}
+          onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+        >
+          🔮 Unlock Photo Revival (40 Credits)
+        </button>
+
+        {/* Sign-up incentive */}
+        <p className={styles.subText}>
+          Sign up now and get <strong>10 bonus credits</strong>—no subscription required!
+        </p>
+      </div>
+    </div>
+
+    <div className={styles.topBannerRight}>
+      <div className={styles.bannerVideoWrapper}>
+        <video
+          src="/images/transformation.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={styles.bannerVideo}
+          preload="metadata"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
+        />
+        <noscript>
+          <Image 
+            src="/images/transformation-fallback.jpg" 
+            alt="Before-and-after AI photo restoration demo"
+            width={600}
+            height={400}
+            priority
+          />
+        </noscript>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 

@@ -82,10 +82,10 @@ export default function Header({ showMenu, setShowMenu }) {
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>Home</a>
         </Link>
         <Link href="/replicate/restore-basic" legacyBehavior>
-          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Restore Image Basic</a>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Photo Fix</a>
         </Link>
         <Link href="/replicate/restore-premium" legacyBehavior>
-          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Restore Premium</a>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Photo Revival</a>
         </Link>
         <Link href="/about" legacyBehavior>
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>About</a>

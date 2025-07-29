@@ -105,10 +105,11 @@ export default function RestorePremium() {
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
+
           if (isLoggedIn) {
+            // Deduct 40 credits AFTER successful restore
+            await deductCredits(40);
             await refreshCredits();
-          } else {
-            deductCredits(40);
           }
         } else {
           alert(data.error || "Failed to restore image.");
@@ -195,6 +196,8 @@ export default function RestorePremium() {
                       </Link>
                     </>
                   )}
+                  <br />
+                  <small>Each restore costs 40 credits.</small>
                 </>
               ) : (
                 <>
@@ -214,14 +217,14 @@ export default function RestorePremium() {
               <div className={styles.imageWrapper}>
                 {selectedPreviewUrl ? (
                   <Image
-                  src={selectedPreviewUrl}
-                  alt="Before upload preview"
-                  className={styles.image}
-                  style={{ objectFit: "contain" }}
-                  width={400}   // approximate current size in px
-                  height={300}  // approximate current size in px
-                  unoptimized={true} // because base64 or blob URL
-                />
+                    src={selectedPreviewUrl}
+                    alt="Before upload preview"
+                    className={styles.image}
+                    style={{ objectFit: "contain" }}
+                    width={400}
+                    height={300}
+                    unoptimized={true}
+                  />
                 ) : (
                   <span className={styles.placeholderText}>Upload an image</span>
                 )}
@@ -232,14 +235,14 @@ export default function RestorePremium() {
               <strong>After</strong>
               <div className={styles.imageWrapper}>
                 {restoredUrl ? (
-                 <Image
+                  <Image
                     src={restoredUrl}
                     alt="Restored"
                     className={styles.image}
                     style={{ objectFit: "contain" }}
-                    width={400}     // set approximate width you want
-                    height={300}    // set approximate height you want
-                    unoptimized={true}  // needed for base64 or dynamic URLs
+                    width={400}
+                    height={300}
+                    unoptimized={true}
                   />
                 ) : (
                   <span className={styles.placeholderText}>No restored image yet</span>
@@ -289,13 +292,13 @@ export default function RestorePremium() {
           </div>
           <div className={styles.featurePromoVisual}>
             <Image
-                src="/images/restore-preview.jpg"
-                alt="Restored example preview"
-                className={`${styles.featurePromoImage} ${styles.tiltImage}`}
-                width={600}    // replace with your desired width
-                height={400}   // replace with your desired height
-                style={{ objectFit: "contain" }}  // optional if you want to keep that style
-              />
+              src="/images/restore-preview.jpg"
+              alt="Restored example preview"
+              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
+              width={600}
+              height={400}
+              style={{ objectFit: "contain" }}
+            />
           </div>
         </div>
       </section>

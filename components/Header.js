@@ -87,6 +87,9 @@ export default function Header({ showMenu, setShowMenu }) {
         <Link href="/replicate/restore-premium" legacyBehavior>
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>Photo Revival</a>
         </Link>
+        <Link href="/gallery" legacyBehavior>
+          <a className={styles.navLink} onClick={() => setShowMenu(false)}>Gallery</a>
+        </Link>
         <Link href="/about" legacyBehavior>
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>About</a>
         </Link>

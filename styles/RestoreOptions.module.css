@@ -45,7 +45,8 @@
   font-weight: 800;
   color: var(--clr-heading);
   text-shadow: 0 4px 14px rgba(0,0,0,0.45);
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   letter-spacing: 0.6px;
 }
 
@@ -283,4 +284,36 @@
   .cardContent h3 { font-size: 1.4rem; }
   .cardContent p  { font-size: 0.9rem; }
   .cardContent button { font-size: 0.85rem; padding: 8px 20px; }
+}
+
+
+.cardTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.75rem 0 0.5rem;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.cardSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 0 0.75rem;
+  background: linear-gradient(90deg, #43cea2, #185a9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+  .cardSubtitle {
+    font-size: 0.9rem;
+  }
 }

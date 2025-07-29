@@ -17,6 +17,7 @@ import infoStyles from "../styles/InfoSection.module.css"
 import migrationStyles from "../styles/MigrationSection.module.css"
 import styles from "../styles/TopBanner.module.css"
 import imageCompare from "../styles/ImageCompare.module.css"
+import aiShowcaseStyles from "../styles/AIShowcase.module.css"
 
 // This is the one driving our "See the Restoration Impact" grid + scroll-reveal
 import featureCompareStyles from "../styles/FeaturesWithCircleCompare.module.css"
@@ -313,24 +314,7 @@ export default function Home() {
   <h2>Choose Your Restoration Level</h2>
   
   {/* Improved intro banner */}
-  <div
-    style={{
-      maxWidth: '720px',
-      margin: '0 auto 2.5rem auto',
-      padding: '16px 24px',
-      fontSize: '16px',
-      background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
-      borderRadius: '16px',
-      color: '#2c3e50',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-      fontWeight: '500',
-      textAlign: 'center',
-      lineHeight: '1.6',
-      border: '1px solid rgba(39, 174, 96, 0.2)'
-    }}
-  >
-    <strong style={{ color: '#27ae60' }}>🎁 New users get 3 FREE Photo Fix restorations</strong> • Upgrade anytime for full colorization
-  </div>
+
 
   <div className={RestoreOptionsStyles.restoreCardGrid}>
     
@@ -363,11 +347,13 @@ export default function Home() {
         />
       </div>
       
-      <h3>🛠️ Photo Fix</h3>
+      <h3 className={RestoreOptionsStyles.cardTitle}>
+        🛠️ Photo Fix – Repair & Sharpen Damaged Images
+      </h3>
       <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>Perfect for:</strong> Sharpening blurry photos, removing scratches, fixing damaged areas
-        </p>
+        <p className={RestoreOptionsStyles.cardSubtitle}>
+        Great for light restoration, fast results, and basic fixes.
+      </p>
         <p className={`${RestoreOptionsStyles.timingLabel} ${RestoreOptionsStyles.free}`}>
           ⏰ Ready in 30–60 seconds
         </p>
@@ -412,11 +398,13 @@ export default function Home() {
         />
       </div>
       
-      <h3>✨ Photo Revival</h3>
+      <h3 className={RestoreOptionsStyles.cardTitle}>
+        ✨ Photo Revival – Full Color Restoration & Enhancement
+      </h3>
       <div className={RestoreOptionsStyles.cardContent}>
-        <p>
-          <strong>Perfect for:</strong> Full colorization, vintage enhancement, museum-quality restoration
-        </p>
+       <p className={RestoreOptionsStyles.cardSubtitle}>
+        Ideal for heirlooms, colorization, and premium-quality output.
+      </p>
         <p className={`${RestoreOptionsStyles.timingLabel} ${RestoreOptionsStyles.premium}`}>
           ⏰ Ready in 1–2 minutes
         </p>
@@ -435,6 +423,111 @@ export default function Home() {
 </section>
 
 
+
+{/* AI Transformation Showcase */}
+<section className={aiShowcaseStyles.aiShowcase}>
+  <div className={aiShowcaseStyles.showcaseHeader}>
+    <div className={aiShowcaseStyles.aiLabel}>
+      <span className={aiShowcaseStyles.aiDot}></span>
+      AI POWERED
+    </div>
+    <h2 className={aiShowcaseStyles.showcaseTitle}>
+      Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
+    </h2>
+    <p className={aiShowcaseStyles.showcaseSubtitle}>
+      Our heritage-trained AI doesn't just enhance—it resurrects lost memories with surgical precision
+    </p>
+  </div>
+
+  <div className={aiShowcaseStyles.transformationGrid}>
+    {[
+      {
+        before: "/images/before1.jpg",
+        after: "/images/after1.jpg",
+        year: "1952",
+        category: "Wedding Portrait",
+        aiFeatures: ["Colorization", "Detail Recovery", "Noise Reduction"]
+      },
+      {
+        before: "/images/before2.jpg", 
+        after: "/images/after2.jpg",
+        year: "1938",
+        category: "Family Photo",
+        aiFeatures: ["Crack Repair", "Color Revival", "Texture Enhancement"]
+      },
+      {
+        before: "/images/before3.jpg",
+        after: "/images/after3.jpg", 
+        year: "1945",
+        category: "Military Portrait",
+        aiFeatures: ["Fade Correction", "Uniform Colorization", "Face Enhancement"]
+      }
+    ].map((item, index) => (
+      <div key={index} className={aiShowcaseStyles.transformationCard}>
+        <div className={aiShowcaseStyles.imageContainer}>
+          <div className={aiShowcaseStyles.beforeAfterWrapper}>
+            <div className={aiShowcaseStyles.imageBox}>
+              <img src={item.before} alt={`Before restoration - ${item.category}`} />
+              <div className={aiShowcaseStyles.imageLabel}>BEFORE</div>
+            </div>
+            
+            <div className={aiShowcaseStyles.aiArrow}>
+              <div className={aiShowcaseStyles.aiProcessing}>
+                <div className={aiShowcaseStyles.neuralDots}>
+                  <span></span><span></span><span></span>
+                </div>
+                <div className={aiShowcaseStyles.aiText}>AI</div>
+              </div>
+            </div>
+            
+            <div className={aiShowcaseStyles.imageBox}>
+              <img src={item.after} alt={`After restoration - ${item.category}`} />
+              <div className={aiShowcaseStyles.imageLabel}>AFTER</div>
+            </div>
+          </div>
+        </div>
+        
+        <div className={aiShowcaseStyles.cardInfo}>
+          <div className={aiShowcaseStyles.photoMeta}>
+            <span className={aiShowcaseStyles.year}>{item.year}</span>
+            <span className={aiShowcaseStyles.category}>{item.category}</span>
+          </div>
+          
+          <div className={aiShowcaseStyles.aiFeatures}>
+            {item.aiFeatures.map((feature, i) => (
+              <span key={i} className={aiShowcaseStyles.featureTag}>
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div className={aiShowcaseStyles.showcaseStats}>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>2.3M+</div>
+      <div className={aiShowcaseStyles.statLabel}>Photos Restored</div>
+    </div>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>98.7%</div>
+      <div className={aiShowcaseStyles.statLabel}>Success Rate</div>
+    </div>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>47s</div>
+      <div className={aiShowcaseStyles.statLabel}>Avg Process Time</div>
+    </div>
+  </div>
+
+  <button 
+    className={aiShowcaseStyles.showcaseCTA}
+    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+  >
+    <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>
+    <div className={aiShowcaseStyles.ctaGlow}></div>
+  </button>
+</section>
 
 
      {/* "How It Works" Section */}
@@ -526,66 +619,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Scrollable Gallery Section */}
-      <section className={featureStyles.gallerySection}>
-        <h2 className={featureStyles.galleryHeading}>Before & After Gallery</h2>
-        <p style={{ textAlign: 'center', fontSize: '16px', color: '#666', marginBottom: '2rem' }}>
-          Real customer photos restored with Anastasis AI
-        </p>
-        <div className={featureStyles.galleryScroll}>
-          <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before1.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after1.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-
-          <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before2.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after2.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-
-          <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before3.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after3.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-          <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before4.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after4.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-           <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before5.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after5.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-           <div className={featureStyles.galleryCard}>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/before6.jpg" alt="Before restoration" width={300} height={450} loading="lazy" />
-            </div>
-            <div className={featureStyles.galleryImageWrapper}>
-              <Image src="/images/after6.jpg" alt="After restoration" width={300} height={450} loading="lazy" />
-            </div>
-          </div>
-          {/* Add more cards as needed */}
-        </div>
-      </section>
 
       {/* Pricing & Privacy Section */}
       <section className={pricingStyles.honestPricing}>
@@ -601,21 +634,6 @@ export default function Home() {
           {/* Left Side: Anastasis Packs in 2x2 Layout */}
           <div className={pricingStyles.anastasisSection}>
 
-            {/* New button ABOVE the pack grid */}
-            <div style={{ textAlign: "center", marginBottom: ".3rem" }}>
-              <button
-                className={pricingStyles.buyBtn}
-                onClick={() => router.push("/pricing")}
-                style={{
-                  background: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)',
-                  fontSize: '18px',
-                  fontWeight: 'bold',
-                  padding: '12px 24px'
-                }}
-              >
-                🛒 See All Pricing Options & Buy Credits
-              </button>
-            </div>
 
             <div className={pricingStyles.packGrid}>
               {[
@@ -682,7 +700,24 @@ export default function Home() {
                 </div>
               ))}
             </div>
+               <div style={{ textAlign: "center", marginBottom: ".3rem" }}>
+              <button
+                className={pricingStyles.buyBtn}
+                onClick={() => router.push("/pricing")}
+                style={{
+                  background: 'linear-gradient(135deg,rgb(205, 52, 219) 0%,rgb(151, 184, 205) 100%)',
+                  fontSize: '25px',
+                  fontWeight: 'bold',
+                  fontFamily: 'Arial, sans-serif',
+                  padding: '12px 24px'
+                }}
+              >
+                Buy Credits Now
+              </button>
+            </div>
           </div>
+
+          
 
           {/* Right Side: Competitor Card */}
           <div className={pricingStyles.competitorSection}>
@@ -703,12 +738,7 @@ export default function Home() {
     </div>
   </div>
 
-{/* Added value proposition */}
-<div className={pricingStyles.valueProposition}>
-  <strong>💡 Smart Choice:</strong> Our customers save an average of $84/year compared to subscription apps
-</div>
 </section>
-
 
 
 {/* Hero Section */}
@@ -741,6 +771,68 @@ export default function Home() {
 
       
 
+
+
+{/* Customer Success Stories */}
+<section className={featureStyles.successStoriesSection}>
+  <h2 className={featureStyles.successHeading}>Customer Success Stories</h2>
+  <p style={{ textAlign: 'center', fontSize: '16px', color: '#666', marginBottom: '3rem' }}>
+    See why families trust Anastasis with their most precious memories
+  </p>
+  
+  <div className={featureStyles.successGrid}>
+    {[
+      {
+        before: "/images/before4.jpg",
+        after: "/images/after4.jpg",
+        story: "Restored my grandmother's 1943 wedding photo for our family reunion. Everyone was in tears!",
+        author: "Sarah M.",
+        occasion: "Family Reunion"
+      },
+      {
+        before: "/images/before5.jpg", 
+        after: "/images/after5.jpg",
+        story: "These 70-year-old baby photos of my father now hang beautifully in our living room.",
+        author: "Marcus T.",
+        occasion: "Father's Day Gift"
+      },
+      {
+        before: "/images/before6.jpg",
+        after: "/images/after6.jpg", 
+        story: "Perfect for our genealogy project. The colorization brought our ancestors to life.",
+        author: "Linda K.",
+        occasion: "Genealogy Research"
+      }
+    ].map((item, index) => (
+      <div key={index} className={featureStyles.successCard}>
+        <div className={featureStyles.successImages}>
+          <Image 
+            src={item.before} 
+            alt="Before restoration" 
+            width={150} 
+            height={200} 
+            className={featureStyles.successBefore}
+            loading="lazy" 
+          />
+          <div className={featureStyles.successArrow}>→</div>
+          <Image 
+            src={item.after} 
+            alt="After restoration" 
+            width={150} 
+            height={200} 
+            className={featureStyles.successAfter}
+            loading="lazy" 
+          />
+        </div>
+        <div className={featureStyles.successStory}>
+          <blockquote>"{item.story}"</blockquote>
+          <cite>— {item.author}</cite>
+          <span className={featureStyles.occasion}>{item.occasion}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
 
 

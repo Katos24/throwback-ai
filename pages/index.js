@@ -435,7 +435,7 @@ export default function Home() {
       Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
     </h2>
     <p className={aiShowcaseStyles.showcaseSubtitle}>
-      Our heritage-trained AI doesn't just enhance—it resurrects lost memories with surgical precision
+      Our heritage-trained AI doesn&apos;t just enhance—it resurrects lost memories with surgical precision
     </p>
   </div>
 
@@ -825,7 +825,7 @@ export default function Home() {
           />
         </div>
         <div className={featureStyles.successStory}>
-          <blockquote>"{item.story}"</blockquote>
+          <blockquote>&ldquo;{item.story}&rdquo;</blockquote>
           <cite>— {item.author}</cite>
           <span className={featureStyles.occasion}>{item.occasion}</span>
         </div>

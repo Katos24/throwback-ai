@@ -1,5 +1,3 @@
-/* Add these styles to your main CSS file or create AIShowcase.module.css */
-
 .aiShowcase {
   padding: 80px 20px;
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
@@ -29,9 +27,7 @@
 }
 
 .aiLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-block;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -39,23 +35,9 @@
   padding: 8px 16px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
   color: #00ff88;
   margin-bottom: 20px;
   text-transform: uppercase;
-}
-
-.aiDot {
-  width: 8px;
-  height: 8px;
-  background: #00ff88;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.2); }
 }
 
 .showcaseTitle {
@@ -136,11 +118,15 @@
 .beforeAfterWrapper {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .imageBox {
-  flex: 1;
+  flex: 1 1 45%;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -148,8 +134,8 @@
 
 .imageBox img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 260px;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
@@ -167,60 +153,6 @@
   border-radius: 6px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.aiArrow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.aiProcessing {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-.neuralDots {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 2px;
-}
-
-.neuralDots span {
-  width: 4px;
-  height: 4px;
-  background: white;
-  border-radius: 50%;
-  animation: neuralPulse 1.5s infinite;
-}
-
-.neuralDots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.neuralDots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes neuralPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
-
-.aiText {
-  color: white;
-  font-size: 10px;
-  font-weight: 800;
   letter-spacing: 0.1em;
 }
 
@@ -335,27 +267,79 @@
   left: 100%;
 }
 
-/* Responsive adjustments */
+/* Mobile Tweaks */
+
 @media (max-width: 768px) {
   .transformationGrid {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
+
   .beforeAfterWrapper {
-    flex-direction: column;
-    gap: 15px;
+    gap: 8px;
+    justify-content: center;
   }
-  
-  .aiArrow {
-    transform: rotate(90deg);
+
+  .imageBox img {
+    height: 180px;
   }
-  
+
   .showcaseStats {
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
   }
-  
+
   .statNumber {
     font-size: 2rem;
   }
+
+  .showcaseCTA {
+    width: 100%;
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcaseTitle {
+    font-size: 1.8rem;
+  }
+
+  .transformationCard {
+    padding: 20px;
+  }
+
+  .imageBox img {
+    height: 150px;
+  }
+
+  .statNumber {
+    font-size: 1.6rem;
+  }
+
+  .showcaseCTA {
+    padding: 14px 0;
+    font-size: 16px;
+  }
+}
+
+
+
+.arrowLine {
+  height: 20px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 2px 0;
+}
+
+.arrowTip {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 4px 0;
+  opacity: 0.8;
+  transition: transform 0.3s ease;
+}
+
+.transformationCard:hover .arrowTip {
+  transform: translateX(2px);
 }

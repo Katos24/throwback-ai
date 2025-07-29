@@ -10,10 +10,8 @@ import heroStyles from "../styles/HeroSection.module.css"
 import RestoreOptionsStyles from "../styles/RestoreOptions.module.css"
 import featureStyles from "../styles/FeaturesSection.module.css"
 import pricingStyles from "../styles/PricingSection.module.css"
-import testimonialStyles from "../styles/TestimonialsBadges.module.css"
 import faqStyles from "../styles/FAQSection.module.css"
 import infoCardStyles from "../styles/InfoCardsSection.module.css"
-import infoStyles from "../styles/InfoSection.module.css"
 import migrationStyles from "../styles/MigrationSection.module.css"
 import styles from "../styles/TopBanner.module.css"
 import imageCompare from "../styles/ImageCompare.module.css"
@@ -52,43 +50,7 @@ const features = [
   },
 ];
 
-const testimonials = [
-   {
-    quote:
-      "I surprised my parents on their 50th wedding anniversary by colorizing their black-and-white wedding photos. They were in tears when they saw themselves in color for the very first time.",
-    author: "Michael T., Celebrating 50 Years"
-    },
-    {
-      quote:
-        "My daughter's first birthday pictures from the early '90s have never looked so vibrant. Anastasis works like pure magic—no more faded prints!",
-      author: "Samantha B., Proud Mom"
-    },
-    {
-      quote:
-        "As an event photographer, I've used countless tools, but Anastasis gave me flawless, museum-quality restorations of old Polaroids and negatives.",
-      author: "Jessica L., Photojournalist"
-    },
-    {
-      quote:
-        "I finally restored my grandparents' 1940s army portraits—and the colorization made their stories leap off the page. My family can't stop talking about it.",
-      author: "Ethan C., History Buff"
-    },
-    {
-      quote:
-        "After trying every app on the market, Anastasis delivered crystal-clear, lifelike restorations. These century-old heirlooms look brand new.",
-      author: "Olivia R., Family Archivist"
-    },
-    {
-      quote:
-        "My wife and I turned our black-and-white honeymoon snaps into living color. It felt like reliving our trip all over again—complete with sandy beaches and sunsets.",
-      author: "David & Anna, Newlyweds"
-    },
-    {
-      quote:
-        "No confusing subscriptions, just a one-time fee and endless restored memories. Anastasis is the gift that keeps on giving.",
-      author: "Lily M., Memory Keeper"
-    }
-  ];
+
 
 const faqData = [
   {
@@ -308,6 +270,105 @@ export default function Home() {
 </section>
 
 
+{/* AI Transformation Showcase */}
+<section className={aiShowcaseStyles.aiShowcase}>
+  <div className={aiShowcaseStyles.showcaseHeader}>
+    <div className={aiShowcaseStyles.aiLabel}>AI POWERED</div>
+    <h2 className={aiShowcaseStyles.showcaseTitle}>
+      Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
+    </h2>
+    <p className={aiShowcaseStyles.showcaseSubtitle}>
+      Our heritage-trained AI doesn&apos;t just enhance—it resurrects lost memories with surgical precision
+    </p>
+  </div>
+
+  <div className={aiShowcaseStyles.transformationGrid}>
+    {[
+      {
+        before: "/images/before1.jpg",
+        after: "/images/after1.jpg",
+        year: "1952",
+        category: "Wedding Portrait",
+        aiFeatures: ["Colorization", "Detail Recovery", "Noise Reduction"]
+      },
+      {
+        before: "/images/before2.jpg", 
+        after: "/images/after2.jpg",
+        year: "1938",
+        category: "Family Photo",
+        aiFeatures: ["Crack Repair", "Color Revival", "Texture Enhancement"]
+      },
+      {
+        before: "/images/before3.jpg",
+        after: "/images/after3.jpg", 
+        year: "1945",
+        category: "Military Portrait",
+        aiFeatures: ["Fade Correction", "Uniform Colorization", "Face Enhancement"]
+      }
+    ].map((item, index) => (
+      <div key={index} className={aiShowcaseStyles.transformationCard}>
+        <div className={aiShowcaseStyles.imageContainer}>
+          <div className={aiShowcaseStyles.beforeAfterWrapper}>
+            <div className={aiShowcaseStyles.imageBox}>
+              <img src={item.before} alt={`Before restoration - ${item.category}`} />
+              <div className={aiShowcaseStyles.imageLabel}>BEFORE</div>
+            </div>
+
+            <div className={aiShowcaseStyles.arrowDivider}>
+              <div className={aiShowcaseStyles.arrowLine}></div>
+              <div className={aiShowcaseStyles.arrowTip}>→</div>
+              <div className={aiShowcaseStyles.arrowLine}></div>
+            </div>
+
+            <div className={aiShowcaseStyles.imageBox}>
+              <img src={item.after} alt={`After restoration - ${item.category}`} />
+              <div className={aiShowcaseStyles.imageLabel}>AFTER</div>
+            </div>
+          </div>
+        </div>
+
+        <div className={aiShowcaseStyles.cardInfo}>
+          <div className={aiShowcaseStyles.photoMeta}>
+            <span className={aiShowcaseStyles.year}>{item.year}</span>
+            <span className={aiShowcaseStyles.category}>{item.category}</span>
+          </div>
+
+          <div className={aiShowcaseStyles.aiFeatures}>
+            {item.aiFeatures.map((feature, i) => (
+              <span key={i} className={aiShowcaseStyles.featureTag}>
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div className={aiShowcaseStyles.showcaseStats}>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>2.3M+</div>
+      <div className={aiShowcaseStyles.statLabel}>Photos Restored</div>
+    </div>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>98.7%</div>
+      <div className={aiShowcaseStyles.statLabel}>Success Rate</div>
+    </div>
+    <div className={aiShowcaseStyles.statItem}>
+      <div className={aiShowcaseStyles.statNumber}>47s</div>
+      <div className={aiShowcaseStyles.statLabel}>Avg Process Time</div>
+    </div>
+  </div>
+
+  <button 
+    className={aiShowcaseStyles.showcaseCTA}
+    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+  >
+    <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>
+    <div className={aiShowcaseStyles.ctaGlow}></div>
+  </button>
+</section>
+
 
 {/* Restore Options Section */}
 <section className={RestoreOptionsStyles.restoreOptions}>
@@ -424,110 +485,6 @@ export default function Home() {
 
 
 
-{/* AI Transformation Showcase */}
-<section className={aiShowcaseStyles.aiShowcase}>
-  <div className={aiShowcaseStyles.showcaseHeader}>
-    <div className={aiShowcaseStyles.aiLabel}>
-      <span className={aiShowcaseStyles.aiDot}></span>
-      AI POWERED
-    </div>
-    <h2 className={aiShowcaseStyles.showcaseTitle}>
-      Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
-    </h2>
-    <p className={aiShowcaseStyles.showcaseSubtitle}>
-      Our heritage-trained AI doesn&apos;t just enhance—it resurrects lost memories with surgical precision
-    </p>
-  </div>
-
-  <div className={aiShowcaseStyles.transformationGrid}>
-    {[
-      {
-        before: "/images/before1.jpg",
-        after: "/images/after1.jpg",
-        year: "1952",
-        category: "Wedding Portrait",
-        aiFeatures: ["Colorization", "Detail Recovery", "Noise Reduction"]
-      },
-      {
-        before: "/images/before2.jpg", 
-        after: "/images/after2.jpg",
-        year: "1938",
-        category: "Family Photo",
-        aiFeatures: ["Crack Repair", "Color Revival", "Texture Enhancement"]
-      },
-      {
-        before: "/images/before3.jpg",
-        after: "/images/after3.jpg", 
-        year: "1945",
-        category: "Military Portrait",
-        aiFeatures: ["Fade Correction", "Uniform Colorization", "Face Enhancement"]
-      }
-    ].map((item, index) => (
-      <div key={index} className={aiShowcaseStyles.transformationCard}>
-        <div className={aiShowcaseStyles.imageContainer}>
-          <div className={aiShowcaseStyles.beforeAfterWrapper}>
-            <div className={aiShowcaseStyles.imageBox}>
-              <img src={item.before} alt={`Before restoration - ${item.category}`} />
-              <div className={aiShowcaseStyles.imageLabel}>BEFORE</div>
-            </div>
-            
-            <div className={aiShowcaseStyles.aiArrow}>
-              <div className={aiShowcaseStyles.aiProcessing}>
-                <div className={aiShowcaseStyles.neuralDots}>
-                  <span></span><span></span><span></span>
-                </div>
-                <div className={aiShowcaseStyles.aiText}>AI</div>
-              </div>
-            </div>
-            
-            <div className={aiShowcaseStyles.imageBox}>
-              <img src={item.after} alt={`After restoration - ${item.category}`} />
-              <div className={aiShowcaseStyles.imageLabel}>AFTER</div>
-            </div>
-          </div>
-        </div>
-        
-        <div className={aiShowcaseStyles.cardInfo}>
-          <div className={aiShowcaseStyles.photoMeta}>
-            <span className={aiShowcaseStyles.year}>{item.year}</span>
-            <span className={aiShowcaseStyles.category}>{item.category}</span>
-          </div>
-          
-          <div className={aiShowcaseStyles.aiFeatures}>
-            {item.aiFeatures.map((feature, i) => (
-              <span key={i} className={aiShowcaseStyles.featureTag}>
-                {feature}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-
-  <div className={aiShowcaseStyles.showcaseStats}>
-    <div className={aiShowcaseStyles.statItem}>
-      <div className={aiShowcaseStyles.statNumber}>2.3M+</div>
-      <div className={aiShowcaseStyles.statLabel}>Photos Restored</div>
-    </div>
-    <div className={aiShowcaseStyles.statItem}>
-      <div className={aiShowcaseStyles.statNumber}>98.7%</div>
-      <div className={aiShowcaseStyles.statLabel}>Success Rate</div>
-    </div>
-    <div className={aiShowcaseStyles.statItem}>
-      <div className={aiShowcaseStyles.statNumber}>47s</div>
-      <div className={aiShowcaseStyles.statLabel}>Avg Process Time</div>
-    </div>
-  </div>
-
-  <button 
-    className={aiShowcaseStyles.showcaseCTA}
-    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-  >
-    <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>
-    <div className={aiShowcaseStyles.ctaGlow}></div>
-  </button>
-</section>
 
 
      {/* "How It Works" Section */}
@@ -620,156 +577,135 @@ export default function Home() {
       </section>
 
 
-      {/* Pricing & Privacy Section */}
-      <section className={pricingStyles.honestPricing}>
-        <h2 className={pricingStyles.pricingHeading}>
-          Fair Pricing <span className={pricingStyles.vsAccent}>vs</span> Subscription Traps
-        </h2>
-        <p className={pricingStyles.subtitle}>
-          Buy credits once, use them whenever you need. No recurring charges, no auto-renewals, no surprises.
-        </p>
-        {/* Main Layout Container */}
-        <div className={pricingStyles.mainPricingContainer}>
-          
-          {/* Left Side: Anastasis Packs in 2x2 Layout */}
-          <div className={pricingStyles.anastasisSection}>
+      {/* Honest, One-Time Pricing Section */}
+<section className={pricingStyles.honestPricing}>
+  <h2 className={pricingStyles.pricingHeading}>
+    Transparent Pricing <span className={pricingStyles.vsAccent}>vs</span> Subscription Overkill
+  </h2>
+  <p className={pricingStyles.subtitle}>
+    One-time credits. No subscriptions. No tricks. Use what you buy, whenever you want.
+  </p>
 
-
-            <div className={pricingStyles.packGrid}>
-              {[
-                {
-                  name: "Dawn Pack",
-                  price: "$4.99",
-                  credits: 400,
-                  revivals: 10,
-                  popular: false
-                },
-                {
-                  name: "Revival Pack",
-                  price: "$9.99",
-                  credits: 1000,
-                  revivals: 25,
-                  popular: true
-                },
-                {
-                  name: "Resurgence Pack",
-                  price: "$14.99",
-                  credits: 1600,
-                  revivals: 40,
-                  popular: false
-                },
-                {
-                  name: "Eternal Pack",
-                  price: "$29.99",
-                  credits: 3500,
-                  revivals: 87,
-                  popular: false
-                },
-              ].map((pack, i) => (
-                <div key={i} className={pricingStyles.anastasisCard} style={{
-                  border: pack.popular ? '3px solid #e74c3c' : undefined,
-                  position: 'relative'
-                }}>
-                  {pack.popular && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '-10px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: '#e74c3c',
-                      color: 'white',
-                      padding: '4px 12px',
-                      borderRadius: '15px',
-                      fontSize: '12px',
-                      fontWeight: 'bold'
-                    }}>
-                      🔥 MOST POPULAR
-                    </div>
-                  )}
-                  <h3>{pack.name}</h3>
-                  <div className={pricingStyles.priceDisplay}>
-                    <span className={pricingStyles.currency}>{pack.price.slice(0, 1)}</span>
-                    <span className={pricingStyles.amount}>{pack.price.slice(1)}</span>
-                    <span className={pricingStyles.perUnit}>• {pack.credits} credits</span>
-                  </div>
-                  <p className={pricingStyles.subtitle}>{pack.useCase}</p>
-                  <p className={pricingStyles.revivalsInfo}>Premium Revivals: <strong>{pack.revivals}</strong></p>
-                  <div style={{ fontSize: '12px', color: '#27ae60', fontWeight: 'bold', marginTop: '0.5rem' }}>
-                    💰 Only ${(parseFloat(pack.price.slice(1)) / pack.revivals).toFixed(2)} per restoration
-                  </div>
-                </div>
-              ))}
+  <div className={pricingStyles.mainPricingContainer}>
+    {/* Anastasis Credit Packs */}
+    <div className={pricingStyles.anastasisSection}>
+      <div className={pricingStyles.packGrid}>
+        {[
+          {
+            name: "Dawn Pack",
+            price: "$4.99",
+            credits: 400,
+            revivals: 10,
+            tag: "Starter"
+          },
+          {
+            name: "Revival Pack",
+            price: "$9.99",
+            credits: 1000,
+            revivals: 25,
+            popular: true,
+            tag: "Most Popular"
+          },
+          {
+            name: "Resurgence Pack",
+            price: "$14.99",
+            credits: 1600,
+            revivals: 40,
+            tag: "Best Value"
+          },
+          {
+            name: "Eternal Pack",
+            price: "$29.99",
+            credits: 3500,
+            revivals: 87,
+            tag: "For Families"
+          },
+        ].map((pack, i) => (
+          <div key={i} className={pricingStyles.anastasisCard} style={{
+            border: pack.popular ? '3px solid #FF4EC8' : undefined,
+            position: 'relative'
+          }}>
+            {pack.popular && (
+              <div style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: '#FF4EC8',
+                color: '#fff',
+                padding: '5px 14px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                letterSpacing: '0.5px'
+              }}>
+                🔥 {pack.tag}
+              </div>
+            )}
+            <h3>{pack.name}</h3>
+            <div className={pricingStyles.priceDisplay}>
+              <span className={pricingStyles.currency}>$</span>
+              <span className={pricingStyles.amount}>{pack.price.slice(1)}</span>
+              <span className={pricingStyles.perUnit}>• {pack.credits} credits</span>
             </div>
-               <div style={{ textAlign: "center", marginBottom: ".3rem" }}>
-              <button
-                className={pricingStyles.buyBtn}
-                onClick={() => router.push("/pricing")}
-                style={{
-                  background: 'linear-gradient(135deg,rgb(205, 52, 219) 0%,rgb(151, 184, 205) 100%)',
-                  fontSize: '25px',
-                  fontWeight: 'bold',
-                  fontFamily: 'Arial, sans-serif',
-                  padding: '12px 24px'
-                }}
-              >
-                Buy Credits Now
-              </button>
+            <p className={pricingStyles.revivalsInfo}>
+              Includes <strong>{pack.revivals}</strong> Premium Restorations
+            </p>
+            <div style={{
+              fontSize: '13px',
+              color: '#27ae60',
+              fontWeight: 'bold',
+              marginTop: '0.5rem'
+            }}>
+              💰 ~${(parseFloat(pack.price.slice(1)) / pack.revivals).toFixed(2)} per photo
             </div>
           </div>
+        ))}
+      </div>
 
-          
+      {/* CTA Button */}
+      <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <button
+          className={pricingStyles.buyBtn}
+          onClick={() => router.push("/pricing")}
+          style={{
+            background: 'linear-gradient(135deg, #FF4EC8 0%, #4ECDF7 100%)',
+            fontSize: '22px',
+            fontWeight: 'bold',
+            fontFamily: 'var(--font-brand)',
+            padding: '12px 24px',
+            borderRadius: '12px',
+            color: '#fff',
+            boxShadow: '0 0 12px rgba(255, 78, 200, 0.5)'
+          }}
+        >
+          Buy Credits Instantly
+        </button>
+      </div>
+    </div>
 
-          {/* Right Side: Competitor Card */}
-          <div className={pricingStyles.competitorSection}>
-            <div className={pricingStyles.competitorCard} style={{ border: '2px solid #e74c3c' }}>
-              <h3>Other Apps</h3>
-              <div className={pricingStyles.priceDisplay}>
-                <span className={pricingStyles.currency}>$</span>
-                <span className={pricingStyles.amount}>9.99</span>
-                <span className={pricingStyles.perUnit}>per month</span>
-              </div>
+    {/* Competitor Comparison */}
+    <div className={pricingStyles.competitorSection}>
+      <div className={pricingStyles.competitorCard} style={{ border: '2px solid #FF4EC8' }}>
+        <h3>Other Apps</h3>
+        <div className={pricingStyles.priceDisplay}>
+          <span className={pricingStyles.currency}>$</span>
+          <span className={pricingStyles.amount}>9.99</span>
+          <span className={pricingStyles.perUnit}>per month</span>
+        </div>
         <p className={pricingStyles.priceNote}>$120/year whether you use it or not</p>
         <ul className={pricingStyles.featureList}>
-          <li>❌ Monthly recurring charges</li>
-          <li>❌ Pay even when not using</li>
-          <li>❌ Account required</li>
+          <li>❌ Recurring charges</li>
+          <li>❌ Unused credits wasted</li>
+          <li>❌ Account required to preview</li>
         </ul>
       </div>
     </div>
   </div>
-
 </section>
 
 
-{/* Hero Section */}
-<section className={heroStyles.hero}>
-  <div className={heroStyles.heroText}>
-    <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
-  </div>
-  
-  <button
-    className={heroStyles.heroCTAButton}
-    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-  >
-    See Your History in Full Color
-  </button>
-  
-  {/* New subtitle line */}
-  <p style={{ 
-    fontSize: '1rem', 
-    fontWeight: '600', 
-    marginTop: '0.75rem', 
-    marginBottom: '0.5rem', 
-    color: '#666', 
-    textAlign: 'center' 
-  }}>
-    Perfect for Wedding Albums &bull; Genealogy Projects &bull; Family Reunions
-  </p>
-  
-  <span style={{ color: '#e74c3c', fontWeight: 'bold' }}>⏰ Results ready in under 2 minutes</span>
-</section>
 
-      
 
 
 
@@ -834,6 +770,35 @@ export default function Home() {
   </div>
 </section>
 
+{/* Hero Section */}
+<section className={heroStyles.hero}>
+  <div className={heroStyles.heroText}>
+    <h1>Your grandmother&apos;s wedding photo deserves more than a generic filter.</h1>
+  </div>
+  
+  <button
+    className={heroStyles.heroCTAButton}
+    onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+  >
+    See Your History in Full Color
+  </button>
+  
+  {/* New subtitle line */}
+  <p style={{ 
+    fontSize: '1rem', 
+    fontWeight: '600', 
+    marginTop: '0.75rem', 
+    marginBottom: '0.5rem', 
+    color: '#666', 
+    textAlign: 'center' 
+  }}>
+    Perfect for Wedding Albums &bull; Genealogy Projects &bull; Family Reunions
+  </p>
+  
+  <span style={{ color: '#e74c3c', fontWeight: 'bold' }}>⏰ Results ready in under 2 minutes</span>
+</section>
+
+      
 
 
       {/* Our Story & Heritage */}
@@ -911,18 +876,6 @@ export default function Home() {
 </section>
 
 
-      {/* Testimonials Section */}
-      <section className={testimonialStyles.testimonials}>
-        <h2>Bringing Memories to Life: Real Stories</h2>
-        <div className={testimonialStyles.testimonialGrid}>
-          {testimonials.map(({ quote, author }, index) => (
-            <blockquote key={index}>
-              <p>{quote}</p>
-              <cite>— {author}</cite>
-            </blockquote>
-          ))}
-        </div>
-      </section>
 
 
       {/* FAQ Section */}
@@ -931,22 +884,6 @@ export default function Home() {
         {faqData.map(({ q, a }, i) => (
           <FAQItem key={i} question={q} answer={a} />
         ))}
-      </section>
-
-      {/* SEO Text */}
-      <section className={faqStyles.seoTextSection}>
-        <h2>About Anastasis AI Photo Restoration</h2>
-        <p>
-          Anastasis is the only photo restoration service designed from the
-          ground up with genealogy and family heritage in mind. Unlike generic
-          photo apps, Anastasis uses AI trained on decades of vintage photo
-          styles to revive your old pictures with unmatched detail and accuracy.
-          Our pay-per-use model lets you restore only what you want, avoiding
-          costly subscriptions. Privacy and family legacy are our top priority —
-          your images are secure and auto-deleted after one hour. Choose
-          Anastasis for heritage-grade photo revival trusted by professional
-          genealogists and family historians worldwide.
-        </p>
       </section>
     </>
   );

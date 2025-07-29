@@ -65,7 +65,6 @@
   display: flex;
   gap: 3rem;
   align-items: stretch;
-  margin-top: 2rem;
 }
 
 .anastasisSection {
@@ -99,16 +98,18 @@
    ============================================== */
 .anastasisCard,
 .competitorCard {
+  max-width: 320px;        /* thinner than before */
+  padding: 1.5rem 1rem;    /* slightly less padding */
+  padding-bottom: 8px;
   background: linear-gradient(155deg, #161a1f, #1c2229);
   border: 1px solid rgba(0, 255, 255, 0.1);
   border-radius: 18px;
-  padding: 2rem 1.5rem;
-  padding-bottom: 10px;
   color: #d0ecff;
   box-shadow: 0 12px 36px rgba(0, 255, 255, 0.08);
   position: relative;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
+
 
 .anastasisCard:hover,
 .competitorCard:hover {
@@ -139,21 +140,23 @@
    🏢 COMPETITOR CARD SPECIFIC
    ============================================== */
 .competitorCard {
-  max-width: 300px;
-  transform: scale(0.75);
-  margin: 2rem auto 0;
+  max-width: 280px;       /* thinner */
+  min-height: 320px;      /* shorter */
+  padding: 1rem;
+  margin: 1.5rem auto 0;
   background: linear-gradient(145deg, #2d102f, #3c1d42);
   color: #f0e6ff;
   border: 1px solid rgba(255, 0, 255, 0.1);
   border-radius: 18px;
-  padding: 1rem;
   text-align: center;
   box-shadow: 0 10px 32px rgba(255, 0, 255, 0.06);
+  transform: scale(0.75);
   transition: all 0.4s ease;
 }
 
+
 .competitorCard:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(0.85);
   box-shadow:
     0 0 12px rgba(255, 0, 255, 0.12),
     0 0 24px rgba(255, 255, 255, 0.04),
@@ -172,22 +175,22 @@
 
 .competitorCard ul {
   margin-top: 0;
-  padding-left: 1rem;
+
 }
 
 .competitorCard li {
   margin-bottom: 0.25rem;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
 }
 
 .competitorSection .competitorCard {
   margin: 0;
   width: 100%;
   max-width: none;
-  min-height: 400px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 /* ==============================================
@@ -401,8 +404,10 @@
 
 @media (max-width: 1024px) {
   .mainPricingContainer {
-    flex-direction: column;
-    gap: 2rem;
+    flex-direction: row; /* keep cards side by side */
+    flex-wrap: wrap;     /* allow wrapping */
+    gap: 1.5rem;
+    justify-content: center;
   }
   
   .anastasisSection {
@@ -410,15 +415,16 @@
   }
   
   .competitorSection {
-    flex: 1;
-    border-left: none;
-    border-top: 2px solid rgba(0, 255, 255, 0.15);
-    padding-left: 0;
-    padding-top: 2rem;
-    position: relative;
-  }
+  flex: 1 1 280px; /* allow shrinking */
+  padding-left: 1rem;
+  border-left: none;
+  border-top: 2px solid rgba(0, 255, 255, 0.15);
+  padding-top: 2rem;
+  margin-top: 1rem;
+  height: auto; /* remove fixed height */
+}
   
-  .competitorSection::before {
+   .competitorSection::before {
     left: 10%;
     right: 10%;
     top: -1px;
@@ -435,10 +441,11 @@
   }
   
   .competitorSection .competitorCard {
-    max-width: 500px;
-    margin: 0 auto;
-    min-height: auto;
-  }
+  max-width: 280px;
+  margin: 0 auto;
+  min-height: auto;
+  transform: scale(0.85);
+}
 }
 
 @media (max-width: 768px) {
@@ -452,7 +459,8 @@
   }
 
   .packGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 
   .pricingComparison {

@@ -1,5 +1,7 @@
-/* 1. Section wrapper */
-.honestPricing {
+/* PricingSection.module.css */
+
+/* 1. Pricing Section Wrapper */
+.pricing {
   background: #1a1a2e;
   padding: 5rem 1rem;
   color: white;
@@ -7,7 +9,21 @@
   text-align: center;
 }
 
-/* 2. Subtitle under the H1 */
+/* 2. Inner Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 3. Section Title */
+.title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* 4. Section Subtitle */
 .subtitle {
   font-size: 1.2rem;
   color: #b8c6db;
@@ -16,18 +32,18 @@
   line-height: 1.6;
 }
 
-/* 3. Grid: force 2×2 on desktop */
-.packGrid {
+/* 5. Grid: auto-fit cards across desktop, stack on narrow screens */
+.pricingGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* 4. Each card */
-.anastasisCard {
+/* 6. Card Base Styles */
+.pricingCard {
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -36,50 +52,96 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.anastasisCard:hover {
+.pricingCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
 }
 
-/* 5. Card title & text */
-.anastasisCard h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #fff;
+/* 7. Featured Card Modifier */
+.featured {
+  border: 2px solid #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.03);
 }
 
-.anastasisCard p {
-  color: #b8c6db;
+.featured:hover {
+  transform: scale(1.03) translateY(-5px);
+}
+
+/* 8. Badge */
+.pricingBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 9. Card Heading */
+.pricingTitle {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+/* 10. Price Display */
+.price {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.priceAmount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #667eea;
+}
+
+.priceUnit {
+  font-size: 1rem;
+  color: #b8c6db;
+  margin-left: 0.5rem;
+}
+
+/* 11. Description */
+.pricingDescription {
+  color: #b8c6db;
+  margin-bottom: 2rem;
   line-height: 1.5;
 }
 
-.anastasisCard p strong {
-  color: #667eea;
-  font-weight: 800;
+/* 12. Feature List */
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  text-align: left;
 }
 
-.anastasisCard p em {
-  color: #e6f3ff;
-  font-style: italic;
-}
-
-/* 6. Premium revivals info */
-.revivalsInfo {
-  margin-bottom: 2rem;
-  font-weight: 600;
+.featureList li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
   color: #e6f3ff;
 }
 
-/* 7. Buy button */
-.buyBtn {
+/* 13. Button */
+.pricingButton {
   width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
+  color: white;
   border: none;
   padding: 1rem 2rem;
   font-size: 1rem;
@@ -91,19 +153,24 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.buyBtn:hover {
+.pricingButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
 }
 
-/* 8. Mobile: switch to 1×4 */
+.featured .pricingButton {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* 14. Mobile Overrides */
 @media (max-width: 768px) {
-  .packGrid {
+  .pricingGrid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .anastasisCard {
+  .pricingCard {
     padding: 2rem 1.5rem;
   }
 
@@ -113,17 +180,47 @@
     max-width: 100%;
   }
 
-  .anastasisCard h2 {
+  .pricingTitle {
     font-size: 1.25rem;
   }
 
-  .anastasisCard p,
-  .revivalsInfo {
+  .priceAmount {
+    font-size: 2rem;
+  }
+
+  .pricingDescription,
+  .featureList li {
     font-size: 0.9rem;
   }
 
-  .buyBtn {
+  .pricingBadge {
+    top: -8px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.75rem;
+  }
+
+  .pricingButton {
     font-size: 0.9rem;
     padding: 0.75rem 1.5rem;
   }
+}
+
+
+/* highlight competitor as less attractive */
+.competitor {
+  opacity: 0.8;
+  filter: grayscale(20%);
+}
+
+/* bump up the featured (Anastasis) card */
+.featured {
+  border: 2px solid #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateY(-5px);
+}
+
+/* smaller badge override on Anastasis card */
+.pricingBadge {
+  top: -12px;
+  font-size: 0.75rem;
 }

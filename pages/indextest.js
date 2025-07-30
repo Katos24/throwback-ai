@@ -10,11 +10,15 @@ import aiShowcaseStyles from '../styles/AIShowcase.module.css';
 import Image from 'next/image';
 import ImageCompareSlider from '../components/ImageCompareSlider';
 import compareStyles from '../styles/CompareSection.module.css';
+import Link from 'next/link'
+
 
 export default function Home() {
   return (
     <main>
       
+
+
 
 {/* Hero Section */}
 <section className={heroStyles.hero}>
@@ -23,15 +27,26 @@ export default function Home() {
       Restore Memories, <span className={heroStyles.accent}>Not Just Images</span>
     </h1>
     <p className={heroStyles.heroSubtitle}>
-      Bring your old family photos back to life with cutting-edge, privacy-first AI technology.{' '}
-      No subscriptions, no gimmicks &mdash; just beautifully restored memories in under 2 minutes.
+      Bring your old family photos back to life with cutting-edge, privacy-first AI technology.  
+      No subscriptions, no gimmicks — just beautifully restored memories in under 2 minutes.
     </p>
+
     <div className={heroStyles.heroButtons}>
-      <button className={heroStyles.primaryButton}>Try 3 Photos Free</button>
-      <button className={heroStyles.secondaryButton}>See Examples</button>
+      <Link
+        href="/replicate/restore-basic"
+        className={heroStyles.primaryButton}
+      >
+        Try 3 Photos Free
+      </Link>
+
+      <Link
+        href="/pricing"
+        className={heroStyles.secondaryButton}
+      >
+        Go Premium for Color Photos
+      </Link>
     </div>
 
-    {/* Inline Video moved here, above badges */}
     <div className={heroStyles.videoWrapper}>
       <video
         className={heroStyles.heroVideo}
@@ -50,6 +65,9 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+
+
 
 
       {/* Top Banner Section */}
@@ -104,9 +122,7 @@ export default function Home() {
           </p>
           <div className={FeaturesStyles.grid}>
             <div className={FeaturesStyles.card}>
-              <div className={FeaturesStyles.iconWrapper}>
-                <Image src="/icons/heritage.svg" alt="Heritage AI" width={48} height={48} />
-              </div>
+              
               <h3 className={FeaturesStyles.cardTitle}>🔬 Heritage-Specific AI</h3>
               <p className={FeaturesStyles.cardDescription}>
                 Trained on vintage photography, film grain, sepia tones, and analog damage.&nbsp;
@@ -114,9 +130,7 @@ export default function Home() {
               </p>
             </div>
             <div className={FeaturesStyles.card}>
-              <div className={FeaturesStyles.iconWrapper}>
-                <Image src="/icons/quality.svg" alt="Genealogy Quality" width={48} height={48} />
-              </div>
+              
               <h3 className={FeaturesStyles.cardTitle}>📚 Genealogy-Grade Quality</h3>
               <p className={FeaturesStyles.cardDescription}>
                 Trusted by family archivists and professional genealogists.&nbsp;
@@ -124,9 +138,7 @@ export default function Home() {
               </p>
             </div>
             <div className={FeaturesStyles.card}>
-              <div className={FeaturesStyles.iconWrapper}>
-                <Image src="/icons/privacy.svg" alt="Fort Knox Privacy" width={48} height={48} />
-              </div>
+              
               <h3 className={FeaturesStyles.cardTitle}>🔐 Fort Knox Privacy</h3>
               <p className={FeaturesStyles.cardDescription}>
                 Every photo is processed securely and automatically deleted within one hour.&nbsp;
@@ -187,70 +199,53 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section className={pricingStyles.pricing}>
-        <div className={pricingStyles.container}>
-          <h2 className={pricingStyles.title}>Subscriptions? Not Here.</h2>
-          <p className={pricingStyles.subtitle}>
-            While others charge $9.99/month whether you use them or not,&nbsp;
-            Anastasis uses a simple credit system. Only pay for what you need.
-          </p>
-          <div className={pricingStyles.pricingGrid}>
-            <div className={pricingStyles.pricingCard}>
-              <div className={pricingStyles.pricingBadge}>FREE TRIAL</div>
-              <h3 className={pricingStyles.pricingTitle}>Photo Fix</h3>
-              <div className={pricingStyles.price}>
-                <span className={pricingStyles.priceAmount}>Free</span>
-              </div>
-              <p className={pricingStyles.pricingDescription}>
-                3 FREE repairs &mdash; sharpen, repair, and clean images instantly
-              </p>
-              <ul className={pricingStyles.featureList}>
-                <li>✅ Dust &amp; scratch removal</li>
-                <li>✅ Image sharpening</li>
-                <li>✅ Light repair</li>
-                <li>✅ No signup required</li>
-              </ul>
-              <button className={pricingStyles.pricingButton}>Try Free Now</button>
-            </div>
-            <div className={`${pricingStyles.pricingCard} ${pricingStyles.featured}`}>
-              <div className={pricingStyles.pricingBadge}>MOST POPULAR</div>
-              <h3 className={pricingStyles.pricingTitle}>Photo Revival</h3>
-              <div className={pricingStyles.price}>
-                <span className={pricingStyles.priceAmount}>40</span>
-                <span className={pricingStyles.priceUnit}>credits</span>
-              </div>
-              <p className={pricingStyles.pricingDescription}>
-                Full colorization and enhancement &mdash; heritage-grade quality
-              </p>
-              <ul className={pricingStyles.featureList}>
-                <li>✨ Full colorization</li>
-                <li>✨ Blemish removal</li>
-                <li>✨ Heritage-grade enhancement</li>
-                <li>✨ High-resolution output</li>
-              </ul>
-              <button className={pricingStyles.pricingButton}>Get Started</button>
-            </div>
-            <div className={pricingStyles.pricingCard}>
-              <div className={pricingStyles.pricingBadge}>BEST VALUE</div>
-              <h3 className={pricingStyles.pricingTitle}>Credit Packs</h3>
-              <div className={pricingStyles.price}>
-                <span className={pricingStyles.priceAmount}>$4.99</span>
-                <span className={pricingStyles.priceUnit}>starting</span>
-              </div>
-              <p className={pricingStyles.pricingDescription}>
-                As low as $0.37 per restoration
-              </p>
-              <ul className={pricingStyles.featureList}>
-                <li>💸 Multiple pack sizes</li>
-                <li>💸 Credits never expire</li>
-                <li>💸 Volume discounts</li>
-                <li>💸 10 free credits on signup</li>
-              </ul>
-              <button className={pricingStyles.pricingButton}>View Packs</button>
-            </div>
-          </div>
+<section className={pricingStyles.pricing}>
+  <div className={pricingStyles.container}>
+    <h2 className={pricingStyles.title}>Why Pay $9.99/​mo for Unused Features?</h2>
+    <p className={pricingStyles.subtitle}>
+      Competitor charges you every month—use it or not. Anastasis charges only when you restore.
+    </p>
+
+    <div className={pricingStyles.pricingGrid}>
+      {/* Competitor Card */}
+      <div className={`${pricingStyles.pricingCard} ${pricingStyles.competitor}`}>
+        <h3 className={pricingStyles.pricingTitle}>Competitor</h3>
+        <div className={pricingStyles.price}>
+          <span className={pricingStyles.priceAmount}>$9.99</span>
+          <span className={pricingStyles.priceUnit}>/month</span>
         </div>
-      </section>
+        <p className={pricingStyles.pricingDescription}>
+          Flat subscription fee, whether you edit one photo or a hundred.
+        </p>
+        <ul className={pricingStyles.featureList}>
+          <li>Unlimited edits—but you pay $9.99 every 30 days</li>
+          <li>Average cost per restore: $9.99</li>
+        </ul>
+        <button className={pricingStyles.pricingButton}>Subscribe</button>
+      </div>
+
+      {/* Anastasis Card */}
+      <div className={`${pricingStyles.pricingCard} ${pricingStyles.featured}`}>
+        <div className={pricingStyles.pricingBadge}>BEST VALUE</div>
+        <h3 className={pricingStyles.pricingTitle}>Anastasis</h3>
+        <div className={pricingStyles.price}>
+          <span className={pricingStyles.priceAmount}>$0.37</span>
+          <span className={pricingStyles.priceUnit}>/premium restore</span>
+        </div>
+        <p className={pricingStyles.pricingDescription}>
+          Pay-per-use credits—only pay when you bring an image back to life.
+        </p>
+        <ul className={pricingStyles.featureList}>
+          <li>Premium restorations at heritage quality</li>
+          <li>Credits never expire</li>
+          <li>No hidden monthly fees</li>
+        </ul>
+        <button className={pricingStyles.pricingButton}>Buy Credits</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
        {/* Customer Success Stories (replaces Testimonials) */}
       <section className={successStyles.successStoriesSection}>

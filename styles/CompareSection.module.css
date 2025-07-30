@@ -10,8 +10,9 @@
   --transition-fast: 0.3s ease;
 
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
-  display: flex;
+ background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(20, 30, 48, 0.9) 50%, rgba(0, 0, 0, 0.85) 100%),
+    url('/images/greek-theme.png') center/cover no-repeat;  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
@@ -30,7 +31,7 @@
   font-size: clamp(2rem, 4.5vw, 2.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: white;
   line-height: 1.2;
 }
 
@@ -44,7 +45,7 @@
 .compareSubtitle {
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   margin-bottom: 1.5rem;
-  color: var(--text-secondary);
+  color: white;
   line-height: 1.4;
 }
 

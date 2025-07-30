@@ -36,16 +36,19 @@ export default function Home() {
       </section>
 
       {/* Top Banner Section */}
-      <section className={TopBannerStyles.banner}>
-        <div className={TopBannerStyles.bannerContent}>
-          <div className={TopBannerStyles.bannerBadge}>🔄 About Anastasis</div>
-          <h2 className={TopBannerStyles.bannerTitle}>Heritage-Specific AI Restoration</h2>
-          <p className={TopBannerStyles.bannerSubtitle}>
-            Unlike generic photo apps, Anastasis is trained specifically on vintage photography, 
-            film grain, sepia tones, and analog damage from the 1900s-1990s.
-          </p>
-        </div>
-      </section>
+    <section className={TopBannerStyles.banner}>
+      <div className={TopBannerStyles.bannerContent}>
+        <div className={TopBannerStyles.bannerBadge}>🔄 About Anastasis</div>
+        <h2 className={TopBannerStyles.bannerTitle}>
+          Heritage-Specific <span className={TopBannerStyles.titleAccent}>AI Restoration</span>
+        </h2>
+        <p className={TopBannerStyles.bannerSubtitle}>
+          Unlike generic photo apps, Anastasis is trained specifically on vintage photography, 
+          film grain, sepia tones, and analog damage from the 1900s-1990s.
+        </p>
+      </div>
+    </section>
+
 
       {/* Image Compare Slider Section */}
       <section className={heroStyles.compareSection}>
@@ -86,7 +89,7 @@ export default function Home() {
               <h3 className={FeaturesStyles.cardTitle}>📚 Genealogy-Grade Quality</h3>
               <p className={FeaturesStyles.cardDescription}>
                 Trusted by family archivists and professional genealogists. 
-                We don't slap filters — we bring clarity and color to moments that matter most.
+                We don&apos;t slap filters — we bring clarity and color to moments that matter most.
               </p>
             </div>
             <div className={FeaturesStyles.card}>
@@ -222,7 +225,7 @@ export default function Home() {
             <div className={testimonialsStyles.testimonialCard}>
               <div className={testimonialsStyles.testimonialContent}>
                 <p className={testimonialsStyles.testimonialText}>
-                  "Restored my grandmother's 1943 wedding photo for our reunion. Everyone was in tears!"
+                  "Restored my grandmother&apos;s 1943 wedding photo for our reunion. Everyone was in tears!"
                 </p>
               </div>
               <div className={testimonialsStyles.testimonialAuthor}>
@@ -244,12 +247,12 @@ export default function Home() {
             <div className={testimonialsStyles.testimonialCard}>
               <div className={testimonialsStyles.testimonialContent}>
                 <p className={testimonialsStyles.testimonialText}>
-                  "Now my dad's 70-year-old baby photos hang proudly in our living room."
+                  "Now my dad&apos;s 70-year-old baby photos hang proudly in our living room."
                 </p>
               </div>
               <div className={testimonialsStyles.testimonialAuthor}>
                 <strong>Marcus T.</strong>
-                <span>Father's Day Gift</span>
+                <span>Father&apos;s Day Gift</span>
               </div>
             </div>
           </div>
@@ -265,7 +268,7 @@ export default function Home() {
               Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
             </h2>
             <p className={aiShowcaseStyles.showcaseSubtitle}>
-              Our heritage-trained AI doesn't just enhance—it resurrects lost memories with surgical precision
+              Our heritage-trained AI doesn&apos;t just enhance—it resurrects lost memories with surgical precision
             </p>
           </div>
           
@@ -367,7 +370,7 @@ export default function Home() {
                 What makes Anastasis better than apps like Remini or MyHeritage?
               </h3>
               <p className={faqStyles.faqAnswer}>
-                We don't use generic models or push subscriptions. Anastasis is tailored for historic, 
+                We don&apos;t use generic models or push subscriptions. Anastasis is tailored for historic, 
                 sentimental photos and built by people who care about family legacy.
               </p>
             </div>
@@ -378,15 +381,15 @@ export default function Home() {
               </p>
             </div>
             <div className={faqStyles.faqItem}>
-              <h3 className={faqStyles.faqQuestion}>What happens to my photo after it's restored?</h3>
+              <h3 className={faqStyles.faqQuestion}>What happens to my photo after it&apos;s restored?</h3>
               <p className={faqStyles.faqAnswer}>
-                It's securely deleted within one hour. We never save, sell, or reuse your uploads.
+                It&apos;s securely deleted within one hour. We never save, sell, or reuse your uploads.
               </p>
             </div>
             <div className={faqStyles.faqItem}>
               <h3 className={faqStyles.faqQuestion}>Can I use restored photos commercially?</h3>
               <p className={faqStyles.faqAnswer}>
-                Absolutely. Once restored, they're yours to print, gift, publish, or share.
+                Absolutely. Once restored, they&apos;re yours to print, gift, publish, or share.
               </p>
             </div>
           </div>

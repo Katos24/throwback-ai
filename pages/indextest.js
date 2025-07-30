@@ -20,8 +20,8 @@ export default function Home() {
             Restore Memories, <span className={heroStyles.accent}>Not Just Images</span>
           </h1>
           <p className={heroStyles.heroSubtitle}>
-            Bring your old family photos back to life with cutting-edge, privacy-first AI technology. 
-            No subscriptions, no gimmicks — just beautifully restored memories in under 2 minutes.
+            Bring your old family photos back to life with cutting-edge, privacy-first AI technology.{' '}
+            No subscriptions, no gimmicks &mdash; just beautifully restored memories in under 2 minutes.
           </p>
           <div className={heroStyles.heroButtons}>
             <button className={heroStyles.primaryButton}>Try 3 Photos Free</button>
@@ -36,19 +36,18 @@ export default function Home() {
       </section>
 
       {/* Top Banner Section */}
-    <section className={TopBannerStyles.banner}>
-      <div className={TopBannerStyles.bannerContent}>
-        <div className={TopBannerStyles.bannerBadge}>🔄 About Anastasis</div>
-        <h2 className={TopBannerStyles.bannerTitle}>
-          Heritage-Specific <span className={TopBannerStyles.titleAccent}>AI Restoration</span>
-        </h2>
-        <p className={TopBannerStyles.bannerSubtitle}>
-          Unlike generic photo apps, Anastasis is trained specifically on vintage photography, 
-          film grain, sepia tones, and analog damage from the 1900s-1990s.
-        </p>
-      </div>
-    </section>
-
+      <section className={TopBannerStyles.banner}>
+        <div className={TopBannerStyles.bannerContent}>
+          <div className={TopBannerStyles.bannerBadge}>🔄 About Anastasis</div>
+          <h2 className={TopBannerStyles.bannerTitle}>
+            Heritage-Specific <span className={TopBannerStyles.titleAccent}>AI Restoration</span>
+          </h2>
+          <p className={TopBannerStyles.bannerSubtitle}>
+            Unlike generic photo apps, Anastasis is trained specifically on vintage photography,{' '}
+            film grain, sepia tones, and analog damage from the 1900s&ndash;1990s.
+          </p>
+        </div>
+      </section>
 
       {/* Image Compare Slider Section */}
       <section className={heroStyles.compareSection}>
@@ -78,7 +77,7 @@ export default function Home() {
               </div>
               <h3 className={FeaturesStyles.cardTitle}>🔬 Heritage-Specific AI</h3>
               <p className={FeaturesStyles.cardDescription}>
-                Trained on vintage photography, film grain, sepia tones, and analog damage. 
+                Trained on vintage photography, film grain, sepia tones, and analog damage.&nbsp;
                 Our models understand historical nuances from 1930s portraits to 1970s color casts.
               </p>
             </div>
@@ -88,8 +87,8 @@ export default function Home() {
               </div>
               <h3 className={FeaturesStyles.cardTitle}>📚 Genealogy-Grade Quality</h3>
               <p className={FeaturesStyles.cardDescription}>
-                Trusted by family archivists and professional genealogists. 
-                We don&apos;t slap filters — we bring clarity and color to moments that matter most.
+                Trusted by family archivists and professional genealogists.&nbsp;
+                We don&apos;t slap filters &mdash; we bring clarity and color to moments that matter most.
               </p>
             </div>
             <div className={FeaturesStyles.card}>
@@ -98,7 +97,7 @@ export default function Home() {
               </div>
               <h3 className={FeaturesStyles.cardTitle}>🔐 Fort Knox Privacy</h3>
               <p className={FeaturesStyles.cardDescription}>
-                Every photo is processed securely and automatically deleted within one hour. 
+                Every photo is processed securely and automatically deleted within one hour.&nbsp;
                 No permanent storage, no creepy scraping, no training on your data.
               </p>
             </div>
@@ -122,22 +121,26 @@ export default function Home() {
             {
               icon: '📤',
               title: 'Upload Your Photo',
-              description: 'No signup required. Just upload your image and select a restoration option. All you need is a digital scan or smartphone photo.',
+              description:
+                'No signup required. Just upload your image and select a restoration option. All you need is a digital scan or smartphone photo.',
             },
             {
               icon: '🧠',
               title: 'AI-Powered Restoration',
-              description: 'Our neural models detect age damage, noise, blur, and color degradation — and correct them with surgical precision.',
+              description:
+                'Our neural models detect age damage, noise, blur, and color degradation &mdash; and correct them with surgical precision.',
             },
             {
               icon: '⚡',
               title: 'Lightning-Fast Results',
-              description: 'Your photo is processed in under 2 minutes. Even full restorations rarely take more than 90 seconds.',
+              description:
+                'Your photo is processed in under 2 minutes. Even full restorations rarely take more than 90 seconds.',
             },
             {
               icon: '⬇️',
               title: 'Download & Share Freely',
-              description: 'Restored photos are downloadable in high-res formats, and yours to use forever. Share with loved ones or print as keepsakes.',
+              description:
+                'Restored photos are downloadable in high-res formats, and yours to use forever. Share with loved ones or print as keepsakes.',
             },
           ].map((step, i) => (
             <div key={i} className={howItWorksStyles.featureCard}>
@@ -156,7 +159,7 @@ export default function Home() {
         <div className={pricingStyles.container}>
           <h2 className={pricingStyles.title}>Subscriptions? Not Here.</h2>
           <p className={pricingStyles.subtitle}>
-            While others charge $9.99/month whether you use them or not, 
+            While others charge $9.99/month whether you use them or not,&nbsp;
             Anastasis uses a simple credit system. Only pay for what you need.
           </p>
           <div className={pricingStyles.pricingGrid}>
@@ -167,10 +170,10 @@ export default function Home() {
                 <span className={pricingStyles.priceAmount}>Free</span>
               </div>
               <p className={pricingStyles.pricingDescription}>
-                3 FREE repairs — sharpen, repair, and clean images instantly
+                3 FREE repairs &mdash; sharpen, repair, and clean images instantly
               </p>
               <ul className={pricingStyles.featureList}>
-                <li>✅ Dust & scratch removal</li>
+                <li>✅ Dust &amp; scratch removal</li>
                 <li>✅ Image sharpening</li>
                 <li>✅ Light repair</li>
                 <li>✅ No signup required</li>
@@ -185,7 +188,7 @@ export default function Home() {
                 <span className={pricingStyles.priceUnit}>credits</span>
               </div>
               <p className={pricingStyles.pricingDescription}>
-                Full colorization and enhancement — heritage-grade quality
+                Full colorization and enhancement &mdash; heritage-grade quality
               </p>
               <ul className={pricingStyles.featureList}>
                 <li>✨ Full colorization</li>
@@ -225,7 +228,7 @@ export default function Home() {
             <div className={testimonialsStyles.testimonialCard}>
               <div className={testimonialsStyles.testimonialContent}>
                 <p className={testimonialsStyles.testimonialText}>
-                  "Restored my grandmother&apos;s 1943 wedding photo for our reunion. Everyone was in tears!"
+                  &quot;Restored my grandmother&apos;s 1943 wedding photo for our reunion. Everyone was in tears!&quot;
                 </p>
               </div>
               <div className={testimonialsStyles.testimonialAuthor}>
@@ -236,7 +239,7 @@ export default function Home() {
             <div className={testimonialsStyles.testimonialCard}>
               <div className={testimonialsStyles.testimonialContent}>
                 <p className={testimonialsStyles.testimonialText}>
-                  "Perfect for our genealogy project. The colorization brought our ancestors to life."
+                  &quot;Perfect for our genealogy project. The colorization brought our ancestors to life.&quot;
                 </p>
               </div>
               <div className={testimonialsStyles.testimonialAuthor}>
@@ -247,7 +250,7 @@ export default function Home() {
             <div className={testimonialsStyles.testimonialCard}>
               <div className={testimonialsStyles.testimonialContent}>
                 <p className={testimonialsStyles.testimonialText}>
-                  "Now my dad&apos;s 70-year-old baby photos hang proudly in our living room."
+                  &quot;Now my dad&apos;s 70-year-old baby photos hang proudly in our living room.&quot;
                 </p>
               </div>
               <div className={testimonialsStyles.testimonialAuthor}>
@@ -268,40 +271,40 @@ export default function Home() {
               Witness the <span className={aiShowcaseStyles.titleGradient}>Neural Magic</span>
             </h2>
             <p className={aiShowcaseStyles.showcaseSubtitle}>
-              Our heritage-trained AI doesn&apos;t just enhance—it resurrects lost memories with surgical precision
+              Our heritage-trained AI doesn&apos;t just enhance &mdash; it resurrects lost memories with surgical precision
             </p>
           </div>
-          
+
           <div className={aiShowcaseStyles.transformationGrid}>
             {[
               {
-                before: "/images/before1.jpg",
-                after: "/images/after1.jpg",
-                year: "1952",
-                category: "Wedding Portrait",
-                aiFeatures: ["Colorization", "Detail Recovery", "Noise Reduction"]
+                before: '/images/before1.jpg',
+                after: '/images/after1.jpg',
+                year: '1952',
+                category: 'Wedding Portrait',
+                aiFeatures: ['Colorization', 'Detail Recovery', 'Noise Reduction'],
               },
               {
-                before: "/images/before2.jpg",
-                after: "/images/after2.jpg",
-                year: "1938",
-                category: "Family Photo",
-                aiFeatures: ["Crack Repair", "Color Revival", "Texture Enhancement"]
+                before: '/images/before2.jpg',
+                after: '/images/after2.jpg',
+                year: '1938',
+                category: 'Family Photo',
+                aiFeatures: ['Crack Repair', 'Color Revival', 'Texture Enhancement'],
               },
               {
-                before: "/images/before3.jpg",
-                after: "/images/after3.jpg",
-                year: "1945",
-                category: "Military Portrait",
-                aiFeatures: ["Fade Correction", "Uniform Colorization", "Face Enhancement"]
-              }
+                before: '/images/before3.jpg',
+                after: '/images/after3.jpg',
+                year: '1945',
+                category: 'Military Portrait',
+                aiFeatures: ['Fade Correction', 'Uniform Colorization', 'Face Enhancement'],
+              },
             ].map((item, index) => (
               <div key={index} className={aiShowcaseStyles.transformationCard}>
                 <div className={aiShowcaseStyles.imageContainer}>
                   <div className={aiShowcaseStyles.beforeAfterWrapper}>
                     <div className={aiShowcaseStyles.imageBox}>
-                      <Image 
-                        src={item.before} 
+                      <Image
+                        src={item.before}
                         alt={`Before restoration - ${item.category}`}
                         width={300}
                         height={200}
@@ -310,8 +313,8 @@ export default function Home() {
                       <div className={aiShowcaseStyles.imageLabel}>BEFORE</div>
                     </div>
                     <div className={aiShowcaseStyles.imageBox}>
-                      <Image 
-                        src={item.after} 
+                      <Image
+                        src={item.after}
                         alt={`After restoration - ${item.category}`}
                         width={300}
                         height={200}
@@ -337,7 +340,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className={aiShowcaseStyles.showcaseStats}>
             <div className={aiShowcaseStyles.statItem}>
               <div className={aiShowcaseStyles.statNumber}>2.3M+</div>
@@ -352,7 +355,7 @@ export default function Home() {
               <div className={aiShowcaseStyles.statLabel}>Avg Process Time</div>
             </div>
           </div>
-          
+
           <button className={aiShowcaseStyles.showcaseCTA}>
             <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>
             <div className={aiShowcaseStyles.ctaGlow}></div>
@@ -370,7 +373,7 @@ export default function Home() {
                 What makes Anastasis better than apps like Remini or MyHeritage?
               </h3>
               <p className={faqStyles.faqAnswer}>
-                We don&apos;t use generic models or push subscriptions. Anastasis is tailored for historic, 
+                We don&apos;t use generic models or push subscriptions. Anastasis is tailored for historic,&nbsp;
                 sentimental photos and built by people who care about family legacy.
               </p>
             </div>
@@ -400,22 +403,16 @@ export default function Home() {
       <section className={ctaStyles.cta}>
         <div className={ctaStyles.container}>
           <h2 className={ctaStyles.ctaTitle}>
-            📸 Try It Now – <span className={ctaStyles.accent}>No Signup Required</span>
+            📸 Try It Now &ndash; <span className={ctaStyles.accent}>No Signup Required</span>
           </h2>
           <p className={ctaStyles.ctaSubtitle}>
             Upload a photo and see the transformation in seconds
           </p>
           <div className={ctaStyles.ctaButtons}>
-            <button className={ctaStyles.primaryButton}>
-              🎁 Photo Fix (3 FREE)
-            </button>
-            <button className={ctaStyles.secondaryButton}>
-              ✨ Photo Revival (Premium)
-            </button>
+            <button className={ctaStyles.primaryButton}>🎁 Photo Fix (3 FREE)</button>
+            <button className={ctaStyles.secondaryButton}>✨ Photo Revival (Premium)</button>
           </div>
-          <p className={ctaStyles.ctaNote}>
-            No subscription. Instant results. Free trial.
-          </p>
+          <p className={ctaStyles.ctaNote}>No subscription. Instant results. Free trial.</p>
         </div>
       </section>
     </main>

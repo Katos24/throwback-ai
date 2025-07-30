@@ -14,6 +14,8 @@ import compareStyles from '../styles/CompareSection.module.css';
 export default function Home() {
   return (
     <main>
+      
+
 {/* Hero Section */}
 <section className={heroStyles.hero}>
   <div className={heroStyles.heroContent}>
@@ -63,11 +65,11 @@ export default function Home() {
           </p>
           <div className={TopBannerStyles.bannerImages}>
         <div className={TopBannerStyles.bannerImageBox}>
-          <Image src="/images/before1.jpg" alt="Before" layout="fill" className={TopBannerStyles.bannerImage}/>
+          <Image src="/images/beforeexample.jpg" alt="Before" layout="fill" className={TopBannerStyles.bannerImage}/>
           <div className={TopBannerStyles.bannerImageLabel}>Before</div>
         </div>
         <div className={TopBannerStyles.bannerImageBox}>
-          <Image src="/images/after1.jpg" alt="After" layout="fill" className={TopBannerStyles.bannerImage}/>
+          <Image src="/images/afterexample.jpg" alt="After" layout="fill" className={TopBannerStyles.bannerImage}/>
           <div className={TopBannerStyles.bannerImageLabel}>After</div>
         </div>
         {/* Add more pairs as needed */}

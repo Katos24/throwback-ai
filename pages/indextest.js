@@ -2,38 +2,53 @@ import TopBannerStyles from '../styles/TopBannerTest.module.css';
 import FeaturesStyles from '../styles/FeaturesTest.module.css';
 import howItWorksStyles from '../styles/HowItWorks.module.css';
 import heroStyles from '../styles/Hero.module.css';
-import testimonialsStyles from '../styles/Testimonials.module.css';
+import successStyles from '../styles/SuccessStories.module.css';
 import pricingStyles from '../styles/Pricing.module.css';
 import ctaStyles from '../styles/CTA.module.css';
 import faqStyles from '../styles/FAQ.module.css';
 import aiShowcaseStyles from '../styles/AIShowcase.module.css';
 import Image from 'next/image';
 import ImageCompareSlider from '../components/ImageCompareSlider';
+import compareStyles from '../styles/CompareSection.module.css';
 
 export default function Home() {
   return (
     <main>
-      {/* Hero Section */}
-      <section className={heroStyles.hero}>
-        <div className={heroStyles.heroContent}>
-          <h1 className={heroStyles.heroTitle}>
-            Restore Memories, <span className={heroStyles.accent}>Not Just Images</span>
-          </h1>
-          <p className={heroStyles.heroSubtitle}>
-            Bring your old family photos back to life with cutting-edge, privacy-first AI technology.{' '}
-            No subscriptions, no gimmicks &mdash; just beautifully restored memories in under 2 minutes.
-          </p>
-          <div className={heroStyles.heroButtons}>
-            <button className={heroStyles.primaryButton}>Try 3 Photos Free</button>
-            <button className={heroStyles.secondaryButton}>See Examples</button>
-          </div>
-          <div className={heroStyles.trustBadges}>
-            <span className={heroStyles.badge}>🔐 Privacy First</span>
-            <span className={heroStyles.badge}>⚡ 47s Average</span>
-            <span className={heroStyles.badge}>🆓 No Signup</span>
-          </div>
-        </div>
-      </section>
+{/* Hero Section */}
+<section className={heroStyles.hero}>
+  <div className={heroStyles.heroContent}>
+    <h1 className={heroStyles.heroTitle}>
+      Restore Memories, <span className={heroStyles.accent}>Not Just Images</span>
+    </h1>
+    <p className={heroStyles.heroSubtitle}>
+      Bring your old family photos back to life with cutting-edge, privacy-first AI technology.{' '}
+      No subscriptions, no gimmicks &mdash; just beautifully restored memories in under 2 minutes.
+    </p>
+    <div className={heroStyles.heroButtons}>
+      <button className={heroStyles.primaryButton}>Try 3 Photos Free</button>
+      <button className={heroStyles.secondaryButton}>See Examples</button>
+    </div>
+
+    {/* Inline Video moved here, above badges */}
+    <div className={heroStyles.videoWrapper}>
+      <video
+        className={heroStyles.heroVideo}
+        src="/videos/ThrowbackAIIntro.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+    </div>
+
+    <div className={heroStyles.trustBadges}>
+      <span className={heroStyles.badge}>🔐 Privacy First</span>
+      <span className={heroStyles.badge}>⚡ 47s Average</span>
+      <span className={heroStyles.badge}>🆓 No Signup</span>
+    </div>
+  </div>
+</section>
+
 
       {/* Top Banner Section */}
       <section className={TopBannerStyles.banner}>
@@ -46,22 +61,37 @@ export default function Home() {
             Unlike generic photo apps, Anastasis is trained specifically on vintage photography,{' '}
             film grain, sepia tones, and analog damage from the 1900s&ndash;1990s.
           </p>
+          <div className={TopBannerStyles.bannerImages}>
+        <div className={TopBannerStyles.bannerImageBox}>
+          <Image src="/images/before1.jpg" alt="Before" layout="fill" className={TopBannerStyles.bannerImage}/>
+          <div className={TopBannerStyles.bannerImageLabel}>Before</div>
+        </div>
+        <div className={TopBannerStyles.bannerImageBox}>
+          <Image src="/images/after1.jpg" alt="After" layout="fill" className={TopBannerStyles.bannerImage}/>
+          <div className={TopBannerStyles.bannerImageLabel}>After</div>
+        </div>
+        {/* Add more pairs as needed */}
+      </div>
         </div>
       </section>
 
       {/* Image Compare Slider Section */}
-      <section className={heroStyles.compareSection}>
-        <h2 className={heroStyles.compareTitle}>
-          See the <span className={heroStyles.accent}>Transformation</span>
+    <section className={compareStyles.compareSection}>
+      <div className={compareStyles.compareText}>
+        <h2 className={compareStyles.compareTitle}>
+          See the <span className={compareStyles.accent}>Transformation</span>
         </h2>
-        <p className={heroStyles.compareSubtitle}>
+        <p className={compareStyles.compareSubtitle}>
           Real restorations from families like yours
         </p>
+      </div>
+      <div className={compareStyles.sliderContainer}>
         <ImageCompareSlider
-          beforeImage="/images/old-photo.jpg"
-          afterImage="/images/restored-photo.jpg"
+          beforeImage="/images/premium-before.jpg"
+          afterImage="/images/premium-after.jpg"
         />
-      </section>
+      </div>
+    </section>
 
       {/* Features Section */}
       <section className={FeaturesStyles.features}>
@@ -220,45 +250,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className={testimonialsStyles.testimonials}>
-        <div className={testimonialsStyles.container}>
-          <h2 className={testimonialsStyles.title}>👨‍👩‍👧‍👦 Trusted by Real Families</h2>
-          <div className={testimonialsStyles.testimonialGrid}>
-            <div className={testimonialsStyles.testimonialCard}>
-              <div className={testimonialsStyles.testimonialContent}>
-                <p className={testimonialsStyles.testimonialText}>
-                  &quot;Restored my grandmother&apos;s 1943 wedding photo for our reunion. Everyone was in tears!&quot;
-                </p>
+       {/* Customer Success Stories (replaces Testimonials) */}
+      <section className={successStyles.successStoriesSection}>
+        <h2 className={successStyles.successHeading}>
+          Customer Success Stories
+        </h2>
+        <p className={successStyles.successIntro}>
+          See why families trust Anastasis with their most precious memories
+        </p>
+
+        <div className={successStyles.successGrid}>
+          {[
+            {
+              before: "/images/before4.jpg",
+              after: "/images/after4.jpg",
+              story:
+                "Restored my grandmother's 1943 wedding photo for our family reunion. Everyone was in tears!",
+              author: "Sarah M.",
+              occasion: "Family Reunion",
+            },
+            {
+              before: "/images/before5.jpg",
+              after: "/images/after5.jpg",
+              story:
+                "These 70-year-old baby photos of my father now hang beautifully in our living room.",
+              author: "Marcus T.",
+              occasion: "Father's Day Gift",
+            },
+            {
+              before: "/images/before6.jpg",
+              after: "/images/after6.jpg",
+              story:
+                "Perfect for our genealogy project. The colorization brought our ancestors to life.",
+              author: "Linda K.",
+              occasion: "Genealogy Research",
+            },
+            /* add more if you like… */
+          ].map((item, idx) => (
+            <div key={idx} className={successStyles.successCard}>
+              <div className={successStyles.successImages}>
+                <Image
+                  src={item.before}
+                  alt="Before restoration"
+                  width={150}
+                  height={200}
+                  className={successStyles.successBefore}
+                  loading="lazy"
+                />
+                <div className={successStyles.successArrow}>→</div>
+                <Image
+                  src={item.after}
+                  alt="After restoration"
+                  width={150}
+                  height={200}
+                  className={successStyles.successAfter}
+                  loading="lazy"
+                />
               </div>
-              <div className={testimonialsStyles.testimonialAuthor}>
-                <strong>Sarah M.</strong>
-                <span>Family Reunion</span>
+              <div className={successStyles.successStory}>
+                <blockquote>&ldquo;{item.story}&rdquo;</blockquote>
+                <cite>— {item.author}</cite>
+                <span className={successStyles.occasion}>{item.occasion}</span>
               </div>
             </div>
-            <div className={testimonialsStyles.testimonialCard}>
-              <div className={testimonialsStyles.testimonialContent}>
-                <p className={testimonialsStyles.testimonialText}>
-                  &quot;Perfect for our genealogy project. The colorization brought our ancestors to life.&quot;
-                </p>
-              </div>
-              <div className={testimonialsStyles.testimonialAuthor}>
-                <strong>Linda K.</strong>
-                <span>Heritage Researcher</span>
-              </div>
-            </div>
-            <div className={testimonialsStyles.testimonialCard}>
-              <div className={testimonialsStyles.testimonialContent}>
-                <p className={testimonialsStyles.testimonialText}>
-                  &quot;Now my dad&apos;s 70-year-old baby photos hang proudly in our living room.&quot;
-                </p>
-              </div>
-              <div className={testimonialsStyles.testimonialAuthor}>
-                <strong>Marcus T.</strong>
-                <span>Father&apos;s Day Gift</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 

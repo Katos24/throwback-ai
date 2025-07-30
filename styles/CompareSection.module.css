@@ -1,0 +1,150 @@
+/* CompareSection.module.css */
+
+.compareSection {
+  /* Local theme variables */
+  --bg-start: #f7f8fa;
+  --bg-end:   #eaeef3;
+  --accent-gradient: linear-gradient(135deg, #00ffff 0%, #4af0e6 25%, #ff00ff 75%, #bf6aff 100%);
+  --text-primary: #1a1a1a;
+  --text-secondary: #444;
+  --transition-fast: 0.3s ease;
+
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+/* Text block */
+.compareText {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  animation: fadeInUp var(--transition-fast) both;
+}
+
+.compareTitle {
+  font-size: clamp(2rem, 4.5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.accent {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.compareSubtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Device-style slider container with thinner bezel */
+.sliderContainer {
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  padding: 12px 8px;               /* Reduced bezel padding */
+  background: #000;
+  border-radius: 16px;             /* Smaller corner radius */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transform: translateY(15px);
+  opacity: 0;
+  animation: fadeInUp var(--transition-fast) 0.2s both;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Simulated speaker notch */
+.sliderContainer::before {
+  content: '';
+  position: absolute;
+  top: 6px;                        /* Moved closer to edge */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;                     /* Narrower notch */
+  height: 4px;                     /* Thinner notch */
+  background: #333;
+  border-radius: 2px;
+}
+
+/* Simulated home button */
+.sliderContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;                     /* Closer to edge */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;                     /* Smaller button */
+  height: 30px;
+  background: #111;
+  border: 1px solid #444;         /* Thinner border */
+  border-radius: 50%;
+}
+
+.sliderContainer:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transform: translateY(0);
+}
+
+/* Entrance animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Feature info list */
+.compareInfo {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  animation: fadeInUp var(--transition-fast) 0.4s both;
+}
+
+.compareInfo .featureLine {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.compareInfo .featureLine::before {
+  content: '✔';
+  color: #4af0e6;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .compareSection {
+    padding: 2rem 0.5rem;
+    gap: 1rem;
+  }
+  .compareText, .sliderContainer, .compareInfo {
+    max-width: 100%;
+  }
+  .compareInfo {
+    text-align: center;
+  }
+}

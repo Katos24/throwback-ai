@@ -1,89 +1,97 @@
+/* TopBannerTest.module.css */
+
 .banner {
-  background: linear-gradient(135deg, #12142b 0%, #1d1f38 100%);
-  padding: 5rem 1.5rem 6rem;
-  text-align: center;
-  color: #d1d5db;
   position: relative;
-  border-radius: 20px;
-  max-width: 900px;
-  margin: 3rem auto;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.7),
-    inset 0 0 50px rgba(54, 58, 100, 0.4);
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  color: #fff;
   overflow: hidden;
 }
 
-.banner::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 120%;
-  height: 140%;
-  background: radial-gradient(circle at center, rgba(102, 126, 234, 0.25), transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .bannerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
   position: relative;
   z-index: 1;
-  max-width: 700px;
-  margin: 0 auto;
 }
 
 .bannerBadge {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #00ffff 0%, #4af0e6 25%, #ff00ff 75%, #bf6aff 100%);
+  color: #0a0a0a;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 0.5rem 1.5rem;
-  border-radius: 9999px;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  margin-bottom: 1.2rem;
-  font-size: 0.9rem;
-  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
 }
 
 .bannerTitle {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 900;
-  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
   margin-bottom: 1rem;
-  color: #e0e6f7;
+  line-height: 1.2;
 }
 
 .titleAccent {
-  background: linear-gradient(135deg, #a78bfa, #6366f1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 1px 6px rgba(99, 102, 241, 0.7);
 }
 
 .bannerSubtitle {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #ccc;
+  max-width: 800px;
+  margin: 0 auto 2rem;
   line-height: 1.6;
-  color: #a0a8c7;
-  max-width: 520px;
-  margin: 0 auto;
-  font-weight: 400;
+}
+
+/* Before/After images underneath banner */
+.bannerImages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.bannerImageBox {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  height: 200px;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bannerImageLabel {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .banner {
-    padding: 3.5rem 1rem 4rem;
+    padding: 3rem 1rem;
   }
-  .bannerTitle {
-    font-size: 2rem;
-  }
-  .bannerSubtitle {
-    font-size: 1rem;
-  }
-  .bannerBadge {
-    padding: 0.4rem 1.2rem;
-    font-size: 0.85rem;
+  .bannerImages {
+    grid-template-columns: 1fr;
   }
 }

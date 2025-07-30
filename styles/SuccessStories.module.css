@@ -161,3 +161,9 @@
     scroll-snap-align: start;
   }
 }
+
+@media (max-width: 768px) {
+  .scrollArrows {
+    display: none;
+  }
+}

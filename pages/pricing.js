@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
-import styles from "../styles/PricingSection.module.css";
+import styles from "../styles/Pricing.module.css";
 
 const CREDIT_PACKS = [
   {

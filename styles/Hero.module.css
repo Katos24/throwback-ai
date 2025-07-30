@@ -143,7 +143,7 @@
 /* Inline video under hero content */
 .videoWrapper {
   width: 100%;
-  max-width: 400px;    /* Much smaller video */
+  max-width: 800px;    /* Much smaller video */
   margin: 2.5rem auto; /* Increased top & bottom margin for more space */
   border-radius: 20px;
   overflow: hidden;

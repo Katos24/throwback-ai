@@ -18,11 +18,23 @@
   letter-spacing: 1px;
 }
 
+.subtitle {
+  font-size: 1.25rem;
+  color: #bbb;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  font-style: italic;
+  text-align: center;
+}
+
+
 .grid {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
-  flex-wrap: wrap;
   padding-bottom: 2rem;
 }
 
@@ -30,7 +42,7 @@
   background: #1a1a2a;
   border-radius: 16px;
   padding: 2.25rem 2rem;
-  width: 280px;
+  /* width removed so cards fill grid columns */
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.3),
     0 0 10px rgba(78, 205, 196, 0.15);
@@ -63,16 +75,18 @@
   font-size: 1rem;
   line-height: 1.5;
   max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
   .grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem;
   }
-  .card {
-    width: 100%;
-    max-width: 350px;
+  .card p {
+    max-width: 100%;
   }
 }
 
@@ -80,6 +94,9 @@
   .title {
     font-size: 2rem;
     margin-bottom: 1.75rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
   }
   .card {
     padding: 1.75rem 1.5rem;
@@ -89,6 +106,5 @@
   }
   .card p {
     font-size: 0.9rem;
-    max-width: 100%;
   }
 }

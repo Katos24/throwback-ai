@@ -1,5 +1,7 @@
 /* TopBannerTest.module.css */
 
+
+
 .banner {
   position: relative;
   padding: 4rem 2rem;
@@ -52,27 +54,31 @@
 /* Before/After images underneath banner */
 .bannerImages {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* bigger min width */
+  gap: 4rem; /* moderate gap */
+  margin-top: 1.5rem;
   align-items: center;
 }
 
 .bannerImageBox {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;     /* enforce a landscape ratio */
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
   background: #000;
+  /* Removed max-width so images can grow */
+  margin: 0 auto;
 }
 
 .bannerImage {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
+
+
 
 .bannerImageLabel {
   position: absolute;

@@ -14,6 +14,7 @@ export default function useCredits() {
 
     if (session?.user) {
       setIsLoggedIn(true);
+
       const { data, error } = await supabase
         .from("profiles")
         .select("credits_remaining")
@@ -22,18 +23,15 @@ export default function useCredits() {
 
       if (error || !data) {
         setCredits(0);
+      } else if (data.credits_remaining == null) {
+        // First‑time login → give 5 credits
+        await supabase
+          .from("profiles")
+          .update({ credits_remaining: 5 })
+          .eq("id", session.user.id);
+        setCredits(5);
       } else {
-        if (data.credits_remaining == null) {
-          // Initialize only if credits_remaining is null or undefined
-          await supabase
-            .from("profiles")
-            .update({ credits_remaining: 10 })
-            .eq("id", session.user.id);
-          setCredits(10);
-        } else {
-          // Use existing credits_remaining value, even if 0
-          setCredits(data.credits_remaining);
-        }
+        setCredits(data.credits_remaining);
       }
     } else {
       setIsLoggedIn(false);
@@ -42,20 +40,21 @@ export default function useCredits() {
       if (stored !== null) {
         setCredits(parseInt(stored, 10));
       } else {
-        localStorage.setItem("guest_attempts", "3");
-        setCredits(3);
+        // New guest → start with 1 credit
+        localStorage.setItem("guest_attempts", "1");
+        setCredits(1);
       }
     }
+
     setLoading(false);
   };
 
-  // Just update frontend state; backend deduct is separate
   const deductCredits = (amount) => {
     if (isLoggedIn) {
       setCredits((prev) => Math.max(0, prev - amount));
     } else {
       const stored = localStorage.getItem("guest_attempts");
-      const current = stored ? parseInt(stored, 10) : 3;
+      const current = stored ? parseInt(stored, 10) : 1; // default now 1
       const newCredits = Math.max(0, current - amount);
       localStorage.setItem("guest_attempts", newCredits.toString());
       setCredits(newCredits);

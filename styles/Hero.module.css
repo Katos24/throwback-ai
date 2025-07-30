@@ -1,5 +1,6 @@
 /* Hero.module.css */
 
+/* Hero section background & layout */
 .hero {
   background:
     linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%),
@@ -14,6 +15,7 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Subtle floating gradients */
 .hero::before {
   content: '';
   position: absolute;
@@ -29,10 +31,11 @@
 }
 
 @keyframes floatSubtle {
-  0%,100% { transform: translate(0,0) scale(1); }
-  50% { transform: translate(-5px,-10px) scale(1.02); }
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(-5px, -10px) scale(1.02); }
 }
 
+/* Hero content container */
 .heroContent {
   position: relative;
   z-index: 1;
@@ -40,6 +43,7 @@
   max-width: 800px;
 }
 
+/* Main title */
 .heroTitle {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   color: #e5f6ff;
@@ -51,6 +55,7 @@
     0 0 12px rgba(255,255,255,0.1);
 }
 
+/* Gradient accent text */
 .accent {
   background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
   -webkit-background-clip: text;
@@ -58,6 +63,7 @@
   text-shadow: 0 0 6px rgba(102,126,234,0.5);
 }
 
+/* Subtitle */
 .heroSubtitle {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   color: #cbd5e1;
@@ -66,6 +72,7 @@
   text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
+/* Button group layout */
 .heroButtons {
   display: flex;
   gap: 1rem;
@@ -74,48 +81,126 @@
   margin-bottom: 2rem;
 }
 
+/* Shared button base for two-line text */
+.heroButtons a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  min-width: 240px;
+  max-width: 100%;
+  width: auto;
+  white-space: nowrap;
+  font-family: 'Rajdhani', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Primary button – Full Restore & Colorize */
 .primaryButton {
-  background: linear-gradient(135deg, #00d2ff 0%, #3a47d5 100%);
-  color: #fff;
-  padding: 1rem 2.2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+  color: #0a0a0a;
+  font-size: 1.15rem;
+  font-weight: 800;
   border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 8px 24px rgba(0,210,255,0.3);
+  border-radius: 20px;
+  box-shadow:
+    0 15px 40px rgba(0, 255, 255, 0.3),
+    0 5px 20px rgba(255, 0, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.primaryButton:hover,
-.primaryButton:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,210,255,0.4);
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+  border-radius: 20px;
 }
 
+.primaryButton:hover::before {
+  left: 100%;
+}
+
+.primaryButton:hover {
+  background: linear-gradient(135deg, #2ce8e0 0%, #bf6aff 100%);
+  transform: translateY(-4px) perspective(1000px) rotateX(5deg);
+  box-shadow:
+    0 20px 50px rgba(0, 255, 255, 0.4),
+    0 10px 30px rgba(255, 0, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.primaryButton:active {
+  transform: translateY(-2px) perspective(1000px) rotateX(2deg);
+}
+
+/* Secondary button – Quick Enhance */
 .secondaryButton {
-  background: transparent;
-  color: #00d2ff;
-  border: 2px solid #00d2ff;
-  padding: 1rem 2.2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #78f2ff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: 2px solid #9ef1ff;
+  border-radius: 20px;
 }
 
-.secondaryButton:hover,
-.secondaryButton:focus {
-  background: #3a47d5;
-  color: #fff;
+.secondaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #3ee2e2, #78f2ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 18px;
+  z-index: -1;
+}
+
+.secondaryButton:hover::before {
+  opacity: 1;
+}
+
+.secondaryButton:hover {
+  color: #0a0a0a;
+  border-color: #3ee2e2;
+  box-shadow:
+    0 12px 30px rgba(0, 255, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
+/* CTA text lines */
+.buttonMain {
+  font-size: inherit;
+  line-height: 1;
+}
+
+.buttonLabel {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Label colors */
+.free {
+  color: #78f2ff;
+}
+
+.premium {
+  color: #e0b714;
+}
+
+/* Trust badges row */
 .trustBadges {
   display: flex;
   gap: 1.2rem;
@@ -140,11 +225,11 @@
   box-shadow: 0 6px 20px rgba(0,210,255,0.4);
 }
 
-/* Inline video under hero content */
+/* Video wrapper */
 .videoWrapper {
   width: 100%;
-  max-width: 800px;    /* Much smaller video */
-  margin: 2.5rem auto; /* Increased top & bottom margin for more space */
+  max-width: 800px;
+  margin: 2.5rem auto;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
@@ -158,7 +243,7 @@
   display: block;
 }
 
-/* Responsive adjustments */
+/* Responsive tweaks */
 @media (max-width: 768px) {
   .heroButtons {
     flex-direction: column;
@@ -167,7 +252,6 @@
 
   .primaryButton,
   .secondaryButton {
-    width: 100%;
     max-width: 280px;
   }
 
@@ -179,4 +263,53 @@
   .videoWrapper {
     max-width: 100%;
   }
+}
+
+/* Subtext gradient & shadow */
+.subText {
+  font-family: 'Arial', sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  margin-top: 1.5rem;
+  line-height: 1.4;
+  background: linear-gradient(
+    90deg,
+    #2e83bb,
+    #2cb866,
+    #ab55cd,
+    #e0b714
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.7));
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* pill inside secondary (free) button */
+.freePill {
+  display: inline-block;
+  margin-top: 0.4rem;
+  background-color: rgba(255,255,255,0.2);
+  color: #78f2ff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15em 0.5em;
+  border-radius: 12px;
+}
+
+/* pill inside primary (premium) button */
+.premiumPill {
+  display: inline-block;
+  margin-top: 0.4rem;
+  background-color: #e0b714;
+  color: #1a1a1a;
+  font-size: .9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15em 0.5em;
+  border-radius: 12px;
 }

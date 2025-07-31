@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import SignupForm from "../components/Auth/SignupForm";
+import { SignupForm } from "../components/Auth/SignupForm";
 import styles from "../styles/Signup.module.css";
 import { supabase } from "../lib/supabaseClient";
 

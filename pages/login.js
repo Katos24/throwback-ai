@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { supabase } from "../lib/supabaseClient"; // Adjust path as needed
-import LoginForm from "../components/Auth/LoginForm";
+import { LoginForm } from "../components/Auth/LoginForm";
 import styles from "../styles/Login.module.css"; // Make sure to update this path if needed
 
 export default function LoginPage() {

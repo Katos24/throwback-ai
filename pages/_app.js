@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
+import { Toaster } from "react-hot-toast"; // ✅ Import toast UI
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -26,10 +27,20 @@ export default function MyApp({ Component, pageProps }) {
 
       <main>
         <Component {...pageProps} />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "#1a1a1a",
+              color: "#fff",
+              border: "1px solid #333",
+            },
+          }}
+        />
       </main>
 
       <Footer />
-
       <CookieBanner />
     </SessionContextProvider>
   );

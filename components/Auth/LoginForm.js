@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useRouter } from 'next/router';
-import styles from '../../styles/AuthPage.module.css';
+import styles from '../../styles/Login.module.css';
 
 export default function LoginForm() {
   const router = useRouter();

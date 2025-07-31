@@ -16,7 +16,8 @@ export default function RestoreBasic() {
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
 
-  const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 3 } = useCredits();
+  // freeAttempts default is 1 for first-time visitors
+  const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 1 } = useCredits();
 
   useEffect(() => {
     async function getSession() {
@@ -165,16 +166,17 @@ export default function RestoreBasic() {
               disabled={loading || processing}
               title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
             >
-              {!loading && !processing &&
-                (credits < 1
+              {!loading && !processing && (
+                credits < 1
                   ? isLoggedIn
-                    ? "💳 Buy Credits"
+                    ? "💳 Buy More Credits"
                     : "🔒 Sign Up to Restore"
                   : showFileInput
                     ? isLoggedIn
-                      ? "🆓 Restore Basic (1 credit)"
+                      ? `🆓 Restore Basic (1 credit)`
                       : `🆓 Restore Basic (Free attempts left: ${credits})`
-                    : "Restore")}
+                    : "Restore"
+              )}
               {(loading || processing) && (
                 <>
                   <div className={styles.spinner} />
@@ -210,10 +212,10 @@ export default function RestoreBasic() {
                 </>
               ) : (
                 <>
-                  Remaining free attempts: <strong>{credits}</strong>.{" "}
-                 <Link href="/signup" legacyBehavior>
-                  <a className={styles.link}>Sign up to get more credits!</a>
-                </Link>
+                  Remaining free attempts: <strong>{credits}</strong>.{' '}
+                  <Link href="/signup" legacyBehavior>
+                    <a className={styles.link}>Sign up to get more credits!</a>
+                  </Link>
                 </>
               )}
             </div>
@@ -268,7 +270,6 @@ export default function RestoreBasic() {
           </div>
         </div>
       </section>
-
 
       {/* Image Compare Slider Section for Basic Restore */}
       <section

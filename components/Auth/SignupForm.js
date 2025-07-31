@@ -1,60 +1,56 @@
-// components/Auth/SignupForm.js
-import { useState } from 'react';
-import { supabase } from '../../lib/supabaseClient';
-import styles from '../../styles/AuthPage.module.css';
 
-export default function SignupForm({ onSuccess }) {
+// components/Auth/SignupForm.js
+import React, { useState } from 'react';
+import styles from '../../styles/Signup.module.css';
+import { supabase } from '../../lib/supabaseClient';
+
+export default function SignupForm({ onSuccess, onError, isDisabled }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isDisabled) return;
     setLoading(true);
-    setErrorMsg('');
-
     const { data, error } = await supabase.auth.signUp({ email, password });
-
-    if (error) {
-      setLoading(false);
-      setErrorMsg(error.message);
-      return;
-    }
-
-    const { user } = data;
-
-    // ✅ Check if profile already exists
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user?.id)
-      .single();
-
     setLoading(false);
 
-    if (profileError && profileError.code !== 'PGRST116') {
-      setErrorMsg('Error checking profile: ' + profileError.message);
+    if (error) {
+      onError?.(error.message || 'Signup failed.');
       return;
     }
 
-    if (profile) {
-      alert('Profile already exists. You can sign in instead.');
-      return;
+    // Optionally check for existing profile in 'profiles' table
+    const userId = data.user?.id;
+    if (userId) {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      if (profileError && profileError.code !== 'PGRST116') {
+        onError?.('Error checking profile: ' + profileError.message);
+        return;
+      }
+      if (profile) {
+        onError?.('Profile already exists. Please log in instead.');
+        return;
+      }
     }
 
-    if (onSuccess) onSuccess();
-    alert('Signup successful! Please check your email to confirm.');
+    onSuccess?.();
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.signupForm}>
+    <form onSubmit={handleSubmit} className={styles.inputGroup}>
       <input
         type="email"
         placeholder="Email"
         className={styles.inputField}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        disabled={isDisabled || loading}
         required
       />
       <input
@@ -63,17 +59,17 @@ export default function SignupForm({ onSuccess }) {
         className={styles.inputField}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        disabled={isDisabled || loading}
         required
         minLength={6}
       />
       <button
         type="submit"
-        disabled={loading}
         className={styles.submitButton}
+        disabled={isDisabled || loading}
       >
         {loading ? 'Signing up...' : 'Sign Up'}
       </button>
-      {errorMsg && <p className={styles.formError}>{errorMsg}</p>}
     </form>
   );
 }

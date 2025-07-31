@@ -10,9 +10,9 @@ export default function Header({ showMenu, setShowMenu }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Get current user
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user || null);
+    // Initial fetch of the current session/user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
     });
 
     // Listen to auth state changes
@@ -26,6 +26,7 @@ export default function Header({ showMenu, setShowMenu }) {
   }, []);
 
   useEffect(() => {
+    // Close menu if clicking outside
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setShowMenu(false);
@@ -35,7 +36,6 @@ export default function Header({ showMenu, setShowMenu }) {
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -43,8 +43,9 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    setUser(null);
     setShowMenu(false);
+    // Redirect to home (or login) after sign-out
+    router.replace("/");
   };
 
   const goToPricing = () => {
@@ -66,7 +67,7 @@ export default function Header({ showMenu, setShowMenu }) {
       </button>
 
       {/* 🌀 Logo */}
-      <Link href="/" className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
+      <Link href="/" onClick={() => setShowMenu(false)} className={styles.logoWrapper}>
         <div>
           <div className={styles.logoMain}>ANASTASIS 🌀</div>
           <div className={styles.logoSub}>Powered by Throwback AI</div>
@@ -74,10 +75,7 @@ export default function Header({ showMenu, setShowMenu }) {
       </Link>
 
       {/* 🧭 Navigation */}
-      <nav
-        ref={navRef}
-        className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}
-      >
+      <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
         <Link href="/" legacyBehavior>
           <a className={styles.navLink} onClick={() => setShowMenu(false)}>Home</a>
         </Link>

@@ -263,6 +263,25 @@ export default function RestorePremium() {
         </div>
       </section>
 
+     {/* User Before and After images slider*/}
+      {selectedPreviewUrl && restoredUrl && (
+  <section
+    style={{
+      padding: "3rem 1rem",
+      backgroundColor: "#1a1a1a",
+      color: "white",
+      borderTop: "1px solid #333",
+    }}
+  >
+    <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+      Your Restoration Preview
+    </h2>
+    <ImageCompareSlider
+      beforeImage={selectedPreviewUrl}
+      afterImage={restoredUrl}
+    />
+  </section>
+)}
       {/* Basic Before/After Slider */}
       <section
         style={{

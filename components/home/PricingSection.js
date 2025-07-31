@@ -1,13 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
 import pricingStyles from '../../styles/Pricing.module.css';
 
 const PricingSection = () => {
   return (
     <section className={pricingStyles.pricing}>
       <div className={pricingStyles.container}>
-        <h2 className={pricingStyles.title}>Why Pay $9.99/​mo for Unused Features?</h2>
+        <h2 className={pricingStyles.title}>
+          Why Pay for Features You Don't Use?
+        </h2>
         <p className={pricingStyles.subtitle}>
-          Competitor charges you every month—use it or not. Anastasis charges only when you restore.
+          Competitors charge you monthly — Anastasis only charges when you restore.
         </p>
 
         <div className={pricingStyles.pricingGrid}>
@@ -25,7 +28,9 @@ const PricingSection = () => {
               <li>Unlimited edits—but you pay $9.99 every 30 days</li>
               <li>Average cost per restore: $9.99</li>
             </ul>
-            <button className={pricingStyles.pricingButton}>Subscribe</button>
+            <Link href="/pricing" className={pricingStyles.pricingButton} aria-label="Go to Pricing Page">
+              See Pricing
+            </Link>
           </div>
 
           {/* Anastasis Card */}
@@ -37,14 +42,16 @@ const PricingSection = () => {
               <span className={pricingStyles.priceUnit}>/premium restore</span>
             </div>
             <p className={pricingStyles.pricingDescription}>
-              Pay-per-use credits—only pay when you bring an image back to life.
+              Pay-per-use credits — only pay when you bring an image back to life.
             </p>
             <ul className={pricingStyles.featureList}>
               <li>Premium restorations at heritage quality</li>
               <li>Credits never expire</li>
               <li>No hidden monthly fees</li>
             </ul>
-            <button className={pricingStyles.pricingButton}>Buy Credits</button>
+            <Link href="/pricing" className={pricingStyles.pricingButton} aria-label="Go to Pricing Page">
+              Buy Credits
+            </Link>
           </div>
         </div>
       </div>

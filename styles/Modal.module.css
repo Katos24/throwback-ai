@@ -1,0 +1,28 @@
+/* styles/Modal.module.css */
+.backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  background: #1e1e23;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%; max-width: 400px;
+  position: relative;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+.closeBtn {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  background: transparent; border: none; font-size: 1.5rem; color: #fff;
+  cursor: pointer;
+}
+.title {
+  margin-top: 0; margin-bottom: 1rem;
+  font-family: 'Outfit', sans-serif;
+}
+.content {
+  display: flex; flex-direction: column; gap: 1rem;
+}

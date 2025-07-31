@@ -1,40 +1,47 @@
-
 // components/Auth/SignupForm.js
 import React, { useState } from 'react';
-import styles from '../../styles/Signup.module.css';
 import { supabase } from '../../lib/supabaseClient';
+import styles from '../../styles/Signup.module.css';
 
-export default function SignupForm({ onSuccess, onError, isDisabled }) {
+export function SignupForm({ onSuccess, onError, isDisabled }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (isDisabled) return;
     setLoading(true);
+    setErrorMsg('');
+
     const { data, error } = await supabase.auth.signUp({ email, password });
     setLoading(false);
 
     if (error) {
-      onError?.(error.message || 'Signup failed.');
+      setErrorMsg(error.message || 'Signup failed.');
+      onError?.(error.message);
       return;
     }
 
-    // Optionally check for existing profile in 'profiles' table
+    // Check existing profile
     const userId = data.user?.id;
     if (userId) {
-      const { data: profile, error: profileError } = await supabase
+      const { data: profile, error: profErr } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
-      if (profileError && profileError.code !== 'PGRST116') {
-        onError?.('Error checking profile: ' + profileError.message);
+      if (profErr && profErr.code !== 'PGRST116') {
+        const msg = 'Error checking profile: ' + profErr.message;
+        setErrorMsg(msg);
+        onError?.(msg);
         return;
       }
       if (profile) {
-        onError?.('Profile already exists. Please log in instead.');
+        const msg = 'Profile exists. Please log in instead.';
+        setErrorMsg(msg);
+        onError?.(msg);
         return;
       }
     }
@@ -43,7 +50,7 @@ export default function SignupForm({ onSuccess, onError, isDisabled }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.inputGroup}>
+    <form onSubmit={handleSignup} className={styles.inputGroup}>
       <input
         type="email"
         placeholder="Email"
@@ -68,8 +75,9 @@ export default function SignupForm({ onSuccess, onError, isDisabled }) {
         className={styles.submitButton}
         disabled={isDisabled || loading}
       >
-        {loading ? 'Signing up...' : 'Sign Up'}
+        {loading ? 'Signing up…' : 'Sign Up'}
       </button>
+      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
     </form>
   );
 }

@@ -7,7 +7,7 @@ const PricingSection = () => {
     <section className={pricingStyles.pricing}>
       <div className={pricingStyles.container}>
         <h2 className={pricingStyles.title}>
-          Why Pay for Features You Don't Use?
+          Why Pay for Features You Don&apos;t Use?
         </h2>
         <p className={pricingStyles.subtitle}>
           Competitors charge you monthly — Anastasis only charges when you restore.

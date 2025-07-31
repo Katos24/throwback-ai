@@ -239,7 +239,7 @@ class ErrorBoundary extends React.Component {
             </h1>
             
             <p style={styles.errorMessage}>
-              We encountered an unexpected error. Don't worry, this has been logged 
+              We encountered an unexpected error. Don&apos;t worry, this has been logged 
               and our team will investigate.
             </p>
 

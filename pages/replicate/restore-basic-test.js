@@ -3,10 +3,10 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import useImageRestore from "../../hooks/useImageRestore";
 
-import HeroSection from "../../components/restores/HeroSection";
-import ImagePreview from "../../components/restores/ImagePreview";
-import CompareSection from "../../components/restores/CompareSection";
-import ProgressBar from "../../components/restores/ProgressBar"; // ✅ NEW
+import HeroSection from "../../components/Restores/HeroSection";
+import ImagePreview from "../../components/Restores/ImagePreview";
+import CompareSection from "../../components/Restores/CompareSection";
+import ProgressBar from "../../components/Restores/ProgressBar"; // ✅ NEW
 
 import styles from "../../styles/RestoreBasic.module.css";
 

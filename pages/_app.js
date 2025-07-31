@@ -6,17 +6,12 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
-import { Toaster } from "react-hot-toast"; // ✅ Import toast UI
+import { Toaster } from "react-hot-toast"; // ✅ Toast UI
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
 
-  useEffect(() => {
-    // ✅ Give every new visitor 10 credits if they don't have any yet
-    if (!localStorage.getItem("credits_remaining")) {
-      localStorage.setItem("credits_remaining", "10");
-    }
-  }, []);
+  // 🔥 Removed credits override for guest users
 
   return (
     <SessionContextProvider

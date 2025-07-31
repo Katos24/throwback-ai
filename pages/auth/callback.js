@@ -9,7 +9,7 @@ export default function AuthCallback() {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         // User logged in successfully
-        router.replace("/dashboard"); // or your app's landing page
+        router.replace("/"); // or your app's landing page
       } else {
         // No session — redirect to login
         router.replace("/login");

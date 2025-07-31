@@ -271,7 +271,7 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-      {/* Image Compare Slider Section for Basic Restore */}
+      {/* User Before and After images slider*/}
       {selectedPreviewUrl && restoredUrl && (
   <section
     style={{
@@ -290,7 +290,7 @@ export default function RestoreBasic() {
     />
   </section>
 )}
-
+{/* Image Compare Slider Section for Basic Restore */}
       <section
         style={{
           padding: "3rem 1rem",

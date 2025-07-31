@@ -13,6 +13,7 @@ export default function useCredits() {
     } = await supabase.auth.getSession();
 
     if (session?.user) {
+      // Logged-in user
       setIsLoggedIn(true);
 
       const { data, error } = await supabase
@@ -24,7 +25,7 @@ export default function useCredits() {
       if (error || !data) {
         setCredits(0);
       } else if (data.credits_remaining == null) {
-        // First‑time login → give 5 credits
+        // First-time login → give 5 credits
         await supabase
           .from("profiles")
           .update({ credits_remaining: 5 })
@@ -34,6 +35,7 @@ export default function useCredits() {
         setCredits(data.credits_remaining);
       }
     } else {
+      // Guest user (not logged in)
       setIsLoggedIn(false);
 
       const stored = localStorage.getItem("guest_attempts");

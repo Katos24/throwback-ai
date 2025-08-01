@@ -42,12 +42,6 @@ const HeroSection = () => {
               playsInline
             />
           </div>
-
-          <div className={heroStyles.fullWidthBanner}>
-            <span>🔒 <strong>Privacy Guaranteed</strong></span>
-            <span>⚡ <strong>Results in Under 2 Minutes</strong></span>
-            <span>🆓 <strong>1 Free Restore & 5 More When You Sign Up</strong></span>
-          </div>
           <p className={heroStyles.subText}>
             Sign up now and get <strong>5 bonus credits</strong> — no subscription required!
           </p>

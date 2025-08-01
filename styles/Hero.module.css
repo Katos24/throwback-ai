@@ -87,29 +87,31 @@
   max-width: 900px;
 }
 
-/* Main title with enhanced AI styling */
+/* Hero Module Styles for Anastasis Throwback AI */
+
+/* Main title for maximum legibility, no blur */
 .heroTitle {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Playfair Display', serif;
   font-size: clamp(2.8rem, 7vw, 5rem);
-  color: #ffffff;
+  color: #fff;
   font-weight: 900;
   margin-bottom: 1.5rem;
   line-height: 1.1;
-  text-shadow:
-    0 0 20px rgba(102, 126, 234, 0.4),
-    0 0 40px rgba(102, 126, 234, 0.2),
-    2px 2px 4px rgba(0, 0, 0, 0.8);
+  /* No blur/shadow for crystal-clear text */
+  text-shadow: none;
   letter-spacing: -1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Enhanced gradient accent text */
+/* Gradient accent text with pulsing animation, no blur */
 .accent {
   background: linear-gradient(
-    135deg, 
-    #00d4ff 0%, 
-    #667eea 25%, 
-    #764ba2 50%, 
-    #ff6b9d 75%, 
+    135deg,
+    #00d4ff 0%,
+    #667eea 25%,
+    #764ba2 50%,
+    #ff6b9d 75%,
     #00d4ff 100%
   );
   background-size: 300% 300%;
@@ -117,12 +119,15 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientShift 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
+  /* No blur/outline for the accent to keep it crisp */
+  filter: none;
+  will-change: background-position;
 }
 
+/* Gradient animation keyframes */
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  50%      { background-position: 100% 50%; }
 }
 
 /* Subtitle with better spacing */

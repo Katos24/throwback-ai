@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import styles from "../../styles/ProgressBar.module.css";
 
-export default function ProgressBar({ 
-  status, 
-  progress = 0, 
+export default function ProgressBar({
+  status,
+  progress = null,
   showSteps = true,
-  className = '' 
+  className = '',
+  loading // Add this to catch the loading prop you're passing
 }) {
   const [animatedProgress, setAnimatedProgress] = useState(0);
-
+  
+  // Debug: Log what props are being received
+  console.log('ProgressBar props:', { status, progress, loading });
+  
   const steps = [
     { key: 'idle', label: 'Ready', icon: '📸' },
     { key: 'compressing', label: 'Compressing', icon: '📦' },
@@ -17,36 +21,61 @@ export default function ProgressBar({
     { key: 'complete', label: 'Complete', icon: '✅' }
   ];
 
-  const currentStepIndex = steps.findIndex(step => step.key === status);
-  const progressPercentage = Math.min(100, Math.max(0, progress || (currentStepIndex + 1) * 25));
+  // If you're still passing 'loading' instead of 'status', handle it here
+  const actualStatus = status || (loading ? 'processing' : 'idle');
+  
+  const currentStepIndex = steps.findIndex(step => step.key === actualStatus);
+  const fallbackProgress = Math.min(100, (currentStepIndex + 1) * 25);
+  
+  // Don't show indeterminate bar for idle state or complete state
+  const shouldShowIndeterminate = progress === null && 
+    actualStatus !== 'idle' && 
+    actualStatus !== 'complete';
+    
+  // For complete state, show 100% progress
+  const displayProgress = actualStatus === 'complete' ? 100 : animatedProgress;
 
   useEffect(() => {
+    const targetProgress = progress === null ? fallbackProgress : Math.min(100, Math.max(0, progress));
     const timer = setTimeout(() => {
-      setAnimatedProgress(progressPercentage);
+      setAnimatedProgress(targetProgress);
     }, 100);
     return () => clearTimeout(timer);
-  }, [progressPercentage]);
+  }, [progress, fallbackProgress]);
+
+  // Debug: Log the calculated values
+  console.log('ProgressBar state:', { 
+    actualStatus, 
+    currentStepIndex, 
+    fallbackProgress, 
+    animatedProgress,
+    progressIsNull: progress === null 
+  });
 
   return (
     <div className={`${styles.progressContainer} ${className}`}>
-      {/* Progress Bar */}
       <div className={styles.progressBar}>
-        <div 
-          className={styles.progressFill}
-          style={{ width: `${animatedProgress}%` }}
-        >
-          <div className={styles.progressShine}></div>
-        </div>
+        {shouldShowIndeterminate ? (
+          <div className={styles.indeterminateBar}>
+            <div className={styles.indeterminateFill}></div>
+          </div>
+        ) : (
+          <div
+            className={styles.progressFill}
+            style={{ width: `${displayProgress}%` }}
+          >
+            <div className={styles.progressShine}></div>
+          </div>
+        )}
         <div className={styles.progressText}>
-          {Math.round(animatedProgress)}%
+          {shouldShowIndeterminate ? actualStatus?.toUpperCase() || 'Loading...' : `${Math.round(displayProgress)}%`}
         </div>
       </div>
-
-      {/* Steps Indicator */}
+      
       {showSteps && (
         <div className={styles.stepsContainer}>
           {steps.map((step, index) => (
-            <div 
+            <div
               key={step.key}
               className={`${styles.step} ${
                 index < currentStepIndex ? styles.stepActive : ''

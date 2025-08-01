@@ -1,5 +1,4 @@
 /* ProgressBar.module.css */
-
 .progressContainer {
   width: 100%;
   max-width: 600px;
@@ -37,6 +36,36 @@
   animation: shine 2s infinite linear;
 }
 
+/* Indeterminate progress bar styles - MISSING FROM YOUR CSS */
+.indeterminateBar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.indeterminateFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #4ade80, #22d3ee);
+  width: 30%;
+  animation: indeterminateSlide 2s infinite ease-in-out;
+}
+
+@keyframes indeterminateSlide {
+  0% {
+    left: -30%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 @keyframes shine {
   0% {
     left: -60px;
@@ -57,6 +86,7 @@
   font-weight: bold;
   color: #fff;
   z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .stepsContainer {

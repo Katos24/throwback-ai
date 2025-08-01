@@ -1,4 +1,3 @@
-// components/restores/HeroSection.jsx
 import Link from "next/link";
 import styles from "../../styles/RestoreBasic.module.css";
 
@@ -9,6 +8,7 @@ export default function HeroSection({
   isLoggedIn,
   onUploadClick,
   onRestoreClick,
+  restoredUrl,   // NEW prop
 }) {
   const busy = status !== "idle";
   const needsUpload = !previewUrl;
@@ -28,7 +28,7 @@ export default function HeroSection({
       ? "💳 Buy More Credits"
       : "🔒 Sign Up to Restore";
   } else {
-    restoreLabel = `🚀 Restore (${credits} credit${credits !== 1 ? "s" : ""})`;
+    restoreLabel = `🚀 Restore`;
   }
 
   return (
@@ -36,12 +36,20 @@ export default function HeroSection({
       <div className={styles.heroContainer}>
         <h1 className={styles.heroTitle}>🕹️ Restore Your Vintage Photo</h1>
         <p className={styles.heroSubtitle}>
-          Use our AI-powered scratch removal and clarity boost to breathe life
-          into old memories.
+          You're using <strong>Quick Enhance</strong> — fast scratch removal and clarity boost for just <strong>1 credit</strong>.
         </p>
 
+        {/* Credits display if logged in */}
+        {isLoggedIn && (
+          <div className={styles.creditsDisplay}>
+            <div className={styles.creditsCount}>
+              🔋 {credits} credit{credits !== 1 ? "s" : ""} remaining
+            </div>
+          </div>
+        )}
+
+        {/* Upload and restore buttons */}
         <div className={styles.controls}>
-          {/* Always show Upload button */}
           <button
             onClick={onUploadClick}
             disabled={busy}
@@ -52,7 +60,6 @@ export default function HeroSection({
             📂 {previewUrl ? "Change Photo" : "Upload Photo"}
           </button>
 
-          {/* Always show Restore button */}
           <button
             onClick={onRestoreClick}
             disabled={restoreDisabled}
@@ -64,7 +71,7 @@ export default function HeroSection({
           </button>
         </div>
 
-        {/* Secondary messaging/link when out of credits */}
+        {/* Out-of-credits messaging */}
         {credits < 1 && (
           <div className={styles.creditsInfo}>
             {isLoggedIn ? (
@@ -82,6 +89,21 @@ export default function HeroSection({
                 </Link>
               </>
             )}
+          </div>
+        )}
+
+        {/* New message shown only after restoration completes */}
+        {restoredUrl && !busy && (
+          <div
+            style={{
+              marginTop: "1.5rem",
+              fontSize: "1rem",
+              color: "#ddd",
+              textAlign: "center",
+              fontStyle: "italic",
+            }}
+          >
+            🎉 Image restored! Scroll down to see before & after photos, and try the slider below to compare the magic.
           </div>
         )}
       </div>

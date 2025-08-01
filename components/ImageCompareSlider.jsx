@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from "react";
 
 export default function ImageCompareSlider({ beforeImage, afterImage }) {
   const containerRef = useRef(null);
-  // ratio is height/width, used for padding-bottom
-  const [ratio, setRatio] = useState(9 / 16); 
   const [sliderPos, setSliderPos] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -15,7 +13,7 @@ export default function ImageCompareSlider({ beforeImage, afterImage }) {
     setSliderPos(Math.min(Math.max(pos, 0), 100));
   };
 
-  // Mouse / touch handlers
+  // Drag handlers
   const startDrag = (e) => {
     e.preventDefault();
     setIsDragging(true);
@@ -24,11 +22,11 @@ export default function ImageCompareSlider({ beforeImage, afterImage }) {
   const moveMouse = (e) => isDragging && onMove(e.clientX);
   const moveTouch = (e) => isDragging && onMove(e.touches[0].clientX);
 
-  // Global listeners
+  // Global listeners while dragging
   useEffect(() => {
     const events = [
-      ["mouseup", stopDrag],
-      ["touchend", stopDrag],
+      ["mouseup",   stopDrag],
+      ["touchend",  stopDrag],
       ["mousemove", moveMouse],
       ["touchmove", moveTouch],
     ];
@@ -40,56 +38,47 @@ export default function ImageCompareSlider({ beforeImage, afterImage }) {
     };
   }, [isDragging]);
 
-  // When the BEFORE image loads, capture its natural ratio
-  const onBeforeLoad = (e) => {
-    const { naturalWidth, naturalHeight } = e.target;
-    setRatio(naturalHeight / naturalWidth);
-  };
-
   // Styles
   const containerStyle = {
     position: "relative",
-    width: "clamp(320px, 90%, 800px)", 
-    maxWidth: "600px",
+    width: "100%",
+    maxWidth: "480px",
     margin: "3rem auto",
     userSelect: "none",
-    // magic: padding-bottom = ratio * width
-    paddingBottom: `${ratio * 100}%`,
+    cursor: isDragging ? "grabbing" : "grab",
     overflow: "hidden",
     borderRadius: "12px",
     boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
     border: "2px solid rgba(255,255,255,0.1)",
-    cursor: isDragging ? "grabbing" : "grab",
+    maxHeight: "80vh",        // never taller than viewport
   };
 
-  const imgStyle = {
+  const beforeImgStyle = {
+    display: "block",
+    width: "100%",
+    height: "auto",
+    objectFit: "contain",     // full image, no crop
+    pointerEvents: "none",
+  };
+
+  const afterImgStyle = {
     position: "absolute",
     top: 0,
     left: 0,
     width: "100%",
     height: "100%",
-    objectFit: "cover",
+    objectFit: "contain",
     pointerEvents: "none",
+    clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
+    transition: isDragging ? "none" : "clip-path 0.3s ease",
+    zIndex: 2,
   };
 
   return (
     <div ref={containerRef} style={containerStyle}>
-      <img
-        src={beforeImage}
-        alt="Before"
-        onLoad={onBeforeLoad}
-        style={imgStyle}
-      />
-      <img
-        src={afterImage}
-        alt="After"
-        style={{
-          ...imgStyle,
-          clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
-          transition: isDragging ? "none" : "clip-path 0.3s ease",
-          zIndex: 2,
-        }}
-      />
+      <img src={beforeImage} alt="Before" style={beforeImgStyle} />
+
+      <img src={afterImage}  alt="After"  style={afterImgStyle} />
 
       {/* Slider handle */}
       <div
@@ -126,22 +115,24 @@ export default function ImageCompareSlider({ beforeImage, afterImage }) {
           }}
         >
           <div style={{ display: "flex", gap: "2px" }}>
-            <div style={{ width: "2px", height: "12px", backgroundColor: "#666" }} />
-            <div style={{ width: "2px", height: "12px", backgroundColor: "#666" }} />
-            <div style={{ width: "2px", height: "12px", backgroundColor: "#666" }} />
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                style={{ width: "2px", height: "12px", backgroundColor: "#666" }}
+              />
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Labels */}
-      <div style={labelStyle("left")}>BEFORE</div>
+      {/* Labels & Hint */}
+      <div style={labelStyle("left") }>BEFORE</div>
       <div style={labelStyle("right")}>AFTER</div>
       <div style={hintStyle(isDragging)}>← Drag to compare →</div>
     </div>
   );
 }
 
-// Extracted styles for clarity
 const labelStyle = (pos) => ({
   position: "absolute",
   top: "20px",

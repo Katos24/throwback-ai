@@ -1,3 +1,4 @@
+
 /* Root wrapper */
 .root {
   min-height: 100vh;
@@ -8,11 +9,14 @@
 /* Hero / banner */
 .hero {
   background: linear-gradient(to bottom, #4f46e5, #1f2937);
-  padding: 4rem 1rem;
+  padding: 2rem 1rem; /* Reduced from 4rem */
   text-align: center;
   position: relative;
   overflow: hidden;
+  max-height: 80vh;
+  overflow-y: auto;
 }
+
 
 .heroHeader {
   display: flex;
@@ -47,7 +51,7 @@
 
 .heroSubtitle {
   max-width: 800px;
-  margin: 0.5rem auto 2rem;
+  margin: 0.5rem auto 1rem;
   font-size: clamp(1rem, 3vw, 1.25rem);
   line-height: 1.4;
   color: #d1d5db;
@@ -75,7 +79,7 @@
   gap: 1rem;
   flex-wrap: wrap;
   max-width: 800px;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.5rem;
 }
 
 .uploadButton,
@@ -241,6 +245,7 @@
   margin-bottom: 1.5rem;
   color: #fff;
 }
+
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
@@ -482,3 +487,59 @@
 .link:hover {
   color: #60a5fa;
 }
+
+
+/* Add these styles to your RestoreBasic.module.css */
+
+.creditsDisplay {
+  text-align: center;
+  margin: 16px 0;
+  padding: 8px 0;
+}
+
+.creditsCount {
+  display: inline-block;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.creditsCount:hover {
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.5);
+  transform: translateY(-2px);
+}
+
+
+
+.featureBanner {
+  background: #334155;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  max-width: 720px;
+  text-align: center;
+  color: #e0f2fe;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.featureText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.featureText .link {
+  color: #93c5fd;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.featureText .link:hover {
+  color: #60a5fa;
+}
+
+
+
+

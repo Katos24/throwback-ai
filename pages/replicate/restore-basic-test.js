@@ -159,13 +159,14 @@ export default function RestoreBasicTest() {
   return (
     <main className={styles.root}>
       <HeroSection
-        previewUrl={selectedPreviewUrl}
-        status={loading || processing ? "working" : "idle"}
-        credits={credits}
-        isLoggedIn={isLoggedIn}
-        onUploadClick={promptUpload}
-        onRestoreClick={handleRestoreClick}
-      />
+  previewUrl={selectedPreviewUrl}
+  status={loading || processing ? "working" : "idle"}
+  credits={credits}
+  isLoggedIn={isLoggedIn}
+  onUploadClick={promptUpload}
+  onRestoreClick={handleRestoreClick}
+  restoredUrl={restoredUrl}  // <-- add this
+/>
 
       {/* show progress bar with proper status flow */}
       <ProgressBar 
@@ -224,6 +225,7 @@ export default function RestoreBasicTest() {
             />
           </div>
         </div>
+        
       </section>
 
       {/* How it works */}

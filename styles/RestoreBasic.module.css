@@ -1,120 +1,251 @@
-
-/* Root wrapper */
+/* =======================
+   Root wrapper & Variables
+   ======================= */
 .root {
+  --bg-root: #1a1a1a;
+  --text-color: #f5f5f5;
+
+  --hero-gradient-start: #191732;
+  --hero-gradient-end:   #1f2937;
+
+  --btn-padding:      1rem 3rem;
+  --btn-font-size:    1.25rem;
+  --btn-radius:       1rem;
+  --btn-transition:   0.25s ease-in-out;
+  --btn-shadow:       0 12px 24px rgba(0, 0, 0, 0.4);
+
+  --gradient-upload:   linear-gradient(135deg, #0a3d62 0%, #00e5ff 100%);
+  --gradient-restore:  linear-gradient(135deg, #ffd700 0%, #0a3d62 100%);
+
+  --greek-pattern: url('/assets/greek-key.svg'); /* your Greek-key SVG */
   min-height: 100vh;
-  background-color: #1a1a1a;
-  color: #f5f5f5;
+  background-color: var(--bg-root);
+  color: var(--text-color);
 }
 
-/* Hero / banner */
+/* =======================
+   Hero / Banner
+   ======================= */
 .hero {
-  background: linear-gradient(to bottom, #4f46e5, #1f2937);
-  padding: 2rem 1rem; /* Reduced from 4rem */
-  text-align: center;
   position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+  padding: 2rem 1rem;
+  text-align: center;
   max-height: 80vh;
   overflow-y: auto;
 }
 
-
-.heroHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto 1.5rem;
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--greek-pattern);
+  background-size: auto 100%;
+  mix-blend-mode: overlay;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 1;
 }
 
+.heroHeader,
 .heroTitle {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 900;
-  margin: 0;
-  color: #fff;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #f0c800, #00f0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 6px rgba(255, 215, 0, 0.3),
+    0 0 12px rgba(0, 229, 255, 0.2);
+  animation: shimmer 3s linear infinite;
 }
 
-.creditBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: #4338ca;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
 
-.creditIcon {
-  color: #facc15;
-  font-size: 1rem;
+@keyframes shimmer {
+  0% {
+    background-position: -300%;
+  }
+  100% {
+    background-position: 300%;
+  }
 }
-
 .heroSubtitle {
-  max-width: 800px;
-  margin: 0.5rem auto 1rem;
-  font-size: clamp(1rem, 3vw, 1.25rem);
-  line-height: 1.4;
-  color: #d1d5db;
-}
-
-/* Cost info */
-.costInfo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 400;
   margin-bottom: 2rem;
-  color: #d1d5db;
-  font-size: 0.95rem;
+  line-height: 1.6;
+  background: linear-gradient(90deg, #00f0ff, #f0c800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 4px rgba(0, 229, 255, 0.3),
+    0 0 8px rgba(255, 215, 0, 0.2);
+  animation: shimmer-sub 4s linear infinite;
 }
 
-.coinIcon {
-  color: #facc15;
-  font-size: 1rem;
+@keyframes shimmer-sub {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
 }
 
-/* Controls */
+.controls > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* =======================
+   Controls Container
+   ======================= */
 .controls {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   max-width: 800px;
-  margin: 0 auto 0.5rem;
+  margin: 0 auto 1rem;
 }
 
-.uploadButton,
-.restoreButton {
+/* =======================
+   Base Button Styles
+   ======================= */
+.button {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 2rem;
-  font-size: 1.125rem;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.85rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 100px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
-  font-weight: 600;
-  width: auto;
-  max-width: 260px;
+  overflow: hidden;
   text-align: center;
+  color: #fff;
+  background: linear-gradient(135deg, #0a3d62, #00e5ff);
+  box-shadow: 0 10px 28px rgba(0, 229, 255, 0.3);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease-in-out;
+  letter-spacing: 0.6px;
 }
 
-.uploadButton {
-  background: linear-gradient(to right, #6366f1, #4f46e5);
-  color: #fff;
+/* Greek-key overlay on buttons */
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--greek-pattern);
+  background-size: 18px 18px;
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
 }
-.uploadButton:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.03);
+
+/* Variants */
+.uploadButton {
+  background: var(--gradient-upload);
 }
 
 .restoreButton {
-  background: linear-gradient(to right, #10b981, #059669);
-  color: #fff;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2.75rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #070000;
+  background: linear-gradient(135deg, #ffd700, #00e5ff);
+  border: none;
+  border-radius: 48px;
+  box-shadow:
+    0 6px 16px rgba(0, 229, 255, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  animation: pulseGlow 3s ease-in-out infinite;
+  backdrop-filter: blur(4px);
 }
-.restoreButton:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.03);
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 6px 16px rgba(0, 229, 255, 0.25),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 10px 28px rgba(0, 229, 255, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.035);
+  }
 }
+
+/* =======================
+   Hover, Focus & Active
+   ======================= */
+.button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 14px 34px rgba(0, 229, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: none;
+  filter: brightness(0.95);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 0 0 6px rgba(0, 229, 255, 0.4);
+}
+
+/* =======================
+   Disabled State
+   ======================= */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--btn-shadow);
+  filter: none;
+}
+
+/* =======================
+   Loading Spinner
+   ======================= */
+.button.loading {
+  pointer-events: none;
+}
+
+.button.loading .spinner {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 
 /* Disabled state */
 .disabled {
@@ -177,6 +308,9 @@
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  aspect-ratio: auto;
   padding: 0.2rem;
   display: flex;
   justify-content: center;
@@ -490,28 +624,77 @@
 
 
 /* Add these styles to your RestoreBasic.module.css */
-
+/* Root container - non-obtrusive utility card */
 .creditsDisplay {
-  text-align: center;
-  margin: 16px 0;
-  padding: 8px 0;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(31, 41, 55, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  font-family: 'Inter', sans-serif;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
 }
 
+/* Optional label before credits count */
+.creditsDisplay::before {
+  content: "Credits";
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 0.4px;
+}
+
+/* Gradient count badge */
 .creditsCount {
-  display: inline-block;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: white;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a, #14b8a6);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
   padding: 6px 16px;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 6px 14px rgba(20, 184, 166, 0.3);
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+/* Shimmer pulse effect */
+.creditsCount::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
+  transition: left 0.4s ease;
+  z-index: 0;
 }
 
 .creditsCount:hover {
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.5);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 22px rgba(20, 184, 166, 0.45);
 }
+
+.creditsCount:hover::before {
+  left: 0;
+}
+
+
 
 
 
@@ -569,9 +752,10 @@
 /* 3-column grid for Before / Slider / After */
 .previewGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin: 2rem 0;
+  justify-content: center; /* center the 2-col layout */
+  align-items: start;
 }
 
 @media (max-width: 768px) {
@@ -595,4 +779,19 @@
   color: #999;
   font-style: italic;
   text-align: center;
+}
+
+.fixedImageContainer {
+  position: relative;
+  width: 300px;
+  height: 225px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.next-image {
+  object-fit: contain; /* ensures it fits inside the wrapper */
+  width: 100%;
+  height: auto;
+  display: block;
 }

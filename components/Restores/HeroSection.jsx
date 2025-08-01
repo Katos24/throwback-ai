@@ -1,5 +1,4 @@
-// components/Restores/HeroSection.jsx
-
+import { useState } from "react";
 import Link from "next/link";
 import styles from "../../styles/RestoreBasic.module.css";
 
@@ -12,9 +11,10 @@ export default function HeroSection({
   onRestoreClick,
   restoredUrl,
 }) {
+  const [restoreTriggered, setRestoreTriggered] = useState(false);
+
   const busy = status !== "idle";
-  const needsUpload = !previewUrl;
-  const restoreDisabled = busy || needsUpload;
+  const restoreDisabled = busy || credits < 1;
 
   let restoreLabel;
   if (busy) {
@@ -29,6 +29,11 @@ export default function HeroSection({
   } else {
     restoreLabel = "🚀 Restore";
   }
+
+  const handleRestoreClick = () => {
+    setRestoreTriggered(true);
+    onRestoreClick();
+  };
 
   return (
     <section className={styles.hero}>
@@ -48,23 +53,35 @@ export default function HeroSection({
         )}
 
         <div className={styles.controls}>
-          <button
-            onClick={onUploadClick}
-            disabled={busy}
-            className={`${styles.uploadButton} ${busy ? styles.disabled : ""}`}
-          >
-            📂 {previewUrl ? "Change Photo" : "Upload Photo"}
-          </button>
+          {!restoreTriggered ? (
+            <button
+              onClick={handleRestoreClick}
+              disabled={restoreDisabled}
+              className={`${styles.restoreButton} ${
+                restoreDisabled ? styles.disabled : ""
+              }`}
+            >
+              {restoreLabel}
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={handleRestoreClick}
+                disabled={restoreDisabled}
+                className={styles.restoreButton}
+              >
+                {restoreLabel}
+              </button>
 
-          <button
-            onClick={onRestoreClick}
-            disabled={restoreDisabled}
-            className={`${styles.restoreButton} ${
-              restoreDisabled ? styles.disabled : ""
-            }`}
-          >
-            {restoreLabel}
-          </button>
+              <button
+                onClick={onUploadClick}
+                disabled={busy}
+                className={styles.uploadButton}
+              >
+                📂 {previewUrl ? "Change Photo" : "Upload Photo"}
+              </button>
+            </>
+          )}
         </div>
 
         {credits < 1 && (
@@ -87,27 +104,9 @@ export default function HeroSection({
           </div>
         )}
 
-        {/* pop-in message after restore */}
         {restoredUrl && !busy && (
-          <div
-            style={{
-              marginTop: "1.5rem",
-              fontSize: "1.125rem",
-              color: "#fff",
-              textAlign: "center",
-              fontWeight: 500,
-              textShadow: "0 1px 3px rgba(0,0,0,0.5)",
-              animation: "pop 0.4s ease-out",
-            }}
-          >
-            <span
-              role="img"
-              aria-label="celebrate"
-              style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}
-            >
-              🎉
-            </span>
-            Boom! Your photo just got its glow-up.
+          <div className={styles.restoredMessage}>
+            🎉 Boom! Your photo just got its glow-up.
             <br />
             Scroll down to see before &amp; after, then drag the slider to compare.
           </div>

@@ -35,21 +35,22 @@ export default function ImagePreview({
   return (
     <div className={styles.previewCard}>
       <h3 className={styles.previewTitle}>{title}</h3>
-      
+
       <div className={styles.previewImageWrapper}>
         {url && !imageError ? (
           <>
-            <Image
-              src={url}
-              alt={`${title} image preview`}
-              width={400}
-              height={300}
-              className={`next-image ${imageLoading ? styles.imageLoading : ''}`}
-              unoptimized
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              priority={title === "Before"}
-            />
+            <div className={styles.fixedImageContainer}>
+              <Image
+                src={url}
+                alt={`${title} image preview`}
+                fill
+                className={`next-image ${imageLoading ? styles.imageLoading : ''}`}
+                unoptimized
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                priority={title === "Before"}
+              />
+            </div>
             {imageLoading && <div className={styles.imageLoadingSkeleton} />}
           </>
         ) : isProcessing ? (

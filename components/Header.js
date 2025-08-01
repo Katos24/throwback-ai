@@ -1,4 +1,3 @@
-// components/Header.js
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -7,7 +6,7 @@ import Modal from "./Modal";
 import { LoginForm } from "./Auth/LoginForm";
 import { SignupForm } from "./Auth/SignupForm";
 import styles from "../styles/Header.module.css";
-import authStyles from "../styles/Login.module.css"; // for googleButton, spinner, etc.
+import authStyles from "../styles/Login.module.css";
 
 export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
@@ -16,7 +15,6 @@ export default function Header({ showMenu, setShowMenu }) {
   const [modalType, setModalType] = useState(null); // 'login' | 'signup' | null
   const [isOAuthLoading, setOAuthLoading] = useState(false);
 
-  // 1) Fetch initial session & listen for auth changes
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
@@ -27,7 +25,6 @@ export default function Header({ showMenu, setShowMenu }) {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // 2) Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -56,7 +53,6 @@ export default function Header({ showMenu, setShowMenu }) {
     router.push("/pricing");
   };
 
-  // 3) Google OAuth handler
   const handleOAuth = async (provider) => {
     setOAuthLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
@@ -78,8 +74,9 @@ export default function Header({ showMenu, setShowMenu }) {
         {/* 🍔 Hamburger */}
         <button
           className={styles.hamburger}
-          onClick={() => setShowMenu((p) => !p)}
+          onClick={() => setShowMenu((prev) => !prev)}
           aria-label="Toggle menu"
+          type="button"
         >
           <span className={styles.bar} />
           <span className={styles.bar} />
@@ -87,7 +84,7 @@ export default function Header({ showMenu, setShowMenu }) {
         </button>
 
         {/* 🌀 Logo */}
-        <Link href="/" onClick={() => setShowMenu(false)} className={styles.logoWrapper}>
+        <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
           <div>
             <div className={styles.logoMain}>ANASTASIS 🌀</div>
             <div className={styles.logoSub}>Powered by Throwback AI</div>
@@ -96,43 +93,45 @@ export default function Header({ showMenu, setShowMenu }) {
 
         {/* 🧭 Nav Links */}
         <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
-          <Link href="/" legacyBehavior>
-            <a className={styles.navLink} onClick={() => setShowMenu(false)}>Home</a>
+          <Link href="/" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Home
           </Link>
-          <Link href="/replicate/restore-basic" legacyBehavior>
-            <a className={styles.navLink} onClick={() => setShowMenu(false)}>Photo Fix</a>
+          <Link href="/replicate/restore-basic" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Photo Fix
           </Link>
-          <Link href="/replicate/restore-premium" legacyBehavior>
-            <a className={styles.navLink} onClick={() => setShowMenu(false)}>Photo Revival</a>
+          <Link href="/replicate/restore-premium" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Photo Revival
           </Link>
-          <Link href="/gallery" legacyBehavior>
-            <a className={styles.navLink} onClick={() => setShowMenu(false)}>Gallery</a>
+          <Link href="/gallery" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Gallery
           </Link>
-          <Link href="/about" legacyBehavior>
-            <a className={styles.navLink} onClick={() => setShowMenu(false)}>About</a>
+          <Link href="/about" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            About
           </Link>
 
-          <button onClick={goToPricing} className={`${styles.navBtn} ${styles.ctaGlowBtn}`}>
+          <button
+            onClick={goToPricing}
+            className={`${styles.navBtn} ${styles.ctaGlowBtn}`}
+            type="button"
+          >
             💸 See Pricing Plans
           </button>
 
           {user ? (
             <>
-              <Link href="/profile" legacyBehavior>
-                <a className={styles.profileBtn} onClick={() => setShowMenu(false)}>
-                  Profile
-                </a>
+              <Link href="/profile" prefetch className={styles.profileBtn} onClick={() => setShowMenu(false)}>
+                Profile
               </Link>
-              <button onClick={handleSignOut} className={styles.signOutBtn}>
+              <button onClick={handleSignOut} className={styles.signOutBtn} type="button">
                 Sign Out
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => openModal("login")} className={styles.navBtn}>
+              <button onClick={() => openModal("login")} className={styles.navBtn} type="button">
                 Login
               </button>
-              <button onClick={() => openModal("signup")} className={styles.navBtn}>
+              <button onClick={() => openModal("signup")} className={styles.navBtn} type="button">
                 Sign Up
               </button>
             </>
@@ -152,6 +151,7 @@ export default function Header({ showMenu, setShowMenu }) {
             <span className={authStyles.spinner} aria-label="Loading..." />
           ) : (
             <>
+              {/* Google SVG icon here */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
@@ -161,7 +161,7 @@ export default function Header({ showMenu, setShowMenu }) {
                 width="20"
                 height="20"
               >
-                {/* paths omitted for brevity */}
+                {/* SVG paths omitted */}
               </svg>
               Log in with Google
             </>
@@ -190,6 +190,7 @@ export default function Header({ showMenu, setShowMenu }) {
             <span className={authStyles.spinner} aria-label="Loading..." />
           ) : (
             <>
+              {/* Google SVG icon here */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 48 48"
@@ -199,7 +200,7 @@ export default function Header({ showMenu, setShowMenu }) {
                 width="20"
                 height="20"
               >
-                {/* paths omitted */}
+                {/* SVG paths omitted */}
               </svg>
               Sign up with Google
             </>

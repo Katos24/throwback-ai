@@ -28,7 +28,12 @@ const PricingSection = () => {
               <li>Unlimited edits—but you pay $9.99 every 30 days</li>
               <li>Average cost per restore: $9.99</li>
             </ul>
-            <Link href="/pricing" className={pricingStyles.pricingButton} aria-label="Go to Pricing Page">
+            <Link
+              href="/pricing"
+              prefetch={true}
+              aria-label="Go to Pricing Page"
+              className={pricingStyles.pricingButton}
+            >
               See Pricing
             </Link>
           </div>
@@ -49,7 +54,12 @@ const PricingSection = () => {
               <li>Credits never expire</li>
               <li>No hidden monthly fees</li>
             </ul>
-            <Link href="/pricing" className={pricingStyles.pricingButton} aria-label="Go to Pricing Page">
+            <Link
+              href="/pricing"
+              prefetch={true}
+              aria-label="Go to Pricing Page"
+              className={pricingStyles.pricingButton}
+            >
               Buy Credits
             </Link>
           </div>

@@ -1,3 +1,5 @@
+// pages/restore-basic-test.jsx
+
 import { useState, useEffect, useRef } from "react";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
@@ -13,7 +15,6 @@ import AiStyles from "../../styles/AiPage.module.css";
 
 export default function RestoreBasicTest() {
   const fileInputRef = useRef();
-
   const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
 
   const [session, setSession] = useState(null);
@@ -54,8 +55,8 @@ export default function RestoreBasicTest() {
       });
       setSelectedFile(compressedFile);
       setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
-    } catch (err) {
-      console.error("Image compression failed, using original file", err);
+    } catch {
+      // fallback to original file
       setSelectedFile(file);
       setSelectedPreviewUrl(URL.createObjectURL(file));
     } finally {
@@ -70,23 +71,17 @@ export default function RestoreBasicTest() {
       window.location.href = isLoggedIn ? "/pricing" : "/signup";
       return;
     }
-
     if (!showFileInput) {
       promptUpload();
       return;
     }
-
     if (!selectedFile) {
       alert("Please upload an image first.");
       return;
     }
 
     setLoading(true);
-
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
+    const headers = { "Content-Type": "application/json" };
     if (session?.access_token) {
       headers.Authorization = `Bearer ${session.access_token}`;
     }
@@ -96,83 +91,66 @@ export default function RestoreBasicTest() {
       const base64 = reader.result.split(",")[1];
 
       try {
-        const response = await fetch("/api/replicate/restore", {
+        const res = await fetch("/api/replicate/restore", {
           method: "POST",
           headers,
-          body: JSON.stringify({
-            imageBase64: base64,
-            prompt: "Restore this vintage photo",
-          }),
+          body: JSON.stringify({ imageBase64: base64, prompt: "Restore this vintage photo" }),
         });
+        const data = await res.json();
 
-        const data = await response.json();
-
-        if (response.ok && data.imageUrl) {
+        if (res.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          if (isLoggedIn) {
-            await refreshCredits();
-          } else {
-            deductCredits(1);
-          }
+          isLoggedIn ? await refreshCredits() : deductCredits(1);
         } else {
           setError(data.error || "Failed to restore image.");
         }
-      } catch (err) {
+      } catch {
         setError("Network or server error. Please try again.");
-        console.error(err);
       } finally {
         setLoading(false);
       }
     };
-
     reader.readAsDataURL(selectedFile);
   };
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
-
     try {
-      const response = await fetch(restoredUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
+      const res = await fetch(restoredUrl);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "restored-photo.png";
       document.body.appendChild(a);
       a.click();
       a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Download failed:", err);
+      URL.revokeObjectURL(url);
+    } catch {
+      console.error("Download failed");
     }
   };
 
-  // Helper function to determine progress status
   const getProgressStatus = () => {
-    if (processing) return 'compressing';
-    if (loading) return 'processing';
-    if (restoredUrl) return 'complete';
-    return 'idle';
+    if (processing) return "compressing";
+    if (loading) return "processing";
+    if (restoredUrl) return "complete";
+    return "idle";
   };
 
   return (
     <main className={styles.root}>
       <HeroSection
-  previewUrl={selectedPreviewUrl}
-  status={loading || processing ? "working" : "idle"}
-  credits={credits}
-  isLoggedIn={isLoggedIn}
-  onUploadClick={promptUpload}
-  onRestoreClick={handleRestoreClick}
-  restoredUrl={restoredUrl}  // <-- add this
-/>
-
-      {/* show progress bar with proper status flow */}
-      <ProgressBar 
-        status={getProgressStatus()} 
-        progress={null} 
+        previewUrl={selectedPreviewUrl}
+        status={loading || processing ? "working" : "idle"}
+        credits={credits}
+        isLoggedIn={isLoggedIn}
+        onUploadClick={promptUpload}
+        onRestoreClick={handleRestoreClick}
+        restoredUrl={restoredUrl}
       />
+
+      <ProgressBar status={getProgressStatus()} progress={null} />
 
       <input
         ref={fileInputRef}
@@ -181,24 +159,39 @@ export default function RestoreBasicTest() {
         onChange={handleFileChange}
         className={styles.hiddenInput}
       />
+{/* … */}
+{/* ─── DYNAMIC 2-OR-3 COLUMN PREVIEW GRID ─────────────────────── */}
+<section
+  className={styles.previewGrid}
+  style={{
+    // 2 cols while waiting, switch to 3 once restoredUrl exists
+    gridTemplateColumns: restoredUrl ? "1fr 1fr 1fr" : "1fr 1fr",
+  }}
+>
+  {/* BEFORE */}
+  <ImagePreview
+    title="Before"
+    url={selectedPreviewUrl}
+    status={loading || processing ? "working" : "idle"}
+  />
 
-      <section className={styles.previews}>
-        <ImagePreview
-          title="Before"
-          url={selectedPreviewUrl}
-          status={loading || processing ? "working" : "idle"}
-        />
-        <ImagePreview
-          title="After"
-          url={restoredUrl}
-          status={loading ? "working" : "idle"}
-          onDownload={handleDownload}
-        />
-      </section>
+  {/* AFTER */}
+  <ImagePreview
+    title="After"
+    url={restoredUrl}
+    status={loading ? "working" : "idle"}
+    onDownload={handleDownload}
+  />
 
-      {selectedPreviewUrl && restoredUrl && (
-        <CompareSection before={selectedPreviewUrl} after={restoredUrl} />
-      )}
+  {/* only show slider when restore is done */}
+  {restoredUrl && (
+    <div className={styles.sliderWrapper} id="compare">
+      <CompareSection before={selectedPreviewUrl} after={restoredUrl} />
+    </div>
+  )}
+</section>
+{/* ────────────────────────────────────────────────────────────── */}
+{/* … */}
 
       {error && <div className={styles.errorToast}>{error}</div>}
 

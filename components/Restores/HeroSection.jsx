@@ -1,3 +1,5 @@
+// components/Restores/HeroSection.jsx
+
 import Link from "next/link";
 import styles from "../../styles/RestoreBasic.module.css";
 
@@ -8,13 +10,12 @@ export default function HeroSection({
   isLoggedIn,
   onUploadClick,
   onRestoreClick,
-  restoredUrl,   // NEW prop
+  restoredUrl,
 }) {
   const busy = status !== "idle";
   const needsUpload = !previewUrl;
   const restoreDisabled = busy || needsUpload;
 
-  // Determine the Restore button label
   let restoreLabel;
   if (busy) {
     restoreLabel =
@@ -24,22 +25,20 @@ export default function HeroSection({
         ? "Restoring…"
         : "Please wait…";
   } else if (credits < 1) {
-    restoreLabel = isLoggedIn
-      ? "💳 Buy More Credits"
-      : "🔒 Sign Up to Restore";
+    restoreLabel = isLoggedIn ? "💳 Buy More Credits" : "🔒 Sign Up to Restore";
   } else {
-    restoreLabel = `🚀 Restore`;
+    restoreLabel = "🚀 Restore";
   }
 
   return (
     <section className={styles.hero}>
       <div className={styles.heroContainer}>
-        <h1 className={styles.heroTitle}>🕹️ Restore Your Vintage Photo</h1>
+        <h1 className={styles.heroTitle}>Restore Your Vintage Photo</h1>
         <p className={styles.heroSubtitle}>
-          You're using <strong>Quick Enhance</strong> — fast scratch removal and clarity boost for just <strong>1 credit</strong>.
+          You're using <strong>Quick Enhance</strong> — fast scratch removal and
+          clarity boost for just <strong>1 credit</strong>.
         </p>
 
-        {/* Credits display if logged in */}
         {isLoggedIn && (
           <div className={styles.creditsDisplay}>
             <div className={styles.creditsCount}>
@@ -48,14 +47,11 @@ export default function HeroSection({
           </div>
         )}
 
-        {/* Upload and restore buttons */}
         <div className={styles.controls}>
           <button
             onClick={onUploadClick}
             disabled={busy}
-            className={`${styles.uploadButton} ${
-              busy ? styles.disabled : ""
-            }`}
+            className={`${styles.uploadButton} ${busy ? styles.disabled : ""}`}
           >
             📂 {previewUrl ? "Change Photo" : "Upload Photo"}
           </button>
@@ -71,7 +67,6 @@ export default function HeroSection({
           </button>
         </div>
 
-        {/* Out-of-credits messaging */}
         {credits < 1 && (
           <div className={styles.creditsInfo}>
             {isLoggedIn ? (
@@ -92,18 +87,29 @@ export default function HeroSection({
           </div>
         )}
 
-        {/* New message shown only after restoration completes */}
+        {/* pop-in message after restore */}
         {restoredUrl && !busy && (
           <div
             style={{
               marginTop: "1.5rem",
-              fontSize: "1rem",
-              color: "#ddd",
+              fontSize: "1.125rem",
+              color: "#fff",
               textAlign: "center",
-              fontStyle: "italic",
+              fontWeight: 500,
+              textShadow: "0 1px 3px rgba(0,0,0,0.5)",
+              animation: "pop 0.4s ease-out",
             }}
           >
-            🎉 Image restored! Scroll down to see before & after photos, and try the slider below to compare the magic.
+            <span
+              role="img"
+              aria-label="celebrate"
+              style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}
+            >
+              🎉
+            </span>
+            Boom! Your photo just got its glow-up.
+            <br />
+            Scroll down to see before &amp; after, then drag the slider to compare.
           </div>
         )}
       </div>

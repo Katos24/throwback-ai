@@ -543,3 +543,56 @@
 
 
 
+.popMessage {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  animation: pop 0.4s ease-out;
+}
+
+.popMessage span {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  60%  { transform: scale(1.1); opacity: 1; }
+  to   { transform: scale(1); }
+}
+
+
+
+/* 3-column grid for Before / Slider / After */
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .previewGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Center the slider component */
+.sliderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Placeholder when no comparison available */
+.previewPlaceholderCard {
+  border: 2px dashed #666;
+  border-radius: 8px;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+}

@@ -1,169 +1,443 @@
-/* SuccessStories.module.css */
+/* SuccessStories.module.css - Mobile-First Enhanced Version */
 
 .successStoriesSection {
-  padding: 80px 20px;
-  background-color: #f8f9fb;
+  padding: 60px 16px;
+  background: linear-gradient(135deg, #f8f9fb 0%, #e8eef7 50%, #f8f9fb 100%);
   text-align: center;
   margin: 0 auto;
-}
-
-.successHeading {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-align: center;
-  margin-bottom: .5rem;
-}
-
-.successIntro {
-  font-size: 1.2rem;
-  color: #666;
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto 2rem;
-}
-
-.successGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-top: 2rem;
-}
-
-.successCard {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  text-align: center;
+  position: relative;
   overflow: hidden;
 }
 
+/* Animated background elements */
+.successStoriesSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(231, 76, 60, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.06) 0%, transparent 50%);
+  animation: backgroundFloat 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes backgroundFloat {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.successHeading {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 50%, #1a1a1a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+  letter-spacing: -0.02em;
+}
+
+@keyframes titleGlow {
+  0% { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+  100% { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+}
+
+.successHeading::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+  border-radius: 2px;
+  animation: underlineExpand 2s ease-in-out infinite alternate;
+}
+
+@keyframes underlineExpand {
+  0% { 
+    width: 80px;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+  }
+  100% { 
+    width: 120px;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+  }
+}
+
+.successIntro {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #666;
+  max-width: 700px;
+  text-align: center;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  font-weight: 500;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile-First Grid System */
+.successGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.successCard {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 24px;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+/* Card shimmer effect */
+.successCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.8s ease;
+}
+
 .successCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(231, 76, 60, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.successCard:hover::before {
+  left: 100%;
+}
+
+/* Staggered animation for cards */
+.successCard:nth-child(1) { animation: cardSlideIn 0.8s ease-out 0.1s both; }
+.successCard:nth-child(2) { animation: cardSlideIn 0.8s ease-out 0.3s both; }
+.successCard:nth-child(3) { animation: cardSlideIn 0.8s ease-out 0.5s both; }
+.successCard:nth-child(4) { animation: cardSlideIn 0.8s ease-out 0.7s both; }
+
+@keyframes cardSlideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
 }
 
 .successImages {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
   padding: 20px;
-  flex-wrap: wrap;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 12px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.successImages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(231, 76, 60, 0.05), rgba(52, 152, 219, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.successCard:hover .successImages::before {
+  opacity: 1;
 }
 
 .successBefore,
 .successAfter {
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  max-width: 120px;
   height: auto;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .successCard:hover .successBefore,
 .successCard:hover .successAfter {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 .successArrow {
-  font-size: 24px;
+  font-size: 20px;
   color: #e74c3c;
   font-weight: bold;
-  animation: pulse 2s infinite;
+  animation: arrowPulse 2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(231, 76, 60, 0.1);
+  border-radius: 50%;
+  margin: 0 8px;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+@keyframes arrowPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    background: rgba(231, 76, 60, 0.1);
+  }
+  50% { 
+    transform: scale(1.15); 
+    background: rgba(231, 76, 60, 0.2);
+  }
 }
 
 .successStory {
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .successStory blockquote {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.7;
   color: #555;
   font-style: italic;
   margin: 0;
   position: relative;
-  padding: 0 20px;
+  padding: 20px 24px;
+  background: rgba(248, 249, 251, 0.5);
+  border-radius: 12px;
+  border-left: 4px solid #e74c3c;
+  transition: all 0.3s ease;
+}
+
+.successCard:hover .successStory blockquote {
+  background: rgba(248, 249, 251, 0.8);
+  border-left-color: #c0392b;
 }
 
 .successStory blockquote::before {
   content: '"';
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #e74c3c;
   position: absolute;
-  left: -10px;
-  top: -15px;
+  left: 8px;
+  top: -5px;
   font-family: Georgia, serif;
+  opacity: 0.7;
 }
 
 .successStory blockquote::after {
   content: '"';
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #e74c3c;
   position: absolute;
-  right: -10px;
-  bottom: -30px;
+  right: 8px;
+  bottom: -25px;
   font-family: Georgia, serif;
+  opacity: 0.7;
 }
 
 .successStory cite {
-  font-weight: 600;
+  font-weight: 700;
   color: #333;
   font-style: normal;
   display: block;
-  margin-bottom: 8px;
-  margin-top: 8px;
+  margin: 16px 0 8px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  transition: color 0.3s ease;
+}
+
+.successCard:hover .successStory cite {
+  color: #1a1a1a;
 }
 
 .occasion {
-  display: block;
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  display: inline-block;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
   color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: .9rem;
-  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 4px;
+  letter-spacing: 0.8px;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  transition: all 0.3s ease;
 }
 
-/* Responsive scroll on mobile */
+.successCard:hover .occasion {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Mobile Optimization - Horizontal Scroll */
 @media (max-width: 768px) {
+  .successStoriesSection {
+    padding: 40px 12px;
+  }
+  
   .successGrid {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 20px;
-    padding: 1rem 0;
+    gap: 16px;
+    padding: 20px 0;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(231, 76, 60, 0.3) transparent;
   }
+  
   .successGrid::-webkit-scrollbar {
-    height: 6px;
+    height: 8px;
   }
+  
+  .successGrid::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+  }
+  
   .successGrid::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.2);
-    border-radius: 3px;
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    border-radius: 4px;
+    transition: background 0.3s ease;
   }
+  
+  .successGrid::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #c0392b, #a93226);
+  }
+  
   .successCard {
     flex: 0 0 auto;
-    width: 280px;
+    width: 300px;
     scroll-snap-align: start;
+    margin-right: 4px;
+  }
+  
+  .successImages {
+    gap: 8px;
+    padding: 16px;
+  }
+  
+  .successBefore,
+  .successAfter {
+    max-width: 100px;
+  }
+  
+  .successArrow {
+    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
   }
 }
 
+@media (max-width: 480px) {
+  .successStoriesSection {
+    padding: 32px 8px;
+  }
+  
+  .successCard {
+    width: 280px;
+    padding: 20px;
+  }
+  
+  .successImages {
+    gap: 6px;
+    padding: 12px;
+    flex-direction: column;
+  }
+  
+  .successBefore,
+  .successAfter {
+    max-width: 120px;
+  }
+  
+  .successArrow {
+    transform: rotate(90deg);
+    margin: 8px 0;
+  }
+  
+  .successStory blockquote {
+    padding: 16px 20px;
+  }
+  
+  .occasion {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+}
+
+/* Scroll indicator for mobile */
 @media (max-width: 768px) {
-  .scrollArrows {
+  .successStoriesSection::after {
+    content: '← Swipe to see more stories →';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    animation: swipeHint 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes swipeHint {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+}
+
+/* Hide scroll indicator on desktop */
+@media (min-width: 769px) {
+  .successStoriesSection::after {
     display: none;
   }
 }

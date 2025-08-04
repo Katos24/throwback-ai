@@ -1,6 +1,45 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import heroStyles from '../../styles/Hero.module.css';
+
+// Lazy-load the video component when it enters viewport
+const HeroVideo = () => {
+  const videoRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    if (videoRef.current) observer.observe(videoRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={videoRef} className={heroStyles.videoWrapper}>
+      {isVisible && (
+        <video
+          className={heroStyles.heroVideo}
+          preload="metadata"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="/videos/ThrowbackAIIntro.webm" type="video/webm" />
+          <source src="/videos/ThrowbackAIIntro.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
+    </div>
+  );
+};
 
 const HeroSection = () => {
   return (
@@ -18,8 +57,8 @@ const HeroSection = () => {
           </h1>
 
           <p className={heroStyles.heroSubtitle}>
-            Bring your old family photos back to life with cutting-edge, privacy-first AI.
-            No subscriptions, no gimmicks — just beautifully restored memories in under 2 minutes.
+            Bring your old family photos back to life with cutting-edge, privacy-first AI. No subscriptions,
+            no gimmicks — just beautifully restored memories in under 2 minutes.
           </p>
 
           <div className={heroStyles.heroButtons}>
@@ -32,16 +71,8 @@ const HeroSection = () => {
             </Link>
           </div>
 
-          <div className={heroStyles.videoWrapper}>
-            <video
-              className={heroStyles.heroVideo}
-              src="/videos/ThrowbackAIIntro.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          </div>
+          <HeroVideo />
+
           <p className={heroStyles.subText}>
             Sign up now and get <strong>5 bonus credits</strong> — no subscription required!
           </p>

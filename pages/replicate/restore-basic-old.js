@@ -1,376 +1,230 @@
-import { useState, useEffect } from "react";
+// pages/restore-basic-test.jsx
+
+import { useState, useEffect, useRef } from "react";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
-import styles from "../../styles/AiPage.module.css";
-import ImageCompareSlider from "../../components/ImageCompareSlider";
-import Image from "next/image";
-import Link from "next/link";
+
+import HeroSection from "../../components/Restores/HeroSection.jsx";
+import ImagePreview from "../../components/Restores/ImagePreview.jsx";
+import CompareSection from "../../components/Restores/CompareSection.jsx";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 
-export default function RestoreBasic() {
+import styles from "../../styles/RestoreBasic.module.css";
+import AiStyles from "../../styles/AiPage.module.css";
+
+export default function RestoreBasicTest() {
+  const fileInputRef = useRef();
+  const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
+
+  const [session, setSession] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedPreviewUrl, setSelectedPreviewUrl] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
-
-  // Progress bar state
-  const [progressStatus, setProgressStatus] = useState("idle"); // idle, compressing, uploading, processing, complete
-  const [progressPercent, setProgressPercent] = useState(null); // number 0-100 or null for indeterminate
-
-  // freeAttempts default is 1 for first-time visitors
-  const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 1 } = useCredits();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-    }
-    getSession();
+    });
   }, []);
+
+  const promptUpload = () => {
+    setShowFileInput(true);
+    fileInputRef.current?.click();
+  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setProgressStatus("compressing");
-      setProcessing(true);
-      setRestoredUrl("");
-      try {
-        const compressedFile = await imageCompression(file, {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1024,
-          useWebWorker: true,
-        });
-        setSelectedFile(compressedFile);
-        setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
-      } catch (error) {
-        console.error("Image compression error:", error);
-        setSelectedFile(file);
-        setSelectedPreviewUrl(URL.createObjectURL(file));
-      } finally {
-        setProcessing(false);
-        setProgressStatus("idle");
-        setProgressPercent(null);
-      }
+    if (!file) return;
+
+    setError(null);
+    setProcessing(true);
+    setRestoredUrl("");
+    setSelectedFile(null);
+    setSelectedPreviewUrl(null);
+
+    try {
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      });
+      setSelectedFile(compressedFile);
+      setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
+    } catch {
+      // fallback to original file
+      setSelectedFile(file);
+      setSelectedPreviewUrl(URL.createObjectURL(file));
+    } finally {
+      setProcessing(false);
     }
   };
 
-  const handleRestoreClick = () => {
-    // Redirect if no credits
+  const handleRestoreClick = async () => {
+    setError(null);
+
     if (credits < 1) {
-      if (isLoggedIn) {
-        window.location.href = "/pricing";
-      } else {
-        window.location.href = "/signup";
-      }
+      window.location.href = isLoggedIn ? "/pricing" : "/signup";
       return;
     }
-
-    // Show file input only if user has credits
     if (!showFileInput) {
-      setShowFileInput(true);
-      setRestoredUrl("");
-      setSelectedFile(null);
-      setSelectedPreviewUrl(null);
+      promptUpload();
       return;
     }
-
     if (!selectedFile) {
       alert("Please upload an image first.");
       return;
     }
 
-    handleRestore();
-  };
-
-  const handleRestore = async () => {
-    if (!selectedFile) return;
-
     setLoading(true);
-    setProgressStatus("uploading");
-    setProgressPercent(0);
-
     const headers = { "Content-Type": "application/json" };
-    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+    if (session?.access_token) {
+      headers.Authorization = `Bearer ${session.access_token}`;
+    }
 
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
 
       try {
-        // Simulate progress update (replace with real upload progress if available)
-        let progress = 0;
-        const progressInterval = setInterval(() => {
-          progress += 10;
-          if (progress > 90) {
-            clearInterval(progressInterval);
-          } else {
-            setProgressPercent(progress);
-          }
-        }, 300);
-
-        const response = await fetch("/api/replicate/restore", {
+        const res = await fetch("/api/replicate/restore", {
           method: "POST",
           headers,
-          body: JSON.stringify({
-            imageBase64: base64,
-            prompt: "Restore this vintage photo",
-          }),
+          body: JSON.stringify({ imageBase64: base64, prompt: "Restore this vintage photo" }),
         });
+        const data = await res.json();
 
-        clearInterval(progressInterval);
-        setProgressPercent(100);
-        setProgressStatus("processing");
-        setProgressPercent(null); // Indeterminate for processing
-
-        const data = await response.json();
-
-        if (response.ok && data.imageUrl) {
+        if (res.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-          setProgressStatus("complete");
-          setProgressPercent(100);
-          if (isLoggedIn) {
-            await refreshCredits();
-          } else {
-            deductCredits(1);
-          }
+          isLoggedIn ? await refreshCredits() : deductCredits(1);
         } else {
-          alert(data.error || "Failed to restore image.");
-          setProgressStatus("idle");
-          setProgressPercent(null);
+          setError(data.error || "Failed to restore image.");
         }
-      } catch (error) {
-        alert("Network or server error. Please try again.");
-        console.error(error);
-        setProgressStatus("idle");
-        setProgressPercent(null);
+      } catch {
+        setError("Network or server error. Please try again.");
       } finally {
         setLoading(false);
       }
     };
-
     reader.readAsDataURL(selectedFile);
   };
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
+    try {
+      const res = await fetch(restoredUrl);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "restored-photo.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      console.error("Download failed");
+    }
+  };
 
-    const response = await fetch(restoredUrl);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "restored-photo.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+  const getProgressStatus = () => {
+    if (processing) return "compressing";
+    if (loading) return "processing";
+    if (restoredUrl) return "complete";
+    return "idle";
   };
 
   return (
-    <main>
-      <section className={styles.topBanner}>
-        <div className={styles.topBannerContent}>
-          <div className={styles.topBannerTop}>
-            <h2 className={styles.topBannerTitle}>🕹️ Restore Your Vintage Photo</h2>
-            <p className={styles.topBannerSubtitle}>
-              Basic restores clean black & white photos with AI-powered scratch removal and clarity boost.
-              Sign up for premium features like colorization and advanced restoration.
-            </p>
+    <main className={styles.root}>
+      <HeroSection
+        previewUrl={selectedPreviewUrl}
+        status={loading || processing ? "working" : "idle"}
+        credits={credits}
+        isLoggedIn={isLoggedIn}
+        onUploadClick={promptUpload}
+        onRestoreClick={handleRestoreClick}
+        restoredUrl={restoredUrl}
+      />
 
-            {showFileInput && (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                disabled={loading || processing}
-                className={`${styles.fileInput} ${styles.visible}`}
-              />
-            )}
+      <ProgressBar status={getProgressStatus()} progress={null} />
 
-            <button
-              className={styles.topBannerButton}
-              onClick={handleRestoreClick}
-              disabled={loading || processing}
-              title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
-            >
-              {!loading && !processing &&
-                (credits < 1
-                  ? isLoggedIn
-                    ? "💳 Buy More Credits"
-                    : "🔒 Sign Up to Restore"
-                  : showFileInput
-                  ? isLoggedIn
-                    ? `🆓 Restore Basic (1 credit)`
-                    : `🆓 Restore Basic (Free attempts left: ${credits})`
-                  : "Restore")}
-              {(loading || processing) && (
-                <>
-                  <div className={styles.spinner} />
-                  <span className={styles.loadingText}>
-                    Please wait, this may take up to a minute...
-                  </span>
-                </>
-              )}
-            </button>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className={styles.hiddenInput}
+      />
+{/* … */}
+{/* ─── DYNAMIC 2-OR-3 COLUMN PREVIEW GRID ─────────────────────── */}
+<section
+  className={styles.previewGrid}
+  style={{
+    // 2 cols while waiting, switch to 3 once restoredUrl exists
+    gridTemplateColumns: restoredUrl ? "1fr 1fr 1fr" : "1fr 1fr",
+  }}
+>
+  {/* BEFORE */}
+  <ImagePreview
+    title="Before"
+    url={selectedPreviewUrl}
+    status={loading || processing ? "working" : "idle"}
+  />
 
-            {/* Progress Bar */}
-            <ProgressBar
-              status={progressStatus}
-              progress={progressPercent}
-              showSteps={true}
-              loading={loading || processing}
-            />
+  {/* AFTER */}
+  <ImagePreview
+    title="After"
+    url={restoredUrl}
+    status={loading ? "working" : "idle"}
+    onDownload={handleDownload}
+  />
 
-            <div className={styles.creditsInfo}>
-              {isLoggedIn ? (
-                <>
-                  Your credits: <strong>{credits}</strong>
-                  {credits < 1 && (
-                    <div style={{ marginTop: "0.75rem" }}>
-                      <button
-                        onClick={() => (window.location.href = "/pricing")}
-                        className={styles.ctaButton}
-                        style={{
-                          backgroundColor: "#0070f3",
-                          color: "white",
-                          border: "none",
-                          padding: "0.5rem 1rem",
-                          borderRadius: "6px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Buy More Credits
-                      </button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <>
-                  Remaining free attempts: <strong>{credits}</strong>.{" "}
-                  <Link href="/signup" legacyBehavior>
-                    <a className={styles.link}>Sign up to get more credits!</a>
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
+  {/* only show slider when restore is done */}
+  {restoredUrl && (
+    <div className={styles.sliderWrapper} id="compare">
+      <CompareSection before={selectedPreviewUrl} after={restoredUrl} />
+    </div>
+  )}
+</section>
+{/* ────────────────────────────────────────────────────────────── */}
+{/* … */}
 
-          <div className={styles.topBannerImages}>
-            <div className={styles.imageBox}>
-              <strong>Before</strong>
-              <div className={styles.imageWrapper}>
-                {selectedPreviewUrl ? (
-                  <Image
-                    src={selectedPreviewUrl}
-                    alt="Before upload preview"
-                    className={styles.image}
-                    style={{ objectFit: "contain" }}
-                    width={400}
-                    height={300}
-                    unoptimized={true}
-                  />
-                ) : (
-                  <span className={styles.placeholderText}>Upload an image</span>
-                )}
-              </div>
-            </div>
-
-            <div className={styles.imageBox}>
-              <strong>After</strong>
-              <div className={styles.imageWrapper}>
-                {restoredUrl ? (
-                  <img
-                    src={restoredUrl}
-                    alt="Restored"
-                    className={styles.image}
-                    style={{ objectFit: "contain" }}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className={styles.placeholderText}>No restored image yet</span>
-                )}
-              </div>
-
-              {restoredUrl && (
-                <button
-                  onClick={handleDownload}
-                  className={styles.downloadButton}
-                  style={{ marginTop: "1rem" }}
-                >
-                  ⬇️ Download
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* User Before and After images slider*/}
-      {selectedPreviewUrl && restoredUrl && (
-        <section
-          style={{
-            padding: "3rem 1rem",
-            backgroundColor: "#1a1a1a",
-            color: "white",
-            borderTop: "1px solid #333",
-          }}
-        >
-          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-            Your Restoration Preview
-          </h2>
-          <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
-        </section>
-      )}
-
-      {/* Image Compare Slider Section for Basic Restore */}
-      <section
-        style={{
-          padding: "3rem 1rem",
-          backgroundColor: "#121212",
-          color: "white",
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          Experience the Basic Restore Before & After
-        </h2>
-        <ImageCompareSlider
-          beforeImage="/images/basicpage-before.jpg"
-          afterImage="/images/basicpage-after.jpg"
-        />
-      </section>
+      {error && <div className={styles.errorToast}>{error}</div>}
 
       {/* Feature Section – Basic */}
-      <section className={styles.featurePromoSection}>
-        <div className={styles.featurePromoContent}>
-          <div className={styles.featurePromoText}>
-            <h2 className={styles.featurePromoTitle}>🧼 Clean up your photos with enhanced clarity</h2>
-            <p className={styles.featurePromoSubtitle}>
-              Restore Basic uses smart AI to remove noise, sharpen edges, and enhance the overall clarity of your photos —
-              whether black &amp; white or color. Black and white images stay true to their original tone, while color photos
-              are cleaned and subtly enriched for a crisper, more vivid look.
+      <section className={AiStyles.featurePromoSection}>
+        <div className={AiStyles.featurePromoContent}>
+          <div className={AiStyles.featurePromoText}>
+            <h2 className={AiStyles.featurePromoTitle}>
+              🧼 Clean up your photos with enhanced clarity
+            </h2>
+            <p className={AiStyles.featurePromoSubtitle}>
+              Restore Basic uses smart AI to remove noise, sharpen edges, and
+              enhance the overall clarity of your photos — whether black &amp;
+              white or color. Black and white images stay true to their original
+              tone, while color photos are cleaned and subtly enriched for a
+              crisper, more vivid look.
             </p>
           </div>
-          <div className={styles.featurePromoVisual}>
+          <div className={AiStyles.featurePromoVisual}>
             <img
               src="/images/basic-restore-preview.jpg"
               alt="Basic restored photo example"
-              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
+              className={`${AiStyles.featurePromoImage} ${AiStyles.tiltImage}`}
             />
           </div>
         </div>
+        
       </section>
 
       {/* How it works */}
-      <div className={styles.howItWorksSection}>
+      <div className={AiStyles.howItWorksSection}>
         <h3>🛠️ How it works</h3>
-        <ol className={styles.howItWorksList}>
+        <ol className={AiStyles.howItWorksList}>
           <li>
             <span>📤</span>
             <p>Upload your old or damaged photo</p>
@@ -387,9 +241,9 @@ export default function RestoreBasic() {
       </div>
 
       {/* FAQ */}
-      <section className={styles.faqSection}>
-        <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
-        <div className={styles.accordion}>
+      <section className={AiStyles.faqSection}>
+        <h2 className={AiStyles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
+        <div className={AiStyles.accordion}>
           <details>
             <summary>What does the restore actually do?</summary>
             <p>
@@ -399,34 +253,40 @@ export default function RestoreBasic() {
           </details>
           <details>
             <summary>Is my image private?</summary>
-            <p>Yes. We never store your images long-term and do not use them for training or sharing.</p>
+            <p>
+              Yes. We never store your images long-term and do not use them for
+              training or sharing.
+            </p>
           </details>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className={styles.testimonials}>
-        <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
-        <ul className={styles.testimonialsList}>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot;
+      <section className={AiStyles.testimonials}>
+        <h2 className={AiStyles.sectionTitle}>💬 What Our Users Say</h2>
+        <ul className={AiStyles.testimonialsList}>
+          <li className={AiStyles.testimonialCard}>
+            <p className={AiStyles.testimonialText}>
+              &quot;Unbelievable results. This brought my grandparents&apos; photo
+              back to life!&quot;
             </p>
-            <span className={styles.testimonialAuthor}>– Jamie R.</span>
+            <span className={AiStyles.testimonialAuthor}>– Jamie R.</span>
           </li>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>&quot;I cried when I saw my childhood photo restored. Thank you.&quot;</p>
-            <span className={styles.testimonialAuthor}>– Marcus L.</span>
+          <li className={AiStyles.testimonialCard}>
+            <p className={AiStyles.testimonialText}>
+              &quot;I cried when I saw my childhood photo restored. Thank you.&quot;
+            </p>
+            <span className={AiStyles.testimonialAuthor}>– Marcus L.</span>
           </li>
         </ul>
       </section>
 
-      <div className={styles.privacyStatement}>
+      <div className={AiStyles.privacyStatement}>
         🔒 We respect your privacy. Photos are never stored or shared — everything
         is processed securely and temporarily.
       </div>
 
-      <div className={styles.poweredBy}>
+      <div className={AiStyles.poweredBy}>
         ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
       </div>
     </main>

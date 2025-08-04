@@ -3,7 +3,7 @@
   width: 100vw;
   position: relative;
   background: linear-gradient(135deg, #111827, #1f2937);
-
+  padding: 6rem 2rem 4rem;
   color: #fff;
   overflow: hidden;
   border-radius: 0 0 16px 16px;
@@ -22,13 +22,16 @@
   padding: 6rem 2rem 4rem;
   color: #fff;
   overflow: hidden;
-   border-radius: 0 0 16px 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  margin-bottom: 4rem;
 }
+
+
+
 
 
 

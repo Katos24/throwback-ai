@@ -5,7 +5,8 @@ import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Image from "next/image";
-import Link from "next/link"; // Make sure this is imported at the top
+import Link from "next/link";
+import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,12 +17,18 @@ export default function RestoreBasic() {
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
 
+  // Progress bar state
+  const [progressStatus, setProgressStatus] = useState("idle"); // idle, compressing, uploading, processing, complete
+  const [progressPercent, setProgressPercent] = useState(null); // number 0-100 or null for indeterminate
+
   // freeAttempts default is 1 for first-time visitors
   const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 1 } = useCredits();
 
   useEffect(() => {
     async function getSession() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
@@ -30,6 +37,7 @@ export default function RestoreBasic() {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      setProgressStatus("compressing");
       setProcessing(true);
       setRestoredUrl("");
       try {
@@ -46,6 +54,8 @@ export default function RestoreBasic() {
         setSelectedPreviewUrl(URL.createObjectURL(file));
       } finally {
         setProcessing(false);
+        setProgressStatus("idle");
+        setProgressPercent(null);
       }
     }
   };
@@ -82,15 +92,28 @@ export default function RestoreBasic() {
     if (!selectedFile) return;
 
     setLoading(true);
+    setProgressStatus("uploading");
+    setProgressPercent(0);
+
     const headers = { "Content-Type": "application/json" };
-    if (session?.access_token)
-      headers.Authorization = `Bearer ${session.access_token}`;
+    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
 
       try {
+        // Simulate progress update (replace with real upload progress if available)
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 10;
+          if (progress > 90) {
+            clearInterval(progressInterval);
+          } else {
+            setProgressPercent(progress);
+          }
+        }, 300);
+
         const response = await fetch("/api/replicate/restore", {
           method: "POST",
           headers,
@@ -100,10 +123,17 @@ export default function RestoreBasic() {
           }),
         });
 
+        clearInterval(progressInterval);
+        setProgressPercent(100);
+        setProgressStatus("processing");
+        setProgressPercent(null); // Indeterminate for processing
+
         const data = await response.json();
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
+          setProgressStatus("complete");
+          setProgressPercent(100);
           if (isLoggedIn) {
             await refreshCredits();
           } else {
@@ -111,10 +141,14 @@ export default function RestoreBasic() {
           }
         } else {
           alert(data.error || "Failed to restore image.");
+          setProgressStatus("idle");
+          setProgressPercent(null);
         }
       } catch (error) {
         alert("Network or server error. Please try again.");
         console.error(error);
+        setProgressStatus("idle");
+        setProgressPercent(null);
       } finally {
         setLoading(false);
       }
@@ -166,17 +200,16 @@ export default function RestoreBasic() {
               disabled={loading || processing}
               title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
             >
-              {!loading && !processing && (
-                credits < 1
+              {!loading && !processing &&
+                (credits < 1
                   ? isLoggedIn
                     ? "💳 Buy More Credits"
                     : "🔒 Sign Up to Restore"
                   : showFileInput
-                    ? isLoggedIn
-                      ? `🆓 Restore Basic (1 credit)`
-                      : `🆓 Restore Basic (Free attempts left: ${credits})`
-                    : "Restore"
-              )}
+                  ? isLoggedIn
+                    ? `🆓 Restore Basic (1 credit)`
+                    : `🆓 Restore Basic (Free attempts left: ${credits})`
+                  : "Restore")}
               {(loading || processing) && (
                 <>
                   <div className={styles.spinner} />
@@ -186,6 +219,14 @@ export default function RestoreBasic() {
                 </>
               )}
             </button>
+
+            {/* Progress Bar */}
+            <ProgressBar
+              status={progressStatus}
+              progress={progressPercent}
+              showSteps={true}
+              loading={loading || processing}
+            />
 
             <div className={styles.creditsInfo}>
               {isLoggedIn ? (
@@ -212,7 +253,7 @@ export default function RestoreBasic() {
                 </>
               ) : (
                 <>
-                  Remaining free attempts: <strong>{credits}</strong>.{' '}
+                  Remaining free attempts: <strong>{credits}</strong>.{" "}
                   <Link href="/signup" legacyBehavior>
                     <a className={styles.link}>Sign up to get more credits!</a>
                   </Link>
@@ -273,24 +314,22 @@ export default function RestoreBasic() {
 
       {/* User Before and After images slider*/}
       {selectedPreviewUrl && restoredUrl && (
-  <section
-    style={{
-      padding: "3rem 1rem",
-      backgroundColor: "#1a1a1a",
-      color: "white",
-      borderTop: "1px solid #333",
-    }}
-  >
-    <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-      Your Restoration Preview
-    </h2>
-    <ImageCompareSlider
-      beforeImage={selectedPreviewUrl}
-      afterImage={restoredUrl}
-    />
-  </section>
-)}
-{/* Image Compare Slider Section for Basic Restore */}
+        <section
+          style={{
+            padding: "3rem 1rem",
+            backgroundColor: "#1a1a1a",
+            color: "white",
+            borderTop: "1px solid #333",
+          }}
+        >
+          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+            Your Restoration Preview
+          </h2>
+          <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+        </section>
+      )}
+
+      {/* Image Compare Slider Section for Basic Restore */}
       <section
         style={{
           padding: "3rem 1rem",
@@ -360,9 +399,7 @@ export default function RestoreBasic() {
           </details>
           <details>
             <summary>Is my image private?</summary>
-            <p>
-              Yes. We never store your images long-term and do not use them for training or sharing.
-            </p>
+            <p>Yes. We never store your images long-term and do not use them for training or sharing.</p>
           </details>
         </div>
       </section>
@@ -378,9 +415,7 @@ export default function RestoreBasic() {
             <span className={styles.testimonialAuthor}>– Jamie R.</span>
           </li>
           <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              &quot;I cried when I saw my childhood photo restored. Thank you.&quot;
-            </p>
+            <p className={styles.testimonialText}>&quot;I cried when I saw my childhood photo restored. Thank you.&quot;</p>
             <span className={styles.testimonialAuthor}>– Marcus L.</span>
           </li>
         </ul>

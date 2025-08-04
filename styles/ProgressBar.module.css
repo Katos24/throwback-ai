@@ -3,8 +3,8 @@
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-  padding: 16px 16px; /* Changed from 16px 0 to give horizontal padding */
-  box-sizing: border-box; /* Ensure padding doesn't push width beyond 100% */
+  padding: 0 1.5rem;  /* Add horizontal padding for mobile spacing */
+  box-sizing: border-box; /* Ensure padding doesn't break layout */
   font-family: 'Inter', sans-serif;
 }
 
@@ -131,7 +131,7 @@
 
 @media (max-width: 480px) {
   .progressContainer {
-    padding: 12px 12px;
+    padding: 0 1rem;
   }
 
   .progressText {

@@ -1,9 +1,10 @@
 /* ProgressBar.module.css */
 .progressContainer {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 16px 0;
+  padding: 16px 16px; /* Changed from 16px 0 to give horizontal padding */
+  box-sizing: border-box; /* Ensure padding doesn't push width beyond 100% */
   font-family: 'Inter', sans-serif;
 }
 
@@ -125,4 +126,15 @@
 .stepLabel {
   font-size: 11px;
   word-break: break-word;
+}
+
+
+@media (max-width: 480px) {
+  .progressContainer {
+    padding: 12px 12px;
+  }
+
+  .progressText {
+    font-size: 11px;
+  }
 }

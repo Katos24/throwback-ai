@@ -1,22 +1,30 @@
 // components/Auth/LoginForm.js
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabaseClient';
+import toast from 'react-hot-toast';
 import styles from '../../styles/Login.module.css';
 
 export function LoginForm({ onSuccess, onError, isDisabled }) {
   const [email, setEmail] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const cooldownRef = useRef(null);
 
+  // Cleanup cooldown timer
   useEffect(() => {
     if (cooldown === 0 && cooldownRef.current) {
       clearInterval(cooldownRef.current);
       cooldownRef.current = null;
     }
   }, [cooldown]);
+
+  useEffect(() => {
+    return () => {
+      if (cooldownRef.current) {
+        clearInterval(cooldownRef.current);
+      }
+    };
+  }, []);
 
   const startCooldown = (seconds) => {
     setCooldown(seconds);
@@ -35,49 +43,56 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (isDisabled || loading || cooldown > 0) return;
+
     setLoading(true);
-    setErrorMsg('');
-    setSuccessMsg('');
 
-    const { error } = await supabase.auth.signInWithOtp({ email });
-    setLoading(false);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ email });
+      setLoading(false);
 
-    if (error) {
-      if (error.message.toLowerCase().includes('rate limit')) {
-        setErrorMsg(
-          "You've requested magic links too frequently. Please wait a moment before trying again."
-        );
-        onError?.("Rate limit exceeded. Try again later.");
-      } else {
-        setErrorMsg(error.message || 'Failed to send magic link.');
-        onError?.(error.message || 'Failed to send magic link.');
+      if (error) {
+        const msg = error.message || 'Failed to send magic link.';
+        if (msg.toLowerCase().includes('rate limit')) {
+          const friendlyMsg = "You've requested magic links too frequently. Please wait a moment.";
+          toast.error(friendlyMsg);
+          onError?.("Rate limit exceeded. Try again later.");
+        } else {
+          toast.error(msg);
+          onError?.(msg);
+        }
+        return;
       }
-      setSuccessMsg('');
-    } else {
-      setSuccessMsg(
-        '✅ Magic link sent! Please check your email and click the link to log in.'
-      );
-      setErrorMsg('');
+
+      toast.success('📬 Magic link sent! Check your email to log in.');
       onSuccess?.();
-      startCooldown(90); // disable button for 90 seconds
+      startCooldown(90);
+    } catch (err) {
+      setLoading(false);
+      toast.error('An unexpected error occurred. Please try again.');
+      onError?.('Unexpected error during login.');
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className={styles.inputGroup}>
+    <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
+      <label htmlFor="login-email" className="sr-only">Email address</label>
       <input
+        id="login-email"
         type="email"
         placeholder="Email"
-        className={styles.inputField}
+        className={styles.inputField || 'input'}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={isDisabled || loading || cooldown > 0}
         required
+        aria-label="Email address"
+        autoComplete="email"
       />
       <button
         type="submit"
-        className={styles.submitButton}
+        className={styles.submitButton || 'button'}
         disabled={isDisabled || loading || cooldown > 0}
+        aria-busy={loading}
       >
         {loading
           ? 'Sending magic link…'
@@ -85,8 +100,6 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
           ? `Please wait ${cooldown}s`
           : 'Send Magic Link'}
       </button>
-      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
-      {successMsg && <p className={styles.success}>{successMsg}</p>}
     </form>
   );
 }

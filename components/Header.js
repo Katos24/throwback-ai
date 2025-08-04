@@ -146,28 +146,26 @@ export default function Header({ showMenu, setShowMenu }) {
           className={authStyles.googleButton}
           onClick={() => handleOAuth("google")}
           disabled={isOAuthLoading}
+          style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 14px" }}
         >
-          {isOAuthLoading ? (
-            <span className={authStyles.spinner} aria-label="Loading..." />
-          ) : (
-            <>
-              {/* Google SVG icon here */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-                className={authStyles.googleIcon}
-                width="20"
-                height="20"
-              >
-                {/* SVG paths omitted */}
-              </svg>
-              Log in with Google
-            </>
-          )}
+          <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  aria-hidden="true"
+  style={{ display: "block" }}
+>
+  <path fill="#4285F4" d="M23.64 12.2c0-.82-.07-1.61-.2-2.37H12v4.48h6.36a5.43 5.43 0 01-2.36 3.57v2.97h3.82c2.23-2.05 3.52-5.07 3.52-8.65z" />
+  <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.82-2.97c-1.06.7-2.43 1.12-4.13 1.12-3.17 0-5.85-2.14-6.81-5.03H1.26v3.15A11.996 11.996 0 0012 24z" />
+  <path fill="#FBBC05" d="M5.19 14.21a7.2 7.2 0 010-4.42V6.64H1.26a11.98 11.98 0 000 10.72l3.93-3.15z" />
+  <path fill="#EA4335" d="M12 4.48c1.77 0 3.35.61 4.6 1.81l3.45-3.45C17.96 1.07 15.24 0 12 0 7.92 0 4.27 2.42 2.7 5.87l3.93 3.15c.94-2.89 3.62-5.03 6.81-5.03z" />
+</svg>
+          Log in with Google
         </button>
-        <div className={styles.infoText}>or use your email and password</div>
+        <div className={styles.infoText}>
+          Or enter your email below to receive a magic login link.
+        </div>
         <LoginForm
           isDisabled={isOAuthLoading}
           onSuccess={() => {
@@ -185,33 +183,37 @@ export default function Header({ showMenu, setShowMenu }) {
           className={authStyles.googleButton}
           onClick={() => handleOAuth("google")}
           disabled={isOAuthLoading}
+          style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 14px" }}
         >
           {isOAuthLoading ? (
             <span className={authStyles.spinner} aria-label="Loading..." />
           ) : (
             <>
-              {/* Google SVG icon here */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-                fill="none"
-                aria-hidden="true"
-                className={authStyles.googleIcon}
-                width="20"
-                height="20"
-              >
-                {/* SVG paths omitted */}
-              </svg>
+             <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  aria-hidden="true"
+  style={{ display: "block" }}
+>
+  <path fill="#4285F4" d="M23.64 12.2c0-.82-.07-1.61-.2-2.37H12v4.48h6.36a5.43 5.43 0 01-2.36 3.57v2.97h3.82c2.23-2.05 3.52-5.07 3.52-8.65z" />
+  <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.82-2.97c-1.06.7-2.43 1.12-4.13 1.12-3.17 0-5.85-2.14-6.81-5.03H1.26v3.15A11.996 11.996 0 0012 24z" />
+  <path fill="#FBBC05" d="M5.19 14.21a7.2 7.2 0 010-4.42V6.64H1.26a11.98 11.98 0 000 10.72l3.93-3.15z" />
+  <path fill="#EA4335" d="M12 4.48c1.77 0 3.35.61 4.6 1.81l3.45-3.45C17.96 1.07 15.24 0 12 0 7.92 0 4.27 2.42 2.7 5.87l3.93 3.15c.94-2.89 3.62-5.03 6.81-5.03z" />
+</svg>
               Sign up with Google
             </>
           )}
         </button>
-        <div className={styles.infoText}>or use your email and password</div>
+        <div className={styles.infoText}>
+          Or enter your email below to receive a magic login link.
+        </div>
         <SignupForm
           isDisabled={isOAuthLoading}
           onSuccess={() => {
             closeModal();
-            alert("✅ Signup successful! Check your email.");
+            alert("✅ Signup successful! Please check your email for the magic link.");
           }}
           onError={(msg) => alert(msg)}
         />

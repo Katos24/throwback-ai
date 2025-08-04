@@ -14,6 +14,7 @@ export default function Profile() {
   const [error, setError] = useState(null);
   const [resetMessage, setResetMessage] = useState(null);
   const [resetLoading, setResetLoading] = useState(false);
+  const [authProvider, setAuthProvider] = useState(null); // New state
 
   useEffect(() => {
     async function fetchProfile() {
@@ -32,6 +33,8 @@ export default function Profile() {
         return;
       }
 
+      setAuthProvider(user?.app_metadata?.provider || null); // Capture auth provider
+
       const { data, error: profileError } = await supabase
         .from("profiles")
         .select("username, is_premium, credits_remaining")
@@ -48,6 +51,7 @@ export default function Profile() {
           credits_remaining: data.credits_remaining || 0,
         });
       }
+
       setLoading(false);
     }
 
@@ -150,14 +154,16 @@ export default function Profile() {
           {loading ? "Saving..." : "Save Changes"}
         </button>
 
-        <button
-          type="button"
-          onClick={handleResetPassword}
-          disabled={resetLoading}
-          className={styles.buttonSecondary}
-        >
-          {resetLoading ? "Sending..." : "Reset Password"}
-        </button>
+        {authProvider !== "google" && (
+          <button
+            type="button"
+            onClick={handleResetPassword}
+            disabled={resetLoading}
+            className={styles.buttonSecondary}
+          >
+            {resetLoading ? "Sending..." : "Reset Password"}
+          </button>
+        )}
       </form>
     </main>
   );

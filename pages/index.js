@@ -15,8 +15,8 @@ export default function Home() {
      <HeroSection />
      <TopBanner />
       <FeaturesSection />
-      <HowItWorks />
       <CustomerSuccess />
+      <HowItWorks />
       <AiShowcase />
       <PricingSection />
       <FAQSection />

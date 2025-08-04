@@ -91,10 +91,10 @@
 /* Mobile-First Grid System */
 .successGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 32px;
   margin-top: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -103,18 +103,22 @@
 
 .successCard {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border-radius: 20px;
+  border-radius: 24px;
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.08),
     0 0 0 1px rgba(255, 255, 255, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  padding: 24px;
+  padding: 40px 32px;
   text-align: center;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   backdrop-filter: blur(10px);
   cursor: pointer;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Card shimmer effect */
@@ -160,27 +164,20 @@
 
 .successImages {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 16px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 0;
+  background: none;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .successImages::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, rgba(231, 76, 60, 0.05), rgba(52, 152, 219, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  content:none
 }
 
 .successCard:hover .successImages::before {
@@ -189,13 +186,13 @@
 
 .successBefore,
 .successAfter {
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  max-width: 120px;
+  max-width: 180px;
+  width: 100%;
   height: auto;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-  z-index: 1;
+  border-radius: 12px;
+  box-shadow: none;
+  transition: none;
+  transform: none;
 }
 
 .successCard:hover .successBefore,
@@ -204,33 +201,6 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-.successArrow {
-  font-size: 20px;
-  color: #e74c3c;
-  font-weight: bold;
-  animation: arrowPulse 2s ease-in-out infinite;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: rgba(231, 76, 60, 0.1);
-  border-radius: 50%;
-  margin: 0 8px;
-}
-
-@keyframes arrowPulse {
-  0%, 100% { 
-    transform: scale(1); 
-    background: rgba(231, 76, 60, 0.1);
-  }
-  50% { 
-    transform: scale(1.15); 
-    background: rgba(231, 76, 60, 0.2);
-  }
-}
 
 .successStory {
   text-align: center;
@@ -239,16 +209,16 @@
 }
 
 .successStory blockquote {
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  line-height: 1.7;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.8;
   color: #555;
   font-style: italic;
   margin: 0;
   position: relative;
-  padding: 20px 24px;
+  padding: 28px 32px;
   background: rgba(248, 249, 251, 0.5);
-  border-radius: 12px;
-  border-left: 4px solid #e74c3c;
+  border-radius: 16px;
+  border-left: 5px solid #e74c3c;
   transition: all 0.3s ease;
 }
 
@@ -284,8 +254,8 @@
   color: #333;
   font-style: normal;
   display: block;
-  margin: 16px 0 8px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  margin: 20px 0 12px;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   transition: color 0.3s ease;
 }
 
@@ -297,14 +267,14 @@
   display: inline-block;
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
   color: white;
-  padding: 6px 16px;
-  border-radius: 25px;
-  font-size: 0.85rem;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  letter-spacing: 1px;
+  margin-top: 12px;
+  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -323,7 +293,7 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 16px;
+    gap: 20px;
     padding: 20px 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -352,26 +322,31 @@
   
   .successCard {
     flex: 0 0 auto;
-    width: 300px;
+    width: 320px;
     scroll-snap-align: start;
     margin-right: 4px;
+    min-height: 480px;
+    padding: 24px 20px;
   }
   
-  .successImages {
-    gap: 8px;
-    padding: 16px;
-  }
+ .successImages {
+  flex-direction: row !important; /* override mobile stacking */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px;
+}
   
-  .successBefore,
-  .successAfter {
-    max-width: 100px;
-  }
+ .successBefore,
+.successAfter {
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+}
   
-  .successArrow {
-    font-size: 16px;
-    width: 32px;
-    height: 32px;
-    margin: 0 4px;
+  .successStory blockquote {
+    padding: 20px 16px;
+    font-size: 0.95rem;
   }
 }
 
@@ -381,33 +356,32 @@
   }
   
   .successCard {
-    width: 280px;
-    padding: 20px;
+    width: 340px;
+    padding: 28px 20px;
+    min-height: 400px;
   }
   
   .successImages {
-    gap: 6px;
-    padding: 12px;
+    gap: 12px;
+    padding: 28px 20px;
     flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    justify-content: center;
   }
   
   .successBefore,
   .successAfter {
-    max-width: 120px;
+    max-width: 140px;
   }
-  
-  .successArrow {
-    transform: rotate(90deg);
-    margin: 8px 0;
-  }
-  
+
   .successStory blockquote {
-    padding: 16px 20px;
+    padding: 20px 24px;
   }
   
   .occasion {
-    font-size: 0.8rem;
-    padding: 5px 12px;
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
 }
 

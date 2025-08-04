@@ -49,7 +49,6 @@ const CustomerSuccessStories = () => {
                 className={successStyles.successBefore}
                 loading="lazy"
               />
-              <div className={successStyles.successArrow}>→</div>
               <Image
                 src={item.after}
                 alt="After restoration"

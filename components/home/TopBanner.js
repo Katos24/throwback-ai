@@ -20,7 +20,7 @@ const TopBanner = () => {
     <div ref={containerRef} className={TopBannerStyles.combinedContainer}>
       {/* Left: Stacked Before/After Images */}
       <aside className={TopBannerStyles.bannerSection}>
-        <div className={TopBannerStyles.bannerBadge}>🔄 About Anastasis</div>
+        <div className={TopBannerStyles.bannerBadge}>About Anastasis</div>
         <h2 className={TopBannerStyles.bannerTitle}>
           Heritage-Specific{' '}
           <span className={TopBannerStyles.titleAccent}>AI Restoration</span>

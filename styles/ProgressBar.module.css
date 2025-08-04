@@ -4,14 +4,13 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Ensure padding doesn't break layout */
   font-family: 'Inter', sans-serif;
   align-self: stretch;
 }
 
 .progressBar {
   position: relative;
-  width: 100%; /* Ensure bar spans full width of container */
   background-color: #1e1e2f;
   height: 24px;
   border-radius: 12px;
@@ -39,6 +38,7 @@
   animation: shine 2s infinite linear;
 }
 
+/* Indeterminate progress bar styles - MISSING FROM YOUR CSS */
 .indeterminateBar {
   position: relative;
   width: 100%;
@@ -129,24 +129,16 @@
   word-break: break-word;
 }
 
-/* 🔧 Mobile Responsiveness */
+
 @media (max-width: 768px) {
   .progressContainer {
-    width: 100vw;           /* ⬅️ Full viewport width */
-    max-width: 100vw;
-    padding: 0 1rem;        /* Small side padding for breathing room */
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;     /* ✅ Remove fixed width cap */
+    margin: 0;           /* ✅ Remove centering */
+    padding: 0;          /* ✅ Remove side spacing */
   }
 
   .progressText {
     font-size: 11px;
-  }
-
-  .stepsContainer {
-    gap: 2px;
-  }
-
-  .stepLabel {
-    font-size: 10px;
   }
 }

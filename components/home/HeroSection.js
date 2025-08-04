@@ -32,8 +32,8 @@ const HeroVideo = () => {
           loop
           playsInline
         >
-          <source src="/videos/ThrowbackAIIntro.webm" type="video/webm" />
           <source src="/videos/ThrowbackAIIntro.mp4" type="video/mp4" />
+          <source src="/videos/ThrowbackAIIntro.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
       )}

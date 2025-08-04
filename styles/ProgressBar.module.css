@@ -132,10 +132,10 @@
 
 @media (max-width: 768px) {
   .progressContainer {
-    width: 100%;            /* ⛔ Avoid 100vw on mobile */
-    max-width: none;         /* Remove the cap */
-    margin: 0;               /* Remove auto-centering */
-    padding: 0 1rem;         /* Add some side space */
+    width: 100%;
+    max-width: none;     /* ✅ Remove fixed width cap */
+    margin: 0;           /* ✅ Remove centering */
+    padding: 0;          /* ✅ Remove side spacing */
   }
 
   .progressText {

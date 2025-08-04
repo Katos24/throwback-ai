@@ -917,21 +917,3 @@ button.download:hover {
 }
 
 
-@media (max-width: 768px) {
-  .topBannerContent {
-    align-items: stretch;
-    text-align: left;
-    padding: 0 1rem; /* Optional: add spacing on sides */
-  }
-
-  .topBannerTitle,
-  .topBannerSubtitle {
-    text-align: center;
-    align-self: center;
-  }
-
-  .progressWrapper {
-    width: 100%;
-    align-self: stretch;
-  }
-}

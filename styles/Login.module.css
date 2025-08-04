@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap');
+/* Login.module.css */
 
-/* === Container === */
+/* Base container for modal or page card */
 .container {
   max-width: 400px;
-  margin: 5rem auto;
+  margin: 0 auto;
   padding: 2rem;
   font-family: 'Inter', sans-serif;
   background: rgba(12, 12, 16, 0.85);
@@ -13,188 +13,170 @@
   color: #e0e0e0;
   position: relative;
   overflow: hidden;
-}
-
-/* === Animated Gradient Border === */
-.container::before {
-  content: "";
-  position: absolute;
-  top: -2px; left: -2px; right: -2px; bottom: -2px;
-  background: linear-gradient(60deg, #5c6bc0, #ab47bc, #26c6da, #ff7043);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease infinite;
-  z-index: -1;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: destination-out;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* === Heading === */
-.heading {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: #ffffff;
-}
-
-/* === Feedback Messages === */
-.success, .error {
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-.success {
-  background: rgba(72, 187, 120, 0.2);
-  color: #48bb78;
-}
-
-.error {
-  background: rgba(237, 97, 97, 0.2);
-  color: #ed6161;
-}
-
-/* === Google Button === */
-.googleButton {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 0.75rem;
-  background: #000000;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+/* Page container adds vertical margin for spacing */
+.container--page {
+  margin: 5rem auto;
+}
+
+/* Modal container tweaks margins and max-width */
+.container--modal {
+  margin: 0;
+  max-width: 420px;
+  width: 100%;
+}
+
+/* Heading */
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
-}
-
-.googleButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
-}
-
-.googleButton:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 2px;
-}
-
-.googleButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.googleIcon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-/* === Spinner === */
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* === Info Text === */
-.infoText {
-  font-size: 0.85rem;
-  color: #bbb;
   text-align: center;
-  margin-bottom: 1rem;
 }
 
-/* === Form Fields === */
+/* Input group wraps inputs and buttons */
 .inputGroup {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
+/* Input fields styling */
 .inputField {
   padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
   font-size: 1rem;
-  transition: background 0.2s, box-shadow 0.2s;
-}
-
-.inputField::placeholder {
-  color: #aaa;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #222;
+  color: #eee;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inputField:focus {
-  background: rgba(255, 255, 255, 0.12);
   outline: none;
-  box-shadow: 0 0 6px rgba(38, 198, 218, 0.5);
+  border-color: #60a5fa;
+  background-color: #1e40af20;
 }
 
-/* === Submit Button === */
+/* Submit button styling */
 .submitButton {
-  width: 100%;
   padding: 0.75rem;
-  font-weight: 700;
   font-size: 1rem;
+  font-weight: 600;
+  background-color: #2563eb;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  color: white;
   cursor: pointer;
-  background: linear-gradient(90deg, #5c6bc0, #26c6da);
-  color: #fff;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.submitButton:hover:not(:disabled) {
-  opacity: 0.92;
-  transform: translateY(-1px);
-}
-
-.submitButton:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .submitButton:disabled {
-  opacity: 0.6;
+  background-color: #3b82f680;
   cursor: not-allowed;
 }
 
-/* === Footer Link === */
-.bottomLink {
+.submitButton:not(:disabled):hover {
+  background-color: #1e40af;
+}
+
+/* Error message */
+.error {
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 0.5rem;
   text-align: center;
-  margin-top: 1.5rem;
+}
+
+/* Success message */
+.success {
+  color: #22c55e;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Google login button */
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #110000;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.googleButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.googleButton:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+/* Google icon inside button */
+.googleIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Spinner for loading states */
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #2563eb;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Info text below buttons */
+.infoText {
+  margin-top: 1rem;
   font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+/* Bottom link text */
+.bottomLink {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #9ca3af;
 }
 
 .bottomLink a {
-  color: #26c6da;
-  font-weight: 600;
+  color: #2563eb;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .bottomLink a:hover {

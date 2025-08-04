@@ -74,32 +74,38 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
   };
 
   return (
-    <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
-      <label htmlFor="login-email" className="sr-only">Email address</label>
-      <input
-        id="login-email"
-        type="email"
-        placeholder="Email"
-        className={styles.inputField || 'input'}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={isDisabled || loading || cooldown > 0}
-        required
-        aria-label="Email address"
-        autoComplete="email"
-      />
-      <button
-        type="submit"
-        className={styles.submitButton || 'button'}
-        disabled={isDisabled || loading || cooldown > 0}
-        aria-busy={loading}
-      >
-        {loading
-          ? 'Sending magic link…'
-          : cooldown > 0
-          ? `Please wait ${cooldown}s`
-          : 'Send Magic Link'}
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
+        <label htmlFor="login-email" className="sr-only">Email address</label>
+        <input
+          id="login-email"
+          type="email"
+          placeholder="Email"
+          className={styles.inputField}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={isDisabled || loading || cooldown > 0}
+          required
+          aria-label="Email address"
+          autoComplete="email"
+        />
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isDisabled || loading || cooldown > 0}
+          aria-busy={loading}
+        >
+          {loading
+            ? 'Sending magic link…'
+            : cooldown > 0
+            ? `Please wait ${cooldown}s`
+            : 'Send Magic Link'}
+        </button>
+      </form>
+
+      <p className={styles.infoText} style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#9ca3af', textAlign: 'center' }}>
+        Please allow a few moments for the magic link email to arrive in your inbox.
+      </p>
+    </>
   );
 }

@@ -3,7 +3,7 @@
   width: 100vw;
   position: relative;
   background: linear-gradient(135deg, #111827, #1f2937);
-  padding: 6rem 2rem 4rem;
+
   color: #fff;
   overflow: hidden;
   border-radius: 0 0 16px 16px;
@@ -45,29 +45,29 @@
 
 /* Content wrapper inside the section */
 .topBannerContent {
-  max-width: 100%;
+  max-width: 1600px; /* wider content container */
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;  /* Keep content horizontally centered */
+  align-items: center;
   justify-content: center;
   text-align: center;
   gap: 2.5rem;
   position: relative;
   z-index: 1;
-  padding: 0 2rem;
+  padding: 0 1rem; /* reduced side padding */
 }
 
 
 
 /* Top vertical stack for text, file input, button, credits */
 .topBannerTop {
+  width: 100%;
+  max-width: 1100px; /* widen max width */
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  width: 100%;
-  max-width: 900px; /* or 1000px depending on how wide you want it */
+  gap: 1.5rem;
 }
 
 .topBannerTitle {

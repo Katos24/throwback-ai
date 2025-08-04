@@ -129,10 +129,14 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .progressContainer {
-    padding: 0 1rem;
+    width: 100vw;            /* Full screen width */
+    max-width: none;         /* Remove the cap */
+    margin: 0;               /* Remove auto-centering */
+    padding: 0 1rem;         /* Add some side space */
   }
+}
 
   .progressText {
     font-size: 11px;

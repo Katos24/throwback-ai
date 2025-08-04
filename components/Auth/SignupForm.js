@@ -5,7 +5,6 @@ import styles from '../../styles/Signup.module.css';
 
 export function SignupForm({ onSuccess, onError, isDisabled }) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -15,35 +14,19 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
     setLoading(true);
     setErrorMsg('');
 
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: 'https://throwbackai.app/auth/callback', // adjust to your redirect URL
+      },
+    });
+
     setLoading(false);
 
     if (error) {
-      setErrorMsg(error.message || 'Signup failed.');
-      onError?.(error.message);
+      setErrorMsg(error.message || 'Failed to send magic link.');
+      onError?.(error.message || 'Failed to send magic link.');
       return;
-    }
-
-    // Check existing profile
-    const userId = data.user?.id;
-    if (userId) {
-      const { data: profile, error: profErr } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-      if (profErr && profErr.code !== 'PGRST116') {
-        const msg = 'Error checking profile: ' + profErr.message;
-        setErrorMsg(msg);
-        onError?.(msg);
-        return;
-      }
-      if (profile) {
-        const msg = 'Profile exists. Please log in instead.';
-        setErrorMsg(msg);
-        onError?.(msg);
-        return;
-      }
     }
 
     onSuccess?.();
@@ -53,29 +36,19 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
     <form onSubmit={handleSignup} className={styles.inputGroup}>
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Enter your email"
         className={styles.inputField}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={isDisabled || loading}
         required
       />
-      <input
-        type="password"
-        placeholder="Password (min 6 chars)"
-        className={styles.inputField}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        disabled={isDisabled || loading}
-        required
-        minLength={6}
-      />
       <button
         type="submit"
         className={styles.submitButton}
         disabled={isDisabled || loading}
       >
-        {loading ? 'Signing up…' : 'Sign Up'}
+        {loading ? 'Sending magic link…' : 'Send Magic Link'}
       </button>
       {errorMsg && <p className={styles.error}>{errorMsg}</p>}
     </form>

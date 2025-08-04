@@ -12,9 +12,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  const [resetMessage, setResetMessage] = useState(null);
-  const [resetLoading, setResetLoading] = useState(false);
-  const [authProvider, setAuthProvider] = useState(null); // New state
+  const [authProvider, setAuthProvider] = useState(null);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -33,7 +31,7 @@ export default function Profile() {
         return;
       }
 
-      setAuthProvider(user?.app_metadata?.provider || null); // Capture auth provider
+      setAuthProvider(user?.app_metadata?.provider || null);
 
       const { data, error: profileError } = await supabase
         .from("profiles")
@@ -93,22 +91,6 @@ export default function Profile() {
     setLoading(false);
   };
 
-  const handleResetPassword = async () => {
-    setResetMessage(null);
-    setResetLoading(true);
-
-    const { error } = await supabase.auth.resetPasswordForEmail(profile.email, {
-      redirectTo: "https://throwbackai.app/reset-password",
-    });
-
-    if (error) {
-      setResetMessage(`❌ ${error.message}`);
-    } else {
-      setResetMessage("📧 Password reset email sent! Check your inbox.");
-    }
-    setResetLoading(false);
-  };
-
   if (loading)
     return <p style={{ textAlign: "center", marginTop: "2rem" }}>Loading profile...</p>;
 
@@ -118,7 +100,6 @@ export default function Profile() {
 
       {error && <p className={styles.messageError}>{error}</p>}
       {message && <p className={styles.messageSuccess}>{message}</p>}
-      {resetMessage && <p className={styles.messageInfo}>{resetMessage}</p>}
 
       <form onSubmit={handleSubmit} className={styles.profileForm}>
         <label className={styles.label}>
@@ -153,17 +134,6 @@ export default function Profile() {
         <button type="submit" disabled={loading} className={styles.buttonPrimary}>
           {loading ? "Saving..." : "Save Changes"}
         </button>
-
-        {authProvider !== "google" && (
-          <button
-            type="button"
-            onClick={handleResetPassword}
-            disabled={resetLoading}
-            className={styles.buttonSecondary}
-          >
-            {resetLoading ? "Sending..." : "Reset Password"}
-          </button>
-        )}
       </form>
     </main>
   );

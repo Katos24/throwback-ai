@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { SignupForm } from "../components/Auth/SignupForm";
 import styles from "../styles/Signup.module.css";
 import { supabase } from "../lib/supabaseClient";
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
     setIsRedirecting(true);
@@ -28,6 +29,32 @@ export default function SignUp() {
       setSuccessMsg("");
       setIsRedirecting(false);
     }
+  };
+
+  const handleMagicLinkSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccessMsg("");
+    setErrorMsg("");
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: "https://throwbackai.app/auth/callback",
+      },
+    });
+
+    if (error) {
+      setErrorMsg(error.message);
+      setSuccessMsg("");
+    } else {
+      setSuccessMsg(
+        "✅ Magic link sent! Check your email to complete signup/login."
+      );
+      setErrorMsg("");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -97,24 +124,33 @@ export default function SignUp() {
           )}
         </button>
 
-        <p className={styles.infoText}>
-          Want to sign up with email? Just enter your email and password below,
-          and we’ll send you a quick confirmation link.
-        </p>
+        {/* Magic Link Signup Form */}
+        <form onSubmit={handleMagicLinkSignup} className={styles.form}>
+          <label htmlFor="email" className={styles.label}>
+            Email address
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={styles.input}
+            disabled={loading || isRedirecting}
+          />
+          <button
+            type="submit"
+            className={styles.buttonPrimary}
+            disabled={loading || isRedirecting}
+          >
+            {loading ? "Sending..." : "Send Magic Link"}
+          </button>
+        </form>
 
-        <SignupForm
-          isDisabled={isRedirecting}
-          onSuccess={() => {
-            setSuccessMsg(
-              "✅ Signup successful! Check your email to confirm your account."
-            );
-            setErrorMsg("");
-          }}
-          onError={(msg) => {
-            setErrorMsg(msg);
-            setSuccessMsg("");
-          }}
-        />
+        <p className={styles.infoText}>
+          Want to sign up with Google instead? Just click the button above.
+        </p>
 
         <p className={styles.bottomLink}>
           Already have an account? <Link href="/login">Login here</Link>

@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { supabase } from "../lib/supabaseClient"; // Adjust path as needed
 import { LoginForm } from "../components/Auth/LoginForm";
-import styles from "../styles/Login.module.css"; // Make sure to update this path if needed
+import styles from "../styles/Login.module.css"; // Update path if needed
 
 export default function LoginPage() {
   const [successMsg, setSuccessMsg] = useState("");
@@ -78,19 +78,19 @@ export default function LoginPage() {
         </button>
 
         {isRedirecting && (
-          <p className={styles.infoText}>
+          <p className={styles.infoText} aria-live="polite">
             Redirecting you securely to Google sign-in…
           </p>
         )}
 
         <p className={styles.infoText}>
-          Or log in with your email and password below.
+          Or log in with your email below. We will send you a magic link to access your account.
         </p>
 
         <LoginForm
           isDisabled={isRedirecting}
           onSuccess={() => {
-            setSuccessMsg("✅ Login successful!");
+            setSuccessMsg("✅ Magic link sent! Please check your email to log in.");
             setErrorMsg("");
           }}
           onError={(msg) => {
@@ -99,9 +99,7 @@ export default function LoginPage() {
           }}
         />
 
-        <p className={styles.resetPassword}>
-          Forgot password? <Link href="/reset-password">Reset here</Link>
-        </p>
+        {/* Removed password reset link */}
 
         <p className={styles.bottomLink}>
           Don’t have an account? <Link href="/signup">Sign up here</Link>

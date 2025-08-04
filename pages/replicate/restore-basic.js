@@ -175,7 +175,7 @@ export default function RestoreBasic() {
 
   return (
     <main>
-      <section className={styles.topBanner}>
+      <section className={styles.topBannerBasic}>
         <div className={styles.topBannerContent}>
           <div className={styles.topBannerTop}>
             <h2 className={styles.topBannerTitle}>🕹️ Restore Your Vintage Photo</h2>

@@ -16,10 +16,9 @@
 
 /* Top Banner Basic */
 .topBannerBasic {
-  width: 100%;
-max-width: 100%;
+    width: 100vw;
   position: relative;
-  background: linear-gradient(135deg, #111827, #1f2937);
+  background: linear-gradient(135deg, #1a373b, #1f2c37);
   padding: 6rem 2rem 4rem;
   color: #fff;
   overflow: hidden;
@@ -30,12 +29,6 @@ max-width: 100%;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
-
-
-
-
-
-
 
 
 
@@ -492,6 +485,10 @@ button.download:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .topBanner {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .topBannerBasic {
     padding: 3rem 1rem 2rem;
   }
 

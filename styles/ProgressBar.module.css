@@ -3,9 +3,10 @@
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 1.5rem;  /* Add horizontal padding for mobile spacing */
+  padding: 0 1rem;
   box-sizing: border-box; /* Ensure padding doesn't break layout */
   font-family: 'Inter', sans-serif;
+  align-self: stretch;
 }
 
 .progressBar {
@@ -131,7 +132,7 @@
 
 @media (max-width: 768px) {
   .progressContainer {
-    width: 100vw;            /* Full screen width */
+    width: 100%;            /* ⛔ Avoid 100vw on mobile */
     max-width: none;         /* Remove the cap */
     margin: 0;               /* Remove auto-centering */
     padding: 0 1rem;         /* Add some side space */

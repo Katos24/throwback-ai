@@ -182,3 +182,43 @@
 .bottomLink a:hover {
   text-decoration: underline;
 }
+
+
+.successBox {
+  background-color: #e6ffed;
+  color: #1a3c2e;
+  border: 1px solid #b5e3ca;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dismissBtn {
+  background: #1a3c2e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dismissBtn:hover {
+  background: #145c45;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

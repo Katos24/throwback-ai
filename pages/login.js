@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";  // <-- import useRouter
 import { supabase } from "../lib/supabaseClient"; // Adjust path as needed
 import { LoginForm } from "../components/Auth/LoginForm";
 import styles from "../styles/Login.module.css"; // Update path if needed
 
 export default function LoginPage() {
+  const router = useRouter();  // <-- initialize router
+
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -25,6 +28,12 @@ export default function LoginPage() {
     }
   };
 
+  // New function to handle OK click:
+  const handleSuccessDismiss = () => {
+    setSuccessMsg("");
+    router.push("/");  // Redirect to home page
+  };
+
   return (
     <>
       <Head>
@@ -41,9 +50,17 @@ export default function LoginPage() {
           </p>
         )}
         {successMsg && (
-          <p className={styles.success} role="status" aria-live="polite">
-            {successMsg}
-          </p>
+          <div className={styles.successBox} role="status" aria-live="polite">
+            <span>{successMsg}</span>
+            <button
+              type="button"
+              onClick={handleSuccessDismiss}  // <-- call redirect function here
+              className={styles.dismissBtn}
+              aria-label="Dismiss success message"
+            >
+              OK
+            </button>
+          </div>
         )}
 
         {/* Google Login Button */}
@@ -88,9 +105,9 @@ export default function LoginPage() {
         </p>
 
         <LoginForm
-          isDisabled={isRedirecting}
+          isDisabled={isRedirecting || !!successMsg}
           onSuccess={() => {
-            setSuccessMsg("✅ Magic link sent! Please check your email to log in.");
+            setSuccessMsg("✅ Magic link sent! Please confirm your email to log in.");
             setErrorMsg("");
           }}
           onError={(msg) => {

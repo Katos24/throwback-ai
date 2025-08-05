@@ -1,16 +1,15 @@
-// components/Auth/LoginForm.js
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-import toast from 'react-hot-toast';
 import styles from '../../styles/Login.module.css';
 
-export function LoginForm({ onSuccess, onError, isDisabled }) {
+export function LoginForm({ isDisabled }) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const cooldownRef = useRef(null);
 
-  // Cleanup cooldown timer
   useEffect(() => {
     if (cooldown === 0 && cooldownRef.current) {
       clearInterval(cooldownRef.current);
@@ -20,9 +19,7 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
 
   useEffect(() => {
     return () => {
-      if (cooldownRef.current) {
-        clearInterval(cooldownRef.current);
-      }
+      if (cooldownRef.current) clearInterval(cooldownRef.current);
     };
   }, []);
 
@@ -45,6 +42,8 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
     if (isDisabled || loading || cooldown > 0) return;
 
     setLoading(true);
+    setErrorMsg('');
+    setSuccessMsg('');
 
     try {
       const { error } = await supabase.auth.signInWithOtp({ email });
@@ -53,28 +52,42 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
       if (error) {
         const msg = error.message || 'Failed to send magic link.';
         if (msg.toLowerCase().includes('rate limit')) {
-          const friendlyMsg = "You've requested magic links too frequently. Please wait a moment.";
-          toast.error(friendlyMsg);
-          onError?.("Rate limit exceeded. Try again later.");
+          setErrorMsg("You've requested magic links too frequently. Please wait a moment.");
         } else {
-          toast.error(msg);
-          onError?.(msg);
+          setErrorMsg(msg);
         }
         return;
       }
 
-      toast.success('📬 Magic link sent! Check your email to log in.');
-      onSuccess?.();
+      setSuccessMsg('✅ Magic link sent! Please check your email to log in.');
       startCooldown(90);
-    } catch (err) {
+    } catch {
       setLoading(false);
-      toast.error('An unexpected error occurred. Please try again.');
-      onError?.('Unexpected error during login.');
+      setErrorMsg('An unexpected error occurred. Please try again.');
     }
   };
 
   return (
     <>
+      {successMsg && (
+        <div className={styles.successBox} role="status" aria-live="polite">
+          <span>{successMsg}</span>
+          <button
+            type="button"
+            className={styles.dismissBtn}
+            onClick={() => setSuccessMsg('')}
+          >
+            OK
+          </button>
+        </div>
+      )}
+
+      {errorMsg && (
+        <p className={styles.error} role="alert" aria-live="assertive">
+          {errorMsg}
+        </p>
+      )}
+
       <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
         <label htmlFor="login-email" className="sr-only">Email address</label>
         <input
@@ -103,7 +116,10 @@ export function LoginForm({ onSuccess, onError, isDisabled }) {
         </button>
       </form>
 
-      <p className={styles.infoText} style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#9ca3af', textAlign: 'center' }}>
+      <p
+        className={styles.infoText}
+        style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: '#9ca3af', textAlign: 'center' }}
+      >
         Please allow a few moments for the magic link email to arrive in your inbox.
       </p>
     </>

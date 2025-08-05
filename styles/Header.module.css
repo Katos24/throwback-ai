@@ -48,7 +48,7 @@
 }
 
 .logoMain {
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: #f3e5dc;
   letter-spacing: 0.06em;
@@ -59,7 +59,7 @@
 }
 
 .logoSub {
-  font-size: 0.75rem;
+  font-size: .9rem;
   font-weight: 500;
   color: #bfae82;
   font-family: 'Playfair Display', serif;
@@ -174,7 +174,7 @@
   }
 
   .logoMain {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
   .logoSub {

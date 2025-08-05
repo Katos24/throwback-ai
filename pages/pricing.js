@@ -19,7 +19,7 @@ const CREDIT_PACKS = [
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
     name: "Revival Pack",
-    greekName: "Παλιγγενεσία", // Palingenesia - Rebirth
+    greekName: "Παλιγγενεσία: ", // Palingenesia - Rebirth
     credits: 1000,
     price: "$9.99",
     revivals: 25,

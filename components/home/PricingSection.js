@@ -9,7 +9,6 @@ const PricingSection = () => {
       price: "$4.99",
       credits: "400",
       description: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
-      subDescription: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
       revivals: "10",
       perRestore: "$0.50",
       featured: false
@@ -19,7 +18,6 @@ const PricingSection = () => {
       price: "$9.99",
       credits: "1,000", 
       description: "A solid bundle for breathing new life into vintage family shots.",
-      subDescription: "Ideal for themed mini galleries, vacation snaps, or honoring loved ones with restored detail.",
       revivals: "25",
       perRestore: "$0.40",
       featured: false
@@ -29,7 +27,6 @@ const PricingSection = () => {
       price: "$14.99",
       credits: "1,600",
       description: "A popular pick for curating full-family albums and restoring event photos.",
-      subDescription: "Great for birthdays, reunions, pet portraits, or weaving stories across generations.",
       revivals: "40", 
       perRestore: "$0.37",
       featured: true,
@@ -40,7 +37,6 @@ const PricingSection = () => {
       price: "$29.99", 
       credits: "3,500",
       description: "Built for legacy-level restoration — preserve history at scale.",
-      subDescription: "Ideal for memory books, heritage tributes, holiday archives, and digital scrapbooking.",
       revivals: "87",
       perRestore: "$0.34", 
       featured: false

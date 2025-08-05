@@ -17,12 +17,12 @@ export default function RestoreBasic() {
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
 
-  // Progress bar state
-  const [progressStatus, setProgressStatus] = useState("idle"); // idle, compressing, uploading, processing, complete
-  const [progressPercent, setProgressPercent] = useState(null); // number 0-100 or null for indeterminate
+  const [progressStatus, setProgressStatus] = useState("idle");
+  const [progressPercent, setProgressPercent] = useState(null);
 
-  // freeAttempts default is 1 for first-time visitors
   const { credits, isLoggedIn, refreshCredits, deductCredits, freeAttempts = 1 } = useCredits();
+
+  const [showScrollNotice, setShowScrollNotice] = useState(false);
 
   useEffect(() => {
     async function getSession() {
@@ -33,6 +33,24 @@ export default function RestoreBasic() {
     }
     getSession();
   }, []);
+
+  useEffect(() => {
+    if (showScrollNotice) {
+      const timer = setTimeout(() => {
+        setShowScrollNotice(false);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [showScrollNotice]);
+
+  // Optional scroll after restore
+  useEffect(() => {
+    if (restoredUrl) {
+      setTimeout(() => {
+        window.scrollTo({ top: 600, behavior: "smooth" });
+      }, 500);
+    }
+  }, [restoredUrl]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -61,17 +79,11 @@ export default function RestoreBasic() {
   };
 
   const handleRestoreClick = () => {
-    // Redirect if no credits
     if (credits < 1) {
-      if (isLoggedIn) {
-        window.location.href = "/pricing";
-      } else {
-        window.location.href = "/signup";
-      }
+      window.location.href = isLoggedIn ? "/pricing" : "/signup";
       return;
     }
 
-    // Show file input only if user has credits
     if (!showFileInput) {
       setShowFileInput(true);
       setRestoredUrl("");
@@ -103,7 +115,6 @@ export default function RestoreBasic() {
       const base64 = reader.result.split(",")[1];
 
       try {
-        // Simulate progress update (replace with real upload progress if available)
         let progress = 0;
         const progressInterval = setInterval(() => {
           progress += 10;
@@ -126,12 +137,13 @@ export default function RestoreBasic() {
         clearInterval(progressInterval);
         setProgressPercent(100);
         setProgressStatus("processing");
-        setProgressPercent(null); // Indeterminate for processing
+        setProgressPercent(null);
 
         const data = await response.json();
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
+          setShowScrollNotice(true);
           setProgressStatus("complete");
           setProgressPercent(100);
           if (isLoggedIn) {
@@ -220,13 +232,19 @@ export default function RestoreBasic() {
               )}
             </button>
 
-            {/* Progress Bar */}
             <ProgressBar
               status={progressStatus}
               progress={progressPercent}
               showSteps={true}
               loading={loading || processing}
             />
+
+            {showScrollNotice && (
+              <div className={styles.scrollNotice}>
+                ✅ Your image has been restored!<br />
+                📲 Scroll down to see the before & after comparison.
+              </div>
+            )}
 
             <div className={styles.creditsInfo}>
               {isLoggedIn ? (
@@ -312,16 +330,8 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-      {/* User Before and After images slider*/}
       {selectedPreviewUrl && restoredUrl && (
-        <section
-          style={{
-            padding: "3rem 1rem",
-            backgroundColor: "#1a1a1a",
-            color: "white",
-            borderTop: "1px solid #333",
-          }}
-        >
+        <section style={{ padding: "3rem 1rem", backgroundColor: "#1a1a1a", color: "white", borderTop: "1px solid #333" }}>
           <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
             Your Restoration Preview
           </h2>
@@ -329,14 +339,7 @@ export default function RestoreBasic() {
         </section>
       )}
 
-      {/* Image Compare Slider Section for Basic Restore */}
-      <section
-        style={{
-          padding: "3rem 1rem",
-          backgroundColor: "#121212",
-          color: "white",
-        }}
-      >
+      <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
         <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           Experience the Basic Restore Before & After
         </h2>
@@ -346,7 +349,6 @@ export default function RestoreBasic() {
         />
       </section>
 
-      {/* Feature Section – Basic */}
       <section className={styles.featurePromoSection}>
         <div className={styles.featurePromoContent}>
           <div className={styles.featurePromoText}>
@@ -367,51 +369,28 @@ export default function RestoreBasic() {
         </div>
       </section>
 
-      {/* How it works */}
       <div className={styles.howItWorksSection}>
         <h3>🛠️ How it works</h3>
         <ol className={styles.howItWorksList}>
-          <li>
-            <span>📤</span>
-            <p>Upload your old or damaged photo</p>
-          </li>
-          <li>
-            <span>✨</span>
-            <p>AI analyzes and restores details in black & white</p>
-          </li>
-          <li>
-            <span>📥</span>
-            <p>Download your newly restored image</p>
-          </li>
+          <li><span>📤</span><p>Upload your old or damaged photo</p></li>
+          <li><span>✨</span><p>AI analyzes and restores details in black & white</p></li>
+          <li><span>📥</span><p>Download your newly restored image</p></li>
         </ol>
       </div>
 
-      {/* FAQ */}
       <section className={styles.faqSection}>
         <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
         <div className={styles.accordion}>
-          <details>
-            <summary>What does the restore actually do?</summary>
-            <p>
-              It removes scratches, corrects blur, and enhances faded sections.
-              Premium restores add colorization and facial reconstruction.
-            </p>
-          </details>
-          <details>
-            <summary>Is my image private?</summary>
-            <p>Yes. We never store your images long-term and do not use them for training or sharing.</p>
-          </details>
+          <details><summary>What does the restore actually do?</summary><p>It removes scratches, corrects blur, and enhances faded sections. Premium restores add colorization and facial reconstruction.</p></details>
+          <details><summary>Is my image private?</summary><p>Yes. We never store your images long-term and do not use them for training or sharing.</p></details>
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
         <ul className={styles.testimonialsList}>
           <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              &quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot;
-            </p>
+            <p className={styles.testimonialText}>&quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot;</p>
             <span className={styles.testimonialAuthor}>– Jamie R.</span>
           </li>
           <li className={styles.testimonialCard}>
@@ -422,8 +401,7 @@ export default function RestoreBasic() {
       </section>
 
       <div className={styles.privacyStatement}>
-        🔒 We respect your privacy. Photos are never stored or shared — everything
-        is processed securely and temporarily.
+        🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely and temporarily.
       </div>
 
       <div className={styles.poweredBy}>

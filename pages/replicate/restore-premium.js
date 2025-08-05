@@ -7,6 +7,7 @@ import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Link from "next/link";
 import Image from "next/image";
+import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,6 +17,12 @@ export default function RestorePremium() {
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
+
+  // Progress bar state
+  const [progressStatus, setProgressStatus] = useState("idle"); // idle, compressing, uploading, processing, complete
+  const [progressPercent, setProgressPercent] = useState(null);
+
+  const [showScrollNotice, setShowScrollNotice] = useState(false);
 
   const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
   const router = useRouter();
@@ -30,9 +37,28 @@ export default function RestorePremium() {
     getSession();
   }, []);
 
+  useEffect(() => {
+    if (showScrollNotice) {
+      const timer = setTimeout(() => {
+        setShowScrollNotice(false);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [showScrollNotice]);
+
+  // Optional scroll after restore
+  useEffect(() => {
+    if (restoredUrl) {
+      setTimeout(() => {
+        window.scrollTo({ top: 600, behavior: "smooth" });
+      }, 500);
+    }
+  }, [restoredUrl]);
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      setProgressStatus("compressing");
       setProcessing(true);
       setRestoredUrl("");
       try {
@@ -49,6 +75,8 @@ export default function RestorePremium() {
         setSelectedPreviewUrl(URL.createObjectURL(file));
       } finally {
         setProcessing(false);
+        setProgressStatus("idle");
+        setProgressPercent(null);
       }
     }
   };
@@ -84,6 +112,9 @@ export default function RestorePremium() {
     if (!selectedFile) return;
 
     setLoading(true);
+    setProgressStatus("uploading");
+    setProgressPercent(0);
+
     const headers = { "Content-Type": "application/json" };
     if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
 
@@ -92,6 +123,16 @@ export default function RestorePremium() {
       const base64 = reader.result.split(",")[1];
 
       try {
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 10;
+          if (progress > 90) {
+            clearInterval(progressInterval);
+          } else {
+            setProgressPercent(progress);
+          }
+        }, 300);
+
         const response = await fetch("/api/replicate/restorePremium", {
           method: "POST",
           headers,
@@ -101,22 +142,32 @@ export default function RestorePremium() {
           }),
         });
 
+        clearInterval(progressInterval);
+        setProgressPercent(100);
+        setProgressStatus("processing");
+        setProgressPercent(null);
+
         const data = await response.json();
 
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
-
+          setShowScrollNotice(true);
+          setProgressStatus("complete");
+          setProgressPercent(100);
           if (isLoggedIn) {
-            // Deduct 40 credits AFTER successful restore
             await deductCredits(40);
             await refreshCredits();
           }
         } else {
           alert(data.error || "Failed to restore image.");
+          setProgressStatus("idle");
+          setProgressPercent(null);
         }
       } catch (error) {
         alert("Network or server error. Please try again.");
         console.error(error);
+        setProgressStatus("idle");
+        setProgressPercent(null);
       } finally {
         setLoading(false);
       }
@@ -161,11 +212,11 @@ export default function RestorePremium() {
               />
             )}
 
-            {/* CTA Button */}
             <button
               className={styles.topBannerButton}
               onClick={handleRestoreClick}
               disabled={loading || processing}
+              title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
             >
               {(loading || processing) ? (
                 <>
@@ -183,7 +234,20 @@ export default function RestorePremium() {
               )}
             </button>
 
-            {/* Inline Credit Info */}
+            <ProgressBar
+              status={progressStatus}
+              progress={progressPercent}
+              showSteps={true}
+              loading={loading || processing}
+            />
+
+            {showScrollNotice && (
+              <div className={styles.scrollNotice}>
+                ✅ Your image has been restored!<br />
+                📲 Scroll down to see the before & after comparison.
+              </div>
+            )}
+
             <div className={styles.creditsInfo}>
               {isLoggedIn ? (
                 <>
@@ -263,26 +327,22 @@ export default function RestorePremium() {
         </div>
       </section>
 
-     {/* User Before and After images slider*/}
       {selectedPreviewUrl && restoredUrl && (
-  <section
-    style={{
-      padding: "3rem 1rem",
-      backgroundColor: "#1a1a1a",
-      color: "white",
-      borderTop: "1px solid #333",
-    }}
-  >
-    <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-      Your Restoration Preview
-    </h2>
-    <ImageCompareSlider
-      beforeImage={selectedPreviewUrl}
-      afterImage={restoredUrl}
-    />
-  </section>
-)}
-      {/* Basic Before/After Slider */}
+        <section
+          style={{
+            padding: "3rem 1rem",
+            backgroundColor: "#1a1a1a",
+            color: "white",
+            borderTop: "1px solid #333",
+          }}
+        >
+          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+            Your Restoration Preview
+          </h2>
+          <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+        </section>
+      )}
+
       <section
         style={{
           padding: "3rem 1rem",
@@ -293,13 +353,9 @@ export default function RestorePremium() {
         <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           Experience the Basic Restore Before & After
         </h2>
-        <ImageCompareSlider
-          beforeImage="/images/demo-before.jpg"
-          afterImage="/images/demo-after.jpg"
-        />
+        <ImageCompareSlider beforeImage="/images/demo-before.jpg" afterImage="/images/demo-after.jpg" />
       </section>
 
-      {/* Feature Promo */}
       <section className={styles.featurePromoSection}>
         <div className={styles.featurePromoContent}>
           <div className={styles.featurePromoText}>
@@ -322,7 +378,6 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      {/* How It Works */}
       <div className={styles.howItWorksSection}>
         <h3>💎 How Restore Premium Works</h3>
         <ol className={styles.howItWorksList}>
@@ -341,7 +396,6 @@ export default function RestorePremium() {
         </ol>
       </div>
 
-      {/* FAQ */}
       <section className={styles.faqSection}>
         <h2 className={styles.sectionTitle}>❓ Restore Premium FAQ</h2>
         <div className={styles.accordion}>
@@ -368,7 +422,6 @@ export default function RestorePremium() {
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className={styles.testimonials}>
         <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
         <ul className={styles.testimonialsList}>

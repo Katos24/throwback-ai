@@ -1,4 +1,5 @@
-import ScrollToTop from "../components/ScrollToTop";
+// pages/_app.js
+import ScrollToTop from '../components/ScrollToTop';
 
 export default function MyApp({ Component, pageProps }) {
   return (

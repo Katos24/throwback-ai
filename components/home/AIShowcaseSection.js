@@ -18,13 +18,6 @@ const AIShowcaseSection = () => {
       category: 'Family Photo',
       aiFeatures: ['Crack Repair', 'Color Revival', 'Texture Enhancement'],
     },
-    {
-      before: '/images/1945before.jpg',
-      after: '/images/1945after.jpg',
-      year: '1945',
-      category: 'Military Portrait',
-      aiFeatures: ['Fade Correction', 'Uniform Colorization', 'Face Enhancement'],
-    },
   ];
 
   return (
@@ -84,20 +77,6 @@ const AIShowcaseSection = () => {
           ))}
         </div>
 
-        <div className={aiShowcaseStyles.showcaseStats}>
-          <div className={aiShowcaseStyles.statItem}>
-            <div className={aiShowcaseStyles.statNumber}>2.3M+</div>
-            <div className={aiShowcaseStyles.statLabel}>Photos Restored</div>
-          </div>
-          <div className={aiShowcaseStyles.statItem}>
-            <div className={aiShowcaseStyles.statNumber}>98.7%</div>
-            <div className={aiShowcaseStyles.statLabel}>Success Rate</div>
-          </div>
-          <div className={aiShowcaseStyles.statItem}>
-            <div className={aiShowcaseStyles.statNumber}>47s</div>
-            <div className={aiShowcaseStyles.statLabel}>Avg Process Time</div>
-          </div>
-        </div>
 
         <button className={aiShowcaseStyles.showcaseCTA}>
           <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>

@@ -61,10 +61,10 @@ const FeaturesSection = () => {
           </div>
 
           <div className={FeaturesStyles.card}>
-            <h3 className={FeaturesStyles.cardTitle}>📚 Genealogy-Grade Quality</h3>
+            <h3 className={FeaturesStyles.cardTitle}>⏱️ Quick & Detailed Restorations</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Trusted by family archivists and professional genealogists.
-              We don’t slap filters — we bring clarity and color to moments that matter most.
+              We restore your precious photos with clarity and care, often delivering results in seconds.  
+              Premium restorations may take up to a minute to ensure museum-quality detail and colorization.
             </p>
           </div>
 
@@ -75,24 +75,6 @@ const FeaturesSection = () => {
               No permanent storage, no creepy scraping, no training on your data.
             </p>
           </div>
-        </div>
-
-        {/* Video Intro */}
-        <div ref={wrapperRef} className={FeaturesStyles.videoWrapper}>
-          {showVideo && (
-            <video
-              ref={videoRef}
-              className={FeaturesStyles.featureVideo}
-              preload="auto"
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src="/videos/ThrowbackAIIntro.mp4" type="video/mp4" />
-              Your browser does not support HTML5 video.
-            </video>
-          )}
         </div>
       </div>
     </section>

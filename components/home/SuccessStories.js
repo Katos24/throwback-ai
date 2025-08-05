@@ -5,8 +5,8 @@ import Image from 'next/image';
 const CustomerSuccessStories = () => {
   const stories = [
     {
-      before: "/images/before4.jpg",
-      after: "/images/after4.jpg",
+      before: "/images/weddingbefore.jpg",
+      after: "/images/weddingafter.jpg",
       story: "Restored my grandmother's 1943 wedding photo for our family reunion. Everyone was in tears!",
       author: "Sarah M.",
       occasion: "Family Reunion",

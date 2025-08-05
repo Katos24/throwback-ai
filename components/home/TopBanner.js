@@ -18,7 +18,7 @@ const TopBanner = () => {
 
   return (
     <div ref={containerRef} className={TopBannerStyles.combinedContainer}>
-      {/* Left: Stacked Before/After Images */}
+      {/* Left: Before/After Images Side-by-Side */}
       <aside className={TopBannerStyles.bannerSection}>
         <div className={TopBannerStyles.bannerBadge}>About Anastasis</div>
         <h2 className={TopBannerStyles.bannerTitle}>
@@ -29,29 +29,36 @@ const TopBanner = () => {
           Trained on authentic film grain, sepia tones, and analog damage from the 1900s–1990s,
           Anastasis preserves history with pixel-perfect precision.
         </p>
+
         <div className={TopBannerStyles.imageStack}>
-          {['beforeexample.jpg', 'afterexample.jpg'].map((file, idx) => (
-            <div key={file} className={TopBannerStyles.imageBox}>
-              <Image
-                src={`/images/${file}`}
-                alt={idx === 0 ? 'Before restoration' : 'After restoration'}
-                layout="fill"
-                className={TopBannerStyles.image}
-                sizes="(max-width: 768px) 100vw, 400px"
-              />
-              <span className={TopBannerStyles.imageLabel}>
-                {idx === 0 ? 'Before' : 'After'}
-              </span>
-            </div>
-          ))}
+          <div className={TopBannerStyles.imageBox}>
+            <Image
+              src="/images/beforeexample.jpg"
+              alt="Before restoration"
+              layout="fill"
+              className={TopBannerStyles.image}
+              sizes="(max-width: 768px) 100vw, 300px"
+            />
+            <span className={TopBannerStyles.imageLabel}>Before</span>
+          </div>
+
+          <div className={TopBannerStyles.imageBox}>
+            <Image
+              src="/images/afterexample.jpg"
+              alt="After restoration"
+              layout="fill"
+              className={TopBannerStyles.image}
+              sizes="(max-width: 768px) 100vw, 300px"
+            />
+            <span className={TopBannerStyles.imageLabel}>After</span>
+          </div>
         </div>
       </aside>
 
       {/* Right: Interactive Compare Slider */}
       <aside className={TopBannerStyles.sliderSection}>
         <h2 className={TopBannerStyles.sliderTitle}>
-          See the{' '}
-          <span className={TopBannerStyles.accent}>Transformation</span>
+          See the <span className={TopBannerStyles.accent}>Transformation</span>
         </h2>
         <p className={TopBannerStyles.sliderSubtitle}>
           Real restorations from families like yours

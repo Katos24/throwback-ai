@@ -5,22 +5,22 @@ import aiShowcaseStyles from '../../styles/AIShowcase.module.css';
 const AIShowcaseSection = () => {
   const transformations = [
     {
-      before: '/images/before1.jpg',
-      after: '/images/after1.jpg',
+      before: '/images/weddingbefore.jpg',
+      after: '/images/weddingafter.jpg',
       year: '1952',
       category: 'Wedding Portrait',
       aiFeatures: ['Colorization', 'Detail Recovery', 'Noise Reduction'],
     },
     {
-      before: '/images/before2.jpg',
-      after: '/images/after2.jpg',
+      before: '/images/1938before.jpg',
+      after: '/images/1938after.jpg',
       year: '1938',
       category: 'Family Photo',
       aiFeatures: ['Crack Repair', 'Color Revival', 'Texture Enhancement'],
     },
     {
-      before: '/images/before3.jpg',
-      after: '/images/after3.jpg',
+      before: '/images/1945before.jpg',
+      after: '/images/1945after.jpg',
       year: '1945',
       category: 'Military Portrait',
       aiFeatures: ['Fade Correction', 'Uniform Colorization', 'Face Enhancement'],

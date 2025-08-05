@@ -162,38 +162,37 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Images side by side with overlap */
 .imageStack {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  position: relative;
-  height: 280px;
-  margin-top: 1rem;
-}
-
-.imageBox {
-  position: relative;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start;
   width: 100%;
-  flex: 1;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-  box-shadow: 
-    0 8px 32px rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.1);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  cursor: pointer;
+  max-width: 400px; /* or enough to fit both images with overlap */
+  margin-top: 2rem;
+  gap: 1.2rem;
+  position: relative;
 }
-
+.imageBox {
+  flex: 0 0 180px; /* fixed width */
+  width: 180px; /* redundant but safe */
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: #000;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+}
 .imageBox:first-child {
   z-index: 2;
   transform: translateX(0);
 }
 
 .imageBox:last-child {
+  margin-left: -60px; /* overlap */
   z-index: 1;
-  transform: translateX(-60px);
-  margin-left: -60px;
+  transform: translateX(0); /* remove previous translateX to avoid pushing it left */
 }
 
 .imageBox:hover {
@@ -251,6 +250,11 @@
 .imageBox:hover .imageLabel {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.overlapRight {
+  margin-left: -40px;
+  z-index: 1;
 }
 
 /* Right panel with slider */
@@ -427,32 +431,28 @@
     font-size: 0.8rem;
   }
   
-  .imageStack {
-    height: 200px;
-    flex-direction: column;
-    gap: 0.5rem;
+   .imageStack {
+    flex-direction: column !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
   
-  .imageBox {
-    height: 90px;
-    flex: none;
-  }
-  
-  .imageBox:first-child,
-  .imageBox:last-child {
-    transform: none;
-    margin-left: 0;
-    z-index: auto;
+ .imageBox {
+    width: 100% !important;
+    height: 160px !important;
+    margin-left: 0 !important;
+    transform: none !important;
   }
   
   .imageBox:hover,
   .imageBox:first-child:hover,
   .imageBox:last-child:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-4px) scale(1.02) !important;
   }
   
-  .imageBox {
-    border-radius: 12px;
+  .imageLabel {
+    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
   }
 }
 

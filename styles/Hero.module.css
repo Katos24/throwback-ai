@@ -522,3 +522,91 @@
     padding: 6px 0;
   }
 }
+
+
+
+/* Hero.module.css */
+
+.useCases {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.useCases li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.howItWorks {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.howItWorks h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.howItWorks ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.howItWorks li {
+  margin-bottom: 0.4rem;
+}
+
+.compareGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 3rem;
+}
+
+.compareCard {
+  text-align: center;
+  max-width: 1000px;   /* constrain width */
+  margin-left: auto;
+  margin-right: auto;
+}
+.compareCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.compareTitle {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.compareDesc {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+
+.compareContainer {
+  margin-top: 3rem;
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.compareHeading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.compareDesc {
+  margin-top: 1rem;
+  color: #eee;
+  font-size: 1rem;
+}
+

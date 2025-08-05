@@ -1,85 +1,48 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
-import heroStyles from '../../styles/Hero.module.css';
+import React from 'react'
+import Link from 'next/link'
+import heroStyles from '../../styles/Hero.module.css'
 
-// Lazy-load the video component when it enters viewport
-const HeroVideo = () => {
-  const videoRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-    if (videoRef.current) observer.observe(videoRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={videoRef} className={heroStyles.videoWrapper}>
-      {isVisible && (
-        <video
-          className={heroStyles.heroVideo}
-          preload="metadata"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src="/videos/ThrowbackAIIntro.mp4" type="video/mp4" />
-          <source src="/videos/ThrowbackAIIntro.webm" type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
-      )}
-    </div>
-  );
-};
-
-const HeroSection = () => {
+export default function HeroSection() {
   return (
     <>
       <div className={heroStyles.fullWidthBanner}>
-        <span>🔒 <strong>Privacy Guaranteed</strong></span>
-        <span>⚡ <strong>Results in Under 2 Minutes</strong></span>
-        <span>🆓 <strong>1 Free Restore & 5 More When You Sign Up</strong></span>
+        🔒 Privacy-First • ⚡ Results in Under 2 Minutes • 🆓 1 Free Restore + 5 Bonus on Signup
       </div>
 
       <section className={heroStyles.hero}>
         <div className={heroStyles.heroContent}>
           <h1 className={heroStyles.heroTitle}>
-            Restore Memories, <span className={heroStyles.accent}>Not Just Images</span>
+            Restore Memories, <span className={heroStyles.accent}>Not Just Photos</span>
           </h1>
 
           <p className={heroStyles.heroSubtitle}>
-            Bring your old family photos back to life with cutting-edge, privacy-first AI. No subscriptions,
-            no gimmicks — just beautifully restored memories in under 2 minutes.
+            Yellowed, torn, or water-stained prints come back to life in under 2 minutes. Surprise
+            grandma on her 80th birthday, frame that childhood snap for your sibling, or preserve
+            your family’s legacy—no subscription, just easy AI magic.
           </p>
 
           <div className={heroStyles.heroButtons}>
             <Link href="/replicate/restore-basic" className={heroStyles.secondaryButton}>
               Quick Enhance <span className={heroStyles.freePill}>Free</span>
             </Link>
-
             <Link href="/replicate/restore-premium" className={heroStyles.primaryButton}>
               Full Restore & Colorize <span className={heroStyles.premiumPill}>Premium</span>
             </Link>
           </div>
 
-          <HeroVideo />
-
-          <p className={heroStyles.subText}>
-            Sign up now and get <strong>5 bonus credits</strong> — no subscription required!
-          </p>
+          {/* Video replaces the compare slider */}
+          <div className={heroStyles.videoContainer}>
+            <video
+              className={heroStyles.heroVideo}
+              src="/videos/restore-demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          </div>
         </div>
       </section>
     </>
-  );
-};
-
-export default HeroSection;
+  )
+}

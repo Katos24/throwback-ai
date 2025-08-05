@@ -7,6 +7,7 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Image from "next/image";
 import Link from "next/link";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
+import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -43,7 +44,6 @@ export default function RestoreBasic() {
     }
   }, [showScrollNotice]);
 
-  // Optional scroll after restore
   useEffect(() => {
     if (restoredUrl) {
       setTimeout(() => {
@@ -331,82 +331,42 @@ export default function RestoreBasic() {
       </section>
 
       {selectedPreviewUrl && restoredUrl && (
-        <section style={{ padding: "3rem 1rem", backgroundColor: "#1a1a1a", color: "white", borderTop: "1px solid #333" }}>
-          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-            Your Restoration Preview
-          </h2>
-          <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
-        </section>
-      )}
+  <section
+    style={{
+      position: "relative",
+      padding: "3rem 1rem",
+      backgroundColor: "#1a1a1a",
+      color: "white",
+      borderTop: "1px solid #333",
+      overflow: "hidden",
+    }}
+  >
+    {/* Animated Background */}
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "radial-gradient(circle at center, rgba(0, 123, 255, 0.15), transparent 70%)",
+        animation: "pulseGlow 6s ease-in-out infinite",
+        zIndex: 0,
+      }}
+    />
 
-      <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          Experience the Basic Restore Before & After
-        </h2>
-        <ImageCompareSlider
-          beforeImage="/images/basicpage-before.jpg"
-          afterImage="/images/basicpage-after.jpg"
-        />
-      </section>
+    <h2 style={{ textAlign: "center", marginBottom: "1.5rem", position: "relative", zIndex: 1 }}>
+      Your Restoration Preview
+    </h2>
 
-      <section className={styles.featurePromoSection}>
-        <div className={styles.featurePromoContent}>
-          <div className={styles.featurePromoText}>
-            <h2 className={styles.featurePromoTitle}>🧼 Clean up your photos with enhanced clarity</h2>
-            <p className={styles.featurePromoSubtitle}>
-              Restore Basic uses smart AI to remove noise, sharpen edges, and enhance the overall clarity of your photos —
-              whether black &amp; white or color. Black and white images stay true to their original tone, while color photos
-              are cleaned and subtly enriched for a crisper, more vivid look.
-            </p>
-          </div>
-          <div className={styles.featurePromoVisual}>
-            <img
-              src="/images/basic-restore-preview.jpg"
-              alt="Basic restored photo example"
-              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
-            />
-          </div>
-        </div>
-      </section>
+    <div style={{ position: "relative", zIndex: 1 }}>
+      <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+    </div>
+  </section>
+)}
 
-      <div className={styles.howItWorksSection}>
-        <h3>🛠️ How it works</h3>
-        <ol className={styles.howItWorksList}>
-          <li><span>📤</span><p>Upload your old or damaged photo</p></li>
-          <li><span>✨</span><p>AI analyzes and restores details in black & white</p></li>
-          <li><span>📥</span><p>Download your newly restored image</p></li>
-        </ol>
-      </div>
 
-      <section className={styles.faqSection}>
-        <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
-        <div className={styles.accordion}>
-          <details><summary>What does the restore actually do?</summary><p>It removes scratches, corrects blur, and enhances faded sections. Premium restores add colorization and facial reconstruction.</p></details>
-          <details><summary>Is my image private?</summary><p>Yes. We never store your images long-term and do not use them for training or sharing.</p></details>
-        </div>
-      </section>
-
-      <section className={styles.testimonials}>
-        <h2 className={styles.sectionTitle}>💬 What Our Users Say</h2>
-        <ul className={styles.testimonialsList}>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>&quot;Unbelievable results. This brought my grandparents&apos; photo back to life!&quot;</p>
-            <span className={styles.testimonialAuthor}>– Jamie R.</span>
-          </li>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>&quot;I cried when I saw my childhood photo restored. Thank you.&quot;</p>
-            <span className={styles.testimonialAuthor}>– Marcus L.</span>
-          </li>
-        </ul>
-      </section>
-
-      <div className={styles.privacyStatement}>
-        🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely and temporarily.
-      </div>
-
-      <div className={styles.poweredBy}>
-        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
-      </div>
+      <BasicFeaturesSection />
     </main>
   );
 }

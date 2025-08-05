@@ -8,6 +8,7 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Link from "next/link";
 import Image from "next/image";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
+import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -350,104 +351,10 @@ export default function RestorePremium() {
           color: "white",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          Experience the Basic Restore Before & After
-        </h2>
-        <ImageCompareSlider beforeImage="/images/demo-before.jpg" afterImage="/images/demo-after.jpg" />
+        
       </section>
 
-      <section className={styles.featurePromoSection}>
-        <div className={styles.featurePromoContent}>
-          <div className={styles.featurePromoText}>
-            <h2 className={styles.featurePromoTitle}>✨ Turn faded photos into stunning restorations</h2>
-            <p className={styles.featurePromoSubtitle}>
-              Restore Premium uses advanced AI to revive detail, sharpen edges, and enrich every pixel with vibrant clarity.
-              The result? A museum-grade restoration of your most cherished memories.
-            </p>
-          </div>
-          <div className={styles.featurePromoVisual}>
-            <Image
-              src="/images/restore-preview.jpg"
-              alt="Restored example preview"
-              className={`${styles.featurePromoImage} ${styles.tiltImage}`}
-              width={600}
-              height={400}
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <div className={styles.howItWorksSection}>
-        <h3>💎 How Restore Premium Works</h3>
-        <ol className={styles.howItWorksList}>
-          <li>
-            <span>📤</span>
-            <p>Upload your highest quality photo</p>
-          </li>
-          <li>
-            <span>🤖</span>
-            <p>Advanced AI analyzes damage, facial features, and colors</p>
-          </li>
-          <li>
-            <span>🌈</span>
-            <p>Receive a fully colorized, high-resolution, enhanced restoration</p>
-          </li>
-        </ol>
-      </div>
-
-      <section className={styles.faqSection}>
-        <h2 className={styles.sectionTitle}>❓ Restore Premium FAQ</h2>
-        <div className={styles.accordion}>
-          <details>
-            <summary>What extra features does Restore Premium include?</summary>
-            <p>
-              It colorizes black & white photos, reconstructs missing facial details,
-              and enhances resolution for printing.
-            </p>
-          </details>
-          <details>
-            <summary>Is the premium restore worth the higher credit cost?</summary>
-            <p>
-              Yes! The results are professional quality and ideal for cherished photos or
-              prints.
-            </p>
-          </details>
-          <details>
-            <summary>Are my photos kept private?</summary>
-            <p>
-              Absolutely. We never store your images permanently or share them.
-            </p>
-          </details>
-        </div>
-      </section>
-
-      <section className={styles.testimonials}>
-        <h2 className={styles.sectionTitle}>🌟 What Our Premium Users Say</h2>
-        <ul className={styles.testimonialsList}>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              &quot;Restore Premium brought my wedding photos back to life in full color. Incredible!&quot;
-            </p>
-            <span className={styles.testimonialAuthor}>– Sarah M.</span>
-          </li>
-          <li className={styles.testimonialCard}>
-            <p className={styles.testimonialText}>
-              &quot;Worth every credit. The facial reconstruction and colorization blew me away.&quot;
-            </p>
-            <span className={styles.testimonialAuthor}>– Daniel K.</span>
-          </li>
-        </ul>
-      </section>
-
-      <div className={styles.privacyStatement}>
-        🔒 We respect your privacy. Photos are never stored or shared — everything is processed securely
-        and temporarily.
-      </div>
-
-      <div className={styles.poweredBy}>
-        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
-      </div>
+<BasicFeaturesSection />
     </main>
   );
 }

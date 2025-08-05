@@ -70,7 +70,7 @@ export default function Header({ showMenu, setShowMenu }) {
 
   return (
     <>
-      <header className={`${styles.header} ${showMenu ? styles.showMenu : ""}`}>
+      <header className={styles.header}>
         {/* 🍔 Hamburger */}
         <button
           className={styles.hamburger}

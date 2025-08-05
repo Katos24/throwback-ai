@@ -381,7 +381,7 @@
 .subText {
   font-family: 'Inter', sans-serif;
   /* Increase both the minimum and maximum font sizes */
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(3.8rem, 4vw, 2.5rem);
   font-weight: 600;
   margin-top: 3.5rem;
   margin-bottom: 3.5rem;

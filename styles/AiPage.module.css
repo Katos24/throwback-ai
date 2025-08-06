@@ -1061,6 +1061,7 @@
 @media (max-width: 768px) {
   .controlsGrid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .uploadAndButtonColumn {
     margin-top: 1.5rem;

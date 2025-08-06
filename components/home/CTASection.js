@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import ctaStyles from '../../styles/CTA.module.css';
 
 const CTASection = () => {
@@ -12,8 +13,12 @@ const CTASection = () => {
           Upload a photo and see the transformation in seconds
         </p>
         <div className={ctaStyles.ctaButtons}>
-          <button className={ctaStyles.primaryButton}>🎁 Photo Fix (3 FREE)</button>
-          <button className={ctaStyles.secondaryButton}>✨ Photo Revival (Premium)</button>
+          <Link href="/replicate/restore-basic" passHref>
+            <button className={ctaStyles.primaryButton}>🎁 Photo Fix (Try FREE)</button>
+          </Link>
+          <Link href="/replicate/restore-premium" passHref>
+            <button className={ctaStyles.secondaryButton}>✨ Full Color Restore (Premium)</button>
+          </Link>
         </div>
         <p className={ctaStyles.ctaNote}>No subscription. Instant results. Free trial.</p>
       </div>

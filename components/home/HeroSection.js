@@ -23,10 +23,10 @@ export default function HeroSection() {
 
           <div className={heroStyles.heroButtons}>
             <Link href="/replicate/restore-basic" className={heroStyles.secondaryButton}>
-              Quick Enhance <span className={heroStyles.freePill}>Free</span>
+              Photo Fix <span className={heroStyles.freePill}>Free</span>
             </Link>
             <Link href="/replicate/restore-premium" className={heroStyles.primaryButton}>
-              Full Restore & Colorize <span className={heroStyles.premiumPill}>Premium</span>
+              Full Color Restore <span className={heroStyles.premiumPill}>Premium</span>
             </Link>
           </div>
 

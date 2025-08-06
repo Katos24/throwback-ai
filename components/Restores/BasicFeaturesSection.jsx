@@ -24,7 +24,7 @@ export default function BasicFeaturesSection() {
             padding: "1rem",
             borderRadius: "8px"
           }}>
-            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Basic Restore</h3>
+            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
             <ImageCompareSlider
               beforeImage="/images/beforeexample.jpg"
               afterImage="/images/basicdemo.jpg"
@@ -42,7 +42,7 @@ export default function BasicFeaturesSection() {
             padding: "1rem",
             borderRadius: "8px"
           }}>
-            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Premium Restore</h3>
+            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Full Color Restore</h3>
             <ImageCompareSlider
               beforeImage="/images/demo-before.jpg"
               afterImage="/images/demo-after.jpg"

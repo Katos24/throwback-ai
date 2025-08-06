@@ -100,7 +100,7 @@ export default function Header({ showMenu, setShowMenu }) {
             Photo Fix
           </Link>
           <Link href="/replicate/restore-premium" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
-            Photo Revival
+            Full Color Restore
           </Link>
           <Link href="/gallery" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
             Gallery

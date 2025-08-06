@@ -18,21 +18,17 @@ export default function RestorePremium() {
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
   const [showFileInput, setShowFileInput] = useState(false);
-
-  // Progress bar state
-  const [progressStatus, setProgressStatus] = useState("idle"); // idle, compressing, uploading, processing, complete
+  const [progressStatus, setProgressStatus] = useState("idle");
   const [progressPercent, setProgressPercent] = useState(null);
-
   const [showScrollNotice, setShowScrollNotice] = useState(false);
 
   const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
   const router = useRouter();
+  const restoreCost = 40;
 
   useEffect(() => {
     async function getSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
@@ -40,45 +36,35 @@ export default function RestorePremium() {
 
   useEffect(() => {
     if (showScrollNotice) {
-      const timer = setTimeout(() => {
-        setShowScrollNotice(false);
-      }, 6000);
+      const timer = setTimeout(() => setShowScrollNotice(false), 6000);
       return () => clearTimeout(timer);
     }
   }, [showScrollNotice]);
 
-  // Optional scroll after restore
   useEffect(() => {
     if (restoredUrl) {
-      setTimeout(() => {
-        window.scrollTo({ top: 600, behavior: "smooth" });
-      }, 500);
+      setTimeout(() => window.scrollTo({ top: 600, behavior: "smooth" }), 500);
     }
   }, [restoredUrl]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setProgressStatus("compressing");
-      setProcessing(true);
-      setRestoredUrl("");
-      try {
-        const compressedFile = await imageCompression(file, {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1024,
-          useWebWorker: true,
-        });
-        setSelectedFile(compressedFile);
-        setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
-      } catch (error) {
-        console.error("Image compression error:", error);
-        setSelectedFile(file);
-        setSelectedPreviewUrl(URL.createObjectURL(file));
-      } finally {
-        setProcessing(false);
-        setProgressStatus("idle");
-        setProgressPercent(null);
-      }
+    if (!file) return;
+    setProgressStatus("compressing");
+    setProcessing(true);
+    setRestoredUrl("");
+    try {
+      const compressedFile = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024, useWebWorker: true });
+      setSelectedFile(compressedFile);
+      setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
+    } catch (error) {
+      console.error("Image compression error:", error);
+      setSelectedFile(file);
+      setSelectedPreviewUrl(URL.createObjectURL(file));
+    } finally {
+      setProcessing(false);
+      setProgressStatus("idle");
+      setProgressPercent(null);
     }
   };
 
@@ -88,7 +74,7 @@ export default function RestorePremium() {
       return;
     }
 
-    if (credits < 40) {
+    if (credits < restoreCost) {
       router.push("/pricing");
       return;
     }
@@ -111,7 +97,6 @@ export default function RestorePremium() {
 
   const handleRestore = async () => {
     if (!selectedFile) return;
-
     setLoading(true);
     setProgressStatus("uploading");
     setProgressPercent(0);
@@ -122,16 +107,12 @@ export default function RestorePremium() {
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64 = reader.result.split(",")[1];
-
       try {
         let progress = 0;
         const progressInterval = setInterval(() => {
           progress += 10;
-          if (progress > 90) {
-            clearInterval(progressInterval);
-          } else {
-            setProgressPercent(progress);
-          }
+          if (progress > 90) clearInterval(progressInterval);
+          else setProgressPercent(progress);
         }, 300);
 
         const response = await fetch("/api/replicate/restorePremium", {
@@ -149,16 +130,13 @@ export default function RestorePremium() {
         setProgressPercent(null);
 
         const data = await response.json();
-
         if (response.ok && data.imageUrl) {
           setRestoredUrl(data.imageUrl);
           setShowScrollNotice(true);
           setProgressStatus("complete");
           setProgressPercent(100);
-          if (isLoggedIn) {
-            await deductCredits(40);
-            await refreshCredits();
-          }
+          await deductCredits(restoreCost);
+          await refreshCredits();
         } else {
           alert(data.error || "Failed to restore image.");
           setProgressStatus("idle");
@@ -173,17 +151,14 @@ export default function RestorePremium() {
         setLoading(false);
       }
     };
-
     reader.readAsDataURL(selectedFile);
   };
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
-
     const response = await fetch(restoredUrl);
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
-
     const a = document.createElement("a");
     a.href = url;
     a.download = "restored-photo.png";
@@ -202,6 +177,16 @@ export default function RestorePremium() {
             <p className={styles.topBannerSubtitle}>
               Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
             </p>
+
+            {/* Credit pills */}
+            <div className={styles.quickInfo}>
+              <span className={`${styles.pill} ${styles.cost}`}>
+                Cost: {restoreCost} Credits
+              </span>
+              <span className={`${styles.pill} ${styles.remaining}`}>
+                Credits Remaining: {credits} 
+              </span>
+            </div>
 
             {showFileInput && (
               <input
@@ -226,10 +211,10 @@ export default function RestorePremium() {
                 </>
               ) : !isLoggedIn ? (
                 "🔒 Sign up to Restore Premium"
-              ) : credits < 40 ? (
+              ) : credits < restoreCost ? (
                 "💳 Buy More Credits"
               ) : showFileInput ? (
-                "💎 Restore Premium (40 credits)"
+                `💎 Restore Premium (${restoreCost} credits)`
               ) : (
                 "Restore"
               )}
@@ -248,32 +233,6 @@ export default function RestorePremium() {
                 📲 Scroll down to see the before & after comparison.
               </div>
             )}
-
-            <div className={styles.creditsInfo}>
-              {isLoggedIn ? (
-                <>
-                  Your credits: <strong>{credits}</strong>
-                  {credits < 40 && (
-                    <>
-                      <br />
-                      <Link href="/pricing" className={styles.link}>
-                        Need more? View pricing
-                      </Link>
-                    </>
-                  )}
-                  <br />
-                  <small>Each restore costs 40 credits.</small>
-                </>
-              ) : (
-                <>
-                  You have <strong>{credits}</strong> free attempts left.
-                  <br />
-                  <Link href="/signup" className={styles.link}>
-                    Sign up to unlock more credits
-                  </Link>
-                </>
-              )}
-            </div>
           </div>
 
           <div className={styles.topBannerImages}>
@@ -296,30 +255,18 @@ export default function RestorePremium() {
               </div>
             </div>
 
-            <div className={styles.imageBox}>
+           <div className={styles.imageBox}>
               <strong>After</strong>
               <div className={styles.imageWrapper}>
                 {restoredUrl ? (
-                  <Image
-                    src={restoredUrl}
-                    alt="Restored"
-                    className={styles.image}
-                    style={{ objectFit: "contain" }}
-                    width={400}
-                    height={300}
-                    unoptimized={true}
-                  />
+                  <img src={restoredUrl} alt="Restored" className={styles.image} loading="lazy" />
                 ) : (
                   <span className={styles.placeholderText}>No restored image yet</span>
                 )}
               </div>
-
+              {/* Download button below image */}
               {restoredUrl && (
-                <button
-                  onClick={handleDownload}
-                  className={styles.downloadButton}
-                  style={{ marginTop: "1rem" }}
-                >
+                <button onClick={handleDownload} className={styles.downloadButton}>
                   ⬇️ Download
                 </button>
               )}
@@ -344,17 +291,7 @@ export default function RestorePremium() {
         </section>
       )}
 
-      <section
-        style={{
-          padding: "3rem 1rem",
-          backgroundColor: "#121212",
-          color: "white",
-        }}
-      >
-        
-      </section>
-
-<BasicFeaturesSection />
+      <BasicFeaturesSection />
     </main>
   );
 }

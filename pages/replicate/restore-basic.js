@@ -154,60 +154,151 @@ export default function RestoreBasic() {
   return (
     <main>
       <section className={styles.topBannerBasic}>
-        {/* Floating credits badge */}
         <div className={styles.topBannerContent}>
+
           <div className={styles.topBannerTop}>
             <h2 className={styles.topBannerTitle}>🕹️ Restore Your Vintage Photo</h2>
-            <p className={styles.topBannerSubtitle}>
-              Basic restores clean black & white photos with AI-powered scratch removal and clarity boost.
-              Sign up for premium features like colorization and advanced restoration.
-            </p>
-            {/* Quick info pills */}
-            <div className={styles.quickInfo}>
-              <span className={styles.cost}>Cost: {restoreCost}</span>
-              <span className={styles.remaining}>Left: {credits}</span>
+
+            {/* Updated subtitle with better spacing and hierarchy */}
+            <div className={styles.subtitleContainer}>
+              <p className={styles.topBannerSubtitle}>
+                Transform your old photos with AI-powered restoration
+              </p>
+              <p className={styles.topBannerDescription}>
+                Basic restores clean black & white photos with scratch removal and clarity boost.
+                <Link href="/signup" className={styles.upgradeLink}>
+                  Sign up for premium features →
+                </Link>
+              </p>
             </div>
 
-            {showFileInput && (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                disabled={loading || processing}
-                className={`${styles.fileInput} ${styles.visible}`}
-              />
-            )}
+            {/* Grid container for credits + upload + button */}
+            <div className={styles.controlsGrid}>
 
-            <button
-              className={styles.topBannerButton}
-              onClick={handleRestoreClick}
-              disabled={loading || processing}
-            >
-              {!loading && !processing ? (
-                credits < restoreCost ? (
-                  isLoggedIn ? "💳 Buy More Credits" : "🔒 Sign Up to Restore"
-                ) : showFileInput ? (
-                  "🆓 Restore Basic"
-                ) : (
-                  "Restore"
-                )
-              ) : (
-                <>
-                  <div className={styles.spinner} />
-                  <span className={styles.loadingText}>Please wait...</span>
-                </>
-              )}
-            </button>
+              {/* Credits info box */}
+              <div className={styles.creditsInfoContainer}>
+                <div className={styles.creditsHeader}>
+                  <span className={styles.creditsTitle}>💳 Credit Information</span>
+                </div>
 
-            <ProgressBar status={progressStatus} progress={progressPercent} showSteps loading={loading || processing} />
+                <div className={styles.creditsGrid}>
+                  <div className={styles.creditItem}>
+                    <span className={styles.creditLabel}>Cost</span>
+                    <span className={styles.creditValue}>{restoreCost} credit</span>
+                  </div>
 
-            {showScrollNotice && (
-              <div className={styles.scrollNotice}>
-                ✅ Your image has been restored! 📲 Scroll down to compare.
+                  <div className={styles.creditItem}>
+                    <span className={styles.creditLabel}>Balance</span>
+                    <span className={styles.creditValue}>{credits} credits</span>
+                  </div>
+
+                  <div className={`${styles.creditItem} ${styles.creditStatus} ${
+                    credits >= restoreCost ? styles.sufficient : styles.insufficient
+                  }`}>
+                    <span className={styles.creditLabel}>
+                      {credits >= restoreCost ? 'After restore' : 'Status'}
+                    </span>
+                    <span className={styles.creditValue}>
+                      {credits >= restoreCost
+                        ? `${credits - restoreCost} credits remaining`
+                        : 'Need more credits'
+                      }
+                    </span>
+                  </div>
+                </div>
+
+                {/* 📸 Restore Description Row */}
+                <div className={styles.restoreDescriptionRow}>
+                  <div className={styles.restoreDescriptionTitle}>🛠️ What does a restore include?</div>
+                  <div className={styles.restoreDescriptionText}>
+                    Enhances sharpness and detail, repairs damage, and optionally colorizes black & white photos.
+                  </div>
+                </div>
+
+                {/* Status messages */}
+                {credits < restoreCost ? (
+                  <div className={styles.statusMessage}>
+                    <div className={styles.statusIcon}>⚠️</div>
+                    <div className={styles.statusText}>
+                      <strong>Need {restoreCost - credits} more credits</strong>
+                      <span>to perform this restoration</span>
+                    </div>
+                  </div>
+                ) : credits < restoreCost + 3 && (
+                  <div className={`${styles.statusMessage} ${styles.statusSuccess}`}>
+                    <div className={styles.statusIcon}>✅</div>
+                    <div className={styles.statusText}>
+                      <strong>Ready to restore!</strong>
+                      <span>You have sufficient credits</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Upload & Button Column */}
+              <div className={styles.uploadAndButtonColumn}>
+                {/* Upload photo box */}
+                <label htmlFor="file-upload" className={styles.uploadBox}>
+                  {selectedPreviewUrl ? (
+                    <img src={selectedPreviewUrl} alt="Selected preview" className={styles.uploadPreview} />
+                  ) : (
+                    <div className={styles.uploadPlaceholder}>
+                      <span>📤 Upload your photo</span>
+                      <small>Click or drag and drop</small>
+                    </div>
+                  )}
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    disabled={loading || processing}
+                    className={styles.fileInput}
+                  />
+                </label>
+
+                {/* Restore Button */}
+                <button
+                  className={styles.topBannerButton}
+                  onClick={handleRestoreClick}
+                  disabled={loading || processing}
+                  style={{ marginTop: "1rem", width: "100%" }}
+                >
+                  {!loading && !processing ? (
+                    credits < restoreCost ? (
+                      isLoggedIn ? "💳 Buy More Credits" : "🔒 Sign Up to Restore"
+                    ) : showFileInput ? (
+                      "🆓 Restore Basic"
+                    ) : (
+                      "Restore"
+                    )
+                  ) : (
+                    <>
+                      <div className={styles.spinner} />
+                      <span className={styles.loadingText}>Please wait...</span>
+                    </>
+                  )}
+                </button>
+                {/* Show progress bar during processing */}
+                  {progressStatus !== "idle" && (
+                    <div className={styles.progressWrapper}>
+                      <ProgressBar status={progressStatus} percent={progressPercent} />
+                    </div>
+                  )}
+              </div>
+            </div>
+          </div>
+        <section>
+    
+
+      {/* Scroll notice after restoration */}
+      {showScrollNotice && (
+        <div className={styles.scrollNotice}>
+                ✅ Your image has been restored!<br />
+                📲 Scroll down to see the before & after comparison.
               </div>
             )}
-          </div>
-
+        </section>
           <div className={styles.topBannerImages}>
             <div className={styles.imageBox}>
               <strong>Before</strong>
@@ -239,6 +330,7 @@ export default function RestoreBasic() {
           </div>
         </div>
       </section>
+
 
       {selectedPreviewUrl && restoredUrl && (
         <section

@@ -1,0 +1,314 @@
+
+/* fetures section*/
+.featurePromoSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(to bottom right, #f9fafb, #eef2ff);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  max-width: 1400px;
+  margin: 0 auto 6rem;
+}
+
+.featurePromoContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.featurePromoText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.featurePromoTitle {
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: #1e293b;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.featurePromoSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #374151;
+  font-weight: 500;
+}
+
+.featurePromoVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featurePromoImage {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.tiltImage {
+  transform: rotate(-4deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.tiltImage:hover {
+  transform: rotate(-2deg) scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .featurePromoContent {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .featurePromoText {
+    align-items: center;
+  }
+
+  .featurePromoTitle {
+    font-size: 2rem;
+  }
+
+  .featurePromoImage {
+    max-width: 100%;
+  }
+}
+
+
+/* How It Works Section */
+.howItWorksSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(to bottom right, #e8edff, #dde3fb);
+  margin: 5rem 0;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.howItWorksSection h3 {
+  text-align: center;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.015em;
+}
+
+.howItWorksList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  counter-reset: step-counter;
+}
+
+.howItWorksList li {
+  background: linear-gradient(to bottom right, #ffffff, #f9faff);
+  padding: 3rem 2rem;
+  border-radius: 28px;
+  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  border: 1px solid #e5e7eb;
+}
+
+.howItWorksList li:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 28px rgba(99, 102, 241, 0.2);
+  border-color: #6366f1;
+}
+
+.howItWorksList li::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  z-index: 1;
+}
+
+.howItWorksList li h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 2rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.howItWorksList li p {
+  color: #1f2937;  /* much darker and sharper text */
+  font-size: 1.125rem;
+  line-height: 1.75;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  max-width: 90%;
+  margin-inline: auto;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); /* subtle depth */
+}
+
+
+
+/* Testimonials Section */
+.testimonials {
+  background: #f3f4f6;
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto 6rem auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 3rem;
+  letter-spacing: -0.015em;
+}
+
+.testimonialsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.testimonialCard {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonialCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+}
+
+.testimonialText {
+  font-style: italic;
+  color: #374151;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.testimonialAuthor {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #1e293b;
+  text-align: right;
+}
+
+
+
+/* ========================================
+   UTILITY & MISC
+======================================== */
+.privacyStatement {
+  background: #f9fafb;
+  color: #4b5563;
+  font-size: 0.95rem;
+  padding: 1.25rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin: 4rem auto 2rem auto;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.poweredBy {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  user-select: none;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.3s ease;
+}
+
+
+
+/* ========================================
+   FAQ & ACCORDION
+======================================== */
+.faqSection {
+  padding: 6rem 2rem;
+  background: #ffffff;
+  max-width: 800px;
+  margin: 0 auto 6rem auto;
+}
+
+.accordion details {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.accordion details:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.accordion summary {
+  padding: 1.5rem 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #111827;
+  cursor: pointer;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.3s ease;
+}
+
+.accordion summary:hover { background: #f3f4f6; }
+.accordion details[open] summary { background: #6366f1; color: white; }
+
+.accordion p {
+  max-height: 500px;
+  transition: max-height 0.4s ease-in-out;
+  padding: 2rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 0;
+}

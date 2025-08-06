@@ -16,7 +16,6 @@ export default function RestoreBasic() {
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
-  const [showFileInput, setShowFileInput] = useState(false);
   const [progressStatus, setProgressStatus] = useState("idle");
   const [progressPercent, setProgressPercent] = useState(null);
 
@@ -72,13 +71,7 @@ export default function RestoreBasic() {
       window.location.href = isLoggedIn ? "/pricing" : "/signup";
       return;
     }
-    if (!showFileInput) {
-      setShowFileInput(true);
-      setSelectedFile(null);
-      setSelectedPreviewUrl(null);
-      setRestoredUrl("");
-      return;
-    }
+   
     if (!selectedFile) {
       alert("Please upload an image first.");
       return;
@@ -267,11 +260,7 @@ export default function RestoreBasic() {
                   {!loading && !processing ? (
                     credits < restoreCost ? (
                       isLoggedIn ? "💳 Buy More Credits" : "🔒 Sign Up to Restore"
-                    ) : showFileInput ? (
-                      "🆓 Restore Basic"
-                    ) : (
-                      "Restore"
-                    )
+                    ) : "Click to Restore"
                   ) : (
                     <>
                       <div className={styles.spinner} />

@@ -32,7 +32,7 @@
 /* Hero Section */
 .heroSection {
   text-align: center;
-  padding: 100px 20px 60px;
+  padding: 40px 20px 60px;
   position: relative;
   z-index: 2;
 }
@@ -96,7 +96,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  margin-top: 1.5rem;
+  margin-top: .5rem;
 }
 
 .aiLabel {
@@ -121,7 +121,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px 60px;
 }

@@ -109,11 +109,7 @@ export default function PricingPage() {
           Whether you&apos;re reviving faded memories, curating albums, or preserving heritage — 
           <strong> Anastasis Credit Packs</strong> give you the power to restore with beauty.
         </p>
-        <div className={styles.poweredBy}>
-          <span className={styles.aiLabel}>Powered by</span>
-          <span className={styles.throwbackAi}>Throwback AI</span>
-        </div>
-      </div>
+       
 
       <div className={styles.packGrid}>
         {CREDIT_PACKS.map(({ id, name, greekName, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
@@ -157,21 +153,21 @@ export default function PricingPage() {
                 <p className={styles.useCase}>{useCase}</p>
 
                 <div className={styles.statsGrid}>
-                  <div className={styles.statItem}>
-                    <span className={styles.statIcon}>💎</span>
-                    <div>
-                      <span className={styles.statValue}>{revivals}</span>
-                      <span className={styles.statLabel}>Premium Revivals</span>
-                    </div>
-                  </div>
-                  <div className={styles.statItem}>
-                    <span className={styles.statIcon}>💰</span>
-                    <div>
-                      <span className={styles.statValue}>${costPerRestore}</span>
-                      <span className={styles.statLabel}>Per Restore</span>
-                    </div>
-                  </div>
-                </div>
+  <div className={styles.statItem}>
+    <span className={styles.statIcon}>💎</span>
+    <div>
+      <span className={styles.statValue}>{revivals}</span>
+      <span className={styles.statLabel}>Premium Fixes (40 credits each)</span>
+    </div>
+  </div>
+  <div className={styles.statItem}>
+    <span className={styles.statIcon}>🧼</span>
+    <div>
+      <span className={styles.statValue}>{credits}</span>
+      <span className={styles.statLabel}>Basic Fixes (1 credit each)</span>
+    </div>
+  </div>
+</div>
               </div>
 
               <button
@@ -195,7 +191,11 @@ export default function PricingPage() {
           );
         })}
       </div>
-
+ <div className={styles.poweredBy}>
+          <span className={styles.aiLabel}>Powered by</span>
+          <span className={styles.throwbackAi}>Throwback AI</span>
+        </div>
+      </div>
       <div className={styles.trustSection}>
         <div className={styles.trustBadges}>
           <div className={styles.trustItem}>

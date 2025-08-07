@@ -5,9 +5,9 @@ import useCredits from "../../hooks/useCredits";
 import styles from "../../styles/AiPage.module.css";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import Image from "next/image";
-import Link from "next/link";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import CreditsInfo from "../../components/Restores/CreditsInfo"; // Import the new component
 
 export default function RestoreBasic() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -27,7 +27,9 @@ export default function RestoreBasic() {
 
   useEffect(() => {
     async function getSession() {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
@@ -53,7 +55,11 @@ export default function RestoreBasic() {
     setProcessing(true);
     setRestoredUrl("");
     try {
-      const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024, useWebWorker: true });
+      const compressed = await imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      });
       setSelectedFile(compressed);
       setSelectedPreviewUrl(URL.createObjectURL(compressed));
     } catch {
@@ -71,7 +77,7 @@ export default function RestoreBasic() {
       window.location.href = isLoggedIn ? "/pricing" : "/signup";
       return;
     }
-   
+
     if (!selectedFile) {
       alert("Please upload an image first.");
       return;
@@ -85,7 +91,8 @@ export default function RestoreBasic() {
     setProgressStatus("uploading");
     setProgressPercent(0);
     const headers = { "Content-Type": "application/json" };
-    if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
+    if (session?.access_token)
+      headers.Authorization = `Bearer ${session.access_token}`;
 
     const reader = new FileReader();
     reader.onloadend = async () => {
@@ -113,7 +120,8 @@ export default function RestoreBasic() {
           setRestoredUrl(data.imageUrl);
           setShowScrollNotice(true);
           setProgressStatus("complete");
-          if (isLoggedIn) await refreshCredits(); else deductCredits(restoreCost);
+          if (isLoggedIn) await refreshCredits();
+          else deductCredits(restoreCost);
         } else {
           alert(data.error || "Restore failed.");
           setProgressStatus("idle");
@@ -148,89 +156,31 @@ export default function RestoreBasic() {
     <main>
       <section className={styles.topBannerBasic}>
         <div className={styles.topBannerContent}>
-
           <div className={styles.topBannerTop}>
             <h2 className={styles.topBannerTitle}>Photo Fix</h2>
 
-           {/* Updated subtitle with clear tiered value messaging */}
-           <div className={styles.subtitleContainer}>
-  <p className={styles.topBannerDescription}>
-    Quickly improves clarity, sharpness, and overall quality of your old photos — perfect for light restoration and cleanup.
-  </p>
-
-
+            {/* Updated subtitle with clear tiered value messaging */}
+            <div className={styles.subtitleContainer}>
+              <p className={styles.topBannerDescription}>
+                Quickly improves clarity, sharpness, and overall quality of your old photos — perfect for light restoration and cleanup.
+              </p>
             </div>
+
             {/* Grid container for credits + upload + button */}
             <div className={styles.controlsGrid}>
-
-              {/* Credits info box */}
-              <div className={styles.creditsInfoContainer}>
-                <div className={styles.creditsHeader}>
-                  <span className={styles.creditsTitle}>💳 Credit Information</span>
-                </div>
-
-                <div className={styles.creditsGrid}>
-                  <div className={styles.creditItem}>
-                    <span className={styles.creditLabel}>Cost</span>
-                    <span className={styles.creditValue}>{restoreCost} credit</span>
-                  </div>
-
-                  <div className={styles.creditItem}>
-                    <span className={styles.creditLabel}>Balance</span>
-                    <span className={styles.creditValue}>{credits} credits</span>
-                  </div>
-
-                  <div className={`${styles.creditItem} ${styles.creditStatus} ${
-                    credits >= restoreCost ? styles.sufficient : styles.insufficient
-                  }`}>
-                    <span className={styles.creditLabel}>
-                      {credits >= restoreCost ? 'After restore' : 'Status'}
-                    </span>
-                    <span className={styles.creditValue}>
-                     {credits >= restoreCost ? (
-                        <>
-                          <span> </span>
-                          <span className={styles.creditsRemaining}>{credits - restoreCost}</span> credits 
-                        </>
-                      ) : (
-                        'Need more credits'
-                      )}
-                    </span>
-                    
-                  </div>
-                   <p className={styles.proTip}>
-                    💡 <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
-                  </p>
-                </div>
-
-         
-
-                {/* Status messages */}
-                {credits < restoreCost ? (
-                  <div className={styles.statusMessage}>
-                    <div className={styles.statusIcon}>⚠️</div>
-                    <div className={styles.statusText}>
-                      <strong>Need {restoreCost - credits} more credits</strong>
-                      <span>to perform this restoration</span>
-                    </div>
-                  </div>
-                ) : credits < restoreCost + 3 && (
-                  <div className={`${styles.statusMessage} ${styles.statusSuccess}`}>
-                    <div className={styles.statusIcon}>✅</div>
-                    <div className={styles.statusText}>
-                      <strong>Ready to restore!</strong>
-                      <span>You have sufficient credits</span>
-                    </div>
-                  </div>
-                )}
-              </div>
+              {/* Replaced with CreditsInfo component */}
+              <CreditsInfo credits={credits} restoreCost={restoreCost} />
 
               {/* Upload & Button Column */}
               <div className={styles.uploadAndButtonColumn}>
                 {/* Upload photo box */}
                 <label htmlFor="file-upload" className={styles.uploadBox}>
                   {selectedPreviewUrl ? (
-                    <img src={selectedPreviewUrl} alt="Selected preview" className={styles.uploadPreview} />
+                    <img
+                      src={selectedPreviewUrl}
+                      alt="Selected preview"
+                      className={styles.uploadPreview}
+                    />
                   ) : (
                     <div className={styles.uploadPlaceholder}>
                       <span>📤 Upload your photo</span>
@@ -257,7 +207,9 @@ export default function RestoreBasic() {
                   {!loading && !processing ? (
                     credits < restoreCost ? (
                       isLoggedIn ? "💳 Buy More Credits" : "🔒 Sign Up to Restore"
-                    ) : "Click to Restore"
+                    ) : (
+                      "Click to Restore"
+                    )
                   ) : (
                     <>
                       <div className={styles.spinner} />
@@ -265,34 +217,40 @@ export default function RestoreBasic() {
                     </>
                   )}
                 </button>
+
                 {/* Show progress bar during processing */}
-                  {progressStatus !== "idle" && (
-                    <div className={styles.progressWrapper}>
-                      <ProgressBar status={progressStatus} percent={progressPercent} />
-                    </div>
-                  )}
+                {progressStatus !== "idle" && (
+                  <div className={styles.progressWrapper}>
+                    <ProgressBar status={progressStatus} percent={progressPercent} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        <section>
-    
 
-      {/* Scroll notice after restoration */}
-      {showScrollNotice && (
-        <div className={styles.scrollNotice}>
+          <section>
+            {/* Scroll notice after restoration */}
+            {showScrollNotice && (
+              <div className={styles.scrollNotice}>
                 ✅ Your image has been restored!<br />
                 📲 Scroll down to see the before & after comparison.
               </div>
             )}
+          </section>
 
-            
-        </section>
           <div className={styles.topBannerImages}>
             <div className={styles.imageBox}>
               <strong>Before</strong>
               <div className={styles.imageWrapper}>
                 {selectedPreviewUrl ? (
-                  <Image src={selectedPreviewUrl} alt="Before" className={styles.image} unoptimized width={400} height="300" />
+                  <Image
+                    src={selectedPreviewUrl}
+                    alt="Before"
+                    className={styles.image}
+                    unoptimized
+                    width={400}
+                    height="300"
+                  />
                 ) : (
                   <span className={styles.placeholderText}>Upload an image</span>
                 )}
@@ -303,11 +261,17 @@ export default function RestoreBasic() {
               <strong>After</strong>
               <div className={styles.imageWrapper}>
                 {restoredUrl ? (
-                  <img src={restoredUrl} alt="Restored" className={styles.image} loading="lazy" />
+                  <img
+                    src={restoredUrl}
+                    alt="Restored"
+                    className={styles.image}
+                    loading="lazy"
+                  />
                 ) : (
                   <span className={styles.placeholderText}>No restored image yet</span>
                 )}
               </div>
+
               {/* Download button below image */}
               {restoredUrl && (
                 <button onClick={handleDownload} className={styles.downloadButton}>
@@ -318,9 +282,6 @@ export default function RestoreBasic() {
           </div>
         </div>
       </section>
-
-      
-
 
       {selectedPreviewUrl && restoredUrl && (
         <section
@@ -340,18 +301,29 @@ export default function RestoreBasic() {
               left: 0,
               width: "100%",
               height: "100%",
-              background: "radial-gradient(circle at center, rgba(0,123,255,0.15), transparent 70%)",
+              background:
+                "radial-gradient(circle at center, rgba(0,123,255,0.15), transparent 70%)",
               animation: "pulseGlow 6s ease-in-out infinite",
               zIndex: 0,
             }}
           />
 
-          <h2 style={{ textAlign: "center", marginBottom: "1.5rem", position: "relative", zIndex: 1 }}>
+          <h2
+            style={{
+              textAlign: "center",
+              marginBottom: "1.5rem",
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
             ``Your Restoration Preview``
           </h2>
 
           <div style={{ position: "relative", zIndex: 1 }}>
-            <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+            <ImageCompareSlider
+              beforeImage={selectedPreviewUrl}
+              afterImage={restoredUrl}
+            />
           </div>
         </section>
       )}

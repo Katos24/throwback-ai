@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import CreditsInfo from "../../components/Restores/CreditsInfo"; // Import the new component
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -169,66 +170,10 @@ export default function RestorePremium() {
               Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
             </p>
 
-            {/* Grid container for credits + upload + button */}
+           {/* Grid container for credits + upload + button */}
             <div className={styles.controlsGrid}>
-              {/* Credits info box */}
-              <div className={styles.creditsInfoContainer}>
-                <div className={styles.creditsHeader}>
-                  <span className={styles.creditsTitle}>💳 Credit Information</span>
-                </div>
-
-                <div className={styles.creditsGrid}>
-                  <div className={styles.creditItem}>
-                    <span className={styles.creditLabel}>Cost</span>
-                    <span className={styles.creditValue}>{restoreCost} credits</span>
-                  </div>
-
-                  <div className={styles.creditItem}>
-                    <span className={styles.creditLabel}>Balance</span>
-                    <span className={styles.creditValue}>{credits} credits</span>
-                  </div>
-
-                  <div className={`${styles.creditItem} ${styles.creditStatus} ${
-                    credits >= restoreCost ? styles.sufficient : styles.insufficient
-                  }`}>
-                    <span className={styles.creditLabel}>
-                      {credits >= restoreCost ? 'After restore' : 'Status'}
-                    </span>
-                    <span className={styles.creditValue}>
-                     {credits >= restoreCost ? (
-                        <>
-                          <span> </span>
-                          <span className={styles.creditsRemaining}>{credits - restoreCost}</span> credits 
-                        </>
-                      ) : (
-                        'Need more credits'
-                      )}
-                    </span>
-                  </div>
-                  <p className={styles.proTip}>
-                    💡 <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
-                  </p>
-                </div>
-
-                {/* Status messages */}
-                {credits < restoreCost ? (
-                  <div className={styles.statusMessage}>
-                    <div className={styles.statusIcon}>⚠️</div>
-                    <div className={styles.statusText}>
-                      <strong>Need {restoreCost - credits} more credits</strong>
-                      <span>to perform this restoration</span>
-                    </div>
-                  </div>
-                ) : credits < restoreCost + 3 && (
-                  <div className={`${styles.statusMessage} ${styles.statusSuccess}`}>
-                    <div className={styles.statusIcon}>✅</div>
-                    <div className={styles.statusText}>
-                      <strong>Ready to restore!</strong>
-                      <span>You have sufficient credits</span>
-                    </div>
-                  </div>
-                )}
-              </div>
+              {/* Replaced with CreditsInfo component */}
+              <CreditsInfo credits={credits} restoreCost={restoreCost} />
 
               {/* Upload & Button Column */}
               <div className={styles.uploadAndButtonColumn}>

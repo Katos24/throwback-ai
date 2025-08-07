@@ -16,10 +16,11 @@ export default function HeroSection() {
           </h1>
 
           <p className={heroStyles.heroSubtitle}>
-            Yellowed, torn, or water-stained prints come back to life in under 2 minutes. Surprise
-            grandma on her 80th birthday, frame that childhood snap for your sibling, or preserve
-            your family&apos;s legacy—no subscription, just easy AI magic.
+            In under a minute, our one-click AI enhances faded, torn, or lightly water-damaged prints into vibrant, frame-worthy keepsakes—no subscription required.  
+            Delight Grandma with a flawless anniversary portrait, surprise a sibling with a revived childhood snapshot,  
+            or preserve your family&apos;s legacy with just one click of “Restore.”
           </p>
+
 
           <div className={heroStyles.heroButtons}>
             <Link href="/replicate/restore-basic" className={heroStyles.secondaryButton}>

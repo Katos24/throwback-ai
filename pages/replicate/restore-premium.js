@@ -165,7 +165,7 @@ export default function RestorePremium() {
         <div className={styles.topBannerContent}>
           <div className={styles.topBannerTop}>
             <h2 className={styles.topBannerTitle}>Full Color Restore (Premium)</h2>
-            <p className={styles.topBannerSubtitle}>
+            <p className={styles.topBannerDescription}>
               Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
             </p>
 
@@ -205,6 +205,9 @@ export default function RestorePremium() {
                       )}
                     </span>
                   </div>
+                  <p className={styles.proTip}>
+                    💡 <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
+                  </p>
                 </div>
 
                 {/* Status messages */}

@@ -886,3 +886,15 @@
     border-width: 3px;
   }
 }
+
+
+.proTip {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}

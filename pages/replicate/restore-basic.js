@@ -153,13 +153,12 @@ export default function RestoreBasic() {
             <h2 className={styles.topBannerTitle}>Photo Fix</h2>
 
            {/* Updated subtitle with clear tiered value messaging */}
-            <div className={styles.subtitleContainer}>
-              <p className={styles.topBannerDescription}>
-                Quickly improves clarity, sharpness, and overall quality of your old photos — perfect for light restoration and cleanup.
-                <Link href="/signup" className={styles.upgradeLink}>
-                  Unlock full color and advanced damage repair →
-                </Link>
-              </p>
+           <div className={styles.subtitleContainer}>
+  <p className={styles.topBannerDescription}>
+    Quickly improves clarity, sharpness, and overall quality of your old photos — perfect for light restoration and cleanup.
+  </p>
+
+
             </div>
             {/* Grid container for credits + upload + button */}
             <div className={styles.controlsGrid}>
@@ -197,7 +196,11 @@ export default function RestoreBasic() {
                         'Need more credits'
                       )}
                     </span>
+                    
                   </div>
+                   <p className={styles.proTip}>
+                    💡 <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
+                  </p>
                 </div>
 
          

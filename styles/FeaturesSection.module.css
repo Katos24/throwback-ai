@@ -310,34 +310,7 @@
   border-bottom: 1px solid #334155;
 }
 
-.galleryStats {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-top: 2rem;
-}
 
-.galleryStat {
-  text-align: center;
-}
-
-.statNumber {
-  display: block;
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  color: #667eea;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.statLabel {
-  display: block;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: 'Courier New', Courier, monospace;
-}
 
 /* Category Filter - dark theme */
 .categoryFilter {
@@ -395,14 +368,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .galleryStats {
-    gap: 30px;
-  }
-  
-  .statNumber {
-    font-size: 1.5rem;
-  }
-  
+
   .filterButtons {
     gap: 8px;
   }

@@ -164,7 +164,7 @@ export default function RestorePremium() {
       <section className={styles.topBanner}>
         <div className={styles.topBannerContent}>
           <div className={styles.topBannerTop}>
-            <h2 className={styles.topBannerTitle}>🏛️ Restore Timeless Beauty</h2>
+            <h2 className={styles.topBannerTitle}>Full Color Restore (Premium)</h2>
             <p className={styles.topBannerSubtitle}>
               Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
             </p>

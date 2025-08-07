@@ -17,8 +17,7 @@ export default function HeroSection() {
 
           <p className={heroStyles.heroSubtitle}>
             In under a minute, our one-click AI enhances faded, torn, or lightly water-damaged prints into vibrant, frame-worthy keepsakes—no subscription required.  
-            Delight Grandma with a flawless anniversary portrait, surprise a sibling with a revived childhood snapshot,  
-            or preserve your family&apos;s legacy with just one click of “Restore.”
+            Preserve your family&apos;s legacy with just one click of “Restore.”
           </p>
 
 

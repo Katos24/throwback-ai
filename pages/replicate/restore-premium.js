@@ -17,7 +17,6 @@ export default function RestorePremium() {
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [session, setSession] = useState(null);
-  const [showFileInput, setShowFileInput] = useState(false);
   const [progressStatus, setProgressStatus] = useState("idle");
   const [progressPercent, setProgressPercent] = useState(null);
   const [showScrollNotice, setShowScrollNotice] = useState(false);
@@ -76,14 +75,6 @@ export default function RestorePremium() {
 
     if (credits < restoreCost) {
       router.push("/pricing");
-      return;
-    }
-
-    if (!showFileInput) {
-      setShowFileInput(true);
-      setRestoredUrl("");
-      setSelectedFile(null);
-      setSelectedPreviewUrl(null);
       return;
     }
 
@@ -161,7 +152,7 @@ export default function RestorePremium() {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "restored-photo.png";
+    a.download = "restored-photo-premium.png";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -178,62 +169,132 @@ export default function RestorePremium() {
               Inspired by the spirit of <em>Anastasis</em>, our AI revives cherished moments with color, clarity, and cultural soul.
             </p>
 
-            {/* Credit pills */}
-            <div className={styles.quickInfo}>
-              <span className={`${styles.pill} ${styles.cost}`}>
-                Cost: {restoreCost} Credits
-              </span>
-              <span className={`${styles.pill} ${styles.remaining}`}>
-                Credits Remaining: {credits} 
-              </span>
+            {/* Grid container for credits + upload + button */}
+            <div className={styles.controlsGrid}>
+              {/* Credits info box */}
+              <div className={styles.creditsInfoContainer}>
+                <div className={styles.creditsHeader}>
+                  <span className={styles.creditsTitle}>💳 Credit Information</span>
+                </div>
+
+                <div className={styles.creditsGrid}>
+                  <div className={styles.creditItem}>
+                    <span className={styles.creditLabel}>Cost</span>
+                    <span className={styles.creditValue}>{restoreCost} credits</span>
+                  </div>
+
+                  <div className={styles.creditItem}>
+                    <span className={styles.creditLabel}>Balance</span>
+                    <span className={styles.creditValue}>{credits} credits</span>
+                  </div>
+
+                  <div className={`${styles.creditItem} ${styles.creditStatus} ${
+                    credits >= restoreCost ? styles.sufficient : styles.insufficient
+                  }`}>
+                    <span className={styles.creditLabel}>
+                      {credits >= restoreCost ? 'After restore' : 'Status'}
+                    </span>
+                    <span className={styles.creditValue}>
+                     {credits >= restoreCost ? (
+                        <>
+                          <span> </span>
+                          <span className={styles.creditsRemaining}>{credits - restoreCost}</span> credits 
+                        </>
+                      ) : (
+                        'Need more credits'
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Status messages */}
+                {credits < restoreCost ? (
+                  <div className={styles.statusMessage}>
+                    <div className={styles.statusIcon}>⚠️</div>
+                    <div className={styles.statusText}>
+                      <strong>Need {restoreCost - credits} more credits</strong>
+                      <span>to perform this restoration</span>
+                    </div>
+                  </div>
+                ) : credits < restoreCost + 3 && (
+                  <div className={`${styles.statusMessage} ${styles.statusSuccess}`}>
+                    <div className={styles.statusIcon}>✅</div>
+                    <div className={styles.statusText}>
+                      <strong>Ready to restore!</strong>
+                      <span>You have sufficient credits</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Upload & Button Column */}
+              <div className={styles.uploadAndButtonColumn}>
+                {/* Upload photo box */}
+                <label htmlFor="file-upload" className={styles.uploadBox}>
+                  {selectedPreviewUrl ? (
+                    <img src={selectedPreviewUrl} alt="Selected preview" className={styles.uploadPreview} />
+                  ) : (
+                    <div className={styles.uploadPlaceholder}>
+                      <span>📤 Upload your photo</span>
+                      <small>Click or drag and drop</small>
+                    </div>
+                  )}
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    disabled={loading || processing}
+                    className={styles.fileInput}
+                  />
+                </label>
+
+                {/* Restore Button */}
+                <button
+                  className={styles.topBannerButton}
+                  onClick={handleRestoreClick}
+                  disabled={loading || processing}
+                  style={{ marginTop: "1rem", width: "100%" }}
+                  title={!selectedFile ? "Please upload a file first" : ""}
+                >
+                  {(loading || processing) ? (
+                    <>
+                      <div className={styles.spinner} />
+                      <span className={styles.loadingText}>Please wait, this may take up to a minute...</span>
+                    </>
+                  ) : !isLoggedIn ? (
+                    "🔒 Sign up to Restore Premium"
+                  ) : credits < restoreCost ? (
+                    "💳 Buy More Credits"
+                  ) : (
+                    `Click to Restore (${restoreCost} credits)`
+                  )}
+                </button>
+
+                {/* Show progress bar during processing */}
+                {progressStatus !== "idle" && (
+                  <div className={styles.progressWrapper}>
+                    <ProgressBar 
+                      status={progressStatus} 
+                      percent={progressPercent} 
+                      showSteps={true}
+                      loading={loading || processing}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
+          </div>
 
-            {showFileInput && (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                disabled={loading || processing}
-                className={`${styles.fileInput} ${styles.visible}`}
-              />
-            )}
-
-            <button
-              className={styles.topBannerButton}
-              onClick={handleRestoreClick}
-              disabled={loading || processing}
-              title={!selectedFile && showFileInput ? "Please upload a file first" : ""}
-            >
-              {(loading || processing) ? (
-                <>
-                  <div className={styles.spinner} />
-                  <span className={styles.loadingText}>Please wait, this may take up to a minute...</span>
-                </>
-              ) : !isLoggedIn ? (
-                "🔒 Sign up to Restore Premium"
-              ) : credits < restoreCost ? (
-                "💳 Buy More Credits"
-              ) : showFileInput ? (
-                `💎 Restore Premium (${restoreCost} credits)`
-              ) : (
-                "Restore"
-              )}
-            </button>
-
-            <ProgressBar
-              status={progressStatus}
-              progress={progressPercent}
-              showSteps={true}
-              loading={loading || processing}
-            />
-
-            {showScrollNotice && (
+          {/* Scroll notice after restoration */}
+          {showScrollNotice && (
+            <section>
               <div className={styles.scrollNotice}>
                 ✅ Your image has been restored!<br />
                 📲 Scroll down to see the before & after comparison.
               </div>
-            )}
-          </div>
+            </section>
+          )}
 
           <div className={styles.topBannerImages}>
             <div className={styles.imageBox}>
@@ -255,7 +316,7 @@ export default function RestorePremium() {
               </div>
             </div>
 
-           <div className={styles.imageBox}>
+            <div className={styles.imageBox}>
               <strong>After</strong>
               <div className={styles.imageWrapper}>
                 {restoredUrl ? (
@@ -264,7 +325,6 @@ export default function RestorePremium() {
                   <span className={styles.placeholderText}>No restored image yet</span>
                 )}
               </div>
-              {/* Download button below image */}
               {restoredUrl && (
                 <button onClick={handleDownload} className={styles.downloadButton}>
                   ⬇️ Download
@@ -278,16 +338,34 @@ export default function RestorePremium() {
       {selectedPreviewUrl && restoredUrl && (
         <section
           style={{
+            position: "relative",
             padding: "3rem 1rem",
             backgroundColor: "#1a1a1a",
             color: "white",
             borderTop: "1px solid #333",
           }}
         >
-          <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          {/* Animated Background */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "radial-gradient(circle at center, rgba(0,123,255,0.15), transparent 70%)",
+              animation: "pulseGlow 6s ease-in-out infinite",
+              zIndex: 0,
+            }}
+          />
+
+          <h2 style={{ textAlign: "center", marginBottom: "1.5rem", position: "relative", zIndex: 1 }}>
             Your Restoration Preview
           </h2>
-          <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <ImageCompareSlider beforeImage={selectedPreviewUrl} afterImage={restoredUrl} />
+          </div>
         </section>
       )}
 

@@ -1,13 +1,15 @@
 /* ProgressBar.module.css */
 .progressContainer {
   width: 100%;
-  max-width: 800px;
+  max-width: none;  /* removes limit */
   margin: 0 auto;
   padding: 0 1rem;
-  box-sizing: border-box; /* Ensure padding doesn't break layout */
+  box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   align-self: stretch;
 }
+
+
 
 .progressBar {
   position: relative;
@@ -95,7 +97,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 12px;
-  gap: 4px;
+  gap: 6px;
 }
 
 .step {

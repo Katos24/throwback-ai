@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     <>
       <div className={heroStyles.fullWidthBanner}>
-        🔒 Privacy-First • ⚡ Results in Under 2 Minutes • 🆓 1 Free Restore + 5 Bonus on Signup
+        🔒 Privacy-First • ⚡ Results in Under 1 Minute • 🆓 1 Free Restore + 5 Bonus on Signup
       </div>
 
       <section className={heroStyles.hero}>

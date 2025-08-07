@@ -1,45 +1,79 @@
 /* ========================================
-   CONDENSED AI PAGE CSS - MODULE STYLES
-======================================== */
-
-/* ========================================
-   TOP BANNER SECTIONS
+   TOP BANNER SECTIONS - Enhanced
 ======================================== */
 .topBanner,
 .topBannerBasic {
   width: 100vw;
+  margin-left: calc(-50vw + 50%);
   position: relative;
-  padding: 3rem 2rem 4rem;
+  padding: 3rem 2rem 5rem;
   color: #fff;
   overflow: hidden;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 24px 24px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   margin-bottom: 4rem;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  position: relative;
 }
 
 .topBanner {
-  background: linear-gradient(135deg, #111827, #1f2937);
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(147, 197, 253, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
 }
 
 .topBannerBasic {
-  background: linear-gradient(135deg, #1a373b, #1f2c37);
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #0f1419 0%, #1f2937 50%, #111827 100%);
 }
 
-.topBanner::before {
+.topBanner::before,
+.topBannerBasic::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top right, rgba(0, 0, 0, 0.6), rgba(37, 99, 235, 0.25));
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
   z-index: 0;
+  pointer-events: none;
+}
+
+/* Animated particles background */
+.topBanner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.08) 0%, transparent 25%);
+  animation: float 8s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }
 
 /* ========================================
-   CONTENT & LAYOUT
+   ENHANCED LAYOUT & CONTENT
 ======================================== */
 .topBannerContent {
-  max-width: 1600px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -47,775 +81,211 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 2.5rem;
+  gap: 3rem;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 0 1rem;
 }
 
 .topBannerTop {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: center;
 }
 
-.topBannerImages {
-  display: flex;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1000px;
-  justify-content: center;
-}
-
 /* ========================================
-   TYPOGRAPHY
+   ENHANCED TYPOGRAPHY
 ======================================== */
 .topBannerTitle {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 900;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+  line-height: 1.1;
   color: #ffffff;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.topBannerSubtitle {
-  font-size: 1.75rem;
-  line-height: 1.6;
-  color: #d1d5db;
-  max-width: 800px;
-}
-
-.sectionTitle {
-  text-align: center;
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 1rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
 }
 
-/* ========================================
-   FORM INPUTS & BUTTONS
-======================================== */
-.fileInput {
-  display: none;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  margin-top: 1rem;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-
-.fileInput.visible {
-  display: inline-block;
-  width: auto;
-  max-width: 260px;
-  align-self: center;
-  text-align: center;
-}
-
-.fileInput:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.fileInput:disabled {
-  cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Enhanced Button */
-.topBannerButton {
-  position: relative;
-  display: inline-block;
-  padding: clamp(1rem, 2vw, 1.2rem) clamp(2rem, 4vw, 3rem);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+.topBannerSubtitle {
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  line-height: 1.4;
+  color: #e2e8f0;
   font-weight: 600;
-  font-family: 'Orbitron', sans-serif;
-  color: #fff;
-  text-align: center;
-  background: linear-gradient(90deg, #ff6ec4, #7873f5);
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 8px #ff6ec4, 0 0 16px #7873f5, 0 6px 14px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-width: 240px;
-  max-width: 100%;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
 }
 
-.topBannerButton::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.topBannerButton::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 80%);
-  transform: skewX(-20deg);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.topBannerButton:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 12px #ff6ec4, 0 0 24px #7873f5, 0 6px 20px rgba(0, 0, 0, 0.6);
-}
-
-.topBannerButton:hover:not(:disabled)::after {
-  animation: shimmer 1.2s forwards;
-}
-
-.topBannerButton:active:not(:disabled) {
-  transform: translateY(1px) scale(0.98);
-}
-
-.topBannerButton:disabled {
-  cursor: not-allowed;
-  background: #444;
-  box-shadow: none;
-  opacity: 0.6;
-}
-
-@keyframes shimmer {
-  to { left: 100%; }
-}
-
-.downloadButton {
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-  background: linear-gradient(135deg, #6EE7B7, #3B82F6);
-  color: #ffffff;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.downloadButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* ========================================
-   IMAGES & MEDIA
-======================================== */
-.imageBox {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.imageBox > strong {
-  font-size: 1.1rem;
-  margin-bottom: 0.75rem;
-  color: #ffffffcc;
-  font-weight: 700;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-}
-
-.imageWrapper {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  padding: 0.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #111;
-  border-radius: 12px;
-  overflow: auto;
-  max-height: 80vh;
-}
-
-.imageWrapper:hover {
-  transform: scale(1.03);
-}
-
-.image {
-  height: auto;
-  width: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.imageWrapper img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  border-radius: 12px;
-}
-
-.placeholderText {
-  color: rgba(255, 255, 255, 0.6);
-  font-style: italic;
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-}
-
-/* ========================================
-   LOADING & PROGRESS
-======================================== */
-.spinner {
-  border: 4px solid rgba(229, 231, 235, 0.4);
-  border-top: 4px solid #6366f1;
-  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loadingText {
-  font-weight: 700;
-  color: #4b5563;
-  margin-top: 0.75rem;
-  font-size: 1.125rem;
-  text-align: center;
-}
-
-.scrollNotice {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #0f0f0f;
-  color: #ffffff;
-  border: 1px solid #444;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 1rem;
-  animation: fadeInUp 0.4s ease-out;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ========================================
-   CREDITS INFO TABLE
-======================================== */
-.quickInfoTable {
-  margin-top: 1rem;
-  border-collapse: collapse;
-  width: 100%;
-  max-width: 320px;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  transition: all 0.3s ease;
-}
-
-.quickInfoTable:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
-}
-
-.quickInfoTable table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.quickInfoTable td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  vertical-align: middle;
-  transition: background-color 0.2s ease;
-}
-
-.quickInfoTable tr:last-child td {
-  border-bottom: none;
-}
-
-.quickInfoTable .label {
-  font-weight: 600;
-  color: #555;
-  width: 45%;
-  font-size: 0.9rem;
-}
-
-.quickInfoTable .value {
-  font-weight: 500;
-  color: #333;
-  text-align: right;
-  font-size: 0.95rem;
-}
-
-/* Status styling */
-.quickInfoTable .sufficient {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-}
-
-.quickInfoTable .sufficient .label { color: #0369a1; }
-.quickInfoTable .sufficient .value { color: #059669; font-weight: 600; }
-
-.quickInfoTable .insufficient {
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-}
-
-.quickInfoTable .insufficient .label { color: #b91c1c; }
-.quickInfoTable .insufficient .value { color: #dc2626; font-weight: 600; }
-
-/* Warning/Notice messages */
-.creditWarning {
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%);
-  border-left: 4px solid #f59e0b;
-  border-radius: 0 8px 8px 0;
-  color: #92400e;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
-}
-
-.creditNotice {
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  border-left: 4px solid #22c55e;
-  border-radius: 0 8px 8px 0;
-  color: #166534;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
-}
-
-/* ========================================
-   SECTIONS & COMPONENTS
-======================================== */
-.howItWorksSection,
-.featurePromoSection {
-  padding: 6rem 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  margin: 5rem auto;
-}
-
-.howItWorksSection {
-  background: linear-gradient(to bottom right, #e8edff, #dde3fb);
-}
-
-.featurePromoSection {
-  background: linear-gradient(to bottom right, #f9fafb, #eef2ff);
-  max-width: 1400px;
-}
-
-.howItWorksList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  list-style: none;
-  padding: 0;
-  counter-reset: step-counter;
-}
-
-.howItWorksList li {
-  background: linear-gradient(to bottom right, #ffffff, #f9faff);
-  padding: 3rem 2rem;
-  border-radius: 28px;
-  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.08);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  border: 1px solid #e5e7eb;
-}
-
-.howItWorksList li:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 28px rgba(99, 102, 241, 0.2);
-  border-color: #6366f1;
-}
-
-.howItWorksList li::before {
-  content: counter(step-counter);
-  counter-increment: step-counter;
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  color: #ffffff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-weight: 700;
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
-  z-index: 1;
-}
-
-/* ========================================
-   COMPARE/GALLERY SECTION
-======================================== */
-.gallerySection {
-  padding: 3rem 1rem;
-  text-align: center;
-  background-color: #0e0e11;
-  color: #f5f5f7;
-}
-
-.compareContainer {
+.topBannerDescription {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin: 0;
+  font-weight: 400;
   max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
+}
+
+.upgradeLink {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
   position: relative;
-  user-select: none;
-  height: 0;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.05);
-  background-color: #1a1a1e;
-  cursor: grab;
-  transition: cursor 0.2s ease;
-}
-
-.compareContainer:active,
-.compareContainer.grabbing { cursor: grabbing; }
-
-.compareContainer > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
-  z-index: 1;
-}
-
-.imageOverlay {
-  width: 50%;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  pointer-events: none;
-  user-select: none;
-  z-index: 2;
-}
-
-.imageOverlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  user-select: none;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.sliderHandle {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 2px;
-  background-color: #ffffff;
-  border-radius: 1px;
-  cursor: ew-resize;
-  z-index: 10;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3);
-  user-select: none;
-  transition: background-color 0.2s ease;
-}
-
-.sliderHandle > div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: grab;
-  transition: all 0.2s ease;
-}
-
-.sliderHandle > div > div {
-  width: 2px;
-  height: 12px;
-  background-color: #444;
-  border-radius: 1px;
-  margin: 0 1px;
-}
-
-
-
-
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-@media (max-width: 768px) {
-  .topBanner,
-  .topBannerBasic { padding: 3rem 1rem 2rem; }
-  
-  .topBannerTitle { font-size: 2.4rem; }
-  .topBannerSubtitle { font-size: 1.25rem; }
-  .sectionTitle { font-size: 2rem; }
-  
-  .topBannerImages {
-    flex-direction: column;
-    max-width: 100%;
-  }
-  
-  .imageBox { width: 100%; }
-  .fileInput { max-width: 100%; }
-  .topBannerButton { max-width: 100%; }
-  
-  .quickInfoTable {
-    max-width: 280px;
-    font-size: 0.9rem;
-  }
-  
-  .quickInfoTable td { padding: 0.6rem 0.8rem; }
-  
-  .creditWarning,
-  .creditNotice {
-    font-size: 0.85rem;
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .howItWorksSection { padding: 4rem 1.5rem; }
-  .howItWorksList { grid-template-columns: 1fr; gap: 1.5rem; }
-  .howItWorksList li { padding: 2rem; }
-  
-  .featurePromoContent { grid-template-columns: 1fr; text-align: center; }
-  .featurePromoTitle { font-size: 2rem; }
-}
-
-@media (max-width: 480px) {
-  .topBannerTitle { font-size: 2rem; }
-  .sectionTitle { font-size: 2rem; }
-}
-
-/* ========================================
-   DARK MODE SUPPORT
-======================================== */
-@media (prefers-color-scheme: dark) {
-  .quickInfoTable {
-    background: #1f2937;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  .quickInfoTable td { border-bottom-color: #374151; }
-  .quickInfoTable .label { color: #d1d5db; }
-  .quickInfoTable .value { color: #f9fafb; }
-  
-  .quickInfoTable .sufficient {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  }
-  
-  .quickInfoTable .insufficient {
-    background: linear-gradient(135deg, #1f1917 0%, #292524 100%);
-  }
-}
-
-
-
-/* ========================================
-   IMPROVED TOP SECTION STYLES
-   Add these to your AiPage.module.css
-======================================== */
-
-/* Enhanced subtitle container */
-.subtitleContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.topBannerSubtitle {
-  font-size: 1.875rem;
-  line-height: 1.4;
-  color: #ffffff;
-  font-weight: 600;
-  margin: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.topBannerDescription {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: #d1d5db;
-  margin: 0;
-  font-weight: 400;
-}
-
-.upgradeLink {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: #60a5fa;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
 }
 
 .upgradeLink:hover {
   color: #93c5fd;
   text-decoration: underline;
+  transform: translateX(4px);
 }
-
 
 /* ========================================
-   IMPROVED TOP SECTION STYLES
-   Add these to your AiPage.module.css
+   ENHANCED CONTROLS GRID
 ======================================== */
-
-/* Enhanced subtitle container */
-.subtitleContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 900px;
-  margin: 0 auto;
+.controlsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+  align-items: start;
+  width: 100%;
+  max-width: 1000px;
 }
 
-.topBannerSubtitle {
-  font-size: 1.875rem;
-  line-height: 1.4;
-  color: #ffffff;
-  font-weight: 600;
-  margin: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.topBannerDescription {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: #d1d5db;
-  margin: 0;
-  font-weight: 400;
-}
-
-.upgradeLink {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: #60a5fa;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.upgradeLink:hover {
-  color: #93c5fd;
-  text-decoration: underline;
-}
-
-/* New credits info container */
+/* ========================================
+   PREMIUM CREDITS INFO CONTAINER
+======================================== */
 .creditsInfoContainer {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem;
-  max-width: 450px;
-  margin: 2rem auto 0;
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.95) 0%, 
+      rgba(248, 250, 252, 0.9) 100%
+    );
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 2rem;
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.05);
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.creditsInfoContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  border-radius: 20px 20px 0 0;
+}
+
+.creditsInfoContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
 .creditsHeader {
   text-align: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .creditsTitle {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
   letter-spacing: 0.025em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
-/* Credits grid layout */
+/* Enhanced Credits Grid */
 .creditsGrid {
   display: grid;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .creditItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
-  background: rgba(249, 250, 251, 0.8);
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  transition: all 0.2s ease;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.creditItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
 }
 
 .creditItem:hover {
-  background: rgba(243, 244, 246, 0.9);
+  background: rgba(255, 255, 255, 0.6);
   transform: translateY(-1px);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.creditItem:hover::before {
+  left: 100%;
 }
 
 .creditLabel {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #6b7280;
+  color: #475569;
+  letter-spacing: 0.025em;
 }
 
 .creditValue {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #111827;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-/* Status-specific styling */
+/* Enhanced Status Styling */
 .creditStatus.sufficient {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  border-color: #a7f3d0;
+  border-color: #6ee7b7;
+  box-shadow: 
+    0 4px 12px rgba(34, 197, 94, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .creditStatus.sufficient .creditLabel {
@@ -829,6 +299,9 @@
 .creditStatus.insufficient {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
   border-color: #fca5a5;
+  box-shadow: 
+    0 4px 12px rgba(239, 68, 68, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .creditStatus.insufficient .creditLabel {
@@ -839,37 +312,57 @@
   color: #dc2626;
 }
 
-/* Status message */
+/* Enhanced Status Messages */
 .statusMessage {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
+  gap: 1rem;
+  padding: 1.25rem;
   background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%);
-  border-radius: 10px;
+  border-radius: 12px;
   border-left: 4px solid #f59e0b;
   margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.statusMessage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #f59e0b, #d97706);
+  border-radius: 0 2px 2px 0;
 }
 
 .statusMessage.statusSuccess {
   background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
   border-left-color: #22c55e;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+.statusMessage.statusSuccess::before {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
 }
 
 .statusIcon {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   flex-shrink: 0;
+  animation: pulse 2s infinite;
 }
 
 .statusText {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 0.25rem;
 }
 
 .statusText strong {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: #92400e;
 }
 
@@ -878,7 +371,7 @@
 }
 
 .statusText span {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: #78350f;
   font-weight: 500;
 }
@@ -887,135 +380,63 @@
   color: #15803d;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .subtitleContainer {
-    max-width: 100%;
-  }
-  
-  .topBannerSubtitle {
-    font-size: 1.5rem;
-  }
-  
-  .topBannerDescription {
-    font-size: 1rem;
-  }
-  
-  .creditsInfoContainer {
-    max-width: 100%;
-    padding: 1.25rem;
-  }
-  
-  .creditItem {
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .creditLabel,
-  .creditValue {
-    font-size: 0.9rem;
-  }
-  
-  .statusMessage {
-    padding: 0.8rem;
-  }
-  
-  .statusText strong {
-    font-size: 0.9rem;
-  }
-  
-  .statusText span {
-    font-size: 0.8rem;
-  }
+/* ========================================
+   ENHANCED UPLOAD SECTION
+======================================== */
+.uploadAndButtonColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
 }
 
-/* Dark mode compatibility */
-@media (prefers-color-scheme: dark) {
-  .creditsInfoContainer {
-    background: rgba(17, 24, 39, 0.95);
-    border: 1px solid rgba(75, 85, 99, 0.3);
-  }
-  
-  .creditsTitle {
-    color: #f9fafb;
-  }
-  
-  .creditItem {
-    background: rgba(31, 41, 55, 0.8);
-    border-color: #4b5563;
-  }
-  
-  .creditItem:hover {
-    background: rgba(55, 65, 81, 0.9);
-  }
-  
-  .creditLabel {
-    color: #d1d5db;
-  }
-  
-  .creditValue {
-    color: #f9fafb;
-  }
-}
-
-
-.restoreDescriptionRow {
-  margin-top: 1.25rem;
-  padding: 0.75rem 1rem;
-  background-color: #1a1a2e;
-  border-radius: 8px;
-  border: 1px solid #2f2f45;
-}
-
-.restoreDescriptionTitle {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #e0e0e0;
-  margin-bottom: 0.25rem;
-}
-
-.restoreDescriptionText {
-  font-size: 0.875rem;
-  color: #c0c0c0;
-  line-height: 1.4;
-}
-
-
-
-
-
-
-/* Grid container for credits box + upload + button */
-.controlsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  margin-top: .5rem;
-  align-items: start;      /* align both columns at the top */
-
-}
-
-/* Upload box styling */
 .uploadBox {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #1a1a1a;
+  background: 
+    linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
   border: 2px dashed #60a5fa;
-  border-radius: 12px;
-  height: 200px;
+  border-radius: 16px;
+  height: 240px;
+  width: 100%;
   cursor: pointer;
   color: #60a5fa;
   text-align: center;
-  padding: 1rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  margin-top: 3rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.uploadBox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, #60a5fa, #a78bfa, #60a5fa);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .uploadBox:hover {
-  background-color: #16213e;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 41, 59, 0.9) 100%);
   border-color: #93c5fd;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.uploadBox:hover::before {
+  opacity: 1;
 }
 
 .fileInput {
@@ -1032,15 +453,17 @@
 .uploadPlaceholder {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-size: 1.1rem;
+  gap: 0.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   user-select: none;
+  z-index: 1;
 }
 
 .uploadPlaceholder small {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #93c5fd;
+  font-weight: 400;
 }
 
 .uploadPreview {
@@ -1048,22 +471,418 @@
   max-height: 100%;
   border-radius: 12px;
   object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Upload and button column */
-.uploadAndButtonColumn {
+/* ========================================
+   ENHANCED BUTTON DESIGN
+======================================== */
+.topBannerButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 280px;
+  box-shadow: 
+    0 12px 24px rgba(99, 102, 241, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.025em;
+}
+
+.topBannerButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.topBannerButton:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 20px 40px rgba(99, 102, 241, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.topBannerButton:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.topBannerButton:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.topBannerButton:disabled {
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #64748b, #475569);
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Enhanced Spinner */
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.loadingText {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+/* ========================================
+   PROGRESS WRAPPER
+======================================== */
+.progressWrapper {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   ENHANCED IMAGE SECTION
+======================================== */
+.topBannerImages {
   display: grid;
-  grid-template-rows: auto auto;
-  row-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 2rem;
 }
 
-/* Responsive tweaks */
+.imageBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.imageBox > strong {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.imageWrapper {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: 
+    linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.9) 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.imageWrapper:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.placeholderText {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Enhanced Download Button */
+.downloadButton {
+  margin-top: 1rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 12px rgba(16, 185, 129, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.025em;
+}
+
+.downloadButton:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 8px 20px rgba(16, 185, 129, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   SCROLL NOTICE ENHANCEMENT
+======================================== */
+.scrollNotice {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  color: #ffffff;
+  border: 1px solid #10b981;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  animation: slideInUp 0.5s ease-out;
+  box-shadow: 
+    0 8px 24px rgba(16, 185, 129, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollNotice::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981, #34d399, #10b981);
+}
+
+@keyframes slideInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ========================================
+   RESPONSIVE ENHANCEMENTS
+======================================== */
+@media (max-width: 1024px) {
+  .controlsGrid {
+    gap: 2rem;
+  }
+  
+  .creditsInfoContainer {
+    padding: 1.5rem;
+  }
+  
+  .topBannerButton {
+    min-width: 240px;
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .topBanner,
+  .topBannerBasic {
+    padding: 2rem 1rem 3rem;
+    border-radius: 0 0 16px 16px;
+  }
+  
   .controlsGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
-  .uploadAndButtonColumn {
-    margin-top: 1.5rem;
+  
+  .topBannerImages {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .creditsInfoContainer {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+  
+  .creditItem {
+    padding: 0.875rem 1.25rem;
+  }
+  
+  .uploadBox {
+    height: 180px;
+    border-radius: 12px;
+  }
+  
+  .topBannerButton {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .statusMessage {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .topBannerContent {
+    gap: 2rem;
+  }
+  
+  .creditsInfoContainer {
+    padding: 1rem;
+  }
+  
+  .creditItem {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .uploadBox {
+    height: 160px;
+    padding: 1rem;
+  }
+  
+  .uploadPlaceholder {
+    font-size: 1rem;
+  }
+  
+  .topBannerButton {
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ========================================
+   DARK MODE OPTIMIZATIONS
+======================================== */
+@media (prefers-color-scheme: dark) {
+  .creditsInfoContainer {
+    background: 
+      linear-gradient(135deg, 
+        rgba(30, 41, 59, 0.95) 0%, 
+        rgba(15, 23, 42, 0.9) 100%
+      );
+    border: 1px solid rgba(148, 163, 184, 0.2);
+  }
+  
+  .creditsTitle {
+    color: #f1f5f9;
+  }
+  
+  .creditItem {
+    background: rgba(51, 65, 85, 0.6);
+    border-color: rgba(100, 116, 139, 0.3);
+  }
+  
+  .creditItem:hover {
+    background: rgba(71, 85, 105, 0.8);
+  }
+  
+  .creditLabel {
+    color: #cbd5e1;
+  }
+  
+  .creditValue {
+    color: #f1f5f9;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .topBanner,
+  .topBannerBasic,
+  .topBannerButton,
+  .creditItem,
+  .uploadBox,
+  .imageWrapper,
+  .downloadButton,
+  .scrollNotice,
+  .statusMessage {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .topBanner::after,
+  .topBannerBasic::after {
+    animation: none;
+  }
+  
+  .statusIcon {
+    animation: none;
+  }
+}
+
+/* Focus states for accessibility */
+.topBannerButton:focus-visible,
+.uploadBox:focus-visible,
+.downloadButton:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .topBannerButton {
+    border: 2px solid currentColor;
+  }
+  
+  .creditItem {
+    border: 2px solid currentColor;
+  }
+  
+  .uploadBox {
+    border-width: 3px;
   }
 }

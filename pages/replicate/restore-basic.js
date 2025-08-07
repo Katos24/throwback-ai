@@ -150,21 +150,17 @@ export default function RestoreBasic() {
         <div className={styles.topBannerContent}>
 
           <div className={styles.topBannerTop}>
-            <h2 className={styles.topBannerTitle}>🕹️ Restore Your Vintage Photo</h2>
+            <h2 className={styles.topBannerTitle}>Photo Fix</h2>
 
-            {/* Updated subtitle with better spacing and hierarchy */}
+           {/* Updated subtitle with clear tiered value messaging */}
             <div className={styles.subtitleContainer}>
-              <p className={styles.topBannerSubtitle}>
-                Transform your old photos with AI-powered restoration
-              </p>
               <p className={styles.topBannerDescription}>
-                Basic restores clean black & white photos with scratch removal and clarity boost.
+                Quickly improves clarity, sharpness, and overall quality of your old photos — perfect for light restoration and cleanup.
                 <Link href="/signup" className={styles.upgradeLink}>
-                  Sign up for premium features →
+                  Unlock full color and advanced damage repair →
                 </Link>
               </p>
             </div>
-
             {/* Grid container for credits + upload + button */}
             <div className={styles.controlsGrid}>
 
@@ -192,21 +188,19 @@ export default function RestoreBasic() {
                       {credits >= restoreCost ? 'After restore' : 'Status'}
                     </span>
                     <span className={styles.creditValue}>
-                      {credits >= restoreCost
-                        ? `${credits - restoreCost} credits remaining`
-                        : 'Need more credits'
-                      }
+                     {credits >= restoreCost ? (
+                        <>
+                          <span> </span>
+                          <span className={styles.creditsRemaining}>{credits - restoreCost}</span> credits 
+                        </>
+                      ) : (
+                        'Need more credits'
+                      )}
                     </span>
                   </div>
                 </div>
 
-                {/* 📸 Restore Description Row */}
-                <div className={styles.restoreDescriptionRow}>
-                  <div className={styles.restoreDescriptionTitle}>🛠️ What does a restore include?</div>
-                  <div className={styles.restoreDescriptionText}>
-                    Enhances sharpness and detail, repairs damage, and optionally colorizes black & white photos.
-                  </div>
-                </div>
+         
 
                 {/* Status messages */}
                 {credits < restoreCost ? (
@@ -287,6 +281,8 @@ export default function RestoreBasic() {
                 📲 Scroll down to see the before & after comparison.
               </div>
             )}
+
+            
         </section>
           <div className={styles.topBannerImages}>
             <div className={styles.imageBox}>
@@ -319,6 +315,8 @@ export default function RestoreBasic() {
           </div>
         </div>
       </section>
+
+      
 
 
       {selectedPreviewUrl && restoredUrl && (

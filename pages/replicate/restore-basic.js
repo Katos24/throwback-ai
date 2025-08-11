@@ -350,9 +350,35 @@ export default function RestoreBasic() {
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
-          <div className={styles.badge}>
-            <span>✨</span>
-            <span>AI-Powered Photo Restoration</span>
+          {/* Top Bar with Credits and Pro Tip - Aligned with Badge */}
+          <div className={styles.topBar}>
+            {/* Compact Credits Section - Top Left */}
+            <div className={styles.compactCredits}>
+              <div className={styles.compactCreditsInfo}>
+                <span className={styles.creditsIcon}>⚡</span>
+                <span className={styles.creditsText}>{credits} credits</span>
+                <span className={styles.creditsCost}>({restoreCost}/restore)</span>
+              </div>
+              <button 
+                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                className={styles.compactCreditsButton}
+              >
+                {isLoggedIn ? "+" : "Sign Up"}
+              </button>
+            </div>
+
+            <div className={styles.badge}>
+              <span>✨</span>
+              <span>AI-Powered Photo Restoration</span>
+            </div>
+
+            {/* Pro Tip - Top Right */}
+            <div className={styles.topProTip}>
+              <span className={styles.proTipIcon}>💡</span>
+              <span className={styles.proTipText}>
+                <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
+              </span>
+            </div>
           </div>
           
           <h1 className={styles.title}>
@@ -365,32 +391,6 @@ export default function RestoreBasic() {
             Remove scratches, enhance colors, and bring memories back to life.
           </p>
         </div>
-
-        {/* Credits Banner */}
-        <div className={styles.creditsBanner}>
-          <div className={styles.creditsRow}>
-            <div className={styles.creditsInfo}>
-              <div className={styles.creditsCount}>
-                <span>⚡</span>
-                <span>Credits: {credits}</span>
-              </div>
-              <div className={styles.creditsCost}>Cost per restore: {restoreCost} credit</div>
-            </div>
-            <button 
-              onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
-              className={styles.creditsButton}
-            >
-              {isLoggedIn ? "Get More Credits" : "Sign Up"}
-            </button>
-          </div>
-        </div>
-
-        {/* Pro Tip */}
-        <p className={styles.proTip}>
-          💡 <strong>Pro Tip:</strong> For old or black & white photos, start
-          with Photo Fix for clarity, then use Full Color Restore to bring it to
-          life.
-        </p>
 
         {/* Main Content Grid */}
         <div className={styles.mainGrid}>

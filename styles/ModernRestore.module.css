@@ -97,21 +97,12 @@
    HEADER SECTION
 ======================================== */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: auto auto;
-  align-items: start;
-  gap: 1rem;
-  padding: 0 1rem;
+  text-align: center;
   margin-bottom: 4rem;
-  position: relative;
+  padding: 0 1rem;
 }
 
-
 .badge {
-  grid-column: 3;
-  justify-self: end;
-  margin-top: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -137,80 +128,10 @@
   font-size: clamp(3.5rem, 9vw, 6rem);
   font-weight: 900;
   color: white;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
-
-.titleWrapper {
-  grid-column: 2;
-  grid-row: 1;
-  text-align: center;
-}
-
-.compactCredits {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
-  margin-top: 0.5rem;
-   gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.75rem;
-  backdrop-filter: blur(8px);
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.compactCreditsInfo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.6rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  backdrop-filter: blur(6px);
-}
-
-
-.creditsIcon {
-  font-size: 1rem;
-  color: #facc15; /* yellow accent */
-}
-
-.creditsText {
-  font-weight: 600;
-  color: #fff;
-}
-
-.creditsCost {
-  color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
-}
-
-.compactCreditsInfo:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.lowCredits {
-  animation: pulse 1.5s infinite;
-  border-color: #f87171;
-  color: #f87171;
-}
-
 
 .titleGradient {
   background: linear-gradient(135deg, #a855f7 0%, #ec4899 40%, #06b6d4 100%);
@@ -238,28 +159,12 @@
 
 .description {
   font-size: clamp(1.1rem, 2.5vw, 1.375rem);
-   grid-column: 1 / span 3;
-  grid-row: 2;
-  text-align: center;
   color: rgba(255, 255, 255, 0.7);
   max-width: 48rem;
-  margin: 1rem auto 0;
+  margin: 2rem auto 0;
   line-height: 1.7;
   font-weight: 400;
 }
-
-.creditPill {
-  display: inline-block;
-  margin-left: 0.5rem;
-  padding: 0.2rem 0.6rem;
-  background-color: #f0f0f0;
-  color: #333;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: 999px;
-  border: 1px solid #ccc;
-}
-
 
 /* ========================================
    PRO TIP SECTION
@@ -297,7 +202,88 @@
   font-weight: 600;
 }
 
+/* ========================================
+   CREDITS BANNER
+======================================== */
+.creditsBanner {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.25rem;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
 
+.creditsBanner:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.creditsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.creditsInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.creditsCount {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.creditsCost {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.creditsButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.creditsButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.creditsButton:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.4);
+}
+
+.creditsButton:hover::before {
+  left: 100%;
+}
 
 /* ========================================
    MAIN GRID LAYOUT
@@ -594,26 +580,6 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
-.compactCreditsButton {
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #8b5cf6, #ec4899, #06b6d4);
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.compactCreditsButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -991,7 +957,7 @@
 
 .beforeAfterImage {
   width: 100%;
-  height: clamp(320px, 45vh, 480px);
+  height: 280px;
   object-fit: contain;
   object-position: center;
   background: #000;
@@ -1151,8 +1117,8 @@
   }
   
   .beforeAfterImage {
-  height: clamp(220px, 40vh, 480px);
-}
+    height: 220px;
+  }
   
   .proTip {
     font-size: 0.85rem;
@@ -1190,6 +1156,44 @@
     padding: 1.5rem 0.75rem;
   }
   
+  .header {
+    margin-bottom: 2.5rem;
+    padding: 0 0.25rem;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .title {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    margin-bottom: 0.25rem;
+  }
+  
+  .subtitle {
+    font-size: clamp(1rem, 3.5vw, 1.5rem);
+    margin-top: 0.25rem;
+  }
+  
+  .description {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin: 1rem auto 0;
+    padding: 0 0.25rem;
+  }
+  
+  .compactCreditsInfo {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .compactCreditsButton {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    margin-left: 0.4rem;
+  }
+  
   .uploadZone {
     padding: 1.5rem 1rem;
     min-height: 12rem;
@@ -1221,15 +1225,8 @@
     font-size: 0.9rem;
   }
   
-  .comparisonContainer :global(.image-compare-slider img),
-  .comparisonContainer :global(.before-image),
-  .comparisonContainer :global(.after-image) {
-    max-height: 300px !important;
-    min-height: 200px !important;
-  }
-  
-  .resultsPlaceholder {
-    height: 200px;
+  .comparisonContainer :global(img) {
+    max-height: 40vh !important;
   }
 }
 

@@ -6,6 +6,7 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
+import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 
 export default function RestoreBasic() {
   // State management - integrated from original component
@@ -389,41 +390,35 @@ export default function RestoreBasic() {
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
-          {/* Top Bar with Centered Badge and Right Credits */}
-          <div className={styles.topBar}>
-            <div></div> {/* Empty left space */}
-            
-            <div className={styles.badge}>
-              <span>✨</span>
-              <span>AI-Powered Photo Restoration</span>
-            </div>
+  <div className={styles.titleRow}>
+    <div>
+      <h1 className={styles.title}>
+        <span className={styles.titleGradient}>PhotoFix</span>
+      </h1>
+      <span className={styles.subtitle}>AI Studio</span>
+    </div>
 
-            {/* Compact Credits Section - Top Right */}
-            <div className={styles.compactCredits}>
-              <div className={styles.compactCreditsInfo}>
-                <span className={styles.creditsIcon}>⚡</span>
-                <span className={styles.creditsText}>{credits} credits</span>
-                <span className={styles.creditsCost}>({restoreCost}/restore)</span>
-              </div>
-              <button 
-                onClick={(e) => handleNavigation(e, isLoggedIn ? "/pricing" : "/signup")}
-                className={styles.compactCreditsButton}
-              >
-                {isLoggedIn ? "+" : "Sign Up"}
-              </button>
-            </div>
-          </div>
-          
-          <h1 className={styles.title}>
-            <span className={styles.titleGradient}>PhotoFix</span>
-            <span className={styles.subtitle}>AI Studio</span>
-          </h1>
-          
-          <p className={styles.description}>
-            Restore old photos to their former glory with advanced AI technology. 
-            Remove scratches, enhance colors, and bring memories back to life.
-          </p>
-        </div>
+    <div className={styles.compactCredits}>
+      <div className={styles.compactCreditsInfo}>
+        <span className={styles.creditsIcon}>⚡</span>
+        <span className={styles.creditsText}>{credits} credits</span>
+        <span className={styles.creditsCost}>({restoreCost}/restore)</span>
+      </div>
+      <button
+        onClick={(e) => handleNavigation(e, isLoggedIn ? "/pricing" : "/signup")}
+        className={styles.compactCreditsButton}
+      >
+        {isLoggedIn ? "+" : "Sign Up"}
+      </button>
+    </div>
+  </div>
+
+  <p className={styles.description}>
+    Restore old photos to their former glory with advanced AI technology. 
+    Remove scratches, enhance colors, and bring memories back to life.{' '}
+    <span className={styles.costLabel}>Costs 1 credit</span>
+  </p>
+</div>
 
         {/* Main Content Grid */}
         <div className={styles.mainGrid}>
@@ -554,7 +549,10 @@ export default function RestoreBasic() {
                   <span>👁️</span>
                   Results
                 </h2>
-                
+                <div className={styles.badge}>
+              <span>✨</span>
+              <span>AI-Powered Photo Restoration</span>
+            </div>
                 {restoredUrl && (
                   <button
                     onClick={handleDownload}
@@ -652,12 +650,15 @@ export default function RestoreBasic() {
           ].map((feature, idx) => (
             <div key={idx} className={styles.featureCard}>
               <span className={styles.featureIcon}>{feature.icon}</span>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.desc}</p>
-            </div>
-          ))}
+                        <h3 className={styles.featureTitle}>{feature.title}</h3>
+          <p className={styles.featureDescription}>{feature.desc}</p>
         </div>
-      </div>
+      ))}
     </div>
-  );
+  </div>
+
+  <BasicFeaturesSection />
+
+</div>
+);
 }

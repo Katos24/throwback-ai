@@ -1,90 +1,59 @@
-/* ModernRestore.module.css - Enhanced Version */
+/* ModernRestore.module.css - Condensed Version */
 
-/* ========================================
-   MAIN CONTAINER & BACKGROUND
-======================================== */
+/* Base Styles */
 .container {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
   position: relative;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .backgroundParticles {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
 }
 
-.backgroundParticles::before {
+.backgroundParticles::before,
+.backgroundParticles::after {
   content: '';
   position: absolute;
-  top: 20%;
-  left: 20%;
-  width: 28rem;
-  height: 28rem;
-  background: #8b5cf6;
   border-radius: 50%;
   mix-blend-mode: multiply;
   filter: blur(80px);
+}
+
+.backgroundParticles::before {
+  top: 20%; left: 20%;
+  width: 28rem; height: 28rem;
+  background: #8b5cf6;
   opacity: 0.6;
   animation: float1 12s ease-in-out infinite;
 }
 
 .backgroundParticles::after {
-  content: '';
-  position: absolute;
-  top: 60%;
-  right: 15%;
-  width: 32rem;
-  height: 32rem;
+  top: 60%; right: 15%;
+  width: 32rem; height: 32rem;
   background: #06b6d4;
-  border-radius: 50%;
-  mix-blend-mode: multiply;
-  filter: blur(90px);
   opacity: 0.5;
   animation: float2 15s ease-in-out infinite 2s;
 }
 
 @keyframes float1 {
-  0%, 100% { 
-    transform: translateY(0px) translateX(0px) rotate(0deg); 
-    opacity: 0.4;
-  }
-  33% { 
-    transform: translateY(-30px) translateX(20px) rotate(3deg); 
-    opacity: 0.7;
-  }
-  66% { 
-    transform: translateY(20px) translateX(-15px) rotate(-2deg); 
-    opacity: 0.5;
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+  33% { transform: translateY(-30px) translateX(20px) rotate(3deg); opacity: 0.7; }
+  66% { transform: translateY(20px) translateX(-15px) rotate(-2deg); opacity: 0.5; }
 }
 
 @keyframes float2 {
-  0%, 100% { 
-    transform: translateY(0px) translateX(0px) rotate(0deg); 
-    opacity: 0.3;
-  }
-  25% { 
-    transform: translateY(-20px) translateX(-25px) rotate(-4deg); 
-    opacity: 0.6;
-  }
-  75% { 
-    transform: translateY(25px) translateX(20px) rotate(2deg); 
-    opacity: 0.4;
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+  25% { transform: translateY(-20px) translateX(-25px) rotate(-4deg); opacity: 0.6; }
+  75% { transform: translateY(25px) translateX(20px) rotate(2deg); opacity: 0.4; }
 }
 
-/* ========================================
-   CONTENT LAYOUT
-======================================== */
+/* Content Layout */
 .content {
   position: relative;
   z-index: 10;
@@ -93,91 +62,64 @@
   padding: 3rem 1.5rem;
 }
 
-/* ========================================
-   HEADER SECTION
-======================================== */
+/* Header */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: auto auto;
-  align-items: start;
-  gap: 1rem;
-  padding: 0 1rem;
+  text-align: center;
   margin-bottom: 4rem;
   position: relative;
 }
 
 .titleWrapper {
-  grid-column: 2;
-  grid-row: 1;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
-
-/* CREDIT LABEL SECTION */
-/* Info flex container */
 .compactCredits {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
-  margin-top: 0.5rem;
-
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
   display: inline-flex;
   align-items: center;
   padding: 6px 14px;
   gap: 8px;
-
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 12px;
-
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    0 0 8px var(--ai-accent, #7c3aed);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 8px #7c3aed;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: default;
 }
 
-/* Pulse the icon to hint “AI powered” */
-@keyframes aiPulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.15); }
+.compactCredits:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 12px #7c3aed;
 }
 
 .creditsIcon {
   font-size: 1.1rem;
-  color: var(--ai-accent, #7c3aed);
+  color: #7c3aed;
   animation: aiPulse 2s ease-in-out infinite;
 }
 
-/* Info flex container */
+@keyframes aiPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
 .compactCreditsInfo {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-/* Primary credit count */
 .creditsText {
   font-size: 0.9rem;
   font-weight: 600;
   color: #f3f4f6;
 }
 
-/* Secondary cost detail */
 .creditsCost {
   font-size: 0.75rem;
   color: #c4c4c4;
-}
-
-/* Hover / focus effects */
-.compactCredits:hover,
-.compactCredits:focus-within {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 12px var(--ai-accent, #7c3aed);
 }
 
 .compactCreditsButton {
@@ -195,37 +137,14 @@
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    0 0 6px var(--ai-accent, #7c3aed);
 }
 
-.compactCreditsButton:hover,
-.compactCreditsButton:focus {
+.compactCreditsButton:hover {
   transform: translateY(-1px);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 10px var(--ai-accent, #7c3aed);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px #7c3aed;
 }
 
-.compactCreditsButton:active {
-  transform: translateY(0);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 0 4px var(--ai-accent, #7c3aed);
-}
-
-
-
-
-
-.description {
-  grid-column: 1 / span 3;
-  grid-row: 2;
-  text-align: center;
-  margin-top: 2rem;
-}
-
+/* Title Elements */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -245,7 +164,6 @@
 .badge:hover {
   background: rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .title {
@@ -262,7 +180,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
   background-size: 200% 200%;
   animation: gradientShift 8s ease-in-out infinite;
 }
@@ -278,7 +195,6 @@
   margin-top: 0.75rem;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 600;
-  letter-spacing: -0.01em;
 }
 
 .description {
@@ -287,17 +203,13 @@
   max-width: 48rem;
   margin: 2rem auto 0;
   line-height: 1.7;
-  font-weight: 400;
 }
 
-/* ========================================
-   PRO TIP SECTION
-======================================== */
+/* Pro Tip */
 .proTip {
   margin: 2rem auto;
   max-width: 800px;
   font-size: 0.95rem;
-  line-height: 1.6;
   color: #e8f4f8;
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
   padding: 1.25rem 1.75rem;
@@ -305,7 +217,6 @@
   border-left: 4px solid #06b6d4;
   backdrop-filter: blur(12px);
   border: 1px solid rgba(6, 182, 212, 0.2);
-  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -313,105 +224,15 @@
 .proTip::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, #06b6d4, #67e8f9, #06b6d4);
   opacity: 0.6;
 }
 
-.proTip strong {
-  color: #67e8f9;
-  font-weight: 600;
-}
+.proTip strong { color: #67e8f9; font-weight: 600; }
 
-/* ========================================
-   CREDITS BANNER
-======================================== */
-.creditsBanner {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 1.25rem;
-  padding: 1.5rem 2rem;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.creditsBanner:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.creditsRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.creditsInfo {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.creditsCount {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.creditsCost {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.creditsButton {
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.creditsButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.creditsButton:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.4);
-}
-
-.creditsButton:hover::before {
-  left: 100%;
-}
-
-/* ========================================
-   MAIN GRID LAYOUT
-======================================== */
+/* Main Grid */
 .mainGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -420,10 +241,9 @@
   align-items: start;
 }
 
-/* ========================================
-   UPLOAD SECTION
-======================================== */
-.uploadSection {
+/* Upload Section */
+.uploadSection,
+.resultsSection {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -435,7 +255,7 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 2rem;
   padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
@@ -443,7 +263,6 @@
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .sectionTitle {
@@ -454,18 +273,15 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  letter-spacing: -0.01em;
 }
 
-/* ========================================
-   UPLOAD ZONE
-======================================== */
+/* Upload Zone */
 .uploadZone {
   position: relative;
   border: 2px dashed rgba(255, 255, 255, 0.25);
   border-radius: 1.5rem;
   padding: 3rem 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
   cursor: pointer;
   min-height: 18rem;
   display: flex;
@@ -473,43 +289,14 @@
   justify-content: center;
   background: rgba(30, 41, 59, 0.3);
   backdrop-filter: blur(8px);
-  overflow: hidden;
 }
 
-.uploadZone::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 1.5rem;
-  padding: 2px;
-  background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.3), transparent);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.uploadZone:hover {
+.uploadZone:hover,
+.uploadZoneDragActive {
   border-color: #a855f7;
   background: rgba(168, 85, 247, 0.08);
   transform: scale(1.02);
   box-shadow: 0 16px 40px rgba(168, 85, 247, 0.15);
-}
-
-.uploadZone:hover::before {
-  opacity: 1;
-}
-
-.uploadZoneDragActive {
-  border-color: #a855f7;
-  background: rgba(168, 85, 247, 0.15);
-  transform: scale(1.05);
-  box-shadow: 0 20px 60px rgba(168, 85, 247, 0.25);
-}
-
-.uploadZoneDragActive::before {
-  opacity: 1;
-  background: linear-gradient(45deg, #a855f7, #ec4899, #a855f7);
 }
 
 .uploadContent {
@@ -540,13 +327,11 @@
   color: white;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
 }
 
 .uploadFileSize {
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.875rem;
-  font-weight: 500;
 }
 
 .uploadPlaceholder {
@@ -566,13 +351,11 @@
   align-items: center;
   justify-content: center;
   transition: all 0.4s ease;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .uploadZone:hover .uploadIcon {
   transform: scale(1.15);
   background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.2);
 }
 
 .uploadTitle {
@@ -580,42 +363,16 @@
   font-weight: 600;
   color: white;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
 }
 
 .uploadDescription {
   color: rgba(255, 255, 255, 0.6);
   font-size: 1rem;
-  font-weight: 500;
 }
 
-.dragOverlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(168, 85, 247, 0.2);
-  border-radius: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
-  font-size: 1.25rem;
-  backdrop-filter: blur(8px);
-  animation: pulseOverlay 2s ease-in-out infinite;
-}
+.hiddenInput { display: none; }
 
-@keyframes pulseOverlay {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
-}
-
-.hiddenInput {
-  display: none;
-}
-
-/* ========================================
-   BUTTONS
-======================================== */
+/* Buttons */
 .buttonRow {
   display: flex;
   gap: 1rem;
@@ -632,26 +389,12 @@
   font-size: 1.125rem;
   border: none;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);
+  transition: all 0.4s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  letter-spacing: -0.01em;
-}
-
-.primaryButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.8s ease;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);
 }
 
 .primaryButton:hover:not(:disabled) {
@@ -659,18 +402,9 @@
   box-shadow: 0 16px 48px rgba(139, 92, 246, 0.4);
 }
 
-.primaryButton:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.primaryButton:active:not(:disabled) {
-  transform: translateY(-1px) scale(1.01);
-}
-
 .primaryButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
 .secondaryButton {
@@ -688,7 +422,6 @@
 .secondaryButton:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .secondaryButton:disabled {
@@ -710,16 +443,81 @@
   100% { transform: rotate(360deg); }
 }
 
-/* ========================================
-   PROGRESS & ALERTS
-======================================== */
-.progressCard {
+/* Alerts & Progress */
+.progressCard,
+.creditsBanner {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 1.25rem;
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.creditsBanner {
+  margin-bottom: 2.5rem;
+}
+
+.creditsBanner:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.creditsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.creditsInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.creditsCount {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.creditsButton,
+.downloadButton,
+.upgradeButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+}
+
+.downloadButton {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.creditsButton:hover,
+.downloadButton:hover,
+.upgradeButton:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.4);
+}
+
+.downloadButton:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
 }
 
 .alert {
@@ -729,7 +527,6 @@
   align-items: flex-start;
   gap: 1rem;
   backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   font-weight: 500;
 }
 
@@ -751,26 +548,10 @@
   gap: 0.5rem;
 }
 
-.alertTitle {
-  font-weight: 600;
-  font-size: 1rem;
-}
+.alertTitle { font-weight: 600; }
+.alertDescription { font-size: 0.9rem; opacity: 0.85; }
 
-.alertDescription {
-  font-size: 0.9rem;
-  opacity: 0.85;
-  line-height: 1.5;
-}
-
-/* ========================================
-   RESULTS SECTION
-======================================== */
-.resultsSection {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
+/* Results */
 .resultsHeader {
   display: flex;
   align-items: center;
@@ -779,35 +560,12 @@
   gap: 1rem;
 }
 
-.downloadButton {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
-}
-
-.downloadButton:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-}
-
 .comparisonContainer {
   background: #111827;
   border-radius: 1.25rem;
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: auto;
   min-height: 200px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -818,74 +576,10 @@
 
 .imageComparisonWrapper {
   width: 100%;
-  height: auto;
   position: relative;
-  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Let the ImageCompareSlider component handle its own sizing */
-.comparisonContainer :global(*) {
-  box-sizing: border-box;
-}
-
-/* Override the component's max-width and margins to fill our container */
-.comparisonContainer :global(div[style*="position: relative"]) {
-  max-width: 100% !important;
-  margin: 0 !important;
-  width: 100% !important;
-}
-
-/* Ensure images maintain their aspect ratio and alignment */
-.comparisonContainer :global(img) {
-  max-width: 100% !important;
-  max-height: 70vh !important;
-  object-fit: contain !important;
-  object-position: center !important;
-}
-
-.comparisonContainer :global(.image-wrapper) {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.comparisonContainer :global(.slider-handle) {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: white;
-  cursor: ew-resize;
-  z-index: 10;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-}
-
-.comparisonContainer :global(.slider-button) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: white;
-  border-radius: 50%;
-  border: none;
-  cursor: ew-resize;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.comparisonContainer :global(.slider-button:hover) {
-  background: #f8fafc;
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .resultsPlaceholder {
@@ -914,7 +608,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .placeholderText {
@@ -923,9 +616,7 @@
   font-weight: 500;
 }
 
-/* ========================================
-   UPGRADE CARD
-======================================== */
+/* Upgrade Card */
 .upgradeCard {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(236, 72, 153, 0.12) 100%);
   backdrop-filter: blur(12px);
@@ -935,15 +626,12 @@
   margin-top: 1.5rem;
   transition: all 0.4s ease;
   position: relative;
-  overflow: hidden;
 }
 
 .upgradeCard::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7);
   opacity: 0.6;
@@ -952,8 +640,6 @@
 .upgradeCard:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(168, 85, 247, 0.2);
-  border-color: rgba(168, 85, 247, 0.4);
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
 }
 
 .upgradeContent {
@@ -962,21 +648,14 @@
   gap: 1.5rem;
 }
 
-.upgradeIcon {
-  font-size: 2.5rem;
-  flex-shrink: 0;
-}
-
-.upgradeText {
-  flex: 1;
-}
+.upgradeIcon { font-size: 2.5rem; flex-shrink: 0; }
+.upgradeText { flex: 1; }
 
 .upgradeTitle {
   font-size: 1.125rem;
   font-weight: 700;
   color: #f3e8ff;
   margin: 0 0 0.5rem 0;
-  letter-spacing: -0.01em;
 }
 
 .upgradeDescription {
@@ -984,7 +663,6 @@
   color: #e9d5ff;
   margin: 0;
   line-height: 1.5;
-  font-weight: 500;
 }
 
 .upgradeDescription strong {
@@ -992,31 +670,7 @@
   font-weight: 700;
 }
 
-.upgradeButton {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-  color: white;
-  padding: 1rem 1.75rem;
-  border-radius: 0.75rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
-  letter-spacing: -0.01em;
-}
-
-.upgradeButton:hover {
-  background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
-}
-
-/* ========================================
-   BEFORE/AFTER GALLERY
-======================================== */
+/* Before/After Gallery */
 .beforeAfterGallery {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
@@ -1024,7 +678,6 @@
   border-radius: 2rem;
   padding: 3rem;
   margin-top: 3rem;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
 .galleryTitle {
@@ -1037,7 +690,6 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  letter-spacing: -0.01em;
 }
 
 .beforeAfterGrid {
@@ -1071,26 +723,20 @@
   background: #111827;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .beforeAfterImageWrapper:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
 .beforeAfterImage {
   width: 100%;
   height: 280px;
   object-fit: contain;
-  object-position: center;
   background: #000;
-  transition: all 0.3s ease;
 }
 
-/* ========================================
-   FEATURES GRID
-======================================== */
+/* Features Grid */
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1106,13 +752,11 @@
   padding: 2.5rem 2rem;
   transition: all 0.4s ease;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .featureCard:hover {
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -1120,330 +764,95 @@
   font-size: 3rem;
   color: #a855f7;
   margin-bottom: 1.5rem;
-  display: block;
   transition: all 0.3s ease;
 }
 
-.featureCard:hover .featureIcon {
-  transform: scale(1.1);
-}
+.featureCard:hover .featureIcon { transform: scale(1.1); }
 
 .featureTitle {
   color: white;
   font-weight: 700;
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  letter-spacing: -0.01em;
 }
 
 .featureDescription {
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.6;
   font-size: 0.95rem;
-  font-weight: 500;
-}
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-@media (max-width: 1200px) {
-  .content {
-    padding: 2.5rem 1rem;
-  }
-
-  .mainGrid {
-    gap: 2rem;
-  }
-
-  .uploadCard {
-    padding: 2rem;
-  }
 }
 
+/* Responsive Design */
 @media (max-width: 1024px) {
-  .mainGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .featuresGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
+  .mainGrid { grid-template-columns: 1fr; }
+  .featuresGrid { grid-template-columns: 1fr; }
   .backgroundParticles::before,
-  .backgroundParticles::after {
-    width: 20rem;
-    height: 20rem;
-  }
-
-  .imageComparisonWrapper {
-    min-height: 200px;
-  }
-
-  .comparisonContainer :global(.image-compare-slider),
-  .comparisonContainer :global(.image-compare-slider img),
-  .comparisonContainer :global(.before-image),
-  .comparisonContainer :global(.after-image) {
-    min-height: 200px;
-    max-height: 500px !important;
-  }
+  .backgroundParticles::after { width: 20rem; height: 20rem; }
 }
 
 @media (max-width: 768px) {
-  .content {
-    padding: 2rem 1rem;
-  }
-
-  /* Header collapses to a single column */
-  .header {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    justify-items: center;
-    gap: 0.75rem;
-  }
-
-  .titleWrapper {
-    grid-column: 1;
-    grid-row: 1;
-    text-align: center;
-  }
-
-  /* Credit badge moves below the title and centers */
+  .content { padding: 2rem 1rem; }
+  
+  /* Fix mobile credits - move under title */
+  .header { position: static; }
   .compactCredits {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-    margin-top: 1rem;
+    position: static;
+    display: inline-flex;
+    margin: 1rem auto 0;
+    font-size: 0.8rem;
   }
-
-  .uploadCard {
-    padding: 1.5rem;
+  
+  .creditsText { font-size: 0.8rem; }
+  .creditsCost { font-size: 0.7rem; }
+  .compactCreditsButton { 
+    font-size: 0.75rem; 
+    padding: 0.4rem 0.6rem; 
   }
-
-  .uploadZone {
-    padding: 2rem 1.5rem;
-    min-height: 14rem;
-  }
-
-  .primaryButton {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .creditsRow {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-  }
-
-  .backgroundParticles::before,
-  .backgroundParticles::after {
-    width: 16rem;
-    height: 16rem;
-  }
-
-  .beforeAfterGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .beforeAfterImage {
-    height: 220px;
-  }
-
-  .proTip {
-    font-size: 0.85rem;
-    padding: 1rem 1.25rem;
-  }
-
-  .upgradeContent {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
-  .upgradeButton {
-    width: 100%;
-  }
-
-  .comparisonContainer :global(.image-compare-slider),
-  .comparisonContainer :global(.before-image),
-  .comparisonContainer :global(.after-image) {
-    max-height: 400px !important;
-    min-height: 250px !important;
-  }
-
-  .resultsPlaceholder {
-    height: 250px;
-  }
-
-  .featureCard {
-    padding: 2rem 1.5rem;
-  }
+  
+  .uploadCard { padding: 1.5rem; }
+  .uploadZone { padding: 2rem 1.5rem; min-height: 14rem; }
+  .creditsRow { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .beforeAfterGrid { grid-template-columns: 1fr; }
+  .beforeAfterImage { height: 220px; }
+  .upgradeContent { flex-direction: column; text-align: center; }
 }
 
 @media (max-width: 480px) {
-  .content {
-    padding: 1.5rem 0.75rem;
-  }
-
-  .header {
-    margin-bottom: 2.5rem;
-    padding: 0 0.25rem;
-  }
-
-  .badge {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .title {
-    font-size: clamp(2rem, 7vw, 3.5rem);
-    margin-bottom: 0.25rem;
-  }
-
-  .subtitle {
-    font-size: clamp(1rem, 3.5vw, 1.5rem);
-    margin-top: 0.25rem;
-  }
-
-  .description {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    margin: 1rem auto 0;
-    padding: 0 0.25rem;
-  }
-
-  /* Compact credits stacks and centers under title */
+  .content { padding: 1.5rem 0.75rem; }
+  .header { margin-bottom: 2.5rem; }
+  
   .compactCredits {
-    position: static;
-    justify-self: center;
     flex-direction: column;
-    align-items: center;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    padding: 8px 12px;
   }
-
-  .compactCreditsInfo {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.8rem;
-  }
-
-  .compactCreditsButton {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.7rem;
-    margin-left: 0;
-    align-self: center;
-  }
-
-  .uploadZone {
-    padding: 1.5rem 1rem;
-    min-height: 12rem;
-  }
-
-  .uploadCard {
-    padding: 1.25rem;
-  }
-
-  .primaryButton {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.95rem;
-  }
-
-  .beforeAfterGallery {
-    padding: 2rem 1.5rem;
-  }
-
-  .uploadIcon {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .uploadTitle {
-    font-size: 1.25rem;
-  }
-
-  .uploadDescription {
-    font-size: 0.9rem;
-  }
-
-  .comparisonContainer :global(img) {
-    max-height: 40vh !important;
-  }
+  
+  .uploadZone { padding: 1.5rem 1rem; min-height: 12rem; }
+  .uploadIcon { width: 4rem; height: 4rem; }
+  .beforeAfterGallery { padding: 2rem 1.5rem; }
 }
 
-
-/* ========================================
-   ACCESSIBILITY & MOTION
-======================================== */
+/* Performance & Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .backgroundParticles::before,
-  .backgroundParticles::after {
-    animation: none;
-  }
-  
-  .titleGradient {
-    animation: none;
-  }
-  
+  .backgroundParticles::after,
+  .titleGradient,
+  .creditsIcon,
   .uploadZone,
   .primaryButton,
   .uploadCard,
   .featureCard,
-  .upgradeCard {
-    transition: none;
-  }
-  
-  .primaryButton::before,
-  .creditsButton::before {
-    display: none;
-  }
-  
-  .dragOverlay {
-    animation: none;
-  }
-}
-
-@media (prefers-contrast: high) {
-  .uploadCard,
-  .creditsBanner,
-  .progressCard,
-  .featureCard,
   .upgradeCard,
-  .beforeAfterGallery {
-    border-width: 2px;
-    border-color: currentColor;
-  }
-  
-  .uploadZone {
-    border-width: 3px;
-  }
-  
-  .primaryButton,
-  .secondaryButton,
-  .creditsButton,
-  .downloadButton,
-  .upgradeButton {
-    border: 2px solid currentColor;
+  .loadingSpinner {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
-/* Focus states for accessibility */
 .primaryButton:focus-visible,
 .secondaryButton:focus-visible,
-.uploadZone:focus-visible,
-.creditsButton:focus-visible,
-.downloadButton:focus-visible,
-.upgradeButton:focus-visible {
+.uploadZone:focus-visible {
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
-}
-
-/* High-performance animations */
-.uploadIcon,
-.featureIcon,
-.beforeAfterImageWrapper,
-.primaryButton,
-.uploadCard {
-  will-change: transform;
 }

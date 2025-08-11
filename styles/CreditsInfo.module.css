@@ -1,0 +1,400 @@
+/* ========================================
+   ENHANCED CONTROLS GRID - SLEEK VERSION
+======================================== */
+.controlsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+  align-items: start;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* ========================================
+   PREMIUM CREDITS INFO - MODERN & CLEAN
+======================================== */
+.creditsInfoContainer {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.creditsInfoContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  border-radius: 1.5rem 1.5rem 0 0;
+  opacity: 0.8;
+}
+
+.creditsInfoContainer:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.creditsHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.creditsTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* Simplified Credits Grid */
+.creditsGrid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.creditItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.creditItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.creditLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.creditValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Clean Status Styling */
+.creditStatus.sufficient {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.creditStatus.sufficient .creditLabel {
+  color: #86efac;
+}
+
+.creditStatus.sufficient .creditValue {
+  color: #22c55e;
+}
+
+.creditStatus.insufficient {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.creditStatus.insufficient .creditLabel {
+  color: #fca5a5;
+}
+
+.creditStatus.insufficient .creditValue {
+  color: #ef4444;
+}
+
+/* Modern Status Messages */
+.statusMessage {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 0.75rem;
+  border-left: 3px solid #f59e0b;
+  margin-top: 0.75rem;
+  backdrop-filter: blur(8px);
+}
+
+.statusMessage.statusSuccess {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: #22c55e;
+}
+
+.statusIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.statusText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statusText strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.statusMessage.statusSuccess .statusText strong {
+  color: #86efac;
+}
+
+.statusText span {
+  font-size: 0.85rem;
+  color: rgba(251, 191, 36, 0.8);
+  font-weight: 400;
+}
+
+.statusMessage.statusSuccess .statusText span {
+  color: rgba(134, 239, 172, 0.8);
+}
+
+.needCreditsLink {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.needCreditsLink:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   UPLOAD AND BUTTON COLUMN
+======================================== */
+.uploadAndButtonColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.uploadBox {
+  position: relative;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 1rem;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.02);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadBox:hover {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.05);
+  transform: scale(1.02);
+}
+
+.uploadPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  max-height: 200px;
+}
+
+.uploadPlaceholder {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.uploadPlaceholder span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.uploadPlaceholder small {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.fileInput {
+  display: none;
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+.topBannerButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+.topBannerButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+}
+
+.topBannerButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+/* ========================================
+   PROGRESS WRAPPER
+======================================== */
+.progressWrapper {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 1024px) {
+  .controlsGrid {
+    gap: 1.5rem;
+  }
+  
+  .creditsInfoContainer {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .controlsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .creditsInfoContainer {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  
+  .creditItem {
+    padding: 0.75rem;
+  }
+  
+  .uploadBox {
+    min-height: 150px;
+    padding: 1.5rem;
+  }
+  
+  .topBannerButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .statusMessage {
+    padding: 0.875rem;
+  }
+
+  .needCreditsLink {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1f2937;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 480px) {
+  .creditsInfoContainer {
+    padding: 0.875rem;
+  }
+  
+  .creditItem {
+    padding: 0.625rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .uploadBox {
+    min-height: 120px;
+    padding: 1rem;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .creditItem,
+  .creditsInfoContainer,
+  .uploadBox {
+    border-width: 2px;
+  }
+}
+
+/* Focus states */
+.topBannerButton:focus-visible,
+.uploadBox:focus-visible,
+.needCreditsLink:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}

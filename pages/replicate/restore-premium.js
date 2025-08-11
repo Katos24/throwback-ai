@@ -9,7 +9,8 @@ import Link from "next/link";
 import Image from "next/image";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
-import CreditsInfo from "../../components/Restores/CreditsInfo"; // Import the new component
+import CreditsInfo from "../../components/Restores/CreditsInfo";
+import toast from 'react-hot-toast'; // Add toast import
 
 export default function RestorePremium() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,17 +51,58 @@ export default function RestorePremium() {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
+        icon: '🖼️',
+        duration: 4000,
+      });
+      return;
+    }
+    
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('File size must be under 10MB', {
+        icon: '📏',
+        duration: 4000,
+      });
+      return;
+    }
+
     setProgressStatus("compressing");
     setProcessing(true);
     setRestoredUrl("");
+    
+    // Show compression toast
+    const compressionToast = toast.loading('Compressing image for premium restoration...', {
+      icon: '⚡',
+    });
+
     try {
-      const compressedFile = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024, useWebWorker: true });
+      const compressedFile = await imageCompression(file, { 
+        maxSizeMB: 1, 
+        maxWidthOrHeight: 1024, 
+        useWebWorker: true 
+      });
       setSelectedFile(compressedFile);
       setSelectedPreviewUrl(URL.createObjectURL(compressedFile));
+      
+      toast.success('Image ready for premium color restoration!', {
+        id: compressionToast,
+        icon: '🎨',
+        duration: 2000,
+      });
     } catch (error) {
       console.error("Image compression error:", error);
       setSelectedFile(file);
       setSelectedPreviewUrl(URL.createObjectURL(file));
+      
+      toast.success('Image ready for premium color restoration!', {
+        id: compressionToast,
+        icon: '🎨',
+        duration: 2000,
+      });
     } finally {
       setProcessing(false);
       setProgressStatus("idle");
@@ -70,17 +112,34 @@ export default function RestorePremium() {
 
   const handleRestoreClick = async () => {
     if (!isLoggedIn) {
-      router.push("/signup");
+      toast.error('Please sign up to access premium color restoration', {
+        icon: '🔒',
+        duration: 4000,
+        action: {
+          label: 'Sign Up',
+          onClick: () => router.push("/signup")
+        }
+      });
       return;
     }
 
     if (credits < restoreCost) {
-      router.push("/pricing");
+      toast.error(`You need ${restoreCost} credits for premium color restoration`, {
+        icon: '💳',
+        duration: 4000,
+        action: {
+          label: 'Get Credits',
+          onClick: () => router.push("/pricing")
+        }
+      });
       return;
     }
 
     if (!selectedFile) {
-      alert("Please upload an image first.");
+      toast.error('Please upload an image first', {
+        icon: '📤',
+        duration: 3000,
+      });
       return;
     }
 
@@ -92,6 +151,11 @@ export default function RestorePremium() {
     setLoading(true);
     setProgressStatus("uploading");
     setProgressPercent(0);
+
+    // Show premium processing toast
+    const processingToast = toast.loading('Restoring and colorizing with premium AI...', {
+      icon: '🎨',
+    });
 
     const headers = { "Content-Type": "application/json" };
     if (session?.access_token) headers.Authorization = `Bearer ${session.access_token}`;
@@ -127,16 +191,40 @@ export default function RestorePremium() {
           setShowScrollNotice(true);
           setProgressStatus("complete");
           setProgressPercent(100);
+          
+          // Success toast for premium restoration
+          toast.success('Premium color restoration complete!', {
+            id: processingToast,
+            icon: '🌈',
+            duration: 5000,
+          });
+
+          // Delayed success details toast
+          setTimeout(() => {
+            toast.success('Amazing results with premium AI! Your photo now has vibrant colors and enhanced clarity', {
+              icon: '✨',
+              duration: 5000,
+            });
+          }, 2000);
+
           await deductCredits(restoreCost);
           await refreshCredits();
         } else {
-          alert(data.error || "Failed to restore image.");
+          toast.error(data.error || "Premium restoration failed. Please try again.", {
+            id: processingToast,
+            icon: '❌',
+            duration: 5000,
+          });
           setProgressStatus("idle");
           setProgressPercent(null);
         }
       } catch (error) {
-        alert("Network or server error. Please try again.");
         console.error(error);
+        toast.error("Network error. Please check your connection and try again.", {
+          id: processingToast,
+          icon: '🌐',
+          duration: 5000,
+        });
         setProgressStatus("idle");
         setProgressPercent(null);
       } finally {
@@ -148,16 +236,56 @@ export default function RestorePremium() {
 
   const handleDownload = async () => {
     if (!restoredUrl) return;
-    const response = await fetch(restoredUrl);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "restored-photo-premium.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+    
+    const downloadToast = toast.loading('Preparing premium download...', {
+      icon: '⬇️',
+    });
+    
+    try {
+      const response = await fetch(restoredUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "restored-photo-premium.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('Premium restored photo downloaded!', {
+        id: downloadToast,
+        icon: '🎨',
+        duration: 3000,
+      });
+    } catch (downloadError) {
+      console.error('Download failed:', downloadError);
+      toast.error('Download failed. Please try again.', {
+        id: downloadToast,
+        icon: '❌',
+        duration: 4000,
+      });
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedFile(null);
+    setSelectedPreviewUrl(null);
+    setRestoredUrl("");
+    setShowScrollNotice(false);
+    setProgressStatus("idle");
+    setProgressPercent(null);
+    
+    // Reset file input
+    const fileInput = document.getElementById('file-upload');
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    
+    toast.success('Ready for a new premium restoration!', {
+      icon: '🔄',
+      duration: 2000,
+    });
   };
 
   return (
@@ -197,27 +325,61 @@ export default function RestorePremium() {
                   />
                 </label>
 
-                {/* Restore Button */}
-                <button
-                  className={styles.topBannerButton}
-                  onClick={handleRestoreClick}
-                  disabled={loading || processing}
-                  style={{ marginTop: "1rem", width: "100%" }}
-                  title={!selectedFile ? "Please upload a file first" : ""}
-                >
-                  {(loading || processing) ? (
-                    <>
-                      <div className={styles.spinner} />
-                      <span className={styles.loadingText}>Please wait, this may take up to a minute...</span>
-                    </>
-                  ) : !isLoggedIn ? (
-                    "🔒 Sign up to Restore Premium"
-                  ) : credits < restoreCost ? (
-                    "💳 Buy More Credits"
-                  ) : (
-                    `Click to Restore (${restoreCost} credits)`
+                {/* Restore Button Row */}
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', width: '100%' }}>
+                  <button
+                    className={styles.topBannerButton}
+                    onClick={handleRestoreClick}
+                    disabled={loading || processing}
+                    style={{ flex: 1 }}
+                    title={!selectedFile ? "Please upload a file first" : ""}
+                  >
+                    {(loading || processing) ? (
+                      <>
+                        <div className={styles.spinner} />
+                        <span className={styles.loadingText}>Please wait, this may take up to a minute...</span>
+                      </>
+                    ) : !isLoggedIn ? (
+                      "🔒 Sign up to Restore Premium"
+                    ) : credits < restoreCost ? (
+                      "💳 Buy More Credits"
+                    ) : (
+                      `Click to Restore (${restoreCost} credits)`
+                    )}
+                  </button>
+                  
+                  {(selectedFile || restoredUrl) && (
+                    <button
+                      onClick={handleReset}
+                      disabled={loading || processing}
+                      style={{
+                        padding: '0.75rem 1rem',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        color: 'white',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '0.5rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        fontSize: '1rem',
+                        minWidth: '60px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                      title="Reset and start over"
+                      onMouseOver={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                        e.target.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                        e.target.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      🔄
+                    </button>
                   )}
-                </button>
+                </div>
 
                 {/* Show progress bar during processing */}
                 {progressStatus !== "idle" && (

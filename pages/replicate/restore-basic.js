@@ -6,7 +6,6 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
-import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 
 export default function RestoreBasic() {
   // State management - integrated from original component
@@ -32,45 +31,6 @@ export default function RestoreBasic() {
   
   // Refs
   const fileInputRef = useRef(null);
-
-  // Navigation helper function
-  const navigateTo = (url) => {
-    try {
-      // Ensure we have a clean URL
-      const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-      
-      // Try multiple methods for reliable navigation
-      if (window.location.pathname !== cleanUrl) {
-        // First try: standard navigation
-        window.location.href = cleanUrl;
-        
-        // Fallback: if standard doesn't work after short delay
-        setTimeout(() => {
-          if (window.location.pathname !== cleanUrl) {
-            window.location.assign(cleanUrl);
-          }
-        }, 100);
-        
-        // Last resort: replace current page
-        setTimeout(() => {
-          if (window.location.pathname !== cleanUrl) {
-            window.location.replace(cleanUrl);
-          }
-        }, 200);
-      }
-    } catch (error) {
-      console.error('Navigation failed:', error);
-      // Emergency fallback - open in current tab
-      window.open(url, '_self');
-    }
-  };
-
-  // Handle button clicks with proper event handling
-  const handleNavigation = (e, url) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigateTo(url);
-  };
 
   // Effects from original component
   useEffect(() => {
@@ -202,7 +162,7 @@ export default function RestoreBasic() {
         duration: 4000,
         action: {
           label: isLoggedIn ? 'Get Credits' : 'Sign Up',
-          onClick: () => navigateTo(isLoggedIn ? "/pricing" : "/signup")
+          onClick: () => window.location.href = isLoggedIn ? "/pricing" : "/signup"
         }
       });
       return;
@@ -277,7 +237,7 @@ export default function RestoreBasic() {
                 <button
                   onClick={() => {
                     toast.dismiss(t.id);
-                    navigateTo('/replicate/restore-premium');
+                    window.location.href = '/replicate/restore-premium';
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #a855f7, #ec4899)',
@@ -389,36 +349,38 @@ export default function RestoreBasic() {
 
       <div className={styles.content}>
         {/* Header */}
-        <div className={styles.header}>
-  <div className={styles.titleRow}>
-    <div>
-      <h1 className={styles.title}>
-        <span className={styles.titleGradient}>PhotoFix</span>
-      </h1>
-      <span className={styles.subtitle}>AI Studio</span>
+      <div className={styles.header}>
+  {/* Grid Cell: Top Right Badge */}
+  <div className={styles.compactCredits}>
+    <div className={styles.compactCreditsInfo}>
+      <span className={styles.creditsIcon}>⚡</span>
+      <span className={styles.creditsText}>{credits} credits</span>
+      <span className={styles.creditsCost}>({restoreCost}/restore)</span>
     </div>
-
-    <div className={styles.compactCredits}>
-      <div className={styles.compactCreditsInfo}>
-        <span className={styles.creditsIcon}>⚡</span>
-        <span className={styles.creditsText}>{credits} credits</span>
-        <span className={styles.creditsCost}>({restoreCost}/restore)</span>
-      </div>
-      <button
-        onClick={(e) => handleNavigation(e, isLoggedIn ? "/pricing" : "/signup")}
-        className={styles.compactCreditsButton}
-      >
-        {isLoggedIn ? "+" : "Sign Up"}
-      </button>
-    </div>
+    <button 
+      onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+      className={styles.compactCreditsButton}
+    >
+      {isLoggedIn ? "+" : "Sign Up"}
+    </button>
   </div>
 
-  <p className={styles.description}>
-    Restore old photos to their former glory with advanced AI technology. 
-    Remove scratches, enhance colors, and bring memories back to life.{' '}
-    <span className={styles.costLabel}>Costs 1 credit</span>
-  </p>
+  {/* Grid Cell: Centered Title */}
+  <div className={styles.titleWrapper}>
+    <h1 className={styles.title}>
+      <span className={styles.titleGradient}>PhotoFix</span>
+    </h1>
+    <span className={styles.subtitle}>AI Studio</span>
+  </div>
+
+{/* Grid Cell: Description (full width below) */}
+<p className={styles.description}>
+  Restore old photos to their former glory with advanced AI technology. 
+  Remove scratches, enhance colors, and bring memories back to life.
+  <span className={styles.creditPill}>Costs 1 credit</span>
+</p>
 </div>
+
 
         {/* Main Content Grid */}
         <div className={styles.mainGrid}>
@@ -534,11 +496,11 @@ export default function RestoreBasic() {
                 <span>✅</span>
                 <div className={styles.alertContent}>
                   <p className={styles.alertTitle}>Your image has been restored!</p>
-                  <p className={styles.alertDescription}>Check the results on the right</p>
                 </div>
               </div>
             )}
 
+       
           </div>
 
           {/* Results Section */}
@@ -549,10 +511,7 @@ export default function RestoreBasic() {
                   <span>👁️</span>
                   Results
                 </h2>
-                <div className={styles.badge}>
-              <span>✨</span>
-              <span>AI-Powered Photo Restoration</span>
-            </div>
+                
                 {restoredUrl && (
                   <button
                     onClick={handleDownload}
@@ -650,15 +609,12 @@ export default function RestoreBasic() {
           ].map((feature, idx) => (
             <div key={idx} className={styles.featureCard}>
               <span className={styles.featureIcon}>{feature.icon}</span>
-                        <h3 className={styles.featureTitle}>{feature.title}</h3>
-          <p className={styles.featureDescription}>{feature.desc}</p>
+              <h3 className={styles.featureTitle}>{feature.title}</h3>
+              <p className={styles.featureDescription}>{feature.desc}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
-  </div>
-
-  <BasicFeaturesSection />
-
-</div>
-);
+  );
 }

@@ -70,7 +70,7 @@ export default function PricingPage() {
 
   const handlePurchase = async (selectedPriceId) => {
     if (!user) {
-      alert("Please log in to make a purchase.");
+      alert("Please sign up or log in to make a purchase.");
       return;
     }
 

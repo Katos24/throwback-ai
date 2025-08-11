@@ -105,6 +105,9 @@ export default function Header({ showMenu, setShowMenu }) {
           <Link href="/gallery" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
             Gallery
           </Link>
+          <Link href="/how-it-works" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            How It Works
+          </Link>
           <Link href="/about" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
             About
           </Link>

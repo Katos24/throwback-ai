@@ -23,7 +23,7 @@ export default function HeroSection() {
           {/* Sleek pricing callout with signup link */}
           <div className={heroStyles.pricingCallout}>
             <span className={heroStyles.creditInfo}>
-              <strong>Try Free</strong> • <Link href="/signup" className={heroStyles.signupLink}><strong>+5 Credits</strong> on Signup</Link>
+              <strong>Try Free</strong> • <Link href="/signup" className={heroStyles.signupLink}><strong> +5 Credits</strong> on Signup</Link>
             </span>
           </div>
 

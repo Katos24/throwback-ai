@@ -6,6 +6,8 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
+import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+
 
 export default function RestoreBasic() {
   // State management - integrated from original component
@@ -609,12 +611,15 @@ export default function RestoreBasic() {
           ].map((feature, idx) => (
             <div key={idx} className={styles.featureCard}>
               <span className={styles.featureIcon}>{feature.icon}</span>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.desc}</p>
-            </div>
-          ))}
+                        <h3 className={styles.featureTitle}>{feature.title}</h3>
+          <p className={styles.featureDescription}>{feature.desc}</p>
         </div>
-      </div>
+      ))}
     </div>
-  );
+  </div>
+
+  <BasicFeaturesSection />
+
+</div>
+);
 }

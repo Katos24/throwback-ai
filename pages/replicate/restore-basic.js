@@ -351,38 +351,37 @@ export default function RestoreBasic() {
 
       <div className={styles.content}>
         {/* Header */}
-      <div className={styles.header}>
-  {/* Grid Cell: Top Right Badge */}
-  <div className={styles.compactCredits}>
-    <div className={styles.compactCreditsInfo}>
-      <span className={styles.creditsIcon}>⚡</span>
-      <span className={styles.creditsText}>{credits} credits</span>
-      <span className={styles.creditsCost}>({restoreCost}/restore)</span>
-    </div>
-    <button 
-      onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
-      className={styles.compactCreditsButton}
-    >
-      {isLoggedIn ? "+" : "Sign Up"}
-    </button>
-  </div>
+        <div className={styles.header}>
+          {/* Grid Cell: Top Right Badge */}
+          <div className={styles.compactCredits}>
+            <div className={styles.compactCreditsInfo}>
+              <span className={styles.creditsIcon}>⚡</span>
+              <span className={styles.creditsText}>{credits} credits</span>
+              <span className={styles.creditsCost}>({restoreCost}/restore)</span>
+            </div>
+            <button 
+              onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+              className={styles.compactCreditsButton}
+            >
+              {isLoggedIn ? "+" : "Sign Up"}
+            </button>
+          </div>
 
-  {/* Grid Cell: Centered Title */}
-  <div className={styles.titleWrapper}>
-    <h1 className={styles.title}>
-      <span className={styles.titleGradient}>PhotoFix</span>
-    </h1>
-    <span className={styles.subtitle}>AI Studio</span>
-  </div>
+          {/* Grid Cell: Centered Title */}
+          <div className={styles.titleWrapper}>
+            <h1 className={styles.title}>
+              <span className={styles.titleGradient}>PhotoFix</span>
+            </h1>
+            <span className={styles.subtitle}>AI Studio</span>
+          </div>
 
-{/* Grid Cell: Description (full width below) */}
-<p className={styles.description}>
-  Restore old photos to their former glory with advanced AI technology. 
-  Remove scratches, enhance colors, and bring memories back to life.
-  <span className={styles.creditPill}>Costs 1 credit</span>
-</p>
-</div>
-
+          {/* Grid Cell: Description (full width below) */}
+          <p className={styles.description}>
+            Restore old photos to their former glory with advanced AI technology. 
+            Remove scratches, enhance colors, and bring memories back to life.
+            <span className={styles.creditPill}>Costs 1 credit</span>
+          </p>
+        </div>
 
         {/* Main Content Grid */}
         <div className={styles.mainGrid}>
@@ -501,8 +500,6 @@ export default function RestoreBasic() {
                 </div>
               </div>
             )}
-
-       
           </div>
 
           {/* Results Section */}
@@ -541,14 +538,6 @@ export default function RestoreBasic() {
                     <span>✅</span>
                     <p>Photo successfully restored! Use the slider to compare.</p>
                   </div>
-
-                  {/* Pro Tip - Below comparison (only shows after restoration) */}
-                  <div className={styles.bottomProTip}>
-                    <span className={styles.proTipIcon}>💡</span>
-                    <span className={styles.proTipText}>
-                      <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
-                    </span>
-                  </div>
                 </div>
               ) : (
                 <div className={styles.resultsPlaceholder}>
@@ -560,6 +549,14 @@ export default function RestoreBasic() {
                   </div>
                 </div>
               )}
+
+              {/* Pro Tip - Always shows under results */}
+              <div className={styles.bottomProTip}>
+                <span className={styles.proTipIcon}>💡</span>
+                <span className={styles.proTipText}>
+                  <strong>Pro Tip:</strong> For old or black & white photos, start with <strong>Photo Fix</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -611,15 +608,14 @@ export default function RestoreBasic() {
           ].map((feature, idx) => (
             <div key={idx} className={styles.featureCard}>
               <span className={styles.featureIcon}>{feature.icon}</span>
-                        <h3 className={styles.featureTitle}>{feature.title}</h3>
-          <p className={styles.featureDescription}>{feature.desc}</p>
+              <h3 className={styles.featureTitle}>{feature.title}</h3>
+              <p className={styles.featureDescription}>{feature.desc}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      <BasicFeaturesSection />
     </div>
-  </div>
-
-  <BasicFeaturesSection />
-
-</div>
-);
+  );
 }

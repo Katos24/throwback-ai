@@ -32,6 +32,45 @@ export default function RestoreBasic() {
   // Refs
   const fileInputRef = useRef(null);
 
+  // Navigation helper function
+  const navigateTo = (url) => {
+    try {
+      // Ensure we have a clean URL
+      const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+      
+      // Try multiple methods for reliable navigation
+      if (window.location.pathname !== cleanUrl) {
+        // First try: standard navigation
+        window.location.href = cleanUrl;
+        
+        // Fallback: if standard doesn't work after short delay
+        setTimeout(() => {
+          if (window.location.pathname !== cleanUrl) {
+            window.location.assign(cleanUrl);
+          }
+        }, 100);
+        
+        // Last resort: replace current page
+        setTimeout(() => {
+          if (window.location.pathname !== cleanUrl) {
+            window.location.replace(cleanUrl);
+          }
+        }, 200);
+      }
+    } catch (error) {
+      console.error('Navigation failed:', error);
+      // Emergency fallback - open in current tab
+      window.open(url, '_self');
+    }
+  };
+
+  // Handle button clicks with proper event handling
+  const handleNavigation = (e, url) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigateTo(url);
+  };
+
   // Effects from original component
   useEffect(() => {
     async function getSession() {
@@ -162,7 +201,7 @@ export default function RestoreBasic() {
         duration: 4000,
         action: {
           label: isLoggedIn ? 'Get Credits' : 'Sign Up',
-          onClick: () => window.location.href = isLoggedIn ? "/pricing" : "/signup"
+          onClick: () => navigateTo(isLoggedIn ? "/pricing" : "/signup")
         }
       });
       return;
@@ -237,7 +276,7 @@ export default function RestoreBasic() {
                 <button
                   onClick={() => {
                     toast.dismiss(t.id);
-                    window.location.href = '/replicate/restore-premium';
+                    navigateTo('/replicate/restore-premium');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #a855f7, #ec4899)',
@@ -350,9 +389,16 @@ export default function RestoreBasic() {
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
-          {/* Top Bar with Credits and Pro Tip - Aligned with Badge */}
+          {/* Top Bar with Centered Badge and Right Credits */}
           <div className={styles.topBar}>
-            {/* Compact Credits Section - Top Left */}
+            <div></div> {/* Empty left space */}
+            
+            <div className={styles.badge}>
+              <span>✨</span>
+              <span>AI-Powered Photo Restoration</span>
+            </div>
+
+            {/* Compact Credits Section - Top Right */}
             <div className={styles.compactCredits}>
               <div className={styles.compactCreditsInfo}>
                 <span className={styles.creditsIcon}>⚡</span>
@@ -360,24 +406,11 @@ export default function RestoreBasic() {
                 <span className={styles.creditsCost}>({restoreCost}/restore)</span>
               </div>
               <button 
-                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                onClick={(e) => handleNavigation(e, isLoggedIn ? "/pricing" : "/signup")}
                 className={styles.compactCreditsButton}
               >
                 {isLoggedIn ? "+" : "Sign Up"}
               </button>
-            </div>
-
-            <div className={styles.badge}>
-              <span>✨</span>
-              <span>AI-Powered Photo Restoration</span>
-            </div>
-
-            {/* Pro Tip - Top Right */}
-            <div className={styles.topProTip}>
-              <span className={styles.proTipIcon}>💡</span>
-              <span className={styles.proTipText}>
-                <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
-              </span>
             </div>
           </div>
           
@@ -511,26 +544,6 @@ export default function RestoreBasic() {
               </div>
             )}
 
-            {/* Upgrade Suggestion - Shows after restoration */}
-            {restoredUrl && (
-              <div className={styles.upgradeCard}>
-                <div className={styles.upgradeContent}>
-                  <span className={styles.upgradeIcon}>🎨</span>
-                  <div className={styles.upgradeText}>
-                    <h4 className={styles.upgradeTitle}>Want Even Better Results?</h4>
-                    <p className={styles.upgradeDescription}>
-                      Try <strong>Full Color Restore</strong> to add vibrant colors and advanced enhancement to your photo
-                    </p>
-                  </div>
-                  <button 
-                    onClick={() => window.location.href = '/replicate/restore-premium'}
-                    className={styles.upgradeButton}
-                  >
-                    Try Full Color ✨
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Results Section */}
@@ -568,6 +581,14 @@ export default function RestoreBasic() {
                   <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>
                     <span>✅</span>
                     <p>Photo successfully restored! Use the slider to compare.</p>
+                  </div>
+
+                  {/* Pro Tip - Below comparison (only shows after restoration) */}
+                  <div className={styles.bottomProTip}>
+                    <span className={styles.proTipIcon}>💡</span>
+                    <span className={styles.proTipText}>
+                      <strong>Pro Tip:</strong> For old or black & white photos, start with Photo Fix for clarity, then use Full Color Restore to bring it to life.
+                    </span>
                   </div>
                 </div>
               ) : (

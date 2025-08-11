@@ -615,6 +615,189 @@
   }
 }
 
+.proTip {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  display: block;
+  border-left: 3px solid #06b6d4;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.proTip strong {
+  color: #67e8f9;
+  font-weight: 600;
+}
+
+/* Before/After Gallery Section */
+.beforeAfterGallery {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.galleryTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.beforeAfterGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.beforeAfterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.beforeAfterLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.beforeAfterImageWrapper {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #111827;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.beforeAfterImageWrapper:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.beforeAfterImage {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  object-position: center;
+  background: #000;
+}
+
+/* Upgrade Card */
+.upgradeCard {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.upgradeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.upgradeContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upgradeIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.upgradeText {
+  flex: 1;
+}
+
+.upgradeTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f3e8ff;
+  margin: 0 0 0.25rem 0;
+}
+
+.upgradeDescription {
+  font-size: 0.875rem;
+  color: #e9d5ff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.upgradeDescription strong {
+  color: #ddd6fe;
+  font-weight: 600;
+}
+
+.upgradeButton {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.upgradeButton:hover {
+  background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+@media (max-width: 768px) {
+  .beforeAfterGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .beforeAfterImage {
+    height: 200px;
+  }
+  
+  .proTip {
+    font-size: 0.8rem;
+    padding: 0.875rem 1rem;
+  }
+  
+  .upgradeContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .upgradeButton {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .uploadZone {
     padding: 1rem;

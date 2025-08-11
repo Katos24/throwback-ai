@@ -5,6 +5,7 @@ import useCredits from "../../hooks/useCredits";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
+import toast from 'react-hot-toast';
 
 export default function RestoreBasic() {
   // State management - integrated from original component
@@ -84,17 +85,23 @@ export default function RestoreBasic() {
     }
   };
 
-  // Enhanced file selection with compression (from original component)
+  // Enhanced file selection with compression and toast notifications
   const handleFileSelection = async (file) => {
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      setError('Please upload a valid image file (PNG, JPG, HEIC)');
+      toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
+        icon: '🖼️',
+        duration: 4000,
+      });
       return;
     }
     
     // Validate file size (10MB max)
     if (file.size > 10 * 1024 * 1024) {
-      setError('File size must be under 10MB');
+      toast.error('File size must be under 10MB', {
+        icon: '📏',
+        duration: 4000,
+      });
       return;
     }
     
@@ -102,6 +109,11 @@ export default function RestoreBasic() {
     setProgressStatus("compressing");
     setProcessing(true);
     setRestoredUrl("");
+    
+    // Show compression toast
+    const compressionToast = toast.loading('Compressing image...', {
+      icon: '⚡',
+    });
     
     try {
       const compressed = await imageCompression(file, {
@@ -111,10 +123,22 @@ export default function RestoreBasic() {
       });
       setSelectedFile(compressed);
       setSelectedPreviewUrl(URL.createObjectURL(compressed));
+      
+      toast.success('Image ready for restoration!', {
+        id: compressionToast,
+        icon: '✅',
+        duration: 2000,
+      });
     } catch (compressionError) {
       console.warn('Compression failed, using original file:', compressionError);
       setSelectedFile(file);
       setSelectedPreviewUrl(URL.createObjectURL(file));
+      
+      toast.success('Image ready for restoration!', {
+        id: compressionToast,
+        icon: '✅',
+        duration: 2000,
+      });
     } finally {
       setProcessing(false);
       setProgressStatus("idle");
@@ -122,15 +146,25 @@ export default function RestoreBasic() {
     }
   };
 
-  // Real restore function from original component
+  // Real restore function with toast notifications
   const handleRestore = async () => {
     if (!selectedFile) {
-      setError("Please upload an image first.");
+      toast.error('Please upload an image first', {
+        icon: '📤',
+        duration: 3000,
+      });
       return;
     }
     
     if (credits < restoreCost) {
-      window.location.href = isLoggedIn ? "/pricing" : "/signup";
+      toast.error(`You need ${restoreCost} credit to restore this image`, {
+        icon: '⚡',
+        duration: 4000,
+        action: {
+          label: isLoggedIn ? 'Get Credits' : 'Sign Up',
+          onClick: () => window.location.href = isLoggedIn ? "/pricing" : "/signup"
+        }
+      });
       return;
     }
     
@@ -138,6 +172,11 @@ export default function RestoreBasic() {
     setProgressStatus("uploading");
     setProgressPercent(0);
     setError('');
+    
+    // Show processing toast
+    const processingToast = toast.loading('Restoring your photo with AI magic...', {
+      icon: '✨',
+    });
     
     const headers = { "Content-Type": "application/json" };
     if (session?.access_token) {
@@ -174,19 +213,73 @@ export default function RestoreBasic() {
           setRestoredUrl(data.imageUrl);
           setShowScrollNotice(true);
           setProgressStatus("complete");
+          
+          // Success toast with upgrade suggestion
+          toast.success('Photo restoration complete!', {
+            id: processingToast,
+            icon: '🎉',
+            duration: 5000,
+          });
+          
+          // Delayed upgrade suggestion toast
+          setTimeout(() => {
+            toast((t) => (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '1.5rem' }}>🎨</span>
+                <div>
+                  <div style={{ fontWeight: '600', marginBottom: '4px' }}>
+                    Want even better results?
+                  </div>
+                  <div style={{ fontSize: '0.875rem', opacity: 0.8 }}>
+                    Try Full Color Restore for vibrant colors!
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                    window.location.href = '/replicate/restore-premium';
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #a855f7, #ec4899)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.875rem',
+                    fontWeight: '600'
+                  }}
+                >
+                  Try It ✨
+                </button>
+              </div>
+            ), {
+              duration: 8000,
+              style: { maxWidth: '400px' }
+            });
+          }, 2000);
+          
           if (isLoggedIn) {
             await refreshCredits();
           } else {
             deductCredits(restoreCost);
           }
         } else {
-          setError(data.error || "Restore failed. Please try again.");
+          toast.error(data.error || "Restoration failed. Please try again.", {
+            id: processingToast,
+            icon: '❌',
+            duration: 5000,
+          });
           setProgressStatus("idle");
           setProgressPercent(null);
         }
       } catch (networkError) {
         console.error('Network/server error:', networkError);
-        setError("Network or server error. Please check your connection and try again.");
+        toast.error("Network error. Please check your connection and try again.", {
+          id: processingToast,
+          icon: '🌐',
+          duration: 5000,
+        });
         setProgressStatus("idle");
         setProgressPercent(null);
       } finally {
@@ -196,9 +289,13 @@ export default function RestoreBasic() {
     reader.readAsDataURL(selectedFile);
   };
 
-  // Real download function from original component
+  // Download function with toast notifications
   const handleDownload = async () => {
     if (!restoredUrl) return;
+    
+    const downloadToast = toast.loading('Preparing download...', {
+      icon: '⬇️',
+    });
     
     try {
       const resp = await fetch(restoredUrl);
@@ -211,9 +308,19 @@ export default function RestoreBasic() {
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
+      
+      toast.success('Photo downloaded successfully!', {
+        id: downloadToast,
+        icon: '📥',
+        duration: 3000,
+      });
     } catch (downloadError) {
       console.error('Download failed:', downloadError);
-      setError('Download failed. Please try again.');
+      toast.error('Download failed. Please try again.', {
+        id: downloadToast,
+        icon: '❌',
+        duration: 4000,
+      });
     }
   };
 
@@ -228,6 +335,11 @@ export default function RestoreBasic() {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+    
+    toast.success('Ready for a new photo!', {
+      icon: '🔄',
+      duration: 2000,
+    });
   };
 
   return (
@@ -272,6 +384,13 @@ export default function RestoreBasic() {
             </button>
           </div>
         </div>
+
+        {/* Pro Tip */}
+        <p className={styles.proTip}>
+          💡 <strong>Pro Tip:</strong> For old or black & white photos, start
+          with Photo Fix for clarity, then use Full Color Restore to bring it to
+          life.
+        </p>
 
         {/* Main Content Grid */}
         <div className={styles.mainGrid}>
@@ -338,14 +457,6 @@ export default function RestoreBasic() {
                 )}
               </div>
 
-              {/* Error Display */}
-              {error && (
-                <div className={`${styles.alert} ${styles.alertError}`}>
-                  <span>⚠️</span>
-                  <p>{error}</p>
-                </div>
-              )}
-
               {/* Action Buttons */}
               <div className={styles.buttonRow}>
                 <button
@@ -389,13 +500,34 @@ export default function RestoreBasic() {
               </div>
             )}
 
-            {/* Success Notice */}
+            {/* Success Notice with Upgrade Option */}
             {showScrollNotice && (
               <div className={`${styles.alert} ${styles.alertSuccess}`}>
                 <span>✅</span>
                 <div className={styles.alertContent}>
                   <p className={styles.alertTitle}>Your image has been restored!</p>
                   <p className={styles.alertDescription}>Check the results on the right</p>
+                </div>
+              </div>
+            )}
+
+            {/* Upgrade Suggestion - Shows after restoration */}
+            {restoredUrl && (
+              <div className={styles.upgradeCard}>
+                <div className={styles.upgradeContent}>
+                  <span className={styles.upgradeIcon}>🎨</span>
+                  <div className={styles.upgradeText}>
+                    <h4 className={styles.upgradeTitle}>Want Even Better Results?</h4>
+                    <p className={styles.upgradeDescription}>
+                      Try <strong>Full Color Restore</strong> to add vibrant colors and advanced enhancement to your photo
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => window.location.href = '/replicate/restore-premium'}
+                    className={styles.upgradeButton}
+                  >
+                    Try Full Color ✨
+                  </button>
                 </div>
               </div>
             )}
@@ -451,6 +583,44 @@ export default function RestoreBasic() {
             </div>
           </div>
         </div>
+
+        {/* Before/After Gallery - Shows after restoration */}
+        {restoredUrl && selectedPreviewUrl && (
+          <div className={styles.beforeAfterGallery}>
+            <h3 className={styles.galleryTitle}>
+              <span>🖼️</span>
+              Before & After Gallery
+            </h3>
+            <div className={styles.beforeAfterGrid}>
+              <div className={styles.beforeAfterItem}>
+                <div className={styles.beforeAfterLabel}>
+                  <span>⬅️</span>
+                  Before
+                </div>
+                <div className={styles.beforeAfterImageWrapper}>
+                  <img 
+                    src={selectedPreviewUrl} 
+                    alt="Before restoration" 
+                    className={styles.beforeAfterImage}
+                  />
+                </div>
+              </div>
+              <div className={styles.beforeAfterItem}>
+                <div className={styles.beforeAfterLabel}>
+                  <span>➡️</span>
+                  After
+                </div>
+                <div className={styles.beforeAfterImageWrapper}>
+                  <img 
+                    src={restoredUrl} 
+                    alt="After restoration" 
+                    className={styles.beforeAfterImage}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Features Grid */}
         <div className={styles.featuresGrid}>

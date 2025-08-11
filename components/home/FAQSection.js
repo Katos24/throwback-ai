@@ -10,7 +10,7 @@ const FAQSection = () => {
     },
     {
       question: "Is it really free to try?",
-      answer: "Yes! You get 3 free Photo Fix restorations. No signup, no payment info required.",
+      answer: "Yes! You get 1 free Photo Fix restoration. If you sign up you will also get an additional 5 credits!",
     },
     {
       question: "What happens to my photo after it's restored?",

@@ -8,30 +8,55 @@ export default function HeroSection() {
       <div className={heroStyles.fullWidthBanner}>
         🔒 Privacy-First • ⚡ Results in Under 1 Minute • 🆓 1 Free Restore + 5 Bonus on Signup
       </div>
-
+      
       <section className={heroStyles.hero}>
         <div className={heroStyles.heroContent}>
           <h1 className={heroStyles.heroTitle}>
             Restore Memories, <span className={heroStyles.accent}>Not Just Photos</span>
           </h1>
-
+          
           <p className={heroStyles.heroSubtitle}>
-            In under a minute, our one-click AI enhances faded, torn, or lightly water-damaged prints into vibrant, frame-worthy keepsakes—no subscription required.  
-            Preserve your family&apos;s legacy with just one click of “Restore.”
+            Transform faded, torn, or damaged photos into vibrant keepsakes in under 60 seconds. 
+            Choose your restoration level—from basic enhancement to full colorization.
           </p>
 
+          {/* Sleek pricing callout with signup link */}
+          <div className={heroStyles.pricingCallout}>
+            <span className={heroStyles.creditInfo}>
+              <strong>Try Free</strong> • <Link href="/signup" className={heroStyles.signupLink}><strong>+5 Credits</strong> on Signup</Link>
+            </span>
+          </div>
 
+          {/* Enhanced button section with clear pricing */}
           <div className={heroStyles.heroButtons}>
             <Link href="/replicate/restore-basic" className={heroStyles.secondaryButton}>
-              Photo Fix <span className={heroStyles.freePill}>Free</span>
+              <div className={heroStyles.buttonContent}>
+                <div className={heroStyles.buttonMain}>Photo Fix</div>
+                <div className={heroStyles.buttonSubtext}>Enhance & Repair</div>
+                <div className={heroStyles.buttonCost}>
+                  <span className={heroStyles.freePill}>1 Credit</span>
+                </div>
+              </div>
             </Link>
+            
             <Link href="/replicate/restore-premium" className={heroStyles.primaryButton}>
-              Full Color Restore <span className={heroStyles.premiumPill}>Premium</span>
+              <div className={heroStyles.buttonContent}>
+                <div className={heroStyles.buttonMain}>Full Color Restore</div>
+                <div className={heroStyles.buttonSubtext}>Colorize & Enhance</div>
+                <div className={heroStyles.buttonCost}>
+                  <span className={heroStyles.premiumPill}>40 Credits</span>
+                </div>
+              </div>
             </Link>
           </div>
 
-          {/* Video replaces the compare slider */}
-          <div className={heroStyles.videoContainer}>
+          {/* Pricing context with link */}
+          <div className={heroStyles.pricingContext}>
+            <p>Need more credits? <Link href="/pricing" className={heroStyles.pricingLink}><strong>400 credits for just $4.99</strong></Link></p>
+          </div>
+
+          {/* Video section */}
+          <div className={heroStyles.videoWrapper}>
             <video
               className={heroStyles.heroVideo}
               src="/videos/restore-demo.mp4"
@@ -42,10 +67,17 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* ✨ Gradient subtext below video */}
+          {/* Enhanced call-to-action */}
           <p className={heroStyles.subText}>
-            Sign up now and get 5 free credits
+            Start restoring memories today
           </p>
+
+          {/* Trust badges */}
+          <div className={heroStyles.trustBadges}>
+            <div className={heroStyles.badge}>No Subscription Required</div>
+            <div className={heroStyles.badge}>Pay Per Use</div>
+            <div className={heroStyles.badge}>Privacy Protected</div>
+          </div>
         </div>
       </section>
     </>

@@ -89,7 +89,7 @@
 
 .topBannerTop {
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -149,264 +149,27 @@
 }
 
 /* ========================================
-   ENHANCED CONTROLS GRID
+   NEW VERTICAL LAYOUT - Upload First, Credits Below
 ======================================== */
 .controlsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-top: 1rem;
-  align-items: start;
-  width: 100%;
-  max-width: 1000px;
-}
-
-/* ========================================
-   PREMIUM CREDITS INFO CONTAINER
-======================================== */
-.creditsInfoContainer {
-  background: 
-    linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.95) 0%, 
-      rgba(248, 250, 252, 0.9) 100%
-    );
-  backdrop-filter: blur(16px);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.creditsInfoContainer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
-  border-radius: 20px 20px 0 0;
-}
-
-.creditsInfoContainer:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.15),
-    0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.creditsHeader {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.creditsTitle {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #1e293b;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-/* Enhanced Credits Grid */
-.creditsGrid {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: .2rem;
-}
-
-.creditItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.creditItem::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.5s ease;
-}
-
-.creditItem:hover {
-  background: rgba(255, 255, 255, 0.6);
-  transform: translateY(-1px);
-  box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.creditItem:hover::before {
-  left: 100%;
-}
-
-.creditLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #475569;
-  letter-spacing: 0.025em;
-}
-
-.creditValue {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #1e293b;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-/* Enhanced Status Styling */
-.creditStatus.sufficient {
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  border-color: #6ee7b7;
-  box-shadow: 
-    0 4px 12px rgba(34, 197, 94, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.creditStatus.sufficient .creditLabel {
-  color: #065f46;
-}
-
-.creditStatus.sufficient .creditValue {
-  color: #059669;
-}
-
-.creditStatus.insufficient {
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  border-color: #fca5a5;
-  box-shadow: 
-    0 4px 12px rgba(239, 68, 68, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.creditStatus.insufficient .creditLabel {
-  color: #991b1b;
-}
-
-.creditStatus.insufficient .creditValue {
-  color: #dc2626;
-}
-
-/* Enhanced Status Messages */
-.statusMessage {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%);
-  border-radius: 12px;
-  border-left: 4px solid #f59e0b;
-  margin-top: 0.5rem;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.statusMessage::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #f59e0b, #d97706);
-  border-radius: 0 2px 2px 0;
-}
-
-.statusMessage.statusSuccess {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  border-left-color: #22c55e;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
-}
-
-.statusMessage.statusSuccess::before {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
-}
-
-.statusIcon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
-}
-
-.statusText {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 2rem;
+  margin-top: 1rem;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
 }
-
-.statusText strong {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #92400e;
-}
-
-.statusMessage.statusSuccess .statusText strong {
-  color: #166534;
-}
-
-.statusText span {
-  font-size: 0.875rem;
-  color: #78350f;
-  font-weight: 500;
-}
-
-.statusMessage.statusSuccess .statusText span {
-  color: #15803d;
-}
-
-.needCreditsLink {
-  /* existing styles */
-  padding: 0.4rem 0.8rem;
-  color: #0f172a;
-  border-radius: 6px;
-  text-decoration: none;
-}
-
-/* Mobile Firefly style */
-@media (max-width: 768px) {
-  .needCreditsLink {
-    background: white;
-    color: black; /* ensure text is visible */
-    font-weight: 600;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-}
-
 
 /* ========================================
-   ENHANCED UPLOAD SECTION
+   ENHANCED UPLOAD SECTION - Now On Top
 ======================================== */
 .uploadAndButtonColumn {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
+  width: 100%;
 }
 
 .uploadBox {
@@ -514,7 +277,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 280px;
+  width: 100%;
   box-shadow: 
     0 12px 24px rgba(99, 102, 241, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.1),
@@ -534,7 +297,7 @@
 }
 
 .topBannerButton:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px) scale(1.02);
   box-shadow: 
     0 20px 40px rgba(99, 102, 241, 0.4),
     0 8px 16px rgba(0, 0, 0, 0.15),
@@ -567,6 +330,11 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .loadingText {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
@@ -574,10 +342,226 @@
 }
 
 /* ========================================
+   SLEEK CREDITS BANNER - Below Upload
+======================================== */
+.creditsInfoContainer {
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.08) 0%, 
+      rgba(248, 250, 252, 0.05) 100%
+    );
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.creditsInfoContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  border-radius: 16px 16px 0 0;
+}
+
+.creditsInfoContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.creditsHeader {
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.creditsTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* NEW: Horizontal Credits Row Layout */
+.creditsGrid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.creditItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+
+.creditItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.creditItem:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.creditItem:hover::before {
+  left: 100%;
+}
+
+.creditLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.creditValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* Enhanced Status Styling */
+.creditStatus.sufficient {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.creditStatus.sufficient .creditLabel {
+  color: #86efac;
+}
+
+.creditStatus.sufficient .creditValue {
+  color: #22c55e;
+}
+
+.creditStatus.insufficient {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.creditStatus.insufficient .creditLabel {
+  color: #fca5a5;
+}
+
+.creditStatus.insufficient .creditValue {
+  color: #ef4444;
+}
+
+/* Compact Status Messages */
+.statusMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(245, 158, 11, 0.15);
+  border-radius: 10px;
+  border-left: 3px solid #f59e0b;
+  margin-top: 0.75rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.statusMessage.statusSuccess {
+  background: rgba(34, 197, 94, 0.15);
+  border-left-color: #22c55e;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+}
+
+.statusIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.statusText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.statusText strong {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.statusMessage.statusSuccess .statusText strong {
+  color: #22c55e;
+}
+
+.statusText span {
+  font-size: 0.75rem;
+  color: #d97706;
+  font-weight: 400;
+}
+
+.statusMessage.statusSuccess .statusText span {
+  color: #16a34a;
+}
+
+.needCreditsLink {
+  padding: 0.4rem 0.8rem;
+  color: #0f172a;
+  border-radius: 6px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.needCreditsLink:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ========================================
    PROGRESS WRAPPER
 ======================================== */
 .progressWrapper {
-  margin-top: .5rem;
+  margin-top: 1rem;
   width: 100%;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
@@ -595,7 +579,7 @@
   gap: 2rem;
   width: 100%;
   max-width: 1000px;
-  margin-top: .1rem;
+  margin-top: 2rem;
 }
 
 .imageBox {
@@ -606,13 +590,12 @@
 }
 
 .imageBox > strong {
-  font-size: 1.25rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: #f1f5f9;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.025em;
   text-transform: uppercase;
-  font-size: 0.875rem;
 }
 
 .imageWrapper {
@@ -730,24 +713,20 @@
   50% { transform: scale(1.05); }
 }
 
-/* ========================================
-   RESPONSIVE ENHANCEMENTS
-======================================== */
-@media (max-width: 1024px) {
-  .controlsGrid {
-    gap: 2rem;
-  }
-  
-  .creditsInfoContainer {
-    padding: 1.5rem;
-  }
-  
-  .topBannerButton {
-    min-width: 240px;
-    font-size: 1rem;
-  }
+.proTip {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
 }
 
+/* ========================================
+   MOBILE-FIRST RESPONSIVE DESIGN
+======================================== */
 @media (max-width: 768px) {
   .topBanner,
   .topBannerBasic {
@@ -756,8 +735,31 @@
   }
   
   .controlsGrid {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .creditsGrid {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .creditItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: unset;
+    padding: 0.75rem 1rem;
+  }
+  
+  .creditLabel {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  
+  .creditValue {
+    font-size: 1.125rem;
   }
   
   .topBannerImages {
@@ -770,22 +772,16 @@
     border-radius: 16px;
   }
   
-  .creditItem {
-    padding: 0.875rem 1.25rem;
-  }
-  
   .uploadBox {
     height: 180px;
     border-radius: 12px;
   }
   
-  .topBannerButton {
-    width: 100%;
-    min-width: unset;
-  }
-  
   .statusMessage {
     padding: 1rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 }
 
@@ -800,9 +796,6 @@
   
   .creditItem {
     padding: 0.75rem 1rem;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
   }
   
   .uploadBox {
@@ -818,40 +811,17 @@
     padding: 1rem 1.5rem;
     font-size: 0.95rem;
   }
-}
-
-/* ========================================
-   DARK MODE OPTIMIZATIONS
-======================================== */
-@media (prefers-color-scheme: dark) {
-  .creditsInfoContainer {
-    background: 
-      linear-gradient(135deg, 
-        rgba(30, 41, 59, 0.95) 0%, 
-        rgba(15, 23, 42, 0.9) 100%
-      );
-    border: 1px solid rgba(148, 163, 184, 0.2);
-  }
   
   .creditsTitle {
-    color: #f1f5f9;
-  }
-  
-  .creditItem {
-    background: rgba(51, 65, 85, 0.6);
-    border-color: rgba(100, 116, 139, 0.3);
-  }
-  
-  .creditItem:hover {
-    background: rgba(71, 85, 105, 0.8);
+    font-size: 0.75rem;
   }
   
   .creditLabel {
-    color: #cbd5e1;
+    font-size: 0.7rem;
   }
   
   .creditValue {
-    color: #f1f5f9;
+    font-size: 1rem;
   }
 }
 
@@ -904,16 +874,4 @@
   .uploadBox {
     border-width: 3px;
   }
-}
-
-
-.proTip {
-  margin-top: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  color: #e0e0e0;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  display: inline-block;
 }

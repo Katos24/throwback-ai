@@ -1,218 +1,434 @@
-/* styles/HowItWorksPage.module.css */
+/* Modern HowItWorksPage.module.css - Enhanced AI Photo Restoration Guide */
 
-/* Container + Theme Variables */
+/* Container + Enhanced Theme Variables */
 .container {
-  --bg-start:          #1b1a2e;
-  --bg-end:            #16213e;
-  --text-main:         #f0f0ff;
-  --text-secondary:    #c2c2d6;
-  --card-bg:           #0c0d13;
-  --card-border:       #2a2b3c;
-  --accent:            #00d4ff;
-  --accent-dark:       #009ecb;
-  --shadow-light:      rgba(0, 0, 0, 0.4);
-  --shadow-hover:      rgba(0, 212, 255, 0.3);
+  --bg-primary:        #0a0a23;
+  --bg-secondary:      #1a1a3a;
+  --bg-tertiary:       #2a1a4a;
+  --text-primary:      #ffffff;
+  --text-secondary:    #e2e8f0;
+  --text-muted:        #94a3b8;
+  --card-bg:           rgba(255, 255, 255, 0.08);
+  --card-border:       rgba(255, 255, 255, 0.12);
+  --accent-primary:    #00d4ff;
+  --accent-secondary:  #ff00ff;
+  --accent-gold:       #ffd700;
+  --shadow-glow:       rgba(0, 212, 255, 0.3);
+  --shadow-card:       rgba(0, 0, 0, 0.4);
+  --gradient-main:     linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
 
   position: relative;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
-  color: var(--text-main);
-  font-family: 'Inter', sans-serif;
+  padding: 100px 24px;
+  background: var(--gradient-main);
+  color: var(--text-primary);
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   overflow: hidden;
-  line-height: 1.75;
+  line-height: 1.7;
+  min-height: 100vh;
 }
 
-/* Subtle Glows in Background */
+/* Animated Background Effects */
 .container::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 30%, var(--accent) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, var(--accent-dark) 0%, transparent 60%);
-  opacity: 0.3;
+    radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%);
+  animation: backgroundFlow 20s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Main Heading */
+@keyframes backgroundFlow {
+  0% { 
+    opacity: 0.3; 
+    transform: rotate(0deg) scale(1); 
+  }
+  100% { 
+    opacity: 0.7; 
+    transform: rotate(2deg) scale(1.05); 
+  }
+}
+
+/* Modern Heading with Gradient Text */
 .heading {
   position: relative;
   z-index: 1;
-  font-size: 2.8rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 900;
-  color: var(--accent);
-  text-shadow: 0 2px 4px var(--shadow-light);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-gold) 100%);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease-in-out infinite;
+  letter-spacing: -0.02em;
 }
 
-/* Intro Paragraph */
+.heading::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  border-radius: 2px;
+  animation: underlineGlow 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes underlineGlow {
+  0%, 100% { 
+    width: 120px;
+    opacity: 0.7;
+    box-shadow: 0 0 20px var(--shadow-glow);
+  }
+  50% { 
+    width: 160px;
+    opacity: 1;
+    box-shadow: 0 0 30px var(--shadow-glow);
+  }
+}
+
+/* Enhanced Intro */
 .intro {
   position: relative;
   z-index: 1;
-  max-width: 700px;
-  margin: 0 auto 2rem;
+  max-width: 800px;
+  margin: 0 auto 3rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   color: var(--text-secondary);
+  line-height: 1.8;
+  animation: fadeInUp 1s ease-out 0.3s both;
 }
 
-/* Pro Tip Bubble */
+/* Modern Steps Section */
+.stepsSection {
+  position: relative;
+  z-index: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 40px 32px;
+  margin-bottom: 4rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px var(--shadow-card),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: fadeInScale 0.8s ease-out 0.5s both;
+  overflow: hidden;
+}
+
+.stepsSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-gold));
+  border-radius: 24px 24px 0 0;
+}
+
+.stepsSection h2 {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--accent-primary);
+  font-weight: 800;
+  position: relative;
+}
+
+/* Enhanced Steps List */
+.stepsList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  counter-reset: step-counter;
+}
+
+.stepsList li {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 24px 24px 24px 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border-left: 4px solid var(--accent-primary);
+  transition: all 0.4s ease;
+  counter-increment: step-counter;
+}
+
+.stepsList li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px var(--shadow-glow);
+}
+
+.stepsList li:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: var(--accent-secondary);
+  box-shadow: 0 8px 25px var(--shadow-card);
+}
+
+.stepsList li:hover::before {
+  transform: translateY(-50%) scale(1.1);
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-gold));
+}
+
+/* Enhanced Pro Tip */
 .proTip {
   position: relative;
   z-index: 1;
-  max-width: 700px;
+  max-width: 100%;
   margin: 0 auto 2rem;
-  padding: 1rem 1.5rem;
-  background: var(--card-bg);
-  border: 2px dashed var(--accent);
-  border-radius: 12px;
-  color: var(--text-main);
-  box-shadow: 0 4px 12px var(--shadow-light);
-  backdrop-filter: blur(4px);
-  animation: fadeInUp 0.6s ease-out both;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 255, 0.05));
+  border: 2px solid var(--accent-gold);
+  border-radius: 20px;
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 12px 24px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: tipGlow 4s ease-in-out infinite;
 }
 
-.proTip::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 48px;
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 12px solid var(--card-bg);
+@keyframes tipGlow {
+  0%, 100% { 
+    border-color: var(--accent-gold);
+    box-shadow: 0 12px 24px rgba(255, 215, 0, 0.2);
+  }
+  50% { 
+    border-color: var(--accent-primary);
+    box-shadow: 0 12px 24px rgba(0, 212, 255, 0.3);
+  }
 }
 
-/* Options Grid */
+/* Modern Options Grid */
 .options {
   position: relative;
   z-index: 1;
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin-bottom: 4rem;
 }
 
-/* Option Card */
+/* Enhanced Option Cards */
 .optionCard {
   position: relative;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 1.75rem 1.25rem;
+  border-radius: 20px;
+  padding: 32px 24px;
   text-align: center;
-  box-shadow: 0 2px 8px var(--shadow-light);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.optionCard::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary), var(--accent-gold));
+  border-radius: 22px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
 }
 
 .optionCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px var(--shadow-hover);
-  border-color: var(--accent-dark);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px var(--shadow-card);
+  border-color: var(--accent-primary);
+}
+
+.optionCard:hover::before {
+  opacity: 0.8;
 }
 
 .optionCard h2 {
-  font-size: 1.4rem;
-  margin-bottom: 0.75rem;
-  color: var(--accent);
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  margin-bottom: 1rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-/* Tip Inside Card */
+.optionCard h2 span {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.optionCard p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Enhanced Tip Box */
 .tip {
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid var(--accent-dark);
-  border-radius: 6px;
+  margin-top: 1.5rem;
+  padding: 16px 20px;
+  background: rgba(0, 212, 255, 0.1);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 12px;
   color: var(--text-secondary);
   font-size: 0.95rem;
+  position: relative;
 }
 
-
-/* Inline Pro Tip inside Steps Section */
-.proTipInline {
-  margin-top: 1.5rem;
-  padding: 1rem 1.25rem;
-  background: rgba(179, 150, 150, 0.05);
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-  color: var(--text-secondary);
-  font-size: 1rem;
-  text-align: left;
+.tip::before {
+  content: '💡';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 }
 
-
-/* Price */
+/* Enhanced Price Display */
 .price {
-  margin-top: 1rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--accent);
+  margin-top: 1.5rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+  padding: 12px 20px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 25px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  display: inline-block;
 }
 
-/* Credits Section */
+/* Modern Credits Section */
 .creditsSection {
   position: relative;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
+  border-radius: 24px;
+  padding: 40px 32px;
   text-align: center;
-  box-shadow: inset 0 2px 12px var(--shadow-light);
-  backdrop-filter: blur(4px);
-  margin-bottom: 3rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px var(--shadow-card),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-bottom: 4rem;
+  overflow: hidden;
+}
+
+.creditsSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-primary), var(--accent-secondary));
+  border-radius: 24px 24px 0 0;
 }
 
 .creditsSection h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--accent-dark);
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
+  margin-bottom: 2rem;
+  color: var(--accent-gold);
+  font-weight: 800;
 }
 
-.creditsSection ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-}
-
-.creditsSection li {
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  color: var(--text-secondary);
-}
-
-/* Call-to-Action Button */
+/* Enhanced CTA Button */
 .ctaButton {
   position: relative;
   z-index: 1;
   display: inline-block;
-  padding: 0.85rem 1.75rem;
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-  color: #fff;
-  font-weight: 700;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  font-weight: 800;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   text-decoration: none;
-  box-shadow: 0 4px 16px var(--shadow-hover);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1.1rem;
+  box-shadow: 
+    0 8px 25px var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.ctaButton:hover::before {
+  left: 100%;
 }
 
 .ctaButton:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 32px var(--shadow-hover);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 15px 35px var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-gold));
 }
 
-/* Fade-In Up Animation */
+/* Animation Keyframes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -220,76 +436,354 @@
   }
 }
 
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
 
+/* Card staggered animations */
+.optionCard:nth-child(1) { animation: fadeInScale 0.8s ease-out 0.1s both; }
+.optionCard:nth-child(2) { animation: fadeInScale 0.8s ease-out 0.3s both; }
 
-/* Existing styles remain unchanged above... */
+/* Credits Info Section */
+.creditsInfo {
+  margin-bottom: 2rem;
+}
 
-/* Step-by-Step Guide Section */
-.stepsSection {
+.creditsInfo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.creditsInfo li {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-primary);
+  transition: all 0.3s ease;
+}
+
+.creditsInfo li:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(8px);
+  border-left-color: var(--accent-gold);
+}
+
+/* Pro Tip Inline (in steps) */
+.proTipInline {
+  margin-top: 1rem;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 255, 0.05));
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  position: relative;
+}
+
+/* Credit Packs Grid */
+.creditPacksGrid {
+  margin-top: 3rem;
+}
+
+.packsTitle {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  color: var(--accent-primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.packsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.creditPack {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.creditPack:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 25px var(--shadow-card);
+}
+
+.packHeader {
+  margin-bottom: 1rem;
+}
+
+.packName {
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.packPrice {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  margin-bottom: 0.25rem;
+}
+
+.packCredits {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.packContent {
+  text-align: left;
+}
+
+.packDescription {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  font-style: italic;
+}
+
+.packFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.featureIcon {
+  font-size: 1rem;
+}
+
+/* Value Comparison */
+.valueComparison {
+  margin: 3rem 0;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+}
+
+.comparisonTitle {
+  font-size: 1.3rem;
+  color: var(--accent-gold);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.comparisonItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.comparisonItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.comparisonIcon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Additional Info Section */
+.additionalInfo {
   position: relative;
   z-index: 1;
+  margin-top: 4rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.infoCard {
   background: var(--card-bg);
-  border: 2px solid var(--accent-dark);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
-  margin-bottom: 3rem;
-  box-shadow: 0 4px 16px var(--shadow-light);
-  backdrop-filter: blur(4px);
-  animation: fadeInUp 0.6s ease-out both;
-}
-
-.stepsSection h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px 20px;
   text-align: center;
-  color: var(--accent);
-  text-shadow: 0 2px 4px var(--shadow-light);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
 }
 
-/* Ordered List of Steps */
-.stepsList {
-  list-style: decimal inside;
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-main);
+.infoCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 25px var(--shadow-card);
 }
 
-.stepsList li {
-  margin-bottom: 1rem;
-  padding-left: 0.5rem;
+.infoCard h4 {
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
 }
 
-/* Friendly Note */
-.note {
-  font-size: 1rem;
+.infoCard p {
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1rem 1.25rem;
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
-/* Accessibility Tweaks */
-@media (max-width: 600px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 60px 16px;
+  }
+
   .heading {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 
-  .intro,
-  .stepsList,
-  .creditsSection li {
-    font-size: 1.05rem;
+  .stepsSection,
+  .creditsSection {
+    padding: 24px 20px;
   }
 
-  .stepsSection h2 {
-    font-size: 1.5rem;
+  .stepsList li {
+    padding: 20px 20px 20px 70px;
+  }
+
+  .stepsList li::before {
+    width: 35px;
+    height: 35px;
+    left: 15px;
+    font-size: 1rem;
+  }
+
+  .optionCard {
+    padding: 24px 20px;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .packsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .ctaButton {
+    padding: 14px 28px;
     font-size: 1rem;
-    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 2rem;
+  }
+
+  .intro {
+    font-size: 1rem;
+  }
+
+  .stepsSection,
+  .creditsSection {
+    padding: 20px 16px;
+  }
+
+  .stepsList li {
+    padding: 16px 16px 16px 60px;
+    font-size: 0.95rem;
+  }
+
+  .stepsList li::before {
+    width: 30px;
+    height: 30px;
+    left: 12px;
+    font-size: 0.9rem;
+  }
+
+  .packsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .creditPack {
+    padding: 16px 12px;
+  }
+
+  .packPrice {
+    font-size: 1.5rem;
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparisonItem {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .infoCard {
+    padding: 20px 16px;
+  }
+
+  .valueComparison {
+    padding: 20px 16px;
   }
 }

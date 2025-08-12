@@ -208,7 +208,8 @@
   transition: opacity 0.3s ease;
 }
 
-.uploadBox:hover {
+.uploadBox:hover,
+.uploadBox.uploadProcessing {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 41, 59, 0.9) 100%);
   border-color: #93c5fd;
   transform: translateY(-4px) scale(1.02);
@@ -217,7 +218,53 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.uploadBox:hover::before {
+.uploadBox:hover::before,
+.uploadBox.uploadProcessing::before {
+  opacity: 1;
+}
+
+.uploadProcessing {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Enhanced Preview Container */
+.previewContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploadPreview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.previewOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+.previewContainer:hover .previewOverlay {
   opacity: 1;
 }
 
@@ -235,11 +282,32 @@
 .uploadPlaceholder {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   font-size: 1.25rem;
   font-weight: 600;
   user-select: none;
   z-index: 1;
+  align-items: center;
+  text-align: center;
+}
+
+.uploadIcon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.uploadText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.uploadSubtext {
+  font-size: 1rem;
+  color: #93c5fd;
+  font-weight: 400;
 }
 
 .uploadPlaceholder small {
@@ -248,18 +316,11 @@
   font-weight: 400;
 }
 
-.uploadPreview {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
 /* ========================================
-   ENHANCED BUTTON DESIGN
+   ENHANCED BUTTON DESIGN - PRICING LAYOUT
 ======================================== */
-.topBannerButton {
+.topBannerButton,
+.actionButton {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -267,62 +328,135 @@
   gap: 0.75rem;
   padding: 1.25rem 2.5rem;
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 800;
   font-family: 'Inter', sans-serif;
-  color: #fff;
+  color: #1a1a2e;
   text-align: center;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%);
   border: none;
-  border-radius: 14px;
+  border-radius: 25px;
   cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0.025em;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
-  box-shadow: 
-    0 12px 24px rgba(99, 102, 241, 0.3),
-    0 4px 8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  letter-spacing: 0.025em;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  min-height: 60px;
 }
 
-.topBannerButton::before {
+.topBannerButton::before,
+.actionButton::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
 }
 
-.topBannerButton:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 
-    0 20px 40px rgba(99, 102, 241, 0.4),
-    0 8px 16px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.topBannerButton:hover:not(:disabled)::before {
+.topBannerButton:hover:not(:disabled)::before,
+.actionButton:hover:not(:disabled)::before {
   left: 100%;
 }
 
-.topBannerButton:active:not(:disabled) {
+.topBannerButton:hover:not(:disabled),
+.actionButton:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #ffb347 0%, #ffd700 50%, #ff6b6b 100%);
+}
+
+.topBannerButton:active:not(:disabled),
+.actionButton:active:not(:disabled) {
   transform: translateY(-1px) scale(1.02);
 }
 
-.topBannerButton:disabled {
+.topBannerButton:disabled,
+.actionButton:disabled {
   cursor: not-allowed;
-  background: linear-gradient(135deg, #64748b, #475569);
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
   box-shadow: none;
-  opacity: 0.7;
+  opacity: 0.6;
+  color: #e2e8f0;
+  transform: none;
+}
+
+/* Button Variants for Different States */
+.signupButton {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3) !important;
+}
+
+.signupButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%) !important;
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.4) !important;
+}
+
+.creditsButton {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3) !important;
+}
+
+.creditsButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+  box-shadow: 0 16px 40px rgba(6, 182, 212, 0.4) !important;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%) !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3) !important;
+}
+
+.buttonIcon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Enhanced Button Row */
+.buttonRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.resetButton {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.resetButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.resetButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* Enhanced Spinner */
 .spinner {
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid #ffffff;
+  border-top: 3px solid currentColor;
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -558,10 +692,59 @@
 }
 
 /* ========================================
+   ENHANCED SUCCESS BANNER
+======================================== */
+.successBanner {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.1));
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+  animation: successSlideIn 0.5s ease-out;
+}
+
+@keyframes successSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.successContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+}
+
+.successIcon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.successContent strong {
+  color: #86efac;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.successContent p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+/* ========================================
    PROGRESS WRAPPER
 ======================================== */
 .progressWrapper {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   width: 100%;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
@@ -598,11 +781,30 @@
   text-transform: uppercase;
 }
 
+/* Enhanced Image Display */
+.imageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+.imageInfo {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
 .imageWrapper {
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
-  min-height: 300px;
+  height: 300px; /* Fixed height for consistent sizing */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -626,11 +828,26 @@
 
 .image {
   width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: contain;
+  height: 100%;
+  object-fit: contain; /* Changed back to contain to prevent cropping */
   border-radius: 12px;
   transition: transform 0.3s ease;
+}
+
+.imagePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  min-height: 200px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.placeholderIcon {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .placeholderText {
@@ -639,31 +856,135 @@
   font-size: 1.125rem;
   font-weight: 500;
   letter-spacing: 0.025em;
+  text-align: center;
 }
 
 /* Enhanced Download Button */
 .downloadButton {
   margin-top: 1rem;
-  padding: 0.875rem 1.75rem;
-  font-size: 1rem;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 
-    0 4px 12px rgba(16, 185, 129, 0.3),
+    0 8px 25px rgba(16, 185, 129, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   letter-spacing: 0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-transform: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.downloadButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.downloadButton:hover::before {
+  left: 100%;
 }
 
 .downloadButton:hover {
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-3px) scale(1.02);
   box-shadow: 
-    0 8px 20px rgba(16, 185, 129, 0.4),
+    0 16px 40px rgba(16, 185, 129, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
+}
+
+.downloadButton:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.downloadButton span:first-child {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* ========================================
+   ENHANCED COMPARISON SECTION
+======================================== */
+.comparisonSection {
+  position: relative;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comparisonSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  animation: comparisonGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes comparisonGlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
+
+.comparisonHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.comparisonHeader h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.comparisonHeader p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.comparisonContainer {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.premiumComparison {
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -776,12 +1097,52 @@
     height: 180px;
     border-radius: 12px;
   }
+
+  .imageWrapper {
+    height: 250px; /* Adjusted for mobile */
+  }
   
   .statusMessage {
     padding: 1rem;
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;
+  }
+
+  .buttonRow {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .resetButton {
+    align-self: center;
+    width: 60px;
+  }
+
+  .actionButton,
+  .topBannerButton {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .downloadButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .comparisonSection {
+    padding: 3rem 1rem;
+  }
+
+  .successBanner {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+  }
+
+  .successContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
   }
 }
 
@@ -802,13 +1163,32 @@
     height: 160px;
     padding: 1rem;
   }
+
+  .imageWrapper {
+    height: 220px; /* Adjusted for small mobile */
+  }
   
   .uploadPlaceholder {
     font-size: 1rem;
   }
   
+  .uploadIcon {
+    font-size: 2.5rem;
+  }
+
+  .uploadText {
+    font-size: 1.1rem;
+  }
+  
+  .actionButton,
   .topBannerButton {
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+    min-height: 50px;
+  }
+
+  .downloadButton {
+    padding: 0.75rem 1.25rem;
     font-size: 0.95rem;
   }
   
@@ -823,6 +1203,14 @@
   .creditValue {
     font-size: 1rem;
   }
+
+  .placeholderIcon {
+    font-size: 2.5rem;
+  }
+
+  .placeholderText {
+    font-size: 1rem;
+  }
 }
 
 /* ========================================
@@ -832,12 +1220,14 @@
   .topBanner,
   .topBannerBasic,
   .topBannerButton,
+  .actionButton,
   .creditItem,
   .uploadBox,
   .imageWrapper,
   .downloadButton,
   .scrollNotice,
-  .statusMessage {
+  .statusMessage,
+  .successBanner {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -855,15 +1245,18 @@
 
 /* Focus states for accessibility */
 .topBannerButton:focus-visible,
+.actionButton:focus-visible,
 .uploadBox:focus-visible,
-.downloadButton:focus-visible {
+.downloadButton:focus-visible,
+.resetButton:focus-visible {
   outline: 2px solid #60a5fa;
   outline-offset: 2px;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .topBannerButton {
+  .topBannerButton,
+  .actionButton {
     border: 2px solid currentColor;
   }
   

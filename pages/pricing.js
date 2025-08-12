@@ -156,14 +156,14 @@ export default function PricingPage() {
                       <span className={styles.statIcon}>💎</span>
                       <div>
                         <span className={styles.statValue}>{revivals}</span>
-                        <span className={styles.statLabel}>Premium Fixes (40 credits each)</span>
+                        <span className={styles.statLabel}> Premium Fixes (40 credits each)</span>
                       </div>
                     </div>
                     <div className={styles.statItem}>
                       <span className={styles.statIcon}>🧼</span>
                       <div>
                         <span className={styles.statValue}>{credits}</span>
-                        <span className={styles.statLabel}>Basic Fixes (1 credit each)</span>
+                        <span className={styles.statLabel}> Basic Fixes (1 credit each)</span>
                       </div>
                     </div>
                   </div>

@@ -109,93 +109,105 @@ export default function PricingPage() {
           Whether you&apos;re reviving faded memories, curating albums, or preserving heritage — 
           <strong> Anastasis Credit Packs</strong> give you the power to restore with beauty.
         </p>
-       
 
-      <div className={styles.packGrid}>
-        {CREDIT_PACKS.map(({ id, name, greekName, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
-          const priceNumber = parseFloat(price.slice(1));
-          const costPerRestore = (priceNumber / revivals).toFixed(2);
+        <div className={styles.packGrid}>
+          {CREDIT_PACKS.map(({ id, name, greekName, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
+            const priceNumber = parseFloat(price.slice(1));
+            const costPerRestore = (priceNumber / revivals).toFixed(2);
 
-          return (
-            <div 
-              key={id} 
-              className={`${styles.anastasisCard} ${popular ? styles.featured : ''}`}
-              onMouseEnter={() => setHoveredCard(id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={{ '--card-gradient': gradient }}
-            >
-              {popular && (
-                <div className={styles.popularBadge}>
-                  <span className={styles.crown}>👑</span>
-                  Most Popular
-                </div>
-              )}
-              
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIcon}>{icon}</div>
-                <h2 className={styles.packName}>{name}</h2>
-                <p className={styles.greekName}>{greekName}</p>
-              </div>
-
-              <div className={styles.priceSection}>
-                <div className={styles.mainPrice}>
-                  <span className={styles.currency}>$</span>
-                  <span className={styles.amount}>{price.slice(1)}</span>
-                </div>
-                <div className={styles.creditsInfo}>
-                  <span className={styles.creditCount}>{credits.toLocaleString()}</span>
-                  <span className={styles.creditLabel}>credits</span>
-                </div>
-              </div>
-
-              <div className={styles.cardContent}>
-                <p className={styles.tagline}>{tagline}</p>
-                <p className={styles.useCase}>{useCase}</p>
-
-                <div className={styles.statsGrid}>
-  <div className={styles.statItem}>
-    <span className={styles.statIcon}>💎</span>
-    <div>
-      <span className={styles.statValue}>{revivals}</span>
-      <span className={styles.statLabel}>Premium Fixes (40 credits each)</span>
-    </div>
-  </div>
-  <div className={styles.statItem}>
-    <span className={styles.statIcon}>🧼</span>
-    <div>
-      <span className={styles.statValue}>{credits}</span>
-      <span className={styles.statLabel}>Basic Fixes (1 credit each)</span>
-    </div>
-  </div>
-</div>
-              </div>
-
-              <button
-                className={`${styles.buyBtn} ${loadingId === id ? styles.loading : ''}`}
-                onClick={() => handlePurchase(id)}
-                disabled={loadingId === id}
+            return (
+              <div 
+                key={id} 
+                className={`${styles.anastasisCard} ${popular ? styles.featured : ''}`}
+                onMouseEnter={() => setHoveredCard(id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{ '--card-gradient': gradient }}
               >
-                {loadingId === id ? (
-                  <>
-                    <span className={styles.spinner}>⚡</span>
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <span className={styles.buttonIcon}>🚀</span>
-                    Begin Restoration
-                  </>
+                {popular && (
+                  <div className={styles.popularBadge}>
+                    <span className={styles.crown}>👑</span>
+                    Most Popular
+                  </div>
                 )}
-              </button>
+                
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardIcon}>{icon}</div>
+                  <h2 className={styles.packName}>{name}</h2>
+                  <p className={styles.greekName}>{greekName}</p>
+                </div>
+
+                <div className={styles.priceSection}>
+                  <div className={styles.mainPrice}>
+                    <span className={styles.currency}>$</span>
+                    <span className={styles.amount}>{price.slice(1)}</span>
+                  </div>
+                  <div className={styles.creditsInfo}>
+                    <span className={styles.creditCount}>{credits.toLocaleString()}</span>
+                    <span className={styles.creditLabel}>credits</span>
+                  </div>
+                </div>
+
+                <div className={styles.cardContent}>
+                  <p className={styles.tagline}>{tagline}</p>
+                  <p className={styles.useCase}>{useCase}</p>
+
+                  <div className={styles.statsGrid}>
+                    <div className={styles.statItem}>
+                      <span className={styles.statIcon}>💎</span>
+                      <div>
+                        <span className={styles.statValue}>{revivals}</span>
+                        <span className={styles.statLabel}>Premium Fixes (40 credits each)</span>
+                      </div>
+                    </div>
+                    <div className={styles.statItem}>
+                      <span className={styles.statIcon}>🧼</span>
+                      <div>
+                        <span className={styles.statValue}>{credits}</span>
+                        <span className={styles.statLabel}>Basic Fixes (1 credit each)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  className={`${styles.buyBtn} ${loadingId === id ? styles.loading : ''}`}
+                  onClick={() => handlePurchase(id)}
+                  disabled={loadingId === id}
+                >
+                  {loadingId === id ? (
+                    <>
+                      <span className={styles.spinner}>⚡</span>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.buttonIcon}>🚀</span>
+                      Begin Restoration
+                    </>
+                  )}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile Swipe Instructions - positioned right after cards */}
+        <div className={styles.mobileSwipeHint}>
+          <div className={styles.swipeContainer}>
+            <span className={styles.swipeIcon}>👆</span>
+            <span className={styles.swipeText}>Swipe right to see more packs</span>
+            <div className={styles.swipeArrow}>
+              <span>👉</span>
             </div>
-          );
-        })}
-      </div>
- <div className={styles.poweredBy}>
+          </div>
+        </div>
+
+        <div className={styles.poweredBy}>
           <span className={styles.aiLabel}>Powered by</span>
           <span className={styles.throwbackAi}>Throwback AI</span>
         </div>
       </div>
+      
       <div className={styles.trustSection}>
         <div className={styles.trustBadges}>
           <div className={styles.trustItem}>

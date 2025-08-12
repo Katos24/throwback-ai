@@ -402,6 +402,7 @@
   .successStoriesSection::after {
     content: '← Swipe to see more transformations →';
     position: absolute;
+    margin-top: 1px;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);

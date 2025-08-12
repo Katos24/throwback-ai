@@ -1,3 +1,4 @@
+// pages/how-it-works.js
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -151,14 +152,105 @@ export default function HowItWorksPage() {
     return user ? "🚀 Choose Your Credits" : "🚀 Get Started for Free"
   }
 
+  // SEO values
+  const siteUrl = 'https://throwbackai.app';
+  const pagePath = '/how-it-works';
+  const pageUrl = `${siteUrl}${pagePath}`;
+  const ogImage = `${siteUrl}/images/greek-after.png`; // replace with your image
+  const twitterImage = ogImage;
+  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
+  const facebookPageId = '61578072554521';
+
+  // Build FAQ structured data from OPTIONS and STEPS (simple Q/A format)
+  const faqItems = [
+    {
+      question: "What is Photo Fix?",
+      answer: "Photo Fix sharpens details, improves brightness and contrast, and removes minor artifacts — perfect for faded or blurry images."
+    },
+    {
+      question: "What is Full Color Restore?",
+      answer: "Full Color Restore adds realistic color to black-and-white photos and enhances detail for high-quality colorized results."
+    },
+    {
+      question: "How much does a restore cost?",
+      answer: "Photo Fix costs 1 credit. Full Color Restore costs 40 credits. You can buy credit packs on the Pricing page."
+    },
+    {
+      question: "Do credits expire?",
+      answer: "No — credits do not expire. Use them whenever you're ready to restore your photos."
+    }
+  ];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        "url": pageUrl,
+        "name": "How It Works — Throwback AI",
+        "description": "Step-by-step guide to restoring, enhancing and colorizing vintage photos with Throwback AI. Learn how credits work and which service to choose.",
+        "isPartOf": { "@id": `${siteUrl}#website` }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        "mainEntity": faqItems.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}#organization`,
+        "name": "Throwback AI",
+        "url": siteUrl,
+        "sameAs": [facebookPageUrl]
+      }
+    ]
+  };
+
   return (
     <>
       <Head>
-        <title>How It Works | Anastasis</title>
+        <title>How It Works | Throwback AI</title>
         <meta
           name="description"
-          content="Learn how to restore and enhance your old photos with Anastasis AI. Simple steps, powerful results."
+          content="Step-by-step guide to restoring, enhancing, and colorizing your vintage photos with Throwback AI. Learn which service to use and how credits work."
         />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Throwback AI" />
+        <meta property="og:title" content="How It Works | Throwback AI" />
+        <meta
+          property="og:description"
+          content="Step-by-step guide to restoring, enhancing, and colorizing your vintage photos with Throwback AI. Learn which service to use and how credits work."
+        />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content="Before and after examples and steps for restoring photos" />
+
+        {/* Facebook-specific */}
+        <meta property="fb:pages" content={facebookPageId} />
+        <meta property="article:publisher" content={facebookPageUrl} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How It Works | Throwback AI" />
+        <meta
+          name="twitter:description"
+          content="Step-by-step guide to restoring, enhancing, and colorizing your vintage photos with Throwback AI."
+        />
+        <meta name="twitter:image" content={twitterImage} />
+
+        {/* Structured data JSON-LD */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
 
       <main className={styles.container}>

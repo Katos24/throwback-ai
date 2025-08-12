@@ -11,6 +11,7 @@ import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import CreditsInfo from "../../components/Restores/CreditsInfo";
 import toast from 'react-hot-toast';
+import Head from 'next/head';
 
 export default function RestorePremium() {
   // Core State
@@ -387,7 +388,79 @@ export default function RestorePremium() {
 
   const buttonConfig = getButtonConfig();
 
+  // SEO values
+  const siteUrl = 'https://throwbackai.app';
+  const pageUrl = `${siteUrl}/replicate/restore-premium`;
+  const ogImage = `${siteUrl}/images/greek-after.png`;
+  const twitterImage = ogImage;
+  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
+  const facebookPageId = '61578072554521';
+
   return (
+
+    <>
+      <Head>
+        <title>Restore Premium – Full Color AI Photo Restoration | Throwback AI</title>
+        <meta
+          name="description"
+          content="Bring your vintage photos to vibrant life with Throwback AI’s Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
+        />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Restore Premium – Full Color AI Photo Restoration | Throwback AI" />
+        <meta
+          property="og:description"
+          content="Bring your vintage photos to vibrant life with Throwback AI’s Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
+        />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content="Before and after AI full color photo restoration example" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Throwback AI" />
+
+        {/* Facebook-specific */}
+        <meta property="fb:pages" content={facebookPageId} />
+        <meta property="article:publisher" content={facebookPageUrl} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Restore Premium – Full Color AI Photo Restoration | Throwback AI" />
+        <meta
+          name="twitter:description"
+          content="Bring your vintage photos to vibrant life with Throwback AI’s Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
+        />
+        <meta name="twitter:image" content={twitterImage} />
+
+        {/* Structured Data JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Throwback AI Restore Premium",
+              "url": pageUrl,
+              "applicationCategory": "Photo Editing",
+              "operatingSystem": "Web",
+              "description": "Premium AI colorization and restoration tool — advanced model for high-quality color restores and detail enhancement.",
+              "image": ogImage,
+              "offers": {
+                "@type": "Offer",
+                "price": "40",
+                "priceCurrency": "credits",
+                "url": "https://throwbackai.app/pricing"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Throwback AI",
+                "url": siteUrl,
+                "sameAs": [facebookPageUrl]
+              }
+            }),
+          }}
+        />
+      </Head>
     <main>
       <section className={styles.topBanner}>
         <div className={styles.topBannerContent}>
@@ -584,5 +657,6 @@ export default function RestorePremium() {
 
       <BasicFeaturesSection />
     </main>
+    </>
   );
 }

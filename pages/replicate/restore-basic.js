@@ -1,4 +1,6 @@
+// pages/replicate/restore-basic.js
 import React, { useState, useEffect, useRef } from 'react';
+import Head from 'next/head';
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -7,7 +9,6 @@ import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
-
 
 export default function RestoreBasic() {
   // State management - integrated from original component
@@ -344,277 +345,350 @@ export default function RestoreBasic() {
     });
   };
 
+  // SEO values
+  const siteUrl = 'https://throwbackai.app';
+  const pageUrl = `${siteUrl}/replicate/restore-basic`;
+  const ogImage = `${siteUrl}/images/greek-after.png`;
+  const twitterImage = ogImage;
+  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
+  const facebookPageId = '61578072554521';
+
   return (
-    <div className={styles.container}>
-      {/* Animated Background */}
-      <div className={styles.backgroundParticles}></div>
+    <>
+      <Head>
+        <title>Restore Basic – AI Photo Restoration Tool | Throwback AI</title>
+        <meta
+          name="description"
+          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
+        />
+        <link rel="canonical" href={pageUrl} />
 
-      <div className={styles.content}>
-        {/* Header */}
-        <div className={styles.header}>
-          {/* Grid Cell: Top Right Badge */}
-          <div className={styles.compactCredits}>
-            <div className={styles.compactCreditsInfo}>
-              <span className={styles.creditsIcon}>⚡</span>
-              <span className={styles.creditsText}>{credits} credits</span>
-            </div>
-            <button 
-              onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
-              className={styles.compactCreditsButton}
-            >
-              {isLoggedIn ? "+" : "Sign Up"}
-            </button>
-          </div>
+        {/* Open Graph */}
+        <meta property="og:title" content="Restore Basic – AI Photo Restoration Tool | Throwback AI" />
+        <meta
+          property="og:description"
+          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
+        />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content="Before and after AI photo restoration example" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Throwback AI" />
 
-          {/* Grid Cell: Centered Title */}
-          <div className={styles.titleWrapper}>
-            <h1 className={styles.title}>
-              <span className={styles.titleGradient}>PhotoFix</span>
-            </h1>
-            <span className={styles.subtitle}>AI Studio</span>
-          </div>
+        {/* Facebook-specific */}
+        <meta property="fb:pages" content={facebookPageId} />
+        <meta property="article:publisher" content={facebookPageUrl} />
 
-          {/* Grid Cell: Description (full width below) */}
-          <p className={styles.description}>
-            Restore old photos to their former glory with advanced AI technology. 
-            Remove scratches, enhance colors, and bring memories back to life.
-            <span className={styles.creditPill}>Costs 1 credit</span>
-          </p>
-        </div>
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Restore Basic – AI Photo Restoration Tool | Throwback AI" />
+        <meta
+          name="twitter:description"
+          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
+        />
+        <meta name="twitter:image" content={twitterImage} />
 
-        {/* Main Content Grid */}
-        <div className={styles.mainGrid}>
-          {/* Upload Section */}
-          <div className={styles.uploadSection}>
-            <div className={styles.uploadCard}>
-              <h2 className={styles.sectionTitle}>
-                <span>📤</span>
-                Upload Your Photo
-              </h2>
-              
-              {/* Upload Zone */}
-              <div
-                className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+        {/* Structured Data JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Throwback AI Restore Basic",
+              "url": pageUrl,
+              "applicationCategory": "Photo Editing",
+              "operatingSystem": "Web",
+              "description": "AI-powered Basic Restore tool for quick photo fixes — removes scratches, improves clarity, and enhances old photos.",
+              "image": ogImage,
+              "offers": {
+                "@type": "Offer",
+                "price": "1",
+                "priceCurrency": "credits",
+                "url": "https://throwbackai.app/pricing"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Throwback AI",
+                "url": siteUrl,
+                "sameAs": [facebookPageUrl]
+              }
+            }),
+          }}
+        />
+      </Head>
+
+      <div className={styles.container}>
+        {/* Animated Background */}
+        <div className={styles.backgroundParticles}></div>
+
+        <div className={styles.content}>
+          {/* Header */}
+          <div className={styles.header}>
+            {/* Grid Cell: Top Right Badge */}
+            <div className={styles.compactCredits}>
+              <div className={styles.compactCreditsInfo}>
+                <span className={styles.creditsIcon}>⚡</span>
+                <span className={styles.creditsText}>{credits} credits</span>
+              </div>
+              <button 
+                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                className={styles.compactCreditsButton}
               >
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileInput}
-                  disabled={loading || processing}
-                  className={styles.hiddenInput}
-                />
-                
-                {selectedPreviewUrl ? (
-                  <div className={styles.uploadContent}>
-                    <img 
-                      src={selectedPreviewUrl} 
-                      alt="Original" 
-                      className={styles.uploadPreview}
-                    />
-                    <div className={styles.uploadFileInfo}>
-                      <p className={styles.uploadFileName}>{selectedFile?.name}</p>
-                      <p className={styles.uploadFileSize}>
-                        {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.uploadPlaceholder}>
-                    <div className={styles.uploadIcon}>
-                      <span style={{ fontSize: '2rem' }}>📁</span>
-                    </div>
-                    <div>
-                      <p className={styles.uploadTitle}>
-                        Drop your photo here
-                      </p>
-                      <p className={styles.uploadDescription}>
-                        or click to browse • PNG, JPG, HEIC up to 10MB
-                      </p>
-                    </div>
-                  </div>
-                )}
-                
-                {dragActive && (
-                  <div className={styles.dragOverlay}>
-                    <p>Drop to upload!</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className={styles.buttonRow}>
-                <button
-                  onClick={handleRestore}
-                  disabled={!selectedFile || loading || processing || credits < restoreCost}
-                  className={styles.primaryButton}
-                >
-                  {loading || processing ? (
-                    <>
-                      <div className={styles.loadingSpinner}></div>
-                      {processing ? 'Compressing...' : 'Restoring...'}
-                    </>
-                  ) : credits < restoreCost ? (
-                    <>
-                      {isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore'}
-                    </>
-                  ) : (
-                    <>
-                      <span>✨</span>
-                      Restore Photo
-                    </>
-                  )}
-                </button>
-                
-                {(selectedFile || restoredUrl) && (
-                  <button
-                    onClick={handleReset}
-                    disabled={loading || processing}
-                    className={styles.secondaryButton}
-                  >
-                    <span>🔄</span>
-                  </button>
-                )}
-              </div>
+                {isLoggedIn ? "+" : "Sign Up"}
+              </button>
             </div>
 
-            {/* Progress Display using original ProgressBar component */}
-            {progressStatus !== "idle" && (
-              <div className={styles.progressCard}>
-                <ProgressBar status={progressStatus} percent={progressPercent} />
-              </div>
-            )}
+            {/* Grid Cell: Centered Title */}
+            <div className={styles.titleWrapper}>
+              <h1 className={styles.title}>
+                <span className={styles.titleGradient}>PhotoFix</span>
+              </h1>
+              <span className={styles.subtitle}>AI Studio</span>
+            </div>
 
-            {/* Success Notice with Upgrade Option */}
-            {showScrollNotice && (
-              <div className={`${styles.alert} ${styles.alertSuccess}`}>
-                <span>✅</span>
-                <div className={styles.alertContent}>
-                  <p className={styles.alertTitle}>Your image has been restored!</p>
-                </div>
-              </div>
-            )}
+            {/* Grid Cell: Description (full width below) */}
+            <p className={styles.description}>
+              Restore old photos to their former glory with advanced AI technology. 
+              Remove scratches, enhance colors, and bring memories back to life.
+              <span className={styles.creditPill}>Costs 1 credit</span>
+            </p>
           </div>
 
-          {/* Results Section */}
-          <div className={styles.resultsSection}>
-            <div className={styles.uploadCard}>
-              <div className={styles.resultsHeader}>
+          {/* Main Content Grid */}
+          <div className={styles.mainGrid}>
+            {/* Upload Section */}
+            <div className={styles.uploadSection}>
+              <div className={styles.uploadCard}>
                 <h2 className={styles.sectionTitle}>
-                  <span>👁️</span>
-                  Results
+                  <span>📤</span>
+                  Upload Your Photo
                 </h2>
                 
-                {restoredUrl && (
+                {/* Upload Zone */}
+                <div
+                  className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
+                  onDragEnter={handleDrag}
+                  onDragLeave={handleDrag}
+                  onDragOver={handleDrag}
+                  onDrop={handleDrop}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileInput}
+                    disabled={loading || processing}
+                    className={styles.hiddenInput}
+                  />
+                  
+                  {selectedPreviewUrl ? (
+                    <div className={styles.uploadContent}>
+                      <img 
+                        src={selectedPreviewUrl} 
+                        alt="Original" 
+                        className={styles.uploadPreview}
+                      />
+                      <div className={styles.uploadFileInfo}>
+                        <p className={styles.uploadFileName}>{selectedFile?.name}</p>
+                        <p className={styles.uploadFileSize}>
+                          {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.uploadPlaceholder}>
+                      <div className={styles.uploadIcon}>
+                        <span style={{ fontSize: '2rem' }}>📁</span>
+                      </div>
+                      <div>
+                        <p className={styles.uploadTitle}>
+                          Drop your photo here
+                        </p>
+                        <p className={styles.uploadDescription}>
+                          or click to browse • PNG, JPG, HEIC up to 10MB
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {dragActive && (
+                    <div className={styles.dragOverlay}>
+                      <p>Drop to upload!</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className={styles.buttonRow}>
                   <button
-                    onClick={handleDownload}
-                    className={styles.downloadButton}
+                    onClick={handleRestore}
+                    disabled={!selectedFile || loading || processing || credits < restoreCost}
+                    className={styles.primaryButton}
                   >
-                    <span>⬇️</span>
-                    Download
+                    {loading || processing ? (
+                      <>
+                        <div className={styles.loadingSpinner}></div>
+                        {processing ? 'Compressing...' : 'Restoring...'}
+                      </>
+                    ) : credits < restoreCost ? (
+                      <>
+                        {isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore'}
+                      </>
+                    ) : (
+                      <>
+                        <span>✨</span>
+                        Restore Photo
+                      </>
+                    )}
                   </button>
-                )}
+                  
+                  {(selectedFile || restoredUrl) && (
+                    <button
+                      onClick={handleReset}
+                      disabled={loading || processing}
+                      className={styles.secondaryButton}
+                    >
+                      <span>🔄</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
-              {restoredUrl && selectedPreviewUrl ? (
-                <div>
-                  {/* Use original ImageCompareSlider component with proper wrapper */}
-                  <div className={styles.comparisonContainer}>
-                    <div className={styles.imageComparisonWrapper}>
-                      <ImageCompareSlider
-                        beforeImage={selectedPreviewUrl}
-                        afterImage={restoredUrl}
-                      />
-                    </div>
-                  </div>
-
-                  <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>
-                    <span>✅</span>
-                    <p>Photo successfully restored! Use the slider to compare.</p>
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.resultsPlaceholder}>
-                  <div className={styles.placeholderContent}>
-                    <div className={styles.placeholderIcon}>
-                      <span style={{ fontSize: '2rem' }}>✨</span>
-                    </div>
-                    <p className={styles.placeholderText}>Your restored photo will appear here</p>
-                  </div>
+              {/* Progress Display using original ProgressBar component */}
+              {progressStatus !== "idle" && (
+                <div className={styles.progressCard}>
+                  <ProgressBar status={progressStatus} percent={progressPercent} />
                 </div>
               )}
 
-              {/* Pro Tip - Always shows under results */}
-              <div className={styles.bottomProTip}>
-                <span className={styles.proTipIcon}>💡</span>
-                <span className={styles.proTipText}>
-                  <strong>Pro Tip:</strong> For old or black & white photos, start with <strong>Photo Fix</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
-                </span>
+              {/* Success Notice with Upgrade Option */}
+              {showScrollNotice && (
+                <div className={`${styles.alert} ${styles.alertSuccess}`}>
+                  <span>✅</span>
+                  <div className={styles.alertContent}>
+                    <p className={styles.alertTitle}>Your image has been restored!</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Results Section */}
+            <div className={styles.resultsSection}>
+              <div className={styles.uploadCard}>
+                <div className={styles.resultsHeader}>
+                  <h2 className={styles.sectionTitle}>
+                    <span>👁️</span>
+                    Results
+                  </h2>
+                  
+                  {restoredUrl && (
+                    <button
+                      onClick={handleDownload}
+                      className={styles.downloadButton}
+                    >
+                      <span>⬇️</span>
+                      Download
+                    </button>
+                  )}
+                </div>
+
+                {restoredUrl && selectedPreviewUrl ? (
+                  <div>
+                    {/* Use original ImageCompareSlider component with proper wrapper */}
+                    <div className={styles.comparisonContainer}>
+                      <div className={styles.imageComparisonWrapper}>
+                        <ImageCompareSlider
+                          beforeImage={selectedPreviewUrl}
+                          afterImage={restoredUrl}
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>
+                      <span>✅</span>
+                      <p>Photo successfully restored! Use the slider to compare.</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.resultsPlaceholder}>
+                    <div className={styles.placeholderContent}>
+                      <div className={styles.placeholderIcon}>
+                        <span style={{ fontSize: '2rem' }}>✨</span>
+                      </div>
+                      <p className={styles.placeholderText}>Your restored photo will appear here</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Pro Tip - Always shows under results */}
+                <div className={styles.bottomProTip}>
+                  <span className={styles.proTipIcon}>💡</span>
+                  <span className={styles.proTipText}>
+                    <strong>Pro Tip:</strong> For old or black & white photos, start with <strong>Photo Fix</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Before/After Gallery - Shows after restoration */}
-        {restoredUrl && selectedPreviewUrl && (
-          <div className={styles.beforeAfterGallery}>
-            <h3 className={styles.galleryTitle}>
-              <span>🖼️</span>
-              Before & After Gallery
-            </h3>
-            <div className={styles.beforeAfterGrid}>
-              <div className={styles.beforeAfterItem}>
-                <div className={styles.beforeAfterLabel}>
-                  <span>⬅️</span>
-                  Before
+          {/* Before/After Gallery - Shows after restoration */}
+          {restoredUrl && selectedPreviewUrl && (
+            <div className={styles.beforeAfterGallery}>
+              <h3 className={styles.galleryTitle}>
+                <span>🖼️</span>
+                Before & After Gallery
+              </h3>
+              <div className={styles.beforeAfterGrid}>
+                <div className={styles.beforeAfterItem}>
+                  <div className={styles.beforeAfterLabel}>
+                    <span>⬅️</span>
+                    Before
+                  </div>
+                  <div className={styles.beforeAfterImageWrapper}>
+                    <img 
+                      src={selectedPreviewUrl} 
+                      alt="Before restoration" 
+                      className={styles.beforeAfterImage}
+                    />
+                  </div>
                 </div>
-                <div className={styles.beforeAfterImageWrapper}>
-                  <img 
-                    src={selectedPreviewUrl} 
-                    alt="Before restoration" 
-                    className={styles.beforeAfterImage}
-                  />
-                </div>
-              </div>
-              <div className={styles.beforeAfterItem}>
-                <div className={styles.beforeAfterLabel}>
-                  <span>➡️</span>
-                  After
-                </div>
-                <div className={styles.beforeAfterImageWrapper}>
-                  <img 
-                    src={restoredUrl} 
-                    alt="After restoration" 
-                    className={styles.beforeAfterImage}
-                  />
+                <div className={styles.beforeAfterItem}>
+                  <div className={styles.beforeAfterLabel}>
+                    <span>➡️</span>
+                    After
+                  </div>
+                  <div className={styles.beforeAfterImageWrapper}>
+                    <img 
+                      src={restoredUrl} 
+                      alt="After restoration" 
+                      className={styles.beforeAfterImage}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+          )}
+
+          {/* Features Grid */}
+          <div className={styles.featuresGrid}>
+            {[
+              { icon: "⚡", title: "Lightning Fast", desc: "Process photos in seconds with our optimized AI models" },
+              { icon: "✨", title: "AI Powered", desc: "Advanced neural networks trained on millions of photos" },
+              { icon: "⬇️", title: "High Quality", desc: "Download full resolution restored images" }
+            ].map((feature, idx) => (
+              <div key={idx} className={styles.featureCard}>
+                <span className={styles.featureIcon}>{feature.icon}</span>
+                <h3 className={styles.featureTitle}>{feature.title}</h3>
+                <p className={styles.featureDescription}>{feature.desc}</p>
+              </div>
+            ))}
           </div>
-        )}
-
-        {/* Features Grid */}
-        <div className={styles.featuresGrid}>
-          {[
-            { icon: "⚡", title: "Lightning Fast", desc: "Process photos in seconds with our optimized AI models" },
-            { icon: "✨", title: "AI Powered", desc: "Advanced neural networks trained on millions of photos" },
-            { icon: "⬇️", title: "High Quality", desc: "Download full resolution restored images" }
-          ].map((feature, idx) => (
-            <div key={idx} className={styles.featureCard}>
-              <span className={styles.featureIcon}>{feature.icon}</span>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.desc}</p>
-            </div>
-          ))}
         </div>
+
+        <BasicFeaturesSection />
       </div>
-
-      <BasicFeaturesSection />
-    </div>
+    </>
   );
 }

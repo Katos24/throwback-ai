@@ -4,17 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Fonts */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-          rel="stylesheet"
-        />
-
-        {/* Open Graph Meta Tags (Facebook, LinkedIn, etc.) */}
+        {/* ✅ Social Sharing Meta Tags FIRST to avoid Facebook inference issues */}
         <meta property="og:title" content="ThrowbackAI – Restore Your Memories" />
         <meta
           property="og:description"
@@ -29,7 +19,6 @@ export default function Document() {
         <meta property="og:site_name" content="ThrowbackAI" />
         <meta property="og:locale" content="en_US" />
 
-        {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ThrowbackAI – Restore Your Memories" />
         <meta
@@ -42,6 +31,16 @@ export default function Document() {
         />
         <meta name="twitter:url" content="https://throwbackai.app" />
         <meta name="twitter:site" content="@ThrowbackAI" /> {/* Optional: your Twitter handle */}
+
+        {/* 🎨 Fonts */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <body className="antialiased">
         <Main />

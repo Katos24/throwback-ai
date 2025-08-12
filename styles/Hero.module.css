@@ -459,12 +459,16 @@
   color: #ffffff;
 }
 
-/* Banner styles */
+
+
+/* Enhanced Banner styles */
 .fullWidthBanner {
   width: 100%;
-  background: linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1f1f1f 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
   color: white;
-  padding: 10px 0;
+  padding: 12px 0;
   text-align: center;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
@@ -473,14 +477,131 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   flex-wrap: wrap;
   z-index: 1000;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.fullWidthBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  animation: shimmer 4s infinite;
 }
 
 .fullWidthBanner span {
   white-space: nowrap;
+  position: relative;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.fullWidthBanner span:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Separator dots */
+.fullWidthBanner span:not(:last-child)::after {
+  content: '•';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: bold;
+}
+
+/* Special styling for emoji elements */
+.fullWidthBanner span:has-text("🔒"),
+.fullWidthBanner span:has-text("⚡"),
+.fullWidthBanner span:has-text("🆓") {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+}
+
+/* Pulse animation for call-to-action */
+.fullWidthBanner span:last-child {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  animation: pulse 2s infinite;
+  font-weight: 600;
+}
+
+.fullWidthBanner span:last-child:hover {
+  background: linear-gradient(135deg, #5b52f0, #8b47ff);
+}
+
+/* Keyframe animations */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(79, 70, 229, 0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fullWidthBanner {
+    gap: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .fullWidthBanner span:not(:last-child)::after {
+    display: none;
+  }
+  
+  .fullWidthBanner span {
+    margin-bottom: 4px;
+  }
+}
+
+/* Enhanced focus states for accessibility */
+.fullWidthBanner span:focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
 
 /* Responsive enhancements */
 @media (max-width: 768px) {
@@ -561,3 +682,6 @@
     animation: none;
   }
 }
+
+
+

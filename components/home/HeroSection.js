@@ -20,13 +20,7 @@ export default function HeroSection() {
             Choose your restoration level—from basic enhancement to full colorization.
           </p>
 
-          {/* Sleek pricing callout with signup link */}
-          <div className={heroStyles.pricingCallout}>
-            <span className={heroStyles.creditInfo}>
-              <strong>Try Free</strong> • <Link href="/signup" className={heroStyles.signupLink}><strong> +5 Credits</strong> on Signup</Link>
-            </span>
-          </div>
-
+       
           {/* Enhanced button section with clear pricing */}
           <div className={heroStyles.heroButtons}>
             <Link href="/replicate/restore-basic" className={heroStyles.secondaryButton}>
@@ -50,10 +44,14 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Pricing context with link */}
-          <div className={heroStyles.pricingContext}>
-            <p>Need more credits? <Link href="/pricing" className={heroStyles.pricingLink}><strong>400 credits for just $4.99</strong></Link></p>
+   {/* Sleek pricing callout with signup link */}
+          <div className={heroStyles.pricingCallout}>
+            <span className={heroStyles.creditInfo}>
+              <strong>Try Free</strong> • <Link href="/signup" className={heroStyles.signupLink}><strong> +5 Credits</strong> on Signup</Link>
+            </span>
           </div>
+
+         
 
           {/* Video section */}
           <div className={heroStyles.videoWrapper}>

@@ -546,8 +546,7 @@
     transform: translateY(0) scale(1); 
   }
 }
-
-/* Responsive Design */
+/* Responsive Design - FINAL OPTIMIZED VERSION */
 @media (max-width: 1024px) {
   .packGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -561,14 +560,14 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding: 80px 16px 50px;
+    padding: 60px 16px 40px; /* Reduced padding */
   }
 
   .packGrid {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
-    padding: 0 16px 50px;
+    gap: 16px; /* Smaller gap */
+    padding: 0 16px 30px; /* Reduced bottom padding */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -579,87 +578,133 @@
   }
 
   .anastasisCard {
-    flex: 0 0 280px;
+    flex: 0 0 260px; /* Smaller width */
     scroll-snap-align: center;
-    padding: 24px 20px;
-    min-height: 420px;
+    padding: 20px 16px; /* Reduced padding */
+    min-height: 320px; /* Much shorter height */
   }
 
   .featured {
     transform: scale(1);
   }
 
-  .amount {
-    font-size: 2.4rem;
+  /* Compact card header */
+  .cardHeader {
+    margin-bottom: 16px; /* Reduced margin */
   }
 
+  .cardIcon {
+    font-size: 2rem; /* Smaller icon */
+    margin-bottom: 8px; /* Reduced margin */
+  }
+
+  .packName {
+    font-size: 1.3rem; /* Smaller title */
+    margin: 0.3rem 0 0.2rem;
+  }
+
+  .greekName {
+    font-size: 0.8rem; /* Smaller greek name */
+  }
+
+  /* Compact price section */
+  .priceSection {
+    margin-bottom: 14px; /* Reduced margin */
+    padding: 16px 0; /* Reduced padding */
+  }
+
+  .amount {
+    font-size: 2.2rem; /* Smaller amount */
+  }
+
+  .currency {
+    font-size: 1.2rem; /* Smaller currency */
+  }
+
+  .creditCount {
+    font-size: 1.1rem; /* Smaller credit count */
+  }
+
+  /* Compact content */
+  .cardContent {
+    gap: 12px; /* Smaller gaps */
+  }
+
+  .tagline {
+    font-size: 0.9rem; /* Smaller tagline */
+    line-height: 1.3;
+  }
+
+  .useCase {
+    font-size: 0.8rem; /* Smaller use case */
+    line-height: 1.4;
+  }
+
+  /* Simplified stats grid - single column */
   .statsGrid {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 8px; /* Smaller gap */
+    margin: 12px 0; /* Reduced margin */
   }
 
+  .statItem {
+    padding: 10px 8px; /* Reduced padding */
+    flex-direction: row; /* Horizontal layout */
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .statIcon {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  .statValue {
+    font-size: 1rem;
+  }
+
+  .statLabel {
+    font-size: 0.7rem;
+    margin-top: 0;
+  }
+
+  /* Compact button */
+  .buyBtn {
+    padding: 12px 20px; /* Reduced padding */
+    font-size: 0.9rem;
+    margin-top: 8px; /* Reduced margin */
+  }
+
+  /* Compact trust section */
   .trustBadges {
-    gap: 24px;
+    gap: 20px; /* Smaller gap */
   }
 
+  .trustItem {
+    font-size: 0.85rem; /* Smaller text */
+  }
+
+  /* Compact powered by */
   .poweredBy {
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.3rem;
+    margin-top: 0.3rem; /* Reduced margin */
+  }
+
+  .aiLabel {
+    font-size: 0.8rem;
+  }
+
+  .throwbackAi {
+    font-size: 1rem;
   }
 
   /* Mobile badge adjustments */
   .popularBadge {
-    padding: 6px 12px 6px 16px;
-    font-size: 0.65rem;
-    border-radius: 0 20px 0 12px;
-  }
-
-  .popularBadge::before {
-    border-left: 6px solid transparent;
-    border-right: 6px solid #cc8800;
-    border-top: 6px solid #cc8800;
-  }
-
-  .popularBadge::after {
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-right: 6px solid #cc8800;
-  }
-}
-
-@media (max-width: 480px) {
-  .packGrid {
-    padding: 0 12px 40px;
-  }
-
-  .anastasisCard {
-    flex: 0 0 260px;
-    padding: 20px 16px;
-    min-height: 380px;
-  }
-
-  .amount {
-    font-size: 2.2rem;
-  }
-
-  .buyBtn {
-    padding: 14px 20px;
-    font-size: 0.9rem;
-  }
-
-  .cardIcon {
-    font-size: 2rem;
-  }
-
-  .packName {
-    font-size: 1.4rem;
-  }
-
-  /* Extra small mobile badge */
-  .popularBadge {
     padding: 5px 10px 5px 14px;
     font-size: 0.6rem;
-    border-radius: 0 16px 0 10px;
+    border-radius: 0 18px 0 10px;
   }
 
   .popularBadge::before {
@@ -669,17 +714,109 @@
   }
 
   .popularBadge::after {
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
     border-right: 5px solid #cc8800;
+  }
+
+  /* Mobile swipe hint adjustments */
+  .mobileSwipeHint {
+    display: block;
+    margin: -20px auto 25px; /* Closer to cards */
+  }
+
+  .swipeContainer {
+    padding: 10px 20px; /* Smaller padding */
+    font-size: 13px; /* Smaller text */
+  }
+
+  .swipeIcon {
+    font-size: 16px;
+  }
+
+  .swipeText {
+    font-size: 13px;
+  }
+
+  .swipeArrow {
+    font-size: 14px;
   }
 }
 
-/* Mobile Swipe Instructions - ADD THESE CLASSES TO YOUR CSS */
+@media (max-width: 480px) {
+  .packGrid {
+    padding: 0 12px 25px;
+    gap: 14px;
+  }
 
+  .anastasisCard {
+    flex: 0 0 240px; /* Even smaller width */
+    padding: 16px 14px; /* More compact padding */
+    min-height: 300px; /* Even shorter height */
+  }
+
+  .cardIcon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+
+  .packName {
+    font-size: 1.2rem;
+  }
+
+  .amount {
+    font-size: 2rem;
+  }
+
+  .buyBtn {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+
+  .tagline {
+    font-size: 0.85rem;
+  }
+
+  .useCase {
+    font-size: 0.75rem;
+  }
+
+  .statItem {
+    padding: 8px 6px;
+  }
+
+  .statValue {
+    font-size: 0.9rem;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+  }
+
+  /* Extra compact mobile badge */
+  .popularBadge {
+    padding: 4px 8px 4px 12px;
+    font-size: 0.55rem;
+    border-radius: 0 14px 0 8px;
+  }
+
+  .popularBadge::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid #cc8800;
+    border-top: 4px solid #cc8800;
+  }
+
+  .popularBadge::after {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 4px solid #cc8800;
+  }
+}
+
+/* Mobile Swipe Instructions */
 .mobileSwipeHint {
   display: none;
-  margin: -30px auto 40px; /* Negative top margin to pull it closer to cards */
+  margin: -30px auto 40px;
   text-align: center;
   max-width: 320px;
   position: relative;
@@ -723,18 +860,6 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Show only on mobile */
-@media (max-width: 768px) {
-  .mobileSwipeHint {
-    display: block;
-  }
-  
-  /* Adjust pack grid bottom padding to account for swipe hint */
-  .packGrid {
-    padding-bottom: 30px;
-  }
-}
-
 /* Animations */
 @keyframes bounceSwipe {
   0%, 20%, 53%, 80%, 100% {
@@ -759,45 +884,6 @@
   50% {
     transform: translateX(10px);
     opacity: 0.6;
-  }
-}
-/* Animations */
-@keyframes bounceSwipe {
-  0%, 20%, 53%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40%, 43% {
-    transform: translateY(-6px);
-  }
-  70% {
-    transform: translateY(-3px);
-  }
-  90% {
-    transform: translateY(-1px);
-  }
-}
-
-@keyframes slideRightArrow {
-  0%, 100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(8px);
-    opacity: 0.7;
-  }
-}
-
-
-
-
-
-
-
-
-@media (min-width: 769px) {
-  .anastasisPricing::after {
-    display: none;
   }
 }
 

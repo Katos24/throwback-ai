@@ -50,8 +50,8 @@ const CustomerSuccessStories = () => {
               <Image
                 src={item.before}
                 alt="Original damaged photo"
-                width={140}
-                height={180}
+                width={180}
+                height={2000}
                 className={successStyles.successBefore}
                 loading="lazy"
                 placeholder="blur"

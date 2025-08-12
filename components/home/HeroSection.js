@@ -16,8 +16,8 @@ export default function HeroSection() {
           </h1>
           
           <p className={heroStyles.heroSubtitle}>
-            Transform faded, torn, or damaged photos into vibrant keepsakes in under 60 seconds. 
-            Choose your restoration level—from basic enhancement to full colorization.
+            Resurrect precious family memories in under 60 seconds. 
+            Our AI breathes new life into faded, torn, or damaged photos—from gentle restoration to full colorization.
           </p>
 
        

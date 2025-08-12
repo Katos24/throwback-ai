@@ -357,7 +357,6 @@ export default function RestoreBasic() {
             <div className={styles.compactCreditsInfo}>
               <span className={styles.creditsIcon}>⚡</span>
               <span className={styles.creditsText}>{credits} credits</span>
-              <span className={styles.creditsCost}>({restoreCost}/restore)</span>
             </div>
             <button 
               onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}

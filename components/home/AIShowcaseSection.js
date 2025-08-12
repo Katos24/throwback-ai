@@ -1,8 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import aiShowcaseStyles from '../../styles/AIShowcase.module.css';
 
 const AIShowcaseSection = () => {
+  const router = useRouter();
+
+  const handleExperienceClick = () => {
+    router.push('/replicate/restore-basic');
+  };
   const transformations = [
     {
       before: '/images/weddingbefore.jpg',
@@ -32,7 +38,7 @@ const AIShowcaseSection = () => {
             Our heritage-trained AI doesn&apos;t just enhance &mdash; it resurrects lost memories with surgical precision
           </p>
         </div>
-
+        
         <div className={aiShowcaseStyles.transformationGrid}>
           {transformations.map((item, index) => (
             <div key={index} className={aiShowcaseStyles.transformationCard}>
@@ -76,9 +82,11 @@ const AIShowcaseSection = () => {
             </div>
           ))}
         </div>
-
-
-        <button className={aiShowcaseStyles.showcaseCTA}>
+        
+        <button 
+          className={aiShowcaseStyles.showcaseCTA}
+          onClick={handleExperienceClick}
+        >
           <span className={aiShowcaseStyles.ctaText}>Experience AI Magic</span>
           <div className={aiShowcaseStyles.ctaGlow}></div>
         </button>

@@ -20,8 +20,8 @@ export default async function handler(req, res) {
 
   const buf = await buffer(req);
   const sig = req.headers["stripe-signature"];
-
   let event;
+
   try {
     event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
   } catch (err) {
@@ -33,15 +33,35 @@ export default async function handler(req, res) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
+    
+    // Verify payment was successful
+    if (session.payment_status !== "paid") {
+      console.log(`⚠️ Payment not completed: ${session.payment_status}`);
+      return res.status(200).json({ received: true });
+    }
 
     const supabaseUserId = session.metadata?.supabaseUserId;
     const priceId = session.metadata?.selectedPriceId;
+    const paymentIntentId = session.payment_intent;
 
-    console.log("✅ Metadata received:", { supabaseUserId, priceId });
+    console.log("✅ Metadata received:", { supabaseUserId, priceId, paymentIntentId });
 
     if (!supabaseUserId || !priceId) {
       console.error("❌ Missing metadata in session");
       return res.status(400).send("Missing metadata");
+    }
+
+    // Check if this payment was already processed (idempotency protection)
+    const { data: existingTransaction } = await supabaseAdmin
+      .from("credit_transactions")
+      .select("id")
+      .eq("reference_id", paymentIntentId)
+      .eq("type", "stripe_purchase")
+      .single();
+
+    if (existingTransaction) {
+      console.log(`⚠️ Payment ${paymentIntentId} already processed`);
+      return res.status(200).json({ received: true, message: "Already processed" });
     }
 
     const creditsToAdd = priceToCredits[priceId];
@@ -64,7 +84,6 @@ export default async function handler(req, res) {
 
     const currentCredits = profile?.credits ?? 0;
     const currentCreditsRemaining = profile?.credits_remaining ?? 0;
-
     const newCredits = currentCredits + creditsToAdd;
     const newCreditsRemaining = currentCreditsRemaining + creditsToAdd;
 
@@ -80,6 +99,22 @@ export default async function handler(req, res) {
     if (updateError) {
       console.error("❌ Failed to update credits:", updateError.message);
       return res.status(500).send("Could not update credits");
+    }
+
+    // Log the transaction for audit trail
+    const { error: logError } = await supabaseAdmin
+      .from("credit_transactions")
+      .insert({
+        user_id: supabaseUserId,
+        reference_id: paymentIntentId,
+        amount: creditsToAdd,
+        type: "stripe_purchase",
+        created_at: new Date().toISOString()
+      });
+
+    if (logError) {
+      console.error("❌ Failed to log transaction:", logError.message);
+      // Don't fail the webhook if logging fails, credits already added
     }
 
     console.log(`✅ Added ${creditsToAdd} credits to user ${supabaseUserId}`);

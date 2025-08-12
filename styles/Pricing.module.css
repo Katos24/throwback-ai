@@ -1,4 +1,4 @@
-/* Pricing.module.css - Modern AI Credit Pack Design */
+/* Pricing.module.css - Enhanced AI Credit Pack Design */
 
 .pricing {
   background: linear-gradient(135deg, #0a0a23 0%, #1a1a3a 50%, #2a1a4a 100%);
@@ -22,6 +22,7 @@
     radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.06) 0%, transparent 50%),
     radial-gradient(circle at 40% 80%, rgba(0, 191, 255, 0.04) 0%, transparent 60%);
   animation: particleFloat 15s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes particleFloat {
@@ -75,8 +76,8 @@
 /* Mobile-first grid */
 .pricingGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
   margin: 0 auto;
   max-width: 1200px;
 }
@@ -87,14 +88,14 @@
   backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  padding: 24px 20px;
+  padding: 32px 24px 24px 24px; /* Extra top padding for badge */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   overflow: hidden;
-  min-height: 380px;
+  min-height: 420px;
 }
 
 /* Glowing border effect */
@@ -106,7 +107,7 @@
   right: -2px;
   bottom: -2px;
   background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.5), transparent);
-  border-radius: 26px;
+  border-radius: 22px;
   opacity: 0;
   z-index: -1;
   transition: opacity 0.4s ease;
@@ -126,7 +127,7 @@
 .featured {
   border: 2px solid #ffd700;
   background: linear-gradient(145deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 215, 0, 0.04) 100%);
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .featured::before {
@@ -135,17 +136,18 @@
 }
 
 .featured:hover {
-  transform: scale(1.05) translateY(-10px);
+  transform: scale(1.03) translateY(-10px);
 }
 
-/* Badge */
+/* FIXED Badge positioning */
 .pricingBadge {
   position: absolute;
-  top: 6px;
-  right: 16px;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
   background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
   color: #1a1a2e;
-  padding: 4px 12px;
+  padding: 6px 16px;
   border-radius: 20px;
   font-size: 0.7rem;
   font-weight: 800;
@@ -153,25 +155,34 @@
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
   animation: badgePulse 3s ease-in-out infinite;
-  z-index: 2;
+  z-index: 3;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 @keyframes badgePulse {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.05); }
+  0%, 100% { 
+    transform: translateX(-50%) scale(1); 
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  }
+  50% { 
+    transform: translateX(-50%) scale(1.05); 
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+  }
 }
 
 /* Card header */
 .cardHeader {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .pricingTitle {
-  font-size: 1.4rem;
-  margin: 0 0 4px 0;
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
+  margin: 0 0 8px 0;
   color: #ffffff;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .greekName {
@@ -179,7 +190,7 @@
   color: #ffd700;
   font-style: italic;
   font-weight: 300;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   opacity: 0.8;
 }
 
@@ -187,11 +198,11 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
 }
 
 .priceAmount {
-  font-size: 2.2rem;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
   font-weight: 900;
   color: #ffd700;
   text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
@@ -205,11 +216,11 @@
 
 .credits {
   text-align: center;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .creditsAmount {
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
   font-weight: 800;
   color: #4ecdc4;
   text-shadow: 0 0 12px rgba(78, 205, 196, 0.4);
@@ -219,54 +230,67 @@
   font-size: 0.8rem;
   color: #c8d6e5;
   margin-left: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .pricingDescription {
   color: #c8d6e5;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   line-height: 1.5;
   text-align: center;
   font-style: italic;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.9rem);
 }
 
 .subDescription {
   color: #a8b6c5;
-  font-size: 0.8rem;
+  font-size: clamp(0.75rem, 2vw, 0.8rem);
   line-height: 1.4;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
-/* Feature highlights */
+/* Enhanced feature highlights */
 .featureHighlights {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
 }
 
 .featureItem {
   text-align: center;
-  padding: 8px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.featureItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .featureIcon {
-  font-size: 1.2rem;
-  margin-bottom: 6px;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
   display: block;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
 }
 
 .featureNumber {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 800;
   color: #ffd700;
   display: block;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
 .featureLabel {
@@ -274,16 +298,18 @@
   color: #c8d6e5;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-top: 2px;
+  margin-top: 4px;
+  line-height: 1.2;
 }
 
+/* Enhanced button styles */
 .pricingButton {
   width: 100%;
   background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%);
   color: #1a1a2e;
   border: none;
-  padding: 12px 20px;
-  font-size: 0.85rem;
+  padding: 14px 20px;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   font-weight: 800;
   border-radius: 25px;
   cursor: pointer;
@@ -294,13 +320,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricingButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.pricingButton:hover::before {
+  left: 100%;
 }
 
 .pricingButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
   background: linear-gradient(135deg, #ffb347 0%, #ffd700 50%, #ff6b6b 100%);
+}
+
+.pricingButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading {
+  background: linear-gradient(135deg, #c8d6e5 0%, #a8b6c5 100%);
+  pointer-events: none;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .featured .pricingButton {
@@ -310,6 +374,7 @@
 
 .featured .pricingButton:hover {
   background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 50%, #4ecdc4 100%);
+  box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
 }
 
 /* Staggered animations */
@@ -338,7 +403,7 @@
   .pricingGrid {
     display: flex;
     overflow-x: auto;
-    gap: 16px;
+    gap: 20px;
     padding: 20px 0 40px 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -350,65 +415,66 @@
   }
   
   .pricingCard {
-    flex: 0 0 240px;
+    flex: 0 0 260px;
     scroll-snap-align: center;
-    min-height: 340px;
-    padding: 20px 16px;
+    min-height: 380px;
+    padding: 28px 20px 20px 20px;
   }
   
   .featured {
     transform: scale(1);
   }
   
-  .priceAmount {
-    font-size: 1.8rem;
-  }
-  
-  .creditsAmount {
-    font-size: 1.3rem;
+  /* Mobile badge adjustments */
+  .pricingBadge {
+    top: -6px;
+    font-size: 0.65rem;
+    padding: 4px 12px;
   }
   
   .featureHighlights {
     grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 12px;
+    gap: 12px;
+    padding: 16px;
   }
   
   .featureItem {
-    padding: 4px;
+    padding: 8px;
   }
 }
 
 @media (max-width: 480px) {
   .pricingCard {
-    flex: 0 0 220px;
-    padding: 16px 12px;
-    min-height: 320px;
+    flex: 0 0 240px;
+    padding: 24px 16px 16px 16px;
+    min-height: 360px;
+  }
+  
+  .pricingBadge {
+    font-size: 0.6rem;
+    padding: 3px 10px;
   }
   
   .pricingTitle {
-    font-size: 1.2rem;
-  }
-  
-  .priceAmount {
-    font-size: 1.6rem;
-  }
-  
-  .creditsAmount {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .pricingButton {
-    padding: 10px 16px;
-    font-size: 0.8rem;
-  }
-  
-  .pricingDescription {
-    font-size: 0.8rem;
-  }
-  
-  .subDescription {
+    padding: 12px 16px;
     font-size: 0.75rem;
+  }
+  
+  .featureHighlights {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .featureItem {
+    padding: 6px;
+  }
+  
+  .featureIcon {
+    font-size: 1.2rem;
   }
 }
 
@@ -429,6 +495,7 @@
     animation: swipeHint 3s ease-in-out infinite;
     pointer-events: none;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
 

@@ -1,10 +1,20 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabaseClient'; // Adjust path as needed
 import pricingStyles from '../../styles/Pricing.module.css';
 
 const PricingSection = () => {
+  const [loadingId, setLoadingId] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) setUser(data.user);
+    });
+  }, []);
+
   const creditPacks = [
     {
+      id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
       name: "Dawn Pack",
       price: "$4.99",
       credits: "400",
@@ -14,6 +24,7 @@ const PricingSection = () => {
       featured: false
     },
     {
+      id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
       name: "Revival Pack", 
       price: "$9.99",
       credits: "1,000", 
@@ -23,6 +34,7 @@ const PricingSection = () => {
       featured: false
     },
     {
+      id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
       name: "Resurgence Pack",
       price: "$14.99",
       credits: "1,600",
@@ -33,6 +45,7 @@ const PricingSection = () => {
       badge: "MOST POPULAR"
     },
     {
+      id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
       name: "Eternal Pack",
       price: "$29.99", 
       credits: "3,500",
@@ -42,6 +55,35 @@ const PricingSection = () => {
       featured: false
     }
   ];
+
+  const handlePurchase = async (selectedPriceId) => {
+    if (!user) {
+      alert("Please sign up or log in to make a purchase.");
+      return;
+    }
+
+    setLoadingId(selectedPriceId);
+
+    try {
+      const res = await fetch("/api/stripe/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          supabaseUserId: user.id,
+          email: user.email,
+          selectedPriceId,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to create checkout session");
+
+      const { url } = await res.json();
+      window.location.href = url;
+    } catch (err) {
+      alert(err.message);
+      setLoadingId(null);
+    }
+  };
 
   return (
     <section className={pricingStyles.pricing}>
@@ -103,14 +145,23 @@ const PricingSection = () => {
                 </div>
               </div>
               
-              <Link
-                href="/pricing"
-                prefetch={true}
+              <button
+                onClick={() => handlePurchase(pack.id)}
+                disabled={loadingId === pack.id}
                 aria-label={`Purchase ${pack.name} credit pack`}
-                className={pricingStyles.pricingButton}
+                className={`${pricingStyles.pricingButton} ${loadingId === pack.id ? pricingStyles.loading : ''}`}
               >
-                🚀 BEGIN RESTORATION
-              </Link>
+                {loadingId === pack.id ? (
+                  <>
+                    <span className={pricingStyles.spinner}>⚡</span>
+                    PROCESSING...
+                  </>
+                ) : (
+                  <>
+                    🚀 BEGIN RESTORATION
+                  </>
+                )}
+              </button>
             </div>
           ))}
         </div>

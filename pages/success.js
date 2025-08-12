@@ -216,7 +216,7 @@ export default function Success() {
             color: '#d63031',
             marginBottom: '8px'
           }}>
-            🎯 What's Next?
+            🎯 What&apos;s Next?
           </div>
           <div style={{
             fontSize: '14px',

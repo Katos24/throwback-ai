@@ -6,7 +6,9 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   position: relative;
-  padding: 3rem 2rem 5rem;
+ padding: 3rem 2rem 5rem;
+  /* ADD TOP PADDING FOR FIXED HEADER */
+  padding-top: calc(3rem + 80px); /* Original 3rem + 80px header height */
   color: #fff;
   overflow: hidden;
   border-radius: 0 0 24px 24px;
@@ -1045,202 +1047,184 @@
   display: inline-block;
 }
 
+
+
 /* ========================================
-   MOBILE-FIRST RESPONSIVE DESIGN
+ MOBILE-FIRST RESPONSIVE DESIGN - FIXED
 ======================================== */
 @media (max-width: 768px) {
-  .topBanner,
-  .topBannerBasic {
-    padding: 2rem 1rem 3rem;
-    border-radius: 0 0 16px 16px;
-  }
-  
-  .controlsGrid {
-    gap: 1.5rem;
-    max-width: 100%;
-  }
-  
-  .creditsGrid {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .creditItem {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-width: unset;
-    padding: 0.75rem 1rem;
-  }
-  
-  .creditLabel {
-    margin-bottom: 0;
-    text-align: left;
-  }
-  
-  .creditValue {
-    font-size: 1.125rem;
-  }
-  
-  .topBannerImages {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .creditsInfoContainer {
-    padding: 1.25rem;
-    border-radius: 16px;
-  }
-  
-  .uploadBox {
-    height: 180px;
-    border-radius: 12px;
-  }
-
-  .imageWrapper {
-    height: 250px; /* Adjusted for mobile */
-  }
-  
-  .statusMessage {
-    padding: 1rem;
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-
-  .buttonRow {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .resetButton {
-    align-self: center;
-    width: 60px;
-  }
-
-  .actionButton,
-  .topBannerButton {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .downloadButton {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .comparisonSection {
-    padding: 3rem 1rem;
-  }
-
-  .successBanner {
-    margin: 1.5rem 0;
-    padding: 1.25rem;
-  }
-
-  .successContent {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.75rem;
-  }
+.topBanner,
+.topBannerBasic {
+/* FIXED: Keep header padding + adjust mobile padding */
+padding-top: calc(2rem + 66px); /* Mobile header height + mobile padding */
+padding-left: 1rem;
+padding-right: 1rem;
+padding-bottom: 3rem;
+border-radius: 0 0 16px 16px;
+ }
+.controlsGrid {
+gap: 1.5rem;
+max-width: 100%;
+ }
+.creditsGrid {
+flex-direction: column;
+gap: 0.75rem;
+ }
+.creditItem {
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+min-width: unset;
+padding: 0.75rem 1rem;
+ }
+.creditLabel {
+margin-bottom: 0;
+text-align: left;
+ }
+.creditValue {
+font-size: 1.125rem;
+ }
+.topBannerImages {
+grid-template-columns: 1fr;
+gap: 1.5rem;
+ }
+.creditsInfoContainer {
+padding: 1.25rem;
+border-radius: 16px;
+ }
+.uploadBox {
+height: 180px;
+border-radius: 12px;
+ }
+.imageWrapper {
+height: 250px; /* Adjusted for mobile */
+ }
+.statusMessage {
+padding: 1rem;
+flex-direction: column;
+text-align: center;
+gap: 0.5rem;
+ }
+.buttonRow {
+flex-direction: column;
+gap: 0.75rem;
+ }
+.resetButton {
+align-self: center;
+width: 60px;
+ }
+.actionButton,
+.topBannerButton {
+padding: 1rem 1.5rem;
+font-size: 1rem;
+ }
+.downloadButton {
+padding: 0.875rem 1.5rem;
+font-size: 1rem;
+ }
+.comparisonSection {
+padding: 3rem 1rem;
+ }
+.successBanner {
+margin: 1.5rem 0;
+padding: 1.25rem;
+ }
+.successContent {
+flex-direction: column;
+text-align: center;
+gap: 0.75rem;
+ }
 }
 
 @media (max-width: 480px) {
-  .topBannerContent {
-    gap: 2rem;
-  }
-  
-  .creditsInfoContainer {
-    padding: 1rem;
-  }
-  
-  .creditItem {
-    padding: 0.75rem 1rem;
-  }
-  
-  .uploadBox {
-    height: 160px;
-    padding: 1rem;
-  }
+.topBanner,
+.topBannerBasic {
+/* FIXED: Keep header padding + adjust small mobile padding */
+padding-top: calc(1.5rem + 60px); /* Small mobile header + padding */
+padding-left: 1rem;
+padding-right: 1rem;
+padding-bottom: 2.5rem;
+}
 
-  .imageWrapper {
-    height: 220px; /* Adjusted for small mobile */
-  }
-  
-  .uploadPlaceholder {
-    font-size: 1rem;
-  }
-  
-  .uploadIcon {
-    font-size: 2.5rem;
-  }
-
-  .uploadText {
-    font-size: 1.1rem;
-  }
-  
-  .actionButton,
-  .topBannerButton {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.95rem;
-    min-height: 50px;
-  }
-
-  .downloadButton {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.95rem;
-  }
-  
-  .creditsTitle {
-    font-size: 0.75rem;
-  }
-  
-  .creditLabel {
-    font-size: 0.7rem;
-  }
-  
-  .creditValue {
-    font-size: 1rem;
-  }
-
-  .placeholderIcon {
-    font-size: 2.5rem;
-  }
-
-  .placeholderText {
-    font-size: 1rem;
-  }
+.topBannerContent {
+gap: 2rem;
+ }
+.creditsInfoContainer {
+padding: 1rem;
+ }
+.creditItem {
+padding: 0.75rem 1rem;
+ }
+.uploadBox {
+height: 160px;
+padding: 1rem;
+ }
+.imageWrapper {
+height: 220px; /* Adjusted for small mobile */
+ }
+.uploadPlaceholder {
+font-size: 1rem;
+ }
+.uploadIcon {
+font-size: 2.5rem;
+ }
+.uploadText {
+font-size: 1.1rem;
+ }
+.actionButton,
+.topBannerButton {
+padding: 0.875rem 1.25rem;
+font-size: 0.95rem;
+min-height: 50px;
+ }
+.downloadButton {
+padding: 0.75rem 1.25rem;
+font-size: 0.95rem;
+ }
+.creditsTitle {
+font-size: 0.75rem;
+ }
+.creditLabel {
+font-size: 0.7rem;
+ }
+.creditValue {
+font-size: 1rem;
+ }
+.placeholderIcon {
+font-size: 2.5rem;
+ }
+.placeholderText {
+font-size: 1rem;
+ }
 }
 
 /* ========================================
-   ACCESSIBILITY IMPROVEMENTS
+ ACCESSIBILITY IMPROVEMENTS
 ======================================== */
 @media (prefers-reduced-motion: reduce) {
-  .topBanner,
-  .topBannerBasic,
-  .topBannerButton,
-  .actionButton,
-  .creditItem,
-  .uploadBox,
-  .imageWrapper,
-  .downloadButton,
-  .scrollNotice,
-  .statusMessage,
-  .successBanner {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .topBanner::after,
-  .topBannerBasic::after {
-    animation: none;
-  }
-  
-  .statusIcon {
-    animation: none;
-  }
+.topBanner,
+.topBannerBasic,
+.topBannerButton,
+.actionButton,
+.creditItem,
+.uploadBox,
+.imageWrapper,
+.downloadButton,
+.scrollNotice,
+.statusMessage,
+.successBanner {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+ }
+.topBanner::after,
+.topBannerBasic::after {
+animation: none;
+ }
+.statusIcon {
+animation: none;
+ }
 }
 
 /* Focus states for accessibility */
@@ -1249,22 +1233,20 @@
 .uploadBox:focus-visible,
 .downloadButton:focus-visible,
 .resetButton:focus-visible {
-  outline: 2px solid #60a5fa;
-  outline-offset: 2px;
+outline: 2px solid #60a5fa;
+outline-offset: 2px;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .topBannerButton,
-  .actionButton {
-    border: 2px solid currentColor;
-  }
-  
-  .creditItem {
-    border: 2px solid currentColor;
-  }
-  
-  .uploadBox {
-    border-width: 3px;
-  }
+.topBannerButton,
+.actionButton {
+border: 2px solid currentColor;
+ }
+.creditItem {
+border: 2px solid currentColor;
+ }
+.uploadBox {
+border-width: 3px;
+ }
 }

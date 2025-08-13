@@ -9,13 +9,13 @@
 .galleryContainer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 5rem 1rem;
 }
 
 .galleryHeading {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: .5rem;
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
   letter-spacing: 0.05em;
@@ -368,7 +368,6 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-
   .filterButtons {
     gap: 8px;
   }

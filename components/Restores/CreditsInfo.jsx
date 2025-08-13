@@ -15,7 +15,7 @@ export default function CreditsInfo({ credits, restoreCost, isLoggedIn }) {
       <div className={styles.creditsGrid}>
         <div className={styles.creditItem}>
           <span className={styles.creditLabel}>Cost</span>
-          <span className={styles.creditValue}>{restoreCost} credit</span>
+          <span className={styles.creditValue}>{restoreCost} credits</span>
         </div>
 
         <div className={styles.creditItem}>

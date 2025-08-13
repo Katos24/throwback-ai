@@ -1,6 +1,6 @@
 /* === Premium Header Styling === */
 .header {
-  position: relative;
+  position: sticky; /* Changed from relative */
   top: 0;
   z-index: 100;
   display: grid;
@@ -184,7 +184,7 @@
   .nav {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 100%;
     left: 0;
     width: 100%;

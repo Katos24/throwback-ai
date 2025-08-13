@@ -1,8 +1,11 @@
 /* === Premium Header Styling === */
 .header {
-  position: sticky; /* Changed from relative */
+  position: fixed; /* Changed to fixed for reliable sticking */
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -12,6 +15,9 @@
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #333;
   transition: all 0.3s ease;
+  /* Performance optimizations */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* === Hamburger === */
@@ -26,7 +32,7 @@
   height: 40px;
   justify-content: center;
   align-items: center;
-  z-index: 103;
+  z-index: 1003;
 }
 
 .bar {
@@ -43,7 +49,7 @@
   align-items: center;
   text-decoration: none;
   font-family: 'GFS Didot', serif;
-  z-index: 102;
+  z-index: 1002;
   margin: 0 auto;
 }
 
@@ -148,70 +154,6 @@
   background-color: #e60073;
 }
 
-/* === Mobile === */
-@media (max-width: 768px) {
-  .header {
-    display: block;
-    padding: 16px 20px;
-  }
-
-  .hamburger {
-    display: flex;
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    width: 36px;
-    height: 36px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .logoWrapper {
-    margin: 0 auto;
-    align-items: center;
-    text-align: center;
-    padding-top: 4px;
-  }
-
-  .logoMain {
-    font-size: 1.6rem;
-  }
-
-  .logoSub {
-    font-size: 0.6rem;
-  }
-
-  .nav {
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #1c1c1c;
-    padding: 24px;
-    gap: 18px;
-    border-bottom: 1px solid #444;
-    z-index: 101;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-  }
-
-  .showMenu {
-    display: flex;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .navLink,
-  .navBtn {
-    width: 100%;
-    text-align: left;
-    font-size: 1rem;
-  }
-}
-
 /* === CTA Glow Button === */
 .ctaGlowBtn {
   background: linear-gradient(135deg, #a18cd1, #fbc2eb);
@@ -244,6 +186,76 @@
   }
 }
 
+/* === Mobile === */
+@media (max-width: 768px) {
+  .header {
+    display: block;
+    padding: 16px 20px;
+    /* Mobile Safari safe area support */
+    top: env(safe-area-inset-top, 0);
+  }
+
+  .hamburger {
+    display: flex;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logoWrapper {
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    padding-top: 4px;
+  }
+
+  .logoMain {
+    font-size: 1.6rem;
+  }
+
+  .logoSub {
+    font-size: 0.6rem;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 70px; /* Adjusted for fixed header height on mobile */
+    left: 0;
+    width: 100%;
+    background: #1c1c1c;
+    padding: 24px;
+    gap: 18px;
+    border-bottom: 1px solid #444;
+    z-index: 999; /* Below header */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    /* Performance optimization */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .showMenu {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navLink,
+  .navBtn {
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+  }
+}
+
+/* === Google Button === */
 .googleButton {
   background-color: #000 !important; /* force black */
   color: #fff !important;
@@ -272,3 +284,26 @@
   fill: currentColor; /* If you want white icon to match text color */
   /* OR: remove this line if you want the official Google colors */
 }
+
+/* === Info Text Styling === */
+.infoText {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  margin: 16px 0;
+  line-height: 1.4;
+}
+
+/* === Body Compensation for Fixed Header === */
+/* Add this to your global CSS file (globals.css or _app.js) */
+/*
+body {
+  padding-top: 80px; // Adjust based on your header height
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px; // Adjust for mobile header height
+  }
+}
+*/

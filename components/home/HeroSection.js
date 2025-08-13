@@ -5,10 +5,6 @@ import heroStyles from '../../styles/Hero.module.css'
 export default function HeroSection() {
   return (
     <>
-      <div className={heroStyles.fullWidthBanner}>
-        🔒 Privacy-First • ⚡ Results in Under 1 Minute • 🆓 1 Free Restore + 5 Bonus on Signup
-      </div>
-      
       <section className={heroStyles.hero}>
         <div className={heroStyles.heroContent}>
           <h1 className={heroStyles.heroTitle}>

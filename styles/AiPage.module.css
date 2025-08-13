@@ -1056,7 +1056,7 @@
 .topBanner,
 .topBannerBasic {
 /* FIXED: Keep header padding + adjust mobile padding */
-padding-top: calc(2rem + 66px); /* Mobile header height + mobile padding */
+padding-top: calc(3rem + 66px); /* Mobile header height + mobile padding */
 padding-left: 1rem;
 padding-right: 1rem;
 padding-bottom: 3rem;

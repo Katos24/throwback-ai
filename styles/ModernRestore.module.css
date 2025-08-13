@@ -59,7 +59,7 @@
   z-index: 10;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: calc(3rem + 100px) 1.5rem 3rem 1.5rem;
 }
 
 /* Header */
@@ -848,8 +848,9 @@
 }
 
 @media (max-width: 768px) {
-  .content { padding: 2rem 1rem; }
-  
+  .content { 
+    padding: calc(2rem + 80px) 1rem 2rem 1rem; /* Mobile header + original padding */
+  }
   /* Move credits under title on mobile - sleek style */
   .header { position: static; }
   .compactCredits {
@@ -874,7 +875,10 @@
 }
 
 @media (max-width: 480px) {
-  .content { padding: 1.5rem 0.75rem; }
+  .content { 
+    padding: calc(1.5rem + 70px) 0.75rem 1.5rem 0.75rem; /* Small mobile header + padding */
+  }
+  
   .header { margin-bottom: 2.5rem; }
   
   .compactCredits {

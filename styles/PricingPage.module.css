@@ -32,7 +32,7 @@
 /* Hero Section */
 .heroSection {
   text-align: center;
-  padding: 40px 20px 60px;
+  padding: calc(40px + 100px) 20px 60px; /* Header space + original padding */
   position: relative;
   z-index: 2;
 }
@@ -560,7 +560,7 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding: 60px 16px 40px; /* Reduced padding */
+    padding: calc(60px + 80px) 16px 40px; /* Mobile header + original padding */
   }
 
   .packGrid {
@@ -753,6 +753,10 @@
     flex: 0 0 240px; /* Even smaller width */
     padding: 16px 14px; /* More compact padding */
     min-height: 300px; /* Even shorter height */
+  }
+
+  .heroSection {
+    padding: calc(50px + 70px) 12px 30px; /* Small mobile header + padding */
   }
 
   .cardIcon {

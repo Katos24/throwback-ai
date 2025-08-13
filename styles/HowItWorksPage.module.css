@@ -20,7 +20,7 @@
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 24px;
+  padding: calc(100px + 60px) 24px 100px 24px; /* Reduced from +100px to +60px */
   background: var(--gradient-main);
   color: var(--text-primary);
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
@@ -678,7 +678,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .container {
-    padding: 60px 16px;
+    padding: calc(60px + 50px) 16px 60px 16px; /* Reduced from +80px to +50px */
   }
 
   .heading {
@@ -733,7 +733,11 @@
 }
 
 @media (max-width: 480px) {
-  .heading {
+  .container {
+  padding: calc(60px + 40px) 16px 60px 16px; /* Reduced from +70px to +40px */
+}
+  
+    .heading {
     font-size: 2rem;
   }
 

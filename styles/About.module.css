@@ -1,7 +1,8 @@
-/* styles/About.module.css */
+/* styles/About.module.css - Fixed for Header */
 .main {
   max-width: 720px;
-  margin: 4rem auto;
+  /* UPDATED: Add header compensation to top margin */
+  margin: calc(4rem + 100px) auto 4rem auto; /* Header space + original 4rem */
   padding: 3rem;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   line-height: 1.8;
@@ -170,7 +171,8 @@
 /* Responsive enhancements */
 @media (max-width: 768px) {
   .main {
-    margin: 2rem 1rem;
+    /* UPDATED: Mobile header compensation */
+    margin: calc(2rem + 80px) 1rem 2rem 1rem; /* Mobile header + original 2rem */
     padding: 2rem 1.5rem;
     border-radius: 16px;
   }
@@ -183,6 +185,13 @@
   .paragraph {
     font-size: 1.0625rem;
     margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    /* UPDATED: Small mobile header compensation */
+    margin: calc(1.5rem + 70px) 1rem 1.5rem 1rem; /* Small mobile header + padding */
   }
 }
 

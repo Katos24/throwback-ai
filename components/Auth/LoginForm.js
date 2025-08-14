@@ -8,7 +8,6 @@ export function LoginForm({ isDisabled }) {
   const [cooldown, setCooldown] = useState(0);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
   const cooldownRef = useRef(null);
 
   useEffect(() => {
@@ -68,27 +67,6 @@ export function LoginForm({ isDisabled }) {
     }
   };
 
-  const handleFacebookSignIn = async () => {
-    setIsFacebookLoading(true);
-    setErrorMsg('');
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook',
-        options: {
-          redirectTo: window.location.origin,
-        },
-      });
-      if (error) {
-        setErrorMsg(error.message || 'Failed to log in with Facebook.');
-        setIsFacebookLoading(false);
-      }
-      // Otherwise, user will be redirected to Facebook login
-    } catch {
-      setErrorMsg('An unexpected error occurred during Facebook sign-in.');
-      setIsFacebookLoading(false);
-    }
-  };
-
   return (
     <>
       {successMsg && (
@@ -110,17 +88,6 @@ export function LoginForm({ isDisabled }) {
         </p>
       )}
 
-      {/* Facebook Login Button */}
-      <button
-        type="button"
-        className={styles.facebookButton}
-        onClick={handleFacebookSignIn}
-        disabled={isDisabled || isFacebookLoading || loading}
-        style={{ marginBottom: '1rem' }}
-      >
-        {isFacebookLoading ? 'Redirecting to Facebook…' : 'Log in with Facebook'}
-      </button>
-
       <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
         <label htmlFor="login-email" className="sr-only">Email address</label>
         <input
@@ -130,7 +97,7 @@ export function LoginForm({ isDisabled }) {
           className={styles.inputField}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={isDisabled || loading || cooldown > 0 || isFacebookLoading}
+          disabled={isDisabled || loading || cooldown > 0}
           required
           aria-label="Email address"
           autoComplete="email"
@@ -138,7 +105,7 @@ export function LoginForm({ isDisabled }) {
         <button
           type="submit"
           className={styles.submitButton}
-          disabled={isDisabled || loading || cooldown > 0 || isFacebookLoading}
+          disabled={isDisabled || loading || cooldown > 0}
           aria-busy={loading}
         >
           {loading

@@ -10,11 +10,11 @@ export default function LoginPage() {
   const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [isRedirecting, setIsRedirecting] = useState({ google: false, facebook: false });
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   // Google login
   const handleGoogleSignIn = async () => {
-    setIsRedirecting((prev) => ({ ...prev, google: true }));
+    setIsRedirecting(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
@@ -24,22 +24,7 @@ export default function LoginPage() {
     });
     if (error) {
       setErrorMsg(error.message || "An error occurred during Google sign-in. Please try again.");
-      setIsRedirecting((prev) => ({ ...prev, google: false }));
-    }
-  };
-
-  // Facebook login
-  const handleFacebookSignIn = async () => {
-    setIsRedirecting((prev) => ({ ...prev, facebook: true }));
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "facebook",
-      options: {
-        redirectTo: window.location.origin,
-      },
-    });
-    if (error) {
-      setErrorMsg(error.message || "An error occurred during Facebook sign-in. Please try again.");
-      setIsRedirecting((prev) => ({ ...prev, facebook: false }));
+      setIsRedirecting(false);
     }
   };
 
@@ -69,10 +54,10 @@ export default function LoginPage() {
             type="button"
             className={styles.googleButton}
             onClick={handleGoogleSignIn}
-            disabled={isRedirecting.google || isRedirecting.facebook}
+            disabled={isRedirecting}
             aria-label="Log in with Google"
           >
-            {isRedirecting.google ? (
+            {isRedirecting ? (
               <span className={styles.spinner} aria-label="Loading" />
             ) : (
               <>
@@ -94,34 +79,6 @@ export default function LoginPage() {
               </>
             )}
           </button>
-
-          {/* Facebook Login */}
-          <button
-            type="button"
-            className={styles.facebookButton}
-            onClick={handleFacebookSignIn}
-            disabled={isRedirecting.facebook || isRedirecting.google}
-            aria-label="Log in with Facebook"
-          >
-            {isRedirecting.facebook ? (
-              <span className={styles.spinner} aria-label="Loading" />
-            ) : (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  aria-hidden="true"
-                  className={styles.facebookIcon}
-                  width="20"
-                  height="20"
-                >
-                  <path fill="#1877F2" d="M24 2C12.3 2 3 11.3 3 23c0 10.4 7.6 19 17.5 20.7V30h-5.3v-7h5.3v-5.3c0-5.2 3.1-8.1 7.9-8.1 2.3 0 4.7.4 4.7.4v5.2h-2.6c-2.6 0-3.4 1.6-3.4 3.2V23h6l-1 7h-5v13.7C37.4 42 45 33.4 45 23 45 11.3 35.7 2 24 2z" />
-                </svg>
-                Log in with Facebook
-              </>
-            )}
-          </button>
         </div>
 
         <p className={styles.infoText}>
@@ -130,11 +87,11 @@ export default function LoginPage() {
 
         {/* Magic Link Email Login */}
         <LoginForm
-          isDisabled={isRedirecting.google || isRedirecting.facebook}
+          isDisabled={isRedirecting}
         />
 
         <p className={styles.bottomLink}>
-          Don’t have an account? <Link href="/signup">Sign up here</Link>
+          Don't have an account? <Link href="/signup">Sign up here</Link>
         </p>
       </main>
     </>

@@ -91,7 +91,7 @@ export default function LoginPage() {
         />
 
         <p className={styles.bottomLink}>
-          Don't have an account? <Link href="/signup">Sign up here</Link>
+          Don&apos;t have an account? <Link href="/signup">Sign up here</Link>
         </p>
       </main>
     </>

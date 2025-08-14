@@ -303,25 +303,26 @@
   }
 }
 
+
+
 @media (max-width: 768px) {
   .container {
-    margin: 80px auto 0 auto; /* Mobile header space */
+    margin: 120px auto 0 auto; /* Increased from 80px to 120px */
   }
 }
 
-/* Responsive enhancements */
+@media (max-width: 768px) and (min-width: 481px) {
+  .container--page {
+    margin: calc(3rem + 120px) 1rem 3rem 1rem; /* Much larger mobile spacing */
+  }
+}
+
 @media (max-width: 480px) {
   .container {
-    margin: 70px 1rem 0 1rem; /* Small mobile header + side margins */
-    padding: 1.5rem;
-    border-radius: 16px;
+    margin: 110px 1rem 0 1rem; /* Increased from 70px to 110px */
   }
   
   .container--page {
     margin: calc(2rem + 70px) 1rem 2rem 1rem; /* Page variant on small mobile */
-  }
-  
-  .heading {
-    font-size: 1.75rem;
   }
 }

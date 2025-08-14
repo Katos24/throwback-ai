@@ -240,22 +240,22 @@
 
 @media (max-width: 768px) {
   .container {
-    margin: 120px auto 0 auto; /* Keep auto centering */
-    max-width: calc(100vw - 2rem); /* Ensure it fits with margins */
+    margin: 120px auto 4rem auto; /* Added 4rem bottom margin */
+    max-width: calc(100vw - 2rem);
     width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    margin: 110px 1rem 0 1rem; /* Side margins */
-    max-width: calc(100vw - 2rem); /* Prevent overflow */
-    width: calc(100% - 2rem); /* Account for the 1rem margins */
+    margin: 110px 1rem 3rem 1rem; /* Added 3rem bottom margin */
+    max-width: calc(100vw - 2rem);
+    width: calc(100% - 2rem);
   }
   
   .container--page {
-    margin: calc(2rem + 110px) 1rem 2rem 1rem;
-    max-width: calc(100vw - 2rem); /* Prevent overflow */
-    width: calc(100% - 2rem); /* Account for margins */
+    margin: calc(2rem + 110px) 1rem 5rem 1rem; /* Increased bottom from 2rem to 5rem */
+    max-width: calc(100vw - 2rem);
+    width: calc(100% - 2rem);
   }
 }

@@ -3,7 +3,7 @@
 /* Base container - improved glassmorphism */
 .container {
   max-width: 400px;
-  margin: 100px auto 0 auto; /* Header space + auto centering */
+  margin: 100px auto 1rem auto; /* Header space + auto centering */
   padding: 2rem;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, rgba(12, 12, 16, 0.9) 0%, rgba(20, 20, 30, 0.85) 100%);

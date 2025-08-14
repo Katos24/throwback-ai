@@ -238,20 +238,24 @@
 }
 
 
-
 @media (max-width: 768px) {
   .container {
-    margin: 80px auto 0 auto; /* Mobile header space */
+    margin: 120px auto 0 auto; /* Keep auto centering */
+    max-width: calc(100vw - 2rem); /* Ensure it fits with margins */
+    width: 100%;
   }
 }
 
-
 @media (max-width: 480px) {
   .container {
-    margin: 70px 1rem 0 1rem; /* Small mobile header + side margins */
+    margin: 110px 1rem 0 1rem; /* Side margins */
+    max-width: calc(100vw - 2rem); /* Prevent overflow */
+    width: calc(100% - 2rem); /* Account for the 1rem margins */
   }
   
   .container--page {
-    margin: calc(2rem + 70px) 1rem 2rem 1rem; /* Page variant on small mobile */
+    margin: calc(2rem + 110px) 1rem 2rem 1rem;
+    max-width: calc(100vw - 2rem); /* Prevent overflow */
+    width: calc(100% - 2rem); /* Account for margins */
   }
 }

@@ -307,22 +307,22 @@
 
 @media (max-width: 768px) {
   .container {
-    margin: 120px auto 0 auto; /* Increased from 80px to 120px */
-  }
-}
-
-@media (max-width: 768px) and (min-width: 481px) {
-  .container--page {
-    margin: calc(3rem + 120px) 1rem 3rem 1rem; /* Much larger mobile spacing */
+    margin: 120px auto 0 auto; /* Keep auto centering */
+    max-width: calc(100vw - 2rem); /* Ensure it fits with margins */
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    margin: 110px 1rem 0 1rem; /* Increased from 70px to 110px */
+    margin: 110px 1rem 0 1rem; /* Side margins */
+    max-width: calc(100vw - 2rem); /* Prevent overflow */
+    width: calc(100% - 2rem); /* Account for the 1rem margins */
   }
   
   .container--page {
-    margin: calc(2rem + 70px) 1rem 2rem 1rem; /* Page variant on small mobile */
+    margin: calc(2rem + 110px) 1rem 2rem 1rem;
+    max-width: calc(100vw - 2rem); /* Prevent overflow */
+    width: calc(100% - 2rem); /* Account for margins */
   }
 }

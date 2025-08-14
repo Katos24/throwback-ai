@@ -2,7 +2,7 @@
 
 .container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 100px auto 0 auto; /* Header space + auto centering */
   padding: 2rem;
   font-family: 'Inter', sans-serif;
   background: rgba(12, 12, 16, 0.85);
@@ -17,7 +17,7 @@
 }
 
 .container--page {
-  margin: 5rem auto;
+  margin: calc(5rem + 100px) auto 5rem auto; /* Additional page spacing + header */
 }
 
 .container--modal {
@@ -238,3 +238,20 @@
 }
 
 
+
+@media (max-width: 768px) {
+  .container {
+    margin: 80px auto 0 auto; /* Mobile header space */
+  }
+}
+
+
+@media (max-width: 480px) {
+  .container {
+    margin: 70px 1rem 0 1rem; /* Small mobile header + side margins */
+  }
+  
+  .container--page {
+    margin: calc(2rem + 70px) 1rem 2rem 1rem; /* Page variant on small mobile */
+  }
+}

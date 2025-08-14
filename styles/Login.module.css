@@ -3,7 +3,7 @@
 /* Base container - improved glassmorphism */
 .container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 100px auto 0 auto; /* Header space + auto centering */
   padding: 2rem;
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, rgba(12, 12, 16, 0.9) 0%, rgba(20, 20, 30, 0.85) 100%);
@@ -23,7 +23,7 @@
 
 /* Container variants */
 .container--page {
-  margin: 5rem auto;
+  margin: calc(5rem + 100px) auto 5rem auto; /* Additional page spacing + header */
 }
 
 .container--modal {
@@ -303,16 +303,22 @@
   }
 }
 
+@media (max-width: 768px) {
+  .container {
+    margin: 80px auto 0 auto; /* Mobile header space */
+  }
+}
+
 /* Responsive enhancements */
 @media (max-width: 480px) {
   .container {
-    margin: 1rem;
+    margin: 70px 1rem 0 1rem; /* Small mobile header + side margins */
     padding: 1.5rem;
     border-radius: 16px;
   }
   
   .container--page {
-    margin: 2rem 1rem;
+    margin: calc(2rem + 70px) 1rem 2rem 1rem; /* Page variant on small mobile */
   }
   
   .heading {

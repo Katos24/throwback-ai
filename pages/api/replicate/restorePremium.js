@@ -1,7 +1,7 @@
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '5mb', // or larger, e.g. '10mb'
+      sizeLimit: '5mb',
     },
   },
 };
@@ -36,6 +36,7 @@ async function spendCredits(userId, amount) {
     uid: userId,
     amt: amount,
   });
+
   if (rpcError) throw rpcError;
 
   const { error: insertError } = await supabaseAdmin
@@ -45,6 +46,7 @@ async function spendCredits(userId, amount) {
       amount: -amount,
       type: "spend",
     });
+
   if (insertError) throw insertError;
 }
 
@@ -69,21 +71,12 @@ function uint8ToBase64(u8Arr) {
   return Buffer.from(binary, "binary").toString("base64");
 }
 
-// Timeout helper
-function withTimeout(promise, ms) {
-  const timeout = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error("Model timed out")), ms)
-  );
-  return Promise.race([promise, timeout]);
-}
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { imageBase64 } = req.body;
-
   if (!imageBase64) {
     return res.status(400).json({ error: "Missing imageBase64" });
   }
@@ -98,49 +91,166 @@ export default async function handler(req, res) {
   // Verify JWT token to get user
   const { data, error } = await supabaseAdmin.auth.getUser(token);
   const user = data?.user;
-
   if (error || !user) {
     console.error("JWT verification failed:", error);
     return res.status(401).json({ error: "Invalid token" });
   }
 
   const userId = user.id;
+  let predictionId = null;
 
   try {
     const input = {
       input_image: `data:image/png;base64,${imageBase64}`,
     };
 
-    // 🔒 Wrap with timeout (e.g. 60 seconds)
-    const outputStream = await withTimeout(
-      replicate.run("flux-kontext-apps/restore-image", { input }),
-      60000
-    );
+    // Create prediction to get ID for cancellation control
+    console.log("Creating image restoration prediction...");
+    const prediction = await replicate.predictions.create({
+      model: "flux-kontext-apps/restore-image",
+      input: input
+    });
 
-    if (!outputStream?.getReader) {
-      throw new Error("Model did not return a valid output stream");
+    predictionId = prediction.id;
+    console.log("Prediction created:", predictionId);
+
+    // Set up cancellation timeout (45 seconds for image restoration)
+    const cancelTimeout = setTimeout(async () => {
+      try {
+        console.log(`Cancelling restoration prediction ${predictionId} due to timeout`);
+        await replicate.predictions.cancel(predictionId);
+      } catch (cancelError) {
+        console.log("Failed to cancel prediction:", cancelError.message);
+      }
+    }, 45000); // 45 second timeout for image restoration
+
+    // Poll for result and handle streaming output
+    const pollForResult = async (id, maxAttempts = 30, interval = 1500) => {
+      let attempts = 0;
+      
+      while (attempts < maxAttempts) {
+        try {
+          const result = await replicate.predictions.get(id);
+          console.log(`Poll ${attempts + 1}: ${result.status}`);
+          
+          if (result.status === "succeeded") {
+            clearTimeout(cancelTimeout);
+            return result.output;
+          }
+          
+          if (result.status === "failed") {
+            clearTimeout(cancelTimeout);
+            throw new Error(result.error || "Image restoration failed");
+          }
+          
+          if (result.status === "canceled") {
+            clearTimeout(cancelTimeout);
+            throw new Error("Image restoration was cancelled due to timeout");
+          }
+          
+          await new Promise(resolve => setTimeout(resolve, interval));
+          attempts++;
+          
+        } catch (pollError) {
+          clearTimeout(cancelTimeout);
+          throw pollError;
+        }
+      }
+      
+      // Polling timed out
+      clearTimeout(cancelTimeout);
+      
+      try {
+        await replicate.predictions.cancel(id);
+        console.log("Cancelled prediction due to polling timeout");
+      } catch (cancelError) {
+        console.log("Failed to cancel after polling timeout:", cancelError.message);
+      }
+      
+      throw new Error("Image restoration timed out after 45 seconds");
+    };
+
+    const output = await pollForResult(predictionId);
+
+    // Handle output - could be URL or stream
+    let imageUrl;
+    
+    if (typeof output === 'string') {
+      // Direct URL response
+      imageUrl = output;
+    } else if (output?.getReader) {
+      // Stream response - process the stream
+      console.log("Processing output stream...");
+      const reader = output.getReader();
+      let chunks = [];
+      
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+        }
+        
+        const fullBytes = concatUint8Arrays(chunks);
+        const base64Image = uint8ToBase64(fullBytes);
+        imageUrl = `data:image/png;base64,${base64Image}`;
+      } catch (streamError) {
+        throw new Error(`Stream processing failed: ${streamError.message}`);
+      }
+    } else if (Array.isArray(output)) {
+      // Array response
+      imageUrl = output[0];
+    } else {
+      console.log("Unexpected output format:", typeof output);
+      imageUrl = output;
     }
 
-    const reader = outputStream.getReader();
-    let chunks = [];
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      chunks.push(value);
+    if (!imageUrl) {
+      throw new Error("No image data returned from restoration");
     }
 
-    const fullBytes = concatUint8Arrays(chunks);
-    const base64Image = uint8ToBase64(fullBytes);
-    const imageUrl = `data:image/png;base64,${base64Image}`;
-
-    // ✅ Only deduct after successful image
+    // ✅ Only deduct credits after successful restoration
     await spendCredits(userId, modelCosts.restorePremium);
+    console.log(`✅ Successfully restored image and deducted ${modelCosts.restorePremium} credits`);
 
     console.log("✅ Final imageUrl:", imageUrl.slice(0, 50) + "...");
-
     res.status(200).json({ imageUrl });
+
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: error.message || "Failed to restore image or deduct credits" });
+    console.error("Error:", {
+      predictionId,
+      message: error.message,
+      userId
+    });
+
+    // Cancel prediction if it exists
+    if (predictionId) {
+      try {
+        await replicate.predictions.cancel(predictionId);
+        console.log("Cancelled prediction due to error:", predictionId);
+      } catch (cancelError) {
+        console.log("Failed to cancel prediction after error:", cancelError.message);
+      }
+    }
+
+    // Handle specific error types
+    if (error.message.includes('timed out') || error.message.includes('cancelled')) {
+      return res.status(408).json({ 
+        error: "Image restoration timed out after 45 seconds. Please try again with a smaller image.",
+        details: "Prediction was automatically cancelled to prevent queue blocking"
+      });
+    }
+
+    if (error.message.includes('Insufficient credits')) {
+      return res.status(402).json({ 
+        error: "Insufficient credits. Please purchase more credits to continue.",
+        details: "No credits were deducted"
+      });
+    }
+
+    res.status(500).json({ 
+      error: error.message || "Failed to restore image",
+      details: predictionId ? `Prediction ID: ${predictionId}` : "Failed to create prediction"
+    });
   }
 }

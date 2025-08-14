@@ -878,7 +878,7 @@
   .content { 
     padding: calc(1.5rem + 70px) 0.75rem 1.5rem 0.75rem; /* Small mobile header + padding */
   }
-  
+
   .header { margin-bottom: 2.5rem; }
   
   .compactCredits {
@@ -914,4 +914,221 @@
 .uploadZone:focus-visible {
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
+}
+
+
+
+
+/* Add these premium classes to your ModernRestore.module.css file */
+
+/* Premium Container - Enhanced background and effects */
+.premiumContainer {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 0.1) 0%, 
+    rgba(236, 72, 153, 0.1) 50%,
+    rgba(59, 130, 246, 0.1) 100%);
+  position: relative;
+}
+
+.premiumContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Premium Background Particles */
+.premiumBackground {
+  background: linear-gradient(45deg, 
+    rgba(168, 85, 247, 0.05) 0%, 
+    rgba(236, 72, 153, 0.05) 50%,
+    rgba(59, 130, 246, 0.05) 100%);
+}
+
+.premiumBackground::before {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.2) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.2) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px, 20px 20px;
+  animation: premiumFloat 20s ease-in-out infinite;
+}
+
+@keyframes premiumFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% { 
+    transform: translateY(-10px) rotate(1deg);
+    opacity: 0.5;
+  }
+  66% { 
+    transform: translateY(-5px) rotate(-1deg);
+    opacity: 0.4;
+  }
+}
+
+/* Premium Header - NO BORDERS */
+
+
+.premiumHeader .titleGradient {
+  background: linear-gradient(135deg, 
+    #a855f7 0%, 
+    #ec4899 50%, 
+    #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.premiumHeader .subtitle {
+  color: #a855f7;
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+/* Premium Cards */
+.premiumCard {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(168, 85, 247, 0.08) 50%,
+    rgba(236, 72, 153, 0.08) 100%);
+  box-shadow: 
+    0 8px 32px rgba(168, 85, 247, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.premiumCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(168, 85, 247, 0.15) 50%, 
+    transparent 100%);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.premiumCard:hover::before {
+  left: 100%;
+}
+
+.premiumCard:hover {
+  box-shadow: 
+    0 12px 40px rgba(168, 85, 247, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Premium Buttons */
+.premiumCard .primaryButton {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  box-shadow: 
+    0 4px 15px rgba(168, 85, 247, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.premiumCard .primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    transparent 100%);
+  transition: left 0.5s ease;
+}
+
+.premiumCard .primaryButton:hover::before {
+  left: 100%;
+}
+
+.premiumCard .primaryButton:hover {
+  box-shadow: 
+    0 6px 20px rgba(168, 85, 247, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Premium Features Grid */
+.premiumContainer .featuresGrid .featureCard {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(168, 85, 247, 0.08) 50%,
+    rgba(236, 72, 153, 0.08) 100%);
+  box-shadow: 
+    0 8px 32px rgba(168, 85, 247, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.premiumContainer .featuresGrid .featureCard:hover {
+  box-shadow: 
+    0 12px 40px rgba(168, 85, 247, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+.premiumContainer .featuresGrid .featureIcon {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.premiumContainer .featuresGrid .featureTitle {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium Gallery */
+.premiumContainer .beforeAfterGallery {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 0.05) 0%, 
+    rgba(236, 72, 153, 0.05) 100%);
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.1);
+}
+
+.premiumContainer .galleryTitle {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium Progress Card */
+.premiumContainer .progressCard {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 0.08) 0%, 
+    rgba(236, 72, 153, 0.08) 100%);
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.15);
+}
+
+/* Premium Alert Success */
+.premiumContainer .alertSuccess {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.1) 0%, 
+    rgba(168, 85, 247, 0.1) 100%);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.15);
 }

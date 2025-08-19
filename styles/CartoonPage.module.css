@@ -532,6 +532,107 @@
   max-width: 400px;
 }
 
+/* Progress Bar Component */
+.progressContainer {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.progressBar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.nickelodeon .progressFill {
+  background: linear-gradient(90deg, #FF6600, #FFD700, #7CFC00);
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+}
+
+.nickAtNite .progressFill {
+  background: linear-gradient(90deg, #533483, #ffd700, #c0c0c0);
+  box-shadow: 0 0 10px rgba(83, 52, 131, 0.5);
+}
+
+.progressGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px;
+  opacity: 0.6;
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+.nickelodeon .progressGlow {
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+}
+
+.nickAtNite .progressGlow {
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+}
+
+@keyframes progressShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progressStage {
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.progressPercent {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.nickelodeon .progressPercent {
+  color: #FFD700;
+}
+
+.nickAtNite .progressPercent {
+  color: #ffd700;
+}
+
+.progressTimer {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  text-align: center;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
 .loadingWarning {
   margin-top: 1rem;
   padding: 0.75rem 1rem;
@@ -877,6 +978,24 @@
     font-size: 1rem;
   }
 
+  .progressContainer {
+    margin-top: 1rem;
+    padding: 0.8rem;
+  }
+
+  .progressText {
+    margin-bottom: 0.3rem;
+  }
+
+  .progressStage,
+  .progressPercent {
+    font-size: 0.8rem;
+  }
+
+  .progressTimer {
+    font-size: 0.7rem;
+  }
+
   .resultActions {
     flex-direction: column;
     gap: 0.8rem;
@@ -947,5 +1066,19 @@
   .previewImage {
     max-width: min(240px, 80vw);
     max-height: 240px;
+  }
+
+  .progressContainer {
+    margin-top: 1rem;
+    padding: 0.6rem;
+  }
+
+  .progressStage,
+  .progressPercent {
+    font-size: 0.75rem;
+  }
+
+  .progressTimer {
+    font-size: 0.65rem;
   }
 }

@@ -1,12 +1,9 @@
 // pages/gallery.js
-
-import React, { useState } from "react"
-import { useRouter } from "next/router"
-import Head from "next/head"
-import Image from "next/image"
-
-// Styles
-import galleryStyles from "../styles/FeaturesSection.module.css"
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '../styles/Gallery.module.css'
 
 const galleryItems = [
   {
@@ -39,7 +36,7 @@ const galleryItems = [
   },
   {
     before: "/images/before6.jpg",
-    after: "/images/after5.jpg",
+    after: "/images/after6.jpg",
     category: "Baby Photos",
     year: "1955",
     description: "Precious baby photo brought back to life"
@@ -51,7 +48,6 @@ const galleryItems = [
     year: "1949", 
     description: "Studio portrait with enhanced details and color"
   },
-  // Add more gallery items as needed
   {
     before: "/images/before3.jpg", 
     after: "/images/after3.jpg",
@@ -75,18 +71,20 @@ const galleryItems = [
   }
 ];
 
-const categories = ["All", "Wedding Photos",  "Military Photos", "Memories", "Baby Photos", "Family Photos", "Holiday Memories", "Travel Photos"];
+const categories = ["All", "Wedding Photos", "Military Photos", "Memories", "Baby Photos", "Family Photos", "Holiday Memories", "Travel Photos"];
 
 export default function Gallery() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const filteredItems = selectedCategory === "All" 
     ? galleryItems 
     : galleryItems.filter(item => item.category === selectedCategory);
 
-  const handleNavigateToRestore = (path) => router.push(path);
+  const handleNavigateToRestore = (path) => {
+    router.push(path);
+  };
 
   return (
     <>
@@ -101,247 +99,116 @@ export default function Gallery() {
         <meta property="og:description" content="Browse hundreds of restored family photos. See the incredible results of Anastasis AI photo restoration technology." />
       </Head>
 
-      {/* Gallery Hero Section */}
-      <section className={galleryStyles.galleryHero}>
-        <div className={galleryStyles.galleryContainer}>
-          <h1 className={galleryStyles.galleryHeading}>
-            Before & After Gallery
-          </h1>
-          <p style={{ textAlign: 'center', fontSize: '18px', color: '#94a3b8', marginBottom: '2rem' }}>
+      <div className={styles.container}>
+        
+        {/* Hero Section */}
+        <section className={styles.hero}>
+          <h1 className={styles.title}>Before & After Gallery</h1>
+          <p className={styles.subtitle}>
             Real customer photos restored with Anastasis AI. From faded memories to vibrant heirlooms.
           </p>
-          
-        </div>
-      </section>
+        </section>
 
-      {/* Category Filter */}
-      <section className={galleryStyles.categoryFilter}>
-        <div className={galleryStyles.galleryContainer}>
-          <h3 className={galleryStyles.filterTitle}>Browse by Category</h3>
-          <div className={galleryStyles.filterButtons}>
+        {/* Category Filter */}
+        <section className={styles.categories}>
+          <div className={styles.categoryList}>
             {categories.map((category) => (
               <button
                 key={category}
-                className={`${galleryStyles.filterButton} ${
-                  selectedCategory === category ? galleryStyles.active : ""
-                }`}
+                className={`${styles.categoryBtn} ${selectedCategory === category ? styles.active : ''}`}
                 onClick={() => setSelectedCategory(category)}
               >
                 {category}
               </button>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main Gallery Section - Using your existing film strip style */}
-      <section className={galleryStyles.gallerySection}>
-        <div className={galleryStyles.galleryContainer}>
-          <h2 className={galleryStyles.galleryHeading}>
+        {/* Gallery Section */}
+        <section className={styles.gallery}>
+          <h2 className={styles.galleryTitle}>
             {selectedCategory === "All" ? "Complete Gallery" : selectedCategory}
           </h2>
-          <p style={{ textAlign: 'center', fontSize: '16px', color: '#94a3b8', marginBottom: '2rem' }}>
-            {filteredItems.length} restored {filteredItems.length === 1 ? 'photo' : 'photos'} • Scroll horizontally to browse
+          <p className={styles.galleryCount}>
+            {filteredItems.length} restored {filteredItems.length === 1 ? 'photo' : 'photos'}
           </p>
           
-          <div className={galleryStyles.galleryScroll}>
+          <div className={styles.grid}>
             {filteredItems.map((item, index) => (
-              <div key={index} className={galleryStyles.galleryCard}>
-                {/* Category and Year Labels */}
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'center',
-                  marginBottom: '0.5rem'
-                }}>
-                  <span style={{
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                    color: 'white',
-                    padding: '4px 8px',
-                    borderRadius: '12px',
-                    fontSize: '10px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase'
-                  }}>
-                    {item.category}
-                  </span>
-                  <span style={{
-                    color: '#94a3b8',
-                    fontSize: '12px',
-                    fontWeight: '600'
-                  }}>
-                    {item.year}
-                  </span>
+              <div
+                key={index}
+                className={styles.card}
+                onMouseEnter={() => setHoveredItem(index)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <div className={styles.cardHeader}>
+                  <span className={styles.category}>{item.category}</span>
+                  <span className={styles.year}>{item.year}</span>
                 </div>
                 
-                {/* Before Image */}
-                <div className={galleryStyles.galleryImageWrapper}>
-                  <Image 
-                    src={item.before} 
-                    alt={`Before restoration - ${item.description}`}
-                    width={300} 
-                    height={450} 
-                    loading="lazy" 
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: '8px',
-                    left: '8px',
-                    background: 'rgba(0, 0, 0, 0.8)',
-                    color: 'white',
-                    padding: '4px 8px',
-                    borderRadius: '6px',
-                    fontSize: '10px',
-                    fontWeight: '700'
-                  }}>
-                    BEFORE
+                <div className={styles.imageContainer}>
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={item.before}
+                      alt={`Before: ${item.description}`}
+                      width={300}
+                      height={400}
+                      className={styles.image}
+                    />
+                    <div className={styles.label}>BEFORE</div>
+                  </div>
+                  
+                  <div className={styles.divider}>
+                    <div className={styles.aiIcon}>AI</div>
+                  </div>
+                  
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={item.after}
+                      alt={`After: ${item.description}`}
+                      width={300}
+                      height={400}
+                      className={styles.image}
+                    />
+                    <div className={styles.label}>AFTER</div>
                   </div>
                 </div>
                 
-                {/* AI Processing Indicator */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0.5rem 0'
-                }}>
-                  <div style={{
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                    color: 'white',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '10px',
-                    fontWeight: '800'
-                  }}>
-                    AI
-                  </div>
-                </div>
-                
-                {/* After Image */}
-                <div className={galleryStyles.galleryImageWrapper}>
-                  <Image 
-                    src={item.after} 
-                    alt={`After restoration - ${item.description}`}
-                    width={300} 
-                    height={450} 
-                    loading="lazy" 
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: '8px',
-                    left: '8px',
-                    background: 'rgba(0, 0, 0, 0.8)',
-                    color: 'white',
-                    padding: '4px 8px',
-                    borderRadius: '6px',
-                    fontSize: '10px',
-                    fontWeight: '700'
-                  }}>
-                    AFTER
-                  </div>
-                </div>
-                
-                {/* Description */}
-                <p style={{
-                  fontSize: '12px',
-                  color: '#94a3b8',
-                  textAlign: 'center',
-                  marginTop: '0.5rem',
-                  lineHeight: '1.4'
-                }}>
-                  {item.description}
-                </p>
+                <p className={styles.description}>{item.description}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Call to Action Section */}
-      <section className={galleryStyles.galleryCTA}>
-        <div className={galleryStyles.galleryContainer}>
-          <h2 style={{ 
-            fontSize: '2.5rem', 
-            fontWeight: '700', 
-            marginBottom: '1rem',
-            color: 'white',
-            textAlign: 'center'
-          }}>
-            Ready to Restore Your Photos?
-          </h2>
-          <p style={{
-            fontSize: '1.2rem',
-            marginBottom: '3rem',
-            color: '#94a3b8',
-            textAlign: 'center'
-          }}>
-            Join thousands of families who have brought their memories back to life with Anastasis AI
+        {/* Call to Action */}
+        <section className={styles.cta}>
+          <h2 className={styles.ctaTitle}>Ready to Restore Your Photos?</h2>
+          <p className={styles.ctaText}>
+            Join thousands of families who have brought their memories back to life
           </p>
           
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '20px',
-            marginBottom: '2rem',
-            flexWrap: 'wrap'
-          }}>
+          <div className={styles.ctaButtons}>
             <button
-              style={{
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50px',
-                padding: '15px 30px',
-                fontSize: '18px',
-                fontWeight: '700',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
+              className={`${styles.btn} ${styles.primary}`}
               onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
-              onMouseOver={(e) => e.target.style.transform = 'translateY(-3px)'}
-              onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
             >
               🎁 Try FREE
             </button>
             <button
-              style={{
-                background: 'transparent',
-                color: 'white',
-                border: '2px solid #667eea',
-                borderRadius: '50px',
-                padding: '15px 30px',
-                fontSize: '18px',
-                fontWeight: '700',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
+              className={`${styles.btn} ${styles.secondary}`}
               onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
-              onMouseOver={(e) => {
-                e.target.style.background = '#667eea';
-                e.target.style.transform = 'translateY(-3px)';
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.transform = 'translateY(0)';
-              }}
             >
               🔮 See Premium Results
             </button>
           </div>
           
-          <p style={{
-            fontSize: '14px',
-            color: '#64748b',
-            textAlign: 'center'
-          }}>
-            No subscription required • Results in under 1 minute • 100% private
-          </p>
-        </div>
-      </section>
+          <div className={styles.features}>
+            <span>No subscription required</span>
+            <span>Results in under 1 minute</span>
+            <span>100% private</span>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

@@ -52,6 +52,9 @@ export default function CartoonPage() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [loadingTimer, setLoadingTimer] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [progressStage, setProgressStage] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -75,6 +78,50 @@ export default function CartoonPage() {
   useEffect(() => {
     setIsReady(photo && selectedStyle && !isLoading);
   }, [photo, selectedStyle, isLoading]);
+
+  // Loading timer and progress simulation
+  useEffect(() => {
+    let interval;
+    if (isLoading) {
+      setLoadingTimer(0);
+      setProgress(0);
+      setProgressStage("Preparing your image...");
+      
+      interval = setInterval(() => {
+        setLoadingTimer(prev => {
+          const newTimer = prev + 1;
+          
+          // Simulate realistic progress stages
+          if (newTimer <= 5) {
+            setProgress(15);
+            setProgressStage("Analyzing your photo...");
+          } else if (newTimer <= 15) {
+            setProgress(35);
+            setProgressStage("Applying cartoon style...");
+          } else if (newTimer <= 30) {
+            setProgress(65);
+            setProgressStage("Enhancing details...");
+          } else if (newTimer <= 45) {
+            setProgress(85);
+            setProgressStage("Finalizing your cartoon...");
+          } else {
+            setProgress(95);
+            setProgressStage("Almost ready...");
+          }
+          
+          return newTimer;
+        });
+      }, 1000);
+    } else {
+      setLoadingTimer(0);
+      setProgress(0);
+      setProgressStage("");
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isLoading]);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -233,6 +280,8 @@ export default function CartoonPage() {
       const data = await response.json();
       
       if (data.imageUrl) {
+        setProgress(100);
+        setProgressStage("Complete!");
         setResultImageUrl(data.imageUrl);
         
         // Success haptic feedback
@@ -302,6 +351,9 @@ export default function CartoonPage() {
     setSelectedStyle(null);
     setError(null);
     setUploadSuccess(false);
+    setProgress(0);
+    setProgressStage("");
+    setLoadingTimer(0);
     
     // Reset scroll position
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -448,6 +500,32 @@ export default function CartoonPage() {
               </>
             )}
           </button>
+          
+          {/* Progress Bar */}
+          {isLoading && (
+            <div className={styles.progressContainer}>
+              <div className={styles.progressBar}>
+                <div 
+                  className={styles.progressFill}
+                  style={{ width: `${progress}%` }}
+                ></div>
+                <div className={styles.progressGlow}></div>
+              </div>
+              <div className={styles.progressText}>
+                <span className={styles.progressStage}>{progressStage}</span>
+                <span className={styles.progressPercent}>{progress}%</span>
+              </div>
+              <div className={styles.progressTimer}>
+                {Math.floor(loadingTimer / 60) > 0 ? `${Math.floor(loadingTimer / 60)}:${(loadingTimer % 60).toString().padStart(2, '0')}` : `${loadingTimer}s`}
+              </div>
+            </div>
+          )}
+          
+          {isLoading && loadingTimer > 60 && (
+            <div className={styles.loadingWarning}>
+              <span>⏳ This is taking longer than usual... Please wait or try again with a different image.</span>
+            </div>
+          )}
         </div>
 
         {resultImageUrl && (

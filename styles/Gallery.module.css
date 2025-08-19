@@ -1,0 +1,435 @@
+/* Gallery.module.css */
+
+.container {
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: white;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  /* Account for sticky headers */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #888;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Categories */
+.categories {
+  padding: 2rem;
+  border-bottom: 1px solid #222;
+}
+
+.categoryList {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.categoryBtn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #888;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.categoryBtn:hover {
+  border-color: #555;
+  color: #ccc;
+}
+
+.categoryBtn.active {
+  background: white;
+  border-color: white;
+  color: #000;
+}
+
+/* Gallery */
+.gallery {
+  padding: 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.galleryTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.galleryCount {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.scrollHint {
+  text-align: center;
+  color: #444;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: #111;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #222;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 20px;
+  bottom: 20px;
+  width: 8px;
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      #333 0px,
+      #333 15px,
+      transparent 15px,
+      transparent 25px
+    );
+  border-radius: 4px;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 20px;
+  bottom: 20px;
+  width: 8px;
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      #333 0px,
+      #333 15px,
+      transparent 15px,
+      transparent 25px
+    );
+  border-radius: 4px;
+}
+
+.card:hover {
+  border-color: #333;
+  transform: translateY(-4px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.category {
+  background: #333;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.year {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.imageContainer {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.imageWrapper {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #222;
+  flex: 1;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  object-fit: contain;
+  display: block;
+  background: #222;
+}
+
+.label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.aiIcon {
+  background: #333;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.description {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Call to Action */
+.cta {
+  background: #111;
+  border-top: 1px solid #222;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.ctaText {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 3rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 180px;
+}
+
+.btn.primary {
+  background: white;
+  color: #000;
+}
+
+.btn.primary:hover {
+  background: #eee;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid #333;
+}
+
+.btn.secondary:hover {
+  border-color: #555;
+  background: #111;
+  transform: translateY(-2px);
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 1rem 3rem;
+  }
+  
+  .title {
+    font-size: 3rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .categories {
+    padding: 1.5rem 1rem;
+  }
+  
+  .categoryList {
+    gap: 0.3rem;
+  }
+  
+  .categoryBtn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .gallery {
+    padding: 3rem 1rem;
+  }
+  
+  .galleryTitle {
+    font-size: 2rem;
+  }
+  
+  .grid {
+    gap: 2rem;
+    padding: 0 15px;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+  
+  .imageContainer {
+    gap: 1rem;
+  }
+  
+  .image {
+    min-height: 200px;
+  }
+  
+  .cta {
+    padding: 3rem 1rem;
+  }
+  
+  .ctaTitle {
+    font-size: 2rem;
+  }
+  
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .features {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 5rem 1rem 2rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .card::before,
+  .card::after {
+    display: none;
+  }
+  
+  .imageContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .image {
+    min-height: 250px;
+  }
+  
+  .btn {
+    min-width: 160px;
+    padding: 0.9rem 1.5rem;
+  }
+  
+  .grid {
+    gap: 2rem;
+    padding: 0 10px;
+  }
+  
+  .divider {
+    transform: rotate(90deg);
+    padding: 1rem 0;
+  }
+}

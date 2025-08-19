@@ -444,7 +444,7 @@ export default function Homepage() {
                     ))}
                   </div>
                   <blockquote className={styles.testimonialText}>
-                    "{testimonials[currentTestimonial].text}"
+                    &apos;{testimonials[currentTestimonial].text}&apos;
                   </blockquote>
                   <div className={styles.testimonialAuthor}>
                     <div className={styles.authorInfo}>

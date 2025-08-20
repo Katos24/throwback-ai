@@ -14,45 +14,54 @@
   background: linear-gradient(135deg, #FF6600 0%, #9932CC 50%, #7CFC00 100%);
 }
 
-/* Nick at Nite Theme */
-.nickAtNite {
-  background: linear-gradient(135deg, #1a1a2e 0%, #533483 50%, #0f4c75 100%);
-}
-
-/* Theme Toggle */
-.themeToggle {
+/* Credits Header */
+.creditsHeader {
   position: fixed;
-  top: 20px;
+  top: 100px;
   right: 20px;
   z-index: 1000;
   display: flex;
+  align-items: center;
+  gap: 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 50px;
-  padding: 4px;
-  gap: 4px;
+  padding: 8px 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.themeBtn {
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
+.creditsInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.creditsIcon {
+  font-size: 1.1rem;
+}
+
+.creditsText {
   color: white;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
-.activeTheme {
+.creditsButton {
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.themeBtn:hover {
-  background: rgba(255, 255, 255, 0.15);
+.creditsButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
 }
 
 /* Hero Section */
@@ -81,21 +90,7 @@
   animation: nickGradientShift 4s ease-in-out infinite;
 }
 
-.nickAtNite .title {
-  background: linear-gradient(135deg, #ffd700, #c0c0c0, #533483);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: nightGradientShift 6s ease-in-out infinite;
-}
-
 @keyframes nickGradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes nightGradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
@@ -121,6 +116,21 @@
   line-height: 1.6;
   opacity: 0.95;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.creditPill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Error Banner */
@@ -175,10 +185,45 @@
   transform: scale(1.1);
 }
 
+/* Main Content Layout - Side by Side on Desktop */
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
 /* Upload Section */
 .uploadSection {
-  max-width: 600px;
-  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.uploadCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.uploadTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 0 0 1.5rem 0;
 }
 
 .uploadZone {
@@ -188,10 +233,10 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
   position: relative;
   overflow: hidden;
+  margin-bottom: 1.5rem;
 }
 
 .uploadZone::after {
@@ -225,24 +270,10 @@
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
 }
 
-.nickAtNite .uploadZone:hover,
-.nickAtNite .dragActive {
-  border-color: #ffd700;
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
-}
-
 .nickelodeon .hasImage {
   border-color: #7CFC00;
   background: rgba(124, 252, 0, 0.1);
   box-shadow: 0 6px 20px rgba(124, 252, 0, 0.2);
-}
-
-.nickAtNite .hasImage {
-  border-color: #c0c0c0;
-  background: rgba(192, 192, 192, 0.1);
-  box-shadow: 0 6px 20px rgba(192, 192, 192, 0.2);
 }
 
 .hasImage {
@@ -328,208 +359,9 @@
   display: none;
 }
 
-/* Styles Section */
-.stylesSection {
-  max-width: 1000px;
-  margin: 0 auto 2rem;
-}
-
-.sectionTitle {
-  text-align: center;
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  font-weight: 700;
-  color: white;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.stylesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.8rem;
-  margin-top: 1rem;
-}
-
-.styleCard {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 1rem 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.styleCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.6s ease;
-}
-
-.styleCard:hover::before {
-  left: 100%;
-}
-
-.styleCard:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.styleCard:active {
-  transform: translateY(-1px) scale(0.98);
-}
-
-/* Selected State Styling */
-.nickelodeon .selectedStyle {
-  border-color: #FFD700;
-  background: rgba(255, 215, 0, 0.2);
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
-  animation: selectedPulse 2s ease-in-out infinite;
-}
-
-.nickAtNite .selectedStyle {
-  border-color: #ffd700;
-  background: rgba(255, 215, 0, 0.15);
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.3);
-  animation: selectedPulse 2s ease-in-out infinite;
-}
-
-@keyframes selectedPulse {
-  0%, 100% {
-    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
-  }
-  50% {
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
-  }
-}
-
-/* Selected Indicator */
-.selectedIndicator {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  animation: checkmarkAppear 0.3s ease-out;
-}
-
-.nickelodeon .selectedIndicator {
-  background: linear-gradient(135deg, #FFD700, #FF6600);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);
-}
-
-.nickAtNite .selectedIndicator {
-  background: linear-gradient(135deg, #ffd700, #533483);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-}
-
-.checkmark {
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes checkmarkAppear {
-  from {
-    transform: scale(0) rotate(-180deg);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-/* Selected Glow Effect */
-.selectedGlow {
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 14px;
-  z-index: -1;
-  animation: glowPulse 2s ease-in-out infinite;
-}
-
-.nickelodeon .selectedGlow {
-  background: linear-gradient(45deg, #FFD700, #FF6600, #7CFC00, #FFD700);
-  background-size: 400% 400%;
-  animation: glowPulse 2s ease-in-out infinite, rotateGlow 4s linear infinite;
-}
-
-.nickAtNite .selectedGlow {
-  background: linear-gradient(45deg, #ffd700, #533483, #0f4c75, #ffd700);
-  background-size: 400% 400%;
-  animation: glowPulse 2s ease-in-out infinite, rotateGlow 4s linear infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 0.3;
-    filter: blur(4px);
-  }
-  50% {
-    opacity: 0.6;
-    filter: blur(6px);
-  }
-}
-
-@keyframes rotateGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 400% 50%;
-  }
-}
-
-.styleEmoji {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.styleCard:hover .styleEmoji {
-  transform: scale(1.1);
-}
-
-.styleName {
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-}
-
 /* Generate Section */
 .generateSection {
   text-align: center;
-  margin: 2rem auto;
-  max-width: 400px;
 }
 
 /* Progress Bar Component */
@@ -566,11 +398,6 @@
   box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
 }
 
-.nickAtNite .progressFill {
-  background: linear-gradient(90deg, #533483, #ffd700, #c0c0c0);
-  box-shadow: 0 0 10px rgba(83, 52, 131, 0.5);
-}
-
 .progressGlow {
   position: absolute;
   top: 0;
@@ -584,10 +411,6 @@
 
 .nickelodeon .progressGlow {
   background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-}
-
-.nickAtNite .progressGlow {
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
 }
 
 @keyframes progressShimmer {
@@ -620,10 +443,6 @@
 
 .nickelodeon .progressPercent {
   color: #FFD700;
-}
-
-.nickAtNite .progressPercent {
-  color: #ffd700;
 }
 
 .progressTimer {
@@ -692,21 +511,12 @@
   box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
 }
 
-.nickAtNite .generateBtn {
-  background: linear-gradient(135deg, #533483, #0f4c75);
-  box-shadow: 0 6px 20px rgba(83, 52, 131, 0.4);
-}
-
 .generateBtn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.02);
 }
 
 .nickelodeon .generateBtn:hover:not(:disabled) {
   box-shadow: 0 10px 30px rgba(255, 102, 0, 0.6);
-}
-
-.nickAtNite .generateBtn:hover:not(:disabled) {
-  box-shadow: 0 10px 30px rgba(83, 52, 131, 0.6);
 }
 
 .generateBtn:active:not(:disabled) {
@@ -726,7 +536,7 @@
   display: none;
 }
 
-/* Ready State - when both photo and style are selected */
+/* Ready State - when both photo and logged in with credits */
 .readyToGenerate {
   animation: readyPulse 2s ease-in-out infinite;
 }
@@ -769,9 +579,11 @@
 
 /* Result Section */
 .resultSection {
-  max-width: 700px;
-  margin: 2rem auto;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   animation: fadeInUp 0.6s ease-out;
 }
 
@@ -787,19 +599,16 @@
 }
 
 .resultTitle {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: 1.3rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 0 0 1.5rem 0;
 }
 
 .resultContainer {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
 }
 
 .resultImage {
@@ -841,22 +650,12 @@
   box-shadow: 0 4px 15px rgba(124, 252, 0, 0.4);
 }
 
-.nickAtNite .downloadBtn {
-  background: linear-gradient(135deg, #ffd700, #c0c0c0);
-  color: #1a1a2e;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-}
-
 .downloadBtn:hover {
   transform: translateY(-2px);
 }
 
 .nickelodeon .downloadBtn:hover {
   box-shadow: 0 8px 25px rgba(124, 252, 0, 0.6);
-}
-
-.nickAtNite .downloadBtn:hover {
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
 }
 
 .resetBtn {
@@ -870,10 +669,41 @@
   transform: translateY(-2px);
 }
 
+/* Result Placeholder - when no result yet */
+.resultPlaceholder {
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.placeholderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.placeholderIcon {
+  font-size: 3rem;
+  opacity: 0.6;
+}
+
+.placeholderText {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  margin: 0;
+}
+
 /* Tips Section */
 .tipsSection {
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 3rem auto 2rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -918,59 +748,55 @@
 }
 
 /* Mobile Responsive Design */
+@media (max-width: 1023px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .creditsHeader {
+    top: 80px;
+    right: 15px;
+    padding: 6px 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0.5rem;
     padding-top: 5rem; /* Header space for mobile */
   }
 
-  .themeToggle {
-    top: 15px;
-    right: 15px;
-    padding: 3px;
+  .creditsHeader {
+    top: 70px;
+    right: 10px;
+    padding: 6px 12px;
   }
 
-  .themeBtn {
-    padding: 6px 12px;
+  .creditsText {
     font-size: 0.8rem;
+  }
+
+  .creditsButton {
+    padding: 4px 8px;
+    font-size: 0.75rem;
   }
 
   .hero {
     margin-bottom: 1.5rem;
   }
 
+  .mainContent {
+    gap: 1.5rem;
+  }
+
+  .uploadSection {
+    gap: 1rem;
+  }
+
   .uploadZone {
     padding: 1.5rem 1rem;
-  }
-
-  .stylesGrid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.6rem;
-  }
-
-  .styleCard {
-    padding: 0.8rem 0.4rem;
-    min-height: 85px;
-  }
-
-  .selectedIndicator {
-    width: 20px;
-    height: 20px;
-    top: -1px;
-    right: -1px;
-  }
-
-  .checkmark {
-    font-size: 12px;
-  }
-
-  .styleEmoji {
-    font-size: 1.6rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .styleName {
-    font-size: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .generateBtn {
@@ -1009,7 +835,7 @@
   }
 
   .tipsSection {
-    margin: 1.5rem 0.5rem;
+    margin: 2rem 0.5rem 1.5rem;
     padding: 1.2rem;
   }
 
@@ -1030,35 +856,6 @@
     padding-top: 4.5rem; /* Slightly less space on very small screens */
   }
   
-  .stylesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .styleCard {
-    min-height: 75px;
-    padding: 0.6rem 0.3rem;
-  }
-
-  .selectedIndicator {
-    width: 18px;
-    height: 18px;
-    top: -1px;
-    right: -1px;
-  }
-
-  .checkmark {
-    font-size: 10px;
-  }
-
-  .styleEmoji {
-    font-size: 1.4rem;
-  }
-
-  .styleName {
-    font-size: 0.7rem;
-  }
-
   .uploadZone {
     padding: 1.2rem 0.8rem;
   }
@@ -1080,5 +877,18 @@
 
   .progressTimer {
     font-size: 0.65rem;
+  }
+
+  .resultPlaceholder {
+    padding: 2rem 1rem;
+    min-height: 200px;
+  }
+
+  .placeholderIcon {
+    font-size: 2.5rem;
+  }
+
+  .placeholderText {
+    font-size: 0.9rem;
   }
 }

@@ -1,4 +1,4 @@
-/* Features.module.css - Premium Glassmorphism Style */
+/* Features.module.css - Minimal Tab Design */
 
 .features {
   position: relative;
@@ -125,200 +125,103 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Main Content Layout - Premium Side Tabs */
+/* Main Content Layout */
 .mainContent {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 3rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: 2rem;
 }
 
-/* Tab Navigation - Premium Glassmorphism */
+/* Minimal Tab Navigation */
 .tabNav {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  position: sticky;
-  top: 2rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  padding: 1rem;
-  box-shadow: 
-    0 20px 40px rgba(0,0,0,0.4),
-    0 0 0 1px rgba(255,255,255,0.05),
-    inset 0 1px 0 rgba(255,255,255,0.1);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  gap: 0.5rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.5rem;
+  width: fit-content;
+  margin: 0 auto;
 }
 
-.tabNav::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-  transition: left 0.8s ease;
-  border-radius: 20px;
-}
-
-.tabNav:hover {
-  transform: translateY(-4px);
-  box-shadow: 
-    0 32px 64px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(255,255,255,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.15);
-}
-
-.tabNav:hover::before {
-  left: 100%;
-}
-
+/* Minimal Tab Style */
 .tab {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   background: transparent;
   border: none;
-  border-radius: 16px;
-  padding: 1.25rem;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  text-align: left;
+  transition: all 0.3s ease;
   color: rgba(255, 255, 255, 0.7);
-  width: 100%;
   font-family: inherit;
-  overflow: hidden;
-}
-
-.tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .tab:hover {
-  transform: translateX(8px) translateY(-2px);
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.tab:hover::before {
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .tabIcon {
-  font-size: 1.5rem;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%);
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  font-size: 1rem;
   flex-shrink: 0;
-  box-shadow: 
-    0 4px 8px rgba(0,0,0,0.2),
-    inset 0 1px 0 rgba(255,255,255,0.1);
-}
-
-.tab:hover .tabIcon {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 
-    0 8px 16px rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 .tabContent {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
 .tabTitle {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
   color: inherit;
-  transition: all 0.3s ease;
 }
 
 .tabDescription {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  line-height: 1.4;
-  transition: all 0.3s ease;
+  display: none; /* Hidden in minimal design */
 }
 
-/* Active Tab States - Premium Style */
+/* Active Tab States */
 .tab.activeTab {
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
-  transform: translateX(12px) translateY(-4px);
-  box-shadow: 
-    0 20px 40px rgba(59, 130, 246, 0.4),
-    0 0 0 1px rgba(255,255,255,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
-.tab.activeTab .tabIcon {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.15);
-}
-
-.tab.activeTab .tabTitle {
-  color: white;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
-}
-
-.tab.activeTab .tabDescription {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* Color-specific active states */
 .tabemerald.activeTab {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  box-shadow: 
-    0 20px 40px rgba(16, 185, 129, 0.4),
-    0 0 0 1px rgba(255,255,255,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 
 .taborange.activeTab {
   background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  box-shadow: 
-    0 20px 40px rgba(245, 158, 11, 0.4),
-    0 0 0 1px rgba(255,255,255,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
 
 .tabpurple.activeTab {
   background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  box-shadow: 
-    0 20px 40px rgba(139, 92, 246, 0.4),
-    0 0 0 1px rgba(255,255,255,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
 }
 
-/* Feature Content - Premium Showcase */
+/* Feature Content */
 .featureContent {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* Visual Showcase - Premium Glass Effect */
+/* Visual Showcase */
 .visualShowcase {
   background: linear-gradient(135deg, #242440 0%, #2a2a50 50%, #242440 100%);
   border-radius: 24px;
@@ -377,21 +280,6 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .mainContent {
-    grid-template-columns: 280px 1fr;
-    gap: 2rem;
-  }
-  
-  .tab {
-    padding: 1rem;
-  }
-  
-  .tabIcon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.25rem;
-  }
-  
   .visualShowcase {
     padding: 2rem;
     min-height: 500px;
@@ -411,47 +299,30 @@
     margin-bottom: 3rem;
   }
   
-  .mainContent {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .tabNav {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
-  .tabNav {
-    position: static;
-    flex-direction: row;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding: 0.75rem;
-    border-radius: 16px;
+  .tabNav::-webkit-scrollbar {
+    display: none;
   }
   
   .tab {
     flex-shrink: 0;
-    min-width: 180px;
-    padding: 1rem;
-    transform: none !important;
-  }
-  
-  .tab:hover {
-    transform: translateY(-2px) !important;
-  }
-  
-  .tab.activeTab {
-    transform: translateY(-4px) !important;
-  }
-  
-  .tabIcon {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    min-width: auto;
   }
   
   .tabTitle {
-    font-size: 1rem;
-  }
-  
-  .tabDescription {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
   
   .visualShowcase {
@@ -466,14 +337,16 @@
 }
 
 @media (max-width: 480px) {
-  .tabNav {
-    flex-direction: column;
-    gap: 0.5rem;
+  .tab {
+    padding: 0.6rem 0.8rem;
   }
   
-  .tab {
-    min-width: auto;
-    width: 100%;
+  .tabIcon {
+    font-size: 0.9rem;
+  }
+  
+  .tabTitle {
+    font-size: 0.8rem;
   }
   
   .visualShowcase {

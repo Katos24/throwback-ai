@@ -276,9 +276,8 @@ export default function CartoonPage() {
           }
         }, 300);
 
-        // Refresh and deduct credits
+        // Refresh credits to show updated balance
         await refreshCredits();
-        await deductCredits(cartoonCost);
       } else {
         console.error("Unexpected response format:", data);
         throw new Error("No image URL returned from server");

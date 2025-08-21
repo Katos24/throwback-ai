@@ -1,6 +1,6 @@
 import Replicate from "replicate";
 import { createClient } from "@supabase/supabase-js";
-import { modelCosts, modelVersions } from "../../../lib/replicate/modelCosts"; // adjust path as needed
+import { modelCosts, modelVersions } from "../../../lib/replicate/modelCosts";
 
 export const config = {
   api: {
@@ -18,6 +18,25 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+
+// Helper functions for enhanced tracking
+function getBase64SizeKB(base64String) {
+  if (!base64String) return null;
+  const sizeInBytes = (base64String.length * 3) / 4;
+  return Math.round(sizeInBytes / 1024);
+}
+
+function generateSessionId() {
+  return `sess_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function getClientIP(req) {
+  return req.headers['x-forwarded-for']?.split(',')[0] || 
+         req.headers['x-real-ip'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         (req.connection.socket ? req.connection.socket.remoteAddress : null);
+}
 
 async function spendCredits(userId, amount) {
   const { data: profile, error: profileError } = await supabaseAdmin
@@ -39,10 +58,9 @@ async function spendCredits(userId, amount) {
 }
 
 async function refundCredits(userId, amount, reason = "prediction_failed") {
-  if (!userId) return false; // Guest users don't get refunds
+  if (!userId) return false;
   
   try {
-    // Add credits back
     const { error: rpcError } = await supabaseAdmin.rpc("add_credits", {
       uid: userId,
       amt: amount,
@@ -53,7 +71,6 @@ async function refundCredits(userId, amount, reason = "prediction_failed") {
       return false;
     }
 
-    // Log refund transaction
     const { error: insertError } = await supabaseAdmin
       .from("credit_transactions")
       .insert({
@@ -75,22 +92,105 @@ async function refundCredits(userId, amount, reason = "prediction_failed") {
   }
 }
 
+// Enhanced logging function for ai_requests table
+async function logEnhancedRequest(data) {
+  const {
+    userId,
+    predictionId,
+    status,
+    requestData,
+    startTime,
+    endTime,
+    queueStartTime,
+    processingStartTime,
+    imageBase64,
+    resultUrl,
+    creditsUsed,
+    errorMessage,
+    userAgent,
+    ipAddress,
+    referrerUrl,
+    sessionId,
+    featureType = "basic_restore"
+  } = data;
+
+  // Calculate timing metrics
+  const totalDuration = endTime && startTime ? endTime - startTime : null;
+  const queueWaitTime = processingStartTime && queueStartTime ? 
+    processingStartTime - queueStartTime : null;
+
+  const requestLog = {
+    user_id: userId,
+    request_data: requestData,
+    status,
+    result_url: resultUrl,
+    credits_used: creditsUsed,
+    error_message: errorMessage,
+    
+    // Enhanced tracking fields
+    processing_duration_ms: totalDuration,
+    queue_wait_time_ms: queueWaitTime,
+    started_at: processingStartTime ? new Date(processingStartTime) : null,
+    completed_at: endTime ? new Date(endTime) : null,
+    input_image_size_kb: getBase64SizeKB(imageBase64),
+    input_dimensions: 'unknown', // Will implement with image analysis later
+    file_format: 'png', // Default for your app
+    user_agent: userAgent,
+    ip_address: ipAddress,
+    feature_type: featureType,
+    retry_count: 0, // You can track this in session storage
+    model_version: requestData?.model || modelVersions.restoreBasic,
+    cost_usd: creditsUsed * 0.01, // Adjust based on your pricing
+    session_id: sessionId,
+    referrer_url: referrerUrl
+  };
+
+  try {
+    const { error } = await supabaseAdmin
+      .from("ai_requests")
+      .insert(requestLog, { returning: "minimal" });
+    
+    if (error) {
+      console.error("Failed to log enhanced AI request:", error);
+    } else {
+      console.log(`✅ Enhanced log: ${status} ${featureType}`, {
+        predictionId,
+        duration: totalDuration ? `${totalDuration}ms` : 'unknown',
+        userId: userId || 'guest',
+        imageSize: requestLog.input_image_size_kb ? `${requestLog.input_image_size_kb}KB` : 'unknown'
+      });
+    }
+  } catch (err) {
+    console.error("Error logging enhanced AI request:", err);
+  }
+}
+
 export default async function handler(req, res) {
-  console.log("REQ METHOD:", req.method, "URL:", req.url, "Headers:", req.headers);
+  console.log("REQ METHOD:", req.method, "URL:", req.url);
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  // Enhanced request metadata extraction
+  const userAgent = req.headers['user-agent'];
+  const ipAddress = getClientIP(req);
+  const referrerUrl = req.headers.referer;
+  const sessionId = generateSessionId(); // You might want to get this from client
+
   const authHeader = req.headers.authorization;
   let userId = null;
   let creditsDeducted = false;
   let predictionId = null;
+  
+  // Timing tracking
+  const startTime = Date.now();
+  let queueStartTime = null;
+  let processingStartTime = null;
 
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    // Verify user token with Supabase
     const { data, error } = await supabaseAdmin.auth.getUser(token);
     const user = data?.user;
 
@@ -113,7 +213,6 @@ export default async function handler(req, res) {
 
     // Check credits for logged-in user before deducting
     if (userId) {
-      // Check if user has enough credits
       const { data: profile, error: profileError } = await supabaseAdmin
         .from("profiles")
         .select("credits_remaining")
@@ -129,16 +228,15 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Insufficient credits" });
       }
 
-      // Deduct credits
       await spendCredits(userId, MODEL_COST);
       creditsDeducted = true;
       console.log(`Deducted ${MODEL_COST} credits from user ${userId}`);
     } else {
-      // Guest user: no credit deduction here
       console.log("Guest restore: skipping credit deduction");
     }
 
-    // Create prediction
+    // Create prediction with timing
+    queueStartTime = Date.now();
     const prediction = await replicate.predictions.create({
       version: MODEL_VERSION,
       input: {
@@ -151,7 +249,6 @@ export default async function handler(req, res) {
     predictionId = prediction.id;
     console.log("Prediction created:", predictionId);
 
-    // Set up cancellation timeout (50 seconds for basic restore)
     const cancelTimeout = setTimeout(async () => {
       try {
         console.log(`Cancelling basic restore prediction ${predictionId} due to timeout`);
@@ -159,9 +256,9 @@ export default async function handler(req, res) {
       } catch (cancelError) {
         console.log("Failed to cancel prediction:", cancelError.message);
       }
-    }, 50000); // 50 second timeout
+    }, 50000);
 
-    // Poll for prediction result with timeout protection
+    // Enhanced polling with timing tracking
     const pollForResult = async (id, maxAttempts = 35, interval = 1500) => {
       let attempts = 0;
       
@@ -169,6 +266,12 @@ export default async function handler(req, res) {
         try {
           const result = await replicate.predictions.get(id);
           console.log(`Poll ${attempts + 1}: ${result.status}`);
+          
+          // Track when processing actually started
+          if (result.status === 'processing' && !processingStartTime) {
+            processingStartTime = Date.now();
+            console.log(`Processing started after ${processingStartTime - queueStartTime}ms queue time`);
+          }
           
           if (result.status === "succeeded") {
             clearTimeout(cancelTimeout);
@@ -194,7 +297,6 @@ export default async function handler(req, res) {
         }
       }
       
-      // Polling timed out
       clearTimeout(cancelTimeout);
       
       try {
@@ -214,35 +316,53 @@ export default async function handler(req, res) {
       throw new Error("No image URL returned from basic restore");
     }
 
-    // Insert AI request record only if logged in
-    if (userId) {
-      const { error: insertError } = await supabaseAdmin.from("ai_requests").insert({
-        user_id: userId,
-        request_data: {
-          prompt,
-          negativePrompt: negativePrompt || null,
-          prediction_id: predictionId,
-        },
-        status: "succeeded",
-        result_url: imageUrl,
-        credits_used: MODEL_COST,
-      }, { returning: "minimal" });
+    const endTime = Date.now();
 
-      if (insertError) {
-        console.error("Supabase insert error:", insertError);
-        // Don't fail the request for logging issues
-      }
-    }
+    // Enhanced successful request logging
+    await logEnhancedRequest({
+      userId,
+      predictionId,
+      status: "succeeded",
+      requestData: {
+        prompt,
+        negativePrompt: negativePrompt || null,
+        prediction_id: predictionId,
+        model: MODEL_VERSION
+      },
+      startTime,
+      endTime,
+      queueStartTime,
+      processingStartTime,
+      imageBase64,
+      resultUrl: imageUrl,
+      creditsUsed: MODEL_COST,
+      userAgent,
+      ipAddress,
+      referrerUrl,
+      sessionId,
+      featureType: "basic_restore"
+    });
 
-    console.log("Basic restore successful:", { predictionId, hasUrl: !!imageUrl, userId: userId || "guest" });
+    console.log("Basic restore successful:", { 
+      predictionId, 
+      hasUrl: !!imageUrl, 
+      userId: userId || "guest",
+      totalTime: `${endTime - startTime}ms`,
+      queueTime: processingStartTime ? `${processingStartTime - queueStartTime}ms` : 'unknown',
+      processingTime: processingStartTime ? `${endTime - processingStartTime}ms` : 'unknown'
+    });
+    
     return res.status(200).json({ imageUrl });
 
   } catch (error) {
+    const endTime = Date.now();
+    
     console.error("Error:", {
       predictionId,
       creditsDeducted,
       userId: userId || "guest",
-      message: error.message
+      message: error.message,
+      totalTime: `${endTime - startTime}ms`
     });
 
     // Cancel prediction if it exists
@@ -255,30 +375,36 @@ export default async function handler(req, res) {
       }
     }
 
-    // Refund credits if they were deducted (only for logged-in users)
+    // Refund credits if they were deducted
     if (creditsDeducted && userId) {
       const refundSuccess = await refundCredits(userId, modelCosts.restoreBasic, predictionId || "unknown_error");
       console.log(`Credit refund ${refundSuccess ? "successful" : "failed"} for user ${userId}`);
     }
 
-    // Log failed AI request (only for logged-in users)
-    if (predictionId && userId) {
-      try {
-        await supabaseAdmin.from("ai_requests").insert({
-          user_id: userId,
-          request_data: {
-            prompt,
-            negativePrompt: negativePrompt || null,
-            prediction_id: predictionId,
-          },
-          status: "failed",
-          error_message: error.message,
-          credits_used: 0, // Credits were refunded
-        }, { returning: "minimal" });
-      } catch (logError) {
-        console.error("Failed to log failed request:", logError);
-      }
-    }
+    // Enhanced failed request logging
+    await logEnhancedRequest({
+      userId,
+      predictionId,
+      status: "failed",
+      requestData: {
+        prompt,
+        negativePrompt: negativePrompt || null,
+        prediction_id: predictionId,
+        model: MODEL_VERSION
+      },
+      startTime,
+      endTime,
+      queueStartTime,
+      processingStartTime,
+      imageBase64,
+      creditsUsed: 0,
+      errorMessage: error.message,
+      userAgent,
+      ipAddress,
+      referrerUrl,
+      sessionId,
+      featureType: "basic_restore"
+    });
 
     // Handle specific error types
     if (error.message.includes('timed out') || error.message.includes('cancelled')) {

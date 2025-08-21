@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Hero from '../components/newhome/hero';
-import Features from '../components/newhome/Features';
+import Features from '../components/newhome/features';
 
 export default function NewHomePage() {
   // SEO values
@@ -135,8 +135,9 @@ export default function NewHomePage() {
 
       <main>
         {/* Hero Section */}
-        <Hero />
         <Features />
+        <Hero />
+        
         
         {/* Placeholder for additional sections */}
         {/* 

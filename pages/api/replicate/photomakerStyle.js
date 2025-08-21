@@ -1,3 +1,12 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb', // or even '25mb' if needed
+    },
+  },
+};
+
+
 import Replicate from "replicate";
 
 const replicate = new Replicate({

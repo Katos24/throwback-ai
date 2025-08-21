@@ -43,7 +43,7 @@ const Features = () => {
       id: 'cartoonify',
       title: "90s Cartoon Style",
       shortTitle: "Create Cartoon Portraits",
-      description: "Transform your photos into nostalgic 90s cartoon-style portraits with distinctive artistic flair.",
+      description: "Transform your photos into nostalgic 90s cartoon style portraits with distinctive artistic flair.",
       beforeAfter: {
         before: "/images/cartoon-before.jpg",
         after: "/images/cartoon-example.jpg"

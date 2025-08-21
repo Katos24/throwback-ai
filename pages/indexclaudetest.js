@@ -17,7 +17,7 @@ export default function NewHomePage() {
         <title>Throwback AI - Transform Your Memories with AI-Powered Photo Magic</title>
         <meta
           name="description"
-          content="Restore old photos, create vibrant colorizations, and transform images into 90s cartoon style with Throwback AI. Professional AI-powered photo enhancements and creative transformations."
+          content="Restore old photos, create vibrant colorization, and transform images into 90s cartoon style with Throwback AI. Professional AI-powered photo enhancements and creative transformations."
         />
         <link rel="canonical" href={pageUrl} />
 

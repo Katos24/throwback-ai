@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import ImageCompareSlider from "../../components/ImageCompareSlider";
+import ImageCompareSlider from "../ImageCompareSlider";
 import styles from './Features.module.css';
 
 const Features = () => {

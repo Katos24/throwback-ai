@@ -319,10 +319,3 @@
 }
 
 
-.costLabel {
-  font-size: 0.8rem;      /* smaller text */
-  color: #e71313;         /* lighter gray */
-  margin-left: 8px;       /* some space from text */
-  font-weight: 600;
-  font-style: italic;
-}

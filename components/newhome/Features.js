@@ -13,8 +13,8 @@ const Features = () => {
       shortTitle: "Restore",
       description: "Bring damaged vintage photos back to life with AI-powered restoration",
       beforeAfter: {
-        before: "/images/restore-before.jpg",
-        after: "/images/restore-after.jpg"
+        before: "/images/basicpage-before.jpg",
+        after: "/images/basicpage-after.jpg"
       },
       link: "/replicate/restore",
       color: "emerald"
@@ -25,8 +25,8 @@ const Features = () => {
       shortTitle: "Colorize",
       description: "Transform black & white photos into vibrant, lifelike colorized images",
       beforeAfter: {
-        before: "/images/colorize-before.jpg",
-        after: "/images/colorize-after.jpg"
+        before: "/images/beforeexample.jpg",
+        after: "/images/afterexample.jpg"
       },
       link: "/replicate/restore-premium",
       color: "orange"
@@ -38,7 +38,7 @@ const Features = () => {
       description: "Transform your photos into nostalgic 90s cartoon-style portraits",
       beforeAfter: {
         before: "/images/cartoon-before.jpg", 
-        after: "/images/cartoon-after.jpg"
+        after: "/images/cartoon-example.jpg"
       },
       link: "/replicate/cartoon",
       color: "purple"

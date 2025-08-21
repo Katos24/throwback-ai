@@ -10,7 +10,7 @@ const Hero = () => {
       title: "Restore",
       description: "Repair damaged vintage photos with AI",
       image: "/images/before-after-restore.jpg",
-      link: "/replicate/restore",
+      link: "/replicate/restore-basic",
     },
     {
       title: "Colorize", 

@@ -48,7 +48,7 @@ const Hero = () => {
             <h1 className={styles.title}>
               <span className={styles.brand}>Throwback AI</span>
               <span className={styles.tagline}>
-                Transform Your Photos with AI
+                Transform Your Photos with AI!
               </span>
             </h1>
 

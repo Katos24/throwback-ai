@@ -4,48 +4,59 @@ import ImageCompareSlider from "../../components/ImageCompareSlider";
 import styles from './Features.module.css';
 
 const Features = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const categories = [
+    { id: 'all', title: 'All Features' },
+    { id: 'restore', title: 'Restoration' },
+    { id: 'enhance', title: 'Enhancement' }
+  ];
 
   const features = [
     {
       id: 'restore',
       title: "Photo Restoration",
-      shortTitle: "Restore",
-      description: "Bring damaged vintage photos back to life with AI-powered restoration",
+      shortTitle: "Restore Damaged Photos",
+      description: "Bring damaged vintage photos back to life with AI-powered restoration that repairs scratches, tears, and fading.",
       beforeAfter: {
         before: "/images/basicpage-before.jpg",
         after: "/images/basicpage-after.jpg"
       },
-      link: "/replicate/restore",
-      color: "emerald"
+      link: "/replicate/restore-basic",
+      color: "emerald",
+      category: "restore"
     },
     {
       id: 'colorize',
       title: "AI Colorization", 
-      shortTitle: "Colorize",
-      description: "Transform black & white photos into vibrant, lifelike colorized images",
+      shortTitle: "Colorize Black & White Photos",
+      description: "Transform black & white photos into vibrant, lifelike colorized images with intelligent AI color prediction.",
       beforeAfter: {
         before: "/images/beforeexample.jpg",
         after: "/images/afterexample.jpg"
       },
       link: "/replicate/restore-premium",
-      color: "orange"
+      color: "orange",
+      category: "enhance"
     },
     {
       id: 'cartoonify',
       title: "90s Cartoon Style",
-      shortTitle: "Cartoonify", 
-      description: "Transform your photos into nostalgic 90s cartoon-style portraits",
+      shortTitle: "Create Cartoon Portraits",
+      description: "Transform your photos into nostalgic 90s cartoon-style portraits with distinctive artistic flair.",
       beforeAfter: {
-        before: "/images/cartoon-before.jpg", 
+        before: "/images/cartoon-before.jpg",
         after: "/images/cartoon-example.jpg"
       },
       link: "/replicate/cartoon",
-      color: "purple"
+      color: "purple",
+      category: "enhance"
     }
   ];
 
-  const currentFeature = features[activeTab];
+  const filteredFeatures = activeCategory === 'all' 
+    ? features 
+    : features.filter(feature => feature.category === activeCategory);
 
   return (
     <section className={styles.features}>
@@ -56,42 +67,69 @@ const Features = () => {
             Powerful AI Features
           </div>
           <h2 className={styles.title}>
-            Transform Your Photos with Advanced AI
+            The features you need, the simplicity you want
           </h2>
           <p className={styles.subtitle}>
-            Choose from our suite of AI-powered tools designed to enhance, 
+            Choose from our suite of AI-powered tools designed to enhance,
             restore, and creatively transform your precious memories.
           </p>
         </div>
 
         <div className={styles.mainContent}>
+          {/* Category Tabs */}
           <div className={styles.tabNav}>
-            {features.map((feature, index) => (
+            {categories.map((category) => (
               <button
-                key={feature.id}
-                onClick={() => setActiveTab(index)}
-                className={`${styles.tab} ${activeTab === index ? styles.activeTab : ''} ${styles[`tab${feature.color}`]}`}
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`${styles.tab} ${activeCategory === category.id ? styles.activeTab : ''}`}
               >
-                <div className={styles.tabIcon}>
-                  {feature.shortTitle === 'Restore' && '🔧'}
-                  {feature.shortTitle === 'Colorize' && '🎨'}
-                  {feature.shortTitle === 'Cartoonify' && '🎭'}
-                </div>
-                <div className={styles.tabContent}>
-                  <h3 className={styles.tabTitle}>{feature.shortTitle}</h3>
-                  <p className={styles.tabDescription}>{feature.description}</p>
-                </div>
+                <span className={styles.tabTitle}>{category.title}</span>
               </button>
             ))}
           </div>
 
-          <div className={styles.featureContent}>
-            <div className={styles.visualShowcase}>
-              <ImageCompareSlider 
-                beforeImage={currentFeature.beforeAfter.before}
-                afterImage={currentFeature.beforeAfter.after}
-              />
-            </div>
+          {/* Feature Cards Grid */}
+          <div className={styles.featureGrid}>
+            {filteredFeatures.map((feature) => (
+              <div 
+                key={feature.id} 
+                className={`${styles.featureCard} ${styles[feature.color]}`}
+              >
+                {/* Card Visual */}
+                <div className={styles.cardVisual}>
+                  <ImageCompareSlider
+                    beforeImage={feature.beforeAfter.before}
+                    afterImage={feature.beforeAfter.after}
+                  />
+                  <div className={styles.cardGradient}></div>
+                </div>
+
+                {/* Card Content */}
+                <div className={styles.cardContent}>
+                  <div className={styles.cardHeader}>
+                    <div>
+                      <h3 className={styles.cardTitle}>{feature.shortTitle}</h3>
+                      <p className={styles.cardDescription}>{feature.description}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.cardActions}>
+                    <Link href={feature.link} className={styles.tryButton}>
+                      Try it
+                      <span className={styles.arrow}>→</span>
+                    </Link>
+                    
+                    <button 
+                      className={styles.infoButton}
+                      title={`Learn more about ${feature.title}`}
+                    >
+                      i
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

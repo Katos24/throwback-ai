@@ -7,8 +7,10 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [cooldown, setCooldown] = useState(0);
+  const [showEmailHint, setShowEmailHint] = useState(false);
   const cooldownRef = useRef(null);
   const emailInputRef = useRef(null);
 
@@ -37,11 +39,14 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
     if (errorMsg) setErrorMsg('');
     if (successMsg) setSuccessMsg('');
     
+    // Real-time email validation
     if (newEmail.length > 3) {
       const isValid = validateEmail(newEmail);
       setEmailValid(isValid);
+      setShowEmailHint(!isValid && newEmail.includes('@'));
     } else {
       setEmailValid(true);
+      setShowEmailHint(false);
     }
   };
 
@@ -59,9 +64,78 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
     }, 1000);
   };
 
+  const categorizeError = (errorMessage) => {
+    const msg = errorMessage.toLowerCase();
+    
+    if (msg.includes('rate limit') || msg.includes('too many requests')) {
+      return {
+        type: 'rate_limit',
+        message: "You've tried signing up too frequently. Please wait a moment before trying again.",
+        retryDelay: 60
+      };
+    }
+    
+    if (msg.includes('invalid email') || msg.includes('email not valid')) {
+      return {
+        type: 'invalid_email',
+        message: 'Please check your email address and try again.',
+        retryDelay: 0
+      };
+    }
+    
+    if (msg.includes('network') || msg.includes('connection')) {
+      return {
+        type: 'network',
+        message: 'Connection issue. Please check your internet and try again.',
+        retryDelay: 10
+      };
+    }
+    
+    return {
+      type: 'general',
+      message: errorMessage || 'An unexpected error occurred. Please try again.',
+      retryDelay: 5
+    };
+  };
+
+  const handleOAuth = async (provider) => {
+    if (isDisabled || oauthLoading || loading) return;
+    
+    setOauthLoading(true);
+    setErrorMsg('');
+    setSuccessMsg('');
+    
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: { prompt: "select_account" },
+        },
+      });
+
+      if (error) {
+        setOauthLoading(false);
+        const errorInfo = categorizeError(error.message);
+        setErrorMsg(errorInfo.message);
+        if (onError) onError(errorInfo.message);
+        return;
+      }
+
+      // OAuth redirect will happen, so no need to setOauthLoading(false)
+      // The component will unmount when redirecting
+    } catch (err) {
+      console.error('OAuth signup error:', err);
+      setOauthLoading(false);
+      const errorMsg = 'Failed to sign up with Google. Please try again.';
+      setErrorMsg(errorMsg);
+      if (onError) onError(errorMsg);
+    }
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
-    if (isDisabled || loading || cooldown > 0) return;
+    if (isDisabled || loading || oauthLoading || cooldown > 0) return;
 
     if (!email.trim()) {
       setErrorMsg('Please enter your email address.');
@@ -92,27 +166,28 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
       setLoading(false);
 
       if (error) {
-        const msg = error.message.toLowerCase();
-        if (msg.includes('rate limit')) {
-          setErrorMsg("Too many requests. Please wait a moment.");
-          startCooldown(60);
-        } else {
-          setErrorMsg(error.message || 'Failed to send magic link.');
+        const errorInfo = categorizeError(error.message);
+        setErrorMsg(errorInfo.message);
+        
+        if (errorInfo.type === 'rate_limit') {
+          startCooldown(errorInfo.retryDelay);
         }
-        onError?.(error.message);
+        
+        if (onError) onError(errorInfo.message);
         return;
       }
 
       setSuccessMsg('🎉 Magic link sent! Check your email to activate your 5 free AI credits.');
       startCooldown(90);
       setEmail('');
-      onSuccess?.();
+      if (onSuccess) onSuccess();
       
     } catch (err) {
       console.error('Signup error:', err);
       setLoading(false);
-      setErrorMsg('An unexpected error occurred. Please try again.');
-      onError?.('An unexpected error occurred.');
+      const errorMsg = 'An unexpected error occurred. Please try again.';
+      setErrorMsg(errorMsg);
+      if (onError) onError(errorMsg);
     }
   };
 
@@ -121,6 +196,8 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
     if (cooldown > 0) return `Wait ${cooldown}s`;
     return 'Claim 5 Free Credits';
   };
+
+  const isFormDisabled = isDisabled || loading || oauthLoading || cooldown > 0;
 
   return (
     <div className={styles.modalSignup}>
@@ -140,15 +217,62 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
         </p>
       </div>
 
-      {/* Success Message */}
+      {/* Google OAuth Button */}
+      <button
+        type="button"
+        className={`${styles.googleSignupButton} ${oauthLoading ? styles.googleButtonLoading : ''}`}
+        onClick={() => handleOAuth('google')}
+        disabled={isFormDisabled}
+        aria-busy={oauthLoading}
+      >
+        {oauthLoading ? (
+          <>
+            <span className={styles.googleSpinner} aria-hidden="true"></span>
+            <span>Creating account with Google...</span>
+          </>
+        ) : (
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className={styles.googleIcon}
+            >
+              <path fill="#4285F4" d="M23.64 12.2c0-.82-.07-1.61-.2-2.37H12v4.48h6.36a5.43 5.43 0 01-2.36 3.57v2.97h3.82c2.23-2.05 3.52-5.07 3.52-8.65z" />
+              <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.82-2.97c-1.06.7-2.43 1.12-4.13 1.12-3.17 0-5.85-2.14-6.81-5.03H1.26v3.15A11.996 11.996 0 0012 24z" />
+              <path fill="#FBBC05" d="M5.19 14.21a7.2 7.2 0 010-4.42V6.64H1.26a11.98 11.98 0 000 10.72l3.93-3.15z" />
+              <path fill="#EA4335" d="M12 4.48c1.77 0 3.35.61 4.6 1.81l3.45-3.45C17.96 1.07 15.24 0 12 0 7.92 0 4.27 2.42 2.7 5.87l3.93 3.15c.94-2.89 3.62-5.03 6.81-5.03z" />
+            </svg>
+            <span>Get 5 credits with Google</span>
+          </>
+        )}
+      </button>
+
+      {/* Divider */}
+      <div className={styles.divider}>
+        <span className={styles.dividerLine}></span>
+        <span className={styles.dividerText}>or continue with email</span>
+        <span className={styles.dividerLine}></span>
+      </div>
+
+      {/* Success/Error Messages */}
       {successMsg && (
         <div className={styles.alertSuccess} role="status">
           <span className={styles.alertIcon}>✅</span>
           <span className={styles.alertText}>{successMsg}</span>
+          <button
+            type="button"
+            className={styles.alertDismiss}
+            onClick={() => setSuccessMsg('')}
+            aria-label="Dismiss success message"
+          >
+            ✕
+          </button>
         </div>
       )}
 
-      {/* Error Message */}
       {errorMsg && (
         <div className={styles.alertError} role="alert">
           <span className={styles.alertIcon}>⚠️</span>
@@ -162,22 +286,30 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
           <input
             ref={emailInputRef}
             type="email"
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
             className={`${styles.emailInput} ${!emailValid ? styles.inputError : ''}`}
             value={email}
             onChange={handleEmailChange}
-            disabled={isDisabled || loading || cooldown > 0}
+            disabled={isFormDisabled}
             required
             autoComplete="email"
-            autoFocus
+            aria-label="Email address"
+            aria-invalid={!emailValid}
+            aria-describedby={showEmailHint ? "email-hint-signup" : undefined}
           />
           <div className={styles.inputGlow}></div>
+          {showEmailHint && (
+            <div id="email-hint-signup" className={styles.inputHint}>
+              Please enter a valid email address
+            </div>
+          )}
         </div>
 
         <button
           type="submit"
           className={`${styles.claimButton} ${loading ? styles.loading : ''}`}
-          disabled={isDisabled || loading || cooldown > 0 || !email.trim()}
+          disabled={isFormDisabled || !email.trim()}
+          aria-busy={loading}
         >
           {loading && <div className={styles.spinner}></div>}
           <span>{getButtonText()}</span>

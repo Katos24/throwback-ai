@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import styles from '../../styles/Login.module.css';
 
-export function LoginForm({ isDisabled }) {
+export function LoginForm({ isDisabled, onSuccess, onError }) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -107,9 +108,44 @@ export function LoginForm({ isDisabled }) {
     };
   };
 
+  const handleOAuth = async (provider) => {
+    if (isDisabled || oauthLoading || loading) return;
+    
+    setOauthLoading(true);
+    setErrorMsg('');
+    setSuccessMsg('');
+    
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: { prompt: "select_account" },
+        },
+      });
+
+      if (error) {
+        setOauthLoading(false);
+        const errorInfo = categorizeError(error.message);
+        setErrorMsg(errorInfo.message);
+        if (onError) onError(errorInfo.message);
+        return;
+      }
+
+      // OAuth redirect will happen, so no need to setOauthLoading(false)
+      // The component will unmount when redirecting
+    } catch (err) {
+      console.error('OAuth error:', err);
+      setOauthLoading(false);
+      const errorMsg = 'Failed to sign in with Google. Please try again.';
+      setErrorMsg(errorMsg);
+      if (onError) onError(errorMsg);
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (isDisabled || loading || cooldown > 0) return;
+    if (isDisabled || loading || oauthLoading || cooldown > 0) return;
 
     // Final email validation
     if (!email.trim()) {
@@ -143,6 +179,7 @@ export function LoginForm({ isDisabled }) {
       if (error) {
         const errorInfo = categorizeError(error.message);
         setErrorMsg(errorInfo.message);
+        if (onError) onError(errorInfo.message);
         
         if (errorInfo.type === 'rate_limit') {
           startCooldown(errorInfo.retryDelay);
@@ -159,7 +196,9 @@ export function LoginForm({ isDisabled }) {
     } catch (err) {
       console.error('Login error:', err);
       setLoading(false);
-      setErrorMsg('An unexpected error occurred. Please try again.');
+      const errorMsg = 'An unexpected error occurred. Please try again.';
+      setErrorMsg(errorMsg);
+      if (onError) onError(errorMsg);
     }
   };
 
@@ -174,8 +213,51 @@ export function LoginForm({ isDisabled }) {
     return ((90 - cooldown) / 90) * 100;
   };
 
+  const isFormDisabled = isDisabled || loading || oauthLoading || cooldown > 0;
+
   return (
-    <>
+    <div className={styles.authContainer}>
+      {/* Google OAuth Button */}
+      <button
+        type="button"
+        className={`${styles.googleButton} ${oauthLoading ? styles.googleButtonLoading : ''}`}
+        onClick={() => handleOAuth('google')}
+        disabled={isFormDisabled}
+        aria-busy={oauthLoading}
+      >
+        {oauthLoading ? (
+          <>
+            <span className={styles.googleSpinner} aria-hidden="true"></span>
+            <span>Signing in with Google...</span>
+          </>
+        ) : (
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className={styles.googleIcon}
+            >
+              <path fill="#4285F4" d="M23.64 12.2c0-.82-.07-1.61-.2-2.37H12v4.48h6.36a5.43 5.43 0 01-2.36 3.57v2.97h3.82c2.23-2.05 3.52-5.07 3.52-8.65z" />
+              <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.91l-3.82-2.97c-1.06.7-2.43 1.12-4.13 1.12-3.17 0-5.85-2.14-6.81-5.03H1.26v3.15A11.996 11.996 0 0012 24z" />
+              <path fill="#FBBC05" d="M5.19 14.21a7.2 7.2 0 010-4.42V6.64H1.26a11.98 11.98 0 000 10.72l3.93-3.15z" />
+              <path fill="#EA4335" d="M12 4.48c1.77 0 3.35.61 4.6 1.81l3.45-3.45C17.96 1.07 15.24 0 12 0 7.92 0 4.27 2.42 2.7 5.87l3.93 3.15c.94-2.89 3.62-5.03 6.81-5.03z" />
+            </svg>
+            <span>Continue with Google</span>
+          </>
+        )}
+      </button>
+
+      {/* Divider */}
+      <div className={styles.divider}>
+        <span className={styles.dividerLine}></span>
+        <span className={styles.dividerText}>or</span>
+        <span className={styles.dividerLine}></span>
+      </div>
+
+      {/* Success/Error Messages */}
       {successMsg && (
         <div className={styles.successBox} role="status" aria-live="polite">
           <div className={styles.successContent}>
@@ -205,6 +287,7 @@ export function LoginForm({ isDisabled }) {
         </div>
       )}
 
+      {/* Email Form */}
       <form onSubmit={handleLogin} className={styles.inputGroup} aria-live="polite">
         <div className={styles.inputWrapper}>
           <label htmlFor="login-email" className="sr-only">Email address</label>
@@ -216,13 +299,12 @@ export function LoginForm({ isDisabled }) {
             className={`${styles.inputField} ${!emailValid ? styles.inputError : ''}`}
             value={email}
             onChange={handleEmailChange}
-            disabled={isDisabled || loading || cooldown > 0}
+            disabled={isFormDisabled}
             required
             aria-label="Email address"
             aria-invalid={!emailValid}
             aria-describedby={showEmailHint ? "email-hint" : undefined}
             autoComplete="email"
-            autoFocus
           />
           {showEmailHint && (
             <div id="email-hint" className={styles.inputHint}>
@@ -234,7 +316,7 @@ export function LoginForm({ isDisabled }) {
         <button
           type="submit"
           className={`${styles.submitButton} ${loading ? styles.loading : ''}`}
-          disabled={isDisabled || loading || cooldown > 0 || !email.trim()}
+          disabled={isFormDisabled || !email.trim()}
           aria-busy={loading}
           style={{
             background: cooldown > 0 
@@ -278,6 +360,6 @@ export function LoginForm({ isDisabled }) {
           </div>
         </details>
       </div>
-    </>
+    </div>
   );
 }

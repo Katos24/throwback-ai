@@ -102,6 +102,9 @@ export default function Header({ showMenu, setShowMenu }) {
           <Link href="/replicate/restore-premium" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
             Full Color Restore
           </Link>
+          <Link href="/replicate/cartoon" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
+            Cartoon (New)
+          </Link>
           <Link href="/gallery" prefetch className={styles.navLink} onClick={() => setShowMenu(false)}>
             Gallery
           </Link>

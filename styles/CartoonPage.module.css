@@ -3,7 +3,7 @@
 .container {
   min-height: 100vh;
   padding: 1rem;
-  padding-top: 6rem; /* Add space for header on desktop */
+  padding-top: 1rem; /* Add space for header on desktop */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   transition: all 0.3s ease;
   position: relative;

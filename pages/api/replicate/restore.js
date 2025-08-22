@@ -121,6 +121,7 @@ async function logEnhancedRequest(data) {
 
   const requestLog = {
     user_id: userId,
+    is_guest: !userId, // ✅ Track if this is a guest user
     request_data: requestData,
     status,
     result_url: resultUrl,

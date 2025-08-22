@@ -263,7 +263,7 @@ export function LoginForm({ isDisabled }) {
 
       <div className={styles.helpSection}>
         <p className={styles.infoText}>
-          🔐 We'll send you a secure magic link to log in - no password required!
+          🔐 We&apos;ll send you a secure magic link to log in - no password required!
         </p>
         
         <details className={styles.troubleshooting}>

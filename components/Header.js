@@ -172,7 +172,6 @@ export default function Header({ showMenu, setShowMenu }) {
       {/* Enhanced Signup Modal */}
       <Modal isOpen={modalType === "signup"} onClose={closeModal} title="Get Started">
         <div className={styles.modalHeader}>
-          <h3>Create your account</h3>
           <p className={styles.modalSubtext}>Join thousands restoring memories with AI</p>
         </div>
         <SignupForm

@@ -1,4 +1,4 @@
-/* Simple Signup Modal - Under 500 Lines */
+/* Simple Signup Modal - CSS Modules */
 
 /* ================================
    MODAL SIGNUP - SIMPLE
@@ -6,7 +6,8 @@
 
 .modalSignup {
   width: 100%;
-  max-width: 380px;
+  max-width: 480px;
+  margin: 0 auto;
   padding: 1rem;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(12px);
@@ -379,7 +380,7 @@
 
 @media (max-width: 480px) {
   .modalSignup {
-    max-width: calc(100vw - 1rem);
+    max-width: calc(100vw - 2rem);
     padding: 0.75rem;
   }
   
@@ -438,6 +439,7 @@
 @media (max-width: 360px) {
   .modalSignup {
     padding: 0.625rem;
+    max-width: calc(100vw - 2rem);
   }
   
   .creditsOffer {
@@ -512,7 +514,7 @@
 }
 
 /* Screen reader only */
-.sr-only {
+.sr_only {
   position: absolute;
   width: 1px;
   height: 1px;

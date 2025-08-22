@@ -1,26 +1,27 @@
-/* === Enhanced Auth Container === */
+/* === Enhanced Auth Container - COMPACT === */
 .authContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   margin: 0 auto;
+  padding: 0;
 }
 
-/* === Enhanced Google Button === */
+/* === Enhanced Google Button - COMPACT === */
 .googleButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  padding: 14px 20px;
+  padding: 11px 16px;
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 10px;
   color: #374151;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -53,8 +54,8 @@
 }
 
 .googleIcon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
@@ -64,8 +65,8 @@
 }
 
 .googleSpinner {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #e5e7eb;
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
@@ -73,17 +74,12 @@
   flex-shrink: 0;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* === Enhanced Divider === */
+/* === Enhanced Divider - COMPACT === */
 .divider {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin: 8px 0;
+  gap: 12px;
+  margin: 4px 0;
 }
 
 .dividerLine {
@@ -94,18 +90,18 @@
 
 .dividerText {
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 500;
   padding: 0 4px;
   background: #ffffff;
   position: relative;
 }
 
-/* === Enhanced Input Group === */
+/* === Enhanced Input Group - COMPACT === */
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .inputWrapper {
@@ -114,10 +110,10 @@
 
 .inputField {
   width: 100%;
-  padding: 14px 16px;
+  padding: 11px 14px;
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
   background: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
@@ -150,21 +146,21 @@
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 4px;
-  font-size: 0.8rem;
+  margin-top: 3px;
+  font-size: 0.75rem;
   color: #ef4444;
   font-weight: 500;
 }
 
-/* === Enhanced Submit Button === */
+/* === Enhanced Submit Button - COMPACT === */
 .submitButton {
   width: 100%;
-  padding: 14px 20px;
+  padding: 11px 16px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   color: white;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -173,7 +169,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
@@ -200,49 +196,49 @@
 }
 
 .spinner {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top: 2px solid white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-/* === Enhanced Success/Error Messages === */
+/* === Enhanced Success/Error Messages - COMPACT === */
 .successBox {
   background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
   border: 1px solid #86efac;
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 8px;
+  padding: 12px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
 }
 
 .successContent {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   flex: 1;
 }
 
 .successIcon {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .successTitle {
   font-weight: 600;
   color: #166534;
-  font-size: 0.95rem;
-  margin-bottom: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
 }
 
 .successMessage {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #166534;
   opacity: 0.8;
 }
@@ -252,9 +248,9 @@
   border: none;
   color: #166534;
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 4px;
-  border-radius: 6px;
+  font-size: 1rem;
+  padding: 2px;
+  border-radius: 4px;
   transition: background 0.2s ease;
   flex-shrink: 0;
 }
@@ -266,38 +262,38 @@
 .errorBox {
   background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
   border: 1px solid #fca5a5;
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 8px;
+  padding: 12px;
   box-shadow: 0 4px 16px rgba(239, 68, 68, 0.1);
 }
 
 .errorContent {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   color: #dc2626;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
 .errorIcon {
-  font-size: 1.1rem;
+  font-size: 1rem;
   flex-shrink: 0;
   margin-top: 1px;
 }
 
-/* === Enhanced Cooldown === */
+/* === Enhanced Cooldown - COMPACT === */
 .cooldownInfo {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .cooldownBar {
   width: 100%;
-  height: 4px;
+  height: 3px;
   background: #e5e7eb;
   border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .cooldownProgress {
@@ -307,38 +303,38 @@
 }
 
 .cooldownText {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #6b7280;
   text-align: center;
   margin: 0;
   font-weight: 500;
 }
 
-/* === Enhanced Help Section === */
+/* === Enhanced Help Section - COMPACT === */
 .helpSection {
-  margin-top: 16px;
-  padding-top: 20px;
+  margin-top: 8px;
+  padding-top: 12px;
   border-top: 1px solid #e5e7eb;
 }
 
 .infoText {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #6b7280;
   text-align: center;
-  margin: 0 0 16px 0;
-  line-height: 1.5;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
 }
 
 .troubleshooting {
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 .troubleshooting summary {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #3b82f6;
   cursor: pointer;
   font-weight: 500;
-  padding: 8px 0;
+  padding: 4px 0;
   list-style: none;
   user-select: none;
   transition: color 0.2s ease;
@@ -355,9 +351,9 @@
 .troubleshooting summary::before {
   content: "▶";
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 6px;
   transition: transform 0.2s ease;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 .troubleshooting[open] summary::before {
@@ -365,22 +361,22 @@
 }
 
 .troubleshootingContent {
-  padding: 12px 16px;
+  padding: 8px 12px;
   background: #f8fafc;
-  border-radius: 8px;
-  margin-top: 8px;
+  border-radius: 6px;
+  margin-top: 4px;
 }
 
 .troubleshootingContent ul {
   margin: 0;
-  padding-left: 16px;
+  padding-left: 14px;
   color: #6b7280;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
 .troubleshootingContent li {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 /* === Screen Reader Only === */
@@ -396,32 +392,133 @@
   border: 0;
 }
 
-/* === Mobile Optimizations === */
+/* === Mobile Optimizations - ULTRA COMPACT === */
 @media (max-width: 640px) {
   .authContainer {
-    gap: 16px;
+    gap: 12px;
     max-width: 100%;
   }
 
   .googleButton {
-    padding: 12px 16px;
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .googleIcon,
+  .googleSpinner {
+    width: 16px;
+    height: 16px;
   }
 
   .inputField {
-    padding: 12px 14px;
-    font-size: 0.9rem;
+    padding: 10px 12px;
+    font-size: 0.85rem;
   }
 
   .submitButton {
-    padding: 12px 16px;
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    font-size: 0.85rem;
   }
 
   .successBox,
   .errorBox {
-    padding: 14px;
+    padding: 10px;
   }
+
+  .successTitle {
+    font-size: 0.85rem;
+  }
+
+  .successMessage {
+    font-size: 0.75rem;
+  }
+
+  .errorContent {
+    font-size: 0.8rem;
+  }
+
+  .infoText {
+    font-size: 0.75rem;
+  }
+
+  .troubleshooting summary {
+    font-size: 0.75rem;
+    padding: 3px 0;
+  }
+
+  .troubleshootingContent {
+    padding: 6px 10px;
+  }
+
+  .troubleshootingContent ul {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .helpSection {
+    margin-top: 6px;
+    padding-top: 8px;
+  }
+
+  .divider {
+    margin: 2px 0;
+    gap: 10px;
+  }
+
+  .dividerText {
+    font-size: 0.75rem;
+  }
+}
+
+/* === Ultra Mobile - MINIMAL === */
+@media (max-width: 480px) {
+  .authContainer {
+    gap: 10px;
+  }
+
+  .googleButton {
+    padding: 9px 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+
+  .inputField {
+    padding: 9px 11px;
+    font-size: 0.8rem;
+  }
+
+  .submitButton {
+    padding: 9px 12px;
+    font-size: 0.8rem;
+  }
+
+  .successBox,
+  .errorBox {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .helpSection {
+    margin-top: 4px;
+    padding-top: 6px;
+  }
+
+  .infoText {
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+  }
+
+  .troubleshooting {
+    margin-top: 4px;
+  }
+
+  .troubleshootingContent {
+    padding: 4px 8px;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* === Accessibility Enhancements === */
@@ -478,79 +575,4 @@
 .dismissBtn:focus-visible {
   outline: 2px solid #166534;
   outline-offset: 1px;
-}
-
-/* === Loading States === */
-.googleButton:disabled .googleIcon {
-  opacity: 0.5;
-}
-
-.submitButton:disabled .spinner {
-  margin-right: 0;
-}
-
-/* === Additional Animation Refinements === */
-.googleButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  transition: left 0.6s ease;
-}
-
-.googleButton:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.inputField:focus::placeholder {
-  color: transparent;
-}
-
-/* === Dark Mode Support === */
-@media (prefers-color-scheme: dark) {
-  .authContainer {
-    color: #f3f4f6;
-  }
-
-  .googleButton {
-    background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-    border-color: #4b5563;
-    color: #f3f4f6;
-  }
-
-  .googleButton:hover:not(:disabled) {
-    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-    border-color: #6b7280;
-  }
-
-  .inputField {
-    background: #374151;
-    border-color: #4b5563;
-    color: #f3f4f6;
-  }
-
-  .inputField:focus {
-    background: #4b5563;
-    border-color: #60a5fa;
-  }
-
-  .dividerLine {
-    background: linear-gradient(90deg, transparent 0%, #4b5563 50%, transparent 100%);
-  }
-
-  .dividerText {
-    color: #9ca3af;
-    background: #111827;
-  }
-
-  .troubleshootingContent {
-    background: #374151;
-  }
-
-  .infoText {
-    color: #9ca3af;
-  }
 }

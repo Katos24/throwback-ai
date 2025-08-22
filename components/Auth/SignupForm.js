@@ -201,19 +201,21 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
 
   return (
     <div className={styles.modalSignup}>
-      {/* Credits Offer */}
-      <div className={styles.creditsOffer}>
-        <span className={styles.creditsNumber}>5</span>
-        <div className={styles.creditsInfo}>
-          <span className={styles.creditsLabel}>FREE AI CREDITS</span>
-          <span className={styles.creditsSubtext}>Added instantly</span>
+      {/* Header with Credits Offer */}
+      <div className={styles.modalHeader}>
+        <div className={styles.creditsOffer}>
+          <span className={styles.creditsNumber}>5</span>
+          <div className={styles.creditsInfo}>
+            <span className={styles.creditsLabel}>FREE AI CREDITS</span>
+            <span className={styles.creditsSubtext}>Added instantly</span>
+          </div>
         </div>
+        
+        <h2 className={styles.modalTitle}>Start creating AI magic</h2>
+        <p className={styles.modalDescription}>
+          Transform photos • Generate art • No credit card required
+        </p>
       </div>
-      
-      <h2 className={styles.modalTitle}>Start creating AI magic</h2>
-      <p className={styles.modalDescription}>
-        Transform photos • Generate art • No credit card required
-      </p>
 
       {/* Google OAuth Button */}
       <button
@@ -258,6 +260,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
       {/* Success/Error Messages */}
       {successMsg && (
         <div className={styles.alertSuccess} role="status">
+          <span className={styles.alertIcon}>✅</span>
           <span className={styles.alertText}>{successMsg}</span>
           <button
             type="button"
@@ -272,30 +275,35 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
 
       {errorMsg && (
         <div className={styles.alertError} role="alert">
+          <span className={styles.alertIcon}>⚠️</span>
           <span className={styles.alertText}>{errorMsg}</span>
         </div>
       )}
 
-      {/* Email Input */}
+      {/* Signup Form */}
       <form onSubmit={handleSignup} className={styles.signupForm}>
-        <input
-          ref={emailInputRef}
-          type="email"
-          placeholder="Enter your email address"
-          className={`${styles.emailInput} ${!emailValid ? styles.inputError : ''}`}
-          value={email}
-          onChange={handleEmailChange}
-          disabled={isFormDisabled}
-          required
-          autoComplete="email"
-          aria-label="Email address"
-          aria-invalid={!emailValid}
-        />
-        {showEmailHint && (
-          <div className={styles.inputHint}>
-            Please enter a valid email address
-          </div>
-        )}
+        <div className={styles.inputWrapper}>
+          <input
+            ref={emailInputRef}
+            type="email"
+            placeholder="Enter your email address"
+            className={`${styles.emailInput} ${!emailValid ? styles.inputError : ''}`}
+            value={email}
+            onChange={handleEmailChange}
+            disabled={isFormDisabled}
+            required
+            autoComplete="email"
+            aria-label="Email address"
+            aria-invalid={!emailValid}
+            aria-describedby={showEmailHint ? "email-hint-signup" : undefined}
+          />
+          <div className={styles.inputGlow}></div>
+          {showEmailHint && (
+            <div id="email-hint-signup" className={styles.inputHint}>
+              Please enter a valid email address
+            </div>
+          )}
+        </div>
 
         <button
           type="submit"
@@ -320,7 +328,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
         )}
       </form>
 
-      {/* Benefits */}
+      {/* Quick Benefits */}
       <div className={styles.quickBenefits}>
         <div className={styles.benefitItem}>
           <span className={styles.benefitIcon}>🔮</span>
@@ -338,7 +346,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
 
       {/* Trust Footer */}
       <div className={styles.trustFooter}>
-        🔒 Secure signup • Credits added instantly
+        🔒 Secure signup • Credits added instantly after email verification
       </div>
     </div>
   );

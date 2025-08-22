@@ -1,322 +1,178 @@
-/* Modal-Perfect Signup.module.css - ULTRA COMPACT */
+/* Simple Signup Modal - One Clean Box */
 
 /* ================================
-   MODAL SIGNUP CONTAINER - COMPACT
+   MODAL SIGNUP - ONE CLEAN BOX
    ================================ */
 
 .modalSignup {
   width: 100%;
-  max-width: 420px;
-  padding: 1.25rem 1.5rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(145deg, 
-    rgba(15, 23, 42, 0.98) 0%,
-    rgba(30, 41, 59, 0.95) 50%, 
-    rgba(15, 23, 42, 0.98) 100%
-  );
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  border-radius: 14px;
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.3),
-    0 0 30px rgba(59, 130, 246, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  max-width: 360px;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
   color: #f8fafc;
-  position: relative;
-  overflow: hidden;
-  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-sizing: border-box;
 }
 
-.modalSignup::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
-  pointer-events: none;
-}
-
 /* ================================
-   MODAL HEADER - ULTRA COMPACT
+   HEADER - NO EXTRA MARGINS
    ================================ */
 
 .modalHeader {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .creditsOffer {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.15) 0%, 
-    rgba(147, 51, 234, 0.15) 100%
-  );
-  padding: 0.625rem 0.875rem;
-  border-radius: 50px;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  backdrop-filter: blur(10px);
-  margin-bottom: 0.625rem;
-  position: relative;
-  overflow: hidden;
-  animation: creditsPulse 3s ease-in-out infinite;
-}
-
-.creditsOffer::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, 
-    transparent, 
-    rgba(59, 130, 246, 0.1), 
-    transparent
-  );
-  animation: shimmerEffect 3s linear infinite;
+  gap: 0.375rem;
+  background: rgba(59, 130, 246, 0.2);
+  padding: 0.375rem 0.625rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
 }
 
 .creditsNumber {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #60a5fa, #a78bfa);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-  animation: numberPulse 2s ease-in-out infinite;
+  color: #60a5fa;
 }
 
 .creditsInfo {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .creditsLabel {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: #e2e8f0;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
   line-height: 1;
 }
 
 .creditsSubtext {
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   color: #22c55e;
   font-weight: 600;
-  margin-top: 0.125rem;
 }
 
 .modalTitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 800;
-  margin-bottom: 0.25rem;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #ffffff, #cbd5e1);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
   margin: 0 0 0.25rem 0;
 }
 
 .modalDescription {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #94a3b8;
-  font-weight: 500;
-  line-height: 1.4;
   margin: 0;
 }
 
 /* ================================
-   GOOGLE SIGNUP BUTTON - COMPACT
+   GOOGLE BUTTON - SIMPLE
    ================================ */
 
 .googleSignupButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 10px 16px;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
-    rgba(248, 250, 252, 0.95) 100%
-  );
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  border-radius: 10px;
+  padding: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   color: #374151;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 3px 12px rgba(0, 0, 0, 0.08),
-    0 0 15px rgba(59, 130, 246, 0.1);
-  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
   margin-bottom: 0.75rem;
 }
 
-.googleSignupButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(59, 130, 246, 0.1), 
-    transparent
-  );
-  transition: left 0.6s ease;
-}
-
 .googleSignupButton:hover:not(:disabled) {
-  background: linear-gradient(135deg, 
-    rgba(248, 250, 252, 0.98) 0%, 
-    rgba(226, 232, 240, 0.95) 100%
-  );
-  border-color: rgba(59, 130, 246, 0.4);
-  transform: translateY(-1px);
-  box-shadow: 
-    0 5px 16px rgba(0, 0, 0, 0.12),
-    0 0 20px rgba(59, 130, 246, 0.15);
-}
-
-.googleSignupButton:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.googleSignupButton:active:not(:disabled) {
-  transform: translateY(0);
+  background: #f8fafc;
+  border-color: #3b82f6;
 }
 
 .googleSignupButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
-}
-
-.googleButtonLoading {
-  background: linear-gradient(135deg, 
-    rgba(241, 245, 249, 0.95) 0%, 
-    rgba(226, 232, 240, 0.95) 100%
-  );
 }
 
 .googleIcon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.googleSignupButton:hover:not(:disabled) .googleIcon {
-  transform: scale(1.1);
+  width: 16px;
+  height: 16px;
 }
 
 .googleSpinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(59, 130, 246, 0.2);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
   border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  flex-shrink: 0;
 }
 
 /* ================================
-   DIVIDER - ULTRA COMPACT
+   DIVIDER - SIMPLE
    ================================ */
 
 .divider {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 0.625rem 0;
+  gap: 10px;
+  margin: 0.5rem 0;
 }
 
 .dividerLine {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(59, 130, 246, 0.3) 50%, 
-    transparent 100%
-  );
+  background: rgba(59, 130, 246, 0.3);
 }
 
 .dividerText {
   color: #64748b;
   font-size: 0.7rem;
   font-weight: 500;
-  padding: 0 5px;
-  background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.9) 0%, 
-    rgba(30, 41, 59, 0.9) 100%
-  );
-  border-radius: 20px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 /* ================================
-   ALERTS - COMPACT
+   ALERTS - SIMPLE
    ================================ */
 
 .alertSuccess {
-  background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 0.1), 
-    rgba(16, 185, 129, 0.05)
-  );
+  background: rgba(34, 197, 94, 0.1);
   border: 1px solid rgba(34, 197, 94, 0.3);
-  border-radius: 8px;
-  padding: 0.625rem;
+  border-radius: 6px;
+  padding: 0.75rem;
   margin-bottom: 0.75rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  backdrop-filter: blur(10px);
-  animation: alertSlideIn 0.4s ease-out;
 }
 
 .alertError {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 8px;
-  padding: 0.625rem;
+  border-radius: 6px;
+  padding: 0.75rem;
   margin-bottom: 0.75rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
-  backdrop-filter: blur(10px);
-  animation: alertShake 0.5s ease-in-out;
-}
-
-.alertIcon {
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  line-height: 1;
-  margin-top: 0.125rem;
 }
 
 .alertText {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  line-height: 1.4;
-  color: inherit;
   flex: 1;
 }
 
@@ -333,20 +189,12 @@
   border: none;
   color: #86efac;
   cursor: pointer;
-  font-size: 0.9rem;
-  padding: 2px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.alertDismiss:hover {
-  background: rgba(34, 197, 94, 0.1);
+  font-size: 1rem;
+  padding: 4px;
 }
 
 /* ================================
-   SIGNUP FORM - ULTRA COMPACT
+   FORM - SIMPLE
    ================================ */
 
 .signupForm {
@@ -360,33 +208,24 @@
 
 .emailInput {
   width: 100%;
-  padding: 0.75rem 0.875rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 0.75rem;
+  font-size: 0.875rem;
   background: rgba(30, 41, 59, 0.6);
-  border: 1.5px solid rgba(59, 130, 246, 0.3);
-  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
   color: #f1f5f9;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
   box-sizing: border-box;
-  position: relative;
-  z-index: 2;
 }
 
 .emailInput:focus {
   outline: none;
   border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
-  transform: translateY(-1px);
-  box-shadow: 
-    0 4px 16px rgba(59, 130, 246, 0.2),
-    0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.1);
 }
 
 .emailInput::placeholder {
   color: #64748b;
-  font-weight: 400;
 }
 
 .emailInput:disabled {
@@ -395,129 +234,68 @@
   cursor: not-allowed;
 }
 
-.inputGlow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.2), 
-    rgba(147, 51, 234, 0.2)
-  );
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-  filter: blur(6px);
-}
-
-.emailInput:focus + .inputGlow {
-  opacity: 1;
-}
-
 .inputError {
   border-color: #ef4444 !important;
-  background: rgba(239, 68, 68, 0.08) !important;
-  animation: inputShake 0.5s ease-in-out;
+  background: rgba(239, 68, 68, 0.1) !important;
 }
 
 .inputHint {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 3px;
+  margin-top: 4px;
   font-size: 0.7rem;
   color: #ef4444;
   font-weight: 500;
-  background: rgba(15, 23, 42, 0.9);
-  padding: 2px 5px;
-  border-radius: 4px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  backdrop-filter: blur(10px);
+}
+
+.inputGlow {
+  display: none;
 }
 
 /* ================================
-   CLAIM BUTTON - ULTRA COMPACT
+   CLAIM BUTTON - SIMPLE
    ================================ */
 
 .claimButton {
   width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 5px 18px rgba(59, 130, 246, 0.3),
-    0 2px 8px rgba(147, 51, 234, 0.2);
-  border: 1px solid rgba(59, 130, 246, 0.4);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
 
-.claimButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
-    transparent
-  );
-  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .claimButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(59, 130, 246, 0.4),
-    0 5px 14px rgba(147, 51, 234, 0.3);
-}
-
-.claimButton:hover:not(:disabled)::before {
-  left: 100%;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .claimButton:disabled {
-  background: linear-gradient(135deg, #374151, #1f2937);
+  background: #6b7280;
   cursor: not-allowed;
   opacity: 0.6;
-  transform: none;
-  box-shadow: none;
-}
-
-.claimButton:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.claimButton:focus-visible {
-  outline: 2px solid #60a5fa;
-  outline-offset: 2px;
 }
 
 .spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top: 2px solid #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 /* ================================
-   COOLDOWN - ULTRA COMPACT
+   COOLDOWN - SIMPLE
    ================================ */
 
 .cooldownInfo {
@@ -527,17 +305,16 @@
 
 .cooldownBar {
   width: 100%;
-  height: 2px;
+  height: 3px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .cooldownProgress {
   height: 100%;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  border-radius: 2px;
+  background: #3b82f6;
   transition: width 1s linear;
 }
 
@@ -545,22 +322,19 @@
   font-size: 0.7rem;
   color: #94a3b8;
   font-weight: 500;
-  margin: 0;
 }
 
 /* ================================
-   QUICK BENEFITS - ULTRA COMPACT
+   BENEFITS - SIMPLE
    ================================ */
 
 .quickBenefits {
   display: flex;
   justify-content: space-between;
-  gap: 0.625rem;
-  padding: 0.75rem 0.875rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
   margin-bottom: 0.75rem;
 }
 
@@ -571,839 +345,31 @@
   gap: 0.25rem;
   font-size: 0.7rem;
   color: #cbd5e1;
-  font-weight: 500;
   text-align: center;
   flex: 1;
 }
 
 .benefitIcon {
   font-size: 1rem;
-  filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.3));
 }
 
 /* ================================
-   TRUST FOOTER - ULTRA COMPACT
+   TRUST FOOTER - SIMPLE
    ================================ */
 
 .trustFooter {
   text-align: center;
   font-size: 0.65rem;
   color: #64748b;
-  font-weight: 500;
   line-height: 1.4;
-  padding: 0.5rem 0.625rem;
-  background: rgba(255, 255, 255, 0.01);
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 /* ================================
    ANIMATIONS
    ================================ */
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes creditsPulse {
-  0%, 100% { 
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
-  }
-  50% { 
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-  }
-}
-
-@keyframes shimmerEffect {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-@keyframes numberPulse {
-  0%, 100% { 
-    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
-  }
-  50% { 
-    filter: drop-shadow(0 0 12px rgba(147, 51, 234, 0.7));
-  }
-}
-
-@keyframes alertSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes alertShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
-}
-
-@keyframes inputShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ================================
-   MOBILE RESPONSIVE - ULTRA COMPACT
-   ================================ */
-
-@media (max-width: 480px) {
-  .modalSignup {
-    max-width: calc(100vw - 1rem);
-    padding: 1rem 1.25rem;
-  }
-  
-  .modalTitle {
-    font-size: 1.125rem;
-  }
-  
-  .creditsNumber {
-    font-size: 1.25rem;
-  }
-  
-  .creditsOffer {
-    padding: 0.5rem 0.75rem;
-    gap: 0.375rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .googleSignupButton {
-    padding: 9px 14px;
-    font-size: 0.85rem;
-    margin-bottom: 0.625rem;
-  }
-
-  .googleIcon,
-  .googleSpinner {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .emailInput {
-    padding: 0.625rem 0.75rem;
-    font-size: 0.85rem;
-  }
-  
-  .claimButton {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.85rem;
-  }
-  
-  .quickBenefits {
-    padding: 0.625rem 0.75rem;
-    gap: 0.375rem;
-  }
-  
-  .benefitItem {
-    font-size: 0.65rem;
-    gap: 0.125rem;
-  }
-
-  .benefitIcon {
-    font-size: 0.9rem;
-  }
-
-  .divider {
-    margin: 0.5rem 0;
-    gap: 8px;
-  }
-
-  .dividerText {
-    font-size: 0.65rem;
-  }
-
-  .trustFooter {
-    font-size: 0.6rem;
-    padding: 0.375rem 0.5rem;
-  }
-
-  .modalHeader {
-    margin-bottom: 0.75rem;
-  }
-
-  .signupForm {
-    margin-bottom: 0.625rem;
-  }
-
-  .inputWrapper {
-    margin-bottom: 0.625rem;
-  }
-
-  .alertSuccess,
-  .alertError {
-    padding: 0.5rem;
-    margin-bottom: 0.625rem;
-  }
-
-  .alertText {
-    font-size: 0.7rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .modalSignup {
-    padding: 0.875rem 1rem;
-    max-width: calc(100vw - 0.75rem);
-  }
-  
-  .creditsOffer {
-    padding: 0.375rem 0.625rem;
-    gap: 0.25rem;
-    margin-bottom: 0.375rem;
-  }
-  
-  .creditsNumber {
-    font-size: 1.125rem;
-  }
-  
-  .creditsLabel {
-    font-size: 0.65rem;
-  }
-  
-  .modalTitle {
-    font-size: 1rem;
-    margin-bottom: 0.125rem;
-  }
-
-  .modalDescription {
-    font-size: 0.75rem;
-  }
-
-  .googleSignupButton {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    gap: 8px;
-  }
-
-  .quickBenefits {
-    flex-direction: column;
-    gap: 0.375rem;
-    padding: 0.5rem 0.625rem;
-  }
-
-  .benefitItem {
-    flex-direction: row;
-    justify-content: flex-start;
-    text-align: left;
-    gap: 0.375rem;
-  }
-
-  .modalHeader {
-    margin-bottom: 0.625rem;
-  }
-
-  .trustFooter {
-    font-size: 0.55rem;
-    padding: 0.25rem 0.375rem;
-  }
-}
-
-/* ================================
-   ACCESSIBILITY
-   ================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .modalSignup,
-  .creditsOffer,
-  .emailInput,
-  .claimButton,
-  .googleSignupButton,
-  .alertSuccess,
-  .alertError {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .spinner,
-  .googleSpinner {
-    animation: none;
-  }
-}
-
-@media (prefers-contrast: high) {
-  .modalSignup {
-    border-color: #ffffff;
-    background: rgba(0, 0, 0, 0.95);
-  }
-  
-  .googleSignupButton {
-    border-color: #ffffff;
-    background: rgba(255, 255, 255, 0.95);
-  }
-  
-  .emailInput {
-    border-color: #ffffff;
-    background: rgba(0, 0, 0, 0.8);
-  }
-  
-  .claimButton {
-    background: #3b82f6;
-    border-color: #ffffff;
-  }
-}
-
-.googleSignupButton:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-.emailInput:focus-visible {
-  outline: none;
-}
-
-.alertDismiss:focus-visible {
-  outline: 2px solid #22c55e;
-  outline-offset: 1px;
-}
-
-/* Screen reader only class */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ================================
-   GOOGLE SIGNUP BUTTON
-   ================================ */
-
-.googleSignupButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
-    rgba(248, 250, 252, 0.95) 100%
-  );
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  border-radius: 12px;
-  color: #374151;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.08),
-    0 0 20px rgba(59, 130, 246, 0.1);
-  backdrop-filter: blur(10px);
-  margin-bottom: 1rem;
-}
-
-.googleSignupButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(59, 130, 246, 0.1), 
-    transparent
-  );
-  transition: left 0.6s ease;
-}
-
-.googleSignupButton:hover:not(:disabled) {
-  background: linear-gradient(135deg, 
-    rgba(248, 250, 252, 0.98) 0%, 
-    rgba(226, 232, 240, 0.95) 100%
-  );
-  border-color: rgba(59, 130, 246, 0.4);
-  transform: translateY(-1px);
-  box-shadow: 
-    0 6px 20px rgba(0, 0, 0, 0.12),
-    0 0 25px rgba(59, 130, 246, 0.15);
-}
-
-.googleSignupButton:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.googleSignupButton:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.googleSignupButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.googleButtonLoading {
-  background: linear-gradient(135deg, 
-    rgba(241, 245, 249, 0.95) 0%, 
-    rgba(226, 232, 240, 0.95) 100%
-  );
-}
-
-.googleIcon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.googleSignupButton:hover:not(:disabled) .googleIcon {
-  transform: scale(1.1);
-}
-
-.googleSpinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  border-top: 2px solid #3b82f6;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  flex-shrink: 0;
-}
-
-/* ================================
-   DIVIDER - COMPACT
-   ================================ */
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 0.875rem 0;
-}
-
-.dividerLine {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(59, 130, 246, 0.3) 50%, 
-    transparent 100%
-  );
-}
-
-.dividerText {
-  color: #64748b;
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0 6px;
-  background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.9) 0%, 
-    rgba(30, 41, 59, 0.9) 100%
-  );
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* ================================
-   ALERTS (SUCCESS/ERROR)
-   ================================ */
-
-.alertSuccess {
-  background: linear-gradient(135deg, 
-    rgba(34, 197, 94, 0.1), 
-    rgba(16, 185, 129, 0.05)
-  );
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  border-radius: 10px;
-  padding: 0.75rem;
-  margin-bottom: 0.875rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.5rem;
-  backdrop-filter: blur(10px);
-  animation: alertSlideIn 0.4s ease-out;
-}
-
-.alertError {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 10px;
-  padding: 0.75rem;
-  margin-bottom: 0.875rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  backdrop-filter: blur(10px);
-  animation: alertShake 0.5s ease-in-out;
-}
-
-.alertIcon {
-  font-size: 0.95rem;
-  flex-shrink: 0;
-  line-height: 1;
-  margin-top: 0.125rem;
-}
-
-.alertText {
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.4;
-  color: inherit;
-  flex: 1;
-}
-
-.alertSuccess .alertText {
-  color: #86efac;
-}
-
-.alertError .alertText {
-  color: #fca5a5;
-}
-
-.alertDismiss {
-  background: none;
-  border: none;
-  color: #86efac;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 2px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.alertDismiss:hover {
-  background: rgba(34, 197, 94, 0.1);
-}
-
-/* ================================
-   SIGNUP FORM - COMPACT
-   ================================ */
-
-.signupForm {
-  margin-bottom: 1rem;
-}
-
-.inputWrapper {
-  position: relative;
-  margin-bottom: 0.875rem;
-}
-
-.emailInput {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  background: rgba(30, 41, 59, 0.6);
-  border: 1.5px solid rgba(59, 130, 246, 0.3);
-  border-radius: 12px;
-  color: #f1f5f9;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-}
-
-.emailInput:focus {
-  outline: none;
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.08);
-  transform: translateY(-1px);
-  box-shadow: 
-    0 4px 16px rgba(59, 130, 246, 0.2),
-    0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.emailInput::placeholder {
-  color: #64748b;
-  font-weight: 400;
-}
-
-.emailInput:disabled {
-  background: rgba(30, 41, 59, 0.3);
-  color: #64748b;
-  cursor: not-allowed;
-}
-
-.inputGlow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.2), 
-    rgba(147, 51, 234, 0.2)
-  );
-  border-radius: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-  filter: blur(6px);
-}
-
-.emailInput:focus + .inputGlow {
-  opacity: 1;
-}
-
-.inputError {
-  border-color: #ef4444 !important;
-  background: rgba(239, 68, 68, 0.08) !important;
-  animation: inputShake 0.5s ease-in-out;
-}
-
-.inputHint {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  font-size: 0.75rem;
-  color: #ef4444;
-  font-weight: 500;
-  background: rgba(15, 23, 42, 0.9);
-  padding: 3px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-/* ================================
-   CLAIM BUTTON - COMPACT
-   ================================ */
-
-.claimButton {
-  width: 100%;
-  padding: 0.875rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
-  border: none;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 6px 20px rgba(59, 130, 246, 0.3),
-    0 3px 10px rgba(147, 51, 234, 0.2);
-  border: 1px solid rgba(59, 130, 246, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.claimButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
-    transparent
-  );
-  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.claimButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 10px 30px rgba(59, 130, 246, 0.4),
-    0 6px 16px rgba(147, 51, 234, 0.3);
-}
-
-.claimButton:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.claimButton:disabled {
-  background: linear-gradient(135deg, #374151, #1f2937);
-  cursor: not-allowed;
-  opacity: 0.6;
-  transform: none;
-  box-shadow: none;
-}
-
-.claimButton:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top: 2px solid #ffffff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-/* ================================
-   COOLDOWN - COMPACT
-   ================================ */
-
-.cooldownInfo {
-  margin-top: 0.625rem;
-  text-align: center;
-}
-
-.cooldownBar {
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 0.375rem;
-}
-
-.cooldownProgress {
-  height: 100%;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  border-radius: 2px;
-  transition: width 1s linear;
-}
-
-.cooldownText {
-  font-size: 0.75rem;
-  color: #94a3b8;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* ================================
-   QUICK BENEFITS - HORIZONTAL
-   ================================ */
-
-.quickBenefits {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  margin-bottom: 0.875rem;
-}
-
-.benefitItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.75rem;
-  color: #cbd5e1;
-  font-weight: 500;
-  text-align: center;
-  flex: 1;
-}
-
-.benefitIcon {
-  font-size: 1.125rem;
-  filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.3));
-}
-
-/* ================================
-   TRUST FOOTER - COMPACT
-   ================================ */
-
-.trustFooter {
-  text-align: center;
-  font-size: 0.7rem;
-  color: #64748b;
-  font-weight: 500;
-  line-height: 1.4;
-  padding: 0.625rem 0.75rem;
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-/* ================================
-   ANIMATIONS
-   ================================ */
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes creditsPulse {
-  0%, 100% { 
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-  }
-  50% { 
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
-  }
-}
-
-@keyframes shimmerEffect {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
-
-@keyframes numberPulse {
-  0%, 100% { 
-    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
-  }
-  50% { 
-    filter: drop-shadow(0 0 12px rgba(147, 51, 234, 0.7));
-  }
-}
-
-@keyframes alertSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes alertShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
-}
-
-@keyframes inputShake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
-}
 
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -1415,95 +381,130 @@
 
 @media (max-width: 480px) {
   .modalSignup {
-    max-width: calc(100vw - 1.5rem);
-    padding: 1.5rem 1.75rem;
+    max-width: calc(100vw - 1rem);
+    padding: 0.75rem;
+  }
+  
+  .modalHeader {
+    margin-bottom: 0.625rem;
   }
   
   .modalTitle {
-    font-size: 1.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .modalDescription {
+    font-size: 0.7rem;
   }
   
   .creditsNumber {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   
   .creditsOffer {
-    padding: 0.625rem 0.875rem;
-    gap: 0.5rem;
-  }
-
-  .googleSignupButton {
-    padding: 11px 16px;
-    font-size: 0.9rem;
-  }
-  
-  .emailInput {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.9rem;
-  }
-  
-  .claimButton {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .quickBenefits {
-    padding: 0.75rem 0.875rem;
-    gap: 0.5rem;
-  }
-  
-  .benefitItem {
-    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.375rem;
     gap: 0.25rem;
   }
 
-  .benefitIcon {
-    font-size: 1rem;
+  .googleSignupButton {
+    padding: 0.625rem;
+    font-size: 0.8rem;
   }
 
-  .divider {
-    margin: 0.75rem 0;
-    gap: 10px;
+  .googleIcon,
+  .googleSpinner {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .emailInput {
+    padding: 0.625rem;
+    font-size: 0.8rem;
+  }
+  
+  .claimButton {
+    padding: 0.625rem;
+    font-size: 0.8rem;
+  }
+  
+  .quickBenefits {
+    padding: 0.5rem;
+  }
+  
+  .benefitItem {
+    font-size: 0.65rem;
+  }
+
+  .benefitIcon {
+    font-size: 0.875rem;
   }
 
   .trustFooter {
-    font-size: 0.65rem;
-    padding: 0.5rem 0.625rem;
+    font-size: 0.6rem;
+    padding: 0.375rem;
   }
 }
 
 @media (max-width: 360px) {
   .modalSignup {
-    padding: 1.25rem 1.5rem;
+    padding: 0.625rem;
+  }
+  
+  .modalHeader {
+    margin-bottom: 0.5rem;
   }
   
   .creditsOffer {
-    padding: 0.5rem 0.75rem;
-    gap: 0.375rem;
+    padding: 0.125rem 0.375rem;
+    margin-bottom: 0.25rem;
   }
   
   .creditsNumber {
-    font-size: 1.375rem;
-  }
-  
-  .creditsLabel {
-    font-size: 0.7rem;
+    font-size: 0.875rem;
   }
   
   .modalTitle {
-    font-size: 1.125rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.125rem;
+  }
+
+  .modalDescription {
+    font-size: 0.65rem;
+  }
+
+  .googleSignupButton {
+    padding: 0.5rem;
+    font-size: 0.75rem;
   }
 
   .quickBenefits {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
+    padding: 0.375rem;
   }
 
   .benefitItem {
     flex-direction: row;
     justify-content: flex-start;
     text-align: left;
-    gap: 0.5rem;
+    gap: 0.25rem;
+    font-size: 0.6rem;
+  }
+
+  .emailInput {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .claimButton {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .trustFooter {
+    padding: 0.25rem;
+    font-size: 0.55rem;
   }
 }
 
@@ -1512,15 +513,10 @@
    ================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .modalSignup,
-  .creditsOffer,
-  .emailInput,
-  .claimButton,
   .googleSignupButton,
-  .alertSuccess,
-  .alertError {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
+  .claimButton,
+  .emailInput {
+    transition: none;
   }
 
   .spinner,
@@ -1529,35 +525,9 @@
   }
 }
 
-@media (prefers-contrast: high) {
-  .modalSignup {
-    border-color: #ffffff;
-    background: rgba(0, 0, 0, 0.95);
-  }
-  
-  .googleSignupButton {
-    border-color: #ffffff;
-    background: rgba(255, 255, 255, 0.95);
-  }
-  
-  .emailInput {
-    border-color: #ffffff;
-    background: rgba(0, 0, 0, 0.8);
-  }
-  
-  .claimButton {
-    background: #3b82f6;
-    border-color: #ffffff;
-  }
-}
-
 .googleSignupButton:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
-}
-
-.emailInput:focus-visible {
-  outline: none;
 }
 
 .claimButton:focus-visible {
@@ -1565,12 +535,11 @@
   outline-offset: 2px;
 }
 
-.alertDismiss:focus-visible {
-  outline: 2px solid #22c55e;
-  outline-offset: 1px;
+.emailInput:focus-visible {
+  outline: none;
 }
 
-/* Screen reader only class */
+/* Screen reader only */
 .sr-only {
   position: absolute;
   width: 1px;

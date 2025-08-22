@@ -158,7 +158,7 @@ export default function Header({ showMenu, setShowMenu }) {
           onError={(msg) => alert(msg)}
         />
         <div className={styles.modalFooter}>
-          <p>Don't have an account? 
+          <p>Don&apos;t have an account? 
             <button 
               onClick={() => setModalType("signup")} 
               className={styles.switchModalBtn}

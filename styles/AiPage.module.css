@@ -1145,7 +1145,7 @@ gap: 0.75rem;
 .topBanner,
 .topBannerBasic {
 /* INCREASED: More header padding + small mobile padding */
-padding-top: calc(2.5rem + 70px); /* Increased for more clearance */
+padding-top: calc(1.5rem + 70px); /* Increased for more clearance */
 padding-left: 1rem;
 padding-right: 1rem;
 padding-bottom: 2.5rem;

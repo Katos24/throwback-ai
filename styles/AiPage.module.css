@@ -1054,7 +1054,7 @@
 .topBanner,
 .topBannerBasic {
 /* INCREASED: More header padding + mobile padding */
-padding-top: calc(3rem + 80px); /* Increased for more clearance */
+padding-top: calc(1rem + 80px); /* Increased for more clearance */
 padding-left: 1rem;
 padding-right: 1rem;
 padding-bottom: 3rem;

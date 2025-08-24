@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem 3rem 2rem; /* Added top padding instead of margin */
   overflow: hidden;
   position: relative;
   box-shadow: 
@@ -17,10 +17,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 100vh;
-  /* Add top margin to account for fixed header only */
-  margin-top: 80px; /* Just header height */
+  /* Removed margin-top - flows naturally under header */
 }
-
 
 /* Enhanced floating gradients with AI particle effect */
 .hero::before {
@@ -462,22 +460,7 @@
   color: #ffffff;
 }
 
-
-
-
 /* Keyframe animations */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 @keyframes shimmer {
   0% {
     left: -100%;
@@ -496,14 +479,13 @@
   }
 }
 
-
 /* Responsive enhancements */
 @media (max-width: 768px) {
- .hero {
-    padding: 2rem 1rem;
+  .hero {
+    padding: 3rem 1rem 2rem 1rem; /* Adjusted top padding for mobile */
     min-height: 90vh;
-    margin-top: 66px; /* Just mobile header height */
   }
+  
   .heroButtons {
     flex-direction: column;
     align-items: center;
@@ -545,6 +527,10 @@
 }
 
 @media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem 1.5rem 1rem; /* Smaller top padding for tiny screens */
+  }
+
   .heroButtons a {
     padding: 1.5rem 2rem;
     min-width: 280px;
@@ -554,10 +540,6 @@
     font-size: 12px;
     gap: 12px;
     padding: 8px 0;
-  }
-
-  .hero {
-    margin-top: 60px; /* Smaller header on tiny screens */
   }
 
   .pricingCallout {
@@ -579,7 +561,7 @@
   .pricingCallout {
     animation: none;
   }
-   .fullWidthBanner {
+  .fullWidthBanner {
     animation: none !important;
   }
 }

@@ -591,14 +591,15 @@
   border-radius: 0.5rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s ease;
   color: white;
 }
 
-.feature:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* Only add hover effects on larger screens where hover actually works */
+@media (hover: hover) and (pointer: fine) {
+  .feature:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
 }
 
 .featureIcon {
@@ -744,7 +745,6 @@
   
   .feature {
     padding: 1rem;
-    font-size: 0.875rem;
   }
   
   .branding {

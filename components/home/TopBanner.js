@@ -183,7 +183,9 @@ const TopBanner = () => {
               <div className={TopBannerStyles.colorTag}>Background (3)</div>
             </div>
           </div>
+          
         </div>
+        
 
         {/* ADD THIS NEW SECTION - Cartoon Demo */}
         <div 
@@ -252,10 +254,16 @@ const TopBanner = () => {
                     <span className={TopBannerStyles.processingDot}></span>
                     Rendering cartoon style...
                   </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Finalizing output...
+                  </div>
                 </div>
+                
               </div>
             </div>
           </div>
+          
 
           {/* Cartoon Results */}
           <div className={TopBannerStyles.resultsPanel}>

@@ -102,7 +102,7 @@ export default function HeroSection() {
                 </div>
                 
                 <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Damage Repair AI</h3>
+                  <h3 className={heroStyles.serviceName}>Photo Fix AI</h3>
                   <p className={heroStyles.serviceDesc}>
                     Reconstruct missing pixels and repair structural damage using advanced inpainting algorithms
                   </p>
@@ -164,7 +164,7 @@ export default function HeroSection() {
                 </div>
                 
                 <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Style Transfer AI</h3>
+                  <h3 className={heroStyles.serviceName}>Cartoon AI</h3>
                   <p className={heroStyles.serviceDesc}>
                     Neural style transfer converts photographic content into artistic cartoon representations
                   </p>

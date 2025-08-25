@@ -849,7 +849,7 @@
 
 @media (max-width: 768px) {
   .content {
-    padding: calc(1rem + 50px) 0.75rem 1.5rem;
+    padding: calc(0.5rem + 40px) 0.5rem 1rem;
   }
   /* Move credits under title on mobile - sleek style */
   .header { position: static; }
@@ -876,7 +876,7 @@
 
 @media (max-width: 480px) {
  .content {
-  padding: calc(0.5rem + 70px) 0.75rem 1.25rem 0.75rem;
+  padding: calc(0.25rem + 50px) 0.5rem 1rem;
 }
 
   .header { margin-bottom: 2.5rem; }

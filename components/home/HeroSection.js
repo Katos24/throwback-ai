@@ -19,43 +19,43 @@ export default function HeroSection() {
             </div>
             
             <h1 className={heroStyles.heroTitle}>
-              Neural Image
+              Bring Your Precious
               <span className={heroStyles.titleBreak}></span>
-              <span className={heroStyles.gradient}>Enhancement</span>
+              <span className={heroStyles.gradient}>Memories Back to Life</span>
             </h1>
             
             <p className={heroStyles.heroSubtitle}>
-              Advanced computer vision algorithms analyze and reconstruct your images 
-              with <strong>pixel-perfect precision</strong>. Experience the future of photo restoration.
+              Transform faded family photos into <strong>vibrant treasures</strong>. Repair damage, 
+              add stunning colors, or create beautiful cartoon artwork from your most cherished memories.
             </p>
             
             <div className={heroStyles.statsRow}>
               <div className={heroStyles.stat}>
-                <div className={heroStyles.statNumber}>2.3s</div>
-                <div className={heroStyles.statLabel}>Avg Processing</div>
-              </div>
-              <div className={heroStyles.stat}>
-                <div className={heroStyles.statNumber}>99.4%</div>
-                <div className={heroStyles.statLabel}>Accuracy Rate</div>
-              </div>
-              <div className={heroStyles.stat}>
                 <div className={heroStyles.statNumber}>50K+</div>
-                <div className={heroStyles.statLabel}>Images Enhanced</div>
+                <div className={heroStyles.statLabel}>Families Helped</div>
+              </div>
+              <div className={heroStyles.stat}>
+                <div className={heroStyles.statNumber}>2.3s</div>
+                <div className={heroStyles.statLabel}>Average Results</div>
+              </div>
+              <div className={heroStyles.stat}>
+                <div className={heroStyles.statNumber}>98%</div>
+                <div className={heroStyles.statLabel}>Love Their Results</div>
               </div>
             </div>
           </div>
 
           {/* AI Services Grid */}
           <div className={heroStyles.servicesContainer}>
-            <h2 className={heroStyles.servicesTitle}>Choose Your Enhancement Protocol</h2>
+            <h2 className={heroStyles.servicesTitle}>Choose Your Memory Transformation</h2>
             
             <div className={heroStyles.servicesGrid}>
               
-              {/* Damage Repair AI */}
+              {/* Photo Restoration */}
               <div className={heroStyles.serviceCard}>
                 <div className={heroStyles.cardHeader}>
                   <div className={heroStyles.serviceIcon}>🔧</div>
-                  <div className={heroStyles.cardBadge}>REPAIR</div>
+                  <div className={heroStyles.cardBadge}>RESTORE</div>
                 </div>
                 
                 <div className={heroStyles.processDemo}>
@@ -97,18 +97,19 @@ export default function HeroSection() {
                         <div className={heroStyles.circularMask}></div>
                       </div>
                     </div>
-                    <span className={heroStyles.processLabel}>Restored</span>
+                    <span className={heroStyles.processLabel}>Like New</span>
                   </div>
                 </div>
                 
                 <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Photo Fix AI</h3>
+                  <h3 className={heroStyles.serviceName}>Photo Restoration</h3>
                   <p className={heroStyles.serviceDesc}>
-                    Reconstruct missing pixels and repair structural damage using advanced inpainting algorithms
+                    Remove scratches, tears, and fading from your treasured family photos. 
+                    Perfect for preserving irreplaceable memories.
                   </p>
                   
                   <Link href="/replicate/restore-basic" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Initialize Repair</span>
+                    <span className={heroStyles.buttonText}>Restore My Photo</span>
                     <div className={heroStyles.creditCost}>
                       <span className={heroStyles.costNumber}>1</span>
                       <span className={heroStyles.costLabel}>Credit</span>
@@ -117,11 +118,78 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Style Transfer AI */}
+              {/* Photo Colorization */}
+              <div className={heroStyles.serviceCard}>
+                <div className={heroStyles.cardHeader}>
+                  <div className={heroStyles.serviceIcon}>🌈</div>
+                  <div className={heroStyles.cardBadge}>COLORIZE</div>
+                </div>
+                
+                <div className={heroStyles.processDemo}>
+                  <div className={heroStyles.beforeImage}>
+                    <div className={heroStyles.imageSlot}>
+                      <div className={heroStyles.imagePreview}>
+                        <img 
+                          src="/images/before6.jpg" 
+                          alt="Black and white photo preview" 
+                          className={heroStyles.snippetImage}
+                        />
+                        <div className={heroStyles.splitReveal}>
+                          <div className={heroStyles.bwSide}></div>
+                        </div>
+                      </div>
+                    </div>
+                    <span className={heroStyles.processLabel}>Black & White</span>
+                  </div>
+                  
+                  <div className={heroStyles.aiProcessor}>
+                    <div className={heroStyles.neuralPath}></div>
+                    <div className={heroStyles.processingDot}></div>
+                    <div className={heroStyles.processingDot}></div>
+                    <div className={heroStyles.processingDot}></div>
+                    <div className={heroStyles.neuralPath}></div>
+                  </div>
+                  
+                  <div className={heroStyles.afterImage}>
+                    <div className={heroStyles.imageSlot}>
+                      <div className={heroStyles.imagePreview}>
+                        <img 
+                          src="/images/after6.jpg" 
+                          alt="Colorized photo preview" 
+                          className={heroStyles.snippetImage}
+                        />
+                        <div className={heroStyles.splitReveal}>
+                          <div className={heroStyles.colorSide}></div>
+                        </div>
+                        <div className={heroStyles.colorBurst}></div>
+                      </div>
+                    </div>
+                    <span className={heroStyles.processLabel}>Full Color</span>
+                  </div>
+                </div>
+                
+                <div className={heroStyles.serviceInfo}>
+                  <h3 className={heroStyles.serviceName}>Photo Colorization</h3>
+                  <p className={heroStyles.serviceDesc}>
+                    Transform black and white photos with historically accurate, beautiful colors. 
+                    See your ancestors come alive like never before.
+                  </p>
+                  
+                  <Link href="/replicate/restore-premium" className={heroStyles.actionButton}>
+                    <span className={heroStyles.buttonText}>Add Color</span>
+                    <div className={heroStyles.creditCost}>
+                      <span className={heroStyles.costNumber}>40</span>
+                      <span className={heroStyles.costLabel}>Credits</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Cartoon Creation */}
               <div className={heroStyles.serviceCard}>
                 <div className={heroStyles.cardHeader}>
                   <div className={heroStyles.serviceIcon}>🎨</div>
-                  <div className={heroStyles.cardBadge}>TRANSFORM</div>
+                  <div className={heroStyles.cardBadge}>CARTOON</div>
                 </div>
                 
                 <div className={heroStyles.processDemo}>
@@ -159,86 +227,21 @@ export default function HeroSection() {
                         <div className={heroStyles.hexagonalMask}></div>
                       </div>
                     </div>
-                    <span className={heroStyles.processLabel}>Cartoon</span>
+                    <span className={heroStyles.processLabel}>Cartoon Art</span>
                   </div>
                 </div>
                 
                 <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Cartoon AI</h3>
+                  <h3 className={heroStyles.serviceName}>Cartoon Creator</h3>
                   <p className={heroStyles.serviceDesc}>
-                    Neural style transfer converts photographic content into artistic cartoon representations
+                    Turn family photos into beautiful cartoon artwork. Perfect for gifts, 
+                    social media, or creating unique family portraits.
                   </p>
                   
                   <Link href="/replicate/cartoon" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Execute Transform</span>
+                    <span className={heroStyles.buttonText}>Make Cartoon</span>
                     <div className={heroStyles.creditCost}>
                       <span className={heroStyles.costNumber}>15</span>
-                      <span className={heroStyles.costLabel}>Credits</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Colorization AI */}
-              <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}>
-                  <div className={heroStyles.serviceIcon}>🌈</div>
-                  <div className={heroStyles.cardBadge}>COLORIZE</div>
-                </div>
-                
-                <div className={heroStyles.processDemo}>
-                  <div className={heroStyles.beforeImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/before6.jpg" 
-                          alt="Black and white photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.splitReveal}>
-                          <div className={heroStyles.bwSide}></div>
-                        </div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>B&W</span>
-                  </div>
-                  
-                  <div className={heroStyles.aiProcessor}>
-                    <div className={heroStyles.neuralPath}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.neuralPath}></div>
-                  </div>
-                  
-                  <div className={heroStyles.afterImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/after6.jpg" 
-                          alt="Colorized photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.splitReveal}>
-                          <div className={heroStyles.colorSide}></div>
-                        </div>
-                        <div className={heroStyles.colorBurst}></div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Colored</span>
-                  </div>
-                </div>
-                
-                <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Colorization AI</h3>
-                  <p className={heroStyles.serviceDesc}>
-                    Deep learning models predict and apply historically accurate color palettes to monochrome images
-                  </p>
-                  
-                  <Link href="/replicate/restore-premium" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Deploy Colorization</span>
-                    <div className={heroStyles.creditCost}>
-                      <span className={heroStyles.costNumber}>40</span>
                       <span className={heroStyles.costLabel}>Credits</span>
                     </div>
                   </Link>
@@ -253,9 +256,9 @@ export default function HeroSection() {
             <div className={heroStyles.creditOffer}>
               <div className={heroStyles.offerIcon}>⚡</div>
               <div className={heroStyles.offerText}>
-                <strong>Initialize Free Trial</strong>
+                <strong>Try It Free Right Now</strong>
                 <span className={heroStyles.offerDetails}>
-                  <Link href="/signup" className={heroStyles.ctaLink}>Activate 5 Credits</Link> • No subscription required
+                  <Link href="/signup" className={heroStyles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
                 </span>
               </div>
             </div>
@@ -263,15 +266,15 @@ export default function HeroSection() {
             <div className={heroStyles.securityBadges}>
               <div className={heroStyles.securityBadge}>
                 <span className={heroStyles.checkmark}>✓</span>
-                <span>Enterprise Security</span>
+                <span>100% Private</span>
               </div>
               <div className={heroStyles.securityBadge}>
                 <span className={heroStyles.checkmark}>✓</span>
-                <span>Zero Data Retention</span>
+                <span>Photos Deleted After 1 Hour</span>
               </div>
               <div className={heroStyles.securityBadge}>
                 <span className={heroStyles.checkmark}>✓</span>
-                <span>Edge Processing</span>
+                <span>Instant Results</span>
               </div>
             </div>
           </div>

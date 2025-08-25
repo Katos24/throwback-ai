@@ -13,4 +13,5 @@
   <url><loc>https://throwbackai.app/profile</loc><priority>0.5</priority></url>
   <url><loc>https://throwbackai.app/replicate/restore-basic</loc><priority>0.9</priority></url>
   <url><loc>https://throwbackai.app/replicate/restore-premium</loc><priority>0.9</priority></url>
+  <url><loc>https://throwbackai.app/replicate/cartoon</loc><priority>0.9</priority></url>
 </urlset>

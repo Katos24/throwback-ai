@@ -6,12 +6,6 @@ import styles from './Features.module.css';
 const Features = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const categories = [
-    { id: 'all', title: 'All Features' },
-    { id: 'restore', title: 'Restoration' },
-    { id: 'enhance', title: 'Enhancement' }
-  ];
-
   const features = [
     {
       id: 'restore',
@@ -69,25 +63,11 @@ const Features = () => {
           <h2 className={styles.title}>
             The features you need, the simplicity you want
           </h2>
-          <p className={styles.subtitle}>
-            Choose from our suite of AI-powered tools designed to enhance,
-            restore, and creatively transform your precious memories.
-          </p>
+  
         </div>
 
         <div className={styles.mainContent}>
-          {/* Category Tabs */}
-          <div className={styles.tabNav}>
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`${styles.tab} ${activeCategory === category.id ? styles.activeTab : ''}`}
-              >
-                <span className={styles.tabTitle}>{category.title}</span>
-              </button>
-            ))}
-          </div>
+   
 
           {/* Feature Cards Grid */}
           <div className={styles.featureGrid}>
@@ -120,12 +100,7 @@ const Features = () => {
                       <span className={styles.arrow}>→</span>
                     </Link>
                     
-                    <button 
-                      className={styles.infoButton}
-                      title={`Learn more about ${feature.title}`}
-                    >
-                      i
-                    </button>
+                 
                   </div>
                 </div>
               </div>

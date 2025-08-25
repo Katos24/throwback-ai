@@ -2,7 +2,7 @@
 
 .features {
   position: relative;
-  padding: 6rem 0;
+  padding: 3rem 0;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
   overflow: hidden;
 }
@@ -39,7 +39,7 @@
 /* Section Header */
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .badge {
@@ -52,7 +52,7 @@
   border-radius: 50px;
   font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
   box-shadow: 
     0 8px 16px rgba(255, 107, 157, 0.3),
     inset 0 1px 0 rgba(255,255,255,0.2);

@@ -5,11 +5,13 @@ import TopBanner from '../components/home/TopBanner';
 import ImageCompare from '../components/home/ImageCompareSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import HowItWorks from '../components/home/HowItWorksSection';
-import AiShowcase from '../components/home/AIShowcaseSection';
 import PricingSection from '../components/home/PricingSection';
 import CustomerSuccess from '../components/home/SuccessStories';
 import FAQSection from '../components/home/FAQSection';
 import CTASection from '../components/home/CTASection';
+import Features from '../components/newhome/features';
+
+
 
 export default function Home() {
   const siteUrl = 'https://throwbackai.app';
@@ -102,13 +104,14 @@ export default function Home() {
       <main>
         <HeroSection />
         <TopBanner />
+        <Features />
         <CustomerSuccess />
         <FeaturesSection />
         <HowItWorks />
         <PricingSection />
-        <AiShowcase />
         <FAQSection />
         <CTASection />
+        
       </main>
     </>
   );

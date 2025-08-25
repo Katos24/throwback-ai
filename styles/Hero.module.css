@@ -750,14 +750,8 @@
   .heroContainer {
     width: 98%;
     max-width: 100%;
-    padding: 0 0.5rem;
   }
 
-  .processDemo {
-    flex-direction: row;  /* keep side by side */
-    justify-content: center;
-    gap: 1rem;            /* spacing between images */
-  }
 
   .imageSlot {
     width: 120px;          /* larger images */

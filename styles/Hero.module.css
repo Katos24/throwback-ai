@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
   overflow: hidden;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   color: #ffffff;
 }
 
@@ -58,7 +58,7 @@
 /* Header Section */
 .heroHeader {
   text-align: center;
-  padding-top: 4rem;
+  padding-top: 1rem;
 }
 
 .aiIndicator {
@@ -124,7 +124,7 @@
   color: #cbd5e1;
   line-height: 1.7;
   max-width: 600px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
   font-weight: 300;
 }
 
@@ -133,7 +133,7 @@
   display: flex;
   justify-content: center;
   gap: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: .5rem;
 }
 
 .stat {
@@ -163,7 +163,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: #f1f5f9;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   opacity: 0.9;
 }
 
@@ -237,7 +237,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: .2rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
   background: rgba(15, 23, 42, 0.5);
@@ -249,12 +249,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.2rem;
 }
 
 .imageSlot {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 12px;
   border: 2px solid rgba(59, 130, 246, 0.3);
   position: relative;
@@ -501,71 +501,105 @@
   margin-bottom: 2rem;
 }
 
+/* 1. Core button style */
 .actionButton {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  padding: 14px 24px;
   max-width: 280px;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  border: 1px solid rgba(59, 130, 246, 0.5);
-  color: white;
+  width: 100%;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
   text-decoration: none;
-  border-radius: 12px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6f40f7, #2e2cff);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    0 0 12px rgba(111, 64, 247, 0.6);
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* 2. Continuous glow/pulse animation */
 .actionButton::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.15),
+    transparent 70%
+  );
+  animation: aiPulse 4s infinite ease-in-out;
 }
 
-.actionButton:hover::before {
-  left: 100%;
+@keyframes aiPulse {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2) translate(10%, 10%);
+    opacity: 0.15;
+  }
 }
 
+/* 3. Hover and active states */
 .actionButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(111, 64, 247, 0.6),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
+.actionButton:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.2),
+    0 0 8px rgba(111, 64, 247, 0.6);
+}
+
+/* 4. Inner text alignment */
 .buttonText {
-  font-weight: 500;
+  flex: 1;
+  text-align: left;
 }
 
+/* 5. Credit cost pill */
 .creditCost {
   display: flex;
   align-items: baseline;
-  gap: 2px;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 4px 8px;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 8px;
+  backdrop-filter: blur(4px);
+  font-size: 0.875rem;
 }
 
 .costNumber {
   font-weight: 700;
-  font-size: 1rem;
+  color: #ffffff;
 }
 
 .costLabel {
   font-size: 0.75rem;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 /* Bottom CTA */
 .bottomCTA {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: .5rem;
 }
 
 .creditOffer {
@@ -573,7 +607,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding: 1.5rem;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
   border: 1px solid rgba(59, 130, 246, 0.2);

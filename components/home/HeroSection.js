@@ -241,7 +241,7 @@ export default function HeroSection() {
                   <Link href="/replicate/cartoon" className={heroStyles.actionButton}>
                     <span className={heroStyles.buttonText}>Make Cartoon</span>
                     <div className={heroStyles.creditCost}>
-                      <span className={heroStyles.costNumber}>15</span>
+                      <span className={heroStyles.costNumber}>40</span>
                       <span className={heroStyles.costLabel}>Credits</span>
                     </div>
                   </Link>

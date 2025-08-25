@@ -6,9 +6,11 @@ import styles from "../styles/Header.module.css";
 
 export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
+  const dropdownRef = useRef(null);
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -24,11 +26,17 @@ export default function Header({ showMenu, setShowMenu }) {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setShowMenu(false);
+        setShowDropdown(false);
+      }
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
       }
     };
-    if (showMenu) document.addEventListener("mousedown", handleClickOutside);
+    if (showMenu || showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu, setShowMenu]);
+  }, [showMenu, showDropdown, setShowMenu]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,22 +54,57 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const goToPricing = () => {
     setShowMenu(false);
+    setShowDropdown(false);
     router.push("/pricing");
   };
 
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleDropdownItemClick = () => {
+    setShowDropdown(false);
+    setShowMenu(false);
+  };
+
   const navigationItems = [
-    { href: "/", label: "Home" },
-    { href: "/replicate/restore-basic", label: "Photo Fix", icon: "🔧" },
-    { href: "/replicate/restore-premium", label: "Full Color Restore", icon: "🎨", badge: "Premium" },
-    { href: "/replicate/cartoon", label: "Cartoon", icon: "🎭", badge: "New" },
     { href: "/gallery", label: "Gallery", icon: "🖼️" },
     { href: "/how-it-works", label: "How It Works" },
     { href: "/about", label: "About" }
   ];
 
+  const aiSuiteItems = [
+    { 
+      href: "/replicate/restore-basic", 
+      label: "Photo Restoration", 
+      icon: "🔧",
+      description: "Repair scratches & damage",
+      credits: "1 Credit"
+    },
+    { 
+      href: "/replicate/restore-premium", 
+      label: "Photo Colorization", 
+      icon: "🌈",
+      description: "Add beautiful colors",
+      credits: "40 Credits",
+      badge: "Premium"
+    },
+    { 
+      href: "/replicate/cartoon", 
+      label: "Cartoon Creator", 
+      icon: "🎨",
+      description: "Transform to cartoon art",
+      credits: "40 Credits",
+      badge: "New"
+    }
+  ];
+
+  // Check if current page is in AI Suite
+  const isAISuitePage = aiSuiteItems.some(item => router.pathname === item.href);
+
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
-      {/* 🍔 Hamburger */}
+      {/* Hamburger */}
       <button
         className={styles.hamburger}
         onClick={() => setShowMenu((prev) => !prev)}
@@ -73,7 +116,7 @@ export default function Header({ showMenu, setShowMenu }) {
         <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
       </button>
 
-      {/* 🌀 Enhanced Logo */}
+      {/* Enhanced Logo */}
       <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
         <div className={styles.logoContainer}>
           <div className={styles.logoIcon}>🌀</div>
@@ -84,8 +127,64 @@ export default function Header({ showMenu, setShowMenu }) {
         </div>
       </Link>
 
-      {/* 🧭 Enhanced Nav Links */}
+      {/* Enhanced Nav Links */}
       <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
+        
+        {/* AI Suite Dropdown */}
+        <div 
+          className={styles.dropdownContainer}
+          ref={dropdownRef}
+        >
+          <button
+            className={`${styles.dropdownTrigger} ${isAISuitePage ? styles.active : ""} ${showDropdown ? styles.dropdownOpen : ""}`}
+            onClick={handleDropdownToggle}
+            type="button"
+          >
+            <span className={styles.navIcon}>⚡</span>
+            <span>AI Suite</span>
+            <span className={`${styles.dropdownArrow} ${showDropdown ? styles.dropdownArrowOpen : ""}`}>
+              ▼
+            </span>
+          </button>
+          
+          <div className={`${styles.dropdownMenu} ${showDropdown ? styles.dropdownMenuOpen : ""}`}>
+            <div className={styles.dropdownHeader}>
+              <span className={styles.dropdownTitle}>Choose Your AI Engine</span>
+            </div>
+            
+            {aiSuiteItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch
+                className={`${styles.dropdownItem} ${router.pathname === item.href ? styles.active : ""}`}
+                onClick={handleDropdownItemClick}
+              >
+                <div className={styles.dropdownItemIcon}>{item.icon}</div>
+                <div className={styles.dropdownItemContent}>
+                  <div className={styles.dropdownItemHeader}>
+                    <span className={styles.dropdownItemName}>{item.label}</span>
+                    {item.badge && <span className={styles.dropdownBadge}>{item.badge}</span>}
+                  </div>
+                  <div className={styles.dropdownItemDescription}>{item.description}</div>
+                  <div className={styles.dropdownItemCredits}>{item.credits}</div>
+                </div>
+              </Link>
+            ))}
+            
+            <div className={styles.dropdownFooter}>
+              <Link
+                href="/aisuite"
+                className={styles.viewAllLink}
+                onClick={handleDropdownItemClick}
+              >
+                View Full AI Suite →
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Regular Navigation Items */}
         {navigationItems.map((item) => (
           <Link 
             key={item.href}

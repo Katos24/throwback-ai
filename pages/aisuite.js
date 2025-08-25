@@ -1,12 +1,6 @@
 // pages/index.js
 import Head from 'next/head';
-import HeroSection from '../components/home/HeroSection';
-import TopBanner from '../components/home/TopBanner';
-import FeaturesSection from '../components/home/FeaturesSection';
-import CustomerSuccess from '../components/home/SuccessStories';
-import HowItWorks from '../components/home/HowItWorksSection';
-import PricingSection from '../components/home/PricingSection';
-import CTASection from '../components/home/CTASection';
+import AISuitePage from '../components/home/AISuitePage';
 
 export default function Home() {
   const siteUrl = 'https://throwbackai.app';
@@ -138,25 +132,7 @@ export default function Home() {
 
       <main>
         {/* Updated Hero with streamlined value prop */}
-        <HeroSection />
-        
-        {/* AI Transformation Showcase - your updated TopBanner */}
-        <TopBanner />
-        
-        {/* What Makes Us Different - updated with cartoon features */}
-        <FeaturesSection />
-        
-        {/* Customer Success Stories - your rebuilt section with filtering */}
-        <CustomerSuccess />
-        
-        {/* How It Works - process explanation */}
-        <HowItWorks />
-        
-        {/* Pricing - transparent pricing */}
-        <PricingSection />
-        
-        {/* Final CTA */}
-        <CTASection />
+        <AISuitePage />
       </main>
     </>
   );

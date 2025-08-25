@@ -290,7 +290,7 @@
   color: #fff;
   padding: 8px 14px;
   margin-left: 2px;
-  margin-right: 10px;
+  margin-right: px;
   border-radius: 12px;
   font-size: 0.9rem;
   cursor: pointer;
@@ -591,246 +591,288 @@
   background: rgba(59, 130, 246, 0.1);
   color: #60a5fa;
 }
+/* ===== Replace your current mobile styles with this improved mobile-only block ===== */
+/* Toggle expectations (no JS here): add/remove .open on .mobileNav, .menuButton/.hamburger, .mobileAccordion, .profile-menu */
 
-/* Mobile Specific Styles */
+/* Mobile layout breakpoint */
 @media (max-width: 768px) {
+
+  /* Header shell */
   .header {
-    display: block;
-    padding: 12px 20px;
+    position: fixed;
     top: env(safe-area-inset-top, 0);
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    display: block;
+    padding: 8px 14px;
+    background: linear-gradient(180deg, rgba(12,12,13,0.86), rgba(20,20,20,0.84));
+    backdrop-filter: blur(10px) saturate(125%);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
   }
 
-  .container {
+  /* Compact inner row that keeps items on one line */
+  .container,
+  .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    gap: 10px;
+    height: 52px; /* thinner header */
     padding: 0;
+    box-sizing: border-box;
   }
 
-  .menuButton {
-    display: flex;
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 40px;
-    height: 40px;
-  }
-
-  .logoContainer {
+  /* Hamburger (supports .menuButton or .hamburger). Use .open to show active state */
+  .menuButton, .hamburger {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .16s ease, transform .16s ease;
+  }
+  .menuButton:focus, .hamburger:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  .menuButton:hover, .hamburger:hover { background: rgba(255,255,255,0.03); }
+
+  /* Hamburger bars */
+  .menuButton .bar, .hamburger .bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg,#f3e5dc,#bfae82);
+    transition: transform .22s cubic-bezier(.3,.7,.4,1), opacity .18s ease;
+    will-change: transform, opacity;
+  }
+  .menuButton .bar + .bar, .hamburger .bar + .bar { margin-top: 5px; }
+
+  /* Open state: cross transform */
+  .menuButton.open .bar:nth-child(1),
+  .hamburger.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .menuButton.open .bar:nth-child(2),
+  .hamburger.open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .menuButton.open .bar:nth-child(3),
+  .hamburger.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* Logo centered and compact */
+  .logoContainer, .logoWrapper, .logo {
+    display: flex;
+    align-items: center;
     gap: 8px;
+    margin: 0 auto;
+    text-decoration: none;
+    color: #fff;
   }
+  .logoIcon { font-size: 1.45rem; line-height: 1; }
+  .logoMain, .brandName { font-size: 1.2rem; font-weight: 800; letter-spacing: .03em; }
+  .logoSub, .brandTagline { font-size: 0.62rem; color: rgba(191,174,130,0.95); margin-top: -2px; }
 
-  .logoIcon {
-    font-size: 1.5rem;
-  }
+  /* Desktop nav hidden on mobile */
+  .desktopNav, .nav { display: none !important; }
 
-  .logoMain, .brandName {
-    font-size: 1.4rem;
-  }
-
-  .logoSub, .brandTagline {
-    font-size: 0.65rem;
-  }
-
-  .desktopNav {
-    display: none;
-  }
-
+  /* Mobile nav panel (slide down). Use .mobileNav.open to show */
   .mobileNav {
     display: block;
     position: fixed;
-    top: 60px;
+    top: 52px;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, 
-      rgba(18, 18, 18, 0.98) 0%, 
-      rgba(28, 28, 28, 0.98) 100%
-    );
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 999;
+    z-index: 1150;
+    background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98));
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+    transform: translateY(-8px);
     opacity: 0;
     visibility: hidden;
-    max-height: calc(100vh - 60px);
-    overflow-y: auto;
-    transform: translateY(-10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform .24s cubic-bezier(.2,.9,.2,1), opacity .24s ease, visibility .01s linear .24s;
+    -webkit-overflow-scrolling: touch;
   }
-
-  .mobileNavOpen {
+  .mobileNav.open, .mobileNav.mobileNavOpen {
+    transform: translateY(0);
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transition-delay: 0s;
   }
 
+  /* Backdrop to dim the page when mobile nav is open */
+  .mobile-backdrop {
+    display: none;
+  }
+  .mobile-backdrop.open {
+    display: block;
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1140;
+    opacity: 1;
+  }
+
+  /* Mobile sections */
   .mobileSection {
-    padding: 1.5rem 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
   }
-
-  .mobileSection:last-child {
-    border-bottom: none;
-  }
+  .mobileSection:last-child { border-bottom: none; }
 
   .mobileSectionTitle {
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 700;
     color: #bfae82;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 1rem;
+    margin-bottom: 8px;
   }
 
+  /* Mobile nav items */
   .mobileNavItem {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    color: #fefefe;
+    gap: 12px;
+    color: #f8f8f8;
     text-decoration: none;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.2s ease;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: transform .14s ease, color .14s ease;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
   }
-
-  .mobileNavItem:last-child {
-    border-bottom: none;
-  }
-
-  .mobileNavItem:hover,
-  .mobileNavItem.active {
+  .mobileNavItem:last-child { border-bottom: none; }
+  .mobileNavItem:hover, .mobileNavItem.active {
     color: #bfae82;
     transform: translateX(4px);
   }
 
   .mobileNavIcon {
     font-size: 1.2rem;
-    width: 32px;
+    width: 36px;
     text-align: center;
     flex-shrink: 0;
   }
-
-  .mobileNavContent {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .mobileNavName {
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.25rem;
-  }
-
+  .mobileNavContent { flex: 1; min-width: 0; }
+  .mobileNavName { font-weight: 700; display: flex; gap: 8px; align-items: center; }
+  .mobileNavDescription { font-size: 0.82rem; color: #94a3b8; margin-top: 4px; }
   .mobileNavBadge {
     background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 600;
-    padding: 2px 5px;
-    border-radius: 3px;
-    text-transform: uppercase;
+    color: #fff; font-size: 0.65rem; font-weight: 700; padding: 3px 6px; border-radius: 4px;
   }
+  .mobileNavCredits { font-size: 0.78rem; color: #bfae82; font-weight: 600; margin-top: 4px; }
 
-  .mobileNavDescription {
-    font-size: 0.8rem;
-    color: #94a3b8;
-  }
-
-  .mobileNavCredits {
-    font-size: 0.75rem;
-    color: #bfae82;
-    font-weight: 500;
-  }
-
+  /* Auth buttons stay in one row (no stacking) */
   .mobileAuthButtons {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    gap: 8px;
+    padding: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
-
-  .mobileLoginButton,
-  .mobileSignupButton {
-    display: block;
+  .mobileLoginButton, .mobileSignupButton, .mobileSignOutButton {
+    flex: 1 1 auto;
+    margin: 0;
     text-align: center;
     text-decoration: none;
-    font-weight: 600;
-    padding: 1rem;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
   }
-
   .mobileLoginButton {
-    color: #fefefe;
-    border: 1px solid rgba(255, 255, 255, 0.2);
     background: transparent;
+    color: #fefefe;
+    border: 1px solid rgba(255,255,255,0.12);
   }
-
-  .mobileLoginButton:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-
   .mobileSignupButton {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    color: #fff; border: none; box-shadow: 0 6px 18px rgba(102,126,234,0.18);
   }
-
-  .mobileSignupButton:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-  }
-
   .mobileSignOutButton {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-    border: none;
-    color: white;
-    font-weight: 500;
-    padding: 1rem;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: linear-gradient(135deg,#ff6b6b,#ee5a24);
+    color: #fff; border: none;
+  }
+  .mobileLoginButton:hover, .mobileSignupButton:hover, .mobileSignOutButton:hover {
+    transform: translateY(-2px);
+  }
+
+  /* AI Suite mobile accordion (keeps dropdown behavior but optimized for mobile) */
+  .mobileAccordion, .mobile-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mobileAccordion .accTrigger,
+  .mobile-accordion .mobile-acc-trigger {
     width: 100%;
-    font-size: 1rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    text-align: left;
+    padding: 12px 0;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 10px;
   }
-
-  .mobileSignOutButton:hover {
-    background: linear-gradient(135deg, #ff5252, #d84315);
-    transform: translateY(-1px);
+  .mobileAccordion .accPanel,
+  .mobile-accordion .mobile-acc-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .28s ease, opacity .22s ease;
+    padding-left: 8px;
   }
-}
-
-/* Desktop Specific */
-@media (min-width: 769px) {
-  .dropdownContainer:hover .dropdownMenu, .dropdown:hover .dropdownMenu {
+  /* open/expanded states */
+  .mobileAccordion.open .accPanel,
+  .mobile-accordion.open .mobile-acc-panel,
+  .mobile-acc-trigger[aria-expanded="true"] + .mobile-acc-panel {
+    max-height: 720px; /* large enough for content */
     opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+    transition-delay: 0s;
+  }
+  .mobileAccordion .accItem,
+  .mobile-accordion .mobile-subitem {
+    padding: 10px 6px;
+    border-radius: 8px;
+    font-weight: 700;
+    color: #e9f2ff;
+    display: block;
+    text-decoration: none;
+  }
+  .mobileAccordion .accItem:hover,
+  .mobile-accordion .mobile-subitem:hover { color: #bfae82; transform: translateX(4px); }
+
+  /* Accessibility & small tweaks */
+  .mobileNav a:focus,
+  .mobile-acc-trigger:focus,
+  .menuButton:focus,
+  .hamburger:focus {
+    outline: 2px solid rgba(59,130,246,0.95);
+    outline-offset: 2px;
   }
 
-  .dropdownContainer:hover .dropdownTrigger, .dropdown:hover .dropdownTrigger {
-    background: rgba(59, 130, 246, 0.15);
-    color: #3b82f6;
-  }
-
-  .dropdownContainer:hover .dropdownArrow, .dropdown:hover .chevron {
-    transform: rotate(180deg);
+  /* Small screen compression */
+  @media (max-width: 360px) {
+    .header { padding-left: 8px; padding-right: 8px; }
+    .logoMain, .brandName { font-size: 1.06rem; }
+    .logoSub, .brandTagline { display: none; } /* hide tagline on very small devices */
+    .menuButton, .hamburger { width: 40px; height: 40px; }
+    .mobileNavItem { font-size: 0.96rem; padding: 10px 0; }
   }
 }
-
-/* Focus states for accessibility */
-.dropdownTrigger:focus-visible,
-.navLink:focus-visible,
-.loginButton:focus-visible,
-.signupButton:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
+/* ===== End mobile-only improvements ===== */

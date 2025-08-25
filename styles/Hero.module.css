@@ -681,10 +681,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .heroContainer {
-    max-width: 100%;  /* remove desktop max-width restriction */
-    padding: 0 1rem;  /* optional: horizontal padding */
+  .heroContainer {
+    max-width: 100%; /* remove desktop max-width restriction */
+    padding: 0 1rem; /* optional: horizontal padding */
   }
+  
   .heroTitle {
     font-size: 2.5rem;
   }
@@ -702,7 +703,7 @@
   }
   
   .imageSlot {
-    width: 120px;   /* bigger for mobile */
+    width: 120px; /* bigger for mobile */
     height: 120px;
     max-width: 60vw; /* makes it responsive to screen size */
     max-height: 60vw;
@@ -743,18 +744,16 @@
   }
 }
 
-
 /* Extra small mobile adjustments (480px and below) */
 @media (max-width: 480px) {
   .heroContainer {
     max-width: 100%;
   }
-
-
+  
   .imageSlot {
-    width: 120px;          /* larger images */
+    width: 120px; /* larger images */
     height: 120px;
-    max-width: 50vw;       /* responsive to screen width */
+    max-width: 50vw; /* responsive to screen width */
     max-height: 50vw;
   }
 }

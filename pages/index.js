@@ -7,6 +7,7 @@ import CustomerSuccess from '../components/home/SuccessStories';
 import HowItWorks from '../components/home/HowItWorksSection';
 import PricingSection from '../components/home/PricingSection';
 import CTASection from '../components/home/CTASection';
+import Features from '../components/newhome/features';
 
 export default function Home() {
   const siteUrl = 'https://throwbackai.app';
@@ -148,7 +149,9 @@ export default function Home() {
         
         {/* Customer Success Stories - your rebuilt section with filtering */}
         <CustomerSuccess />
-        
+
+        <Features />
+
         {/* How It Works - process explanation */}
         <HowItWorks />
         

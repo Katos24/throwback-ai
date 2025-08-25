@@ -120,21 +120,15 @@ const TopBanner = () => {
               
               {/* Color Wave Animation */}
               <div className={TopBannerStyles.colorWave}></div>
-              
-              {/* AI Analysis Overlays */}
-              <div className={TopBannerStyles.scanLine}></div>
-              <div className={TopBannerStyles.detectionBoxes}>
-                <div className={TopBannerStyles.detectionBox} style={{top: '15%', left: '20%', width: '30%', height: '18%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Skin Tone Detected</span>
+
+              {/* Colorization Progress Bar */}
+              <div className={TopBannerStyles.colorProgress}>
+                <div className={TopBannerStyles.progressBar}>
+                  <div className={TopBannerStyles.progressFill}></div>
                 </div>
-                <div className={TopBannerStyles.detectionBox} style={{top: '45%', right: '15%', width: '35%', height: '25%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Fabric Analysis</span>
-                </div>
-                <div className={TopBannerStyles.detectionBox} style={{bottom: '20%', left: '15%', width: '40%', height: '20%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Background Elements</span>
-                </div>
+                <span className={TopBannerStyles.progressText}>Colorizing... 87%</span>
               </div>
-              
+
               {/* Processing Indicators */}
               <div className={TopBannerStyles.processingOverlay}>
                 <div className={TopBannerStyles.processingText}>
@@ -214,19 +208,7 @@ const TopBanner = () => {
               {/* Style Wave Animation */}
               <div className={TopBannerStyles.styleWave}></div>
               
-              {/* AI Analysis Overlays */}
-              <div className={TopBannerStyles.scanLine}></div>
-              <div className={TopBannerStyles.detectionBoxes}>
-                <div className={TopBannerStyles.detectionBox} style={{top: '20%', left: '25%', width: '25%', height: '20%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Face Structure</span>
-                </div>
-                <div className={TopBannerStyles.detectionBox} style={{top: '50%', right: '20%', width: '30%', height: '15%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Edge Detection</span>
-                </div>
-                <div className={TopBannerStyles.detectionBox} style={{bottom: '25%', left: '20%', width: '35%', height: '18%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Style Transfer</span>
-                </div>
-              </div>
+        
               
               {/* Processing Text */}
               <div className={TopBannerStyles.processingOverlay}>
@@ -310,20 +292,7 @@ const TopBanner = () => {
               
               {/* Repair Wave */}
               <div className={TopBannerStyles.repairWave}></div>
-              
-              {/* Damage Detection */}
-              <div className={TopBannerStyles.scanLine}></div>
-              <div className={TopBannerStyles.detectionBoxes}>
-                <div className={TopBannerStyles.detectionBox} style={{top: '25%', left: '15%', width: '30%', height: '15%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Scratch Damage</span>
-                </div>
-                <div className={TopBannerStyles.detectionBox} style={{top: '55%', right: '20%', width: '25%', height: '20%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Fading Areas</span>
-                </div>
-                <div className={TopBannerStyles.detectionBox} style={{bottom: '30%', left: '25%', width: '20%', height: '15%'}}>
-                  <span className={TopBannerStyles.detectionLabel}>Missing Pixels</span>
-                </div>
-              </div>
+      
               
               {/* Processing Text */}
               <div className={TopBannerStyles.processingOverlay}>

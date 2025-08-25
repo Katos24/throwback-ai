@@ -28,21 +28,6 @@ export default function HeroSection() {
               Transform faded family photos into <strong>vibrant treasures</strong>. Repair damage, 
               add stunning colors, or create beautiful cartoon artwork from your most cherished memories.
             </p>
-            
-            <div className={heroStyles.statsRow}>
-              <div className={heroStyles.stat}>
-                <div className={heroStyles.statNumber}>50K+</div>
-                <div className={heroStyles.statLabel}>Families Helped</div>
-              </div>
-              <div className={heroStyles.stat}>
-                <div className={heroStyles.statNumber}>2.3s</div>
-                <div className={heroStyles.statLabel}>Average Results</div>
-              </div>
-              <div className={heroStyles.stat}>
-                <div className={heroStyles.statNumber}>98%</div>
-                <div className={heroStyles.statLabel}>Love Their Results</div>
-              </div>
-            </div>
           </div>
 
           {/* AI Services Grid */}
@@ -53,8 +38,7 @@ export default function HeroSection() {
               
               {/* Photo Restoration */}
               <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}>
-                </div>
+                <div className={heroStyles.cardHeader}></div>
                 
                 <div className={heroStyles.processDemo}>
                   <div className={heroStyles.beforeImage}>
@@ -91,8 +75,7 @@ export default function HeroSection() {
                           alt="Repaired photo preview" 
                           className={heroStyles.snippetImage}
                         />
-                        <div className={heroStyles.enhancementGlow}></div>
-                        <div className={heroStyles.circularMask}></div>
+
                       </div>
                     </div>
                     <span className={heroStyles.processLabel}>Like New</span>
@@ -118,8 +101,7 @@ export default function HeroSection() {
 
               {/* Photo Colorization */}
               <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}>
-                </div>
+                <div className={heroStyles.cardHeader}></div>
                 
                 <div className={heroStyles.processDemo}>
                   <div className={heroStyles.beforeImage}>
@@ -155,7 +137,7 @@ export default function HeroSection() {
                           className={heroStyles.snippetImage}
                         />
                         <div className={heroStyles.splitReveal}>
-                          <div className={heroStyles.colorSide}></div>
+        
                         </div>
                         <div className={heroStyles.colorBurst}></div>
                       </div>
@@ -183,8 +165,7 @@ export default function HeroSection() {
 
               {/* Cartoon Creation */}
               <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}>
-                </div>
+                <div className={heroStyles.cardHeader}></div>
                 
                 <div className={heroStyles.processDemo}>
                   <div className={heroStyles.beforeImage}>
@@ -245,6 +226,22 @@ export default function HeroSection() {
             </div>
           </div>
 
+          {/* Stats Row moved below services */}
+          <div className={heroStyles.statsRow}>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>50K+</div>
+              <div className={heroStyles.statLabel}>Families Helped</div>
+            </div>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>2.3s</div>
+              <div className={heroStyles.statLabel}>Average Results</div>
+            </div>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>98%</div>
+              <div className={heroStyles.statLabel}>Love Their Results</div>
+            </div>
+          </div>
+
           {/* Bottom CTA */}
           <div className={heroStyles.bottomCTA}>
             <div className={heroStyles.creditOffer}>
@@ -272,7 +269,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

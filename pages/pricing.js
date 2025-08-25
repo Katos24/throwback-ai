@@ -14,7 +14,6 @@ const CREDIT_PACKS = [
     revivals: 10,
     tagline: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
     useCase: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
-    icon: "🌅",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false
   },
@@ -27,7 +26,6 @@ const CREDIT_PACKS = [
     revivals: 25,
     tagline: "A solid bundle for breathing new life into vintage family shots.",
     useCase: "Ideal for themed mini galleries, vacation snaps, or honoring loved ones with restored detail.",
-    icon: "⚡",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false
   },
@@ -40,7 +38,6 @@ const CREDIT_PACKS = [
     revivals: 40,
     tagline: "A popular pick for curating full-family albums and restoring event photos.",
     useCase: "Great for birthdays, reunions, pet portraits, or weaving stories across generations.",
-    icon: "✨",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true
   },
@@ -53,7 +50,6 @@ const CREDIT_PACKS = [
     revivals: 87,
     tagline: "Built for legacy-level restoration — preserve history at scale.",
     useCase: "Ideal for memory books, heritage tributes, holiday archives, and digital scrapbooking.",
-    icon: "🏛️",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false
   },

@@ -682,7 +682,6 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .heroContainer {
-    width: 98%;       /* wider on mobile */
     max-width: 100%;  /* remove desktop max-width restriction */
     padding: 0 1rem;  /* optional: horizontal padding */
   }
@@ -748,7 +747,6 @@
 /* Extra small mobile adjustments (480px and below) */
 @media (max-width: 480px) {
   .heroContainer {
-    width: 98%;
     max-width: 100%;
   }
 

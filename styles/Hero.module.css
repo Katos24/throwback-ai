@@ -516,7 +516,7 @@
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 14px;
-  background: linear-gradient(135deg, #6f40f7, #2e2cff);
+  background: linear-gradient(135deg, #6f6fdf 0%, #59598d 50%, #778ac5 100%);
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.2),
     0 0 12px rgba(111, 64, 247, 0.6);
@@ -682,7 +682,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .heroContainer {
-    width: 90%;       /* wider on mobile */
+    width: 98%;       /* wider on mobile */
     max-width: 100%;  /* remove desktop max-width restriction */
     padding: 0 1rem;  /* optional: horizontal padding */
   }
@@ -705,8 +705,8 @@
   .imageSlot {
     width: 120px;   /* bigger for mobile */
     height: 120px;
-    max-width: 40vw; /* makes it responsive to screen size */
-    max-height: 40vw;
+    max-width: 60vw; /* makes it responsive to screen size */
+    max-height: 60vw;
   }
   
   .creditOffer {
@@ -748,7 +748,7 @@
 /* Extra small mobile adjustments (480px and below) */
 @media (max-width: 480px) {
   .heroContainer {
-    width: 95%;
+    width: 98%;
     max-width: 100%;
     padding: 0 0.5rem;
   }
@@ -762,7 +762,7 @@
   .imageSlot {
     width: 120px;          /* larger images */
     height: 120px;
-    max-width: 45vw;       /* responsive to screen width */
-    max-height: 45vw;
+    max-width: 50vw;       /* responsive to screen width */
+    max-height: 50vw;
   }
 }

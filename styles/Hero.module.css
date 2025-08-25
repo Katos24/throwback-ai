@@ -681,6 +681,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .heroContainer {
+    width: 90%;       /* wider on mobile */
+    max-width: 100%;  /* remove desktop max-width restriction */
+    padding: 0 1rem;  /* optional: horizontal padding */
+  }
   .heroTitle {
     font-size: 2.5rem;
   }
@@ -740,12 +745,24 @@
 }
 
 
-/* Extra small screens (480px and below) */
+/* Extra small mobile adjustments (480px and below) */
 @media (max-width: 480px) {
+  .heroContainer {
+    width: 95%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .processDemo {
+    flex-direction: row;  /* keep side by side */
+    justify-content: center;
+    gap: 1rem;            /* spacing between images */
+  }
+
   .imageSlot {
-    width: 140px;       /* slightly larger for very small screens */
-    height: 140px;
-    max-width: 50vw;    /* adjust so it doesn’t overflow */
-    max-height: 50vw;
+    width: 120px;          /* larger images */
+    height: 120px;
+    max-width: 45vw;       /* responsive to screen width */
+    max-height: 45vw;
   }
 }

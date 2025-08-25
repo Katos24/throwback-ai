@@ -54,8 +54,6 @@ export default function HeroSection() {
               {/* Photo Restoration */}
               <div className={heroStyles.serviceCard}>
                 <div className={heroStyles.cardHeader}>
-                  <div className={heroStyles.serviceIcon}>🔧</div>
-                  <div className={heroStyles.cardBadge}>RESTORE</div>
                 </div>
                 
                 <div className={heroStyles.processDemo}>
@@ -121,8 +119,6 @@ export default function HeroSection() {
               {/* Photo Colorization */}
               <div className={heroStyles.serviceCard}>
                 <div className={heroStyles.cardHeader}>
-                  <div className={heroStyles.serviceIcon}>🌈</div>
-                  <div className={heroStyles.cardBadge}>COLORIZE</div>
                 </div>
                 
                 <div className={heroStyles.processDemo}>
@@ -188,8 +184,6 @@ export default function HeroSection() {
               {/* Cartoon Creation */}
               <div className={heroStyles.serviceCard}>
                 <div className={heroStyles.cardHeader}>
-                  <div className={heroStyles.serviceIcon}>🎨</div>
-                  <div className={heroStyles.cardBadge}>CARTOON</div>
                 </div>
                 
                 <div className={heroStyles.processDemo}>

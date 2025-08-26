@@ -116,13 +116,12 @@ export default function Header({ showMenu, setShowMenu }) {
         <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
       </button>
 
-      {/* Enhanced Logo */}
+      {/* Updated Logo */}
       <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
         <div className={styles.logoContainer}>
-          <div className={styles.logoIcon}>🌀</div>
+          <div className={styles.logoIcon}>🤖</div>
           <div className={styles.logoText}>
-            <div className={styles.logoMain}>ANASTASIS</div>
-            <div className={styles.logoSub}>Powered by Throwback AI</div>
+            <div className={styles.logoMain}>Throwback AI</div>
           </div>
         </div>
       </Link>

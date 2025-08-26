@@ -153,100 +153,93 @@ const AISuitePage = () => {
           ))}
         </div>
 
-        {/* Main Demo Section */}
-        <div className={suiteStyles.demoSection}>
-          <div className={suiteStyles.demoContainer}>
+        {/* Unified Demo Section */}
+        <div className={suiteStyles.unifiedSection}>
+          <div className={suiteStyles.unifiedContainer}>
             
-            {/* Before/After Showcase */}
-            <div className={suiteStyles.showcase}>
-              <div className={suiteStyles.beforeAfter}>
-                <div className={suiteStyles.imageWrapper}>
-                  <div className={suiteStyles.beforePanel}>
-                    <Image
-                      src={currentSuite.beforeImage}
-                      alt="Before transformation"
-                      fill
-                      className={suiteStyles.demoImage}
-                      sizes="(max-width: 768px) 100vw, 400px"
-                    />
-                    <span className={suiteStyles.imageLabel}>Before</span>
-                  </div>
-                  
-                  <div className={suiteStyles.afterPanel}>
-                    <Image
-                      src={currentSuite.afterImage}
-                      alt="After transformation"
-                      fill
-                      className={suiteStyles.demoImage}
-                      sizes="(max-width: 768px) 100vw, 400px"
-                    />
-                    <span className={suiteStyles.imageLabel}>After</span>
-                    <div className={suiteStyles.enhancementOverlay}></div>
-                  </div>
-                </div>
-                
-                {/* Processing Animation */}
-                <div className={suiteStyles.processingAnimation}>
-                  <div className={suiteStyles.processingLine}></div>
-                  <div className={suiteStyles.aiIcon} style={{ '--accent': currentSuite.accent }}>
-                    {currentSuite.icon}
-                  </div>
-                  <div className={suiteStyles.processingLine}></div>
-                </div>
+            {/* Suite Header */}
+            <div className={suiteStyles.suiteHeader}>
+              <div className={suiteStyles.suiteIcon} style={{ '--accent': currentSuite.accent }}>
+                {currentSuite.icon}
+              </div>
+              <div>
+                <h2 className={suiteStyles.suiteName}>{currentSuite.name}</h2>
+                <p className={suiteStyles.suiteDescription}>{currentSuite.description}</p>
               </div>
             </div>
 
-            {/* Suite Details */}
-            <div className={suiteStyles.suiteDetails}>
-              <div className={suiteStyles.detailsHeader}>
-                <div className={suiteStyles.suiteIcon} style={{ '--accent': currentSuite.accent }}>
+            {/* Before/After Images */}
+            <div className={suiteStyles.beforeAfterContainer}>
+              <div className={suiteStyles.beforeImage}>
+                <Image
+                  src={currentSuite.beforeImage}
+                  alt="Before transformation"
+                  fill
+                  className={suiteStyles.demoImage}
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+                <span className={suiteStyles.imageLabel}>Before</span>
+              </div>
+              
+              <div className={suiteStyles.transformArrow}>
+                <div className={suiteStyles.aiIcon} style={{ '--accent': currentSuite.accent }}>
                   {currentSuite.icon}
                 </div>
-                <div>
-                  <h2 className={suiteStyles.suiteName}>{currentSuite.name}</h2>
-                  <p className={suiteStyles.suiteDescription}>{currentSuite.description}</p>
+              </div>
+              
+              <div className={suiteStyles.afterImage}>
+                <Image
+                  src={currentSuite.afterImage}
+                  alt="After transformation"
+                  fill
+                  className={suiteStyles.demoImage}
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
+                <span className={suiteStyles.imageLabel}>After</span>
+                <div className={suiteStyles.enhancementOverlay}></div>
+              </div>
+            </div>
+
+            {/* Features & Specs Table */}
+            <div className={suiteStyles.featuresTable}>
+              <div className={suiteStyles.tableSection}>
+                <h3 className={suiteStyles.sectionTitle}>Key Features</h3>
+                <div className={suiteStyles.featureGrid}>
+                  {currentSuite.features.map((feature, idx) => (
+                    <div key={idx} className={suiteStyles.featureItem}>
+                      <span className={suiteStyles.featureCheck} style={{ '--accent': currentSuite.accent }}>✓</span>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* Features & Use Cases */}
-              <div className={suiteStyles.detailsGrid}>
-                <div className={suiteStyles.detailsColumn}>
-                  <h3 className={suiteStyles.columnTitle}>Key Features</h3>
-                  <ul className={suiteStyles.featureList}>
-                    {currentSuite.features.map((feature, idx) => (
-                      <li key={idx} className={suiteStyles.featureItem}>
-                        <span className={suiteStyles.featureCheck}>✓</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div className={suiteStyles.detailsColumn}>
-                  <h3 className={suiteStyles.columnTitle}>Perfect For</h3>
-                  <ul className={suiteStyles.useCaseList}>
-                    {currentSuite.useCases.map((useCase, idx) => (
-                      <li key={idx} className={suiteStyles.useCaseItem}>
-                        <span className={suiteStyles.useCaseIcon}>→</span>
-                        <span>{useCase}</span>
-                      </li>
-                    ))}
-                  </ul>
+              
+              <div className={suiteStyles.tableSection}>
+                <h3 className={suiteStyles.sectionTitle}>Perfect For</h3>
+                <div className={suiteStyles.useCaseGrid}>
+                  {currentSuite.useCases.map((useCase, idx) => (
+                    <div key={idx} className={suiteStyles.useCaseItem}>
+                      <span className={suiteStyles.useCaseIcon} style={{ '--accent': currentSuite.accent }}>→</span>
+                      <span>{useCase}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* Specs & CTA */}
-              <div className={suiteStyles.suiteSpecs}>
+              
+              <div className={suiteStyles.specsSection}>
                 <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Credits</span>
-                  <span className={suiteStyles.specValue}>{currentSuite.credits}</span>
+                  <span className={suiteStyles.specLabel}>Credits Required</span>
+                  <span className={suiteStyles.specValue} style={{ '--accent': currentSuite.accent }}>{currentSuite.credits}</span>
                 </div>
                 <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Processing</span>
+                  <span className={suiteStyles.specLabel}>Processing Time</span>
                   <span className={suiteStyles.specValue}>{currentSuite.processingTime}</span>
                 </div>
               </div>
-
+              
+             
+            </div>
+            
               <Link 
                 href={currentSuite.link} 
                 className={suiteStyles.tryButton}
@@ -255,7 +248,6 @@ const AISuitePage = () => {
                 <span>Try {currentSuite.name}</span>
                 <div className={suiteStyles.buttonArrow}>→</div>
               </Link>
-            </div>
           </div>
         </div>
 

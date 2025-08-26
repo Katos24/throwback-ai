@@ -341,7 +341,7 @@ export default function PricingPage() {
                 <span className={styles.globalFeatureIcon}>💝</span>
                 <div>
                   <strong>Credits Never Expire</strong>
-                  <span>Use them whenever you're ready</span>
+                  <span>Use them whenever you&apos;re ready</span>
                 </div>
               </div>
             </div>

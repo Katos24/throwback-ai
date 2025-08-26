@@ -11,8 +11,8 @@ const CREDIT_PACKS = [
     credits: 400,
     price: "$4.99",
     revivals: 10,
-    tagline: "Perfect for trying out Throwback AI — restore a few cherished memories.",
-    useCase: "Great for testing the waters with basic restorations and a few colorizations.",
+    tagline: "Try Throwback AI with your first memories",
+    useCase: "Perfect for testing basic restorations and colorizations.",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false
   },
@@ -22,8 +22,8 @@ const CREDIT_PACKS = [
     credits: 1000,
     price: "$9.99",
     revivals: 25,
-    tagline: "A solid bundle for breathing new life into family photo collections.",
-    useCase: "Ideal for family albums, vacation memories, or preserving multiple generations.",
+    tagline: "Great value for family photo collections",
+    useCase: "Ideal for albums, vacations, and family memories.",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false
   },
@@ -33,8 +33,8 @@ const CREDIT_PACKS = [
     credits: 1600,
     price: "$14.99",
     revivals: 40,
-    tagline: "Our most popular choice for complete photo transformation projects.",
-    useCase: "Perfect for events, family reunions, heritage projects, and creative artwork.",
+    tagline: "Most popular for complete transformations",
+    useCase: "Perfect for events, heritage projects, and artwork.",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true
   },
@@ -44,8 +44,8 @@ const CREDIT_PACKS = [
     credits: 3500,
     price: "$29.99",
     revivals: 87,
-    tagline: "Built for large-scale restoration — preserve entire photo collections.",
-    useCase: "Ideal for genealogy projects, digital archiving, professional restoration work.",
+    tagline: "Best value for large collections",
+    useCase: "Ideal for genealogy, archiving, and bulk restoration.",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false
   },

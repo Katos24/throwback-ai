@@ -1,21 +1,6 @@
 /* Add font import at the top of your CSS file */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* === Fixed Header Body Spacing === */
-/* Add this to your global CSS or apply to your main content wrapper */
-body {
-  padding-top: 70px; /* Adjust this value to match your header height */
-}
-
-/* Alternative: If you have a main content wrapper, use this instead */
-/*
-.main-content,
-.page-wrapper,
-main {
-  padding-top: 70px;
-}
-*/
-
 /* === Base Header === */
 .header {
   position: fixed;

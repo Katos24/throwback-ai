@@ -11,10 +11,12 @@ export default function Header({ showMenu, setShowMenu }) {
   const [user, setUser] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
+      setIsLoading(false); // Set loading to false after auth check
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
@@ -68,6 +70,7 @@ export default function Header({ showMenu, setShowMenu }) {
   };
 
   const navigationItems = [
+    { href: "/", label: "Home", icon: "🏠" },
     { href: "/gallery", label: "Gallery", icon: "🖼️" },
     { href: "/how-it-works", label: "How It Works" },
     { href: "/about", label: "About" }
@@ -101,6 +104,35 @@ export default function Header({ showMenu, setShowMenu }) {
 
   // Check if current page is in AI Suite
   const isAISuitePage = aiSuiteItems.some(item => router.pathname === item.href);
+
+  // Prevent CSS flash by ensuring styles are loaded
+  if (isLoading) {
+    return (
+      <header style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        height: '60px',
+        background: 'linear-gradient(135deg, #1a1a1a, #2a2a2a)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          background: 'linear-gradient(135deg, #00d4ff, #5b73ff, #00ffff)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontSize: '1.5rem',
+          fontWeight: 800,
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          Throwback AI
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>

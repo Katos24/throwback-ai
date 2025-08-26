@@ -1,6 +1,21 @@
 /* Add font import at the top of your CSS file */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* === Fixed Header Body Spacing === */
+/* Add this to your global CSS or apply to your main content wrapper */
+body {
+  padding-top: 70px; /* Adjust this value to match your header height */
+}
+
+/* Alternative: If you have a main content wrapper, use this instead */
+/*
+.main-content,
+.page-wrapper,
+main {
+  padding-top: 70px;
+}
+*/
+
 /* === Base Header === */
 .header {
   position: fixed;
@@ -513,17 +528,28 @@
     margin: 0;
   }
 
-  /* Compact dropdown in mobile */
+  /* Compact dropdown in mobile - but still requires click */
   .showMenu .dropdownMenu {
     position: static;
     width: 100%;
     background: rgba(31, 41, 55, 0.8);
     margin: 6px 0;
     border-radius: 8px;
-    transform: none;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* Keep the dropdown behavior - user must click to open */
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .showMenu .dropdownMenuOpen {
     opacity: 1;
     visibility: visible;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    transform: translateY(0);
   }
 
   .showMenu .dropdownHeader {

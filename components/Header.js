@@ -151,7 +151,6 @@ export default function Header({ showMenu, setShowMenu }) {
       {/* Updated Logo */}
       <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
         <div className={styles.logoContainer}>
-          <div className={styles.logoIcon}>🤖</div>
           <div className={styles.logoText}>
             <div className={styles.logoMain}>Throwback AI</div>
           </div>

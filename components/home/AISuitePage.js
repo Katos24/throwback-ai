@@ -167,6 +167,7 @@ const AISuitePage = () => {
                 <p className={suiteStyles.suiteDescription}>{currentSuite.description}</p>
               </div>
             </div>
+            
 
             {/* Before/After Images */}
             <div className={suiteStyles.beforeAfterContainer}>
@@ -200,6 +201,28 @@ const AISuitePage = () => {
               </div>
             </div>
 
+            <Link 
+                href={currentSuite.link} 
+                className={suiteStyles.tryButton}
+                style={{ '--accent': currentSuite.accent }}
+              >
+                <span>Try {currentSuite.name}</span>
+                <div className={suiteStyles.buttonArrow}>→</div>
+              </Link>
+
+                 {/* Specs section */}
+              <div className={suiteStyles.specsSection}>
+                <div className={suiteStyles.specItem}>
+                  <span className={suiteStyles.specLabel}>Credits Required</span>
+                  <span className={suiteStyles.specValue} style={{ '--accent': currentSuite.accent }}>{currentSuite.credits}</span>
+                </div>
+                <div className={suiteStyles.specItem}>
+                  <span className={suiteStyles.specLabel}>Processing Time</span>
+                  <span className={suiteStyles.specValue}>{currentSuite.processingTime}</span>
+                </div>
+              </div>
+              
+
             {/* Features & Specs Table */}
             <div className={suiteStyles.featuresTable}>
               <div className={suiteStyles.tableSection}>
@@ -225,29 +248,7 @@ const AISuitePage = () => {
                   ))}
                 </div>
               </div>
-              
-              <div className={suiteStyles.specsSection}>
-                <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Credits Required</span>
-                  <span className={suiteStyles.specValue} style={{ '--accent': currentSuite.accent }}>{currentSuite.credits}</span>
-                </div>
-                <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Processing Time</span>
-                  <span className={suiteStyles.specValue}>{currentSuite.processingTime}</span>
-                </div>
-              </div>
-              
-             
             </div>
-            
-              <Link 
-                href={currentSuite.link} 
-                className={suiteStyles.tryButton}
-                style={{ '--accent': currentSuite.accent }}
-              >
-                <span>Try {currentSuite.name}</span>
-                <div className={suiteStyles.buttonArrow}>→</div>
-              </Link>
           </div>
         </div>
 

@@ -7,49 +7,45 @@ import styles from "../styles/PricingPage.module.css";
 const CREDIT_PACKS = [
   {
     id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
-    name: "Dawn Pack",
-    greekName: "Ἠώς",
+    name: "Starter Pack",
     credits: 400,
     price: "$4.99",
     revivals: 10,
-    tagline: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
-    useCase: "Great for testing the waters or refreshing a handful of your most meaningful portraits.",
+    tagline: "Perfect for trying out Throwback AI — restore a few cherished memories.",
+    useCase: "Great for testing the waters with basic restorations and a few colorizations.",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
-    name: "Revival Pack",
-    greekName: "Παλιγγενεσία:",
+    name: "Family Pack",
     credits: 1000,
     price: "$9.99",
     revivals: 25,
-    tagline: "A solid bundle for breathing new life into vintage family shots.",
-    useCase: "Ideal for themed mini galleries, vacation snaps, or honoring loved ones with restored detail.",
+    tagline: "A solid bundle for breathing new life into family photo collections.",
+    useCase: "Ideal for family albums, vacation memories, or preserving multiple generations.",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
-    name: "Resurgence Pack",
-    greekName: "Ἀνάστασις",
+    name: "Premium Pack",
     credits: 1600,
     price: "$14.99",
     revivals: 40,
-    tagline: "A popular pick for curating full-family albums and restoring event photos.",
-    useCase: "Great for birthdays, reunions, pet portraits, or weaving stories across generations.",
+    tagline: "Our most popular choice for complete photo transformation projects.",
+    useCase: "Perfect for events, family reunions, heritage projects, and creative artwork.",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
-    name: "Eternal Pack",
-    greekName: "Αἰώνιος",
+    name: "Professional Pack",
     credits: 3500,
     price: "$29.99",
     revivals: 87,
-    tagline: "Built for legacy-level restoration — preserve history at scale.",
-    useCase: "Ideal for memory books, heritage tributes, holiday archives, and digital scrapbooking.",
+    tagline: "Built for large-scale restoration — preserve entire photo collections.",
+    useCase: "Ideal for genealogy projects, digital archiving, professional restoration work.",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false
   },
@@ -98,14 +94,13 @@ export default function PricingPage() {
   // SEO-related values
   const siteUrl = 'https://throwbackai.app';
   const pageUrl = `${siteUrl}/pricing`;
-  const ogImage = `${siteUrl}/images/pricing-og.png`; // change to your pricing-specific share image
+  const ogImage = `${siteUrl}/images/pricing-og.png`;
   const twitterImage = ogImage;
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 
   // Build structured data (OfferCatalog) from CREDIT_PACKS
   const offers = CREDIT_PACKS.map(pack => {
-    // parse numeric price where possible
     const numericPrice = parseFloat(String(pack.price).replace(/[^0-9.]/g, '')) || null;
     return {
       "@type": "Offer",
@@ -131,7 +126,7 @@ export default function PricingPage() {
         "@id": `${pageUrl}#webpage`,
         "url": pageUrl,
         "name": "Pricing — Throwback AI",
-        "description": "Purchase Anastasis credit packs to restore and colorize old photos with Throwback AI. Choose a pack that fits your needs — from single restores to bulk legacy preservation.",
+        "description": "Purchase Throwback AI credit packs to restore and colorize old photos. Choose a pack that fits your needs — from single restores to bulk heritage preservation.",
         "isPartOf": { "@id": `${siteUrl}#website` }
       },
       {
@@ -153,7 +148,7 @@ export default function PricingPage() {
         <title>Pricing — Throwback AI Credits & Plans</title>
         <meta
           name="description"
-          content="Buy Anastasis Credit Packs for Throwback AI: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
+          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
         />
         <meta name="keywords" content="Throwback AI pricing, photo restoration credits, buy credits, AI colorize price, restore photo cost" />
         <link rel="canonical" href={pageUrl} />
@@ -164,7 +159,7 @@ export default function PricingPage() {
         <meta property="og:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           property="og:description"
-          content="Buy Anastasis Credit Packs for Throwback AI: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
+          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
         />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
@@ -179,7 +174,7 @@ export default function PricingPage() {
         <meta name="twitter:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           name="twitter:description"
-          content="Buy Anastasis Credit Packs for Throwback AI: affordable credit bundles for restoring, enhancing, and colorizing vintage photos."
+          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos."
         />
         <meta name="twitter:image" content={twitterImage} />
 
@@ -190,34 +185,59 @@ export default function PricingPage() {
         />
       </Head>
 
-      <section className={styles.anastasisPricing}>
+      <section className={styles.throwbackPricing}>
         <div className={styles.heroSection}>
-          <div className={styles.greekPattern}></div>
+          <div className={styles.backgroundPattern}></div>
           <h1 className={styles.mainTitle}>
-            <span className={styles.titleGreek}>Πακέτα Πίστωσης</span>
-            <span className={styles.titleEnglish}>Credit Packs for Timeless Restorations</span>
+            <span className={styles.titleMain}>Choose Your Credit Pack</span>
+            <span className={styles.titleSub}>Affordable Plans for Every Memory Restoration Need</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Whether you&apos;re reviving faded memories, curating albums, or preserving heritage — 
-            <strong> Anastasis Credit Packs</strong> give you the power to restore with beauty.
+            Whether you&apos;re fixing a single treasured photo or preserving an entire family archive — 
+            <strong> Throwback AI Credit Packs</strong> give you the power to restore, colorize, and create.
           </p>
 
+          {/* Service Overview */}
+          <div className={styles.serviceOverview}>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>🔧</span>
+              <div>
+                <strong>Photo Restoration</strong>
+                <span className={styles.serviceCost}>1 credit each</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>🎨</span>
+              <div>
+                <strong>Photo Colorization</strong>
+                <span className={styles.serviceCost}>40 credits each</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>🎭</span>
+              <div>
+                <strong>Cartoon Creator</strong>
+                <span className={styles.serviceCost}>40 credits each</span>
+              </div>
+            </div>
+          </div>
+
           <div className={styles.packGrid}>
-            {CREDIT_PACKS.map(({ id, name, greekName, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
+            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
               const priceNumber = parseFloat(price.slice(1));
-              const costPerRestore = (priceNumber / revivals).toFixed(2);
+              const costPerCredit = (priceNumber / credits).toFixed(3);
 
               return (
                 <div 
                   key={id} 
-                  className={`${styles.anastasisCard} ${popular ? styles.featured : ''}`}
+                  className={`${styles.creditCard} ${popular ? styles.featured : ''}`}
                   onMouseEnter={() => setHoveredCard(id)}
                   onMouseLeave={() => setHoveredCard(null)}
                   style={{ '--card-gradient': gradient }}
                 >
                   {popular && (
                     <div className={styles.popularBadge}>
-                      <span className={styles.crown}>👑</span>
+                      <span className={styles.crown}>⭐</span>
                       Most Popular
                     </div>
                   )}
@@ -225,7 +245,6 @@ export default function PricingPage() {
                   <div className={styles.cardHeader}>
                     <div className={styles.cardIcon}>{icon}</div>
                     <h2 className={styles.packName}>{name}</h2>
-                    <p className={styles.greekName}>{greekName}</p>
                   </div>
 
                   <div className={styles.priceSection}>
@@ -237,25 +256,35 @@ export default function PricingPage() {
                       <span className={styles.creditCount}>{credits.toLocaleString()}</span>
                       <span className={styles.creditLabel}>credits</span>
                     </div>
+                    <div className={styles.valueInfo}>
+                      ${costPerCredit} per credit
+                    </div>
                   </div>
 
                   <div className={styles.cardContent}>
                     <p className={styles.tagline}>{tagline}</p>
                     <p className={styles.useCase}>{useCase}</p>
 
-                    <div className={styles.statsGrid}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statIcon}>💎</span>
+                    <div className={styles.featuresGrid}>
+                      <div className={styles.featureItem}>
+                        <span className={styles.featureIcon}>🔧</span>
                         <div>
-                          <span className={styles.statValue}>{revivals}</span>
-                          <span className={styles.statLabel}> Premium Fixes (40 credits each)</span>
+                          <span className={styles.featureValue}>{credits}</span>
+                          <span className={styles.featureLabel}> Photo Restorations</span>
                         </div>
                       </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statIcon}>🧼</span>
+                      <div className={styles.featureItem}>
+                        <span className={styles.featureIcon}>🎨</span>
                         <div>
-                          <span className={styles.statValue}>{credits}</span>
-                          <span className={styles.statLabel}> Basic Fixes (1 credit each)</span>
+                          <span className={styles.featureValue}>{revivals}</span>
+                          <span className={styles.featureLabel}> Colorizations/Cartoons</span>
+                        </div>
+                      </div>
+                      <div className={styles.featureItem}>
+                        <span className={styles.featureIcon}>⚡</span>
+                        <div>
+                          <span className={styles.featureValue}>Instant</span>
+                          <span className={styles.featureLabel}> AI Processing</span>
                         </div>
                       </div>
                     </div>
@@ -274,7 +303,7 @@ export default function PricingPage() {
                     ) : (
                       <>
                         <span className={styles.buttonIcon}>🚀</span>
-                        Begin Restoration
+                        Get Credits Now
                       </>
                     )}
                   </button>
@@ -283,13 +312,37 @@ export default function PricingPage() {
             })}
           </div>
 
-          {/* Mobile Swipe Instructions */}
-          <div className={styles.mobileSwipeHint}>
-            <div className={styles.swipeContainer}>
-              <span className={styles.swipeIcon}>👆</span>
-              <span className={styles.swipeText}>Swipe right to see more packs</span>
-              <div className={styles.swipeArrow}>
-                <span>👉</span>
+          {/* Features Section */}
+          <div className={styles.featuresSection}>
+            <h3 className={styles.featuresTitle}>What You Get With Every Pack</h3>
+            <div className={styles.featuresList}>
+              <div className={styles.globalFeature}>
+                <span className={styles.globalFeatureIcon}>🔒</span>
+                <div>
+                  <strong>100% Private & Secure</strong>
+                  <span>Your photos are deleted after 1 hour</span>
+                </div>
+              </div>
+              <div className={styles.globalFeature}>
+                <span className={styles.globalFeatureIcon}>⚡</span>
+                <div>
+                  <strong>Lightning Fast Results</strong>
+                  <span>Most photos processed in under 3 seconds</span>
+                </div>
+              </div>
+              <div className={styles.globalFeature}>
+                <span className={styles.globalFeatureIcon}>🎯</span>
+                <div>
+                  <strong>AI-Powered Quality</strong>
+                  <span>Advanced models trained on millions of photos</span>
+                </div>
+              </div>
+              <div className={styles.globalFeature}>
+                <span className={styles.globalFeatureIcon}>💝</span>
+                <div>
+                  <strong>Credits Never Expire</strong>
+                  <span>Use them whenever you're ready</span>
+                </div>
               </div>
             </div>
           </div>
@@ -313,6 +366,10 @@ export default function PricingPage() {
             <div className={styles.trustItem}>
               <span className={styles.trustIcon}>🎯</span>
               <span>AI-Powered Results</span>
+            </div>
+            <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>💳</span>
+              <span>Money-Back Guarantee</span>
             </div>
           </div>
         </div>

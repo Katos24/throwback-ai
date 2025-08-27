@@ -54,12 +54,6 @@ export default function Header({ showMenu, setShowMenu }) {
     router.replace("/");
   };
 
-  const goToPricing = () => {
-    setShowMenu(false);
-    setShowDropdown(false);
-    router.push("/pricing");
-  };
-
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);
   };
@@ -71,9 +65,10 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const navigationItems = [
     { href: "/", label: "Home", icon: "🏠" },
-    { href: "/gallery", label: "Gallery", icon: "🖼️" },
+    { href: "/gallery", label: "Gallery" },
     { href: "/how-it-works", label: "How It Works" },
-    { href: "/about", label: "About" }
+    { href: "/about", label: "About" },
+    { href: "/pricing", label: "Pricing", icon: "💰" }
   ];
 
   const aiSuiteItems = [
@@ -228,15 +223,6 @@ export default function Header({ showMenu, setShowMenu }) {
             {item.badge && <span className={styles.badge}>{item.badge}</span>}
           </Link>
         ))}
-
-        <button
-          onClick={goToPricing}
-          className={`${styles.navBtn} ${styles.ctaGlowBtn}`}
-          type="button"
-        >
-          <span className={styles.ctaIcon}>💫</span>
-          See Pricing Plans
-        </button>
 
         {user ? (
           <div className={styles.userSection}>

@@ -1,8 +1,51 @@
-import React from 'react'
-import Link from 'next/link'
-import heroStyles from '../../styles/Hero.module.css'
+import React, { useState } from 'react';
+import Link from 'next/link';
+import ImageCompareSlider from "../ImageCompareSlider";
+import heroStyles from '../../styles/Hero.module.css';
 
 export default function HeroSection() {
+  const features = [
+    {
+      id: 'restore',
+      title: "Photo Restoration",
+      shortTitle: "Restore Damaged Photos",
+      description: "Remove scratches, tears, and fading from your treasured family photos. Perfect for preserving irreplaceable memories.",
+      beforeAfter: {
+        before: "/images/damaged-snippet.jpg",
+        after: "/images/repaired-snippet.jpg"
+      },
+      link: "/replicate/restore-basic",
+      credits: 1,
+      buttonText: "Restore My Photo"
+    },
+    {
+      id: 'colorize',
+      title: "AI Colorization", 
+      shortTitle: "Add Beautiful Colors",
+      description: "Transform black and white photos with historically accurate, beautiful colors. See your ancestors come alive like never before.",
+      beforeAfter: {
+        before: "/images/before6.jpg",
+        after: "/images/after6.jpg"
+      },
+      link: "/replicate/restore-premium",
+      credits: 40,
+      buttonText: "Add Color"
+    },
+    {
+      id: 'cartoonify',
+      title: "Cartoon Creator",
+      shortTitle: "Create Cartoon Art", 
+      description: "Turn family photos into beautiful cartoon artwork. Perfect for gifts, social media, or creating unique family portraits.",
+      beforeAfter: {
+        before: "/images/cartoon-before.jpg",
+        after: "/images/cartoon-example.jpg"
+      },
+      link: "/replicate/cartoon",
+      credits: 40,
+      buttonText: "Make Cartoon"
+    }
+  ];
+
   return (
     <>
       <section className={heroStyles.hero}>
@@ -30,199 +73,37 @@ export default function HeroSection() {
             </p>
           </div>
 
-          {/* AI Services Grid */}
+          {/* AI Services Grid with Sliders */}
           <div className={heroStyles.servicesContainer}>
             <h2 className={heroStyles.servicesTitle}>Choose Your Memory Transformation</h2>
             
             <div className={heroStyles.servicesGrid}>
-              
-              {/* Photo Restoration */}
-              <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}></div>
-                
-                <div className={heroStyles.processDemo}>
-                  <div className={heroStyles.beforeImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/damaged-snippet.jpg" 
-                          alt="Damaged photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.damageOverlay}>
-                          <div className={heroStyles.scratchLine}></div>
-                          <div className={heroStyles.tearMark}></div>
-                        </div>
-                        <div className={heroStyles.circularMask}></div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Damaged</span>
+              {features.map((feature) => (
+                <div key={feature.id} className={heroStyles.serviceCard}>
+                  {/* Image Compare Slider */}
+                  <div className={heroStyles.processDemo}>
+                    <ImageCompareSlider
+                      beforeImage={feature.beforeAfter.before}
+                      afterImage={feature.beforeAfter.after}
+                    />
                   </div>
                   
-                  <div className={heroStyles.aiProcessor}>
-                    <div className={heroStyles.neuralPath}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.neuralPath}></div>
-                  </div>
-                  
-                  <div className={heroStyles.afterImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/repaired-snippet.jpg" 
-                          alt="Repaired photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-
+                  <div className={heroStyles.serviceInfo}>
+                    <h3 className={heroStyles.serviceName}>{feature.title}</h3>
+                    <p className={heroStyles.serviceDesc}>
+                      {feature.description}
+                    </p>
+                    
+                    <Link href={feature.link} className={heroStyles.actionButton}>
+                      <span className={heroStyles.buttonText}>{feature.buttonText}</span>
+                      <div className={heroStyles.creditCost}>
+                        <span className={heroStyles.costNumber}>{feature.credits}</span>
+                        <span className={heroStyles.costLabel}>{feature.credits === 1 ? 'Credit' : 'Credits'}</span>
                       </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Like New</span>
+                    </Link>
                   </div>
                 </div>
-                
-                <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Photo Restoration</h3>
-                  <p className={heroStyles.serviceDesc}>
-                    Remove scratches, tears, and fading from your treasured family photos. 
-                    Perfect for preserving irreplaceable memories.
-                  </p>
-                  
-                  <Link href="/replicate/restore-basic" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Restore My Photo</span>
-                    <div className={heroStyles.creditCost}>
-                      <span className={heroStyles.costNumber}>1</span>
-                      <span className={heroStyles.costLabel}>Credit</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Photo Colorization */}
-              <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}></div>
-                
-                <div className={heroStyles.processDemo}>
-                  <div className={heroStyles.beforeImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/before6.jpg" 
-                          alt="Black and white photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.splitReveal}>
-                          <div className={heroStyles.bwSide}></div>
-                        </div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Black & White</span>
-                  </div>
-                  
-                  <div className={heroStyles.aiProcessor}>
-                    <div className={heroStyles.neuralPath}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.neuralPath}></div>
-                  </div>
-                  
-                  <div className={heroStyles.afterImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/after6.jpg" 
-                          alt="Colorized photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.splitReveal}>
-        
-                        </div>
-                        <div className={heroStyles.colorBurst}></div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Full Color</span>
-                  </div>
-                </div>
-                
-                <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Photo Colorization</h3>
-                  <p className={heroStyles.serviceDesc}>
-                    Transform black and white photos with historically accurate, beautiful colors. 
-                    See your ancestors come alive like never before.
-                  </p>
-                  
-                  <Link href="/replicate/restore-premium" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Add Color</span>
-                    <div className={heroStyles.creditCost}>
-                      <span className={heroStyles.costNumber}>40</span>
-                      <span className={heroStyles.costLabel}>Credits</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Cartoon Creation */}
-              <div className={heroStyles.serviceCard}>
-                <div className={heroStyles.cardHeader}></div>
-                
-                <div className={heroStyles.processDemo}>
-                  <div className={heroStyles.beforeImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/cartoon-before.jpg" 
-                          alt="Portrait photo preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.hexagonalMask}></div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Photo</span>
-                  </div>
-                  
-                  <div className={heroStyles.aiProcessor}>
-                    <div className={heroStyles.neuralPath}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.processingDot}></div>
-                    <div className={heroStyles.neuralPath}></div>
-                  </div>
-                  
-                  <div className={heroStyles.afterImage}>
-                    <div className={heroStyles.imageSlot}>
-                      <div className={heroStyles.imagePreview}>
-                        <img 
-                          src="/images/cartoon-example.jpg" 
-                          alt="Cartoon style preview" 
-                          className={heroStyles.snippetImage}
-                        />
-                        <div className={heroStyles.cartoonSparkle}>✨</div>
-                        <div className={heroStyles.hexagonalMask}></div>
-                      </div>
-                    </div>
-                    <span className={heroStyles.processLabel}>Cartoon Art</span>
-                  </div>
-                </div>
-                
-                <div className={heroStyles.serviceInfo}>
-                  <h3 className={heroStyles.serviceName}>Cartoon Creator</h3>
-                  <p className={heroStyles.serviceDesc}>
-                    Turn family photos into beautiful cartoon artwork. Perfect for gifts, 
-                    social media, or creating unique family portraits.
-                  </p>
-                  
-                  <Link href="/replicate/cartoon" className={heroStyles.actionButton}>
-                    <span className={heroStyles.buttonText}>Make Cartoon</span>
-                    <div className={heroStyles.creditCost}>
-                      <span className={heroStyles.costNumber}>40</span>
-                      <span className={heroStyles.costLabel}>Credits</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
 

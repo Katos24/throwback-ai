@@ -1,140 +1,237 @@
-import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabaseClient";
-import styles from "../styles/Profile.module.css";
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import styles from '../styles/Profile.module.css';
 
 export default function Profile() {
-  const [profile, setProfile] = useState({
-    username: "",
-    email: "",
-    is_premium: false,
-    credits_remaining: 0,
-  });
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState(null);
-  const [error, setError] = useState(null);
-  const [authProvider, setAuthProvider] = useState(null);
+  const [updating, setUpdating] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [credits, setCredits] = useState(0);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
-    async function fetchProfile() {
-      setLoading(true);
-      setMessage(null);
-      setError(null);
-
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError || !user) {
-        setError("You must be logged in to view your profile.");
-        setLoading(false);
-        return;
-      }
-
-      setAuthProvider(user?.app_metadata?.provider || null);
-
-      const { data, error: profileError } = await supabase
-        .from("profiles")
-        .select("username, is_premium, credits_remaining")
-        .eq("id", user.id)
-        .single();
-
-      if (profileError) {
-        setError(`Failed to load profile: ${profileError.message}`);
-      } else if (data) {
-        setProfile({
-          username: data.username || "",
-          email: user.email,
-          is_premium: data.is_premium || false,
-          credits_remaining: data.credits_remaining || 0,
-        });
-      }
-
-      setLoading(false);
-    }
-
-    fetchProfile();
+    getProfile();
   }, []);
 
-  const handleChange = (e) => {
-    setProfile((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const getProfile = async () => {
+    try {
+      setLoading(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        setUser(user);
+        setEmail(user.email);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage(null);
-    setError(null);
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
 
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
+        if (error && error.code !== 'PGRST116') {
+          throw error;
+        }
 
-    if (userError || !user) {
-      setError("You must be logged in to update your profile.");
+        if (data) {
+          setProfile(data);
+          setUsername(data.username || '');
+          setCredits(data.credits || 0);
+        }
+      }
+    } catch (error) {
+      setErrorMsg(error.message);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const { error: updateError } = await supabase.from("profiles").upsert({
-      id: user.id,
-      username: profile.username,
-      updated_at: new Date().toISOString(),
-    });
-
-    if (updateError) {
-      setError(`Update failed: ${updateError.message}`);
-    } else {
-      setMessage("✅ Profile updated successfully!");
-    }
-    setLoading(false);
   };
 
-  if (loading)
-    return <p style={{ textAlign: "center", marginTop: "2rem" }}>Loading profile...</p>;
+  const updateProfile = async (e) => {
+    e.preventDefault();
+    try {
+      setUpdating(true);
+      setErrorMsg('');
+      setSuccessMsg('');
+
+      const updates = {
+        id: user.id,
+        username: username,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error } = await supabase.from('profiles').upsert(updates);
+      
+      if (error) throw error;
+      
+      setSuccessMsg('Profile updated successfully!');
+      setTimeout(() => setSuccessMsg(''), 3000);
+    } catch (error) {
+      setErrorMsg(error.message);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  };
+
+  if (loading) {
+    return (
+      <div className={styles.profileContainer}>
+        <div className={styles.loadingWrapper}>
+          <div className={styles.spinner}>⚡</div>
+          <span>Loading your profile...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main className={styles.profileContainer}>
-      <h1 className={styles.profileTitle}>🧍 Your Profile</h1>
-
-      {error && <p className={styles.messageError}>{error}</p>}
-      {message && <p className={styles.messageSuccess}>{message}</p>}
-
-      <form onSubmit={handleSubmit} className={styles.profileForm}>
-        <label className={styles.label}>
-          <span className={styles.labelText}>Email</span>
-          <input
-            type="email"
-            name="email"
-            value={profile.email}
-            readOnly
-            className={styles.inputReadOnly}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <span className={styles.labelText}>Username</span>
-          <input
-            type="text"
-            name="username"
-            placeholder="Your display name"
-            value={profile.username}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          />
-        </label>
-
-        <div className={styles.statusText}>
-          <span style={{ fontWeight: 600 }}>Credits Remaining:</span>{" "}
-          <strong className={styles.creditsRemaining}>{profile.credits_remaining}</strong>
+    <div className={styles.profileContainer}>
+      <div className={styles.profileWrapper}>
+        
+        {/* Header Section */}
+        <div className={styles.header}>
+          <div className={styles.aiIndicator}>
+            <span className={styles.dot}></span>
+            <span className={styles.aiText}>YOUR PROFILE</span>
+          </div>
+          <h1 className={styles.title}>
+            Manage Your <span className={styles.gradient}>Account</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Update your information and track your Throwback AI usage
+          </p>
         </div>
 
-        <button type="submit" disabled={loading} className={styles.buttonPrimary}>
-          {loading ? "Saving..." : "Save Changes"}
-        </button>
-      </form>
-    </main>
+        {/* Stats Cards */}
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>💎</div>
+            <div className={styles.statContent}>
+              <div className={styles.statNumber}>{credits}</div>
+              <div className={styles.statLabel}>Credits Remaining</div>
+            </div>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>🎨</div>
+            <div className={styles.statContent}>
+              <div className={styles.statNumber}>{Math.floor(credits / 40)}</div>
+              <div className={styles.statLabel}>Colorizations Available</div>
+            </div>
+          </div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>🔧</div>
+            <div className={styles.statContent}>
+              <div className={styles.statNumber}>{credits}</div>
+              <div className={styles.statLabel}>Restorations Available</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Profile Form */}
+        <div className={styles.formSection}>
+          <h3 className={styles.sectionTitle}>Account Information</h3>
+          
+          <form onSubmit={updateProfile} className={styles.form}>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Email Address</label>
+              <div className={styles.inputWrapper}>
+                <span className={styles.inputIcon}>✉️</span>
+                <input
+                  type="email"
+                  value={email}
+                  disabled
+                  className={`${styles.input} ${styles.disabled}`}
+                />
+                <span className={styles.lockIcon}>🔒</span>
+              </div>
+              <span className={styles.helperText}>Email cannot be changed</span>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Username</label>
+              <div className={styles.inputWrapper}>
+                <span className={styles.inputIcon}>👤</span>
+                <input
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className={styles.input}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={updating}
+              className={`${styles.updateButton} ${updating ? styles.loading : ''}`}
+            >
+              {updating ? (
+                <>
+                  <span className={styles.spinner}>⚡</span>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <span className={styles.buttonIcon}>💾</span>
+                  Update Profile
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+
+        {/* Quick Actions */}
+        <div className={styles.actionsSection}>
+          <h3 className={styles.sectionTitle}>Quick Actions</h3>
+          <div className={styles.actionButtons}>
+            <button className={styles.actionButton} onClick={() => window.location.href = '/pricing'}>
+              <span className={styles.actionIcon}>💳</span>
+              <div>
+                <div className={styles.actionTitle}>Buy More Credits</div>
+                <div className={styles.actionDesc}>Get more credits to restore photos</div>
+              </div>
+            </button>
+            <button className={styles.actionButton} onClick={() => window.location.href = '/'}>
+              <span className={styles.actionIcon}>🎨</span>
+              <div>
+                <div className={styles.actionTitle}>Start Restoring</div>
+                <div className={styles.actionDesc}>Transform your photos with AI</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Messages */}
+        {errorMsg && (
+          <div className={styles.errorMessage}>
+            <span className={styles.errorIcon}>⚠️</span>
+            {errorMsg}
+          </div>
+        )}
+
+        {successMsg && (
+          <div className={styles.successMessage}>
+            <span className={styles.successIcon}>✅</span>
+            {successMsg}
+          </div>
+        )}
+
+        {/* Sign Out */}
+        <div className={styles.dangerZone}>
+          <button onClick={signOut} className={styles.signOutButton}>
+            <span className={styles.signOutIcon}>🚪</span>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

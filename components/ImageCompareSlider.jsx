@@ -57,20 +57,21 @@ export default function ImageCompareSlider({ beforeImage, afterImage }) {
   }, [isDragging]);
 
   // Styles
-  const containerStyle = {
-    position: "relative",
-    width: "100%",
-    maxWidth: "600px",
-    height: `${containerHeight}px`,
-    margin: "3rem auto",
-    userSelect: "none",
-    cursor: isDragging ? "grabbing" : "grab",
-    overflow: "hidden",
-    borderRadius: "16px",
-    boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-    border: "2px solid rgba(255,255,255,0.1)",
-    backgroundColor: "#000", // Black background for better contrast
-  };
+ const containerStyle = {
+  position: "relative",
+  width: "100%",
+  maxWidth: "600px", 
+  height: `${containerHeight}px`,
+  margin: "0 auto",
+  userSelect: "none",
+  cursor: isDragging ? "grabbing" : "grab",
+  overflow: "hidden",
+  borderRadius: "16px",
+  boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
+  border: "1px solid rgba(255,255,255,0.1)",
+  backgroundColor: "#1a1a2e",
+  backdropFilter: "blur(20px)",
+};
 
   // Both images now use the same positioning approach
   const imageStyle = {
@@ -167,17 +168,18 @@ const labelStyle = (pos) => ({
   position: "absolute",
   top: "16px",
   [pos]: "16px",
-  backgroundColor: "rgba(0,0,0,0.8)",
+  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08))",
   color: "#fff",
   padding: "6px 12px",
-  borderRadius: "8px",
+  borderRadius: "12px",
   fontSize: "12px",
   fontWeight: 700,
   letterSpacing: "0.5px",
   textTransform: "uppercase",
   zIndex: 5,
-  backdropFilter: "blur(8px)",
-  border: "1px solid rgba(255,255,255,0.1)",
+  backdropFilter: "blur(20px)",
+  border: "1px solid rgba(255,255,255,0.2)",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
 });
 
 const hintStyle = (isDragging) => ({
@@ -185,16 +187,17 @@ const hintStyle = (isDragging) => ({
   bottom: "16px",
   left: "50%",
   transform: "translateX(-50%)",
-  backgroundColor: "rgba(0,0,0,0.8)",
+  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))",
   color: "#fff",
   padding: "8px 16px",
-  borderRadius: "20px",
+  borderRadius: "25px",
   fontSize: "11px",
   fontWeight: 600,
   zIndex: 5,
   opacity: isDragging ? 0.7 : 1,
-  transition: "opacity 0.3s ease",
-  backdropFilter: "blur(8px)",
-  border: "1px solid rgba(255,255,255,0.1)",
+  transition: "all 0.3s ease",
+  backdropFilter: "blur(20px)",
+  border: "1px solid rgba(255,255,255,0.15)",
   whiteSpace: "nowrap",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
 });

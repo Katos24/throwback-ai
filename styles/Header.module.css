@@ -717,7 +717,7 @@
 
 @media (max-width: 480px) {
   .header {
-    height: 60px; /* Even thinner for small phones */
+    height: 65px; /* Even thinner for small phones */
     padding: 0 12px;
     padding-left: max(12px, env(safe-area-inset-left));
     padding-right: max(12px, env(safe-area-inset-right));

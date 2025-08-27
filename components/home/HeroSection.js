@@ -56,10 +56,8 @@ export default function HeroSection() {
         <div className={heroStyles.heroContainer}>
           {/* Main Header */}
           <div className={heroStyles.heroHeader}>
-            <div className={heroStyles.aiIndicator}>
-              <span className={heroStyles.dot}></span>
-              <span className={heroStyles.aiText}>AI-POWERED</span>
-            </div>
+          
+        
             
             <h1 className={heroStyles.heroTitle}>
               Bring Your Precious

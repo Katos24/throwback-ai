@@ -585,7 +585,7 @@
 /* === Enhanced Mobile Responsive === */
 @media (max-width: 1024px) {
   .header {
-    height: 72px; /* Slightly smaller for tablets */
+    height: 74px; /* Slightly smaller for tablets */
     padding: 0 20px;
   }
   
@@ -604,7 +604,7 @@
 
 @media (max-width: 768px) {
   .header {
-    height: 64px; /* Reduced from 80px for mobile */
+    height: 68px; /* Reduced from 80px for mobile */
     padding: 0 16px;
     /* Safe area for notched phones */
     padding-left: max(16px, env(safe-area-inset-left));

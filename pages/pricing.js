@@ -7,7 +7,7 @@ import styles from "../styles/PricingPage.module.css";
 const CREDIT_PACKS = [
   {
     id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
-    name: "Starter Pack",
+    name: "Dawn Pack",
     credits: 400,
     price: "$4.99",
     revivals: 10,
@@ -18,7 +18,7 @@ const CREDIT_PACKS = [
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
-    name: "Family Pack",
+    name: "Revival Pack",
     credits: 1000,
     price: "$9.99",
     revivals: 25,
@@ -29,7 +29,7 @@ const CREDIT_PACKS = [
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
-    name: "Premium Pack",
+    name: "Resurgence Pack",
     credits: 1600,
     price: "$14.99",
     revivals: 40,
@@ -40,7 +40,7 @@ const CREDIT_PACKS = [
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
-    name: "Professional Pack",
+    name: "Eternal Pack",
     credits: 3500,
     price: "$29.99",
     revivals: 87,

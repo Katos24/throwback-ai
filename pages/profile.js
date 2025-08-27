@@ -13,41 +13,59 @@ export default function Profile() {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-
+  // Fetch profile & credits
   const getProfile = async () => {
     try {
       setLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (user) {
-        setUser(user);
-        setEmail(user.email);
+      const { data: { user: currentUser } } = await supabase.auth.getUser();
+      if (!currentUser) return;
 
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+      setUser(currentUser);
+      setEmail(currentUser.email);
 
-        if (error && error.code !== 'PGRST116') {
-          throw error;
-        }
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('username, credits_remaining')
+        .eq('id', currentUser.id)
+        .single();
 
-        if (data) {
-          setProfile(data);
-          setUsername(data.username || '');
-          setCredits(data.credits || 0);
-        }
+      if (error && error.code !== 'PGRST116') throw error;
+      if (data) {
+        setProfile(data);
+        setUsername(data.username || '');
+        setCredits(Number(data.credits_remaining) || 0);
       }
-    } catch (error) {
-      setErrorMsg(error.message);
+    } catch (err) {
+      console.error(err);
+      setErrorMsg(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  // Listen for real-time updates
+  useEffect(() => {
+    if (!user) return;
+    const channel = supabase
+      .channel('profile-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${user.id}`,
+        },
+        () => getProfile()
+      )
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
+  }, [user]);
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -63,9 +81,8 @@ export default function Profile() {
       };
 
       const { error } = await supabase.from('profiles').upsert(updates);
-      
       if (error) throw error;
-      
+
       setSuccessMsg('Profile updated successfully!');
       setTimeout(() => setSuccessMsg(''), 3000);
     } catch (error) {
@@ -94,8 +111,7 @@ export default function Profile() {
   return (
     <div className={styles.profileContainer}>
       <div className={styles.profileWrapper}>
-        
-        {/* Header Section */}
+        {/* Header */}
         <div className={styles.header}>
           <div className={styles.aiIndicator}>
             <span className={styles.dot}></span>
@@ -109,7 +125,7 @@ export default function Profile() {
           </p>
         </div>
 
-        {/* Stats Cards */}
+        {/* Stats */}
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={styles.statIcon}>💎</div>
@@ -137,7 +153,6 @@ export default function Profile() {
         {/* Profile Form */}
         <div className={styles.formSection}>
           <h3 className={styles.sectionTitle}>Account Information</h3>
-          
           <form onSubmit={updateProfile} className={styles.form}>
             <div className={styles.inputGroup}>
               <label className={styles.label}>Email Address</label>
@@ -153,7 +168,6 @@ export default function Profile() {
               </div>
               <span className={styles.helperText}>Email cannot be changed</span>
             </div>
-
             <div className={styles.inputGroup}>
               <label className={styles.label}>Username</label>
               <div className={styles.inputWrapper}>
@@ -167,7 +181,6 @@ export default function Profile() {
                 />
               </div>
             </div>
-
             <button
               type="submit"
               disabled={updating}
@@ -209,7 +222,6 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Messages */}
         {errorMsg && (
           <div className={styles.errorMessage}>
             <span className={styles.errorIcon}>⚠️</span>

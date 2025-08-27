@@ -11,8 +11,8 @@ export default function HeroSection() {
       shortTitle: "Restore Damaged Photos",
       description: "Remove scratches, tears, and fading from your treasured family photos. Perfect for preserving irreplaceable memories.",
       beforeAfter: {
-        before: "/images/damaged-snippet.jpg",
-        after: "/images/repaired-snippet.jpg"
+        before: "/images/basicpage-before.jpg",
+        after: "/images/basicpage-after.jpg"
       },
       link: "/replicate/restore-basic",
       credits: 1,

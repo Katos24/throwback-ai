@@ -19,7 +19,7 @@ const HowItWorksSection = () => {
       icon: '⚡',
       title: 'Lightning-Fast Results',
       description:
-        'Your photo is processed in under 2 minutes. Even full restorations rarely take more than 90 seconds.',
+        'Your photo is processed in under 1 minute. Even full restorations rarely take more than 30 seconds.',
     },
     {
       icon: '⬇️',

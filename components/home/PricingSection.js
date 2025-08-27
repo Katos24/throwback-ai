@@ -5,6 +5,7 @@ import pricingStyles from '../../styles/Pricing.module.css';
 const PricingSection = () => {
   const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -17,41 +18,44 @@ const PricingSection = () => {
       id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
       name: "Dawn Pack",
       price: "$4.99",
-      credits: "400",
+      credits: 400,
       description: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
-      revivals: "10",
+      revivals: 10,
       perRestore: "$0.50",
+      gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
       featured: false
     },
     {
       id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
       name: "Revival Pack", 
       price: "$9.99",
-      credits: "1,000", 
+      credits: 1000, 
       description: "A solid bundle for breathing new life into vintage family shots.",
-      revivals: "25",
+      revivals: 25,
       perRestore: "$0.40",
+      gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
       featured: false
     },
     {
       id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
       name: "Resurgence Pack",
       price: "$14.99",
-      credits: "1,600",
+      credits: 1600,
       description: "A popular pick for curating full-family albums and restoring event photos.",
-      revivals: "40", 
+      revivals: 40, 
       perRestore: "$0.37",
-      featured: true,
-      badge: "MOST POPULAR"
+      gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      featured: false,
     },
     {
       id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
       name: "Eternal Pack",
       price: "$29.99", 
-      credits: "3,500",
+      credits: 3500,
       description: "Built for legacy-level restoration — preserve history at scale.",
-      revivals: "87",
+      revivals: 87,
       perRestore: "$0.34", 
+      gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
       featured: false
     }
   ];
@@ -95,75 +99,93 @@ const PricingSection = () => {
           Pay only for what you use — no monthly subscriptions, no hidden fees. Your credits never expire.
         </p>
         
-        <div className={pricingStyles.pricingGrid}>
-          {creditPacks.map((pack, index) => (
-            <div 
-              key={index} 
-              className={`${pricingStyles.pricingCard} ${pack.featured ? pricingStyles.featured : ''}`}
-            >
-              {pack.badge && (
-                <div className={pricingStyles.pricingBadge}>
-                  👑{pack.badge}
-                </div>
-              )}
-              
-              <div className={pricingStyles.cardHeader}>
-                <h3 className={pricingStyles.pricingTitle}>
-                  🌅 {pack.name}
-                </h3>
+        <div className={pricingStyles.packGrid}>
+          {creditPacks.map((pack) => {
+            const priceNumber = parseFloat(pack.price.slice(1));
+            const costPerCredit = (priceNumber / pack.credits).toFixed(3);
 
-                
-                <div className={pricingStyles.price}>
-                  <span className={pricingStyles.priceAmount}>{pack.price}</span>
-                </div>
-                
-                <div className={pricingStyles.credits}>
-                  <span className={pricingStyles.creditsAmount}>{pack.credits}</span>
-                  <span className={pricingStyles.creditsLabel}>credits</span>
-                </div>
-              </div>
-              
-              <p className={pricingStyles.pricingDescription}>
-                {pack.description}
-              </p>
-              
-              <p className={pricingStyles.subDescription}>
-                {pack.subDescription}
-              </p>
-              
-              <div className={pricingStyles.featureHighlights}>
-                <div className={pricingStyles.featureItem}>
-                  <span className={pricingStyles.featureIcon}>💎</span>
-                  <span className={pricingStyles.featureNumber}>{pack.revivals}</span>
-                  <div className={pricingStyles.featureLabel}>Premium Revivals</div>
-                </div>
-                
-                <div className={pricingStyles.featureItem}>
-                  <span className={pricingStyles.featureIcon}>💰</span>
-                  <span className={pricingStyles.featureNumber}>{pack.perRestore}</span>
-                  <div className={pricingStyles.featureLabel}>Per Restore</div>
-                </div>
-              </div>
-              
-              <button
-                onClick={() => handlePurchase(pack.id)}
-                disabled={loadingId === pack.id}
-                aria-label={`Purchase ${pack.name} credit pack`}
-                className={`${pricingStyles.pricingButton} ${loadingId === pack.id ? pricingStyles.loading : ''}`}
+            return (
+              <div 
+                key={pack.id} 
+                className={`${pricingStyles.creditCard} ${pack.featured ? pricingStyles.featured : ''}`}
+                onMouseEnter={() => setHoveredCard(pack.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{ '--card-gradient': pack.gradient }}
               >
-                {loadingId === pack.id ? (
-                  <>
-                    <span className={pricingStyles.spinner}>⚡</span>
-                    PROCESSING...
-                  </>
-                ) : (
-                  <>
-                    🚀 BEGIN RESTORATION
-                  </>
+                {pack.badge && (
+                  <div className={pricingStyles.popularBadge}>
+                    <span className={pricingStyles.crown}>⭐</span>
+                    {pack.badge}
+                  </div>
                 )}
-              </button>
-            </div>
-          ))}
+                
+                <div className={pricingStyles.cardHeader}>
+                  <h3 className={pricingStyles.packName}>{pack.name}</h3>
+                </div>
+
+                <div className={pricingStyles.priceSection}>
+                  <div className={pricingStyles.mainPrice}>
+                    <span className={pricingStyles.currency}>$</span>
+                    <span className={pricingStyles.amount}>{pack.price.slice(1)}</span>
+                  </div>
+                  <div className={pricingStyles.creditsInfo}>
+                    <span className={pricingStyles.creditCount}>{pack.credits.toLocaleString()}</span>
+                    <span className={pricingStyles.creditLabel}>credits</span>
+                  </div>
+                  <div className={pricingStyles.valueInfo}>
+                    ${costPerCredit} per credit
+                  </div>
+                </div>
+
+                <div className={pricingStyles.cardContent}>
+                  <p className={pricingStyles.tagline}>{pack.description}</p>
+
+                  <div className={pricingStyles.featuresGrid}>
+                    <div className={pricingStyles.featureItem}>
+                      <span className={pricingStyles.featureIcon}>🔧</span>
+                      <div>
+                        <span className={pricingStyles.featureValue}>{pack.credits}</span>
+                        <span className={pricingStyles.featureLabel}> Photo Restorations</span>
+                      </div>
+                    </div>
+                    <div className={pricingStyles.featureItem}>
+                      <span className={pricingStyles.featureIcon}>🎨</span>
+                      <div>
+                        <span className={pricingStyles.featureValue}>{pack.revivals}</span>
+                        <span className={pricingStyles.featureLabel}> Premium Revivals</span>
+                      </div>
+                    </div>
+                    <div className={pricingStyles.featureItem}>
+                      <span className={pricingStyles.featureIcon}>💰</span>
+                      <div>
+                        <span className={pricingStyles.featureValue}>{pack.perRestore}</span>
+                        <span className={pricingStyles.featureLabel}> Per Restore</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  className={`${pricingStyles.buyBtn} ${loadingId === pack.id ? pricingStyles.loading : ''}`}
+                  onClick={() => handlePurchase(pack.id)}
+                  disabled={loadingId === pack.id}
+                  aria-label={`Purchase ${pack.name} credit pack`}
+                >
+                  {loadingId === pack.id ? (
+                    <>
+                      <span className={pricingStyles.spinner}>⚡</span>
+                      PROCESSING...
+                    </>
+                  ) : (
+                    <>
+                      <span className={pricingStyles.buttonIcon}>🚀</span>
+                      BEGIN RESTORATION
+                    </>
+                  )}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

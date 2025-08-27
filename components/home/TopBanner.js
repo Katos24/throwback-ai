@@ -58,7 +58,7 @@ const TopBanner = () => {
         
         <h2 className={TopBannerStyles.sectionTitle}>
           Neural Enhancement
-          <span className={TopBannerStyles.titleGradient}>Showcase</span>
+          <span className={TopBannerStyles.titleGradient}> Showcase</span>
         </h2>
         
         <p className={TopBannerStyles.sectionSubtitle}>

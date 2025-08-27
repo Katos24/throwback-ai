@@ -60,26 +60,32 @@ const bannerStyle = {
   color: "#fff",
   display: "flex",
   alignItems: "center",
-  padding: "1rem",
+  justifyContent: "space-between",
+  padding: "0.5rem 1rem", // reduce padding
+  flexWrap: "wrap",       // allow wrapping on small screens
+  gap: "0.5rem",          // smaller gap
+  fontSize: "0.9rem",     // slightly smaller text
   zIndex: 1000,
-  gap: "1rem",
 };
 
+// Buttons stay mostly the same but smaller on mobile
 const acceptButtonStyle = {
   backgroundColor: "#4caf50",
   border: "none",
-  padding: "0.5rem 1rem",
+  padding: "0.4rem 0.8rem",
   color: "#fff",
   cursor: "pointer",
   borderRadius: "4px",
+  fontSize: "0.85rem",
 };
 
 const rejectButtonStyle = {
   backgroundColor: "#f44336",
   border: "none",
-  padding: "0.5rem 1rem",
+  padding: "0.4rem 0.8rem",
   color: "#fff",
   cursor: "pointer",
   borderRadius: "4px",
   marginRight: "0.5rem",
+  fontSize: "0.85rem",
 };

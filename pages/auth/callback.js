@@ -6,15 +6,25 @@ export default function AuthCallback() {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        // User logged in successfully
-        router.replace("/"); // or your app's landing page
-      } else {
-        // No session — redirect to login
-        router.replace("/login");
+    const handleRedirect = async () => {
+      const { data: { session }, error } = await supabase.auth.getSessionFromUrl({
+        storeSession: true, // saves session in local storage / cookie
+      });
+
+      if (error) {
+        console.error("Auth callback error:", error.message);
+        router.replace("/login"); // send to login on error
+        return;
       }
-    });
+
+      if (session) {
+        router.replace("/"); // logged in, send to home
+      } else {
+        router.replace("/login"); // fallback
+      }
+    };
+
+    handleRedirect();
   }, [router]);
 
   return <p>Logging you in…</p>;

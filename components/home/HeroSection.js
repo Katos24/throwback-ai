@@ -16,7 +16,7 @@ export default function HeroSection() {
       },
       link: "/replicate/restore-basic",
       credits: 1,
-      buttonText: "Restore My Photo"
+      buttonText: "Restore (Try Free)"
     },
     {
       id: 'colorize',

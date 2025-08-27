@@ -18,7 +18,7 @@
   --gradient-main:     linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
 
   position: relative;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 35px 24px 100px 24px; /* Much smaller top padding */
 
@@ -680,7 +680,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .container {
-    padding: calc(60px + 50px) 16px 60px 16px; /* Top padding reduced for mobile */
+    padding: calc(60px + 20px) 16px 60px 16px; /* Much shorter top padding for mobile */
   }
 
   .heading {
@@ -736,7 +736,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: calc(60px + 40px) 16px 60px 16px; /* Top padding = 100px, right/left = 16px, bottom = 60px */
+    padding: calc(60px + 20px) 16px 60px 16px; /* Top padding = 80px, right/left = 16px, bottom = 60px */
   }
   
     .heading {

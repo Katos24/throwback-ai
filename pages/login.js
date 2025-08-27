@@ -16,14 +16,8 @@ export default function LoginPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [showEmailHint, setShowEmailHint] = useState(false);
-  const [baseUrl, setBaseUrl] = useState(''); // <--- client-safe baseUrl
   const cooldownRef = useRef(null);
   const emailInputRef = useRef(null);
-
-  // Set base URL on client side
-  useEffect(() => {
-    setBaseUrl(process.env.NEXT_PUBLIC_BASE_URL || window.location.origin);
-  }, []);
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -150,7 +144,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${baseUrl}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback`,
           queryParams: { prompt: "select_account" },
         },
       });
@@ -162,7 +156,8 @@ export default function LoginPage() {
         return;
       }
 
-      // OAuth redirect will happen automatically
+      // OAuth redirect will happen, so no need to setOauthLoading(false)
+      // The component will unmount when redirecting
     } catch (err) {
       console.error('OAuth error:', err);
       setOauthLoading(false);
@@ -198,7 +193,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOtp({ 
         email: email.trim(),
         options: {
-          emailRedirectTo: `${baseUrl}/auth/callback`
+          emailRedirectTo: `${window.location.origin}/auth/callback`
         }
       });
 

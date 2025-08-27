@@ -2,7 +2,7 @@
 .main {
   max-width: 720px;
   /* UPDATED: Add header compensation to top margin */
-  margin: calc(4rem + 100px) auto 4rem auto; /* Header space + original 4rem */
+  margin: calc(.5rem + 100px) auto 4rem auto; /* Header space + original 4rem */
   padding: 3rem;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   line-height: 1.8;

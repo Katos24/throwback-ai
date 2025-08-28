@@ -12,7 +12,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://throwbackai.app/images/greek-after.png"
+          content="https://throwbackai.app/images/Throwback-AI.jpg"
         />
         <meta property="og:url" content="https://throwbackai.app" />
         <meta property="og:type" content="website" />
@@ -27,7 +27,7 @@ export default function Document() {
         />
         <meta
           name="twitter:image"
-          content="https://throwbackai.app/images/greek-after.png"
+          content="https://throwbackai.app/images/throwback-ai.jpg"
         />
         <meta name="twitter:url" content="https://throwbackai.app" />
         <meta name="twitter:site" content="@ThrowbackAI" /> {/* Optional: your Twitter handle */}

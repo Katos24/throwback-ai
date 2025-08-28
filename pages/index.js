@@ -13,8 +13,8 @@ export default function Home() {
   const siteUrl = 'https://throwbackai.app';
   const pagePath = '/';
   const pageUrl = `${siteUrl}${pagePath}`;
-  const ogImage = `${siteUrl}/images/greek-after.png`; // hero/share image
-  const twitterImage = `${siteUrl}/images/greek-after.png`;
+  const ogImage = `${siteUrl}/images/throwback-ai.jpg`; // hero/share image
+  const twitterImage = `${siteUrl}/images/throwback-ai.jpg`;
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 

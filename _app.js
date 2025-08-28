@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
   const defaultDescription = 
     "Transform your vintage photos with Throwback AI's powerful suite. Restore damaged photos, add stunning colors to black & white images, and create cartoon art. Professional AI-powered photo restoration, colorization, and creative effects.";
   const defaultUrl = "https://throwbackai.app";
-  const defaultImage = "https://throwbackai.app/images/greek-after.png";
+  const defaultImage = "https://throwbackai.app/images/throwback-ai.jpg";
   const keywords = "AI photo restoration, photo colorization, vintage photo repair, black and white colorization, AI photo enhancement, cartoon creator, photo damage repair, old photo restoration, AI art generator";
 
   return (

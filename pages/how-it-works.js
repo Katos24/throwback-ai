@@ -156,7 +156,7 @@ export default function HowItWorksPage() {
   const siteUrl = 'https://throwbackai.app';
   const pagePath = '/how-it-works';
   const pageUrl = `${siteUrl}${pagePath}`;
-  const ogImage = `${siteUrl}/images/greek-after.png`; // replace with your image
+  const ogImage = `${siteUrl}/images/throwback-ai.jpg`; // replace with your image
   const twitterImage = ogImage;
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';

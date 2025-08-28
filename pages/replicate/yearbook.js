@@ -21,7 +21,8 @@ const styleCategories = {
       promptDesc: "authentic 90s hip-hop fashion with baggy jeans, oversized jersey, gold chains, Timberland boots, snapback cap, street photography style", 
       style: "Cinematic",
       styleStrength: 22,
-      guidanceScale: 6
+      guidanceScale: 6,
+      referenceImage: "https://throwbackai.app/images/rap-reference.jpg"
     },
     { 
       label: "💿 Mall Goth", 
@@ -39,6 +40,14 @@ const styleCategories = {
       styleStrength: 20,
       guidanceScale: 5
     },
+    {
+  label: "🎽 Retro Track Star",
+  value: "trackstar",
+  promptDesc: "90s athletic fashion with bold striped windbreaker jacket, silver chain necklace, voluminous hair, soft blue studio background, vibrant colors, nostalgic sportswear styling, VHS texture",
+  style: "Photographic (Default)",
+  styleStrength: 26,
+  guidanceScale: 6
+},
   ],
   preppy: [
     { 
@@ -396,6 +405,7 @@ export default function YearbookTransform() {
               </button>
             ))}
           </div>
+
 
           {selectedStyleDetails && (
             <div className={styles.styleDescription}>

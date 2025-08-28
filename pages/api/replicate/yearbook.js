@@ -154,13 +154,14 @@ export default async function handler(req, res) {
   const referrerUrl = req.headers.referer;
   const sessionId = generateSessionId();
 
-  const { imageBase64, prompt, negativePrompt, userId } = req.body;
+  // Extract referenceImage from request body
+  const { imageBase64, prompt, negativePrompt, userId, referenceImage } = req.body;
 
   if (!imageBase64 || !prompt) {
     return res.status(400).json({ error: "Missing image or prompt" });
   }
 
-  const MODEL_COST = 20; // Updated cost
+  const MODEL_COST = 20;
   const MODEL_VERSION = "467d062309da518648ba89d226490e02b8ed09b5abc15026e54e31c5a8cd0769";
 
   let predictionId = null;
@@ -177,15 +178,38 @@ export default async function handler(req, res) {
       console.log(`Deducted ${MODEL_COST} credits from user ${userId}`);
     }
 
-    // Create prediction
+    // Create prediction with reference image handling
     queueStartTime = Date.now();
+    
+    console.log("Reference image received:", referenceImage);
+    
+    const inputData = {
+      input_image: `data:image/png;base64,${imageBase64}`,
+      prompt,
+      ...(negativePrompt ? { negative_prompt: negativePrompt } : {}),
+    };
+
+    // Handle reference image if provided
+    if (referenceImage) {
+      // Convert relative path to full URL using your domain
+      const fullReferenceUrl = referenceImage.startsWith('http') 
+        ? referenceImage 
+        : `https://throwbackai.app${referenceImage}`;
+      
+      console.log("Using reference URL:", fullReferenceUrl);
+      
+      // Try multiple parameter names since we're not sure which one the model expects
+      inputData.input_id_images = [fullReferenceUrl];  // PhotoMaker style
+      inputData.num_id_images = 1;                     // PhotoMaker parameter
+      inputData.reference_image = fullReferenceUrl;    // Alternative parameter name
+      inputData.style_reference = fullReferenceUrl;    // Another alternative
+    }
+
+    console.log("Final input data being sent to Replicate:", JSON.stringify(inputData, null, 2));
+
     const prediction = await replicate.predictions.create({
       version: MODEL_VERSION,
-      input: {
-        input_image: `data:image/png;base64,${imageBase64}`,
-        prompt,
-        ...(negativePrompt ? { negative_prompt: negativePrompt } : {}),
-      },
+      input: inputData,
     });
 
     predictionId = prediction.id;
@@ -212,6 +236,8 @@ export default async function handler(req, res) {
 
         if (result.status === "succeeded") {
           clearTimeout(cancelTimeout);
+          // Log what was actually sent to see if reference image was included
+          console.log("Final prediction input that was processed:", JSON.stringify(result.input, null, 2));
           return result.output;
         }
         if (["failed", "canceled"].includes(result.status)) {
@@ -229,11 +255,18 @@ export default async function handler(req, res) {
     const imageUrl = Array.isArray(output) ? output[0] : output;
     const endTime = Date.now();
 
+    // Log the request with reference image info
     await logEnhancedRequest({
       userId,
       predictionId,
       status: "succeeded",
-      requestData: { prompt, negativePrompt, prediction_id: predictionId, model: MODEL_VERSION },
+      requestData: { 
+        prompt, 
+        negativePrompt, 
+        referenceImage: referenceImage || null,
+        prediction_id: predictionId, 
+        model: MODEL_VERSION 
+      },
       startTime,
       endTime,
       queueStartTime,
@@ -260,11 +293,18 @@ export default async function handler(req, res) {
       await refundCredits(userId, MODEL_COST, predictionId || "error");
     }
 
+    // Log the error with reference image info
     await logEnhancedRequest({
       userId,
       predictionId,
       status: "failed",
-      requestData: { prompt, negativePrompt, prediction_id: predictionId, model: MODEL_VERSION },
+      requestData: { 
+        prompt, 
+        negativePrompt, 
+        referenceImage: referenceImage || null,
+        prediction_id: predictionId, 
+        model: MODEL_VERSION 
+      },
       startTime,
       endTime,
       queueStartTime,

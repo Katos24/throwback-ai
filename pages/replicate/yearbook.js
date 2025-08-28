@@ -7,32 +7,137 @@ import styles from "../../styles/YearbookTransform.module.css";
 
 const styleCategories = {
   popular: [
-    { label: "🎸 Grunge Legend", value: "grunge", promptDesc: "1990s grunge style with flannel shirts, ripped jeans, band tees, and messy long hair", style: "Photographic (Default)" },
-    { label: "🧢 Hip Hop Star", value: "hiphop", promptDesc: "90s hip-hop fashion with baggy jeans, oversized jerseys, gold chains, Timberland boots, and snapback caps", style: "Photographic (Default)" },
-    { label: "💿 Mall Goth", value: "mallgoth", promptDesc: "mall goth aesthetic with black fishnets, heavy eyeliner, band tees, studded accessories, and platform boots", style: "Photographic (Default)" },
-    { label: "🏀 Star Athlete", value: "jock", promptDesc: "90s high school athlete look with varsity jacket, basketball shorts, Nike sneakers, and sweatbands", style: "Photographic (Default)" },
+    { 
+      label: "🎸 Grunge Legend", 
+      value: "grunge", 
+      promptDesc: "moody 1990s grunge portrait, alternative rock musician style, wearing flannel shirt and distressed band t-shirt, long messy hair, dark atmospheric lighting, Seattle grunge scene aesthetic", 
+      style: "Cinematic",
+      styleStrength: 25,
+      guidanceScale: 6
+    },
+    { 
+      label: "🧢 Hip Hop Star", 
+      value: "hiphop", 
+      promptDesc: "authentic 90s hip-hop fashion with baggy jeans, oversized jersey, gold chains, Timberland boots, snapback cap, street photography style", 
+      style: "Cinematic",
+      styleStrength: 22,
+      guidanceScale: 6
+    },
+    { 
+      label: "💿 Mall Goth", 
+      value: "mallgoth", 
+      promptDesc: "mall goth aesthetic with black fishnets, heavy dark eyeliner, band t-shirt, studded leather accessories, platform boots, moody lighting", 
+      style: "Enhance",
+      styleStrength: 25,
+      guidanceScale: 7
+    },
+    { 
+      label: "🏀 Star Athlete", 
+      value: "jock", 
+      promptDesc: "90s high school athlete with varsity letterman jacket, athletic wear, Nike sneakers, healthy sporty look, school portrait lighting", 
+      style: "Photographic (Default)",
+      styleStrength: 20,
+      guidanceScale: 5
+    },
   ],
   preppy: [
-    { label: "🧼 Prep School Elite", value: "preppy", promptDesc: "preppy 90s style with polo shirts, khaki pants, sweater tied around shoulders, and boat shoes", style: "Photographic (Default)" },
-    { label: "🌸 Sweet Valley High", value: "sweetvalley", promptDesc: "sweet 90s teen fashion with pastel colors, crop tops, high-waisted jeans, and scrunchies", style: "Fantasy art" },
-    { label: "👔 Future CEO", value: "business", promptDesc: "young professional 90s look with blazer, dress shirt, tie, and perfectly styled hair", style: "Cinematic" },
+    { 
+      label: "🧼 Prep School Elite", 
+      value: "preppy", 
+      promptDesc: "classic preppy 90s style with polo shirt, khaki pants, sweater tied around shoulders, boat shoes, clean-cut appearance", 
+      style: "Photographic (Default)",
+      styleStrength: 18,
+      guidanceScale: 5
+    },
+    { 
+      label: "🌸 Sweet Valley High", 
+      value: "sweetvalley", 
+      promptDesc: "sweet 90s teen fashion with pastel colors, crop top, high-waisted jeans, scrunchies, soft dreamy lighting", 
+      style: "Fantasy art",
+      styleStrength: 20,
+      guidanceScale: 6
+    },
+    { 
+      label: "👔 Future CEO", 
+      value: "business", 
+      promptDesc: "young professional 90s look with blazer, crisp dress shirt, silk tie, perfectly styled hair, confident pose", 
+      style: "Cinematic",
+      styleStrength: 22,
+      guidanceScale: 6
+    },
   ],
   quirky: [
-    { label: "🦄 Lisa Frank Dreamer", value: "lisafrank", promptDesc: "colorful Lisa Frank-inspired 90s fashion with neon colors, glittery accessories, and rainbow prints", style: "Digital Art" },
-    { label: "📼 Tech Nerd", value: "technerd", promptDesc: "90s computer geek with thick glasses, pocket protector, suspenders, and tucked-in plaid shirt", style: "Photographic (Default)" },
-    { label: "🎨 Art Class Hero", value: "artsy", promptDesc: "creative 90s artist look with paint-splattered clothes, beret, and bohemian accessories", style: "Fantasy art" },
-    { label: "🕶️ Skater Kid", value: "skater", promptDesc: "90s skater style with baggy cargo pants, graphic tee, Vans shoes, backwards cap, and skateboard", style: "Comic book" },
+    { 
+      label: "🦄 Lisa Frank Dreamer", 
+      value: "lisafrank", 
+      promptDesc: "colorful Lisa Frank-inspired 90s fashion with neon rainbow colors, glittery accessories, holographic prints, whimsical styling", 
+      style: "Digital Art",
+      styleStrength: 28,
+      guidanceScale: 7
+    },
+    { 
+      label: "📼 Tech Nerd", 
+      value: "technerd", 
+      promptDesc: "90s computer geek with thick wireframe glasses, pocket protector, suspenders, tucked-in plaid shirt, calculator watch", 
+      style: "Photographic (Default)",
+      styleStrength: 20,
+      guidanceScale: 6
+    },
+    { 
+      label: "🎨 Art Class Hero", 
+      value: "artsy", 
+      promptDesc: "creative 90s artist look with paint-splattered clothes, black beret, bohemian accessories, artistic flair", 
+      style: "Fantasy art",
+      styleStrength: 24,
+      guidanceScale: 6
+    },
+    { 
+      label: "🕶️ Skater Kid", 
+      value: "skater", 
+      promptDesc: "90s skater style with baggy cargo pants, graphic band tee, Vans sneakers, backwards baseball cap, rebellious attitude", 
+      style: "Comic book",
+      styleStrength: 23,
+      guidanceScale: 6
+    },
   ],
   iconic: [
-    { label: "📺 Sitcom Star", value: "sitcom", promptDesc: "90s TV show character style with bright patterns, bold colors, and iconic 90s fashion trends", style: "Enhance" },
-    { label: "🎤 Pop Princess", value: "popstar", promptDesc: "90s pop star look with sparkly outfits, crop tops, platform shoes, and bold makeup", style: "Neonpunk" },
-    { label: "🧙‍♂️ Fantasy Enthusiast", value: "fantasy", promptDesc: "90s fantasy fan with D&D books, graphic fantasy tee, long hair, and wireframe glasses", style: "Fantasy art" },
-    { label: "🐢 Cartoon Fan", value: "cartoonkid", promptDesc: "90s cartoon-loving kid with character tees, colorful accessories, and playful styling", style: "Disney Character" },
+    { 
+      label: "📺 Sitcom Star", 
+      value: "sitcom", 
+      promptDesc: "90s TV show character style with bright bold patterns, iconic fashion trends, studio lighting, classic American teen look", 
+      style: "Enhance",
+      styleStrength: 25,
+      guidanceScale: 7
+    },
+    { 
+      label: "🎤 Pop Princess", 
+      value: "popstar", 
+      promptDesc: "90s pop star look with sparkly crop top, platform shoes, frosted eyeshadow, bold colorful makeup, stage lighting", 
+      style: "Neonpunk",
+      styleStrength: 27,
+      guidanceScale: 7
+    },
+    { 
+      label: "🧙‍♂️ Fantasy Enthusiast", 
+      value: "fantasy", 
+      promptDesc: "90s fantasy fan with D&D graphic t-shirt, long hair, wireframe glasses, fantasy book accessories, nerdy charm", 
+      style: "Fantasy art",
+      styleStrength: 22,
+      guidanceScale: 6
+    },
+    { 
+      label: "🐢 Cartoon Fan", 
+      value: "cartoonkid", 
+      promptDesc: "90s cartoon-loving kid with animated character t-shirt, colorful accessories, playful styling, bright cheerful lighting", 
+      style: "Disney Character",
+      styleStrength: 24,
+      guidanceScale: 6
+    },
   ]
 };
 
-const DEFAULT_NEGATIVE_PROMPT =
-  "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group, crowd, background people, other persons, race change, ethnicity change, skin tone change, facial structure change, different person, wrong identity";
+const ENHANCED_NEGATIVE_PROMPT =
+  "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group photo, other people, crowd, yearbook page layout, school group, classmates, other faces, two people, three people, group portrait, many people, background people, modern clothing, contemporary fashion, digital photography, harsh lighting, oversaturated colors, modern hairstyles, smartphone, 2000s style, 2010s fashion, modern technology, instagram filter, face change, different person, altered facial features, wrong face, facial distortion, unrecognizable face, race change, ethnicity change, skin tone change, facial structure change, wrong identity";
 
 export default function YearbookTransform() {
   const router = useRouter();
@@ -126,7 +231,8 @@ export default function YearbookTransform() {
       return;
     }
 
-    const prompt = `Professional yearbook headshot portrait of a single person img wearing ${selectedCharacter.promptDesc}. School yearbook photography style with clean studio lighting, focused on face and upper shoulders only. IMPORTANT: Preserve exact original facial features, skin tone, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Single person only, no background people`;
+    // Enhanced prompt construction for better results
+    const prompt = `A single vintage 1990s portrait of img, ${selectedCharacter.promptDesc}, individual school portrait style, soft vintage lighting, authentic 90s photography, single person headshot only. IMPORTANT: Preserve exact original facial features, skin tone, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged.`;
 
     try {
       setIsLoading(true);
@@ -153,7 +259,11 @@ export default function YearbookTransform() {
         body: JSON.stringify({
           imageBase64: base64,
           prompt,
-          negativePrompt: DEFAULT_NEGATIVE_PROMPT,
+          negativePrompt: ENHANCED_NEGATIVE_PROMPT,
+          styleName: selectedCharacter.style,
+          styleStrengthRatio: selectedCharacter.styleStrength,
+          guidanceScale: selectedCharacter.guidanceScale,
+          numSteps: 30, // Increased for better quality
           userId,
         }),
       });
@@ -195,11 +305,20 @@ export default function YearbookTransform() {
     }
   };
 
+  // Get the selected style details for display
+  const getSelectedStyleDetails = () => {
+    if (!selectedStyle) return null;
+    const allStyles = Object.values(styleCategories).flat();
+    return allStyles.find((c) => c.value === selectedStyle);
+  };
+
+  const selectedStyleDetails = getSelectedStyleDetails();
+
   return (
     <>
       <Head>
-        <title>90s Yearbook Transform | Anastasis</title>
-        <meta name="description" content="Transform your photos into iconic 90s yearbook styles with AI" />
+        <title>90s Yearbook Transform | Throwback AI</title>
+        <meta name="description" content="Transform your photos into authentic 90s yearbook styles with AI. Choose from grunge, hip-hop, preppy, and more iconic 90s looks." />
       </Head>
 
       <main className={styles.container}>
@@ -209,7 +328,7 @@ export default function YearbookTransform() {
             90s Yearbook Transform
           </h1>
           <p className={styles.subtitle}>
-            Travel back in time! Transform your photo into an iconic 90s yearbook picture with authentic retro styles.
+            Travel back in time! Transform your photo into an authentic 90s yearbook picture with iconic retro styles.
           </p>
         </div>
 
@@ -234,7 +353,7 @@ export default function YearbookTransform() {
                 <div className={styles.uploadIcon}>📷</div>
                 <h3>Upload Your Photo</h3>
                 <p>Drag & drop or click to select</p>
-                <small>Best results with clear face photos</small>
+                <small>Best results with clear, front-facing face photos</small>
               </div>
             )}
           </div>
@@ -271,9 +390,24 @@ export default function YearbookTransform() {
               >
                 <span className={styles.styleEmoji}>{style.label.split(' ')[0]}</span>
                 <span className={styles.styleName}>{style.label.substring(2)}</span>
+                <small className={styles.stylePreview}>
+                  {style.style} • Strength: {style.styleStrength}%
+                </small>
               </button>
             ))}
           </div>
+
+          {selectedStyleDetails && (
+            <div className={styles.styleDescription}>
+              <h3>Style Preview: {selectedStyleDetails.label.substring(2)}</h3>
+              <p>{selectedStyleDetails.promptDesc}</p>
+              <div className={styles.styleSettings}>
+                <span>Style: {selectedStyleDetails.style}</span> • 
+                <span>Strength: {selectedStyleDetails.styleStrength}%</span> • 
+                <span>Guidance: {selectedStyleDetails.guidanceScale}</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className={styles.generateSection}>
@@ -285,7 +419,7 @@ export default function YearbookTransform() {
             {isLoading ? (
               <>
                 <span className={styles.spinner}></span>
-                Creating your 90s look...
+                Creating your 90s transformation...
               </>
             ) : (
               <>
@@ -310,7 +444,7 @@ export default function YearbookTransform() {
               className={`${styles.generateBtn} ${styles.upgradeBtn}`}
             >
               <span>💎</span>
-              Upgrade for Premium Quality ($9.99)
+              Upgrade for Premium Quality
             </button>
           )}
         </div>
@@ -329,7 +463,16 @@ export default function YearbookTransform() {
                   onClick={handleDownload}
                   className={styles.downloadBtn}
                 >
-                  📥 Download
+                  📥 Download Your 90s Photo
+                </button>
+                <button 
+                  onClick={() => {
+                    setSelectedStyle(null);
+                    setResultImageUrl(null);
+                  }}
+                  className={styles.tryAnotherBtn}
+                >
+                  🔄 Try Another Style
                 </button>
               </div>
             </div>

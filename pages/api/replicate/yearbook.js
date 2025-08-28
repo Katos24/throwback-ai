@@ -154,14 +154,24 @@ export default async function handler(req, res) {
   const referrerUrl = req.headers.referer;
   const sessionId = generateSessionId();
 
-  // Extract referenceImage from request body
-  const { imageBase64, prompt, negativePrompt, userId, referenceImage } = req.body;
+  // Extract parameters from request body
+  const { 
+    imageBase64, 
+    prompt, 
+    negativePrompt, 
+    userId, 
+    referenceImage,
+    styleName,
+    styleStrength,
+    guidanceScale 
+  } = req.body;
 
   if (!imageBase64 || !prompt) {
     return res.status(400).json({ error: "Missing image or prompt" });
   }
 
   const MODEL_COST = 20;
+  // Keep your existing model version that supports input_image2
   const MODEL_VERSION = "467d062309da518648ba89d226490e02b8ed09b5abc15026e54e31c5a8cd0769";
 
   let predictionId = null;
@@ -178,34 +188,34 @@ export default async function handler(req, res) {
       console.log(`Deducted ${MODEL_COST} credits from user ${userId}`);
     }
 
-    // Create prediction with reference image handling
+    // Create prediction with input_image2 support
     queueStartTime = Date.now();
     
     console.log("Reference image received:", referenceImage);
     
+    // Build input data matching the successful example format
     const inputData = {
       input_image: `data:image/png;base64,${imageBase64}`,
       prompt,
-      ...(negativePrompt ? { negative_prompt: negativePrompt } : {}),
+      negative_prompt: negativePrompt || "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+      style_name: styleName || "(No style)",
+      style_strength_ratio: styleStrength || 20,
+      guidance_scale: guidanceScale || 5,
+      num_steps: 30,
+      num_outputs: 1,
     };
 
-    // Handle reference image if provided
+    // Add reference image as input_image2 if provided
     if (referenceImage) {
-      // Convert relative path to full URL using your domain
       const fullReferenceUrl = referenceImage.startsWith('http') 
         ? referenceImage 
         : `https://throwbackai.app${referenceImage}`;
       
-      console.log("Using reference URL:", fullReferenceUrl);
-      
-      // Try multiple parameter names since we're not sure which one the model expects
-      inputData.input_id_images = [fullReferenceUrl];  // PhotoMaker style
-      inputData.num_id_images = 1;                     // PhotoMaker parameter
-      inputData.reference_image = fullReferenceUrl;    // Alternative parameter name
-      inputData.style_reference = fullReferenceUrl;    // Another alternative
+      console.log("Adding input_image2:", fullReferenceUrl);
+      inputData.input_image2 = fullReferenceUrl;
     }
 
-    console.log("Final input data being sent to Replicate:", JSON.stringify(inputData, null, 2));
+    console.log("Final input data:", JSON.stringify(inputData, null, 2));
 
     const prediction = await replicate.predictions.create({
       version: MODEL_VERSION,
@@ -236,8 +246,7 @@ export default async function handler(req, res) {
 
         if (result.status === "succeeded") {
           clearTimeout(cancelTimeout);
-          // Log what was actually sent to see if reference image was included
-          console.log("Final prediction input that was processed:", JSON.stringify(result.input, null, 2));
+          console.log("Final prediction input processed:", JSON.stringify(result.input, null, 2));
           return result.output;
         }
         if (["failed", "canceled"].includes(result.status)) {
@@ -255,7 +264,7 @@ export default async function handler(req, res) {
     const imageUrl = Array.isArray(output) ? output[0] : output;
     const endTime = Date.now();
 
-    // Log the request with reference image info
+    // Log the request
     await logEnhancedRequest({
       userId,
       predictionId,
@@ -264,6 +273,9 @@ export default async function handler(req, res) {
         prompt, 
         negativePrompt, 
         referenceImage: referenceImage || null,
+        styleName,
+        styleStrength,
+        guidanceScale,
         prediction_id: predictionId, 
         model: MODEL_VERSION 
       },
@@ -293,7 +305,7 @@ export default async function handler(req, res) {
       await refundCredits(userId, MODEL_COST, predictionId || "error");
     }
 
-    // Log the error with reference image info
+    // Log the error
     await logEnhancedRequest({
       userId,
       predictionId,
@@ -302,6 +314,9 @@ export default async function handler(req, res) {
         prompt, 
         negativePrompt, 
         referenceImage: referenceImage || null,
+        styleName,
+        styleStrength,
+        guidanceScale,
         prediction_id: predictionId, 
         model: MODEL_VERSION 
       },

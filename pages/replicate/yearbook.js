@@ -263,19 +263,20 @@ export default function YearbookTransform() {
       });
 
       const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imageBase64: base64,
-          prompt,
-          negativePrompt: ENHANCED_NEGATIVE_PROMPT,
-          styleName: selectedCharacter.style,
-          styleStrengthRatio: selectedCharacter.styleStrength,
-          guidanceScale: selectedCharacter.guidanceScale,
-          numSteps: 30, // Increased for better quality
-          userId,
-        }),
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    imageBase64: base64,
+    prompt,
+    negativePrompt: ENHANCED_NEGATIVE_PROMPT,
+    // Send the PhotoMaker parameters that the API expects
+    styleName: selectedCharacter.style,           // "Cinematic"
+    styleStrength: selectedCharacter.styleStrength, // 22
+    guidanceScale: selectedCharacter.guidanceScale, // 6
+    referenceImage: selectedCharacter.referenceImage, // "https://throwbackai.app/images/rap-reference.jpg"
+    userId,
+  }),
+});
 
       if (!response.ok) {
         const errorData = await response.text();

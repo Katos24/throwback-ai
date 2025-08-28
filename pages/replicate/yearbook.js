@@ -48,6 +48,25 @@ const styleCategories = {
   styleStrength: 26,
   guidanceScale: 6
 },
+// Add this to your popular category in styleCategories
+// Add this to your popular category in styleCategories
+{
+  label: "🏫 Bayside High Student", 
+  value: "savedbythebell", 
+  promptDesc: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy guy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
+  style: "Photographic (Default)", 
+  styleStrength: 18,
+  guidanceScale: 5,
+},
+{
+  label: "🌈 90s Colorblock King", 
+  value: "colorblock90s", 
+  promptDesc: "authentic early 1990s streetwear style, wearing oversized geometric colorblock windbreaker jacket with bright yellow orange green red pink magenta color sections, dark crew neck t-shirt underneath, silver chain necklace, tousled messy dark hair, relaxed confident pose, clean studio lighting, vibrant bold color blocking fashion, retro athletic wear aesthetic, classic 90s track jacket style",
+  style: "Photographic (Default)", 
+  styleStrength: 20,
+  guidanceScale: 6,
+  // No reference image needed - the detailed prompt should handle it
+}
   ],
   preppy: [
     { 

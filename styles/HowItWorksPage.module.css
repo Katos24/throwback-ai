@@ -680,7 +680,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .container {
-    padding: calc(60px + 20px) 16px 60px 16px; /* Much shorter top padding for mobile */
+    padding-top: .1rem; /* Add space for header on desktop */
   }
 
   .heading {
@@ -736,7 +736,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: calc(60px + 20px) 16px 60px 16px; /* Top padding = 80px, right/left = 16px, bottom = 60px */
+    padding-top: .1rem; /* Add space for header on desktop */
   }
   
     .heading {

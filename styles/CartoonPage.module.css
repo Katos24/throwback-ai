@@ -3,7 +3,7 @@
 .container {
   min-height: 100vh;
   padding: 1rem;
-  padding-top: 1rem; /* Add space for header on desktop */
+  padding-top: .1rem; /* Add space for header on desktop */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   transition: all 0.3s ease;
   position: relative;
@@ -764,7 +764,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 0.5rem;
-    padding-top: 5rem; /* Header space for mobile */
+    padding-top: .2rem; /* Header space for mobile */
   }
 
   .creditsHeader {
@@ -853,7 +853,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding-top: 4.5rem; /* Slightly less space on very small screens */
+    padding-top: .2rem; /* Slightly less space on very small screens */
   }
   
   .uploadZone {

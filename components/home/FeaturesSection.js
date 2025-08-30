@@ -84,20 +84,6 @@ const FeaturesSection = () => {
           </div>
         </div>
 
-        {/* Optional: Add video section if you have one */}
-        {showVideo && (
-          <div className={FeaturesStyles.videoWrapper}>
-            <video
-              ref={videoRef}
-              className={FeaturesStyles.demoVideo}
-              muted
-              loop
-              playsInline
-            >
-              {/* Add your video source here if you have demo content */}
-            </video>
-          </div>
-        )}
       </div>
     </section>
   )

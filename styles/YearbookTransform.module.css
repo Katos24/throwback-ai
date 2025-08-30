@@ -292,6 +292,160 @@
   backdrop-filter: blur(5px);
 }
 
+/* NEW: Customization Section */
+.customizationSection {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.styleControls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controlGroup label {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlGroup small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-top: -0.25rem;
+}
+
+.styleSelect {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.styleSelect:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.styleSelect:focus {
+  border-color: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+.styleSelect option {
+  background: #1f2937;
+  color: white;
+  padding: 0.5rem;
+}
+
+.rangeSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.rangeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #4ade80, #22c55e);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+  transition: all 0.3s ease;
+}
+
+.rangeSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(74, 222, 128, 0.6);
+}
+
+.rangeSlider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #4ade80, #22c55e);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+  transition: all 0.3s ease;
+}
+
+.rangeSlider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(74, 222, 128, 0.6);
+}
+
+.currentSettings {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.currentSettings h4 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.settingsDisplay {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.settingsDisplay span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+.settingsDisplay strong {
+  color: #4ade80;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Generate Section */
 .generateSection {
   max-width: 500px;
@@ -497,6 +651,52 @@
     gap: 0.5rem;
   }
   
+  /* NEW: Mobile styles for customization section */
+  .customizationSection {
+    padding: 1.5rem;
+  }
+  
+  .styleControls {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .controlGroup label {
+    font-size: 0.9rem;
+  }
+  
+  .styleSelect {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .rangeSlider::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .rangeSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .currentSettings {
+    padding: 1rem;
+  }
+  
+  .currentSettings h4 {
+    font-size: 1rem;
+  }
+  
+  .settingsDisplay {
+    font-size: 0.85rem;
+    justify-content: center;
+  }
+  
+  .settingsDisplay span {
+    padding: 0.4rem 0.8rem;
+  }
+  
   .resultActions {
     flex-direction: column;
     align-items: center;
@@ -538,5 +738,25 @@
   .styleSettings span {
     padding: 0.2rem 0.6rem;
     font-size: 0.75rem;
+  }
+  
+  /* NEW: Extra small mobile styles */
+  .customizationSection {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .controlGroup small {
+    font-size: 0.8rem;
+  }
+  
+  .settingsDisplay {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  
+  .settingsDisplay span {
+    text-align: center;
   }
 }

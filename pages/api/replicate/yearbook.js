@@ -17,6 +17,34 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+// Style name mapping from frontend values to Replicate API values
+const STYLE_NAME_MAPPING = {
+  "Photographic (Default)": "Photographic (Default)",
+  "Cinematic": "Cinematic",
+  "Digital Art": "Digital Art",
+  "Fantasy art": "Fantasy art",
+  "Fantasy Art": "Fantasy art", // Handle both cases
+  "Neonpunk": "Neonpunk",
+  "Enhance": "Enhance",
+  "Comic book": "Comic book",
+  "Comic Book": "Comic book", // Handle both cases
+  "Disney Character": "Disney Charactor", // Map to API's typo
+  "Disney Charactor": "Disney Charactor", // Direct match
+  "Lowpoly": "Lowpoly",
+  "Line art": "Line art",
+  "Line Art": "Line art", // Handle both cases
+  "(No style)": "(No style)"
+};
+
+function mapStyleName(userStyleName) {
+  const mappedStyle = STYLE_NAME_MAPPING[userStyleName];
+  if (!mappedStyle) {
+    console.warn(`Unknown style name: ${userStyleName}, defaulting to (No style)`);
+    return "(No style)";
+  }
+  return mappedStyle;
+}
+
 // ---------- Helper Functions ----------
 function getBase64SizeKB(base64String) {
   if (!base64String) return null;
@@ -58,10 +86,23 @@ async function spendCredits(userId, amount) {
 async function refundCredits(userId, amount, reason = "prediction_failed") {
   if (!userId) return false;
   try {
-    const { error: rpcError } = await supabaseAdmin.rpc("add_credits", {
+    // Try add_credits first, fallback to deduct_credits with negative amount
+    let rpcError = null;
+    
+    const { error: addError } = await supabaseAdmin.rpc("add_credits", {
       uid: userId,
       amt: amount,
     });
+    
+    if (addError) {
+      // Fallback: use deduct_credits with negative amount
+      const { error: deductError } = await supabaseAdmin.rpc("deduct_credits", {
+        uid: userId,
+        amt: -amount, // Negative to add credits
+      });
+      rpcError = deductError;
+    }
+    
     if (rpcError) {
       console.error("Failed to refund credits:", rpcError);
       return false;
@@ -192,13 +233,18 @@ export default async function handler(req, res) {
     queueStartTime = Date.now();
     
     console.log("Reference image received:", referenceImage);
+    console.log("Original style name:", styleName);
+    
+    // Map the style name to Replicate's expected format
+    const mappedStyleName = mapStyleName(styleName);
+    console.log("Mapped style name:", mappedStyleName);
     
     // Build input data matching the successful example format
     const inputData = {
       input_image: `data:image/png;base64,${imageBase64}`,
       prompt,
       negative_prompt: negativePrompt || "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
-      style_name: styleName || "(No style)",
+      style_name: mappedStyleName, // Use mapped style name
       style_strength_ratio: styleStrength || 20,
       guidance_scale: guidanceScale || 5,
       num_steps: 30,
@@ -273,7 +319,8 @@ export default async function handler(req, res) {
         prompt, 
         negativePrompt, 
         referenceImage: referenceImage || null,
-        styleName,
+        styleName: mappedStyleName, // Log the mapped style name
+        originalStyleName: styleName, // Also log original for debugging
         styleStrength,
         guidanceScale,
         prediction_id: predictionId, 
@@ -314,7 +361,8 @@ export default async function handler(req, res) {
         prompt, 
         negativePrompt, 
         referenceImage: referenceImage || null,
-        styleName,
+        styleName: mapStyleName(styleName), // Use mapped style name in logs
+        originalStyleName: styleName, // Also log original
         styleStrength,
         guidanceScale,
         prediction_id: predictionId, 

@@ -7,7 +7,6 @@ import CustomerSuccess from '../components/home/SuccessStories';
 import HowItWorks from '../components/home/HowItWorksSection';
 import PricingSection from '../components/home/PricingSection';
 import CTASection from '../components/home/CTASection';
-import TestHeroSection from '../components/home/Testhero';
 
 
 export default function Home() {
@@ -140,7 +139,6 @@ export default function Home() {
 
       <main>
         {/* Updated Hero with streamlined value prop */}
-        <TestHeroSection />
         <HeroSection />
         
         {/* AI Transformation Showcase - your updated TopBanner */}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ImageCompareSlider from "../ImageCompareSlider";
 import heroStyles from '../../styles/Hero.module.css';
 
-export default function ServicesSection() {
+export default function HeroSection() {
   const features = [
     {
       id: 'restore',
@@ -43,32 +43,6 @@ export default function ServicesSection() {
       link: "/replicate/cartoon",
       credits: 40,
       buttonText: "Make Cartoon"
-    },
-    {
-      id: 'avatar90s',
-      title: "90s Avatar Creator",
-      shortTitle: "Create 90s Avatars",
-      description: "Transform your photos into authentic 90s-style avatars with retro filters, neon effects, and nostalgic vibes from the rad decade.",
-      beforeAfter: {
-        before: "/images/avatar90s-before.jpg",
-        after: "/images/avatar90s-after.jpg"
-      },
-      link: "/replicate/90s-avatar",
-      credits: 35,
-      buttonText: "Go Retro"
-    },
-    {
-      id: 'yearbook90s',
-      title: "90s Yearbook Style",
-      shortTitle: "90s Yearbook Photos",
-      description: "Create classic 90s yearbook-style portraits with authentic backgrounds, lighting, and that unmistakable retro school photo charm.",
-      beforeAfter: {
-        before: "/images/yearbook90s-before.jpg",
-        after: "/images/yearbook90s-after.jpg"
-      },
-      link: "/replicate/90s-yearbook",
-      credits: 35,
-      buttonText: "Make Yearbook"
     }
   ];
 
@@ -82,21 +56,24 @@ export default function ServicesSection() {
         <div className={heroStyles.heroContainer}>
           {/* Main Header */}
           <div className={heroStyles.heroHeader}>
-            <h2 className={heroStyles.heroTitle}>
-              Transform Your Photos with
+          
+        
+            
+            <h1 className={heroStyles.heroTitle}>
+              Bring Your Precious
               <span className={heroStyles.titleBreak}></span>
-              <span className={heroStyles.gradient}>5 Powerful AI Tools</span>
-            </h2>
+              <span className={heroStyles.gradient}>Memories Back to Life</span>
+            </h1>
             
             <p className={heroStyles.heroSubtitle}>
-              From classic restoration to <strong>trendy 90s styles</strong>, our specialized AI transforms 
-              your photos into stunning works of art. See the magic in action below.
+              Transform faded family photos into <strong>vibrant treasures</strong>. Repair damage, 
+              add stunning colors, or create beautiful cartoon artwork from your most cherished memories.
             </p>
           </div>
 
           {/* AI Services Grid with Sliders */}
           <div className={heroStyles.servicesContainer}>
-            <h3 className={heroStyles.servicesTitle}>Choose Your Perfect Transformation</h3>
+            <h2 className={heroStyles.servicesTitle}>Choose Your Memory Transformation</h2>
             
             <div className={heroStyles.servicesGrid}>
               {features.map((feature) => (
@@ -110,7 +87,7 @@ export default function ServicesSection() {
                   </div>
                   
                   <div className={heroStyles.serviceInfo}>
-                    <h4 className={heroStyles.serviceName}>{feature.title}</h4>
+                    <h3 className={heroStyles.serviceName}>{feature.title}</h3>
                     <p className={heroStyles.serviceDesc}>
                       {feature.description}
                     </p>
@@ -128,7 +105,49 @@ export default function ServicesSection() {
             </div>
           </div>
 
+          {/* Stats Row moved below services */}
+          <div className={heroStyles.statsRow}>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>50K+</div>
+              <div className={heroStyles.statLabel}>Families Helped</div>
+            </div>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>2.3s</div>
+              <div className={heroStyles.statLabel}>Average Results</div>
+            </div>
+            <div className={heroStyles.stat}>
+              <div className={heroStyles.statNumber}>98%</div>
+              <div className={heroStyles.statLabel}>Love Their Results</div>
+            </div>
+          </div>
 
+          {/* Bottom CTA */}
+          <div className={heroStyles.bottomCTA}>
+            <div className={heroStyles.creditOffer}>
+              <div className={heroStyles.offerIcon}>⚡</div>
+              <div className={heroStyles.offerText}>
+                <strong>Try It Free Right Now</strong>
+                <span className={heroStyles.offerDetails}>
+                  <Link href="/signup" className={heroStyles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
+                </span>
+              </div>
+            </div>
+            
+            <div className={heroStyles.securityBadges}>
+              <div className={heroStyles.securityBadge}>
+                <span className={heroStyles.checkmark}>✓</span>
+                <span>100% Private</span>
+              </div>
+              <div className={heroStyles.securityBadge}>
+                <span className={heroStyles.checkmark}>✓</span>
+                <span>Photos Deleted After 1 Hour</span>
+              </div>
+              <div className={heroStyles.securityBadge}>
+                <span className={heroStyles.checkmark}>✓</span>
+                <span>Instant Results</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

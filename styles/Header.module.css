@@ -582,62 +582,10 @@
   z-index: 1;
 }
 
-/* === Enhanced Mobile Responsive === */
-@media (max-width: 1024px) {
-  .header {
-    height: 74px; /* Slightly smaller for tablets */
-    padding: 0 20px;
-  }
-  
-  .nav {
-    display: none;
-  }
+/* Add these mobile-specific styles to your Header.module.css */
 
-  .hamburger {
-    display: flex;
-  }
-  
-  .showMenu {
-    top: 72px; /* Match tablet header height */
-  }
-}
-
+/* === Compact Mobile Dropdown === */
 @media (max-width: 768px) {
-  .header {
-    height: 68px; /* Reduced from 80px for mobile */
-    padding: 0 16px;
-    /* Safe area for notched phones */
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
-  }
-  
-  .showMenu {
-    display: flex;
-    top: 64px; /* Match mobile header height */
-    padding: 20px 16px; /* Reduced from 24px */
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
-    /* Better mobile menu height */
-    max-height: calc(100vh - 64px);
-  }
-
-  .logoMain {
-    font-size: 1.375rem;
-  }
-
-  /* Improved mobile menu styles */
-  .showMenu .navLink,
-  .showMenu .dropdownTrigger {
-    width: 100%;
-    justify-content: flex-start;
-    margin-bottom: 2px; /* Reduced from 6px */
-    padding: 12px 20px; /* Reduced from 16px */
-    font-size: 1rem;
-    border-radius: 12px;
-    min-height: 44px; /* Reduced from 48px */
-  }
-
-  /* Better mobile dropdown */
   .showMenu .dropdownMenu {
     position: static;
     width: 100%;
@@ -657,126 +605,127 @@
   .showMenu .dropdownMenuOpen {
     opacity: 1;
     visibility: visible;
-    max-height: 400px; /* Smaller on mobile */
+    max-height: 280px; /* Reduced height */
     transform: translateY(0);
   }
 
+  /* Compact dropdown header */
+  .showMenu .dropdownHeader {
+    padding: 8px 12px; /* Much smaller padding */
+  }
+
+  .showMenu .dropdownTitle {
+    font-size: 0.7rem; /* Smaller title */
+  }
+
+  /* Single-line compact dropdown items */
   .showMenu .dropdownItem {
-    padding: 10px 16px; /* Reduced padding */
-    margin: 2px 8px;
-    border-radius: 8px;
-    min-height: 44px; /* Reduced from 48px */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Reduced gap */
+    padding: 8px 12px; /* Much smaller padding */
+    margin: 1px 6px; /* Minimal margins */
+    border-radius: 6px;
+    min-height: auto; /* Remove min-height constraint */
+    height: 36px; /* Fixed compact height */
   }
 
-  .showMenu .dropdownHeader,
+  .showMenu .dropdownItemIcon {
+    font-size: 1rem; /* Smaller icon */
+    width: 20px; /* Smaller icon container */
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .showMenu .dropdownItemContent {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  /* Single line layout */
+  .showMenu .dropdownItemHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .showMenu .dropdownItemName {
+    font-weight: 500;
+    font-size: 0.8rem; /* Smaller text */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+
+  .showMenu .dropdownBadge {
+    font-size: 0.55rem; /* Much smaller badge */
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Hide description on mobile */
+  .showMenu .dropdownItemDescription {
+    display: none;
+  }
+
+  /* Inline credits */
+  .showMenu .dropdownItemCredits {
+    font-size: 0.65rem; /* Smaller credits text */
+    color: #06b6d4;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  /* Compact footer */
   .showMenu .dropdownFooter {
-    padding: 12px 16px; /* Reduced from 16px */
+    padding: 8px 12px; /* Much smaller padding */
   }
 
-  /* Mobile auth section */
-  .showMenu .authSection {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px; /* Reduced from 12px */
-    margin-top: 16px; /* Reduced from 20px */
-    padding-top: 16px; /* Reduced from 20px */
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
-  }
-
-  .showMenu .authSection .loginBtn,
-  .showMenu .authSection .signupBtn {
-    width: 100%;
-    text-align: center;
-    padding: 12px 20px; /* Reduced from 16px */
-    font-size: 1rem;
-    margin: 0;
-    min-height: 44px; /* Reduced from 48px */
-  }
-
-  /* Mobile user section */
-  .showMenu .userSection {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px; /* Reduced from 12px */
-    margin-top: 16px; /* Reduced from 20px */
-    padding-top: 16px; /* Reduced from 20px */
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
-  }
-
-  .showMenu .userSection .profileBtn,
-  .showMenu .userSection .signOutBtn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    padding: 12px 20px; /* Reduced from 16px */
-    font-size: 1rem;
-    margin: 0;
-    min-height: 44px; /* Reduced from 48px */
+  .showMenu .viewAllLink {
+    font-size: 0.75rem; /* Smaller link */
   }
 }
 
+/* Even more compact for very small screens */
 @media (max-width: 480px) {
-  .header {
-    height: 65px; /* Even thinner for small phones */
-    padding: 0 12px;
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
+  .showMenu .dropdownMenuOpen {
+    max-height: 250px; /* Even smaller */
   }
 
-  .logoMain {
-    font-size: 1.125rem; /* Smaller logo for thinner header */
+  .showMenu .dropdownItem {
+    padding: 6px 10px; /* Even smaller padding */
+    height: 32px; /* Even more compact */
+    gap: 6px;
   }
 
-  .showMenu {
-    top: 60px; /* Match small phone header height */
-    padding: 16px 12px; /* More compact */
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
-    max-height: calc(100vh - 60px);
+  .showMenu .dropdownItemIcon {
+    font-size: 0.9rem;
+    width: 18px;
+    height: 18px;
   }
 
-  /* Even more compact on small phones */
-  .showMenu .navLink,
-  .showMenu .dropdownTrigger {
-    padding: 10px 16px; /* Reduced padding */
-    font-size: 0.95rem;
-    margin-bottom: 1px; /* Very minimal spacing */
+  .showMenu .dropdownItemName {
+    font-size: 0.75rem; /* Even smaller */
   }
 
-  .showMenu .authSection .loginBtn,
-  .showMenu .authSection .signupBtn,
-  .showMenu .userSection .profileBtn,
-  .showMenu .userSection .signOutBtn {
-    padding: 10px 16px; /* Reduced padding */
-    font-size: 0.95rem;
+  .showMenu .dropdownItemCredits {
+    font-size: 0.6rem; /* Even smaller */
   }
-}
 
-/* === Modern Scrollbar === */
-.showMenu::-webkit-scrollbar {
-  width: 6px;
-}
-
-.showMenu::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.showMenu::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
-  border-radius: 3px;
-}
-
-.showMenu::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.5);
-}
-
-/* Focus states for accessibility */
-.navLink:focus,
-.dropdownTrigger:focus,
-.loginBtn:focus,
-.signupBtn:focus,
-.profileBtn:focus,
-.signOutBtn:focus {
-  outline: 2px solid rgba(99, 102, 241, 0.5);
-  outline-offset: 2px;
+  .showMenu .dropdownBadge {
+    font-size: 0.5rem; /* Tiny badge */
+    padding: 1px 3px;
+  }
 }

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import suiteStyles from '../../styles/AISuite.module.css';
 
 const AISuitePage = () => {
-  const [activeDemo, setActiveDemo] = useState('restore');
+  const [activeDemo, setActiveDemo] = useState('colorize');
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
 
@@ -27,31 +27,6 @@ const AISuitePage = () => {
 
   const aiSuites = [
     {
-      id: 'restore',
-      icon: '🔧',
-      name: 'Photo Restoration',
-      tagline: 'Repair & Enhance',
-      description: 'Advanced AI repairs scratches, tears, fading, and damage in vintage family photos',
-      beforeImage: '/images/damaged-snippet.jpg',
-      afterImage: '/images/repaired-snippet.jpg',
-      features: [
-        'Remove scratches and tears',
-        'Fix fading and discoloration', 
-        'Restore missing details',
-        'Enhance overall clarity'
-      ],
-      useCases: [
-        'Family genealogy projects',
-        'Vintage photo albums',
-        'Historical preservation',
-        'Memorial displays'
-      ],
-      credits: 1,
-      processingTime: '30-60 seconds',
-      link: '/replicate/restore-basic',
-      accent: '#10b981'
-    },
-    {
       id: 'colorize',
       icon: '🌈',
       name: 'Photo Colorization',
@@ -59,6 +34,7 @@ const AISuitePage = () => {
       description: 'Transform black & white photos with historically accurate, vibrant colors',
       beforeImage: '/images/before6.jpg',
       afterImage: '/images/after6.jpg',
+      cardImage: '/images/colorize-card.jpg', // New card image with info
       features: [
         'Historically accurate colors',
         'Smart skin tone detection',
@@ -84,6 +60,7 @@ const AISuitePage = () => {
       description: 'Convert photos into beautiful cartoon-style artwork perfect for modern use',
       beforeImage: '/images/cartoon-before.jpg',
       afterImage: '/images/cartoon-example.jpg',
+      cardImage: '/images/cartoon-card.jpg', // New card image with info
       features: [
         'Professional cartoon style',
         'Maintains facial features',
@@ -100,6 +77,58 @@ const AISuitePage = () => {
       processingTime: '45-75 seconds',
       link: '/replicate/cartoon',
       accent: '#8b5cf6'
+    },
+    {
+      id: 'yearbook',
+      icon: '📸',
+      name: '90s Yearbook Transform',
+      tagline: 'Retro Style Magic',
+      description: 'Transform modern photos into authentic 90s yearbook portraits with period-accurate styling',
+      beforeImage: '/images/yearbook-before.jpg',
+      afterImage: '/images/yearbook-after.jpg',
+      cardImage: '/images/yearbook-card.jpg', // New card image with info
+      features: [
+        'Authentic 90s styling',
+        'Period-accurate clothing',
+        'Classic yearbook lighting',
+        'Multiple style options'
+      ],
+      useCases: [
+        'Nostalgic social media',
+        'Throwback photo projects',
+        'Creative gifts',
+        'Fun family memories'
+      ],
+      credits: 20,
+      processingTime: '60-120 seconds',
+      link: '/replicate/yearbook',
+      accent: '#f59e0b'
+    },
+    {
+      id: 'avatar',
+      icon: '👤',
+      name: 'AI Avatar Generator',
+      tagline: 'Professional Portraits',
+      description: 'Create stunning professional avatars optimized for social media and business use',
+      beforeImage: '/images/avatar-before.jpg',
+      afterImage: '/images/avatar-after.jpg',
+      cardImage: '/images/avatar-card.jpg', // New card image with info
+      features: [
+        'Professional quality output',
+        'Social media optimized',
+        'Multiple style options',
+        'High-resolution results'
+      ],
+      useCases: [
+        'LinkedIn profiles',
+        'Social media avatars',
+        'Professional headshots',
+        'Business presentations'
+      ],
+      credits: 50,
+      processingTime: '45-90 seconds',
+      link: '/replicate/avatar',
+      accent: '#ef4444'
     }
   ];
 
@@ -119,13 +148,9 @@ const AISuitePage = () => {
         
         {/* Header Section */}
         <header className={suiteStyles.header}>
-          <div className={suiteStyles.badge}>
-            <span className={suiteStyles.badgeDot}></span>
-            <span className={suiteStyles.badgeText}>AI SUITE</span>
-          </div>
-          
+      
           <h1 className={suiteStyles.title}>
-            Three Powerful AI Engines
+            Five Powerful AI Engines
             <span className={suiteStyles.titleGradient}>One Amazing Platform</span>
           </h1>
           
@@ -135,27 +160,37 @@ const AISuitePage = () => {
           </p>
         </header>
 
-        {/* Suite Selection Tabs */}
-        <div className={suiteStyles.suiteTabs}>
+        {/* Card Grid Section */}
+        <div className={suiteStyles.cardGrid}>
           {aiSuites.map((suite) => (
-            <button
+            <div
               key={suite.id}
-              className={`${suiteStyles.suiteTab} ${activeDemo === suite.id ? suiteStyles.active : ''}`}
+              className={`${suiteStyles.suiteCard} ${activeDemo === suite.id ? suiteStyles.active : ''}`}
               onClick={() => setActiveDemo(suite.id)}
               style={{ '--accent': suite.accent }}
             >
-              <span className={suiteStyles.tabIcon}>{suite.icon}</span>
-              <div className={suiteStyles.tabContent}>
-                <span className={suiteStyles.tabName}>{suite.name}</span>
-                <span className={suiteStyles.tabTagline}>{suite.tagline}</span>
+              <div className={suiteStyles.cardImageContainer}>
+                <Image
+                  src={suite.cardImage}
+                  alt={`${suite.name} preview`}
+                  fill
+                  className={suiteStyles.cardImage}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
+                <div className={suiteStyles.cardOverlay}>
+                  <div className={suiteStyles.cardIcon}>{suite.icon}</div>
+                  <h3 className={suiteStyles.cardName}>{suite.name}</h3>
+                  <p className={suiteStyles.cardTagline}>{suite.tagline}</p>
+                  <div className={suiteStyles.cardCredits}>{suite.credits} Credits</div>
+                </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
-        {/* Unified Demo Section */}
-        <div className={suiteStyles.unifiedSection}>
-          <div className={suiteStyles.unifiedContainer}>
+        {/* Selected Suite Details */}
+        <div className={suiteStyles.detailsSection}>
+          <div className={suiteStyles.detailsContainer}>
             
             {/* Suite Header */}
             <div className={suiteStyles.suiteHeader}>
@@ -167,7 +202,6 @@ const AISuitePage = () => {
                 <p className={suiteStyles.suiteDescription}>{currentSuite.description}</p>
               </div>
             </div>
-            
 
             {/* Before/After Images */}
             <div className={suiteStyles.beforeAfterContainer}>
@@ -202,26 +236,25 @@ const AISuitePage = () => {
             </div>
 
             <Link 
-                href={currentSuite.link} 
-                className={suiteStyles.tryButton}
-                style={{ '--accent': currentSuite.accent }}
-              >
-                <span>Try {currentSuite.name}</span>
-                <div className={suiteStyles.buttonArrow}>→</div>
-              </Link>
+              href={currentSuite.link} 
+              className={suiteStyles.tryButton}
+              style={{ '--accent': currentSuite.accent }}
+            >
+              <span>Try {currentSuite.name}</span>
+              <div className={suiteStyles.buttonArrow}>→</div>
+            </Link>
 
-                 {/* Specs section */}
-              <div className={suiteStyles.specsSection}>
-                <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Credits Required</span>
-                  <span className={suiteStyles.specValue} style={{ '--accent': currentSuite.accent }}>{currentSuite.credits}</span>
-                </div>
-                <div className={suiteStyles.specItem}>
-                  <span className={suiteStyles.specLabel}>Processing Time</span>
-                  <span className={suiteStyles.specValue}>{currentSuite.processingTime}</span>
-                </div>
+            {/* Specs section */}
+            <div className={suiteStyles.specsSection}>
+              <div className={suiteStyles.specItem}>
+                <span className={suiteStyles.specLabel}>Credits Required</span>
+                <span className={suiteStyles.specValue} style={{ '--accent': currentSuite.accent }}>{currentSuite.credits}</span>
               </div>
-              
+              <div className={suiteStyles.specItem}>
+                <span className={suiteStyles.specLabel}>Processing Time</span>
+                <span className={suiteStyles.specValue}>{currentSuite.processingTime}</span>
+              </div>
+            </div>
 
             {/* Features & Specs Table */}
             <div className={suiteStyles.featuresTable}>
@@ -253,34 +286,7 @@ const AISuitePage = () => {
         </div>
 
         {/* Comparison Table */}
-        <div className={suiteStyles.comparisonSection}>
-          <h2 className={suiteStyles.comparisonTitle}>Choose the Right AI for Your Needs</h2>
-          
-          <div className={suiteStyles.comparisonTable}>
-            <div className={suiteStyles.tableHeader}>
-              <div className={suiteStyles.tableCell}>Feature</div>
-              <div className={suiteStyles.tableCell}>Restoration</div>
-              <div className={suiteStyles.tableCell}>Colorization</div>
-              <div className={suiteStyles.tableCell}>Cartoon</div>
-            </div>
-            
-            {[
-              { feature: 'Repair Damage', restore: '✓', colorize: '✓', cartoon: '—' },
-              { feature: 'Add Colors', restore: '—', colorize: '✓', cartoon: '✓' },
-              { feature: 'Artistic Style', restore: '—', colorize: '—', cartoon: '✓' },
-              { feature: 'Credits Required', restore: '1', colorize: '40', cartoon: '40' },
-              { feature: 'Processing Time', restore: '30-60s', colorize: '60-90s', cartoon: '45-75s' },
-              { feature: 'Best For', restore: 'Damaged Photos', colorize: 'B&W Photos', cartoon: 'Creative Projects' }
-            ].map((row, idx) => (
-              <div key={idx} className={suiteStyles.tableRow}>
-                <div className={suiteStyles.tableCell}>{row.feature}</div>
-                <div className={suiteStyles.tableCell}>{row.restore}</div>
-                <div className={suiteStyles.tableCell}>{row.colorize}</div>
-                <div className={suiteStyles.tableCell}>{row.cartoon}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Removed - keeping it simple */}
 
         {/* Bottom CTA */}
         <div className={suiteStyles.bottomCTA}>

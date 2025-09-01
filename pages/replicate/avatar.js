@@ -7,40 +7,8 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/AvatarPage.module.css";
-
-const AVATAR_STYLES = {
-  portrait: [
-    { label: "Professional Headshot", value: "professional headshot, corporate style, clean background, business attire" },
-    { label: "Artistic Portrait", value: "artistic portrait, dramatic lighting, creative composition, fine art photography style" },
-    { label: "Vintage Portrait", value: "vintage portrait, classic photography, sepia tones, timeless elegance" },
-    { label: "Modern Casual", value: "modern casual portrait, natural lighting, contemporary style, relaxed pose" },
-    { label: "90s High School Yearbook", value: "90s high school yearbook photo of a stylish teenager, retro windbreaker jacket, big hair, bright neon colors, soft lighting, vintage Kodak film grain, centered school portrait, cheesy smile, plain background, 1990s fashion aesthetic, sharp focus" }
-  ],
-  fantasy: [
-    { label: "Medieval Warrior", value: "medieval fantasy warrior, armor, sword, epic fantasy art style" },
-    { label: "Magical Wizard", value: "powerful wizard, magical robes, staff, mystical aura, fantasy art" },
-    { label: "Elven Noble", value: "elegant elven noble, ethereal beauty, fantasy clothing, mystical background" },
-    { label: "Dragon Rider", value: "dragon rider, leather armor, adventurous spirit, fantasy landscape" },
-  ],
-  scifi: [
-    { label: "Cyberpunk Character", value: "cyberpunk character, neon lights, futuristic clothing, urban dystopia" },
-    { label: "Space Explorer", value: "space explorer, futuristic spacesuit, cosmic background, sci-fi aesthetic" },
-    { label: "Robot Companion", value: "humanoid robot, sleek metallic design, glowing elements, sci-fi technology" },
-    { label: "Alien Diplomat", value: "alien diplomat, otherworldly features, formal alien attire, cosmic setting" },
-  ],
-  historical: [
-    { label: "Victorian Gentleman/Lady", value: "Victorian era, elegant period clothing, formal pose, historical accuracy" },
-    { label: "1920s Flapper/Gentleman", value: "1920s style, Art Deco background, period fashion, Jazz Age aesthetic" },
-    { label: "Renaissance Noble", value: "Renaissance nobility, rich fabrics, classical pose, period appropriate" },
-    { label: "Wild West Character", value: "Wild West, cowboy/cowgirl attire, dusty frontier town, western aesthetic" },
-  ],
-  anime: [
-    { label: "Anime Hero", value: "anime style, heroic pose, dynamic lighting, Japanese animation aesthetic" },
-    { label: "Manga Character", value: "manga style, expressive eyes, stylized features, black and white shading" },
-    { label: "Kawaii Style", value: "kawaii anime style, cute aesthetic, pastel colors, adorable features" },
-    { label: "Dark Anime", value: "dark anime style, dramatic shadows, intense expression, gothic elements" },
-  ]
-};
+import AVATAR_STYLES from "../../components/AvatarStyles";
+import SEOAvatar from "../../components/SEO/SEOAvatar";
 
 export default function AiAvatarsTest() {
   const router = useRouter();
@@ -48,7 +16,6 @@ export default function AiAvatarsTest() {
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
-  const [customPrompt, setCustomPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -62,7 +29,6 @@ export default function AiAvatarsTest() {
   const [user_gender, setGender] = useState("");
   const [styleCategory, setStyleCategory] = useState("portrait");
   const [selectedStyle, setSelectedStyle] = useState("");
-  const [useCustomPrompt, setUseCustomPrompt] = useState(false);
   const [styleStrength, setStyleStrength] = useState(20);
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
 
@@ -82,12 +48,10 @@ export default function AiAvatarsTest() {
 
   // Check if ready to generate
   useEffect(() => {
-    const hasValidInputs = useCustomPrompt ? 
-      customPrompt.trim().length > 0 : 
-      (user_gender && selectedStyle);
+    const hasValidInputs = user_gender && selectedStyle;
     
     setIsReady(photo && !isLoading && isLoggedIn && credits >= avatarCost && hasValidInputs);
-  }, [photo, isLoading, isLoggedIn, credits, avatarCost, useCustomPrompt, customPrompt, user_gender, selectedStyle]);
+  }, [photo, isLoading, isLoggedIn, credits, avatarCost, user_gender, selectedStyle]);
 
   // Loading timer and progress simulation
   useEffect(() => {
@@ -200,8 +164,6 @@ export default function AiAvatarsTest() {
   };
 
   const buildPrompt = () => {
-    if (useCustomPrompt) return customPrompt;
-
     let prompt = "";
     if (user_gender) prompt += `${user_gender} `;
     if (selectedStyle) {
@@ -246,17 +208,9 @@ export default function AiAvatarsTest() {
       return;
     }
 
-    if (!useCustomPrompt && (!user_gender || !selectedStyle)) {
-      toast.error('Please select your gender and style, or use custom prompt', {
+    if (!user_gender || !selectedStyle) {
+      toast.error('Please select your gender and style', {
         icon: '⚙️',
-        duration: 3000,
-      });
-      return;
-    }
-
-    if (useCustomPrompt && !customPrompt.trim()) {
-      toast.error('Please enter a custom prompt', {
-        icon: '✏️',
         duration: 3000,
       });
       return;
@@ -463,8 +417,7 @@ export default function AiAvatarsTest() {
     if (!photo) return "Upload a Photo First";
     if (!isLoggedIn) return "Sign Up Required";
     if (credits < avatarCost) return "Get More Credits";
-    if (!useCustomPrompt && (!user_gender || !selectedStyle)) return "Select Options";
-    if (useCustomPrompt && !customPrompt.trim()) return "Enter Custom Prompt";
+    if (!user_gender || !selectedStyle) return "Select Options";
     return "Generate My AI Avatar!";
   };
 
@@ -484,6 +437,7 @@ export default function AiAvatarsTest() {
       </Head>
 
       <main className={styles.container}>
+        <SEOAvatar />
         {/* Credits Display */}
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
@@ -557,117 +511,106 @@ export default function AiAvatarsTest() {
           </div>
         </div>
 
-        {/* Prompt Type Selection */}
-        <div className={styles.formSection}>
-          <label>
-            <input
-              type="checkbox"
-              checked={useCustomPrompt}
-              onChange={(e) => setUseCustomPrompt(e.target.checked)}
-            />
-            Use Custom Prompt (Advanced)
-          </label>
-        </div>
-
-        {useCustomPrompt ? (
-          <div className={styles.formSection}>
-            <label>Custom Prompt</label>
-            <textarea
-              placeholder="Describe your desired avatar style in detail..."
-              value={customPrompt}
-              onChange={(e) => setCustomPrompt(e.target.value)}
-              rows={4}
-            />
+        {/* Grid Layout for Options */}
+        <div className={styles.optionsGrid}>
+          {/* Gender Selection */}
+          <div className={styles.gridItem}>
+            <h3 className={styles.gridTitle}>Gender</h3>
+            <div className={styles.buttonGroup}>
+              {["male", "female", "non-binary"].map((g) => (
+                <button
+                  key={g}
+                  type="button"
+                  className={`${styles.selectButton} ${user_gender === g ? styles.selectButtonActive : ''}`}
+                  onClick={() => setGender(g)}
+                >
+                  {g.charAt(0).toUpperCase() + g.slice(1)}
+                </button>
+              ))}
+            </div>
           </div>
-        ) : (
-          <>
-            {/* Gender Selection */}
-            <div className={styles.formSection}>
-              <label>Gender</label>
-              <div className={styles.radioGroup}>
-                {["male", "female", "non-binary"].map((g) => (
-                  <label key={g}>
-                    <input
-                      type="radio"
-                      name="user_gender"
-                      value={g}
-                      checked={user_gender === g}
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                    {g.charAt(0).toUpperCase() + g.slice(1)}
-                  </label>
-                ))}
+
+          {/* Workflow Type */}
+          <div className={styles.gridItem}>
+            <h3 className={styles.gridTitle}>Workflow Type</h3>
+            <div className={styles.buttonGroup}>
+              {[
+                { value: "HyperRealistic-likeness", label: "HyperRealistic Likeness" },
+                { value: "HyperRealistic", label: "HyperRealistic" },
+                { value: "Realistic", label: "Realistic" },
+                { value: "Stylistic", label: "Stylistic" }
+              ].map((workflow) => (
+                <button
+                  key={workflow.value}
+                  type="button"
+                  className={`${styles.selectButton} ${workflowType === workflow.value ? styles.selectButtonActive : ''}`}
+                  onClick={() => setWorkflowType(workflow.value)}
+                >
+                  {workflow.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Style Category */}
+          <div className={styles.gridItem}>
+            <h3 className={styles.gridTitle}>Style Category</h3>
+            <div className={styles.buttonGroup}>
+              {[
+                { value: "portrait", label: "Portrait" },
+                { value: "fantasy", label: "Fantasy" },
+                { value: "scifi", label: "Sci-Fi" },
+                { value: "historical", label: "Historical" },
+                { value: "anime", label: "Anime/Manga" }
+              ].map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  className={`${styles.selectButton} ${styleCategory === category.value ? styles.selectButtonActive : ''}`}
+                  onClick={() => {
+                    setStyleCategory(category.value);
+                    setSelectedStyle("");
+                  }}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Choose Style */}
+          <div className={styles.gridItem}>
+            <h3 className={styles.gridTitle}>Choose Style</h3>
+            <div className={styles.styleScrollContainer}>
+              {AVATAR_STYLES[styleCategory].map((style) => (
+                <button
+                  key={style.value}
+                  type="button"
+                  className={`${styles.selectButton} ${selectedStyle === style.value ? styles.selectButtonActive : ''}`}
+                  onClick={() => setSelectedStyle(style.value)}
+                >
+                  {style.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Style Strength */}
+          <div className={styles.gridItem}>
+            <h3 className={styles.gridTitle}>Style Strength: {styleStrength}%</h3>
+            <div className={styles.sliderContainer}>
+              <input
+                type="range"
+                min="5"
+                max="35"
+                value={styleStrength}
+                onChange={(e) => setStyleStrength(Number(e.target.value))}
+                className={styles.gridSlider}
+              />
+              <div className={styles.sliderHelp}>
+                Lower = preserve face better, Higher = stronger style transformation
               </div>
             </div>
-
-            {/* Workflow Type */}
-            <div className={styles.formSection}>
-              <label>Workflow Type</label>
-              <select
-                value={workflowType}
-                onChange={(e) => setWorkflowType(e.target.value)}
-              >
-                <option value="HyperRealistic-likeness">HyperRealistic-likeness</option>
-                <option value="HyperRealistic">HyperRealistic</option>
-                <option value="Realistic">Realistic</option>
-                <option value="Stylistic">Stylistic</option>
-              </select>
-            </div>
-
-            {/* Style Category */}
-            <div className={styles.formSection}>
-              <label>Style Category</label>
-              <select
-                value={styleCategory}
-                onChange={(e) => {
-                  setStyleCategory(e.target.value);
-                  setSelectedStyle("");
-                }}
-              >
-                <option value="portrait">Portrait</option>
-                <option value="fantasy">Fantasy</option>
-                <option value="scifi">Sci-Fi</option>
-                <option value="historical">Historical</option>
-                <option value="anime">Anime/Manga</option>
-              </select>
-            </div>
-
-            {/* Style Selection */}
-            <div className={styles.formSection}>
-              <label>Choose Style</label>
-              <div className={styles.styleGrid}>
-                {AVATAR_STYLES[styleCategory].map((style) => (
-                  <label
-                    key={style.value}
-                    className={`${styles.styleOption} ${selectedStyle === style.value ? styles.styleOptionActive : ''}`}
-                  >
-                    <input
-                      type="radio"
-                      name="style"
-                      value={style.value}
-                      checked={selectedStyle === style.value}
-                      onChange={(e) => setSelectedStyle(e.target.value)}
-                    />
-                    {style.label}
-                  </label>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Style Strength */}
-        <div className={styles.sliderSection}>
-          <label>Style Strength: {styleStrength}%</label>
-          <input
-            type="range"
-            min="5"
-            max="35"
-            value={styleStrength}
-            onChange={(e) => setStyleStrength(Number(e.target.value))}
-          />
-          <div className={styles.sliderHelp}>
-            Lower = preserve face better, Higher = stronger style transformation
           </div>
         </div>
 
@@ -745,8 +688,6 @@ export default function AiAvatarsTest() {
             </div>
           </div>
         )}
-
-        {/* Remove inline style keyframes */}
       </main>
     </>
   );

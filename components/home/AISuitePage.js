@@ -7,6 +7,7 @@ const AISuitePage = () => {
   const [activeDemo, setActiveDemo] = useState('colorize');
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
+  
 
   useEffect(() => {
     const observer = new IntersectionObserver(

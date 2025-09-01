@@ -846,3 +846,52 @@
 }
 
 
+
+.progressBarWrapper {
+  margin: 1.5rem auto 1rem auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+.progressBar {
+  width: 100%;
+  height: 16px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6 0%, #06b6d4 100%);
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(139,92,246,0.15);
+}
+
+.progressStage {
+  font-size: 0.95rem;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.uploadSection,
+.stylesSection,
+.resultSection {
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.styleCard:hover,
+.categoryTab:hover,
+.downloadBtn:hover,
+.tryAnotherBtn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 16px rgba(139,92,246,0.12);
+  transform: translateY(-2px) scale(1.03);
+}
+

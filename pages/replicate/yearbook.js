@@ -5,6 +5,7 @@ import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/YearbookTransform.module.css";
 import toast from "react-hot-toast";
+import SEOYearbook from "../../components/SEO/SEOYearbook";
 
 // Import yearbook styles from your centralized component
 import { styleCategories } from "../../components/YearbookStyles";
@@ -29,6 +30,8 @@ export default function YearbookTransform() {
   const [credits, setCredits] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+    const [progress, setProgress] = useState(0);
+  const [progressStage, setProgressStage] = useState("");
 
   // ===== EFFECTS =====
   useEffect(() => {
@@ -147,6 +150,14 @@ export default function YearbookTransform() {
       setIsLoading(true);
       setResultImageUrl(null);
 
+      setProgress(5);
+      setProgressStage("Preparing image...");
+
+      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
+
+      setProgress(15);
+      setProgressStage("Compressing photo...");
+
       const compressedFile = await imageCompression(photo, {
         maxSizeMB: 0.5,
         maxWidthOrHeight: 768,
@@ -155,11 +166,27 @@ export default function YearbookTransform() {
         initialQuality: 0.6,
       });
 
+      setProgress(30);
+      setProgressStage("Encoding image...");
+
       const base64 = await new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result.split(",")[1]);
         reader.readAsDataURL(compressedFile);
       });
+
+      setProgress(40);
+      setProgressStage("Uploading photo...");
+
+      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
+
+      setProgress(55);
+      setProgressStage("Building prompt...");
+
+      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
+
+      setProgress(65);
+      setProgressStage("Sending to AI...");
 
       // Show processing toast
       const processingToast = toast.loading('Creating your 90s yearbook portrait...', {
@@ -181,6 +208,9 @@ export default function YearbookTransform() {
         }),
       });
 
+      setProgress(80);
+      setProgressStage("AI is generating your yearbook photo...");
+
       toast.dismiss(processingToast);
 
       if (!response.ok) {
@@ -191,13 +221,16 @@ export default function YearbookTransform() {
       const data = await response.json();
       if (data.imageUrl) {
         setResultImageUrl(data.imageUrl);
-        // Deduct credits locally (for instant feedback)
         setCredits((prev) => prev - YEARBOOK_COST);
+        setProgress(100);
+        setProgressStage("Done!");
         toast.success("Transformation complete!", { icon: "✅" });
       } else {
         throw new Error("No image URL returned from server");
       }
     } catch (error) {
+      setProgress(0);
+      setProgressStage("");
       console.error("Error generating image:", error);
       toast.error(`Error generating image: ${error.message}. Please try again.`);
     } finally {
@@ -225,6 +258,7 @@ export default function YearbookTransform() {
   // ===== RENDER =====
   return (
     <>
+    <SEOYearbook />
       <Head>
         <title>90s Yearbook Transform | Throwback AI</title>
         <meta
@@ -317,6 +351,28 @@ export default function YearbookTransform() {
             ))}
           </div>
 
+          {/* Generate Button - now directly below options grid */}
+          <div className={styles.generateSection}>
+            <button
+              onClick={handleFreeGenerate}
+              disabled={!photo || !selectedStyle || isLoading}
+              className={`${styles.generateBtn} ${styles.freeBtn}`}
+            >
+              {isLoading ? (
+                <>
+                  <span className={styles.spinner}></span>
+                  Creating your 90s transformation...
+                </>
+              ) : (
+                <>
+                  <span>🎨</span>
+                  Generate Yearbook Transform
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Style Preview Box */}
           {selectedStyleDetails && (
             <div className={styles.styleDescription}>
               <h3>Style Preview: {selectedStyleDetails.label.substring(2)}</h3>
@@ -330,26 +386,19 @@ export default function YearbookTransform() {
           )}
         </div>
 
-        {/* Generate Section */}
-        <div className={styles.generateSection}>
-          <button
-            onClick={handleFreeGenerate}
-            disabled={!photo || !selectedStyle || isLoading}
-            className={`${styles.generateBtn} ${styles.freeBtn}`}
-          >
-            {isLoading ? (
-              <>
-                <span className={styles.spinner}></span>
-                Creating your 90s transformation...
-              </>
-            ) : (
-              <>
-                <span>🎨</span>
-                Generate Yearbook Transform
-              </>
-            )}
-          </button>
-        </div>
+
+        {/* Progress Bar */}
+        {isLoading && (
+          <div className={styles.progressBarWrapper}>
+            <div className={styles.progressBar}>
+              <div
+                className={styles.progressFill}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className={styles.progressStage}>{progressStage}</div>
+          </div>
+        )}
 
         {/* Result Section */}
         {resultImageUrl && (

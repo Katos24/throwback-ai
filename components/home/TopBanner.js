@@ -62,7 +62,7 @@ const TopBanner = () => {
         </h2>
         
         <p className={TopBannerStyles.sectionSubtitle}>
-          Experience our <strong>3 AI engines</strong> in action. 
+          Experience our <strong>5 AI engines</strong> in action. 
           Watch as advanced neural networks transform your images with precision.
         </p>
 
@@ -89,6 +89,20 @@ const TopBanner = () => {
             <span className={TopBannerStyles.tabIcon}>🔧</span>
             <span>Repair</span>
           </button>
+          <button 
+            className={`${TopBannerStyles.tabButton} ${activeTab === 'yearbook' ? TopBannerStyles.active : ''}`}
+            onClick={() => handleTabClick('yearbook')}
+          >
+            <span className={TopBannerStyles.tabIcon}>📸</span>
+            <span>Yearbook</span>
+          </button>
+          <button 
+            className={`${TopBannerStyles.tabButton} ${activeTab === 'avatar' ? TopBannerStyles.active : ''}`}
+            onClick={() => handleTabClick('avatar')}
+          >
+            <span className={TopBannerStyles.tabIcon}>👤</span>
+            <span>Avatar</span>
+          </button>
         </div>
 
         {/* Colorization Demo */}
@@ -98,7 +112,6 @@ const TopBanner = () => {
         >
           <div className={TopBannerStyles.scanningFrame}>
             <div className={TopBannerStyles.imageFrame}>
-              {/* Base B&W Image */}
               <Image
                 src="/images/beforeexample.jpg"
                 alt="Black and white photo being colorized"
@@ -107,7 +120,6 @@ const TopBanner = () => {
                 sizes="(max-width: 768px) 100vw, 700px"
               />
               
-              {/* Color Version (revealed progressively) */}
               <div className={TopBannerStyles.colorLayer}>
                 <Image
                   src="/images/afterexample.jpg"
@@ -118,16 +130,7 @@ const TopBanner = () => {
                 />
               </div>
               
-              {/* Color Wave Animation */}
               <div className={TopBannerStyles.colorWave}></div>
-
-              {/* Colorization Progress Bar */}
-              <div className={TopBannerStyles.colorProgress}>
-                <div className={TopBannerStyles.progressBar}>
-                  <div className={TopBannerStyles.progressFill}></div>
-                </div>
-                <span className={TopBannerStyles.progressText}>Colorizing... 87%</span>
-              </div>
 
               {/* Processing Indicators */}
               <div className={TopBannerStyles.processingOverlay}>
@@ -148,7 +151,6 @@ const TopBanner = () => {
               </div>
             </div>
 
-            {/* Color Progress Indicator - Now Outside Image Frame */}
             <div className={TopBannerStyles.colorProgress}>
               <div className={TopBannerStyles.progressBar}>
                 <div className={TopBannerStyles.progressFill}></div>
@@ -185,7 +187,6 @@ const TopBanner = () => {
         >
           <div className={TopBannerStyles.scanningFrame}>
             <div className={TopBannerStyles.imageFrame}>
-              {/* Base Photo */}
               <Image
                 src="/images/cartoon-before.jpg"
                 alt="Regular photo being cartoonized"
@@ -194,7 +195,6 @@ const TopBanner = () => {
                 sizes="(max-width: 768px) 100vw, 700px"
               />
               
-              {/* Cartoon Version */}
               <div className={TopBannerStyles.cartoonLayer}>
                 <Image
                   src="/images/cartoon-example.jpg"
@@ -205,10 +205,7 @@ const TopBanner = () => {
                 />
               </div>
               
-              {/* Style Wave Animation */}
               <div className={TopBannerStyles.styleWave}></div>
-              
-        
               
               {/* Processing Text */}
               <div className={TopBannerStyles.processingOverlay}>
@@ -233,7 +230,6 @@ const TopBanner = () => {
               </div>
             </div>
 
-            {/* Style Progress - Now Outside Image Frame */}
             <div className={TopBannerStyles.colorProgress}>
               <div className={TopBannerStyles.progressBar}>
                 <div className={TopBannerStyles.styleProgressFill}></div>
@@ -270,7 +266,6 @@ const TopBanner = () => {
         >
           <div className={TopBannerStyles.scanningFrame}>
             <div className={TopBannerStyles.imageFrame}>
-              {/* Damaged Photo */}
               <Image
                 src="/images/damaged-snippet.jpg"
                 alt="Damaged photo being repaired"
@@ -279,7 +274,6 @@ const TopBanner = () => {
                 sizes="(max-width: 768px) 100vw, 700px"
               />
               
-              {/* Repaired Version */}
               <div className={TopBannerStyles.repairLayer}>
                 <Image
                   src="/images/repaired-snippet.jpg"
@@ -290,9 +284,7 @@ const TopBanner = () => {
                 />
               </div>
               
-              {/* Repair Wave */}
               <div className={TopBannerStyles.repairWave}></div>
-      
               
               {/* Processing Text */}
               <div className={TopBannerStyles.processingOverlay}>
@@ -313,7 +305,6 @@ const TopBanner = () => {
               </div>
             </div>
 
-            {/* Repair Progress - Now Outside Image Frame */}
             <div className={TopBannerStyles.colorProgress}>
               <div className={TopBannerStyles.progressBar}>
                 <div className={TopBannerStyles.repairProgressFill}></div>
@@ -339,6 +330,164 @@ const TopBanner = () => {
               <div className={TopBannerStyles.repairTag}>Scratches (7)</div>
               <div className={TopBannerStyles.repairTag}>Fading (4)</div>
               <div className={TopBannerStyles.repairTag}>Tears (4)</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Yearbook Demo */}
+        <div 
+          className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'yearbook' ? TopBannerStyles.hidden : ''}`} 
+          id="yearbook-demo"
+        >
+          <div className={TopBannerStyles.scanningFrame}>
+            <div className={TopBannerStyles.imageFrame}>
+              <Image
+                src="/images/yearbook-before.jpg"
+                alt="Modern photo being transformed to 90s yearbook style"
+                layout="fill"
+                className={TopBannerStyles.photoImage}
+                sizes="(max-width: 768px) 100vw, 700px"
+              />
+              
+              <div className={TopBannerStyles.cartoonLayer}>
+                <Image
+                  src="/images/yearbook-after.jpg"
+                  alt="90s yearbook style"
+                  layout="fill"
+                  className={TopBannerStyles.cartoonImage}
+                  sizes="(max-width: 768px) 100vw, 700px"
+                />
+              </div>
+              
+              <div className={TopBannerStyles.styleWave}></div>
+
+              {/* Processing Text */}
+              <div className={TopBannerStyles.processingOverlay}>
+                <div className={TopBannerStyles.processingText}>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Analyzing 90s style patterns...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Applying retro clothing styles...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Adjusting hair and makeup trends...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Adding yearbook studio lighting...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={TopBannerStyles.colorProgress}>
+              <div className={TopBannerStyles.progressBar}>
+                <div className={TopBannerStyles.styleProgressFill}></div>
+              </div>
+              <span className={TopBannerStyles.progressText}>Transforming to 90s... 85%</span>
+            </div>
+          </div>
+
+          {/* Yearbook Results */}
+          <div className={TopBannerStyles.resultsPanel}>
+            <div className={TopBannerStyles.resultsSummary}>
+              <div className={TopBannerStyles.confidenceScore}>
+                <div className={TopBannerStyles.scoreNumber}>93.5%</div>
+                <div className={TopBannerStyles.scoreLabel}>Style Authenticity</div>
+              </div>
+              <div className={TopBannerStyles.detectionsFound}>
+                <div className={TopBannerStyles.detectionsNumber}>10</div>
+                <div className={TopBannerStyles.detectionsLabel}>Elements Applied</div>
+              </div>
+            </div>
+            
+            <div className={TopBannerStyles.detectedIssues}>
+              <div className={TopBannerStyles.cartoonTag}>Clothing (3)</div>
+              <div className={TopBannerStyles.cartoonTag}>Hairstyle (4)</div>
+              <div className={TopBannerStyles.cartoonTag}>Background (3)</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Avatar Demo */}
+        <div 
+          className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'avatar' ? TopBannerStyles.hidden : ''}`} 
+          id="avatar-demo"
+        >
+          <div className={TopBannerStyles.scanningFrame}>
+            <div className={TopBannerStyles.imageFrame}>
+              <Image
+                src="/images/avatar-before.jpg"
+                alt="Regular photo being transformed to professional avatar"
+                layout="fill"
+                className={TopBannerStyles.photoImage}
+                sizes="(max-width: 768px) 100vw, 700px"
+              />
+              
+              <div className={TopBannerStyles.repairLayer}>
+                <Image
+                  src="/images/avatar-after.jpg"
+                  alt="Professional avatar"
+                  layout="fill"
+                  className={TopBannerStyles.repairedImage}
+                  sizes="(max-width: 768px) 100vw, 700px"
+                />
+              </div>
+              
+              <div className={TopBannerStyles.repairWave}></div>
+
+              {/* Processing Text */}
+              <div className={TopBannerStyles.processingOverlay}>
+                <div className={TopBannerStyles.processingText}>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Extracting facial features...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Enhancing image quality...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Applying professional styling...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Optimizing for social media...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={TopBannerStyles.colorProgress}>
+              <div className={TopBannerStyles.progressBar}>
+                <div className={TopBannerStyles.repairProgressFill}></div>
+              </div>
+              <span className={TopBannerStyles.progressText}>Generating avatar... 91%</span>
+            </div>
+          </div>
+
+          {/* Avatar Results */}
+          <div className={TopBannerStyles.resultsPanel}>
+            <div className={TopBannerStyles.resultsSummary}>
+              <div className={TopBannerStyles.confidenceScore}>
+                <div className={TopBannerStyles.scoreNumber}>97.1%</div>
+                <div className={TopBannerStyles.scoreLabel}>Quality Score</div>
+              </div>
+              <div className={TopBannerStyles.detectionsFound}>
+                <div className={TopBannerStyles.detectionsNumber}>14</div>
+                <div className={TopBannerStyles.detectionsLabel}>Enhancements</div>
+              </div>
+            </div>
+            
+            <div className={TopBannerStyles.detectedIssues}>
+              <div className={TopBannerStyles.repairTag}>Face (5)</div>
+              <div className={TopBannerStyles.repairTag}>Lighting (4)</div>
+              <div className={TopBannerStyles.repairTag}>Background (5)</div>
             </div>
           </div>
         </div>

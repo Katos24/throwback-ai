@@ -94,6 +94,22 @@ export default function Header({ showMenu, setShowMenu }) {
       description: "Transform to cartoon art",
       credits: "40 Credits",
       badge: "New"
+    },
+    { 
+      href: "/replicate/yearbook", 
+      label: "90s Yearbook Transform", 
+      icon: "📸",
+      description: "Create authentic 90s yearbook photos",
+      credits: "20 Credits",
+      badge: "Popular"
+    },
+    { 
+      href: "/replicate/avatar", 
+      label: "AI Avatar Generator", 
+      icon: "👤",
+      description: "Professional AI-generated avatars",
+      credits: "50 Credits",
+      badge: "New"
     }
   ];
 

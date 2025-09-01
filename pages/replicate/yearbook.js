@@ -4,173 +4,21 @@ import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/YearbookTransform.module.css";
+import toast from "react-hot-toast";
 
-const styleCategories = {
-  popular: [
-    { 
-      label: "🎸 Grunge Legend", 
-      value: "grunge", 
-      promptDesc: "moody 1990s grunge portrait, alternative rock musician style, wearing flannel shirt and distressed band t-shirt, long messy hair, dark atmospheric lighting, Seattle grunge scene aesthetic", 
-      style: "Cinematic",
-      styleStrength: 25,
-      guidanceScale: 6
-    },
-    { 
-      label: "🧢 Hip Hop Star", 
-      value: "hiphop", 
-      promptDesc: "authentic 90s hip-hop fashion with baggy jeans, oversized jersey, gold chains, Timberland boots, snapback cap, street photography style", 
-      style: "Cinematic",
-      styleStrength: 22,
-      guidanceScale: 6,
-      referenceImage: "https://throwbackai.app/images/rap-reference.jpg"
-    },
-    { 
-      label: "💿 Mall Goth", 
-      value: "mallgoth", 
-      promptDesc: "mall goth aesthetic with black fishnets, heavy dark eyeliner, band t-shirt, studded leather accessories, platform boots, moody lighting", 
-      style: "Enhance",
-      styleStrength: 25,
-      guidanceScale: 7
-    },
-    { 
-      label: "🏀 Star Athlete", 
-      value: "jock", 
-      promptDesc: "90s high school athlete with varsity letterman jacket, athletic wear, Nike sneakers, healthy sporty look, school portrait lighting", 
-      style: "Photographic (Default)",
-      styleStrength: 20,
-      guidanceScale: 5
-    },
-    {
-  label: "🎽 Retro Track Star",
-  value: "trackstar",
-  promptDesc: "90s athletic fashion with bold striped windbreaker jacket, silver chain necklace, voluminous hair, soft blue studio background, vibrant colors, nostalgic sportswear styling, VHS texture",
-  style: "Photographic (Default)",
-  styleStrength: 26,
-  guidanceScale: 6
-},
-// Add this to your popular category in styleCategories
-// Add this to your popular category in styleCategories
-{
-  label: "🏫 Bayside High Student", 
-  value: "savedbythebell", 
-  promptDesc: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy guy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
-  style: "Photographic (Default)", 
-  styleStrength: 18,
-  guidanceScale: 5,
-},
-{
-  label: "🌈 90s Colorblock King", 
-  value: "colorblock90s", 
-  promptDesc: "authentic early 1990s streetwear style, wearing oversized geometric colorblock windbreaker jacket with bright yellow orange green red pink magenta color sections, dark crew neck t-shirt underneath, silver chain necklace, tousled messy dark hair, relaxed confident pose, clean studio lighting, vibrant bold color blocking fashion, retro athletic wear aesthetic, classic 90s track jacket style",
-  style: "Photographic (Default)", 
-  styleStrength: 20,
-  guidanceScale: 6,
-  // No reference image needed - the detailed prompt should handle it
-}
-  ],
-  preppy: [
-    { 
-      label: "🧼 Prep School Elite", 
-      value: "preppy", 
-      promptDesc: "classic preppy 90s style with polo shirt, khaki pants, sweater tied around shoulders, boat shoes, clean-cut appearance", 
-      style: "Photographic (Default)",
-      styleStrength: 18,
-      guidanceScale: 5
-    },
-    { 
-      label: "🌸 Sweet Valley High", 
-      value: "sweetvalley", 
-      promptDesc: "sweet 90s teen fashion with pastel colors, crop top, high-waisted jeans, scrunchies, soft dreamy lighting", 
-      style: "Fantasy art",
-      styleStrength: 20,
-      guidanceScale: 6
-    },
-    { 
-      label: "👔 Future CEO", 
-      value: "business", 
-      promptDesc: "young professional 90s look with blazer, crisp dress shirt, silk tie, perfectly styled hair, confident pose", 
-      style: "Cinematic",
-      styleStrength: 22,
-      guidanceScale: 6
-    },
-  ],
-  quirky: [
-    { 
-      label: "🦄 Lisa Frank Dreamer", 
-      value: "lisafrank", 
-      promptDesc: "colorful Lisa Frank-inspired 90s fashion with neon rainbow colors, glittery accessories, holographic prints, whimsical styling", 
-      style: "Digital Art",
-      styleStrength: 28,
-      guidanceScale: 7
-    },
-    { 
-      label: "📼 Tech Nerd", 
-      value: "technerd", 
-      promptDesc: "90s computer geek with thick wireframe glasses, pocket protector, suspenders, tucked-in plaid shirt, calculator watch", 
-      style: "Photographic (Default)",
-      styleStrength: 20,
-      guidanceScale: 6
-    },
-    { 
-      label: "🎨 Art Class Hero", 
-      value: "artsy", 
-      promptDesc: "creative 90s artist look with paint-splattered clothes, black beret, bohemian accessories, artistic flair", 
-      style: "Fantasy art",
-      styleStrength: 24,
-      guidanceScale: 6
-    },
-    { 
-      label: "🕶️ Skater Kid", 
-      value: "skater", 
-      promptDesc: "90s skater style with baggy cargo pants, graphic band tee, Vans sneakers, backwards baseball cap, rebellious attitude", 
-      style: "Comic book",
-      styleStrength: 23,
-      guidanceScale: 6
-    },
-  ],
-  iconic: [
-    { 
-      label: "📺 Sitcom Star", 
-      value: "sitcom", 
-      promptDesc: "90s TV show character style with bright bold patterns, iconic fashion trends, studio lighting, classic American teen look", 
-      style: "Enhance",
-      styleStrength: 25,
-      guidanceScale: 7
-    },
-    { 
-      label: "🎤 Pop Princess", 
-      value: "popstar", 
-      promptDesc: "90s pop star look with sparkly crop top, platform shoes, frosted eyeshadow, bold colorful makeup, stage lighting", 
-      style: "Neonpunk",
-      styleStrength: 27,
-      guidanceScale: 7
-    },
-    { 
-      label: "🧙‍♂️ Fantasy Enthusiast", 
-      value: "fantasy", 
-      promptDesc: "90s fantasy fan with D&D graphic t-shirt, long hair, wireframe glasses, fantasy book accessories, nerdy charm", 
-      style: "Fantasy art",
-      styleStrength: 22,
-      guidanceScale: 6
-    },
-    { 
-      label: "🐢 Cartoon Fan", 
-      value: "cartoonkid", 
-      promptDesc: "90s cartoon-loving kid with animated character t-shirt, colorful accessories, playful styling, bright cheerful lighting", 
-      style: "Disney Character",
-      styleStrength: 24,
-      guidanceScale: 6
-    },
-  ]
-};
+// Import yearbook styles from your centralized component
+import { styleCategories } from "../../components/YearbookStyles";
 
 const ENHANCED_NEGATIVE_PROMPT =
-  "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group photo, other people, crowd, yearbook page layout, school group, classmates, other faces, two people, three people, group portrait, many people, background people, modern clothing, contemporary fashion, digital photography, harsh lighting, oversaturated colors, modern hairstyles, smartphone, 2000s style, 2010s fashion, modern technology, instagram filter, face change, different person, altered facial features, wrong face, facial distortion, unrecognizable face, race change, ethnicity change, skin tone change, facial structure change, wrong identity";
+  "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group photo, other people, crowd, other faces, two people, three people, group portrait, many people, background people, modern clothing, contemporary fashion, digital photography, harsh lighting, oversaturated colors, modern hairstyles, smartphone, 2000s style, 2010s fashion, modern technology, instagram filter, face change, different person, altered facial features, wrong face, facial distortion, unrecognizable face, race change, ethnicity change, skin tone change, facial structure change, wrong identity";
+
+const YEARBOOK_COST = 20;
 
 export default function YearbookTransform() {
   const router = useRouter();
-  
-  const [selectedCategory, setSelectedCategory] = useState('popular');
+
+  // ===== STATE =====
+  const [selectedCategory, setSelectedCategory] = useState("popular");
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -178,8 +26,11 @@ export default function YearbookTransform() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [credits, setCredits] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
+  // ===== EFFECTS =====
   useEffect(() => {
     if (router.query.success === "true") {
       setIsPremiumUnlocked(true);
@@ -196,6 +47,16 @@ export default function YearbookTransform() {
         }
         if (session?.user) {
           setUserId(session.user.id);
+          setIsLoggedIn(true);
+          // Fetch credits from profile table
+          const { data, error: profileError } = await supabase
+            .from("profiles")
+            .select("credits_remaining")
+            .eq("id", session.user.id)
+            .single();
+          if (!profileError && data) {
+            setCredits(data.credits_remaining || 0);
+          }
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -204,6 +65,7 @@ export default function YearbookTransform() {
     fetchUser();
   }, []);
 
+  // ===== HANDLERS =====
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -218,7 +80,7 @@ export default function YearbookTransform() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0]);
     }
@@ -231,36 +93,56 @@ export default function YearbookTransform() {
   };
 
   const handleFile = (file) => {
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       setPhoto(file);
       setPreviewUrl(URL.createObjectURL(file));
       setResultImageUrl(null);
     } else {
-      alert("Please upload a valid image file.");
+      toast.error("Please upload a valid image file.");
     }
   };
 
+  // ===== GENERATE IMAGE WITH CREDITS CHECK =====
   const generateImage = async (endpoint) => {
     if (!photo || !selectedStyle) {
-      alert("Please upload a photo and select a style first!");
+      toast.error("Please upload a photo and select a style first!", { icon: "📤" });
       return;
     }
 
-    if (!userId) {
-      alert("Please log in to generate images.");
+    if (!isLoggedIn) {
+      toast.error("Sign up required for yearbook transformation", {
+        icon: "🔒",
+        duration: 4000,
+        action: {
+          label: "Sign Up",
+          onClick: () => window.location.href = "/signup"
+        }
+      });
+      return;
+    }
+
+    if (credits < YEARBOOK_COST) {
+      toast.error(`You need ${YEARBOOK_COST} credits for yearbook transformation`, {
+        icon: "📚",
+        duration: 4000,
+        action: {
+          label: "Get Credits",
+          onClick: () => window.location.href = "/pricing"
+        }
+      });
       return;
     }
 
     const allStyles = Object.values(styleCategories).flat();
     const selectedCharacter = allStyles.find((c) => c.value === selectedStyle);
-    
+
     if (!selectedCharacter) {
-      alert("Selected style not found. Please try again.");
+      toast.error("Selected style not found. Please try again.");
       return;
     }
 
-    // Enhanced prompt construction for better results
-const prompt = `Professional 1990s high school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: period-appropriate haircuts, clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original facial features, skin tone, hair, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
+    const prompt = `Professional 1990s high school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: period-appropriate haircuts, clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original facial features, skin tone, hair, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
+
     try {
       setIsLoading(true);
       setResultImageUrl(null);
@@ -273,28 +155,33 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
         initialQuality: 0.6,
       });
 
-      // Convert image to base64 for PhotoMaker API
       const base64 = await new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result.split(",")[1]);
         reader.readAsDataURL(compressedFile);
       });
 
+      // Show processing toast
+      const processingToast = toast.loading('Creating your 90s yearbook portrait...', {
+        icon: '📚',
+      });
+
       const response = await fetch(endpoint, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    imageBase64: base64,
-    prompt,
-    negativePrompt: ENHANCED_NEGATIVE_PROMPT,
-    // Send the PhotoMaker parameters that the API expects
-    styleName: selectedCharacter.style,           // "Cinematic"
-    styleStrength: selectedCharacter.styleStrength, // 22
-    guidanceScale: selectedCharacter.guidanceScale, // 6
-    referenceImage: selectedCharacter.referenceImage, // "https://throwbackai.app/images/rap-reference.jpg"
-    userId,
-  }),
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageBase64: base64,
+          prompt,
+          negativePrompt: ENHANCED_NEGATIVE_PROMPT,
+          styleName: selectedCharacter.style,
+          styleStrength: selectedCharacter.styleStrength,
+          guidanceScale: selectedCharacter.guidanceScale,
+          referenceImage: selectedCharacter.referenceImage || null,
+          userId,
+        }),
+      });
+
+      toast.dismiss(processingToast);
 
       if (!response.ok) {
         const errorData = await response.text();
@@ -302,15 +189,17 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
       }
 
       const data = await response.json();
-      
       if (data.imageUrl) {
         setResultImageUrl(data.imageUrl);
+        // Deduct credits locally (for instant feedback)
+        setCredits((prev) => prev - YEARBOOK_COST);
+        toast.success("Transformation complete!", { icon: "✅" });
       } else {
         throw new Error("No image URL returned from server");
       }
     } catch (error) {
       console.error("Error generating image:", error);
-      alert(`Error generating image: ${error.message}. Please try again.`);
+      toast.error(`Error generating image: ${error.message}. Please try again.`);
     } finally {
       setIsLoading(false);
     }
@@ -321,35 +210,31 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
 
   const handleDownload = () => {
     if (!resultImageUrl) return;
-    
-    try {
-      const link = document.createElement('a');
-      link.href = resultImageUrl;
-      link.download = '90s-yearbook-transform.jpg';
-      link.click();
-    } catch (error) {
-      console.error("Error downloading image:", error);
-      alert("Error downloading image. Please try right-clicking and saving instead.");
-    }
+    const link = document.createElement("a");
+    link.href = resultImageUrl;
+    link.download = "90s-yearbook-transform.jpg";
+    link.click();
   };
 
-  // Get the selected style details for display
-  const getSelectedStyleDetails = () => {
+  const selectedStyleDetails = (() => {
     if (!selectedStyle) return null;
     const allStyles = Object.values(styleCategories).flat();
     return allStyles.find((c) => c.value === selectedStyle);
-  };
+  })();
 
-  const selectedStyleDetails = getSelectedStyleDetails();
-
+  // ===== RENDER =====
   return (
     <>
       <Head>
         <title>90s Yearbook Transform | Throwback AI</title>
-        <meta name="description" content="Transform your photos into authentic 90s yearbook styles with AI. Choose from grunge, hip-hop, preppy, and more iconic 90s looks." />
+        <meta
+          name="description"
+          content="Transform your photos into authentic 90s yearbook styles with AI. Choose from grunge, hip-hop, preppy, and more iconic 90s looks."
+        />
       </Head>
 
       <main className={styles.container}>
+        {/* Hero */}
         <div className={styles.hero}>
           <h1 className={styles.title}>
             <span className={styles.titleEmoji}>📸</span>
@@ -360,14 +245,21 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
           </p>
         </div>
 
+        {/* Credits Info */}
+        <div className={styles.creditsInfo}>
+          <span>Credits: <b>{credits}</b></span>
+          <span>Cost per transform: <b>{YEARBOOK_COST}</b></span>
+        </div>
+
+        {/* Upload Section */}
         <div className={styles.uploadSection}>
-          <div 
-            className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''} ${previewUrl ? styles.hasImage : ''}`}
+          <div
+            className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ""} ${previewUrl ? styles.hasImage : ""}`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            onClick={() => document.getElementById('photo-upload').click()}
+            onClick={() => document.getElementById("photo-upload").click()}
           >
             {previewUrl ? (
               <div className={styles.previewContainer}>
@@ -394,15 +286,15 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
           />
         </div>
 
+        {/* Styles Section */}
         <div className={styles.stylesSection}>
           <h2 className={styles.sectionTitle}>Choose Your 90s Vibe</h2>
-          
           <div className={styles.categoryTabs}>
             {Object.keys(styleCategories).map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`${styles.categoryTab} ${selectedCategory === category ? styles.activeTab : ''}`}
+                className={`${styles.categoryTab} ${selectedCategory === category ? styles.activeTab : ""}`}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </button>
@@ -414,9 +306,9 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
               <button
                 key={style.value}
                 onClick={() => setSelectedStyle(style.value)}
-                className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ''}`}
+                className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ""}`}
               >
-                <span className={styles.styleEmoji}>{style.label.split(' ')[0]}</span>
+                <span className={styles.styleEmoji}>{style.label.split(" ")[0]}</span>
                 <span className={styles.styleName}>{style.label.substring(2)}</span>
                 <small className={styles.stylePreview}>
                   {style.style} • Strength: {style.styleStrength}%
@@ -424,8 +316,6 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
               </button>
             ))}
           </div>
-
-
 
           {selectedStyleDetails && (
             <div className={styles.styleDescription}>
@@ -440,7 +330,7 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
           )}
         </div>
 
-
+        {/* Generate Section */}
         <div className={styles.generateSection}>
           <button
             onClick={handleFreeGenerate}
@@ -455,31 +345,13 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
             ) : (
               <>
                 <span>🎨</span>
-                Generate Free Transform
+                Generate Yearbook Transform
               </>
             )}
           </button>
-
-          {isPremiumUnlocked ? (
-            <button
-              onClick={handlePremiumGenerate}
-              disabled={!photo || !selectedStyle || isLoading}
-              className={`${styles.generateBtn} ${styles.premiumBtn}`}
-            >
-              <span>✨</span>
-              Premium High-Quality Transform
-            </button>
-          ) : (
-            <button
-              onClick={() => router.push("/pricing")}
-              className={`${styles.generateBtn} ${styles.upgradeBtn}`}
-            >
-              <span>💎</span>
-              Upgrade for Premium Quality
-            </button>
-          )}
         </div>
 
+        {/* Result Section */}
         {resultImageUrl && (
           <div className={styles.resultSection}>
             <h2 className={styles.resultTitle}>Your 90s Transformation</h2>
@@ -490,13 +362,10 @@ const prompt = `Professional 1990s high school yearbook portrait of img, ${selec
                 className={styles.resultImage}
               />
               <div className={styles.resultActions}>
-                <button 
-                  onClick={handleDownload}
-                  className={styles.downloadBtn}
-                >
+                <button onClick={handleDownload} className={styles.downloadBtn}>
                   📥 Download Your 90s Photo
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     setSelectedStyle(null);
                     setResultImageUrl(null);

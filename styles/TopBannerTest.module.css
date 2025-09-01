@@ -875,15 +875,15 @@
   }
   
   .transformTabs {
-    gap: 0.3rem;
-    padding: 0.4rem;
-    max-width: 100%;
+    flex-wrap: wrap;            /* Allow tabs to move to the next line */
+    justify-content: center;     /* Center tabs in each row */
+    gap: 0.5rem;                /* Space between tabs */
   }
-  
+
   .tabButton {
-    padding: 10px 12px;
-    font-size: 0.8rem;
-    gap: 0.4rem;
+    flex: 1 1 45%;              /* Each tab takes ~45% width, two per row */
+    min-width: 120px;           /* Prevent buttons from shrinking too much */
+    margin-bottom: 0.3rem;      /* Space between rows */
   }
   
   .tabIcon {

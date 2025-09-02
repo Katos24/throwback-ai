@@ -1,100 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import heroStyles from '../../styles/CarouselHero.module.css';
+import React from "react";
+import Link from "next/link";
+import styles from "../../styles/CarouselHero.module.css";
 
 export default function HeroSection() {
-  // Transformation examples with links
-  const transformationExamples = [
-    { id: 'restore-1', before: "/images/basicpage-before.jpg", after: "/images/basicpage-after.jpg", category: "Photo Restoration", link: "replicate/restore-basic" },
-    { id: 'restore-2', before: "/images/restore-before-2.jpg", after: "/images/restore-after-2.jpg", category: "Photo Restoration", link: "replicate/restore-premium" },
-    { id: 'colorize-1', before: "/images/before6.jpg", after: "/images/after6.jpg", category: "AI Colorization", link: "replicate/colorize" },
-    { id: 'cartoon-1', before: "/images/cartoon-before.jpg", after: "/images/cartoon-example.jpg", category: "Cartoon Art", link: "replicate/cartoon" },
-    { id: 'yearbook-1', before: "/images/yearbook-before.jpg", after: "/images/yearbook-after.jpg", category: "90s Yearbook", link: "replicate/yearbook" },
-    { id: 'avatar-1', before: "/images/avatar-before.jpg", after: "/images/avatar-after.jpg", category: "Professional Avatar", link: "replicate/avatar" },
+  const items = [
+    { id: "restore-1", image: "/images/basicpage-after.jpg", category: "Photo Restoration", link: "replicate/restore-basic" },
+    { id: "restore-2", image: "/images/photo-colorization-card.jpg", category: "Colorize B&W Photo", link: "replicate/restore-premium" },
+    { id: "cartoon-1", image: "/images/cartoon-example.jpg", category: "Cartoon Art", link: "replicate/cartoon" },
+    { id: "yearbook-1", image: "/images/yearbook-card-home.jpg", category: "90s Yearbook", link: "replicate/yearbook" },
+    { id: "avatar-1", image: "/images/avatar-after.jpg", category: "Professional Avatar", link: "replicate/avatar" },
   ];
 
-  // Auto-rotate center image
-  const [centerIndex, setCenterIndex] = useState(0);
-  const yearbookExamples = transformationExamples.filter(ex => ex.category === "90s Yearbook");
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCenterIndex((prev) => (prev + 1) % yearbookExamples.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [yearbookExamples.length]);
-
-  const restoreExamples = transformationExamples.filter(ex => ex.category === "Photo Restoration");
-  const rightExamples = transformationExamples.filter(ex => ["Cartoon Art", "Professional Avatar"].includes(ex.category));
-
   return (
-    <section className={heroStyles.hero}>
-      {/* Header */}
-      <div className={heroStyles.heroContainer}>
-        <div className={heroStyles.heroHeader}>
-          <h1 className={heroStyles.heroTitle}>
-            Transform Any Photo Into Something Amazing
-          </h1>
-          <p className={heroStyles.heroSubtitle}>
-            From restoring precious family memories to creating viral social content. 
-            See what our AI can do with your photos in seconds.
-          </p>
+    <section className={styles.simpleHero}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Pick a Transformation</h1>
+          <p className={styles.subtitle}>Choose one of the styles below to see examples and try it out.</p>
+        </header>
+
+        <div className={styles.grid}>
+          {items.map((it) => (
+            <div key={it.id} className={styles.card}>
+              <Link href={it.link} className={styles.cardLink} aria-label={`Go to ${it.category}`}>
+                <div className={styles.imgWrap}>
+                  <img src={it.image} alt={it.category} className={styles.img} />
+                  <span className={styles.overlayButton}>Go to Page</span>
+                </div>
+                <div className={styles.cardLabel}>{it.category}</div>
+              </Link>
+            </div>
+          ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className={heroStyles.heroActions}>
-          <Link href="/upload" className={heroStyles.primaryCTA}>Upload Photo</Link>
-          <Link href="#examples" className={heroStyles.secondaryCTA}>See Demo</Link>
-        </div>
-
-        {/* 3-Column Showcase */}
-        <div className={heroStyles.transformationShowcase}>
-          {/* Left Column - Restore */}
-          <div className={heroStyles.leftColumn}>
-            {restoreExamples.map(ex => (
-              <div key={ex.id} className={heroStyles.sideExample}>
-                <div className={heroStyles.imageWrapper}>
-                  <img src={ex.after} alt={ex.category} className={heroStyles.sideImage} />
-                  <Link href={ex.link} className={heroStyles.hoverButton}>Go to Page</Link>
-                </div>
-                <span>{ex.category}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Center Column - 90s Yearbook */}
-          <div className={heroStyles.centerColumn}>
-            {yearbookExamples.length > 0 && (
-              <div className={heroStyles.mainExample}>
-                <div className={heroStyles.imageWrapper}>
-                  <img src={yearbookExamples[centerIndex].after} alt="90s Yearbook" className={heroStyles.mainImage} />
-                  <Link href={yearbookExamples[centerIndex].link} className={heroStyles.hoverButton}>Go to Page</Link>
-                </div>
-                <span>{yearbookExamples[centerIndex].category}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Right Column - Cartoon & Avatar */}
-          <div className={heroStyles.rightColumn}>
-            {rightExamples.map(ex => (
-              <div key={ex.id} className={heroStyles.sideExample}>
-                <div className={heroStyles.imageWrapper}>
-                  <img src={ex.after} alt={ex.category} className={heroStyles.sideImage} />
-                  <Link href={ex.link} className={heroStyles.hoverButton}>Go to Page</Link>
-                </div>
-                <span>{ex.category}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Trust Bar */}
-        <div className={heroStyles.trustBar}>
-          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>50K+ Photos Transformed</div>
-          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>2.3s Average Speed</div>
-          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>100% Private & Secure</div>
-          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>No Signup Required</div>
+        <div className={styles.trustBar}>
+          <div className={styles.trustItem}><span className={styles.checkmark}>✓</span>50K+ Photos Transformed</div>
+          <div className={styles.trustItem}><span className={styles.checkmark}>✓</span>Fast Results</div>
+          <div className={styles.trustItem}><span className={styles.checkmark}>✓</span>Private & Secure</div>
         </div>
       </div>
     </section>

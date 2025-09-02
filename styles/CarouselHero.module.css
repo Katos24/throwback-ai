@@ -1,456 +1,165 @@
-/* CarouselHero.module.css - Photo Gallery Style */
+/* --------------------------
+   Hero Section Modern Styles
+----------------------------*/
 
-/* Hero Section */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
-  overflow: hidden;
-  padding: 3rem 1rem;
-  color: #333;
-  display: flex;
-  align-items: center;
+.simpleHero {
+  padding: 4rem 1rem;
+  background: #f7f8fc;
+  font-family: 'Inter', sans-serif;
+  color: #111;
 }
 
-/* Background Elements */
-.backgroundGrid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-.gradientOrb {
-  position: absolute;
-  top: -10%;
-  right: -10%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-}
-
-/* Container */
-.heroContainer {
-  position: relative;
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  z-index: 1;
-  width: 100%;
+  padding: 0 16px;
   text-align: center;
 }
 
-/* Header */
-.heroHeader {
-  margin-bottom: 2rem;
+/* Header / Title */
+.header {
+  margin-bottom: 2.5rem;
 }
-
-.heroTitle {
-  font-size: 3.5rem;
+.title {
+  font-size: 3rem;
   font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  color: #1f2937;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #0070f3, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
 }
-
-.heroSubtitle {
+.subtitle {
   font-size: 1.25rem;
-  color: #6b7280;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 400;
-}
-
-/* Action Buttons */
-.heroActions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 3rem;
-}
-
-.primaryCTA {
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 32px;
-  background: #1f2937;
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.primaryCTA:hover {
-  background: #111827;
-  transform: translateY(-2px);
-}
-
-.secondaryCTA {
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 32px;
-  background: #fbbf24;
-  color: #1f2937;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.secondaryCTA:hover {
-  background: #f59e0b;
-  transform: translateY(-2px);
-}
-
-/* Photo Gallery */
-.photoGallery {
-  margin-bottom: 3rem;
-}
-
-.galleryContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.galleryArrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1f2937;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.galleryArrow:hover {
-  background: white;
-  transform: translateY(-50%) scale(1.1);
-}
-
-.leftArrow {
-  left: -25px;
-}
-
-.rightArrow {
-  right: -25px;
-}
-
-.photoCarousel {
-  width: 100%;
-  overflow: hidden;
-  margin: 0 50px;
-}
-
-.photoTrack {
-  display: flex;
-  gap: 15px;
-  width: max-content;
-}
-
-.photoCard {
-  width: 560px;
-  background: white;
-  border-radius: 20px;
-  padding: 5px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.photoCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
-}
-
-.beforeAfter {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.beforeImage, .afterImage {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 1;
-}
-
-.exampleImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.imageLabel {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-weight: 500;
+  color: #555;
+  margin-top: 0.5rem;
   letter-spacing: 0.5px;
 }
 
-.categoryLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: #374151;
-  margin: 0;
-  text-align: center;
-}
-
-/* Gallery Dots */
-.galleryDots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot:hover {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.activeDot {
-  background: #3b82f6;
-  transform: scale(1.2);
-}
-
-/* Trust Bar */
-.trustBar {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.trustItem {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.checkmark {
-  color: #10b981;
-  font-weight: bold;
-}
-
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .heroTitle {
-    font-size: 3rem;
-  }
-  
-  .photoCarousel {
-    margin: 0 40px;
-  }
-  
-  .leftArrow {
-    left: -20px;
-  }
-  
-  .rightArrow {
-    right: -20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding: 2rem 1rem;
-  }
-  
-  .heroTitle {
-    font-size: 2.5rem;
-  }
-  
-  .heroSubtitle {
-    font-size: 1.1rem;
-  }
-  
-  .heroActions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .primaryCTA, .secondaryCTA {
-    width: 100%;
-    max-width: 280px;
-    justify-content: center;
-  }
-  
-  .photoCarousel {
-    margin: 0 30px;
-  }
-  
-  .leftArrow, .rightArrow {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-  
-  .leftArrow {
-    left: -15px;
-  }
-  
-  .rightArrow {
-    right: -15px;
-  }
-  
-  .photoCard {
-    width: 220px;
-  }
-  
-  .trustBar {
-    gap: 1rem;
-  }
-  
-  .trustItem {
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .heroTitle {
-    font-size: 2rem;
-  }
-  
-  .photoCarousel {
-    margin: 0 20px;
-  }
-  
-  .photoCard {
-    width: 200px;
-    padding: 16px;
-  }
-  
-  .trustBar {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-  }
-}
-
-
-.exampleCTA {
-  display: inline-block;
-  margin-top: 8px;
-  color: #4f46e5;
-  font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-
-.exampleCTA:hover {
-  color: #4338ca;
-}
-
-
-
-.transformationShowcase {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
+/* Grid layout for 5 cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
   margin-top: 2rem;
 }
 
-.leftColumn,
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.centerColumn {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sideImage {
-  width: 120px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.mainImage {
-  width: 350px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-}
-
-.sideExample span,
-.mainExample span {
-  display: block;
-  text-align: center;
-  margin-top: 5px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.imageWrapper {
+/* Card */
+.card {
   position: relative;
-  display: inline-block;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hoverButton {
+.card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+}
+
+/* Image wrapper */
+.imgWrap {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Image zoom on hover */
+.card:hover .img,
+.card:focus-within .img {
+  transform: scale(1.05);
+  transition: transform 0.4s ease;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* Overlay button */
+.overlayButton {
   position: absolute;
-  bottom: 10px;
   left: 50%;
-  transform: translateX(-50%);
-  background-color: #0070f3;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: linear-gradient(135deg, #0070f3, #00d4ff);
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
   opacity: 0;
-  transition: opacity 0.3s;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  text-align: center;
 }
 
-.imageWrapper:hover .hoverButton {
+/* Show button when hovering anywhere on card */
+.card:hover .overlayButton,
+.card:focus-within .overlayButton {
   opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
 }
+
+/* Label under image */
+.cardLabel {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #222;
+}
+
+/* Trust bar */
+.trustBar {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  font-weight: 600;
+  color: #333;
+}
+.checkmark {
+  color: #00c851;
+  font-weight: 700;
+}
+
+/* --------------------------
+   Responsive breakpoints
+----------------------------*/
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .imgWrap { height: 300px; }
+}
+@media (max-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .imgWrap { height: 260px; }
+}
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .imgWrap { height: 220px; }
+}
+
+/* Accessibility focus */
+.cardLink:focus { box-shadow: 0 0 0 4px rgba(0,112,243,0.12); border-radius: 16px; }

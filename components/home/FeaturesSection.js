@@ -43,43 +43,62 @@ const FeaturesSection = () => {
     <section className={FeaturesStyles.features} ref={wrapperRef}>
       <div className={FeaturesStyles.container}>
         {/* Section Heading */}
-        <h2 className={FeaturesStyles.title}>
-          What Makes Throwback AI Different?
-        </h2>
-        <p className={FeaturesStyles.subtitle}>
-          Advanced AI technology designed specifically for restoring your precious memories
-        </p>
+        <div className={FeaturesStyles.header}>
+          <h2 className={FeaturesStyles.title}>
+            What Makes Our AI Photo Transformations Special?
+          </h2>
+          <p className={FeaturesStyles.subtitle}>
+            Advanced AI technology designed specifically for bringing your photos to life. From restoring precious family memories to creating stunning modern art - we've got you covered.
+          </p>
+        </div>
 
         {/* Features Grid */}
         <div className={FeaturesStyles.grid}>
           <div className={FeaturesStyles.card}>
-            <h3 className={FeaturesStyles.cardTitle}>🎯 Complete AI Suite</h3>
+            <div className={FeaturesStyles.cardIcon}>🎯</div>
+            <h3 className={FeaturesStyles.cardTitle}>Complete AI Suite</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Unlike general-purpose AI models, our specialized suite delivers unmatched accuracy for photo restoration, enhancement, colorization, and cartoon creation. More AI tools coming soon.
+              Unlike general-purpose AI models, our specialized suite delivers unmatched accuracy for photo restoration, enhancement, colorization, and creative transformations. From vintage repairs to modern cartoon art.
             </p>
           </div>
 
           <div className={FeaturesStyles.card}>
-            <h3 className={FeaturesStyles.cardTitle}>🔬 Heritage-Specific AI</h3>
+            <div className={FeaturesStyles.cardIcon}>🔬</div>
+            <h3 className={FeaturesStyles.cardTitle}>Heritage-Specific Training</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Trained exclusively on vintage photography, film grain, sepia tones, and analog damage.
-              Our models understand historical nuances from 1930s portraits to 1970s color casts.
+              Trained exclusively on vintage photography, film grain, sepia tones, and analog damage. Our models understand historical nuances from 1930s portraits to 1970s color casts, ensuring authentic restorations.
             </p>
           </div>
 
           <div className={FeaturesStyles.card}>
-            <h3 className={FeaturesStyles.cardTitle}>⚡ Lightning-Fast Results</h3>
+            <div className={FeaturesStyles.cardIcon}>⚡</div>
+            <h3 className={FeaturesStyles.cardTitle}>Lightning-Fast Results</h3>
             <p className={FeaturesStyles.cardDescription}>
-              We restore your precious photos with clarity and care, often delivering results in seconds.
-              Premium restorations and colorizations maintain museum-quality detail while staying incredibly fast.
+              Get professional-quality results in seconds, not hours. Whether you're restoring damaged photos or creating cartoon avatars, our optimized AI delivers stunning transformations at incredible speed.
             </p>
           </div>
 
           <div className={FeaturesStyles.card}>
-            <h3 className={FeaturesStyles.cardTitle}>🔐 Complete Privacy Protection</h3>
+            <div className={FeaturesStyles.cardIcon}>🔐</div>
+            <h3 className={FeaturesStyles.cardTitle}>Complete Privacy Protection</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Every photo is processed securely and automatically deleted within one hour.
-              No permanent storage, no data training, complete protection of your family memories.
+              Every photo is processed securely and automatically deleted within one hour. No permanent storage, no data training, complete protection of your family memories and personal photos.
+            </p>
+          </div>
+
+          <div className={FeaturesStyles.card}>
+            <div className={FeaturesStyles.cardIcon}>🎨</div>
+            <h3 className={FeaturesStyles.cardTitle}>Creative & Restoration Tools</h3>
+            <p className={FeaturesStyles.cardDescription}>
+              Beyond restoration - transform photos into cartoon art, 90s yearbook styles, professional avatars, and more. Perfect for social media, gifts, or just having fun with your photos.
+            </p>
+          </div>
+
+          <div className={FeaturesStyles.card}>
+            <div className={FeaturesStyles.cardIcon}>💎</div>
+            <h3 className={FeaturesStyles.cardTitle}>Museum-Quality Output</h3>
+            <p className={FeaturesStyles.cardDescription}>
+              Our AI maintains incredible detail and authenticity in every transformation. From historically accurate colorization to crisp cartoon conversions, expect professional-grade results every time.
             </p>
           </div>
         </div>

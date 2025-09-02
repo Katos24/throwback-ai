@@ -73,9 +73,6 @@ export default function HeroSection() {
             From restoring precious family memories to creating fun modern art - our AI transforms your photos in seconds. 
             <strong> Preserve the past or reimagine the present.</strong>
           </p>
-          <p className={styles.subDescription}>
-            Choose one of the styles below to see examples and try it out. Each transformation uses advanced AI technology to deliver professional-quality results instantly.
-          </p>
         </header>
 
         {/* Tabs */}

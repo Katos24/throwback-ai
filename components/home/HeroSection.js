@@ -67,9 +67,9 @@ export default function HeroSection() {
         },
         {
           id: 'avatar',
-          title: "Professional Avatars",
-          shortTitle: "Professional Avatars", 
-          description: "Create polished, professional headshots and avatars perfect for LinkedIn, business cards, or any platform where you want to look your best.",
+          title: "Throwback Avatars",
+          shortTitle: "Throwback Avatars", 
+          description: "Create polished, throwback headshots and avatars perfect for social media, LinkedIn, business cards, or any platform where you want to look your best.",
           beforeAfter: {
             before: "/images/avatar-before.jpg",
             after: "/images/avatar-after.jpg"

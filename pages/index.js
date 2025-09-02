@@ -13,6 +13,7 @@ const HowItWorks = dynamic(() => import('../components/home/HowItWorksSection'))
 const PricingSection = dynamic(() => import('../components/home/PricingSection'));
 const CTASection = dynamic(() => import('../components/home/CTASection'));
 
+
 // Loader fallback
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 
@@ -28,6 +29,7 @@ export default function Home() {
   // Intersection Observers
   const [heroRef, heroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [socialHeroRef, socialHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -37,21 +39,21 @@ export default function Home() {
   return (
     <>
       <Head>
-        {/* Primary SEO */}
-        <title>Throwback AI — AI Photo Restoration, Colorization & Cartoon Creation</title>
-        <meta name="description" content="Transform your vintage photos with 3 powerful AI engines: restore damaged photos, add historically accurate colors, or create cartoon artwork. Fast, secure, and professional results." />
-        <meta name="keywords" content="AI photo restoration, photo colorization, cartoon creator, vintage photo repair, photo enhancement, family memories, genealogy photos" />
+        {/* Primary SEO - Updated for Social/Viral Focus */}
+        <title>Create Viral AI Content — Avatar Creator, 90s Yearbook & More | Throwback AI</title>
+        <meta name="description" content="Create viral social media content with AI! Generate stunning avatars (50 credits), nostalgic 90s yearbook photos (20 credits), and more. Perfect for TikTok, Instagram & sharing with friends." />
+        <meta name="keywords" content="AI avatar creator, 90s yearbook photos, viral social media content, AI profile pictures, retro photo generator, TikTok content, Instagram photos, social sharing" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={pageUrl} />
 
-        {/* Open Graph */}
+        {/* Open Graph - Updated for Social Appeal */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Throwback AI" />
-        <meta property="og:title" content="Throwback AI — AI Photo Restoration, Colorization & Cartoon Creation" />
-        <meta property="og:description" content="Transform your vintage photos with 3 powerful AI engines: restore damaged photos, add historically accurate colors, or create cartoon artwork. Fast, secure, and professional results." />
+        <meta property="og:title" content="Create Viral AI Content — Avatar Creator, 90s Yearbook & More" />
+        <meta property="og:description" content="Create viral social media content with AI! Generate stunning avatars, nostalgic 90s yearbook photos, and more. Perfect for TikTok, Instagram & sharing with friends." />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content="AI-powered photo transformation examples by Throwback AI" />
+        <meta property="og:image:alt" content="AI-powered viral content creation examples by Throwback AI" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
@@ -59,16 +61,16 @@ export default function Home() {
         <meta property="fb:pages" content={facebookPageId} />
         <meta property="article:publisher" content={facebookPageUrl} />
 
-        {/* Twitter */}
+        {/* Twitter - Updated for Social Appeal */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Throwback AI — AI Photo Restoration, Colorization & Cartoon Creation" />
-        <meta name="twitter:description" content="Transform your vintage photos with 3 powerful AI engines: restore damaged photos, add historically accurate colors, or create cartoon artwork." />
+        <meta name="twitter:title" content="Create Viral AI Content — Avatar Creator, 90s Yearbook & More" />
+        <meta name="twitter:description" content="Create viral social media content with AI! Generate stunning avatars, nostalgic 90s yearbook photos, and more. Perfect for sharing!" />
         <meta name="twitter:image" content={twitterImage} />
 
         {/* Theme color */}
         <meta name="theme-color" content="#111827" />
 
-        {/* Structured data (JSON-LD) */}
+        {/* Structured data (JSON-LD) - Updated */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -80,7 +82,7 @@ export default function Home() {
                   "@id": `${siteUrl}#website`,
                   "url": siteUrl,
                   "name": "Throwback AI",
-                  "description": "AI-powered tools to restore, colorize, and transform vintage photos into modern artwork.",
+                  "description": "AI-powered tools to create viral social media content, avatars, and nostalgic photo transformations.",
                   "publisher": {
                     "@type": "Organization",
                     "name": "Throwback AI",
@@ -92,34 +94,34 @@ export default function Home() {
                   "@type": "WebPage",
                   "@id": `${pageUrl}#webpage`,
                   "url": pageUrl,
-                  "name": "Throwback AI — Transform Your Vintage Photos",
+                  "name": "Throwback AI — Create Viral AI Content",
                   "isPartOf": { "@id": `${siteUrl}#website` },
-                  "description": "Transform your vintage photos with 3 powerful AI engines: restore damaged photos, add historically accurate colors, or create cartoon artwork. Fast, secure, and professional results."
+                  "description": "Create viral social media content with AI! Generate stunning avatars, nostalgic 90s yearbook photos, and more. Perfect for TikTok, Instagram & sharing with friends."
                 },
                 {
                   "@type": "Service",
-                  "name": "AI Photo Restoration",
-                  "description": "Professional photo restoration service using advanced AI to repair damage, enhance quality, and preserve family memories.",
+                  "name": "AI Content Creator",
+                  "description": "Professional AI content creation service for social media, avatars, and viral photo transformations.",
                   "provider": {
                     "@type": "Organization",
                     "name": "Throwback AI"
                   },
-                  "serviceType": "Photo Restoration",
+                  "serviceType": "AI Content Creation",
                   "hasOfferingCatalog": {
                     "@type": "OfferingCatalog",
-                    "name": "AI Photo Services",
+                    "name": "AI Social Media Services",
                     "itemListElement": [
                       {
                         "@type": "Offer",
-                        "itemOffered": { "@type": "Service", "name": "Photo Restoration", "description": "Repair scratches, tears, and fading in vintage photos" }
+                        "itemOffered": { "@type": "Service", "name": "AI Avatar Creator", "description": "Create stunning AI avatars perfect for social media profiles and viral content" }
                       },
                       {
                         "@type": "Offer",
-                        "itemOffered": { "@type": "Service", "name": "Photo Colorization", "description": "Add historically accurate colors to black and white photos" }
+                        "itemOffered": { "@type": "Service", "name": "90s Yearbook Photos", "description": "Transform photos into nostalgic 90s yearbook style that goes viral on social media" }
                       },
                       {
                         "@type": "Offer",
-                        "itemOffered": { "@type": "Service", "name": "Cartoon Creator", "description": "Transform photos into professional cartoon artwork" }
+                        "itemOffered": { "@type": "Service", "name": "Photo Restoration", "description": "Restore vintage photos for sharing precious family memories" }
                       }
                     ]
                   }
@@ -131,7 +133,7 @@ export default function Home() {
       </Head>
 
       <main>
-        {/* Hero Section */}
+        {/* Original Hero Section - Keep or Replace */}
         <div ref={heroRef}>
           {heroInView && <Suspense fallback={<Loader />}><HeroSection /></Suspense>}
         </div>

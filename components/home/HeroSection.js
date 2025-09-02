@@ -4,47 +4,85 @@ import ImageCompareSlider from "../ImageCompareSlider";
 import heroStyles from '../../styles/Hero.module.css';
 
 export default function HeroSection() {
-  const features = [
-    {
-      id: 'restore',
-      title: "Photo Restoration",
-      shortTitle: "Restore Damaged Photos",
-      description: "Remove scratches, tears, and fading from your treasured family photos. Perfect for preserving irreplaceable memories.",
-      beforeAfter: {
-        before: "/images/basicpage-before.jpg",
-        after: "/images/basicpage-after.jpg"
-      },
-      link: "/replicate/restore-basic",
-      credits: 1,
-      buttonText: "Restore (Try Free)"
+  const [activeTab, setActiveTab] = useState('enhance');
+
+  const tabsData = {
+    enhance: {
+      features: [
+        {
+          id: 'restore',
+          title: "Photo Restoration",
+          shortTitle: "Restore Damaged Photos",
+          description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos. Bring back memories you thought were lost forever.",
+          beforeAfter: {
+            before: "/images/basicpage-before.jpg",
+            after: "/images/basicpage-after.jpg"
+          },
+          link: "/replicate/restore-basic",
+          credits: 1,
+          buttonText: "Restore (Try Free)"
+        },
+        {
+          id: 'colorize',
+          title: "Historical Colorization", 
+          shortTitle: "Add Beautiful Colors",
+          description: "Watch your ancestors come alive as our AI adds historically accurate, vibrant colors to black and white family photos from any era.",
+          beforeAfter: {
+            before: "/images/before6.jpg",
+            after: "/images/after6.jpg"
+          },
+          link: "/replicate/restore-premium",
+          credits: 40,
+          buttonText: "Add Color"
+        }
+      ]
     },
-    {
-      id: 'colorize',
-      title: "AI Colorization", 
-      shortTitle: "Add Beautiful Colors",
-      description: "Transform black and white photos with historically accurate, beautiful colors. See your ancestors come alive like never before.",
-      beforeAfter: {
-        before: "/images/before6.jpg",
-        after: "/images/after6.jpg"
-      },
-      link: "/replicate/restore-premium",
-      credits: 40,
-      buttonText: "Add Color"
-    },
-    {
-      id: 'cartoonify',
-      title: "Cartoon Creator",
-      shortTitle: "Create Cartoon Art", 
-      description: "Turn family photos into beautiful cartoon artwork. Perfect for gifts, social media, or creating unique family portraits.",
-      beforeAfter: {
-        before: "/images/cartoon-before.jpg",
-        after: "/images/cartoon-example.jpg"
-      },
-      link: "/replicate/cartoon",
-      credits: 40,
-      buttonText: "Make Cartoon"
+    create: {
+      features: [
+        {
+          id: 'cartoonify',
+          title: "Cartoon Art",
+          shortTitle: "Create Cartoon Art", 
+          description: "Transform yourself, friends, or pets into stunning cartoon artwork. Perfect for gifts, profile pictures, or just having fun!",
+          beforeAfter: {
+            before: "/images/cartoon-before.jpg",
+            after: "/images/cartoon-example.jpg"
+          },
+          link: "/replicate/cartoon",
+          credits: 40,
+          buttonText: "Make Cartoon"
+        },
+        {
+          id: '90s-yearbook',
+          title: "90s Yearbook Style",
+          shortTitle: "90s School Photo Style", 
+          description: "Go back in time! Get that classic 90s school portrait look with vintage styling, perfect for nostalgia lovers and social media.",
+          beforeAfter: {
+            before: "/images/yearbook-before.jpg",
+            after: "/images/yearbook-after.jpg"
+          },
+          link: "/replicate/yearbook",
+          credits: 50,
+          buttonText: "Go Retro"
+        },
+        {
+          id: 'avatar',
+          title: "Professional Avatars",
+          shortTitle: "Professional Avatars", 
+          description: "Create polished, professional headshots and avatars perfect for LinkedIn, business cards, or any platform where you want to look your best.",
+          beforeAfter: {
+            before: "/images/avatar-before.jpg",
+            after: "/images/avatar-after.jpg"
+          },
+          link: "/replicate/avatar",
+          credits: 60,
+          buttonText: "Create Avatar"
+        }
+      ]
     }
-  ];
+  };
+
+  const currentTab = tabsData[activeTab];
 
   return (
     <>
@@ -56,27 +94,47 @@ export default function HeroSection() {
         <div className={heroStyles.heroContainer}>
           {/* Main Header */}
           <div className={heroStyles.heroHeader}>
-          
-        
-            
             <h1 className={heroStyles.heroTitle}>
-              Bring Your Precious
+              Transform Any Photo Into
               <span className={heroStyles.titleBreak}></span>
-              <span className={heroStyles.gradient}>Memories Back to Life</span>
+              <span className={heroStyles.gradient}>Something Amazing</span>
             </h1>
             
             <p className={heroStyles.heroSubtitle}>
-              Transform faded family photos into <strong>vibrant treasures</strong>. Repair damage, 
-              add stunning colors, or create beautiful cartoon artwork from your most cherished memories.
+              From restoring precious family memories to creating fun modern art - our AI transforms your photos in seconds. 
+              <strong>Preserve the past or reimagine the present.</strong>
             </p>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className={heroStyles.tabNavigation}>
+            <button
+              className={`${heroStyles.tabButton} ${activeTab === 'enhance' ? heroStyles.activeTab : ''}`}
+              onClick={() => setActiveTab('enhance')}
+            >
+              <span className={heroStyles.tabIcon}>✨</span>
+              Enhance & Restore
+            </button>
+            <button
+              className={`${heroStyles.tabButton} ${activeTab === 'create' ? heroStyles.activeTab : ''}`}
+              onClick={() => setActiveTab('create')}
+            >
+              <span className={heroStyles.tabIcon}>🎨</span>
+              Create & Transform
+            </button>
           </div>
 
           {/* AI Services Grid with Sliders */}
           <div className={heroStyles.servicesContainer}>
-            <h2 className={heroStyles.servicesTitle}>Choose Your Memory Transformation</h2>
+            <h2 className={heroStyles.servicesTitle}>
+              {currentTab.title}
+            </h2>
+            <p className={heroStyles.servicesSubtitle}>
+              {currentTab.subtitle}
+            </p>
             
             <div className={heroStyles.servicesGrid}>
-              {features.map((feature) => (
+              {currentTab.features.map((feature) => (
                 <div key={feature.id} className={heroStyles.serviceCard}>
                   {/* Image Compare Slider */}
                   <div className={heroStyles.processDemo}>

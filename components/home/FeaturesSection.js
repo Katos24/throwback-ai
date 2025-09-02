@@ -48,7 +48,7 @@ const FeaturesSection = () => {
             What Makes Our AI Photo Transformations Special?
           </h2>
           <p className={FeaturesStyles.subtitle}>
-            Advanced AI technology designed specifically for bringing your photos to life. From restoring precious family memories to creating stunning modern art - we've got you covered.
+            Advanced AI technology designed specifically for bringing your photos to life. From restoring precious family memories to creating stunning modern art - we&apos;ve got you covered.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const FeaturesSection = () => {
             <div className={FeaturesStyles.cardIcon}>⚡</div>
             <h3 className={FeaturesStyles.cardTitle}>Lightning-Fast Results</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Get professional-quality results in seconds, not hours. Whether you're restoring damaged photos or creating cartoon avatars, our optimized AI delivers stunning transformations at incredible speed.
+              Get professional-quality results in seconds, not hours. Whether you&apos;re restoring damaged photos or creating cartoon avatars, our optimized AI delivers stunning transformations at incredible speed.
             </p>
           </div>
 

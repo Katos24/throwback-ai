@@ -14,10 +14,14 @@
   --transition:    0.3s ease;
   --shadow:        0 4px 16px rgba(0, 0, 0, 0.08);
   --shadow-hover:  0 8px 32px rgba(0, 0, 0, 0.12);
+  --gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
   background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
   color: var(--text-color);
   padding: clamp(2rem, 5vw, 4rem) 1rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 /* 2. Centered Container */
@@ -30,33 +34,112 @@
 /* 3. Header & Typography */
 .header {
   text-align: center;
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
 .title {
-  font-size: clamp(1.75rem, 6vw, 2.75rem);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
 }
 
 .subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   color: var(--muted-color);
   line-height: 1.6;
-  max-width: 40ch;
-  margin: 0 auto;
+  max-width: 50ch;
+  margin: 0 auto 1rem;
 }
 
-/* 4. Responsive Grid of Cards */
+.subDescription {
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  color: var(--muted-color);
+  line-height: 1.5;
+  max-width: 45ch;
+  margin: 0 auto;
+  opacity: 0.8;
+}
+
+/* 4. Tabs Navigation */
+.tabsNav {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: clamp(2rem, 4vw, 3rem) 0 clamp(1rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+}
+
+.tabButton {
+  background: transparent;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  border-color: var(--accent-color);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.activeTab {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.tabIcon {
+  font-size: 1.1em;
+}
+
+/* 5. Tab Description */
+.tabDescription {
+  text-align: center;
+  margin: 0 auto clamp(1.5rem, 3vw, 2rem);
+  max-width: 40ch;
+}
+
+.tabDescription p {
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  color: var(--muted-color);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 6. Responsive Grid of Cards */
 .grid {
   display: grid;
-  gap: clamp(1rem, 2vw, 2rem);
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  margin-top: clamp(1rem, 3vw, 2rem);
+  gap: clamp(1.5rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin: clamp(1.5rem, 3vw, 2rem) 0;
 }
 
-/* 5. Card Base & Hover */
+/* Mobile optimization for grid */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* 7. Card Base & Hover */
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -71,7 +154,7 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* 6. Link Reset & Layout */
+/* 8. Link Reset & Layout */
 .cardLink {
   display: flex;
   flex-direction: column;
@@ -80,30 +163,26 @@
   text-decoration: none;
 }
 
-/* 7. Image Wrapper & Hover Overlay */
-/* Portrait-friendly .imgWrap */
+/* 9. Image Wrapper & Hover Overlay */
 .imgWrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;      /* container is taller than it is wide */
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;       /* optional placeholder bg */
-  border-radius: var(--radius);
+  background: #f8f9fa;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
-/* Fill the container and crop */
 .img {
-  /* ensure it always fills height, cropping left/right if needed */
   height: 100%;
   width: auto;
   object-fit: cover;
   transition: transform var(--transition);
 }
 
-/* subtle zoom on hover */
 .card:hover .img {
   transform: scale(1.05);
 }
@@ -115,11 +194,14 @@
   transform: translate(-50%, 100%);
   background: var(--accent-color);
   color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: var(--radius);
-  font-size: 0.875rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 600;
   opacity: 0;
   transition: opacity var(--transition), transform var(--transition);
+  white-space: nowrap;
+  z-index: 2;
 }
 
 .card:hover .overlayButton {
@@ -127,77 +209,216 @@
   transform: translate(-50%, 0);
 }
 
-/* 8. Card Label */
-.cardLabel {
-  text-align: center;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-color);
+/* 10. Card Content */
+.cardContent {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-/* 9. Trust Bar */
+.cardLabel {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.cardDescription {
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: var(--muted-color);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  flex-grow: 1;
+}
+
+.creditInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.creditCost {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.creditLabel {
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  font-weight: 500;
+}
+
+/* 11. Stats Row */
+.statsRow {
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin: clamp(3rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius);
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+  min-width: 120px;
+}
+
+.statNumber {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: var(--accent-color);
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: var(--muted-color);
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Mobile stats optimization */
+@media (max-width: 640px) {
+  .statsRow {
+    gap: 1.5rem;
+  }
+  
+  .stat {
+    min-width: 100px;
+  }
+}
+
+/* 12. Trust Bar */
 .trustBar {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(1rem, 2.5vw, 2rem);
   justify-content: center;
-  margin-top: clamp(2rem, 5vw, 3rem);
-  padding-top: clamp(1rem, 2vw, 2rem);
+  margin: clamp(2rem, 4vw, 3rem) 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .trustItem {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   color: var(--muted-color);
+  white-space: nowrap;
 }
 
 .checkmark {
   color: var(--success-color);
   font-weight: bold;
+  font-size: 1.1em;
 }
 
+/* 13. Bottom CTA */
+.bottomCTA {
+  text-align: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
 
-/* -------- Tabs Navigation -------- */
-.tabsNav {
-  display: flex;
+.creditOffer {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--accent-color);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  display: inline-flex;
+  align-items: center;
   gap: 1rem;
-  justify-content: center;
-  margin-bottom: clamp(1rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  backdrop-filter: blur(10px);
+  max-width: 100%;
 }
 
-.tabButton {
-  background: transparent;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+.offerIcon {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.offerText {
+  text-align: left;
+}
+
+.offerText strong {
+  display: block;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   color: var(--text-color);
-  cursor: pointer;
-  position: relative;
+  margin-bottom: 0.25rem;
+}
+
+.offerDetails {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  color: var(--muted-color);
+  display: block;
+}
+
+.ctaLink {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
   transition: color var(--transition);
 }
 
-.tabButton:hover {
-  color: var(--accent-color);
+.ctaLink:hover {
+  color: #2563eb;
+  text-decoration: underline;
 }
 
-/* underline + color for active tab */
-.activeTab {
-  color: var(--accent-color);
+/* Mobile CTA optimization */
+@media (max-width: 640px) {
+  .creditOffer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .offerText {
+    text-align: center;
+  }
+  
+  .trustBar {
+    gap: 1rem;
+  }
+  
+  .trustItem {
+    flex-basis: calc(50% - 0.5rem);
+    justify-content: center;
+  }
 }
 
-.activeTab::after {
-  content: "";
-  position: absolute;
-  bottom: -0.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 3px;
-  background: var(--accent-color);
-  border-radius: var(--radius);
+/* Extra small mobile adjustments */
+@media (max-width: 480px) {
+  .simpleHero {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .tabsNav {
+    gap: 0.25rem;
+  }
+  
+  .tabButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .trustItem {
+    flex-basis: 100%;
+    font-size: 0.85rem;
+  }
 }

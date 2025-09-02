@@ -4,85 +4,90 @@ import ImageCompareSlider from "../ImageCompareSlider";
 import heroStyles from '../../styles/Hero.module.css';
 
 export default function HeroSection() {
-  const [activeTab, setActiveTab] = useState('enhance');
+  const [activeSlider, setActiveSlider] = useState(null);
 
-  const tabsData = {
-    enhance: {
-      features: [
-        {
-          id: 'restore',
-          title: "Photo Restoration",
-          shortTitle: "Restore Damaged Photos",
-          description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos. Bring back memories you thought were lost forever.",
-          beforeAfter: {
-            before: "/images/basicpage-before.jpg",
-            after: "/images/basicpage-after.jpg"
-          },
-          link: "/replicate/restore-basic",
-          credits: 1,
-          buttonText: "Restore (Try Free)"
-        },
-        {
-          id: 'colorize',
-          title: "Historical Colorization", 
-          shortTitle: "Add Beautiful Colors",
-          description: "Watch your ancestors come alive as our AI adds historically accurate, vibrant colors to black and white family photos from any era.",
-          beforeAfter: {
-            before: "/images/before6.jpg",
-            after: "/images/after6.jpg"
-          },
-          link: "/replicate/restore-premium",
-          credits: 40,
-          buttonText: "Add Color"
-        }
-      ]
+  const services = [
+    {
+      id: 'restore',
+      title: "Photo Restoration",
+      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
+      icon: "✨",
+      buttonText: "Try Restore",
+      beforeAfter: {
+        before: "/images/basicpage-before.jpg",
+        after: "/images/basicpage-after.jpg"
+      },
+      link: "/replicate/restore-basic",
+      credits: 1,
+      category: "restore"
     },
-    create: {
-      features: [
-        {
-          id: 'cartoonify',
-          title: "Cartoon Art",
-          shortTitle: "Create Cartoon Art", 
-          description: "Transform yourself, friends, or pets into stunning cartoon artwork. Perfect for gifts, profile pictures, or just having fun!",
-          beforeAfter: {
-            before: "/images/cartoon-before.jpg",
-            after: "/images/cartoon-example.jpg"
-          },
-          link: "/replicate/cartoon",
-          credits: 40,
-          buttonText: "Make Cartoon"
-        },
-        {
-          id: '90s-yearbook',
-          title: "90s Yearbook Style",
-          shortTitle: "90s School Photo Style", 
-          description: "Go back in time! Get that classic 90s school portrait look with vintage styling, perfect for nostalgia lovers and social media.",
-          beforeAfter: {
-            before: "/images/yearbook-before.jpg",
-            after: "/images/yearbook-after.jpg"
-          },
-          link: "/replicate/yearbook",
-          credits: 50,
-          buttonText: "Go Retro"
-        },
-        {
-          id: 'avatar',
-          title: "Throwback Avatars",
-          shortTitle: "Throwback Avatars", 
-          description: "Create polished, throwback headshots and avatars perfect for social media, LinkedIn, business cards, or any platform where you want to look your best.",
-          beforeAfter: {
-            before: "/images/avatar-before.jpg",
-            after: "/images/avatar-after.jpg"
-          },
-          link: "/replicate/avatar",
-          credits: 60,
-          buttonText: "Create Avatar"
-        }
-      ]
+    {
+      id: 'colorize',
+      title: "Historical Colorization",
+      description: "Add historically accurate, vibrant colors to black and white family photos.",
+      icon: "🎨",
+      buttonText: "Try Colorize",
+      beforeAfter: {
+        before: "/images/before6.jpg",
+        after: "/images/after6.jpg"
+      },
+      link: "/replicate/restore-premium",
+      credits: 40,
+      category: "restore"
+    },
+    {
+      id: 'cartoon',
+      title: "Cartoon Art",
+      description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
+      icon: "🖼️",
+      buttonText: "Try Cartoon",
+      beforeAfter: {
+        before: "/images/cartoon-before.jpg",
+        after: "/images/cartoon-example.jpg"
+      },
+      link: "/replicate/cartoon",
+      credits: 40,
+      category: "create"
+    },
+    {
+      id: 'yearbook',
+      title: "90s Yearbook Style",
+      description: "Get that classic 90s school portrait look with vintage styling.",
+      icon: "📸",
+      buttonText: "Try Yearbook",
+      beforeAfter: {
+        before: "/images/yearbook-before.jpg",
+        after: "/images/yearbook-after.jpg"
+      },
+      link: "/replicate/yearbook",
+      credits: 20,
+      category: "create"
+    },
+    {
+      id: 'avatar',
+      title: "Professional Avatar",
+      description: "Create polished, professional headshots and avatars.",
+      icon: "👤",
+      buttonText: "Try Avatar",
+      beforeAfter: {
+        before: "/images/avatar-before.jpg",
+        after: "/images/avatar-after.jpg"
+      },
+      link: "/replicate/avatar",
+      credits: 50,
+      category: "create"
     }
+  ];
+
+  const openSlider = (serviceId) => {
+    setActiveSlider(serviceId);
   };
 
-  const currentTab = tabsData[activeTab];
+  const closeSlider = () => {
+    setActiveSlider(null);
+  };
+
+  const activeService = services.find(service => service.id === activeSlider);
 
   return (
     <>
@@ -102,72 +107,44 @@ export default function HeroSection() {
             
             <p className={heroStyles.heroSubtitle}>
               From restoring precious family memories to creating fun modern art - our AI transforms your photos in seconds. 
-              <strong>Preserve the past or reimagine the present.</strong>
+              <strong> Preserve the past or reimagine the present.</strong>
             </p>
           </div>
 
-          {/* Tab Navigation */}
-          <div className={heroStyles.tabNavigation}>
-            <button
-              className={`${heroStyles.tabButton} ${activeTab === 'enhance' ? heroStyles.activeTab : ''}`}
-              onClick={() => setActiveTab('enhance')}
-            >
-              <span className={heroStyles.tabIcon}>✨</span>
-              Enhance & Restore
-            </button>
-            <button
-              className={`${heroStyles.tabButton} ${activeTab === 'create' ? heroStyles.activeTab : ''}`}
-              onClick={() => setActiveTab('create')}
-            >
-              <span className={heroStyles.tabIcon}>🎨</span>
-              Create & Transform
-            </button>
-          </div>
-
-          {/* AI Services Grid with Sliders */}
+          {/* Interactive Service Buttons */}
           <div className={heroStyles.servicesContainer}>
-            <h2 className={heroStyles.servicesTitle}>
-              {currentTab.title}
-            </h2>
-            <p className={heroStyles.servicesSubtitle}>
-              {currentTab.subtitle}
-            </p>
-            
             <div className={heroStyles.servicesGrid}>
-              {currentTab.features.map((feature) => (
-                <div key={feature.id} className={heroStyles.serviceCard}>
-                  {/* Image Compare Slider */}
-                  <div className={heroStyles.processDemo}>
-                    <ImageCompareSlider
-                      beforeImage={feature.beforeAfter.before}
-                      afterImage={feature.beforeAfter.after}
-                    />
-                  </div>
-                  
-                  <div className={heroStyles.serviceInfo}>
-                    <h3 className={heroStyles.serviceName}>{feature.title}</h3>
-                    <p className={heroStyles.serviceDesc}>
-                      {feature.description}
-                    </p>
-                    
-                    <Link href={feature.link} className={heroStyles.actionButton}>
-                      <span className={heroStyles.buttonText}>{feature.buttonText}</span>
-                      <div className={heroStyles.creditCost}>
-                        <span className={heroStyles.costNumber}>{feature.credits}</span>
-                        <span className={heroStyles.costLabel}>{feature.credits === 1 ? 'Credit' : 'Credits'}</span>
+              {services.map((service) => (
+                <div key={service.id} className={heroStyles.serviceButton}>
+                  <div className={heroStyles.serviceIcon}>{service.icon}</div>
+                  <div className={heroStyles.serviceContent}>
+                    <h3 className={heroStyles.serviceName}>{service.title}</h3>
+                    <p className={heroStyles.serviceDesc}>{service.description}</p>
+                    <div className={heroStyles.serviceActions}>
+                      <button
+                        className={heroStyles.previewButton}
+                        onClick={() => openSlider(service.id)}
+                      >
+                        {service.buttonText}
+                      </button>
+                      <div className={heroStyles.creditInfo}>
+                        <span className={heroStyles.creditCost}>{service.credits}</span>
+                        <span className={heroStyles.creditLabel}>
+                          {service.credits === 1 ? 'Credit' : 'Credits'}
+                        </span>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Stats Row moved below services */}
+          {/* Stats Row */}
           <div className={heroStyles.statsRow}>
             <div className={heroStyles.stat}>
               <div className={heroStyles.statNumber}>50K+</div>
-              <div className={heroStyles.statLabel}>Families Helped</div>
+              <div className={heroStyles.statLabel}>Photos Transformed</div>
             </div>
             <div className={heroStyles.stat}>
               <div className={heroStyles.statNumber}>2.3s</div>
@@ -186,7 +163,7 @@ export default function HeroSection() {
               <div className={heroStyles.offerText}>
                 <strong>Try It Free Right Now</strong>
                 <span className={heroStyles.offerDetails}>
-                  <Link href="/signup" className={heroStyles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
+                  <Link href="/pricing" className={heroStyles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
                 </span>
               </div>
             </div>
@@ -208,6 +185,45 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
+
+      {/* Slider Popup Modal */}
+      {activeSlider && activeService && (
+        <div className={heroStyles.sliderModal} onClick={closeSlider}>
+          <div className={heroStyles.sliderContent} onClick={(e) => e.stopPropagation()}>
+            <button className={heroStyles.closeButton} onClick={closeSlider}>
+              ×
+            </button>
+            
+            <div className={heroStyles.modalHeader}>
+              <div className={heroStyles.modalIcon}>{activeService.icon}</div>
+              <h3 className={heroStyles.modalTitle}>{activeService.title}</h3>
+              <p className={heroStyles.modalDescription}>{activeService.description}</p>
+            </div>
+
+            <div className={heroStyles.sliderWrapper}>
+              <ImageCompareSlider
+                beforeImage={activeService.beforeAfter.before}
+                afterImage={activeService.beforeAfter.after}
+              />
+            </div>
+
+            <div className={heroStyles.modalActions}>
+              <Link href={activeService.link} className={heroStyles.actionButton}>
+                <span>Get Started</span>
+                <div className={heroStyles.creditCost}>
+                  <span className={heroStyles.costNumber}>{activeService.credits}</span>
+                  <span className={heroStyles.costLabel}>
+                    {activeService.credits === 1 ? 'Credit' : 'Credits'}
+                  </span>
+                </div>
+              </Link>
+              <button className={heroStyles.closeModalButton} onClick={closeSlider}>
+                Close Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
-  )
+  );
 }

@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import ImageCompareSlider from "../ImageCompareSlider";
+import demoStyles from '../../styles/DemoSection.module.css';
+
+export default function DemoSection() {
+  const [activeDemo, setActiveDemo] = useState(null);
+
+  const demos = [
+    {
+      id: 'restore',
+      title: "Photo Restoration",
+      subtitle: "Repair & Enhance",
+      description: "Advanced AI repairs damage, removes scratches, and restores faded photographs",
+      beforeAfter: {
+        before: "/images/basicpage-before.jpg",
+        after: "/images/basicpage-after.jpg"
+      },
+      color: "#06b6d4"
+    },
+    {
+      id: 'colorize',
+      title: "Historical Colorization",
+      subtitle: "Bring History to Life",
+      description: "Neural networks analyze context to add authentic, period-accurate colors",
+      beforeAfter: {
+        before: "/images/before6.jpg",
+        after: "/images/after6.jpg"
+      },
+      color: "#8b5cf6"
+    },
+    {
+      id: 'cartoon',
+      title: "Artistic Transformation",
+      subtitle: "Create Digital Art",
+      description: "Style transfer algorithms convert photos into vibrant cartoon artwork",
+      beforeAfter: {
+        before: "/images/cartoon-before.jpg",
+        after: "/images/cartoon-example.jpg"
+      },
+      color: "#f59e0b"
+    },
+    {
+      id: 'yearbook',
+      title: "Style Recreation",
+      subtitle: "90s Portrait Magic",
+      description: "Time-specific modeling recreates authentic vintage photography aesthetics",
+      beforeAfter: {
+        before: "/images/yearbook-before.jpg",
+        after: "/images/yearbook-after.jpg"
+      },
+      color: "#ef4444"
+    },
+    {
+      id: 'avatar',
+      title: "Professional Enhancement",
+      subtitle: "Perfect Headshots",
+      description: "Multi-stage processing creates polished, professional portrait photography",
+      beforeAfter: {
+        before: "/images/avatar-before.jpg",
+        after: "/images/avatar-after.jpg"
+      },
+      color: "#10b981"
+    }
+  ];
+
+  const toggleDemo = (demoId) => {
+    setActiveDemo(activeDemo === demoId ? null : demoId);
+  };
+
+  return (
+    <section className={demoStyles.demoSection}>
+      <div className={demoStyles.container}>
+        {/* Section Header */}
+        <div className={demoStyles.header}>
+          <div className={demoStyles.badge}>AI TECHNOLOGY</div>
+          <h2 className={demoStyles.title}>
+            See Our AI in Action
+          </h2>
+          <p className={demoStyles.subtitle}>
+            Advanced neural networks trained on millions of images deliver professional results in seconds. 
+            Click any transformation to see the technology at work.
+          </p>
+        </div>
+
+        {/* Demo Grid */}
+        <div className={demoStyles.demoGrid}>
+          {demos.map((demo, index) => (
+            <div key={demo.id} className={demoStyles.demoItem}>
+              <div 
+                className={`${demoStyles.demoCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
+                onClick={() => toggleDemo(demo.id)}
+                style={{ '--demo-color': demo.color }}
+              >
+                <div className={demoStyles.cardHeader}>
+                  <div className={demoStyles.cardBadge}>{demo.subtitle}</div>
+                  <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
+                </div>
+                
+                <div className={demoStyles.cardContent}>
+                  <p className={demoStyles.cardDescription}>{demo.description}</p>
+                </div>
+
+                <div className={demoStyles.cardFooter}>
+                  <div className={demoStyles.demoButton}>
+                    <span>{activeDemo === demo.id ? 'Hide Demo' : 'View Demo'}</span>
+                    <div className={`${demoStyles.arrow} ${activeDemo === demo.id ? demoStyles.rotate : ''}`}>
+                      {activeDemo === demo.id ? '↑' : '→'}
+                    </div>
+                  </div>
+                </div>
+
+                <div className={demoStyles.cardGlow}></div>
+              </div>
+
+              {/* Inline Slider - Shows below clicked card */}
+              {activeDemo === demo.id && (
+                <div className={demoStyles.inlineSlider}>
+                  <div className={demoStyles.sliderContent}>
+                    <div className={demoStyles.sliderHeader}>
+                      <div className={demoStyles.sliderBadge} style={{ '--demo-color': demo.color }}>
+                        {demo.subtitle}
+                      </div>
+                      <h4 className={demoStyles.sliderTitle}>{demo.title}</h4>
+                    </div>
+
+                    <div className={demoStyles.sliderWrapper}>
+                      <ImageCompareSlider
+                        beforeImage={demo.beforeAfter.before}
+                        afterImage={demo.beforeAfter.after}
+                      />
+                    </div>
+
+                    <div className={demoStyles.sliderHint}>
+                      <span>← Drag to compare →</span>
+                    </div>
+
+                    <div className={demoStyles.processingSteps}>
+                      <div className={demoStyles.processingStep}>
+                        <div className={demoStyles.stepIcon}>1</div>
+                        <span>Upload</span>
+                      </div>
+                      <div className={demoStyles.processingStep}>
+                        <div className={demoStyles.stepIcon}>2</div>
+                        <span>AI Processing</span>
+                      </div>
+                      <div className={demoStyles.processingStep}>
+                        <div className={demoStyles.stepIcon}>3</div>
+                        <span>Download</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Processing Stats */}
+        <div className={demoStyles.techStats}>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>2.3s</div>
+            <div className={demoStyles.statLabel}>Processing Time</div>
+          </div>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>99.7%</div>
+            <div className={demoStyles.statLabel}>Accuracy Rate</div>
+          </div>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>4K</div>
+            <div className={demoStyles.statLabel}>Max Resolution</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

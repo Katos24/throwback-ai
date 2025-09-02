@@ -1,165 +1,203 @@
-/* --------------------------
-   Hero Section Modern Styles
-----------------------------*/
+/* CarouselHero.module.css */
 
+/* 1. Simple Hero & Theme Variables */
 .simpleHero {
-  padding: 4rem 1rem;
-  background: #f7f8fc;
-  font-family: 'Inter', sans-serif;
-  color: #111;
+  /* Scoped variables */
+  --bg-start:      #f8f9fa;
+  --bg-end:        #dee2e6;
+  --text-color:    #1f2937;
+  --muted-color:   #6b7280;
+  --accent-color:  #3b82f6;
+  --success-color: #10b981;
+  --card-bg:       #ffffff;
+  --radius:        0.75rem;
+  --transition:    0.3s ease;
+  --shadow:        0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-hover:  0 8px 32px rgba(0, 0, 0, 0.12);
+
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  color: var(--text-color);
+  padding: clamp(2rem, 5vw, 4rem) 1rem;
 }
 
+/* 2. Centered Container */
 .container {
-  max-width: 1200px;
+  max-width: 80rem;
   margin: 0 auto;
-  padding: 0 16px;
-  text-align: center;
+  width: 100%;
 }
 
-/* Header / Title */
+/* 3. Header & Typography */
 .header {
-  margin-bottom: 2.5rem;
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
+
 .title {
-  font-size: 3rem;
+  font-size: clamp(1.75rem, 6vw, 2.75rem);
   font-weight: 800;
   line-height: 1.2;
-  background: linear-gradient(90deg, #0070f3, #00d4ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-}
-.subtitle {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #555;
-  margin-top: 0.5rem;
-  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
 }
 
-/* Grid layout for 5 cards */
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--muted-color);
+  line-height: 1.6;
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
+/* 4. Responsive Grid of Cards */
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
-  margin-top: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  margin-top: clamp(1rem, 3vw, 2rem);
 }
 
-/* Card */
+/* 5. Card Base & Hover */
 .card {
-  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: #0b7ef1 1px solid;
+  box-shadow: var(--shadow);
   overflow: hidden;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Image wrapper */
+/* 6. Link Reset & Layout */
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 7. Image Wrapper & Hover Overlay */
+/* Portrait-friendly .imgWrap */
 .imgWrap {
   position: relative;
   width: 100%;
-  height: 350px;
-  border-radius: 16px;
+  aspect-ratio: 3 / 4;      /* container is taller than it is wide */
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #f8f9fa;       /* optional placeholder bg */
+  border-radius: var(--radius);
 }
 
-/* Image zoom on hover */
-.card:hover .img,
-.card:focus-within .img {
-  transform: scale(1.05);
-  transition: transform 0.4s ease;
-}
-
+/* Fill the container and crop */
 .img {
-  width: 100%;
+  /* ensure it always fills height, cropping left/right if needed */
   height: 100%;
+  width: auto;
   object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
+  transition: transform var(--transition);
 }
 
-/* Overlay button */
+/* subtle zoom on hover */
+.card:hover .img {
+  transform: scale(1.05);
+}
+
 .overlayButton {
   position: absolute;
+  bottom: 1rem;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  background: linear-gradient(135deg, #0070f3, #00d4ff);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 700;
+  transform: translate(-50%, 100%);
+  background: var(--accent-color);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
   opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-  text-align: center;
+  transition: opacity var(--transition), transform var(--transition);
 }
 
-/* Show button when hovering anywhere on card */
-.card:hover .overlayButton,
-.card:focus-within .overlayButton {
+.card:hover .overlayButton {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  pointer-events: auto;
+  transform: translate(-50%, 0);
 }
 
-/* Label under image */
+/* 8. Card Label */
 .cardLabel {
   text-align: center;
-  font-weight: 700;
-  margin-top: 12px;
+  padding: 0.75rem 1rem;
   font-size: 1rem;
-  color: #222;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
-/* Trust bar */
+/* 9. Trust Bar */
 .trustBar {
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 3rem;
   flex-wrap: wrap;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  justify-content: center;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: clamp(1rem, 2vw, 2rem);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .trustItem {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  font-weight: 600;
-  color: #333;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted-color);
 }
+
 .checkmark {
-  color: #00c851;
-  font-weight: 700;
+  color: var(--success-color);
+  font-weight: bold;
 }
 
-/* --------------------------
-   Responsive breakpoints
-----------------------------*/
-@media (max-width: 1200px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-  .imgWrap { height: 300px; }
-}
-@media (max-width: 768px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-  .imgWrap { height: 260px; }
-}
-@media (max-width: 480px) {
-  .grid { grid-template-columns: 1fr; }
-  .imgWrap { height: 220px; }
+
+/* -------- Tabs Navigation -------- */
+.tabsNav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
 }
 
-/* Accessibility focus */
-.cardLink:focus { box-shadow: 0 0 0 4px rgba(0,112,243,0.12); border-radius: 16px; }
+.tabButton {
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition);
+}
+
+.tabButton:hover {
+  color: var(--accent-color);
+}
+
+/* underline + color for active tab */
+.activeTab {
+  color: var(--accent-color);
+}
+
+.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: var(--radius);
+}

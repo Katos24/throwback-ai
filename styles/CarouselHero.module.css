@@ -382,7 +382,14 @@
 
 /* Mobile CTA optimization */
 @media (max-width: 640px) {
-  .creditOffer {
+  .grid {
+    grid-template-columns: 1fr 1fr;  /* Two equal columns */
+    gap: 1rem;  /* Tighter gap for mobile */
+  }
+  .cardContent {
+    padding: 1rem;  /* Slightly less padding on mobile */
+  }
+    .creditOffer {
     flex-direction: column;
     text-align: center;
     gap: 0.75rem;

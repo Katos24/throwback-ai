@@ -1,162 +1,100 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import ImageCompareSlider from "../ImageCompareSlider";
-import heroStyles from '../../styles/Hero.module.css';
+import heroStyles from '../../styles/CarouselHero.module.css';
 
 export default function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Hero carousel data - your best transformations
-  const heroSlides = [
-    {
-      id: 'restore',
-      headline: "Restore Damaged Family Photos",
-      subline: "Repair scratches, tears, and fading from irreplaceable memories",
-      beforeAfter: {
-        before: "/images/basicpage-before.jpg",
-        after: "/images/basicpage-after.jpg"
-      },
-      cta: "Try Free Restoration",
-      link: "/replicate/restore-basic",
-      badge: "Most Popular"
-    },
-    {
-      id: 'colorize',
-      headline: "Bring Black & White Photos to Life",
-      subline: "Watch your ancestors come alive with historically accurate colors",
-      beforeAfter: {
-        before: "/images/before6.jpg",
-        after: "/images/after6.jpg"
-      },
-      cta: "Add Color Now",
-      link: "/replicate/restore-premium",
-      badge: "AI Powered"
-    },
-    {
-      id: 'cartoon',
-      headline: "Transform Into Stunning Cartoon Art",
-      subline: "Perfect for gifts, social media, or just having fun",
-      beforeAfter: {
-        before: "/images/cartoon-before.jpg",
-        after: "/images/cartoon-example.jpg"
-      },
-      cta: "Make Cartoon",
-      link: "/replicate/cartoon",
-      badge: "Trending"
-    }
+  // Transformation examples with links
+  const transformationExamples = [
+    { id: 'restore-1', before: "/images/basicpage-before.jpg", after: "/images/basicpage-after.jpg", category: "Photo Restoration", link: "replicate/restore-basic" },
+    { id: 'restore-2', before: "/images/restore-before-2.jpg", after: "/images/restore-after-2.jpg", category: "Photo Restoration", link: "replicate/restore-premium" },
+    { id: 'colorize-1', before: "/images/before6.jpg", after: "/images/after6.jpg", category: "AI Colorization", link: "replicate/colorize" },
+    { id: 'cartoon-1', before: "/images/cartoon-before.jpg", after: "/images/cartoon-example.jpg", category: "Cartoon Art", link: "replicate/cartoon" },
+    { id: 'yearbook-1', before: "/images/yearbook-before.jpg", after: "/images/yearbook-after.jpg", category: "90s Yearbook", link: "replicate/yearbook" },
+    { id: 'avatar-1', before: "/images/avatar-before.jpg", after: "/images/avatar-after.jpg", category: "Professional Avatar", link: "replicate/avatar" },
   ];
 
-  // Auto-rotate slides every 5 seconds
+  // Auto-rotate center image
+  const [centerIndex, setCenterIndex] = useState(0);
+  const yearbookExamples = transformationExamples.filter(ex => ex.category === "90s Yearbook");
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+      setCenterIndex((prev) => (prev + 1) % yearbookExamples.length);
+    }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [yearbookExamples.length]);
 
-  const currentSlideData = heroSlides[currentSlide];
+  const restoreExamples = transformationExamples.filter(ex => ex.category === "Photo Restoration");
+  const rightExamples = transformationExamples.filter(ex => ["Cartoon Art", "Professional Avatar"].includes(ex.category));
 
   return (
     <section className={heroStyles.hero}>
-      {/* Background Elements */}
-      <div className={heroStyles.backgroundGrid}></div>
-      <div className={heroStyles.gradientOrb}></div>
-      
+      {/* Header */}
       <div className={heroStyles.heroContainer}>
-        {/* Main Content */}
-        <div className={heroStyles.heroContent}>
-          {/* Left Side - Text Content */}
-          <div className={heroStyles.heroText}>
-            {/* Badge */}
-            <div className={heroStyles.heroBadge}>
-              <span className={heroStyles.badgeIcon}>✨</span>
-              {currentSlideData.badge}
-            </div>
+        <div className={heroStyles.heroHeader}>
+          <h1 className={heroStyles.heroTitle}>
+            Transform Any Photo Into Something Amazing
+          </h1>
+          <p className={heroStyles.heroSubtitle}>
+            From restoring precious family memories to creating viral social content. 
+            See what our AI can do with your photos in seconds.
+          </p>
+        </div>
 
-            {/* Dynamic Headlines */}
-            <h1 className={heroStyles.heroTitle}>
-              <span className={heroStyles.slideText} key={currentSlide}>
-                {currentSlideData.headline}
-              </span>
-            </h1>
-            
-            <p className={heroStyles.heroSubtitle}>
-              <span className={heroStyles.slideText} key={`sub-${currentSlide}`}>
-                {currentSlideData.subline}
-              </span>
-            </p>
+        {/* Action Buttons */}
+        <div className={heroStyles.heroActions}>
+          <Link href="/upload" className={heroStyles.primaryCTA}>Upload Photo</Link>
+          <Link href="#examples" className={heroStyles.secondaryCTA}>See Demo</Link>
+        </div>
 
-            {/* CTA Button */}
-            <div className={heroStyles.heroActions}>
-              <Link href={currentSlideData.link} className={heroStyles.primaryCTA}>
-                {currentSlideData.cta}
-                <span className={heroStyles.ctaArrow}>→</span>
-              </Link>
-              
-              <Link href="#features" className={heroStyles.secondaryCTA}>
-                See All Features
-              </Link>
-            </div>
-
-            {/* Quick Stats */}
-            <div className={heroStyles.quickStats}>
-              <div className={heroStyles.stat}>
-                <span className={heroStyles.statNumber}>50K+</span>
-                <span className={heroStyles.statLabel}>Photos Transformed</span>
+        {/* 3-Column Showcase */}
+        <div className={heroStyles.transformationShowcase}>
+          {/* Left Column - Restore */}
+          <div className={heroStyles.leftColumn}>
+            {restoreExamples.map(ex => (
+              <div key={ex.id} className={heroStyles.sideExample}>
+                <div className={heroStyles.imageWrapper}>
+                  <img src={ex.after} alt={ex.category} className={heroStyles.sideImage} />
+                  <Link href={ex.link} className={heroStyles.hoverButton}>Go to Page</Link>
+                </div>
+                <span>{ex.category}</span>
               </div>
-              <div className={heroStyles.stat}>
-                <span className={heroStyles.statNumber}>2.3s</span>
-                <span className={heroStyles.statLabel}>Average Speed</span>
-              </div>
-              <div className={heroStyles.stat}>
-                <span className={heroStyles.statNumber}>98%</span>
-                <span className={heroStyles.statLabel}>Love Results</span>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Right Side - Image Carousel */}
-          <div className={heroStyles.heroVisual}>
-            <div className={heroStyles.imageCarousel}>
-              <ImageCompareSlider
-                key={currentSlide} // Force re-render on slide change
-                beforeImage={currentSlideData.beforeAfter.before}
-                afterImage={currentSlideData.beforeAfter.after}
-              />
-            </div>
+          {/* Center Column - 90s Yearbook */}
+          <div className={heroStyles.centerColumn}>
+            {yearbookExamples.length > 0 && (
+              <div className={heroStyles.mainExample}>
+                <div className={heroStyles.imageWrapper}>
+                  <img src={yearbookExamples[centerIndex].after} alt="90s Yearbook" className={heroStyles.mainImage} />
+                  <Link href={yearbookExamples[centerIndex].link} className={heroStyles.hoverButton}>Go to Page</Link>
+                </div>
+                <span>{yearbookExamples[centerIndex].category}</span>
+              </div>
+            )}
+          </div>
 
-            {/* Carousel Dots */}
-            <div className={heroStyles.carouselDots}>
-              {heroSlides.map((_, index) => (
-                <button
-                  key={index}
-                  className={`${heroStyles.dot} ${index === currentSlide ? heroStyles.activeDot : ''}`}
-                  onClick={() => setCurrentSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+          {/* Right Column - Cartoon & Avatar */}
+          <div className={heroStyles.rightColumn}>
+            {rightExamples.map(ex => (
+              <div key={ex.id} className={heroStyles.sideExample}>
+                <div className={heroStyles.imageWrapper}>
+                  <img src={ex.after} alt={ex.category} className={heroStyles.sideImage} />
+                  <Link href={ex.link} className={heroStyles.hoverButton}>Go to Page</Link>
+                </div>
+                <span>{ex.category}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Trust Indicators */}
+        {/* Trust Bar */}
         <div className={heroStyles.trustBar}>
-          <div className={heroStyles.trustItem}>
-            <span className={heroStyles.checkmark}>✓</span>
-            <span>100% Private & Secure</span>
-          </div>
-          <div className={heroStyles.trustItem}>
-            <span className={heroStyles.checkmark}>✓</span>
-            <span>Photos Deleted After 1 Hour</span>
-          </div>
-          <div className={heroStyles.trustItem}>
-            <span className={heroStyles.checkmark}>✓</span>
-            <span>Instant AI Results</span>
-          </div>
-          <div className={heroStyles.trustItem}>
-            <span className={heroStyles.checkmark}>✓</span>
-            <span>No Signup Required</span>
-          </div>
+          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>50K+ Photos Transformed</div>
+          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>2.3s Average Speed</div>
+          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>100% Private & Secure</div>
+          <div className={heroStyles.trustItem}><span className={heroStyles.checkmark}>✓</span>No Signup Required</div>
         </div>
       </div>
     </section>

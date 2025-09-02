@@ -329,6 +329,23 @@
   position: relative;
   overflow: hidden;
   background: var(--bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+/* Override ImageCompareSlider styles */
+.sliderWrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  border-radius: 0 !important;
+  position: relative !important;
+}
+
+.sliderWrapper img {
+  object-fit: cover !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .sliderHint {

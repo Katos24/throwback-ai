@@ -65,7 +65,6 @@ export default function AiAvatarsTest() {
         setLoadingTimer(prev => {
           const newTimer = prev + 1;
           
-          // Simulate realistic progress stages
           if (newTimer <= 5) {
             setProgress(15);
             setProgressStage("Analyzing your photo...");
@@ -124,7 +123,6 @@ export default function AiAvatarsTest() {
   };
 
   const handleFile = (file) => {
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
         icon: '🖼️',
@@ -133,7 +131,6 @@ export default function AiAvatarsTest() {
       return;
     }
     
-    // Validate file size (10MB max)
     if (file.size > 10 * 1024 * 1024) {
       toast.error('File size must be under 10MB', {
         icon: '📏',
@@ -154,12 +151,10 @@ export default function AiAvatarsTest() {
       duration: 2000,
     });
     
-    // Add haptic feedback if available
     if (navigator.vibrate) {
       navigator.vibrate([50, 30, 50]);
     }
     
-    // Reset upload success animation after it completes
     setTimeout(() => setUploadSuccess(false), 600);
   };
 
@@ -216,17 +211,15 @@ export default function AiAvatarsTest() {
       return;
     }
 
-    // Create abort controller for timeout
     const abortController = new AbortController();
     const timeoutId = setTimeout(() => {
       abortController.abort();
-    }, 120000); // 2 minute timeout
+    }, 120000);
 
     setIsLoading(true);
     setError(null);
     setResultImageUrl(null);
 
-    // Show processing toast
     const processingToast = toast.loading('Creating your AI avatar...', {
       icon: '🎭',
     });
@@ -245,7 +238,6 @@ export default function AiAvatarsTest() {
         initialQuality: 0.8,
       });
 
-      // Convert to base64
       const base64 = await new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result.split(",")[1]);
@@ -268,7 +260,6 @@ export default function AiAvatarsTest() {
         signal: abortController.signal,
       });
 
-      // Clear timeout if request completes
       clearTimeout(timeoutId);
 
       if (!response.ok) {
@@ -289,30 +280,16 @@ export default function AiAvatarsTest() {
         setProgressStage("Complete!");
         setResultImageUrl(data.imageUrl);
         
-        // Success toast
         toast.success('Avatar generation complete! Amazing transformation!', {
           id: processingToast,
           icon: '🎭',
           duration: 5000,
         });
         
-        // Success haptic feedback
         if (navigator.vibrate) {
           navigator.vibrate([200, 100, 200]);
         }
-        
-        // Scroll to result
-        setTimeout(() => {
-          const resultSection = document.querySelector('.result-section');
-          if (resultSection) {
-            resultSection.scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'start' 
-            });
-          }
-        }, 300);
 
-        // Refresh credits to show updated balance
         await refreshCredits();
       } else {
         console.error("Unexpected response format:", data);
@@ -337,7 +314,6 @@ export default function AiAvatarsTest() {
         });
       }
       
-      // Error haptic feedback
       if (navigator.vibrate) {
         navigator.vibrate([100, 50, 100, 50, 100]);
       }
@@ -371,7 +347,6 @@ export default function AiAvatarsTest() {
         duration: 3000,
       });
       
-      // Download success feedback
       if (navigator.vibrate) {
         navigator.vibrate(100);
       }
@@ -394,9 +369,6 @@ export default function AiAvatarsTest() {
     setProgress(0);
     setProgressStage("");
     setLoadingTimer(0);
-    
-    // Reset scroll position
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     
     toast.success('Ready for a new avatar transformation!', {
       icon: '🔄',
@@ -436,29 +408,25 @@ export default function AiAvatarsTest() {
         <meta name="description" content="Transform your photos into amazing AI avatars with custom styles" />
       </Head>
 
-      <main className={styles.container}>
+      <main className={styles.splitContainer}>
         <SEOAvatar />
-        {/* Credits Display */}
-        <div className={styles.creditsHeader}>
-          <div className={styles.creditsInfo}>
-            <span>🎭</span>
-            <span className={styles.creditsText}>{credits} credits</span>
+        
+        {/* Header */}
+        <div className={styles.header}>
+          <div className={styles.headerContent}>
+            <h1 className={styles.title}>🎭 AI Avatar Generator</h1>
+            <div className={styles.creditsInfo}>
+              <span className={styles.creditsText}>💎 {credits} credits</span>
+              <button 
+                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                className={styles.creditsButton}
+              >
+                {isLoggedIn ? "+" : "Sign Up"}
+              </button>
+            </div>
           </div>
-          <button 
-            onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
-            className={styles.creditsButton}
-          >
-            {isLoggedIn ? "+" : "Sign Up"}
-          </button>
-        </div>
-
-        <div className={styles.hero}>
-          <h1 className={styles.title}>🎭 AI Avatar Generator</h1>
           <p className={styles.subtitle}>
-            Transform your photo into amazing AI avatars with custom styles
-            <span className={styles.creditPill}>
-              Costs {avatarCost} credits
-            </span>
+            Transform your photo into amazing AI avatars • Costs {avatarCost} credits
           </p>
         </div>
 
@@ -469,225 +437,309 @@ export default function AiAvatarsTest() {
           </div>
         )}
 
-        {/* Photo Upload */}
-        <div className={styles.formSection}>
-          <label>Upload Your Photo</label>
-          <div
-            className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''}`}
-            onDragEnter={handleDrag}
-            onDragLeave={handleDrag}
-            onDragOver={handleDrag}
-            onDrop={handleDrop}
-            onClick={() => document.getElementById('photo-upload').click()}
-          >
-            <input
-              id="photo-upload"
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoUpload}
-              style={{ display: 'none' }}
-            />
-            {previewUrl ? (
-              <div className={styles.previewContainer}>
-                <Image
-                  src={previewUrl}
-                  alt="Uploaded photo"
-                  width={200}
-                  height={200}
-                  className={styles.previewImage}
+        {/* Split Screen Layout */}
+        <div className={styles.splitLayout}>
+          {/* Left Sidebar - All Options */}
+          <div className={styles.sidebar}>
+            <div className={styles.sidebarHeader}>
+              <h2>🛠️ Avatar Setup</h2>
+            </div>
+
+            {/* Upload Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>📷</span>
+                Upload Photo
+              </h3>
+              <div
+                className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''}`}
+                onDragEnter={handleDrag}
+                onDragLeave={handleDrag}
+                onDragOver={handleDrag}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('photo-upload').click()}
+              >
+                <input
+                  id="photo-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  style={{ display: 'none' }}
                 />
-                <div className={styles.changePhotoOverlay}>
-                  <span>Click to change photo</span>
+                {previewUrl ? (
+                  <div className={styles.uploadPreview}>
+                    <Image
+                      src={previewUrl}
+                      alt="Uploaded photo"
+                      width={100}
+                      height={100}
+                      className={styles.uploadImage}
+                    />
+                    <div className={styles.uploadOverlay}>
+                      <span>Click to change</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.uploadPrompt}>
+                    <div className={styles.uploadIcon}>📸</div>
+                    <span>Drop photo or click</span>
+                    <small>PNG, JPG up to 10MB</small>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Gender Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>👤</span>
+                Gender
+              </h3>
+              <div className={styles.buttonGroup}>
+                {["male", "female", "non-binary"].map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    className={`${styles.selectButton} ${user_gender === g ? styles.selectButtonActive : ''}`}
+                    onClick={() => setGender(g)}
+                  >
+                    {g.charAt(0).toUpperCase() + g.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Workflow Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>⚙️</span>
+                Workflow Type
+              </h3>
+              <div className={styles.buttonGroup}>
+                {[
+                  { value: "HyperRealistic-likeness", label: "HyperRealistic" },
+                  { value: "Realistic", label: "Realistic" },
+                  { value: "Stylistic", label: "Stylistic" }
+                ].map((workflow) => (
+                  <button
+                    key={workflow.value}
+                    type="button"
+                    className={`${styles.selectButton} ${workflowType === workflow.value ? styles.selectButtonActive : ''}`}
+                    onClick={() => setWorkflowType(workflow.value)}
+                  >
+                    {workflow.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Style Category Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>🎨</span>
+                Style Category
+              </h3>
+              <div className={styles.categoryList}>
+                {[
+                  { value: "portrait", label: "Portrait", emoji: "📸" },
+                  { value: "fantasy", label: "Fantasy", emoji: "🧙" },
+                  { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
+                  { value: "historical", label: "Historical", emoji: "🏛️" },
+                  { value: "anime", label: "Anime", emoji: "🎌" }
+                ].map((category) => (
+                  <button
+                    key={category.value}
+                    type="button"
+                    data-category={category.value}
+                    className={`${styles.categoryOption} ${styleCategory === category.value ? styles.categoryOptionActive : ''}`}
+                    onClick={() => {
+                      setStyleCategory(category.value);
+                      setSelectedStyle("");
+                    }}
+                  >
+                    <span className={styles.categoryEmoji}>{category.emoji}</span>
+                    <span className={styles.categoryLabel}>{category.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Specific Style Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>✨</span>
+                Choose Style
+              </h3>
+              <div className={styles.styleList}>
+                {AVATAR_STYLES[styleCategory].map((style) => (
+                  <button
+                    key={style.value}
+                    type="button"
+                    className={`${styles.styleOption} ${selectedStyle === style.value ? styles.styleOptionActive : ''}`}
+                    onClick={() => setSelectedStyle(style.value)}
+                  >
+                    {style.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Style Strength Card */}
+            <div className={styles.optionCard}>
+              <h3 className={styles.cardTitle}>
+                <span className={styles.cardIcon}>📊</span>
+                Style Strength: {styleStrength}%
+              </h3>
+              <div className={styles.sliderContainer}>
+                <input
+                  type="range"
+                  min="5"
+                  max="35"
+                  value={styleStrength}
+                  onChange={(e) => setStyleStrength(Number(e.target.value))}
+                  className={styles.slider}
+                />
+                <div className={styles.sliderLabels}>
+                  <span>Preserve Face</span>
+                  <span>Strong Style</span>
                 </div>
               </div>
-            ) : (
-              <div className={styles.uploadPrompt}>
-                <div className={styles.uploadIcon}>📷</div>
-                <h3>Drop your photo here or click to select</h3>
-                <p>Best results with clear face photos</p>
-                <small>PNG, JPG, HEIC up to 10MB</small>
+            </div>
+
+            {/* Generate Button */}
+            <button
+              onClick={generateAvatar}
+              disabled={!isReady || isLoading}
+              className={styles.generateButton}
+            >
+              {isLoading ? (
+                <>
+                  <div className={styles.spinner}></div>
+                  {getButtonText()}
+                </>
+              ) : (
+                <>
+                  {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                  {getButtonText()}
+                </>
+              )}
+            </button>
+
+            {/* Progress */}
+            {isLoading && (
+              <div className={styles.progressCard}>
+                <div className={styles.progressBar}>
+                  <div 
+                    className={styles.progressFill}
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+                <div className={styles.progressText}>
+                  <span>{progressStage}</span>
+                  <span>{progress}%</span>
+                </div>
+                <div className={styles.progressTimer}>
+                  {Math.floor(loadingTimer / 60) > 0 ? `${Math.floor(loadingTimer / 60)}:${(loadingTimer % 60).toString().padStart(2, '0')}` : `${loadingTimer}s`}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right Panel - FOCUSED ON PREVIEW & RESULTS */}
+          <div className={styles.previewPanel}>
+            <div className={styles.previewHeader}>
+              <h2>🎭 Your Avatar Transformation</h2>
+            </div>
+
+            {/* Main Preview Area */}
+            <div className={styles.mainPreviewArea}>
+              {/* Before & After Images */}
+              <div className={styles.imageComparison}>
+                {/* Original Photo */}
+                {previewUrl ? (
+                  <div className={styles.imageSection}>
+                    <h3 className={styles.imageTitle}>📸 Original</h3>
+                    <div className={styles.imageContainer}>
+                      <Image
+                        src={previewUrl}
+                        alt="Original photo"
+                        width={300}
+                        height={300}
+                        className={styles.previewImage}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.placeholderSection}>
+                    <div className={styles.placeholderContent}>
+                      <span className={styles.placeholderIcon}>📷</span>
+                      <h3>Upload Your Photo</h3>
+                      <p>Your original photo will appear here</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Arrow */}
+                {previewUrl && (
+                  <div className={styles.transformArrow}>
+                    <div className={styles.arrowIcon}>➡️</div>
+                    <div className={styles.arrowText}>AI Transform</div>
+                  </div>
+                )}
+
+                {/* Generated Avatar */}
+                {resultImageUrl ? (
+                  <div className={styles.imageSection}>
+                    <h3 className={styles.imageTitle}>🎭 AI Avatar</h3>
+                    <div className={styles.imageContainer}>
+                      <Image
+                        src={resultImageUrl}
+                        alt="Generated Avatar"
+                        width={300}
+                        height={300}
+                        unoptimized
+                        className={styles.previewImage}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.placeholderSection}>
+                    <div className={styles.placeholderContent}>
+                      <span className={styles.placeholderIcon}>🎭</span>
+                      <h3>Your Avatar</h3>
+                      <p>Your AI-generated avatar will appear here</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Result Actions */}
+              {resultImageUrl && (
+                <div className={styles.resultActions}>
+                  <button onClick={handleDownload} className={styles.downloadButton}>
+                    📥 Download Avatar
+                  </button>
+                  <button onClick={handleReset} className={styles.resetButton}>
+                    🔄 Create New Avatar
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Style Preview Info */}
+            {selectedStyle && (
+              <div className={styles.stylePreviewInfo}>
+                <div className={styles.selectedStyleBadge}>
+                  <span className={styles.styleBadgeCategory}>{styleCategory.charAt(0).toUpperCase() + styleCategory.slice(1)}</span>
+                  <span className={styles.styleBadgeName}>{AVATAR_STYLES[styleCategory].find(s => s.value === selectedStyle)?.label}</span>
+                </div>
+                <div className={styles.strengthIndicator}>
+                  <span>Style Strength: {styleStrength}%</span>
+                </div>
               </div>
             )}
           </div>
         </div>
-
-        {/* Grid Layout for Options */}
-        <div className={styles.optionsGrid}>
-          {/* Gender Selection */}
-          <div className={styles.gridItem}>
-            <h3 className={styles.gridTitle}>Gender</h3>
-            <div className={styles.buttonGroup}>
-              {["male", "female", "non-binary"].map((g) => (
-                <button
-                  key={g}
-                  type="button"
-                  className={`${styles.selectButton} ${user_gender === g ? styles.selectButtonActive : ''}`}
-                  onClick={() => setGender(g)}
-                >
-                  {g.charAt(0).toUpperCase() + g.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Workflow Type */}
-          <div className={styles.gridItem}>
-            <h3 className={styles.gridTitle}>Workflow Type</h3>
-            <div className={styles.buttonGroup}>
-              {[
-                { value: "HyperRealistic-likeness", label: "HyperRealistic Likeness" },
-                { value: "HyperRealistic", label: "HyperRealistic" },
-                { value: "Realistic", label: "Realistic" },
-                { value: "Stylistic", label: "Stylistic" }
-              ].map((workflow) => (
-                <button
-                  key={workflow.value}
-                  type="button"
-                  className={`${styles.selectButton} ${workflowType === workflow.value ? styles.selectButtonActive : ''}`}
-                  onClick={() => setWorkflowType(workflow.value)}
-                >
-                  {workflow.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Style Category */}
-          <div className={styles.gridItem}>
-            <h3 className={styles.gridTitle}>Style Category</h3>
-            <div className={styles.buttonGroup}>
-              {[
-                { value: "portrait", label: "Portrait" },
-                { value: "fantasy", label: "Fantasy" },
-                { value: "scifi", label: "Sci-Fi" },
-                { value: "historical", label: "Historical" },
-                { value: "anime", label: "Anime/Manga" }
-              ].map((category) => (
-                <button
-                  key={category.value}
-                  type="button"
-                  className={`${styles.selectButton} ${styleCategory === category.value ? styles.selectButtonActive : ''}`}
-                  onClick={() => {
-                    setStyleCategory(category.value);
-                    setSelectedStyle("");
-                  }}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Choose Style */}
-          <div className={styles.gridItem}>
-            <h3 className={styles.gridTitle}>Choose Style</h3>
-            <div className={styles.styleScrollContainer}>
-              {AVATAR_STYLES[styleCategory].map((style) => (
-                <button
-                  key={style.value}
-                  type="button"
-                  className={`${styles.selectButton} ${selectedStyle === style.value ? styles.selectButtonActive : ''}`}
-                  onClick={() => setSelectedStyle(style.value)}
-                >
-                  {style.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Style Strength */}
-          <div className={styles.gridItem}>
-            <h3 className={styles.gridTitle}>Style Strength: {styleStrength}%</h3>
-            <div className={styles.sliderContainer}>
-              <input
-                type="range"
-                min="5"
-                max="35"
-                value={styleStrength}
-                onChange={(e) => setStyleStrength(Number(e.target.value))}
-                className={styles.gridSlider}
-              />
-              <div className={styles.sliderHelp}>
-                Lower = preserve face better, Higher = stronger style transformation
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Generate Button */}
-        <div style={{ textAlign: "center", marginBottom: 30 }}>
-          <button
-            onClick={generateAvatar}
-            disabled={!isReady || isLoading}
-            className={styles.generateBtn}
-          >
-            {isLoading ? (
-              <>
-                <div className={styles.spinner}></div>
-                {getButtonText()}
-              </>
-            ) : (
-              <>
-                {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
-                {getButtonText()}
-              </>
-            )}
-          </button>
-          
-          {/* Progress Bar */}
-          {isLoading && (
-            <div className={styles.progressContainer}>
-              <div className={styles.progressBar}>
-                <div 
-                  className={styles.progressFill}
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-              <div className={styles.progressText}>
-                <span>{progressStage}</span>
-                <span>{progress}%</span>
-              </div>
-              <div className={styles.progressTimer}>
-                {Math.floor(loadingTimer / 60) > 0 ? `${Math.floor(loadingTimer / 60)}:${(loadingTimer % 60).toString().padStart(2, '0')}` : `${loadingTimer}s`}
-              </div>
-            </div>
-          )}
-          
-          {isLoading && loadingTimer > 60 && (
-            <div className={styles.loadingWarning}>
-              ⏳ This is taking longer than usual... Please wait or try again with a different image.
-            </div>
-          )}
-        </div>
-
-        {/* Result */}
-        {resultImageUrl && (
-          <div className={`${styles.resultSection} result-section`}>
-            <h3>Your AI Avatar</h3>
-            <Image
-              src={resultImageUrl}
-              alt="Generated Avatar"
-              width={400}
-              height={400}
-              unoptimized
-              className={styles.resultImage}
-            />
-            <div className={styles.resultActions}>
-              <button
-                onClick={handleDownload}
-                className={styles.downloadBtn}
-              >
-                📥 Download Avatar
-              </button>
-              <button
-                onClick={handleReset}
-                className={styles.resetBtn}
-              >
-                🔄 Create Another
-              </button>
-            </div>
-          </div>
-        )}
       </main>
     </>
   );

@@ -146,7 +146,7 @@ export default function AiAvatarsTest() {
     setError(null);
     setUploadSuccess(true);
     
-    toast.success('Photo uploaded! Ready for avatar transformation!', {
+    toast.success('Photo uploaded! Configure your avatar settings!', {
       icon: '🎭',
       duration: 2000,
     });
@@ -170,7 +170,9 @@ export default function AiAvatarsTest() {
     return prompt;
   };
 
-  const generateAvatar = async () => {
+  // Updated function to handle button clicks based on user state
+  const handleGenerateOrRedirect = () => {
+    // If no photo uploaded
     if (!photo) {
       toast.error('Please upload an image first', {
         icon: '📤',
@@ -178,39 +180,33 @@ export default function AiAvatarsTest() {
       });
       return;
     }
-    
-    if (!isLoggedIn) {
-      toast.error('Sign up required for avatar generation', {
-        icon: '🔒',
-        duration: 4000,
-        action: {
-          label: 'Sign Up',
-          onClick: () => window.location.href = "/signup"
-        }
-      });
-      return;
-    }
-    
-    if (credits < avatarCost) {
-      toast.error(`You need ${avatarCost} credits for avatar generation`, {
-        icon: '🎭',
-        duration: 4000,
-        action: {
-          label: 'Get Credits',
-          onClick: () => window.location.href = "/pricing"
-        }
-      });
-      return;
-    }
 
+    // If missing required options
     if (!user_gender || !selectedStyle) {
-      toast.error('Please select your gender and style', {
+      toast.error('Please select your gender and avatar style', {
         icon: '⚙️',
         duration: 3000,
       });
       return;
     }
 
+    // If not logged in, redirect to signup
+    if (!isLoggedIn) {
+      router.push('/signup');
+      return;
+    }
+    
+    // If not enough credits, redirect to pricing
+    if (credits < avatarCost) {
+      router.push('/pricing');
+      return;
+    }
+
+    // If all conditions met, generate avatar
+    generateAvatar();
+  };
+
+  const generateAvatar = async () => {
     const abortController = new AbortController();
     const timeoutId = setTimeout(() => {
       abortController.abort();
@@ -289,6 +285,17 @@ export default function AiAvatarsTest() {
         if (navigator.vibrate) {
           navigator.vibrate([200, 100, 200]);
         }
+
+        // Scroll to result
+        setTimeout(() => {
+          const resultSection = document.querySelector(`.${styles.imageComparison}`);
+          if (resultSection) {
+            resultSection.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }
+        }, 300);
 
         await refreshCredits();
       } else {
@@ -370,6 +377,9 @@ export default function AiAvatarsTest() {
     setProgressStage("");
     setLoadingTimer(0);
     
+    // Reset scroll position
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     toast.success('Ready for a new avatar transformation!', {
       icon: '🔄',
       duration: 2000,
@@ -387,15 +397,16 @@ export default function AiAvatarsTest() {
   const getButtonText = () => {
     if (isLoading) return "Creating your avatar...";
     if (!photo) return "Upload a Photo First";
-    if (!isLoggedIn) return "Sign Up Required";
+    if (!user_gender || !selectedStyle) return "Select Options First";
+    if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < avatarCost) return "Get More Credits";
-    if (!user_gender || !selectedStyle) return "Select Options";
     return "Generate My AI Avatar!";
   };
 
   const getButtonEmoji = () => {
     if (isLoading) return null;
     if (!photo) return "📷";
+    if (!user_gender || !selectedStyle) return "⚙️";
     if (!isLoggedIn) return "🔒";
     if (credits < avatarCost) return "💎";
     return "🚀";
@@ -418,7 +429,7 @@ export default function AiAvatarsTest() {
             <div className={styles.creditsInfo}>
               <span className={styles.creditsText}>💎 {credits} credits</span>
               <button 
-                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
                 className={styles.creditsButton}
               >
                 {isLoggedIn ? "+" : "Sign Up"}
@@ -608,9 +619,11 @@ export default function AiAvatarsTest() {
 
             {/* Generate Button */}
             <button
-              onClick={generateAvatar}
-              disabled={!isReady || isLoading}
-              className={styles.generateButton}
+              onClick={handleGenerateOrRedirect}
+              disabled={isLoading}
+              className={`${styles.generateButton} ${
+                isReady ? styles.readyToGenerate : ''
+              }`}
             >
               {isLoading ? (
                 <>

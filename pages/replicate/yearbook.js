@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
-import styles from "../../styles/YearbookTransform.module.css";
-import toast from "react-hot-toast";
-import SEOYearbook from "../../components/SEO/SEOYearbook";
 import useCredits from "../../hooks/useCredits";
+import toast from "react-hot-toast";
+import styles from "../../styles/YearbookNew.module.css";
+import SEOYearbook from "../../components/SEO/SEOYearbook";
 
 // Import yearbook styles from your centralized component
 import { styleCategories } from "../../components/YearbookStyles";
@@ -16,7 +17,7 @@ const ENHANCED_NEGATIVE_PROMPT =
 
 const YEARBOOK_COST = 20;
 
-export default function YearbookTransform() {
+export default function YearbookTransformRedesigned() {
   const router = useRouter();
 
   // ===== STATE =====
@@ -26,19 +27,18 @@ export default function YearbookTransform() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
   const [userId, setUserId] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
 
-  // Use the credits hook for consistent credit management
+  // Credits functionality
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
   // ===== EFFECTS =====
   useEffect(() => {
     if (router.query.success === "true") {
-      setIsPremiumUnlocked(true);
+      // Handle any success state
     }
   }, [router.query]);
 
@@ -92,7 +92,7 @@ export default function YearbookTransform() {
       setPhoto(file);
       setPreviewUrl(URL.createObjectURL(file));
       setResultImageUrl(null);
-      toast.success('Photo uploaded! Choose a style and generate!', {
+      toast.success('Photo uploaded! Choose your 90s yearbook style.', {
         icon: '📚',
         duration: 2000,
       });
@@ -103,7 +103,6 @@ export default function YearbookTransform() {
 
   // Updated function to handle button clicks based on user state
   const handleGenerateOrRedirect = () => {
-    // If no photo uploaded
     if (!photo) {
       toast.error('Please upload an image first', {
         icon: '📤',
@@ -112,7 +111,6 @@ export default function YearbookTransform() {
       return;
     }
 
-    // If no style selected
     if (!selectedStyle) {
       toast.error('Please select a yearbook style first', {
         icon: '🎨',
@@ -121,19 +119,16 @@ export default function YearbookTransform() {
       return;
     }
 
-    // If not logged in, redirect to signup
     if (!isLoggedIn) {
       router.push('/signup');
       return;
     }
     
-    // If not enough credits, redirect to pricing
     if (credits < YEARBOOK_COST) {
       router.push('/pricing');
       return;
     }
 
-    // If all conditions met, generate yearbook
     generateImage("/api/replicate/yearbook");
   };
 
@@ -156,7 +151,7 @@ export default function YearbookTransform() {
       setProgress(5);
       setProgressStage("Preparing image...");
 
-      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
+      await new Promise((resolve) => setTimeout(resolve, 200));
 
       setProgress(15);
       setProgressStage("Compressing photo...");
@@ -178,20 +173,9 @@ export default function YearbookTransform() {
         reader.readAsDataURL(compressedFile);
       });
 
-      setProgress(40);
-      setProgressStage("Uploading photo...");
-
-      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
-
-      setProgress(55);
-      setProgressStage("Building prompt...");
-
-      await new Promise((resolve) => setTimeout(resolve, 200)); // Simulate step
-
-      setProgress(65);
+      setProgress(50);
       setProgressStage("Sending to AI...");
 
-      // Show processing toast
       const processingToast = toast.loading('Creating your 90s yearbook portrait...', {
         icon: '📚',
       });
@@ -231,19 +215,7 @@ export default function YearbookTransform() {
           duration: 5000,
         });
 
-        // Refresh credits to show updated balance
         await refreshCredits();
-
-        // Scroll to result
-        setTimeout(() => {
-          const resultSection = document.querySelector(`.${styles.resultSection}`);
-          if (resultSection) {
-            resultSection.scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'start' 
-            });
-          }
-        }, 300);
       } else {
         throw new Error("No image URL returned from server");
       }
@@ -251,7 +223,6 @@ export default function YearbookTransform() {
       setProgress(0);
       setProgressStage("");
       console.error("Error generating image:", error);
-      
       toast.error(error.message || "Yearbook generation failed. Please try again.", {
         icon: '❌',
         duration: 5000,
@@ -263,10 +234,6 @@ export default function YearbookTransform() {
 
   const handleDownload = async () => {
     if (!resultImageUrl) return;
-    
-    const downloadToast = toast.loading('Preparing download...', {
-      icon: '⬇️',
-    });
     
     try {
       const resp = await fetch(resultImageUrl);
@@ -281,14 +248,12 @@ export default function YearbookTransform() {
       window.URL.revokeObjectURL(url);
       
       toast.success('90s yearbook photo downloaded!', {
-        id: downloadToast,
         icon: '📚',
         duration: 3000,
       });
     } catch (downloadError) {
       console.error('Download failed:', downloadError);
       toast.error('Download failed. Please try again.', {
-        id: downloadToast,
         icon: '❌',
         duration: 4000,
       });
@@ -319,10 +284,12 @@ export default function YearbookTransform() {
     return allStyles.find((c) => c.value === selectedStyle);
   })();
 
+  const isComplete = photo && selectedStyle && isLoggedIn && credits >= YEARBOOK_COST;
+
   // ===== RENDER =====
   return (
     <>
-    <SEOYearbook />
+      <SEOYearbook />
       <Head>
         <title>90s Yearbook Transform | Throwback AI</title>
         <meta
@@ -332,19 +299,7 @@ export default function YearbookTransform() {
       </Head>
 
       <main className={styles.container}>
-        {/* Hero */}
-        <div className={styles.hero}>
-          <h1 className={styles.title}>
-            <span className={styles.titleEmoji}>📸</span>
-            90s Yearbook Transform
-          </h1>
-          <p className={styles.subtitle}>
-            Travel back in time! Transform your photo into an authentic 90s yearbook picture with iconic retro styles.
-            <span className={styles.creditPill}>Costs {YEARBOOK_COST} credits</span>
-          </p>
-        </div>
-
-        {/* Credits Header */}
+        {/* Fixed Credits Header */}
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
             <span className={styles.creditsIcon}>📚</span>
@@ -358,44 +313,99 @@ export default function YearbookTransform() {
           </button>
         </div>
 
-        {/* Upload Section */}
-        <div className={styles.uploadSection}>
-          <div
-            className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ""} ${previewUrl ? styles.hasImage : ""}`}
-            onDragEnter={handleDrag}
-            onDragLeave={handleDrag}
-            onDragOver={handleDrag}
-            onDrop={handleDrop}
-            onClick={() => document.getElementById("photo-upload").click()}
-          >
-            {previewUrl ? (
-              <div className={styles.previewContainer}>
-                <img src={previewUrl} alt="Your photo" className={styles.previewImage} />
-                <div className={styles.changePhotoOverlay}>
-                  <span>Click to change photo</span>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.uploadPrompt}>
-                <div className={styles.uploadIcon}>📷</div>
-                <h3>Upload Your Photo</h3>
-                <p>Drag & drop or click to select</p>
-                <small>Best results with clear, front-facing face photos</small>
-              </div>
-            )}
-          </div>
-          <input
-            id="photo-upload"
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoUpload}
-            className={styles.hiddenInput}
-          />
+        {/* Hero */}
+        <div className={styles.hero}>
+          <h1 className={styles.title}>
+            <span className={styles.titleEmoji}>📸</span>
+            90s Yearbook Transform
+          </h1>
+          <p className={styles.subtitle}>
+            Travel back in time! Transform your photo into an authentic 90s yearbook picture with iconic retro styles.
+            <span className={styles.creditPill}>Costs {YEARBOOK_COST} credits</span>
+          </p>
         </div>
 
-        {/* Styles Section */}
-        <div className={styles.stylesSection}>
-          <h2 className={styles.sectionTitle}>Choose Your 90s Vibe</h2>
+        {/* Before/After Photo Section */}
+        <div className={styles.photoSection}>
+          <div className={styles.photoComparison}>
+            {/* Upload Card */}
+            <div className={styles.uploadCard}>
+              <h3 className={styles.cardTitle}>Upload Your Photo</h3>
+              <div
+                className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ""} ${previewUrl ? styles.hasImage : ""}`}
+                onDragEnter={handleDrag}
+                onDragLeave={handleDrag}
+                onDragOver={handleDrag}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById("photo-upload").click()}
+              >
+                {previewUrl ? (
+                  <div className={styles.previewContainer}>
+                    <Image
+                      src={previewUrl}
+                      alt="Your photo"
+                      width={200}
+                      height={200}
+                      className={styles.previewImage}
+                    />
+                    <div className={styles.changePhotoOverlay}>
+                      <span>Click to change photo</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.uploadPrompt}>
+                    <div className={styles.uploadIcon}>📷</div>
+                    <h4>Drop your photo here</h4>
+                    <p>Drag & drop or click to select</p>
+                    <small>Best results with clear, front-facing face photos</small>
+                  </div>
+                )}
+              </div>
+              <input
+                id="photo-upload"
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                style={{ display: 'none' }}
+              />
+            </div>
+
+            {/* Results Card */}
+            <div className={styles.resultCard}>
+              <h3 className={styles.cardTitle}>Your 90s Transformation</h3>
+              <div className={styles.resultZone}>
+                {resultImageUrl ? (
+                  <div className={styles.resultContainer}>
+                    <Image
+                      src={resultImageUrl}
+                      alt="90s Yearbook Result"
+                      width={200}
+                      height={200}
+                      unoptimized
+                      className={styles.resultImage}
+                    />
+                    <div className={styles.resultActions}>
+                      <button onClick={handleDownload} className={styles.downloadBtn}>
+                        📥 Download
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.placeholder}>
+                    <div className={styles.placeholderIcon}>📚</div>
+                    <p>Your yearbook photo will appear here</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Slim Options Section */}
+        <div className={styles.optionsSection}>
+          <h2 className={styles.optionsTitle}>Choose Your 90s Vibe</h2>
+          
+          {/* Category Tabs */}
           <div className={styles.categoryTabs}>
             {Object.keys(styleCategories).map((category) => (
               <button
@@ -408,6 +418,7 @@ export default function YearbookTransform() {
             ))}
           </div>
 
+          {/* Styles Grid */}
           <div className={styles.stylesGrid}>
             {styleCategories[selectedCategory].map((style) => (
               <button
@@ -424,87 +435,51 @@ export default function YearbookTransform() {
             ))}
           </div>
 
-          {/* Generate Button - now directly below options grid */}
-          <div className={styles.generateSection}>
-            <button
-              onClick={handleGenerateOrRedirect}
-              disabled={isLoading}
-              className={`${styles.generateBtn} ${styles.freeBtn} ${
-                photo && selectedStyle && isLoggedIn && credits >= YEARBOOK_COST ? styles.readyToGenerate : ''
-              }`}
-            >
-              {isLoading ? (
-                <>
-                  <span className={styles.spinner}></span>
-                  {getButtonText()}
-                </>
-              ) : (
-                <>
-                  {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
-                  {getButtonText()}
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Style Preview Box */}
+          {/* Style Preview */}
           {selectedStyleDetails && (
             <div className={styles.styleDescription}>
-              <h3>Style Preview: {selectedStyleDetails.label.substring(2)}</h3>
+              <h3>Selected: {selectedStyleDetails.label.substring(2)}</h3>
               <p>{selectedStyleDetails.promptDesc}</p>
-              <div className={styles.styleSettings}>
-                <span>Style: {selectedStyleDetails.style}</span> • 
-                <span>Strength: {selectedStyleDetails.styleStrength}%</span> • 
-                <span>Guidance: {selectedStyleDetails.guidanceScale}</span>
-              </div>
             </div>
           )}
         </div>
 
-        {/* Progress Bar */}
-        {isLoading && (
-          <div className={styles.progressBarWrapper}>
-            <div className={styles.progressBar}>
-              <div
-                className={styles.progressFill}
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <div className={styles.progressStage}>{progressStage}</div>
-          </div>
-        )}
+        {/* Generate Button */}
+        <div className={styles.generateSection}>
+          <button
+            onClick={handleGenerateOrRedirect}
+            disabled={isLoading}
+            className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+          >
+            {isLoading ? (
+              <>
+                <div className={styles.spinner}></div>
+                {getButtonText()}
+              </>
+            ) : (
+              <>
+                {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                {getButtonText()}
+              </>
+            )}
+          </button>
 
-        {/* Result Section */}
-        {resultImageUrl && (
-          <div className={styles.resultSection}>
-            <h2 className={styles.resultTitle}>Your 90s Transformation</h2>
-            <div className={styles.resultContainer}>
-              <img
-                src={resultImageUrl}
-                alt="90s Yearbook Result"
-                className={styles.resultImage}
-              />
-              <div className={styles.resultActions}>
-                <button onClick={handleDownload} className={styles.downloadBtn}>
-                  📥 Download Your 90s Photo
-                </button>
-                <button
-                  onClick={() => {
-                    setSelectedStyle(null);
-                    setResultImageUrl(null);
-                    toast.success('Ready for a new 90s transformation!', {
-                      icon: '🔄',
-                      duration: 2000,
-                    });
-                  }}
-                  className={styles.tryAnotherBtn}
-                >
-                  🔄 Try Another Style
-                </button>
+          {/* Progress Bar */}
+          {isLoading && (
+            <div className={styles.progressContainer}>
+              <div className={styles.progressBar}>
+                <div
+                  className={styles.progressFill}
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className={styles.progressText}>
+                <span>{progressStage}</span>
+                <span>{progress}%</span>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
     </>
   );

@@ -12,7 +12,7 @@ export default function About() {
         Whether you&apos;re looking to restore damaged photos, colorize black and white memories, create professional avatars, transform into cartoon art, or capture that perfect 90s yearbook vibe—we&apos;ve got the tools to make it happen. Our advanced AI analyzes each image and applies the perfect enhancement for breathtaking results.
       </p>
       <p className={styles.paragraph}>
-        No subscriptions. No complicated processes. Just upload your photo, choose your transformation, and watch the magic happen in seconds. From basic restoration that&apos;s free to try, to premium colorization and creative transformations that bring out your photo's full potential.
+        No subscriptions. No complicated processes. Just upload your photo, choose your transformation, and watch the magic happen in seconds. From basic restoration that&apos;s free to try, to premium colorization and creative transformations that bring out your photo&apos;s full potential.
       </p>
       <p className={styles.paragraph}>
         Every photo has a story, and we&apos;re here to help you tell it better. Whether it&apos;s a century-old family portrait or today&apos;s selfie that needs that special touch, <Link className={styles.link} href="/contact">reach out</Link> and share your vision—we&apos;re always listening and improving.

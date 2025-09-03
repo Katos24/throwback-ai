@@ -74,7 +74,7 @@
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.1;
-  background: linear-gradient(135deg, #1a1717, #2a5e5a, #45b7d1, #96ceb4, #a87f26);
+  background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -241,6 +241,72 @@
   font-weight: 500;
 }
 
+/* Style Name Selector - New Section */
+.styleNameSection {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(78, 205, 196, 0.2));
+  border: 2px solid #4ecdc4;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(78, 205, 196, 0.2);
+}
+
+.styleNameTitle {
+  color: #2d1b69;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.styleNameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.styleNameButton {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(150, 206, 180, 0.3));
+  border: 2px solid #96ceb4;
+  color: #2d1b69;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(150, 206, 180, 0.2);
+}
+
+.styleNameButton:hover {
+  background: linear-gradient(135deg, #feca57, #ff9ff3);
+  border-color: #ff6b6b;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.styleNameButton.selectedStyleName {
+  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+  border-color: #feca57;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.selectedStyleNameInfo {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: #2d1b69;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
 .uploadPrompt small {
   color: #5d4e75;
   font-size: 0.8rem;
@@ -353,7 +419,7 @@
 }
 
 .optionsTitle {
-  color: #2d1b69;
+  color: #1a0d3d;
   font-size: 1.4rem;
   font-weight: 800;
   text-align: center;

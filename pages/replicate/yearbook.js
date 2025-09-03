@@ -20,9 +20,24 @@ const YEARBOOK_COST = 20;
 export default function YearbookTransformRedesigned() {
   const router = useRouter();
 
+  // Style name options that match the API mapping
+  const styleNameOptions = [
+    "Photographic (Default)", 
+    "Cinematic",
+    "Digital Art",
+    "Fantasy art",
+    "Neonpunk", 
+    "Enhance",
+    "Comic book",
+    "Disney Character",
+    "Lowpoly",
+    "Line art"
+  ];
+
   // ===== STATE =====
   const [selectedCategory, setSelectedCategory] = useState("popular");
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectedStyleName, setSelectedStyleName] = useState("Photographic (Default)");
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
@@ -187,7 +202,7 @@ export default function YearbookTransformRedesigned() {
           imageBase64: base64,
           prompt,
           negativePrompt: ENHANCED_NEGATIVE_PROMPT,
-          styleName: selectedCharacter.style,
+          styleName: selectedStyleName, // Use the selected style name
           styleStrength: selectedCharacter.styleStrength,
           guidanceScale: selectedCharacter.guidanceScale,
           referenceImage: selectedCharacter.referenceImage || null,
@@ -442,6 +457,25 @@ export default function YearbookTransformRedesigned() {
               <p>{selectedStyleDetails.promptDesc}</p>
             </div>
           )}
+
+          {/* Style Name Selector */}
+          <div className={styles.styleNameSection}>
+            <h3 className={styles.styleNameTitle}>Choose Art Style</h3>
+            <div className={styles.styleNameGrid}>
+              {styleNameOptions.map((styleName) => (
+                <button
+                  key={styleName}
+                  onClick={() => setSelectedStyleName(styleName)}
+                  className={`${styles.styleNameButton} ${selectedStyleName === styleName ? styles.selectedStyleName : ""}`}
+                >
+                  {styleName}
+                </button>
+              ))}
+            </div>
+            <div className={styles.selectedStyleNameInfo}>
+              <strong>Selected Art Style:</strong> {selectedStyleName}
+            </div>
+          </div>
         </div>
 
         {/* Generate Button */}

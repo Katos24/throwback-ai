@@ -789,6 +789,10 @@
     max-height: 200px;
   }
 
+  .styleNameGrid {
+    grid-template-columns: repeat(2, 1fr); /* force 2 columns */
+  }
+
   .styleCard {
     padding: 0.5rem;
     min-height: 65px;

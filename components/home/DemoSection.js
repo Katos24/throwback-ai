@@ -232,7 +232,7 @@ export default function DemoSection() {
         {/* Processing Stats */}
         <div className={demoStyles.techStats}>
           <div className={demoStyles.techStat}>
-            <div className={demoStyles.statValue}>2.3s</div>
+            <div className={demoStyles.statValue}>12.3s</div>
             <div className={demoStyles.statLabel}>Processing Time</div>
           </div>
           <div className={demoStyles.techStat}>

@@ -1,6 +1,7 @@
-"use client"; // ← must be first, before imports
+"use client"; // must be first
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "../../styles/CarouselHero.module.css";
 
 export default function HeroSection() {
@@ -10,54 +11,59 @@ export default function HeroSection() {
       image: "/images/restore-card.png",
       category: "Photo Restoration",
       link: "replicate/restore-basic",
-      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos. Bring back memories you thought were lost forever.",
+      description:
+        "Repair scratches, tears, water damage, and fading from irreplaceable family photos. Bring back memories you thought were lost forever.",
       credits: 1,
       buttonText: "Restore (Try Free)",
-      badgeColor: "success"
+      badgeColor: "success",
     },
     {
       id: "restore-2",
       image: "/images/photo-colorization-card.jpg",
       category: "Colorize B&W Photo",
       link: "replicate/restore-premium",
-      description: "Watch your ancestors come alive as our AI adds historically accurate, vibrant colors to black and white family photos from any era.",
+      description:
+        "Watch your ancestors come alive as our AI adds historically accurate, vibrant colors to black and white family photos from any era.",
       credits: 40,
       buttonText: "Add Color",
       badge: "Most Popular",
-      badgeColor: "premium"
+      badgeColor: "premium",
     },
     {
       id: "yearbook-1",
       image: "/images/yearbook-card-home.jpg",
       category: "90s Yearbook",
       link: "replicate/yearbook",
-      description: "Go back in time! Get that classic 90s school portrait look with vintage styling, perfect for nostalgia lovers and social media.",
+      description:
+        "Go back in time! Get that classic 90s school portrait look with vintage styling, perfect for nostalgia lovers and social media.",
       credits: 20,
       buttonText: "Go Retro",
       badge: "Trending",
-      badgeColor: "trending"
+      badgeColor: "trending",
     },
     {
       id: "avatar-1",
       image: "/images/avatar-after.jpg",
       category: "Professional Avatar",
       link: "replicate/avatar",
-      description: "Create polished, throwback headshots and avatars perfect for social media, LinkedIn, business cards, or any platform where you want to look your best.",
+      description:
+        "Create polished, throwback headshots and avatars perfect for social media, LinkedIn, business cards, or any platform where you want to look your best.",
       credits: 50,
       buttonText: "Create Avatar",
       badge: "Pro",
-      badgeColor: "pro"
+      badgeColor: "pro",
     },
     {
       id: "cartoon-1",
       image: "/images/cartoon-card.png",
       category: "Cartoon Art",
       link: "replicate/cartoon",
-      description: "Transform yourself, friends, or pets into stunning cartoon artwork. Perfect for gifts, profile pictures, or just having fun!",
+      description:
+        "Transform yourself, friends, or pets into stunning cartoon artwork. Perfect for gifts, profile pictures, or just having fun!",
       credits: 40,
       buttonText: "Make Cartoon",
       badge: "Fun",
-      badgeColor: "fun"
+      badgeColor: "fun",
     },
   ];
 
@@ -70,11 +76,9 @@ export default function HeroSection() {
             <span className={styles.gradient}> Something Amazing</span>
           </h1>
           <p className={styles.subtitle}>
-            From restoring precious family memories to creating fun modern art - our AI transforms your photos in seconds. 
+            From restoring precious family memories to creating fun modern art
+            - our AI transforms your photos in seconds.
             <strong> Preserve the past or reimagine the present.</strong>
-          </p>
-          <p className={styles.subDescription}>
-            Choose from restoration tools to bring old photos back to life, or explore creative transformations for something completely new. All powered by advanced AI technology.
           </p>
         </header>
 
@@ -85,14 +89,22 @@ export default function HeroSection() {
               <Link href={item.link} className={styles.cardLink}>
                 <div className={styles.imgWrap}>
                   {item.badge && (
-                    <div className={`${styles.cardBadge} ${styles[item.badgeColor]}`}>
+                    <div
+                      className={`${styles.cardBadge} ${styles[item.badgeColor]}`}
+                    >
                       {item.badge}
                     </div>
                   )}
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.category}
+                    width={400}
+                    height={250}
                     className={styles.img}
+                    priority={item.id === "restore-1"} // first card loads immediately
+                    sizes="(max-width: 768px) 100vw,
+                           (max-width: 1200px) 50vw,
+                           33vw"
                   />
                   <span className={styles.overlayButton}>
                     {item.buttonText}
@@ -103,7 +115,9 @@ export default function HeroSection() {
                   <p className={styles.cardDescription}>{item.description}</p>
                   <div className={styles.creditInfo}>
                     <span className={styles.creditCost}>{item.credits}</span>
-                    <span className={styles.creditLabel}>{item.credits === 1 ? 'Credit' : 'Credits'}</span>
+                    <span className={styles.creditLabel}>
+                      {item.credits === 1 ? "Credit" : "Credits"}
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -111,23 +125,8 @@ export default function HeroSection() {
           ))}
         </div>
 
-        {/* Processing Stats */}
-        <div className={styles.statsRow}>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>2.3s</div>
-            <div className={styles.statLabel}>Processing Time</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>99.7%</div>
-            <div className={styles.statLabel}>Accuracy Rate</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>4K</div>
-            <div className={styles.statLabel}>Max Resolution</div>
-          </div>
-        </div>
+   
 
-        {/* Trust Bar */}
         <div className={styles.trustBar}>
           <div className={styles.trustItem}>
             <span className={styles.checkmark}>✓</span>50K+ Photos Transformed
@@ -143,14 +142,16 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Bottom CTA */}
         <div className={styles.bottomCTA}>
           <div className={styles.creditOffer}>
             <div className={styles.offerIcon}>⚡</div>
             <div className={styles.offerText}>
               <strong>Try It Free Right Now</strong>
               <span className={styles.offerDetails}>
-                <Link href="/pricing" className={styles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
+                <Link href="/pricing" className={styles.ctaLink}>
+                  Get 5 Free Credits
+                </Link>{" "}
+                • No credit card needed
               </span>
             </div>
           </div>

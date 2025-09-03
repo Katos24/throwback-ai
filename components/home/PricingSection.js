@@ -2,10 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient'; // Adjust path as needed
 import pricingStyles from '../../styles/Pricing.module.css';
 
+// Toast Component
+const Toast = ({ message, type = 'info', onClose, isVisible }) => {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 4000); // Auto-close after 4 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className={`${pricingStyles.toast} ${pricingStyles[`toast-${type}`]}`}>
+      <div className={pricingStyles.toastContent}>
+        <span className={pricingStyles.toastIcon}>
+          {type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}
+        </span>
+        <span className={pricingStyles.toastMessage}>{message}</span>
+        <button 
+          className={pricingStyles.toastClose}
+          onClick={onClose}
+          aria-label="Close notification"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const PricingSection = () => {
   const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  
+  // Toast state
+  const [toast, setToast] = useState({
+    isVisible: false,
+    message: '',
+    type: 'info'
+  });
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -13,15 +52,25 @@ const PricingSection = () => {
     });
   }, []);
 
+  // Toast helper functions
+  const showToast = (message, type = 'info') => {
+    setToast({
+      isVisible: true,
+      message,
+      type
+    });
+  };
+
+  const hideToast = () => {
+    setToast(prev => ({ ...prev, isVisible: false }));
+  };
+
   const creditPacks = [
     {
       id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
       name: "Dawn Pack",
       price: "$4.99",
       credits: 400,
-      description: "Perfect for trying out Anastasis magic — restore a few cherished memories.",
-      revivals: 10,
-      perRestore: "$0.50",
       gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
       featured: false
     },
@@ -30,9 +79,6 @@ const PricingSection = () => {
       name: "Revival Pack", 
       price: "$9.99",
       credits: 1000, 
-      description: "A solid bundle for breathing new life into vintage family shots.",
-      revivals: 25,
-      perRestore: "$0.40",
       gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
       featured: false
     },
@@ -41,9 +87,6 @@ const PricingSection = () => {
       name: "Resurgence Pack",
       price: "$14.99",
       credits: 1600,
-      description: "A popular pick for curating full-family albums and restoring event photos.",
-      revivals: 40, 
-      perRestore: "$0.37",
       gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       featured: false,
     },
@@ -52,9 +95,6 @@ const PricingSection = () => {
       name: "Eternal Pack",
       price: "$29.99", 
       credits: 3500,
-      description: "Built for legacy-level restoration — preserve history at scale.",
-      revivals: 87,
-      perRestore: "$0.34", 
       gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
       featured: false
     }
@@ -62,7 +102,7 @@ const PricingSection = () => {
 
   const handlePurchase = async (selectedPriceId) => {
     if (!user) {
-      alert("Please sign up or log in to make a purchase.");
+      showToast("Please sign up or log in to purchase credits", "error");
       return;
     }
 
@@ -79,12 +119,22 @@ const PricingSection = () => {
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to create checkout session");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to create checkout session");
+      }
 
       const { url } = await res.json();
-      window.location.href = url;
+      showToast("Redirecting to checkout...", "success");
+      
+      // Small delay to show the success toast before redirect
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000);
+      
     } catch (err) {
-      alert(err.message);
+      console.error('Checkout error:', err);
+      showToast(err.message || "Something went wrong. Please try again.", "error");
       setLoadingId(null);
     }
   };
@@ -141,27 +191,8 @@ const PricingSection = () => {
                   <p className={pricingStyles.tagline}>{pack.description}</p>
 
                   <div className={pricingStyles.featuresGrid}>
-                    <div className={pricingStyles.featureItem}>
-                      <span className={pricingStyles.featureIcon}>🔧</span>
-                      <div>
-                        <span className={pricingStyles.featureValue}>{pack.credits}</span>
-                        <span className={pricingStyles.featureLabel}> Photo Restorations</span>
-                      </div>
-                    </div>
-                    <div className={pricingStyles.featureItem}>
-                      <span className={pricingStyles.featureIcon}>🎨</span>
-                      <div>
-                        <span className={pricingStyles.featureValue}>{pack.revivals}</span>
-                        <span className={pricingStyles.featureLabel}> Premium Revivals</span>
-                      </div>
-                    </div>
-                    <div className={pricingStyles.featureItem}>
-                      <span className={pricingStyles.featureIcon}>💰</span>
-                      <div>
-                        <span className={pricingStyles.featureValue}>{pack.perRestore}</span>
-                        <span className={pricingStyles.featureLabel}> Per Restore</span>
-                      </div>
-                    </div>
+                   
+                  
                   </div>
                 </div>
 
@@ -188,6 +219,14 @@ const PricingSection = () => {
           })}
         </div>
       </div>
+
+      {/* Toast Notification */}
+      <Toast 
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+      />
     </section>
   );
 };

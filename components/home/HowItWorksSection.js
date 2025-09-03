@@ -4,28 +4,24 @@ import howItWorksStyles from '../../styles/HowItWorks.module.css';
 const HowItWorksSection = () => {
   const steps = [
     {
+      icon: '👤',
+      title: 'Sign Up & Get Free Credits',
+      description: 'Create your free account and get 5 credits to start transforming photos right away. No subscription required - just pay as you go.',
+    },
+    {
       icon: '📤',
-      title: 'Upload Your Photo',
-      description:
-        'No signup required. Just upload your image and select a restoration option. All you need is a digital scan or smartphone photo.',
+      title: 'Upload & Choose Your Style',
+      description: 'Upload your photo and select from restoration, colorization, yearbook style, professional avatars, or cartoon art. Each transformation is optimized for different needs.',
     },
     {
       icon: '🧠',
-      title: 'AI-Powered Restoration',
-      description:
-        'Our neural models detect age damage, noise, blur, and color degradation &mdash; and correct them with surgical precision.',
+      title: 'AI-Powered Transformation',
+      description: 'Our specialized neural models analyze your photo and apply the perfect enhancement - from repairing damage to adding vintage styling or creating artistic interpretations.',
     },
     {
       icon: '⚡',
       title: 'Lightning-Fast Results',
-      description:
-        'Your photo is processed in under 1 minute. Even full restorations rarely take more than 30 seconds.',
-    },
-    {
-      icon: '⬇️',
-      title: 'Download & Share Freely',
-      description:
-        'Restored photos are downloadable in high-res formats, and yours to use forever. Share with loved ones or print as keepsakes.',
+      description: 'Most transformations complete in under 30 seconds. Download your high-resolution results and share them freely - they\'re yours forever.',
     },
   ];
 
@@ -37,19 +33,25 @@ const HowItWorksSection = () => {
         </h2>
         <div className={howItWorksStyles.titleUnderline} />
         <p className={howItWorksStyles.subtitle}>
-          Seamless restoration powered by heritage-grade AI
+          Transform any photo in 4 simple steps - from restoration to creative art
         </p>
       </div>
+      
       <div className={howItWorksStyles.featuresGrid}>
         {steps.map((step, i) => (
           <div key={i} className={howItWorksStyles.featureCard}>
             <div className={howItWorksStyles.featureStat}>{step.icon}</div>
             <div className={howItWorksStyles.featureLabel}>
               <h3 className={howItWorksStyles.stepTitle}>{step.title}</h3>
-              <p className={howItWorksStyles.stepDescription} dangerouslySetInnerHTML={{ __html: step.description }} />
+              <p className={howItWorksStyles.stepDescription}>{step.description}</p>
             </div>
           </div>
         ))}
+      </div>
+      
+      {/* Optional: Add a note about credits */}
+      <div className={howItWorksStyles.creditNote}>
+        <p>💡 <strong>Credit System:</strong> Different transformations use different amounts of credits based on complexity. Photo restoration starts at just 1 credit, while advanced features like professional avatars use 50 credits.</p>
       </div>
     </section>
   );

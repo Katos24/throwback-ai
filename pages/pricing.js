@@ -4,50 +4,106 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/PricingPage.module.css";
 
+// Toast Component
+const Toast = ({ message, type = 'info', onClose, isVisible }) => {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className={`${styles.toast} ${styles[`toast-${type}`]}`}>
+      <div className={styles.toastContent}>
+        <span className={styles.toastIcon}>
+          {type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}
+        </span>
+        <span className={styles.toastMessage}>{message}</span>
+        <button 
+          className={styles.toastClose}
+          onClick={onClose}
+          aria-label="Close notification"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const CREDIT_PACKS = [
   {
     id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
     name: "Dawn Pack",
     credits: 400,
     price: "$4.99",
-    revivals: 10,
-    tagline: "Try Throwback AI with your first memories",
-    useCase: "Perfect for testing basic restorations and colorizations.",
+    tagline: "Perfect for trying out our AI magic",
+    useCase: "Great for basic restorations and testing premium features.",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
-    popular: false
+    popular: false,
+    includes: {
+      basic: 400,
+      premium: 10,
+      yearbook: 20,
+      cartoon: 10,
+      avatar: 8
+    }
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
     name: "Revival Pack",
     credits: 1000,
     price: "$9.99",
-    revivals: 25,
     tagline: "Great value for family photo collections",
-    useCase: "Ideal for albums, vacations, and family memories.",
+    useCase: "Ideal for albums, family memories, and creative projects.",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    popular: false
+    popular: false,
+    includes: {
+      basic: 1000,
+      premium: 25,
+      yearbook: 50,
+      cartoon: 25,
+      avatar: 20
+    }
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
     name: "Resurgence Pack",
     credits: 1600,
     price: "$14.99",
-    revivals: 40,
     tagline: "Most popular for complete transformations",
-    useCase: "Perfect for events, heritage projects, and artwork.",
+    useCase: "Perfect for events, yearbook photos, avatars, and artwork.",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    popular: true
+    popular: true,
+    includes: {
+      basic: 1600,
+      premium: 40,
+      yearbook: 80,
+      cartoon: 40,
+      avatar: 32
+    }
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
     name: "Eternal Pack",
     credits: 3500,
     price: "$29.99",
-    revivals: 87,
-    tagline: "Best value for large collections",
-    useCase: "Ideal for genealogy, archiving, and bulk restoration.",
+    tagline: "Best value for unlimited creativity",
+    useCase: "Ideal for genealogy, archiving, and bulk transformations.",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
-    popular: false
+    popular: false,
+    includes: {
+      basic: 3500,
+      premium: 87,
+      yearbook: 175,
+      cartoon: 87,
+      avatar: 70
+    }
   },
 ];
 
@@ -55,6 +111,13 @@ export default function PricingPage() {
   const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  
+  // Toast state
+  const [toast, setToast] = useState({
+    isVisible: false,
+    message: '',
+    type: 'info'
+  });
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -62,9 +125,22 @@ export default function PricingPage() {
     });
   }, []);
 
+  // Toast helper functions
+  const showToast = (message, type = 'info') => {
+    setToast({
+      isVisible: true,
+      message,
+      type
+    });
+  };
+
+  const hideToast = () => {
+    setToast(prev => ({ ...prev, isVisible: false }));
+  };
+
   const handlePurchase = async (selectedPriceId) => {
     if (!user) {
-      alert("Please sign up or log in to make a purchase.");
+      showToast("Please sign up or log in to purchase credits", "error");
       return;
     }
 
@@ -81,12 +157,21 @@ export default function PricingPage() {
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to create checkout session");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to create checkout session");
+      }
 
       const { url } = await res.json();
-      window.location.href = url;
+      showToast("Redirecting to checkout...", "success");
+      
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000);
+      
     } catch (err) {
-      alert(err.message);
+      console.error('Checkout error:', err);
+      showToast(err.message || "Something went wrong. Please try again.", "error");
       setLoadingId(null);
     }
   };
@@ -126,7 +211,7 @@ export default function PricingPage() {
         "@id": `${pageUrl}#webpage`,
         "url": pageUrl,
         "name": "Pricing — Throwback AI",
-        "description": "Purchase Throwback AI credit packs to restore and colorize old photos. Choose a pack that fits your needs — from single restores to bulk heritage preservation.",
+        "description": "Purchase Throwback AI credit packs to restore, colorize, and transform photos. From basic restoration to professional avatars and yearbook styles.",
         "isPartOf": { "@id": `${siteUrl}#website` }
       },
       {
@@ -148,9 +233,9 @@ export default function PricingPage() {
         <title>Pricing — Throwback AI Credits & Plans</title>
         <meta
           name="description"
-          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art. Flexible plans for every need."
         />
-        <meta name="keywords" content="Throwback AI pricing, photo restoration credits, buy credits, AI colorize price, restore photo cost" />
+        <meta name="keywords" content="Throwback AI pricing, photo restoration credits, AI avatar cost, yearbook photo price, cartoon art credits" />
         <link rel="canonical" href={pageUrl} />
 
         {/* Open Graph */}
@@ -159,7 +244,7 @@ export default function PricingPage() {
         <meta property="og:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           property="og:description"
-          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos. Flexible plans for single fixes, albums, and large heritage projects."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art."
         />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
@@ -174,7 +259,7 @@ export default function PricingPage() {
         <meta name="twitter:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           name="twitter:description"
-          content="Buy Throwback AI Credit Packs: affordable credit bundles for restoring, enhancing, and colorizing vintage photos."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art."
         />
         <meta name="twitter:image" content={twitterImage} />
 
@@ -190,11 +275,11 @@ export default function PricingPage() {
           <div className={styles.backgroundPattern}></div>
           <h1 className={styles.mainTitle}>
             <span className={styles.titleMain}>Choose Your Credit Pack</span>
-            <span className={styles.titleSub}>Affordable Plans for Every Memory Restoration Need</span>
+            <span className={styles.titleSub}>Transform Any Photo Into Something Amazing</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Whether you&apos;re fixing a single treasured photo or preserving an entire family archive — 
-            <strong> Throwback AI Credit Packs</strong> give you the power to restore, colorize, and create.
+            From restoring precious family memories to creating professional avatars and fun art — 
+            <strong> Throwback AI Credit Packs</strong> give you the power to transform any photo.
           </p>
 
           {/* Service Overview */}
@@ -203,27 +288,41 @@ export default function PricingPage() {
               <span className={styles.serviceIcon}>🔧</span>
               <div>
                 <strong>Photo Restoration</strong>
-                <span className={styles.serviceCost}>1 credit each</span>
+                <span className={styles.serviceCost}>1 credit</span>
               </div>
             </div>
             <div className={styles.serviceItem}>
               <span className={styles.serviceIcon}>🎨</span>
               <div>
                 <strong>Photo Colorization</strong>
-                <span className={styles.serviceCost}>40 credits each</span>
+                <span className={styles.serviceCost}>40 credits</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>📸</span>
+              <div>
+                <strong>90s Yearbook Style</strong>
+                <span className={styles.serviceCost}>20 credits</span>
               </div>
             </div>
             <div className={styles.serviceItem}>
               <span className={styles.serviceIcon}>🎭</span>
               <div>
-                <strong>Cartoon Creator</strong>
-                <span className={styles.serviceCost}>40 credits each</span>
+                <strong>Cartoon Art</strong>
+                <span className={styles.serviceCost}>40 credits</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>👔</span>
+              <div>
+                <strong>Professional Avatar</strong>
+                <span className={styles.serviceCost}>50 credits</span>
               </div>
             </div>
           </div>
 
           <div className={styles.packGrid}>
-            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, useCase, revivals, icon, gradient, popular }) => {
+            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, useCase, gradient, popular, includes }) => {
               const priceNumber = parseFloat(price.slice(1));
               const costPerCredit = (priceNumber / credits).toFixed(3);
 
@@ -243,7 +342,6 @@ export default function PricingPage() {
                   )}
                   
                   <div className={styles.cardHeader}>
-                    <div className={styles.cardIcon}>{icon}</div>
                     <h2 className={styles.packName}>{name}</h2>
                   </div>
 
@@ -265,27 +363,26 @@ export default function PricingPage() {
                     <p className={styles.tagline}>{tagline}</p>
                     <p className={styles.useCase}>{useCase}</p>
 
-                    <div className={styles.featuresGrid}>
-                      <div className={styles.featureItem}>
-                        <span className={styles.featureIcon}>🔧</span>
-                        <div>
-                          <span className={styles.featureValue}>{credits}</span>
-                          <span className={styles.featureLabel}> Photo Restorations</span>
-                        </div>
+                    <div className={styles.includesGrid}>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>🔧</span>
+                        <span>{includes.basic} Basic Restorations</span>
                       </div>
-                      <div className={styles.featureItem}>
-                        <span className={styles.featureIcon}>🎨</span>
-                        <div>
-                          <span className={styles.featureValue}>{revivals}</span>
-                          <span className={styles.featureLabel}> Colorizations/Cartoons</span>
-                        </div>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>🎨</span>
+                        <span>{includes.premium} Colorizations</span>
                       </div>
-                      <div className={styles.featureItem}>
-                        <span className={styles.featureIcon}>⚡</span>
-                        <div>
-                          <span className={styles.featureValue}>Instant</span>
-                          <span className={styles.featureLabel}> AI Processing</span>
-                        </div>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>📸</span>
+                        <span>{includes.yearbook} Yearbook Photos</span>
+                      </div>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>🎭</span>
+                        <span>{includes.cartoon} Cartoon Arts</span>
+                      </div>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>👔</span>
+                        <span>{includes.avatar} Pro Avatars</span>
                       </div>
                     </div>
                   </div>
@@ -327,7 +424,7 @@ export default function PricingPage() {
                 <span className={styles.globalFeatureIcon}>⚡</span>
                 <div>
                   <strong>Lightning Fast Results</strong>
-                  <span>Most photos processed in under 3 seconds</span>
+                  <span>Most photos processed in under 30 seconds</span>
                 </div>
               </div>
               <div className={styles.globalFeature}>
@@ -353,27 +450,17 @@ export default function PricingPage() {
           </div>
         </div>
         
-        <div className={styles.trustSection}>
-          <div className={styles.trustBadges}>
-            <div className={styles.trustItem}>
-              <span className={styles.trustIcon}>🔒</span>
-              <span>Secure Payment</span>
-            </div>
-            <div className={styles.trustItem}>
-              <span className={styles.trustIcon}>⚡</span>
-              <span>Instant Processing</span>
-            </div>
-            <div className={styles.trustItem}>
-              <span className={styles.trustIcon}>🎯</span>
-              <span>AI-Powered Results</span>
-            </div>
-            <div className={styles.trustItem}>
-              <span className={styles.trustIcon}>💳</span>
-              <span>Money-Back Guarantee</span>
-            </div>
-          </div>
-        </div>
+       
+     
       </section>
+
+      {/* Toast Notification */}
+      <Toast 
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+      />
     </>
   );
 }

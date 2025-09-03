@@ -1,20 +1,24 @@
-/* CarouselHero.module.css */
+/* CarouselHero.module.css - Dark Theme */
 
-/* 1. Simple Hero & Theme Variables */
+/* 1. Dark Hero & Theme Variables */
 .simpleHero {
-  /* Scoped variables */
-  --bg-start:      #f8f9fa;
-  --bg-end:        #dee2e6;
-  --text-color:    #1f2937;
-  --muted-color:   #6b7280;
+  /* Dark theme variables */
+  --bg-start:      #0f172a;
+  --bg-end:        #1e293b;
+  --text-color:    #f8fafc;
+  --muted-color:   #94a3b8;
   --accent-color:  #3b82f6;
   --success-color: #10b981;
-  --card-bg:       #ffffff;
+  --card-bg:       #1e293b;
+  --card-border:   #334155;
+  --card-hover:    #2d3748;
   --radius:        0.75rem;
   --transition:    0.3s ease;
-  --shadow:        0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-hover:  0 8px 32px rgba(0, 0, 0, 0.12);
-  --gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --shadow:        0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-hover:  0 8px 32px rgba(0, 0, 0, 0.4);
+  --gradient-text: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  --glass-bg:      rgba(30, 41, 59, 0.8);
+  --glass-border:  rgba(148, 163, 184, 0.1);
 
   background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
   color: var(--text-color);
@@ -22,6 +26,27 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+/* Subtle animated background pattern */
+.simpleHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  animation: subtleFloat 20s ease-in-out infinite;
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }
 
 /* 2. Centered Container */
@@ -29,6 +54,8 @@
   max-width: 80rem;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 /* 3. Header & Typography */
@@ -42,6 +69,7 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .gradient {
@@ -69,61 +97,7 @@
   opacity: 0.8;
 }
 
-/* 4. Tabs Navigation */
-.tabsNav {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin: clamp(2rem, 4vw, 3rem) 0 clamp(1rem, 2vw, 1.5rem);
-  flex-wrap: wrap;
-}
-
-.tabButton {
-  background: transparent;
-  border: 2px solid rgba(59, 130, 246, 0.2);
-  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
-  font-size: clamp(0.9rem, 2.2vw, 1rem);
-  font-weight: 600;
-  color: var(--text-color);
-  cursor: pointer;
-  border-radius: var(--radius);
-  transition: all var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-}
-
-.tabButton:hover {
-  border-color: var(--accent-color);
-  background: rgba(59, 130, 246, 0.05);
-}
-
-.activeTab {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-  background: rgba(59, 130, 246, 0.1);
-}
-
-.tabIcon {
-  font-size: 1.1em;
-}
-
-/* 5. Tab Description */
-.tabDescription {
-  text-align: center;
-  margin: 0 auto clamp(1.5rem, 3vw, 2rem);
-  max-width: 40ch;
-}
-
-.tabDescription p {
-  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-  color: var(--muted-color);
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* 6. Responsive Grid of Cards */
+/* 4. Responsive Grid of Cards */
 .grid {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2rem);
@@ -134,27 +108,46 @@
 /* Mobile optimization for grid */
 @media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 }
 
-/* 7. Card Base & Hover */
+/* 5. Card Base & Hover */
 .card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  border: #0b7ef1 1px solid;
+  border: 1px solid var(--card-border);
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: all var(--transition);
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent, rgba(59, 130, 246, 0.05));
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
+  border-color: var(--accent-color);
 }
 
-/* 8. Link Reset & Layout */
+.card:hover::before {
+  opacity: 1;
+}
+
+/* 6. Link Reset & Layout */
 .cardLink {
   display: flex;
   flex-direction: column;
@@ -163,7 +156,7 @@
   text-decoration: none;
 }
 
-/* 9. Image Wrapper & Hover Overlay */
+/* 7. Image Wrapper & Card Badges */
 .imgWrap {
   position: relative;
   width: 100%;
@@ -172,8 +165,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #374151, #4b5563);
   border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* Card Badges */
+.cardBadge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cardBadge.success {
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.cardBadge.premium {
+  background: rgba(147, 51, 234, 0.9);
+  color: white;
+  border: 1px solid rgba(147, 51, 234, 0.5);
+}
+
+.cardBadge.trending {
+  background: rgba(245, 158, 11, 0.9);
+  color: white;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.cardBadge.pro {
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+}
+
+.cardBadge.fun {
+  background: rgba(236, 72, 153, 0.9);
+  color: white;
+  border: 1px solid rgba(236, 72, 153, 0.5);
 }
 
 .img {
@@ -181,10 +220,12 @@
   width: auto;
   object-fit: cover;
   transition: transform var(--transition);
+  filter: brightness(0.9);
 }
 
 .card:hover .img {
   transform: scale(1.05);
+  filter: brightness(1);
 }
 
 .overlayButton {
@@ -202,6 +243,7 @@
   transition: opacity var(--transition), transform var(--transition);
   white-space: nowrap;
   z-index: 2;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .card:hover .overlayButton {
@@ -209,12 +251,13 @@
   transform: translate(-50%, 0);
 }
 
-/* 10. Card Content */
+/* 8. Card Content */
 .cardContent {
   padding: 1.5rem 1.25rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background: var(--card-bg);
 }
 
 .cardLabel {
@@ -239,16 +282,17 @@
   gap: 0.5rem;
   margin-top: auto;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .creditCost {
-  background: var(--accent-color);
+  background: linear-gradient(135deg, var(--accent-color), #2563eb);
   color: white;
   padding: 0.25rem 0.6rem;
   border-radius: 9999px;
   font-size: 0.85rem;
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .creditLabel {
@@ -257,17 +301,19 @@
   font-weight: 500;
 }
 
-/* 11. Stats Row */
+/* 9. Stats Row */
 .statsRow {
   display: flex;
   justify-content: center;
   gap: clamp(2rem, 5vw, 4rem);
   margin: clamp(3rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
   padding: clamp(1.5rem, 3vw, 2rem);
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   flex-wrap: wrap;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .stat {
@@ -278,7 +324,10 @@
 .statNumber {
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   font-weight: 800;
-  color: var(--accent-color);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1.2;
 }
 
@@ -300,7 +349,7 @@
   }
 }
 
-/* 12. Trust Bar */
+/* 10. Trust Bar */
 .trustBar {
   display: flex;
   flex-wrap: wrap;
@@ -308,8 +357,8 @@
   justify-content: center;
   margin: clamp(2rem, 4vw, 3rem) 0;
   padding: clamp(1rem, 2vw, 1.5rem);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .trustItem {
@@ -325,16 +374,17 @@
   color: var(--success-color);
   font-weight: bold;
   font-size: 1.1em;
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
 }
 
-/* 13. Bottom CTA */
+/* 11. Bottom CTA */
 .bottomCTA {
   text-align: center;
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 .creditOffer {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
   border: 2px solid var(--accent-color);
   border-radius: var(--radius);
   padding: clamp(1.5rem, 3vw, 2rem);
@@ -342,13 +392,20 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   max-width: 100%;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+  transition: transform var(--transition);
+}
+
+.creditOffer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
 }
 
 .offerIcon {
   font-size: clamp(1.5rem, 3vw, 2rem);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
 }
 
 .offerText {
@@ -376,20 +433,18 @@
 }
 
 .ctaLink:hover {
-  color: #2563eb;
+  color: #60a5fa;
   text-decoration: underline;
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
 }
 
 /* Mobile CTA optimization */
 @media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;  /* Two equal columns */
-    gap: 1rem;  /* Tighter gap for mobile */
-  }
   .cardContent {
-    padding: 1rem;  /* Slightly less padding on mobile */
+    padding: 1rem;
   }
-    .creditOffer {
+  
+  .creditOffer {
     flex-direction: column;
     text-align: center;
     gap: 0.75rem;
@@ -415,17 +470,13 @@
     padding: 1.5rem 0.75rem;
   }
   
-  .tabsNav {
-    gap: 0.25rem;
-  }
-  
-  .tabButton {
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-  }
-  
   .trustItem {
     flex-basis: 100%;
     font-size: 0.85rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }

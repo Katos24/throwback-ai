@@ -134,21 +134,7 @@ export default function HeroSection() {
           ))}
         </div>
 
-        {/* Stats Row */}
-        <div className={styles.statsRow}>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>50K+</div>
-            <div className={styles.statLabel}>Families Helped</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>2.3s</div>
-            <div className={styles.statLabel}>Average Results</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>98%</div>
-            <div className={styles.statLabel}>Love Their Results</div>
-          </div>
-        </div>
+    
 
         {/* Trust Bar */}
         <div className={styles.trustBar}>

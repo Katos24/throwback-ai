@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageCompareSlider from "../ImageCompareSlider";
 import demoStyles from '../../styles/DemoSection.module.css';
 
 export default function DemoSection() {
   const [activeDemo, setActiveDemo] = useState(null);
+  const [loadedImages, setLoadedImages] = useState(new Set());
+  const [isLoading, setIsLoading] = useState(false);
 
   const demos = [
     {
@@ -63,13 +65,86 @@ export default function DemoSection() {
     }
   ];
 
-  const toggleDemo = (demoId) => {
-    setActiveDemo(activeDemo === demoId ? null : demoId);
+  // Preload images when component mounts
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = demos.flatMap(demo => [
+        preloadImage(demo.beforeAfter.before),
+        preloadImage(demo.beforeAfter.after)
+      ]);
+
+      try {
+        await Promise.allSettled(imagePromises);
+        setLoadedImages(new Set(demos.flatMap(demo => [
+          demo.beforeAfter.before,
+          demo.beforeAfter.after
+        ])));
+      } catch (error) {
+        console.warn('Some images failed to preload:', error);
+      }
+    };
+
+    preloadImages();
+  }, []);
+
+  // Helper function to preload individual images
+  const preloadImage = (src) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(src);
+      img.onerror = () => reject(new Error(`Failed to load ${src}`));
+      img.src = src;
+    });
+  };
+
+  const toggleDemo = async (demoId) => {
+    if (activeDemo === demoId) {
+      setActiveDemo(null);
+      return;
+    }
+
+    const demo = demos.find(d => d.id === demoId);
+    const imagesToLoad = [demo.beforeAfter.before, demo.beforeAfter.after];
+    
+    // Check if images are already loaded
+    const allImagesLoaded = imagesToLoad.every(img => loadedImages.has(img));
+    
+    if (!allImagesLoaded) {
+      setIsLoading(true);
+      try {
+        await Promise.all(imagesToLoad.map(preloadImage));
+        setLoadedImages(prev => new Set([...prev, ...imagesToLoad]));
+      } catch (error) {
+        console.warn('Failed to load some images:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    setActiveDemo(demoId);
   };
 
   return (
     <section className={demoStyles.demoSection}>
       <div className={demoStyles.container}>
+        {/* Hidden preload images - improves caching */}
+        <div style={{ display: 'none' }}>
+          {demos.map(demo => (
+            <React.Fragment key={demo.id}>
+              <img 
+                src={demo.beforeAfter.before} 
+                alt=""
+                loading="eager"
+              />
+              <img 
+                src={demo.beforeAfter.after} 
+                alt=""
+                loading="eager"
+              />
+            </React.Fragment>
+          ))}
+        </div>
+
         {/* Section Header */}
         <div className={demoStyles.header}>
           <div className={demoStyles.badge}>AI TECHNOLOGY</div>
@@ -105,7 +180,7 @@ export default function DemoSection() {
 
                   <div className={demoStyles.cardFooter}>
                     <div className={demoStyles.demoButton}>
-                      <span>View Demo</span>
+                      <span>{isLoading ? 'Loading...' : 'View Demo'}</span>
                       <div className={demoStyles.arrow}>→</div>
                     </div>
                   </div>
@@ -119,6 +194,7 @@ export default function DemoSection() {
                     <ImageCompareSlider
                       beforeImage={demo.beforeAfter.before}
                       afterImage={demo.beforeAfter.after}
+                      loading="eager"
                     />
                   </div>
 

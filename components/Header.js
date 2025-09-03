@@ -88,14 +88,6 @@ export default function Header({ showMenu, setShowMenu }) {
       badge: "Premium"
     },
     { 
-      href: "/replicate/cartoon", 
-      label: "Cartoon Creator", 
-      icon: "🎨",
-      description: "Transform to cartoon art",
-      credits: "40 Credits",
-      badge: "New"
-    },
-    { 
       href: "/replicate/yearbook", 
       label: "90s Yearbook Transform", 
       icon: "📸",
@@ -109,6 +101,14 @@ export default function Header({ showMenu, setShowMenu }) {
       icon: "👤",
       description: "Professional AI-generated avatars",
       credits: "50 Credits",
+      badge: "New"
+    },
+     { 
+      href: "/replicate/cartoon", 
+      label: "Cartoon Creator", 
+      icon: "🎨",
+      description: "Transform to cartoon art",
+      credits: "40 Credits",
       badge: "New"
     }
   ];

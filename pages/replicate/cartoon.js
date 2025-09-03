@@ -151,7 +151,9 @@ export default function CartoonPage() {
     setTimeout(() => setUploadSuccess(false), 600);
   };
 
-  const generateCartoon = async () => {
+  // Updated function to handle button clicks based on user state
+  const handleGenerateOrRedirect = () => {
+    // If no photo uploaded
     if (!photo) {
       toast.error('Please upload an image first', {
         icon: '📤',
@@ -159,31 +161,24 @@ export default function CartoonPage() {
       });
       return;
     }
-    
+
+    // If not logged in, redirect to signup
     if (!isLoggedIn) {
-      toast.error('Sign up required for cartoon generation', {
-        icon: '🔒',
-        duration: 4000,
-        action: {
-          label: 'Sign Up',
-          onClick: () => window.location.href = "/signup"
-        }
-      });
+      router.push('/signup');
       return;
     }
     
+    // If not enough credits, redirect to pricing
     if (credits < cartoonCost) {
-      toast.error(`You need ${cartoonCost} credits for cartoon generation`, {
-        icon: '🎨',
-        duration: 4000,
-        action: {
-          label: 'Get Credits',
-          onClick: () => window.location.href = "/pricing"
-        }
-      });
+      router.push('/pricing');
       return;
     }
 
+    // If all conditions met, generate cartoon
+    generateCartoon();
+  };
+
+  const generateCartoon = async () => {
     // Create abort controller for timeout
     const abortController = new AbortController();
     const timeoutId = setTimeout(() => {
@@ -379,7 +374,7 @@ export default function CartoonPage() {
   const getButtonText = () => {
     if (isLoading) return "Creating your cartoon...";
     if (!photo) return "Upload a Photo First";
-    if (!isLoggedIn) return "Sign Up Required";
+    if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < cartoonCost) return "Get More Credits";
     return "Generate My 90s Cartoon!";
   };
@@ -407,7 +402,7 @@ export default function CartoonPage() {
             <span className={styles.creditsText}>{credits} credits</span>
           </div>
           <button 
-            onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+            onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
             className={styles.creditsButton}
           >
             {isLoggedIn ? "+" : "Sign Up"}
@@ -472,8 +467,8 @@ export default function CartoonPage() {
 
               <div className={styles.generateSection}>
                 <button
-                  onClick={generateCartoon}
-                  disabled={!photo || isLoading || !isLoggedIn || credits < cartoonCost}
+                  onClick={handleGenerateOrRedirect}
+                  disabled={isLoading}
                   className={`${styles.generateBtn} ${isLoading ? styles.loading : ''} ${
                     isReady ? styles.readyToGenerate : ''
                   }`}

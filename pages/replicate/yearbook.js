@@ -6,6 +6,7 @@ import { supabase } from "../../lib/supabaseClient";
 import styles from "../../styles/YearbookTransform.module.css";
 import toast from "react-hot-toast";
 import SEOYearbook from "../../components/SEO/SEOYearbook";
+import useCredits from "../../hooks/useCredits";
 
 // Import yearbook styles from your centralized component
 import { styleCategories } from "../../components/YearbookStyles";
@@ -27,11 +28,12 @@ export default function YearbookTransform() {
   const [isLoading, setIsLoading] = useState(false);
   const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [credits, setCredits] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dragActive, setDragActive] = useState(false);
-    const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
+
+  // Use the credits hook for consistent credit management
+  const { credits, isLoggedIn, refreshCredits } = useCredits();
 
   // ===== EFFECTS =====
   useEffect(() => {
@@ -50,16 +52,6 @@ export default function YearbookTransform() {
         }
         if (session?.user) {
           setUserId(session.user.id);
-          setIsLoggedIn(true);
-          // Fetch credits from profile table
-          const { data, error: profileError } = await supabase
-            .from("profiles")
-            .select("credits_remaining")
-            .eq("id", session.user.id)
-            .single();
-          if (!profileError && data) {
-            setCredits(data.credits_remaining || 0);
-          }
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -100,42 +92,53 @@ export default function YearbookTransform() {
       setPhoto(file);
       setPreviewUrl(URL.createObjectURL(file));
       setResultImageUrl(null);
+      toast.success('Photo uploaded! Choose a style and generate!', {
+        icon: '📚',
+        duration: 2000,
+      });
     } else {
       toast.error("Please upload a valid image file.");
     }
   };
 
-  // ===== GENERATE IMAGE WITH CREDITS CHECK =====
-  const generateImage = async (endpoint) => {
-    if (!photo || !selectedStyle) {
-      toast.error("Please upload a photo and select a style first!", { icon: "📤" });
+  // Updated function to handle button clicks based on user state
+  const handleGenerateOrRedirect = () => {
+    // If no photo uploaded
+    if (!photo) {
+      toast.error('Please upload an image first', {
+        icon: '📤',
+        duration: 3000,
+      });
       return;
     }
 
+    // If no style selected
+    if (!selectedStyle) {
+      toast.error('Please select a yearbook style first', {
+        icon: '🎨',
+        duration: 3000,
+      });
+      return;
+    }
+
+    // If not logged in, redirect to signup
     if (!isLoggedIn) {
-      toast.error("Sign up required for yearbook transformation", {
-        icon: "🔒",
-        duration: 4000,
-        action: {
-          label: "Sign Up",
-          onClick: () => window.location.href = "/signup"
-        }
-      });
+      router.push('/signup');
       return;
     }
-
+    
+    // If not enough credits, redirect to pricing
     if (credits < YEARBOOK_COST) {
-      toast.error(`You need ${YEARBOOK_COST} credits for yearbook transformation`, {
-        icon: "📚",
-        duration: 4000,
-        action: {
-          label: "Get Credits",
-          onClick: () => window.location.href = "/pricing"
-        }
-      });
+      router.push('/pricing');
       return;
     }
 
+    // If all conditions met, generate yearbook
+    generateImage("/api/replicate/yearbook");
+  };
+
+  // ===== GENERATE IMAGE =====
+  const generateImage = async (endpoint) => {
     const allStyles = Object.values(styleCategories).flat();
     const selectedCharacter = allStyles.find((c) => c.value === selectedStyle);
 
@@ -211,8 +214,6 @@ export default function YearbookTransform() {
       setProgress(80);
       setProgressStage("AI is generating your yearbook photo...");
 
-      toast.dismiss(processingToast);
-
       if (!response.ok) {
         const errorData = await response.text();
         throw new Error(`Failed to generate image: ${response.status} ${errorData}`);
@@ -221,10 +222,28 @@ export default function YearbookTransform() {
       const data = await response.json();
       if (data.imageUrl) {
         setResultImageUrl(data.imageUrl);
-        setCredits((prev) => prev - YEARBOOK_COST);
         setProgress(100);
         setProgressStage("Done!");
-        toast.success("Transformation complete!", { icon: "✅" });
+        
+        toast.success("90s yearbook transformation complete!", {
+          id: processingToast,
+          icon: '📚',
+          duration: 5000,
+        });
+
+        // Refresh credits to show updated balance
+        await refreshCredits();
+
+        // Scroll to result
+        setTimeout(() => {
+          const resultSection = document.querySelector(`.${styles.resultSection}`);
+          if (resultSection) {
+            resultSection.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+          }
+        }, 300);
       } else {
         throw new Error("No image URL returned from server");
       }
@@ -232,21 +251,66 @@ export default function YearbookTransform() {
       setProgress(0);
       setProgressStage("");
       console.error("Error generating image:", error);
-      toast.error(`Error generating image: ${error.message}. Please try again.`);
+      
+      toast.error(error.message || "Yearbook generation failed. Please try again.", {
+        icon: '❌',
+        duration: 5000,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleFreeGenerate = () => generateImage("/api/replicate/yearbook");
-  const handlePremiumGenerate = () => generateImage("/api/replicate/premiumPhotomaker");
-
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!resultImageUrl) return;
-    const link = document.createElement("a");
-    link.href = resultImageUrl;
-    link.download = "90s-yearbook-transform.jpg";
-    link.click();
+    
+    const downloadToast = toast.loading('Preparing download...', {
+      icon: '⬇️',
+    });
+    
+    try {
+      const resp = await fetch(resultImageUrl);
+      const blob = await resp.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `90s-yearbook-transform-${Date.now()}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('90s yearbook photo downloaded!', {
+        id: downloadToast,
+        icon: '📚',
+        duration: 3000,
+      });
+    } catch (downloadError) {
+      console.error('Download failed:', downloadError);
+      toast.error('Download failed. Please try again.', {
+        id: downloadToast,
+        icon: '❌',
+        duration: 4000,
+      });
+    }
+  };
+
+  const getButtonText = () => {
+    if (isLoading) return "Creating your 90s yearbook...";
+    if (!photo) return "Upload a Photo First";
+    if (!selectedStyle) return "Select a Style First";
+    if (!isLoggedIn) return "Sign Up to Generate";
+    if (credits < YEARBOOK_COST) return "Get More Credits";
+    return "Generate Yearbook Transform";
+  };
+
+  const getButtonEmoji = () => {
+    if (isLoading) return null;
+    if (!photo) return "📷";
+    if (!selectedStyle) return "🎨";
+    if (!isLoggedIn) return "🔒";
+    if (credits < YEARBOOK_COST) return "💎";
+    return "📚";
   };
 
   const selectedStyleDetails = (() => {
@@ -276,13 +340,22 @@ export default function YearbookTransform() {
           </h1>
           <p className={styles.subtitle}>
             Travel back in time! Transform your photo into an authentic 90s yearbook picture with iconic retro styles.
+            <span className={styles.creditPill}>Costs {YEARBOOK_COST} credits</span>
           </p>
         </div>
 
-        {/* Credits Info */}
-        <div className={styles.creditsInfo}>
-          <span>Credits: <b>{credits}</b></span>
-          <span>Cost per transform: <b>{YEARBOOK_COST}</b></span>
+        {/* Credits Header */}
+        <div className={styles.creditsHeader}>
+          <div className={styles.creditsInfo}>
+            <span className={styles.creditsIcon}>📚</span>
+            <span className={styles.creditsText}>{credits} credits</span>
+          </div>
+          <button 
+            onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
+            className={styles.creditsButton}
+          >
+            {isLoggedIn ? "+" : "Sign Up"}
+          </button>
         </div>
 
         {/* Upload Section */}
@@ -354,19 +427,21 @@ export default function YearbookTransform() {
           {/* Generate Button - now directly below options grid */}
           <div className={styles.generateSection}>
             <button
-              onClick={handleFreeGenerate}
-              disabled={!photo || !selectedStyle || isLoading}
-              className={`${styles.generateBtn} ${styles.freeBtn}`}
+              onClick={handleGenerateOrRedirect}
+              disabled={isLoading}
+              className={`${styles.generateBtn} ${styles.freeBtn} ${
+                photo && selectedStyle && isLoggedIn && credits >= YEARBOOK_COST ? styles.readyToGenerate : ''
+              }`}
             >
               {isLoading ? (
                 <>
                   <span className={styles.spinner}></span>
-                  Creating your 90s transformation...
+                  {getButtonText()}
                 </>
               ) : (
                 <>
-                  <span>🎨</span>
-                  Generate Yearbook Transform
+                  {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                  {getButtonText()}
                 </>
               )}
             </button>
@@ -385,7 +460,6 @@ export default function YearbookTransform() {
             </div>
           )}
         </div>
-
 
         {/* Progress Bar */}
         {isLoading && (
@@ -418,6 +492,10 @@ export default function YearbookTransform() {
                   onClick={() => {
                     setSelectedStyle(null);
                     setResultImageUrl(null);
+                    toast.success('Ready for a new 90s transformation!', {
+                      icon: '🔄',
+                      duration: 2000,
+                    });
                   }}
                   className={styles.tryAnotherBtn}
                 >

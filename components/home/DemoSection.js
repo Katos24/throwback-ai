@@ -85,72 +85,70 @@ export default function DemoSection() {
         {/* Demo Grid */}
         <div className={demoStyles.demoGrid}>
           {demos.map((demo, index) => (
-            <div key={demo.id} className={demoStyles.demoItem}>
-              <div 
-                className={`${demoStyles.demoCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
-                onClick={() => toggleDemo(demo.id)}
-                style={{ '--demo-color': demo.color }}
-              >
-                <div className={demoStyles.cardHeader}>
-                  <div className={demoStyles.cardBadge}>{demo.subtitle}</div>
-                  <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
-                </div>
-                
-                <div className={demoStyles.cardContent}>
-                  <p className={demoStyles.cardDescription}>{demo.description}</p>
-                </div>
+            <div 
+              key={demo.id} 
+              className={`${demoStyles.demoCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
+              onClick={() => toggleDemo(demo.id)}
+              style={{ '--demo-color': demo.color }}
+            >
+              <div className={demoStyles.cardHeader}>
+                <div className={demoStyles.cardBadge}>{demo.subtitle}</div>
+                <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
+              </div>
+              
+              {/* Default Card Content - Hidden when slider is active */}
+              {activeDemo !== demo.id && (
+                <>
+                  <div className={demoStyles.cardContent}>
+                    <p className={demoStyles.cardDescription}>{demo.description}</p>
+                  </div>
 
-                <div className={demoStyles.cardFooter}>
-                  <div className={demoStyles.demoButton}>
-                    <span>{activeDemo === demo.id ? 'Hide Demo' : 'View Demo'}</span>
-                    <div className={`${demoStyles.arrow} ${activeDemo === demo.id ? demoStyles.rotate : ''}`}>
-                      {activeDemo === demo.id ? '↑' : '→'}
+                  <div className={demoStyles.cardFooter}>
+                    <div className={demoStyles.demoButton}>
+                      <span>View Demo</span>
+                      <div className={demoStyles.arrow}>→</div>
                     </div>
                   </div>
-                </div>
+                </>
+              )}
 
-                <div className={demoStyles.cardGlow}></div>
-              </div>
-
-              {/* Inline Slider - Shows below clicked card */}
+              {/* Inline Slider - Replaces card content when active */}
               {activeDemo === demo.id && (
-                <div className={demoStyles.inlineSlider}>
-                  <div className={demoStyles.sliderContent}>
-                    <div className={demoStyles.sliderHeader}>
-                      <div className={demoStyles.sliderBadge} style={{ '--demo-color': demo.color }}>
-                        {demo.subtitle}
-                      </div>
-                      <h4 className={demoStyles.sliderTitle}>{demo.title}</h4>
-                    </div>
+                <div className={demoStyles.inlineSliderContent}>
+                  <div className={demoStyles.sliderWrapper}>
+                    <ImageCompareSlider
+                      beforeImage={demo.beforeAfter.before}
+                      afterImage={demo.beforeAfter.after}
+                    />
+                  </div>
 
-                    <div className={demoStyles.sliderWrapper}>
-                      <ImageCompareSlider
-                        beforeImage={demo.beforeAfter.before}
-                        afterImage={demo.beforeAfter.after}
-                      />
-                    </div>
+                  <div className={demoStyles.sliderHint}>
+                    <span>← Drag to compare →</span>
+                  </div>
 
-                    <div className={demoStyles.sliderHint}>
-                      <span>← Drag to compare →</span>
+                  <div className={demoStyles.processingSteps}>
+                    <div className={demoStyles.processingStep}>
+                      <div className={demoStyles.stepIcon}>1</div>
+                      <span>Upload</span>
                     </div>
+                    <div className={demoStyles.processingStep}>
+                      <div className={demoStyles.stepIcon}>2</div>
+                      <span>AI Processing</span>
+                    </div>
+                    <div className={demoStyles.processingStep}>
+                      <div className={demoStyles.stepIcon}>3</div>
+                      <span>Download</span>
+                    </div>
+                  </div>
 
-                    <div className={demoStyles.processingSteps}>
-                      <div className={demoStyles.processingStep}>
-                        <div className={demoStyles.stepIcon}>1</div>
-                        <span>Upload</span>
-                      </div>
-                      <div className={demoStyles.processingStep}>
-                        <div className={demoStyles.stepIcon}>2</div>
-                        <span>AI Processing</span>
-                      </div>
-                      <div className={demoStyles.processingStep}>
-                        <div className={demoStyles.stepIcon}>3</div>
-                        <span>Download</span>
-                      </div>
-                    </div>
+                  <div className={demoStyles.closeButton}>
+                    <span>Hide Demo</span>
+                    <div className={demoStyles.arrow}>↑</div>
                   </div>
                 </div>
               )}
+
+              <div className={demoStyles.cardGlow}></div>
             </div>
           ))}
         </div>

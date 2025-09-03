@@ -42,8 +42,6 @@ const CREDIT_PACKS = [
     name: "Dawn Pack",
     credits: 400,
     price: "$4.99",
-    tagline: "Perfect for trying out our AI magic",
-    useCase: "Great for basic restorations and testing premium features.",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false,
     includes: {
@@ -59,8 +57,6 @@ const CREDIT_PACKS = [
     name: "Revival Pack",
     credits: 1000,
     price: "$9.99",
-    tagline: "Great value for family photo collections",
-    useCase: "Ideal for albums, family memories, and creative projects.",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false,
     includes: {
@@ -76,8 +72,6 @@ const CREDIT_PACKS = [
     name: "Resurgence Pack",
     credits: 1600,
     price: "$14.99",
-    tagline: "Most popular for complete transformations",
-    useCase: "Perfect for events, yearbook photos, avatars, and artwork.",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true,
     includes: {
@@ -93,8 +87,6 @@ const CREDIT_PACKS = [
     name: "Eternal Pack",
     credits: 3500,
     price: "$29.99",
-    tagline: "Best value for unlimited creativity",
-    useCase: "Ideal for genealogy, archiving, and bulk transformations.",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false,
     includes: {

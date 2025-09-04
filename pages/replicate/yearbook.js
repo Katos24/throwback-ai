@@ -50,6 +50,34 @@ export default function YearbookTransformRedesigned() {
   // Credits functionality
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
+  // ===== BADGE HELPER FUNCTION =====
+  const getBadgeInfo = (style) => {
+    // Return badge info based on style properties
+    const badges = [];
+    
+    if (style.isNew) {
+      badges.push({ text: 'New', type: 'new', color: '#10B981' }); // Green
+    }
+    
+    if (style.isPopular) {
+      badges.push({ text: 'Popular', type: 'popular', color: '#F59E0B' }); // Amber
+    }
+    
+    if (style.isPremium) {
+      badges.push({ text: 'Premium', type: 'premium', color: '#8B5CF6' }); // Purple
+    }
+    
+    if (style.isBeta) {
+      badges.push({ text: 'Beta', type: 'beta', color: '#EF4444' }); // Red
+    }
+    
+    if (style.isRecommended) {
+      badges.push({ text: 'Recommended', type: 'recommended', color: '#3B82F6' }); // Blue
+    }
+    
+    return badges;
+  };
+
   // ===== EFFECTS =====
   useEffect(() => {
     if (router.query.success === "true") {
@@ -343,7 +371,6 @@ export default function YearbookTransformRedesigned() {
           </p>
         </div>
 
-
         {/* Before/After Photo Section */}
         <div className={styles.photoSection}>
           <div className={styles.photoComparison}>
@@ -437,21 +464,43 @@ export default function YearbookTransformRedesigned() {
             ))}
           </div>
 
-          {/* Styles Grid */}
+          {/* Styles Grid with Badges */}
           <div className={styles.stylesGrid}>
-            {styleCategories[selectedCategory].map((style) => (
-              <button
-                key={style.value}
-                onClick={() => setSelectedStyle(style.value)}
-                className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ""}`}
-              >
-                <span className={styles.styleEmoji}>{style.label.split(" ")[0]}</span>
-                <span className={styles.styleName}>{style.label.substring(2)}</span>
-                <small className={styles.stylePreview}>
-                  {style.style} • Strength: {style.styleStrength}%
-                </small>
-              </button>
-            ))}
+            {styleCategories[selectedCategory].map((style) => {
+              const badges = getBadgeInfo(style);
+              
+              return (
+                <button
+                  key={style.value}
+                  onClick={() => setSelectedStyle(style.value)}
+                  className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ""}`}
+                >
+                  {/* Badge Container */}
+                  {badges.length > 0 && (
+                    <div className={styles.badgeContainer}>
+                      {badges.map((badge, index) => (
+                        <span 
+                          key={badge.type}
+                          className={`${styles.badge} ${styles[badge.type + 'Badge']}`}
+                          style={{
+                            backgroundColor: badge.color,
+                            color: 'white'
+                          }}
+                        >
+                          {badge.text}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <span className={styles.styleEmoji}>{style.label.split(" ")[0]}</span>
+                  <span className={styles.styleName}>{style.label.substring(2)}</span>
+                  <small className={styles.stylePreview}>
+                    {style.style} • Strength: {style.styleStrength}%
+                  </small>
+                </button>
+              );
+            })}
           </div>
 
           {/* Style Preview */}

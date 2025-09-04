@@ -31,6 +31,11 @@ export const styleCategories = {
       defaultStyle: "Photographic (Default)", 
       styleStrength: 18,
       guidanceScale: 8,
+      isPopular: true, // Will show "Popular" badge
+      isNew: false,
+      isPremium: false,
+      isBeta: false,
+      isRecommended: false
     },
     {
       label: "🌈 90s Windbreaker", 
@@ -39,7 +44,11 @@ export const styleCategories = {
       defaultStyle: "Photographic (Default)", 
       styleStrength: 15,
       guidanceScale: 8,
-      badge: "Most Popular"
+       isPopular: true, // Will show "Popular" badge
+      isNew: false,
+      isPremium: false,
+      isBeta: false,
+      isRecommended: false
     },
     {
       label: "🎸 Grunge Legend",

@@ -834,16 +834,90 @@
 }
 
 
-.badgeTag {
-  background: linear-gradient(135deg, #feca57, #ff6b6b);
-  color: #2d1b69;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 10px;
+/* Badge Container */
+.badgeContainer {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+/* Base Badge Styles */
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
   border-radius: 12px;
-  display: inline-block;
-  margin-top: 6px;
-  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+/* Badge Type Specific Styles */
+.newBadge {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.popularBadge {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+}
+
+.premiumBadge {
+  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  color: white;
+}
+
+.betaBadge {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  color: white;
+}
+
+.recommendedBadge {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: white;
+}
+
+/* Pulse animation for "New" badge */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Update style card to have relative positioning for badges */
+.styleCard {
+  position: relative; /* Add this if not already present */
+  /* ... your existing styleCard styles ... */
+}
+
+/* Responsive badge adjustments */
+@media (max-width: 768px) {
+  .badge {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+  
+  .badgeContainer {
+    top: 4px;
+    right: 4px;
+    gap: 2px;
+  }
 }

@@ -211,7 +211,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Missing image or prompt" });
   }
 
-  const MODEL_COST = 20;
+  const MODEL_COST = 5;
   // Keep your existing model version that supports input_image2
   const MODEL_VERSION = "467d062309da518648ba89d226490e02b8ed09b5abc15026e54e31c5a8cd0769";
 
@@ -245,8 +245,8 @@ export default async function handler(req, res) {
       prompt,
       negative_prompt: negativePrompt || "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
       style_name: mappedStyleName, // Use mapped style name
-      style_strength_ratio: styleStrength || 20,
-      guidance_scale: guidanceScale || 5,
+      style_strength_ratio: styleStrength || 15,
+      guidance_scale: guidanceScale || 8,
       num_steps: 30,
       num_outputs: 1,
     };

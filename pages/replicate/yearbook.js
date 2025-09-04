@@ -15,7 +15,7 @@ import { styleCategories } from "../../components/YearbookStyles";
 const ENHANCED_NEGATIVE_PROMPT =
   "nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, multiple people, group photo, other people, crowd, other faces, two people, three people, group portrait, many people, background people, modern clothing, contemporary fashion, digital photography, harsh lighting, oversaturated colors, modern hairstyles, smartphone, 2000s style, 2010s fashion, modern technology, instagram filter, face change, different person, altered facial features, wrong face, facial distortion, unrecognizable face, race change, ethnicity change, skin tone change, facial structure change, wrong identity";
 
-const YEARBOOK_COST = 20;
+const YEARBOOK_COST = 5;
 
 export default function YearbookTransformRedesigned() {
   const router = useRouter();
@@ -157,7 +157,7 @@ export default function YearbookTransformRedesigned() {
       return;
     }
 
-    const prompt = `Professional 1990s high school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: period-appropriate haircuts, clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original facial features, skin tone, hair, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
+    const prompt = `Professional 1990s school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original gender, facial features, skin tone, hair, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
 
     try {
       setIsLoading(true);
@@ -328,7 +328,7 @@ export default function YearbookTransformRedesigned() {
           </button>
         </div>
 
-        {/* Hero */}
+       {/* Hero */}
         <div className={styles.hero}>
           <h1 className={styles.title}>
             <span className={styles.titleEmoji}>📸</span>
@@ -338,7 +338,11 @@ export default function YearbookTransformRedesigned() {
             Travel back in time! Transform your photo into an authentic 90s yearbook picture with iconic retro styles.
             <span className={styles.creditPill}>Costs {YEARBOOK_COST} credits</span>
           </p>
+          <p className={styles.signupBonus}>
+            Sign up today and get <strong>5 free credits</strong> to start your transformation!
+          </p>
         </div>
+
 
         {/* Before/After Photo Section */}
         <div className={styles.photoSection}>

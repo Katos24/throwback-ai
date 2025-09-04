@@ -24,10 +24,27 @@ export const availableStyles = [
 
 export const styleCategories = {
   popular: [
-    { 
-      label: "🎸 Grunge Legend", 
-      value: "grunge", 
-      promptDesc: "moody 1990s grunge portrait, alternative rock musician style, wearing flannel shirt and distressed band t-shirt, long messy hair, dark atmospheric lighting, Seattle grunge scene aesthetic", 
+     {
+      label: "🏫 Bayside High Student", 
+      value: "savedbythebell", 
+      promptDesc: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy guy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
+      defaultStyle: "Photographic (Default)", 
+      styleStrength: 18,
+      guidanceScale: 8,
+    },
+    {
+      label: "🌈 90s Windbreaker", 
+      value: "colorblock90s", 
+      promptDesc: "authentic early 1990s streetwear style, wearing oversized geometric colorblock windbreaker jacket with bright yellow orange green red pink magenta color sections, dark crew neck t-shirt underneath, silver chain necklace, relaxed confident pose, clean studio lighting, vibrant bold color blocking fashion, retro athletic wear aesthetic, classic 90s track jacket style",
+      defaultStyle: "Photographic (Default)", 
+      styleStrength: 15,
+      guidanceScale: 8,
+      badge: "Most Popular"
+    },
+    {
+      label: "🎸 Grunge Legend",
+      value: "grunge",
+      promptDesc: "1990s grunge musician portrait, flannel shirt and distressed band tee, long messy hair, moody dark lighting, alternative rock vibe, Seattle grunge aesthetic",
       defaultStyle: "Cinematic",
       styleStrength: 25,
       guidanceScale: 6
@@ -37,49 +54,32 @@ export const styleCategories = {
       value: "hiphop", 
       promptDesc: "authentic 90s hip-hop fashion with baggy jeans, oversized jersey, gold chains, Timberland boots, snapback cap, street photography style", 
       defaultStyle: "Cinematic",
-      styleStrength: 22,
-      guidanceScale: 6,
-      referenceImage: "https://throwbackai.app/images/rap-reference.jpg"
+      styleStrength: 15,
+      guidanceScale: 7
     },
     { 
       label: "💿 Mall Goth", 
       value: "mallgoth", 
-      promptDesc: "mall goth aesthetic with black fishnets, heavy dark eyeliner, band t-shirt, studded leather accessories, platform boots, moody lighting", 
+      promptDesc: "mall goth aesthetic, heavy dark eyeliner, band t-shirt, studded leather accessories, moody lighting", 
       defaultStyle: "Enhance",
-      styleStrength: 25,
+      styleStrength: 15,
       guidanceScale: 7
     },
     { 
       label: "🏀 Star Athlete", 
       value: "jock", 
-      promptDesc: "90s high school athlete with varsity letterman jacket, athletic wear, Nike sneakers, healthy sporty look, school portrait lighting", 
+      promptDesc: "90s athlete with varsity letterman jacket, athletic wear, Nike sneakers, healthy sporty look, school portrait lighting", 
       defaultStyle: "Photographic (Default)",
-      styleStrength: 20,
-      guidanceScale: 5
+      styleStrength: 15,
+      guidanceScale: 8
     },
     {
       label: "🎽 Retro Track Star",
       value: "trackstar",
-      promptDesc: "90s athletic fashion with bold striped windbreaker jacket, silver chain necklace, voluminous hair, soft blue studio background, vibrant colors, nostalgic sportswear styling, VHS texture",
+      promptDesc: "90s athletic fashion with bold striped windbreaker jacket, silver chain necklace, soft blue studio background, vibrant colors, nostalgic sportswear styling, VHS texture",
       defaultStyle: "Photographic (Default)",
-      styleStrength: 26,
-      guidanceScale: 6
-    },
-    {
-      label: "🏫 Bayside High Student", 
-      value: "savedbythebell", 
-      promptDesc: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy guy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
-      defaultStyle: "Photographic (Default)", 
-      styleStrength: 18,
-      guidanceScale: 5,
-    },
-    {
-      label: "🌈 90s Colorblock King", 
-      value: "colorblock90s", 
-      promptDesc: "authentic early 1990s streetwear style, wearing oversized geometric colorblock windbreaker jacket with bright yellow orange green red pink magenta color sections, dark crew neck t-shirt underneath, silver chain necklace, tousled messy dark hair, relaxed confident pose, clean studio lighting, vibrant bold color blocking fashion, retro athletic wear aesthetic, classic 90s track jacket style",
-      defaultStyle: "Photographic (Default)", 
-      styleStrength: 20,
-      guidanceScale: 6,
+      styleStrength: 15,
+      guidanceScale: 8
     }
   ],
   preppy: [
@@ -92,20 +92,12 @@ export const styleCategories = {
       guidanceScale: 5
     },
     { 
-      label: "🌸 Sweet Valley High", 
-      value: "sweetvalley", 
-      promptDesc: "sweet 90s teen fashion with pastel colors, crop top, high-waisted jeans, scrunchies, soft dreamy lighting", 
-      defaultStyle: "Fantasy art",
-      styleStrength: 20,
-      guidanceScale: 6
-    },
-    { 
       label: "👔 Future CEO", 
       value: "business", 
       promptDesc: "young professional 90s look with blazer, crisp dress shirt, silk tie, perfectly styled hair, confident pose", 
       defaultStyle: "Cinematic",
-      styleStrength: 22,
-      guidanceScale: 6
+      styleStrength: 15,
+      guidanceScale: 8
     },
   ],
   quirky: [
@@ -120,7 +112,7 @@ export const styleCategories = {
     { 
       label: "📼 Tech Nerd", 
       value: "technerd", 
-      promptDesc: "90s computer geek with thick wireframe glasses, pocket protector, suspenders, tucked-in plaid shirt, calculator watch", 
+      promptDesc: "90s computer enthusiast with thick wireframe glasses, pocket protector, suspenders, tucked-in plaid shirt, and a classic calculator watch. Styled like a professional studio portrait from the 1990s, with authentic period-appropriate hair, clothing, and accessories.", 
       defaultStyle: "Photographic (Default)",
       styleStrength: 20,
       guidanceScale: 6
@@ -134,9 +126,9 @@ export const styleCategories = {
       guidanceScale: 6
     },
     { 
-      label: "🕶️ Skater Kid", 
+      label: "🕶️ Skater", 
       value: "skater", 
-      promptDesc: "90s skater style with baggy cargo pants, graphic band tee, Vans sneakers, backwards baseball cap, rebellious attitude", 
+      promptDesc: "1990s skater fashion with baggy cargo pants, graphic band t-shirt, Vans sneakers, backwards baseball cap, carefree and edgy attitude",
       defaultStyle: "Comic book",
       styleStrength: 23,
       guidanceScale: 6

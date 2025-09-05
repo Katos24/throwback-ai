@@ -377,11 +377,11 @@
 /* Style Grid */
 .stylesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 0.75rem;
 
   padding: 0.1rem;
-  margin: -0.5rem;
+  margin: -0.4rem;
 }
 
 .styleCard {
@@ -396,7 +396,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  min-height: 80px;
+
   box-shadow: 0 2px 8px rgba(150, 206, 180, 0.2);
   position: relative;
 }
@@ -428,18 +428,18 @@
 }
 
 .badgesContainer {
-  position: relative;
-  top: -4px;
-  right: -4px;
+  position: absolute;
+  top: 2px;   /* tighter */
+  right: 2px; /* tighter */
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .badge {
-  font-size: 9px;
+  font-size: 8px;   /* smaller */
   font-weight: 600;
-  padding: 2px 6px;
+  padding: 1px 4px; /* slimmer pill */
   border-radius: 10px;
   text-transform: uppercase;
   letter-spacing: 0.3px;

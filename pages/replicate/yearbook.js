@@ -22,18 +22,15 @@ export default function YearbookTransformRedesigned() {
   const router = useRouter();
 
   // Style name options that match the API mapping
-  const styleNameOptions = [
-    "Photographic (Default)", 
-    "Cinematic",
-    "Digital Art",
-    "Fantasy art",
-    "Neonpunk", 
-    "Enhance",
-    "Comic book",
-    "Disney Character",
-    "Lowpoly",
-    "Line art"
-  ];
+const styleNameOptions = [
+  "Photographic (Default)",   // Clean, realistic
+  "Cinematic",                // Moody, dramatic
+  "Digital Art",              // Stylized but versatile
+  "Comic Book",               // Bold and fun
+  "Neonpunk",                 // Trendy, vibrant
+  "Disney Character"          // Whimsical, popular
+];
+
 
   // ===== STATE =====
   const [selectedCategory, setSelectedCategory] = useState("popular");
@@ -531,7 +528,7 @@ export default function YearbookTransformRedesigned() {
               <div className={styles.stylesGrid}>
                 {styleCategories[selectedCategory]?.map((style) => {
                   // Safer label splitting with fallback
-                  const labelParts = style.label ? style.label.split(" ") : [ "Unknown"];
+                  const labelParts = style.label ? style.label.split(" ") : ["🎨", "Unknown"];
                   const emoji = labelParts[0] || "🎨";
                   const name = labelParts.slice(1).join(" ") || "Unknown Style";
 

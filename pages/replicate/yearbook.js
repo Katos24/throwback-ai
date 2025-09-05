@@ -8,6 +8,7 @@ import useCredits from "../../hooks/useCredits";
 import toast from "react-hot-toast";
 import styles from "../../styles/YearbookNew.module.css";
 import SEOYearbook from "../../components/SEO/SEOYearbook";
+import YearbookGallery from "../../components/YearbookGallery";
 
 // Import yearbook styles from your centralized component
 import { styleCategories } from "../../components/YearbookStyles";
@@ -185,7 +186,7 @@ export default function YearbookTransformRedesigned() {
       return;
     }
 
-    const prompt = `Professional 1990s school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original gender, facial features, skin tone, hair, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
+    const prompt = `Professional 1990s school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original gender, facial features, skin tone, hair style, hair length, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
 
     try {
       setIsLoading(true);
@@ -567,6 +568,8 @@ export default function YearbookTransformRedesigned() {
             </div>
           )}
         </div>
+        {/* Yearbook Gallery */}
+<YearbookGallery onStyleSelect={(styleValue) => setSelectedStyle(styleValue)} />
       </main>
     </>
   );

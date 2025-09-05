@@ -1,0 +1,293 @@
+/* YearbookGallery.module.css - Complete Fresh CSS */
+
+.yearbookGallery {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #f8f6f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 3px solid #8B4513;
+  position: relative;
+  font-family: 'Georgia', serif;
+}
+
+/* Header Section */
+.yearbookHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.yearbookTitle {
+  border-bottom: 3px double #8B4513;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.yearbookMainTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2D1810;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Times New Roman', serif;
+}
+
+.yearbookSubtitle {
+  font-size: 1.1rem;
+  color: #5D4E37;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Decorative Corners */
+.yearbookDecoration {
+  position: relative;
+}
+
+.cornerDecoration {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #8B4513;
+  pointer-events: none;
+}
+
+.topLeft {
+  top: -10px;
+  left: -10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.topRight {
+  top: -10px;
+  right: -10px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottomLeft {
+  bottom: -10px;
+  left: -10px;
+  border-right: none;
+  border-top: none;
+}
+
+.bottomRight {
+  bottom: -10px;
+  right: -10px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Main Yearbook Page */
+.yearbookPage {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 2px solid #D2B48C;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Student Cards Grid */
+.yearbookGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.studentCard {
+  background-color: #fefefe;
+  border: 2px solid #8B4513;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.studentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Photo Section - BIGGER IMAGES */
+.photoContainer {
+  margin-bottom: 1.5rem;
+}
+
+.photoFrame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+  border: 4px solid #8B4513;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.studentPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.photoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.studentCard:hover .photoOverlay {
+  opacity: 1;
+}
+
+.clickHint {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Student Information */
+.studentInfo {
+  padding-top: 0.5rem;
+}
+
+.studentName {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2D1810;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Times New Roman', serif;
+}
+
+.studentStyle {
+  font-size: 1.1rem;
+  color: #8B4513;
+  margin: 0 0 0.75rem 0;
+  font-weight: bold;
+}
+
+.styleEmoji {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.studentQuote {
+  font-size: 1rem;
+  color: #5D4E37;
+  font-style: italic;
+  margin: 0;
+  min-height: 1.5rem;
+  line-height: 1.4;
+}
+
+/* Footer Section */
+.yearbookFooter {
+  text-align: center;
+  border-top: 2px solid #D2B48C;
+  padding-top: 1.5rem;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.footerText p {
+  margin: 0.5rem 0;
+  color: #5D4E37;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .yearbookGallery {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  
+  .yearbookMainTitle {
+    font-size: 2rem;
+  }
+  
+  .yearbookPage {
+    padding: 1.5rem;
+  }
+  
+  .yearbookGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .studentCard {
+    padding: 1.5rem;
+  }
+  
+  .photoFrame {
+    width: 180px;
+    height: 180px;
+    border-width: 3px;
+  }
+  
+  .studentName {
+    font-size: 1.3rem;
+  }
+  
+  .studentStyle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .yearbookGallery {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+  
+  .yearbookMainTitle {
+    font-size: 1.8rem;
+  }
+  
+  .yearbookSubtitle {
+    font-size: 1rem;
+  }
+  
+  .yearbookPage {
+    padding: 1rem;
+  }
+  
+  .studentCard {
+    padding: 1rem;
+  }
+  
+  .photoFrame {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .studentName {
+    font-size: 1.2rem;
+  }
+  
+  .styleEmoji {
+    font-size: 1rem;
+  }
+}

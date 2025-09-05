@@ -91,24 +91,66 @@ export const styleCategories = {
       guidanceScale: 8
     }
   ],
-  preppy: [
-    { 
-      label: "🧼 Prep School Elite", 
-      value: "preppy", 
-      promptDesc: "classic preppy 90s style with polo shirt, khaki pants, sweater tied around shoulders, boat shoes, clean-cut appearance", 
-      defaultStyle: "Photographic (Default)",
-      styleStrength: 18,
-      guidanceScale: 5
-    },
-    { 
-      label: "👔 Future CEO", 
-      value: "business", 
-      promptDesc: "young professional 90s look with blazer, crisp dress shirt, silk tie, perfectly styled hair, confident pose", 
-      defaultStyle: "Cinematic",
-      styleStrength: 15,
-      guidanceScale: 8
-    },
-  ],
+preppy: [
+  { 
+    label: "🧼 Prep School Elite", 
+    value: "preppy", 
+    promptDesc: "classic preppy 90s style with polo shirt, khaki pants, sweater tied around shoulders, boat shoes, clean-cut appearance", 
+    defaultStyle: "Photographic (Default)",
+    styleStrength: 18,
+    guidanceScale: 5
+  },
+ { 
+  label: "💅 Clueless Queen", 
+  value: "clueless", 
+  promptDesc: "iconic 1995 Clueless movie style, yellow plaid blazer and matching mini skirt set, white button-down shirt, white knee-high socks, black Mary Jane shoes, long straight blonde hair with center part, frosted pink lipstick, minimal natural makeup, holding a small designer handbag, confident wealthy Beverly Hills teenager pose, bright clean studio lighting, exact Cher Horowitz fashion aesthetic from the movie", 
+  defaultStyle: "Photographic (Default)",
+  styleStrength: 25,
+  guidanceScale: 8,
+  isNew: true,
+},
+  // NEW PREPPY ADDITIONS:
+  { 
+    label: "🏌️ Country Club Kid", 
+    value: "countryclub", 
+    promptDesc: "affluent 90s country club style with cable knit sweater vest, crisp white button-down shirt, pleated khakis, loafers with tassels, perfectly styled hair with side part", 
+    defaultStyle: "Photographic (Default)",
+    styleStrength: 20,
+    guidanceScale: 7
+  },
+  { 
+    label: "⛵ Yacht Club Member", 
+    value: "nautical", 
+    promptDesc: "preppy nautical 90s fashion with navy blazer, white dress pants, boat shoes, striped tie, classic New England sailing club aesthetic", 
+    defaultStyle: "Photographic (Default)",
+    styleStrength: 18,
+    guidanceScale: 6
+  },
+  { 
+    label: "🎾 Tennis Academy", 
+    value: "tennis", 
+    promptDesc: "90s tennis preppy look with polo shirt, tennis skirt or shorts, headband, pristine white sneakers, athletic country club vibe", 
+    defaultStyle: "Enhance",
+    styleStrength: 16,
+    guidanceScale: 7
+  },
+  { 
+    label: "📚 Ivy League Bound", 
+    value: "ivyleague", 
+    promptDesc: "academic preppy 90s style with argyle sweater, oxford shirt, chino pants, penny loafers, bookish intelligent appearance", 
+    defaultStyle: "Photographic (Default)",
+    styleStrength: 19,
+    guidanceScale: 6
+  },
+  { 
+    label: "🌸 Debutante", 
+    value: "debutante", 
+    promptDesc: "elegant 90s debutante style with pearl necklace, cashmere cardigan, A-line skirt, Mary Jane shoes, refined Southern charm", 
+    defaultStyle: "Cinematic",
+    styleStrength: 22,
+    guidanceScale: 6
+  }
+],
   quirky: [
     { 
       label: "🦄 Lisa Frank Dreamer", 
@@ -134,14 +176,14 @@ export const styleCategories = {
       styleStrength: 24,
       guidanceScale: 6
     },
-    { 
-      label: "🕶️ Skater", 
-      value: "skater", 
-      promptDesc: "1990s skater fashion with baggy cargo pants, graphic band t-shirt, Vans sneakers, backwards baseball cap, carefree and edgy attitude",
-      defaultStyle: "Comic book",
-      styleStrength: 23,
-      guidanceScale: 6
-    },
+   {
+  label: "🛹 Skater",
+  value: "skater",
+  promptDesc: "1990s skateboard punk aesthetic with ripped baggy jeans, Thrasher magazine t-shirt, worn-out Vans Old Skool sneakers, backwards baseball cap, chain wallet, defiant expression, authentic street skate culture vibe from the 90s",
+  defaultStyle: "Comic book", 
+  styleStrength: 15,
+  guidanceScale: 6
+}
   ],
   iconic: [
     { 

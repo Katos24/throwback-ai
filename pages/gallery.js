@@ -5,7 +5,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Gallery.module.css'
 
-const galleryItems = [
+// Restore gallery items (keeping your existing ones with subcategories)
+const restoreItems = [
   {
     before: "/images/weddingbefore.jpg",
     after: "/images/weddingafter.jpg",
@@ -53,7 +54,7 @@ const galleryItems = [
     after: "/images/after3.jpg",
     category: "Travel Photos",
     year: "1958",
-    description: "Travel photos enhanced with color!"
+    description: "Travel photos enhanced with color"
   },
   {
     before: "/images/basic-before.jpg", 
@@ -71,50 +72,172 @@ const galleryItems = [
   }
 ];
 
-const categories = ["All", "Wedding Photos", "Military Photos", "Memories", "Baby Photos", "Family Photos", "Holiday Memories", "Travel Photos"];
+// 90s Yearbook gallery items (no subcategories)
+const yearbookItems = [
+  {
+    before: "/images/sarahbefore.jpg",
+    after: "/images/sarahafter.jpg",
+    description: "Modern photo transformed into authentic 90s grunge yearbook style"
+  },
+  {
+    before: "/images/jessicabefore.jpg",
+    after: "/images/jessicaafter.jpg",
+    description: "Contemporary portrait becomes 90s preppy student"
+  },
+  {
+    before: "/images/mikebefore.jpg",
+    after: "/images/mikeafter.jpg",
+    description: "Hip-hop inspired 90s yearbook transformation"
+  },
+  {
+    before: "/images/emmabefore.jpg",
+    after: "/images/emmaafter.jpg",
+    description: "Mall goth aesthetic yearbook portrait"
+  },
+  {
+    before: "/images/alexbefore.jpg",
+    after: "/images/alexafter.jpg",
+    description: "Classic 90s windbreaker style transformation"
+  },
+  {
+    before: "/images/baysidebefore.jpg",
+    after: "/images/baysideafter.jpg",
+    description: "Saved by the Bell inspired yearbook photo"
+  }
+];
+
+// Cartoon gallery items (no subcategories)
+const cartoonItems = [
+  {
+    before: "/images/cartoon-before.jpg",
+    after: "/images/cartoon-example.jpg",
+    description: "Wilbur photo transformed into animated cartoon style"
+  },
+  {
+    before: "/images/tylerbefore.jpg",
+    after: "/images/tyler-cartoon.jpg",
+    description: "Portrait becomes colorful cartoon character"
+  },
+  {
+    before: "/images/cartoon-before1.jpg",
+    after: "/images/cartoon-after1.jpg",
+    description: "Photo converted to cartoon illustration"
+  },
+  {
+    before: "/images/cartoonsoccer-before.jpg",
+    after: "/images/cartoonsoccer-after.jpg",
+    description: "Real person becomes cartoon character"
+  }
+];
+
+// Avatar gallery items (no subcategories)
+const avatarItems = [
+  {
+    before: "/images/mikebefore.jpg",
+    after: "/images/mike-after.jpg",
+    description: "Professional LinkedIn-style avatar creation"
+  },
+  {
+    before: "/images/avatar-before.jpg",
+    after: "/images/avatar-after.jpg",
+    description: "Gaming avatar with fantasy elements"
+  },
+  {
+    before: "/images/jessicabefore.jpg",
+    after: "/images/jessica-avatar.jpg",
+    description: "Portrait transformed into mystical elven noble character"
+  },
+  {
+    before: "/images/sarahbefore.jpg",
+    after: "/images/sarah-90avatar.jpg",
+    description: "Premium 90s high school student avatar with enhanced detail"
+  },
+ {
+  before: "/images/western-avatar.jpg",
+  after: "/images/western-avatar-after.jpg",
+  description: "Portrait transformed into rugged Wild West character with frontier styling"
+}];
+
+
+// Main categories
+const mainCategories = ["All", "Restore", "90s Yearbook", "Avatar", "Cartoon"];
+
+// Restore subcategories
+const restoreSubcategories = ["All Restore", "Wedding Photos", "Military Photos", "Memories", "Baby Photos", "Family Photos", "Holiday Memories", "Travel Photos"];
 
 export default function Gallery() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedMainCategory, setSelectedMainCategory] = useState("All");
+  const [selectedRestoreSubcategory, setSelectedRestoreSubcategory] = useState("All Restore");
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  const filteredItems = selectedCategory === "All" 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === selectedCategory);
+  // Get all items based on selected category
+  const getAllItems = () => {
+    switch (selectedMainCategory) {
+      case "Restore":
+        return restoreItems;
+      case "90s Yearbook":
+        return yearbookItems;
+      case "Cartoon":
+        return cartoonItems;
+      case "Avatar":
+        return avatarItems;
+      default: // "All"
+        return [...restoreItems, ...yearbookItems, ...cartoonItems, ...avatarItems];
+    }
+  };
 
-  const handleNavigateToRestore = (path) => {
+  // Filter items based on category and subcategory
+  const getFilteredItems = () => {
+    const allItems = getAllItems();
+    
+    if (selectedMainCategory === "Restore" && selectedRestoreSubcategory !== "All Restore") {
+      return allItems.filter(item => item.category === selectedRestoreSubcategory);
+    }
+    
+    return allItems;
+  };
+
+  const filteredItems = getFilteredItems();
+
+  const handleNavigateToFeature = (path) => {
     router.push(path);
+  };
+
+  const handleMainCategoryChange = (category) => {
+    setSelectedMainCategory(category);
+    setSelectedRestoreSubcategory("All Restore"); // Reset subcategory when main category changes
   };
 
   return (
     <>
       <Head>
-        <title>Before & After Gallery - Anastasis AI Photo Restoration</title>
+        <title>AI Transformation Gallery - Before & After Examples</title>
         <meta
           name="description"
-          content="See real before and after examples of AI photo restoration. Wedding photos, family portraits, military photos, and more restored with Anastasis heritage-grade AI."
+          content="See real before and after examples of AI photo transformations. Photo restoration, 90s yearbook styles, cartoon avatars, and more."
         />
-        <meta name="keywords" content="photo restoration gallery, before after photos, AI photo repair examples, vintage photo restoration, family photo restoration" />
-        <meta property="og:title" content="Photo Restoration Gallery - Real Before & After Examples" />
-        <meta property="og:description" content="Browse hundreds of restored family photos. See the incredible results of Anastasis AI photo restoration technology." />
+        <meta name="keywords" content="AI photo transformation, before after photos, 90s yearbook, cartoon avatar, photo restoration gallery" />
+        <meta property="og:title" content="AI Photo Transformation Gallery - Real Examples" />
+        <meta property="og:description" content="Browse hundreds of transformed photos. See the incredible results of AI photo transformation technology." />
       </Head>
 
       <div className={styles.container}>
         
         {/* Hero Section */}
         <section className={styles.hero}>
-          <h1 className={styles.title}>Before & After Gallery</h1>
-         
+          <h1 className={styles.title}>AI Transformation Gallery</h1>
+          <p className={styles.subtitle}>See the magic of AI photo transformations</p>
         </section>
 
-        {/* Category Filter */}
+        {/* Main Category Filter */}
         <section className={styles.categories}>
           <div className={styles.categoryList}>
-            {categories.map((category) => (
+            {mainCategories.map((category) => (
               <button
                 key={category}
-                className={`${styles.categoryBtn} ${selectedCategory === category ? styles.active : ''}`}
-                onClick={() => setSelectedCategory(category)}
+                className={`${styles.categoryBtn} ${selectedMainCategory === category ? styles.active : ''}`}
+                onClick={() => handleMainCategoryChange(category)}
               >
                 {category}
               </button>
@@ -122,13 +245,35 @@ export default function Gallery() {
           </div>
         </section>
 
+        {/* Restore Subcategory Filter (only show when Restore is selected) */}
+        {selectedMainCategory === "Restore" && (
+          <section className={styles.subcategories}>
+            <div className={styles.subcategoryList}>
+              {restoreSubcategories.map((subcategory) => (
+                <button
+                  key={subcategory}
+                  className={`${styles.subcategoryBtn} ${selectedRestoreSubcategory === subcategory ? styles.active : ''}`}
+                  onClick={() => setSelectedRestoreSubcategory(subcategory)}
+                >
+                  {subcategory === "All Restore" ? "All" : subcategory}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Gallery Section */}
         <section className={styles.gallery}>
           <h2 className={styles.galleryTitle}>
-            {selectedCategory === "All" ? "Complete Gallery" : selectedCategory}
+            {selectedMainCategory === "All" 
+              ? "Complete Gallery" 
+              : selectedMainCategory === "Restore" && selectedRestoreSubcategory !== "All Restore"
+                ? selectedRestoreSubcategory
+                : selectedMainCategory
+            }
           </h2>
           <p className={styles.galleryCount}>
-            {filteredItems.length} restored {filteredItems.length === 1 ? 'photo' : 'photos'}
+            {filteredItems.length} transformed {filteredItems.length === 1 ? 'photo' : 'photos'}
           </p>
           
           <div className={styles.grid}>
@@ -139,10 +284,12 @@ export default function Gallery() {
                 onMouseEnter={() => setHoveredItem(index)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <div className={styles.cardHeader}>
-                  <span className={styles.category}>{item.category}</span>
-                  <span className={styles.year}>{item.year}</span>
-                </div>
+                {item.category && (
+                  <div className={styles.cardHeader}>
+                    <span className={styles.category}>{item.category}</span>
+                    {item.year && <span className={styles.year}>{item.year}</span>}
+                  </div>
+                )}
                 
                 <div className={styles.imageContainer}>
                   <div className={styles.imageWrapper}>
@@ -157,7 +304,7 @@ export default function Gallery() {
                   </div>
                   
                   <div className={styles.divider}>
-                    <div className={styles.aiIcon}>AI</div>
+
                   </div>
                   
                   <div className={styles.imageWrapper}>
@@ -180,23 +327,35 @@ export default function Gallery() {
 
         {/* Call to Action */}
         <section className={styles.cta}>
-          <h2 className={styles.ctaTitle}>Ready to Restore Your Photos?</h2>
+          <h2 className={styles.ctaTitle}>Ready to Transform Your Photos?</h2>
           <p className={styles.ctaText}>
-            Join thousands of families who have brought their memories back to life
+            Choose your transformation style and see the magic happen
           </p>
           
           <div className={styles.ctaButtons}>
             <button
               className={`${styles.btn} ${styles.primary}`}
-              onClick={() => handleNavigateToRestore("/replicate/restore-basic")}
+              onClick={() => handleNavigateToFeature("/replicate/restore-basic")}
             >
-              🎁 Try FREE
+              📸 Restore Photos
             </button>
             <button
               className={`${styles.btn} ${styles.secondary}`}
-              onClick={() => handleNavigateToRestore("/replicate/restore-premium")}
+              onClick={() => handleNavigateToFeature("/replicate/yearbook")}
             >
-              🔮 See Premium Results
+              📚 90s Yearbook
+            </button>
+            <button
+              className={`${styles.btn} ${styles.secondary}`}
+              onClick={() => handleNavigateToFeature("/replicate/cartoon")}
+            >
+              🎨 Cartoon Style
+            </button>
+            <button
+              className={`${styles.btn} ${styles.secondary}`}
+              onClick={() => handleNavigateToFeature("/replicate/avatar")}
+            >
+              👤 Create Avatar
             </button>
           </div>
           

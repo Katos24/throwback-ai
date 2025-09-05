@@ -124,8 +124,8 @@
 
 .photoFrame {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 280px;
+  height: 280px;
   margin: 0 auto;
   border: 4px solid #8B4513;
   border-radius: 6px;
@@ -242,8 +242,8 @@
   }
   
   .photoFrame {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border-width: 3px;
   }
   
@@ -279,8 +279,8 @@
   }
   
   .photoFrame {
-    width: 160px;
-    height: 160px;
+    width: 180px;
+    height: 180px;
   }
   
   .studentName {

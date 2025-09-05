@@ -531,7 +531,7 @@ export default function YearbookTransformRedesigned() {
               <div className={styles.stylesGrid}>
                 {styleCategories[selectedCategory]?.map((style) => {
                   // Safer label splitting with fallback
-                  const labelParts = style.label ? style.label.split(" ") : ["🎨", "Unknown"];
+                  const labelParts = style.label ? style.label.split(" ") : [ "Unknown"];
                   const emoji = labelParts[0] || "🎨";
                   const name = labelParts.slice(1).join(" ") || "Unknown Style";
 

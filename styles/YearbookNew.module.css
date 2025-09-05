@@ -724,3 +724,10 @@
   }
   .categoryButton { flex-shrink: 0; }
 }
+
+@media (max-width: 600px) {
+  .artStyleList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}

@@ -145,7 +145,7 @@
 
 /* Gallery */
 .gallery {
-  padding: 2rem 2rem;
+  padding: 3rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -260,23 +260,23 @@
 .imageContainer {
   margin-bottom: 2rem;
   display: flex;
-  gap: .5rem;
-  align-items: center;
+  gap: 1rem;
+  align-items: flex-start;
 }
 
 .imageWrapper {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  width: 400px; /* Fixed width */
-  height: 400px; /* Fixed height */
+  background: rgba(255, 255, 255, 0.05);
+  flex: 1;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .image {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: 500px;
+  object-fit: cover;
   display: block;
 }
 
@@ -431,7 +431,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
-    padding: 3rem 1rem 2rem;
+    padding: 2rem 1rem 1rem;
   }
   
   .title {
@@ -443,7 +443,7 @@
   }
   
   .categories {
-    padding: 1.5rem 1rem 1rem;
+    padding: 1rem 1rem 0.5rem;
   }
   
   .categoryList {
@@ -456,15 +456,19 @@
   }
   
   .gallery {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
   
   .galleryTitle {
     font-size: 2rem;
   }
   
+  .galleryCount {
+    margin-bottom: 2rem;
+  }
+  
   .grid {
-    gap: 3rem;
+    gap: 2rem;
     padding: 0 0.5rem;
   }
   
@@ -476,12 +480,13 @@
     gap: 0.75rem;
   }
   
-  .image {
-    min-height: 200px;
+  .imageWrapper {
+    width: 100%;
+    height: 300px;
   }
   
   .cta {
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
   }
   
   .ctaTitle {
@@ -503,26 +508,35 @@
 
 @media (max-width: 480px) {
   .hero {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .gallery {
+    padding: 1rem;
+  }
+  
+  .galleryCount {
+    margin-bottom: 1.5rem;
   }
   
   .card {
-    padding: 1.25rem;
+    padding: 1rem;
   }
   
   .card::before,
   .card::after {
     width: 6px;
-    left: -10px;
-    right: -10px;
+    left: -8px;
+    right: -8px;
   }
   
   .imageContainer {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   
-  .image {
+  .imageWrapper {
+    width: 100%;
     height: 250px;
   }
   
@@ -532,13 +546,13 @@
   }
   
   .grid {
-    gap: 2.5rem;
+    gap: 1.5rem;
     padding: 0;
   }
   
   .divider {
     transform: rotate(90deg);
-    padding: 1.5rem 0;
+    padding: 0.75rem 0;
   }
   
   .aiIcon {
@@ -549,5 +563,9 @@
   
   .ctaTitle {
     font-size: 2rem;
+  }
+  
+  .cta {
+    padding: 2.5rem 1rem;
   }
 }

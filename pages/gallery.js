@@ -104,9 +104,7 @@ export default function Gallery() {
         {/* Hero Section */}
         <section className={styles.hero}>
           <h1 className={styles.title}>Before & After Gallery</h1>
-          <p className={styles.subtitle}>
-            Real customer photos restored with Anastasis AI. From faded memories to vibrant heirlooms.
-          </p>
+         
         </section>
 
         {/* Category Filter */}

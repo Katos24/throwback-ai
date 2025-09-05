@@ -47,35 +47,20 @@ export default function YearbookTransformRedesigned() {
   const [dragActive, setDragActive] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
+  const [showStyleDropdown, setShowStyleDropdown] = useState(false);
+  const [showArtStyleDropdown, setShowArtStyleDropdown] = useState(false);
 
   // Credits functionality
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
   // ===== BADGE HELPER FUNCTION =====
   const getBadgeInfo = (style) => {
-    // Return badge info based on style properties
     const badges = [];
-    
-    if (style.isNew) {
-      badges.push({ text: 'New', type: 'new', color: '#10B981' }); // Green
-    }
-    
-    if (style.isPopular) {
-      badges.push({ text: 'Popular', type: 'popular', color: '#F59E0B' }); // Amber
-    }
-    
-    if (style.isPremium) {
-      badges.push({ text: 'Premium', type: 'premium', color: '#8B5CF6' }); // Purple
-    }
-    
-    if (style.isBeta) {
-      badges.push({ text: 'Beta', type: 'beta', color: '#EF4444' }); // Red
-    }
-    
-    if (style.isRecommended) {
-      badges.push({ text: 'Recommended', type: 'recommended', color: '#3B82F6' }); // Blue
-    }
-    
+    if (style.isNew) badges.push({ text: 'New', type: 'new', color: '#10B981' });
+    if (style.isPopular) badges.push({ text: 'Popular', type: 'popular', color: '#F59E0B' });
+    if (style.isPremium) badges.push({ text: 'Premium', type: 'premium', color: '#8B5CF6' });
+    if (style.isBeta) badges.push({ text: 'Beta', type: 'beta', color: '#EF4444' });
+    if (style.isRecommended) badges.push({ text: 'Recommended', type: 'recommended', color: '#3B82F6' });
     return badges;
   };
 
@@ -104,6 +89,15 @@ export default function YearbookTransformRedesigned() {
     fetchUser();
   }, []);
 
+  // Clean up preview URL when component unmounts or photo changes
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   // ===== HANDLERS =====
   const handleDrag = (e) => {
     e.preventDefault();
@@ -119,7 +113,6 @@ export default function YearbookTransformRedesigned() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0]);
     }
@@ -133,6 +126,11 @@ export default function YearbookTransformRedesigned() {
 
   const handleFile = (file) => {
     if (file && file.type.startsWith("image/")) {
+      // Clean up previous preview URL
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      
       setPhoto(file);
       setPreviewUrl(URL.createObjectURL(file));
       setResultImageUrl(null);
@@ -145,42 +143,52 @@ export default function YearbookTransformRedesigned() {
     }
   };
 
+  const handleStyleSelect = (styleValue) => {
+    setSelectedStyle(styleValue);
+    setShowStyleDropdown(false);
+  };
+
+  const handleArtStyleSelect = (styleName) => {
+    setSelectedStyleName(styleName);
+    setShowArtStyleDropdown(false);
+  };
+
   // Updated function to handle button clicks based on user state
   const handleGenerateOrRedirect = () => {
     if (!photo) {
-      toast.error('Please upload an image first', {
-        icon: '📤',
-        duration: 3000,
-      });
+      toast.error('Please upload an image first', { icon: '📤', duration: 3000 });
       return;
     }
-
     if (!selectedStyle) {
-      toast.error('Please select a yearbook style first', {
-        icon: '🎨',
-        duration: 3000,
-      });
+      toast.error('Please select a yearbook style first', { icon: '🎨', duration: 3000 });
       return;
     }
-
+    if (!selectedStyleName) {
+      toast.error('Please select an art style first', { icon: '🎨', duration: 3000 });
+      return;
+    }
     if (!isLoggedIn) {
       router.push('/signup');
       return;
     }
-    
     if (credits < YEARBOOK_COST) {
       router.push('/pricing');
       return;
     }
-
     generateImage("/api/replicate/yearbook");
   };
 
   // ===== GENERATE IMAGE =====
   const generateImage = async (endpoint) => {
+    // Safely check if styleCategories exists and has the selected category
+    if (!styleCategories || !styleCategories[selectedCategory]) {
+      toast.error("Style categories not available. Please refresh the page.");
+      return;
+    }
+
     const allStyles = Object.values(styleCategories).flat();
     const selectedCharacter = allStyles.find((c) => c.value === selectedStyle);
-
+    
     if (!selectedCharacter) {
       toast.error("Selected style not found. Please try again.");
       return;
@@ -188,10 +196,11 @@ export default function YearbookTransformRedesigned() {
 
     const prompt = `Professional 1990s school yearbook portrait of img, ${selectedCharacter.promptDesc}, classic school photography studio setup. Shot with medium format camera, soft diffused studio lighting with key light and fill light, neutral gray or blue mottled backdrop typical of school portraits. Shoulders and upper chest visible, subject looking directly at camera with natural smile or serious expression. Authentic 90s styling: clothing, and makeup. Professional headshot composition with subject centered, slight vignette effect. Film photography grain and color saturation typical of 1990s Kodak portrait film. IMPORTANT: Preserve exact original gender, facial features, skin tone, hair style, hair length, ethnicity, bone structure, eye shape, and all identifying characteristics with photographic realism. Maintain the person's natural race and ethnic appearance completely unchanged. Studio portrait lighting, not candid or artistic photography.`;
 
+    let processingToast;
+
     try {
       setIsLoading(true);
       setResultImageUrl(null);
-
       setProgress(5);
       setProgressStage("Preparing image...");
 
@@ -211,18 +220,17 @@ export default function YearbookTransformRedesigned() {
       setProgress(30);
       setProgressStage("Encoding image...");
 
-      const base64 = await new Promise((resolve) => {
+      const base64 = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
         reader.readAsDataURL(compressedFile);
       });
 
       setProgress(50);
       setProgressStage("Sending to AI...");
 
-      const processingToast = toast.loading('Creating your 90s yearbook portrait...', {
-        icon: '📚',
-      });
+      processingToast = toast.loading('Creating your 90s yearbook portrait...', { icon: '📚' });
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -231,7 +239,7 @@ export default function YearbookTransformRedesigned() {
           imageBase64: base64,
           prompt,
           negativePrompt: ENHANCED_NEGATIVE_PROMPT,
-          styleName: selectedStyleName, // Use the selected style name
+          styleName: selectedStyleName,
           styleStrength: selectedCharacter.styleStrength,
           guidanceScale: selectedCharacter.guidanceScale,
           referenceImage: selectedCharacter.referenceImage || null,
@@ -252,13 +260,11 @@ export default function YearbookTransformRedesigned() {
         setResultImageUrl(data.imageUrl);
         setProgress(100);
         setProgressStage("Done!");
-        
         toast.success("90s yearbook transformation complete!", {
           id: processingToast,
           icon: '📚',
           duration: 5000,
         });
-
         await refreshCredits();
       } else {
         throw new Error("No image URL returned from server");
@@ -267,7 +273,10 @@ export default function YearbookTransformRedesigned() {
       setProgress(0);
       setProgressStage("");
       console.error("Error generating image:", error);
-      toast.error(error.message || "Yearbook generation failed. Please try again.", {
+      
+      const errorMessage = error.message || "Yearbook generation failed. Please try again.";
+      toast.error(errorMessage, {
+        id: processingToast,
         icon: '❌',
         duration: 5000,
       });
@@ -281,6 +290,10 @@ export default function YearbookTransformRedesigned() {
     
     try {
       const resp = await fetch(resultImageUrl);
+      if (!resp.ok) {
+        throw new Error('Failed to fetch image');
+      }
+      
       const blob = await resp.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -290,24 +303,18 @@ export default function YearbookTransformRedesigned() {
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      
-      toast.success('90s yearbook photo downloaded!', {
-        icon: '📚',
-        duration: 3000,
-      });
+      toast.success('90s yearbook photo downloaded!', { icon: '📚', duration: 3000 });
     } catch (downloadError) {
       console.error('Download failed:', downloadError);
-      toast.error('Download failed. Please try again.', {
-        icon: '❌',
-        duration: 4000,
-      });
+      toast.error('Download failed. Please try again.', { icon: '❌', duration: 4000 });
     }
   };
 
   const getButtonText = () => {
     if (isLoading) return "Creating your 90s yearbook...";
     if (!photo) return "Upload a Photo First";
-    if (!selectedStyle) return "Select a Style First";
+    if (!selectedStyle) return "Select a 90s Style First";
+    if (!selectedStyleName) return "Select an Art Style First";
     if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < YEARBOOK_COST) return "Get More Credits";
     return "Generate Yearbook Transform";
@@ -317,18 +324,31 @@ export default function YearbookTransformRedesigned() {
     if (isLoading) return null;
     if (!photo) return "📷";
     if (!selectedStyle) return "🎨";
+    if (!selectedStyleName) return "🎨";
     if (!isLoggedIn) return "🔒";
     if (credits < YEARBOOK_COST) return "💎";
     return "📚";
   };
 
   const selectedStyleDetails = (() => {
-    if (!selectedStyle) return null;
+    if (!selectedStyle || !styleCategories) return null;
     const allStyles = Object.values(styleCategories).flat();
     return allStyles.find((c) => c.value === selectedStyle);
   })();
 
-  const isComplete = photo && selectedStyle && isLoggedIn && credits >= YEARBOOK_COST;
+  const isComplete = photo && selectedStyle && selectedStyleName && isLoggedIn && credits >= YEARBOOK_COST;
+
+  // Safe check for styleCategories
+  if (!styleCategories || !styleCategories[selectedCategory]) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.hero}>
+          <h1 className={styles.title}>Loading...</h1>
+          <p className={styles.subtitle}>Please wait while we load the yearbook styles.</p>
+        </div>
+      </div>
+    );
+  }
 
   // ===== RENDER =====
   return (
@@ -357,7 +377,7 @@ export default function YearbookTransformRedesigned() {
           </button>
         </div>
 
-       {/* Hero */}
+        {/* Hero */}
         <div className={styles.hero}>
           <h1 className={styles.title}>
             <span className={styles.titleEmoji}>📸</span>
@@ -384,7 +404,7 @@ export default function YearbookTransformRedesigned() {
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
-                onClick={() => document.getElementById("photo-upload").click()}
+                onClick={() => document.getElementById("photo-upload")?.click()}
               >
                 {previewUrl ? (
                   <div className={styles.previewContainer}>
@@ -448,111 +468,8 @@ export default function YearbookTransformRedesigned() {
           </div>
         </div>
 
-        {/* Slim Options Section */}
-        <div className={styles.optionsSection}>
-          <h2 className={styles.optionsTitle}>Choose Your 90s Vibe</h2>
-          
-          {/* Category Tabs */}
-          <div className={styles.categoryTabs}>
-            {Object.keys(styleCategories).map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`${styles.categoryTab} ${selectedCategory === category ? styles.activeTab : ""}`}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            ))}
-          </div>
-
-          {/* Styles Grid with Badges */}
-          <div className={styles.stylesGrid}>
-            {styleCategories[selectedCategory].map((style) => {
-              const badges = getBadgeInfo(style);
-              
-              return (
-                <button
-                  key={style.value}
-                  onClick={() => setSelectedStyle(style.value)}
-                  className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ""}`}
-                >
-                  {/* Badge Container */}
-                  {badges.length > 0 && (
-                    <div className={styles.badgeContainer}>
-                      {badges.map((badge, index) => (
-                        <span 
-                          key={badge.type}
-                          className={`${styles.badge} ${styles[badge.type + 'Badge']}`}
-                          style={{
-                            backgroundColor: badge.color,
-                            color: 'white'
-                          }}
-                        >
-                          {badge.text}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  <span className={styles.styleEmoji}>{style.label.split(" ")[0]}</span>
-                  <span className={styles.styleName}>{style.label.substring(2)}</span>
-                  <small className={styles.stylePreview}>
-                    {style.style} • Strength: {style.styleStrength}%
-                  </small>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Style Preview */}
-          {selectedStyleDetails && (
-            <div className={styles.styleDescription}>
-              <h3>Selected: {selectedStyleDetails.label.substring(2)}</h3>
-              <p>{selectedStyleDetails.promptDesc}</p>
-            </div>
-          )}
-
-          {/* Style Name Selector */}
-          <div className={styles.styleNameSection}>
-            <h3 className={styles.styleNameTitle}>Choose Art Style</h3>
-            <div className={styles.styleNameGrid}>
-              {styleNameOptions.map((styleName) => (
-                <button
-                  key={styleName}
-                  onClick={() => setSelectedStyleName(styleName)}
-                  className={`${styles.styleNameButton} ${selectedStyleName === styleName ? styles.selectedStyleName : ""}`}
-                >
-                  {styleName}
-                </button>
-              ))}
-            </div>
-            <div className={styles.selectedStyleNameInfo}>
-              <strong>Selected Art Style:</strong> {selectedStyleName}
-            </div>
-          </div>
-        </div>
-
         {/* Generate Button */}
         <div className={styles.generateSection}>
-          <button
-            onClick={handleGenerateOrRedirect}
-            disabled={isLoading}
-            className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
-          >
-            {isLoading ? (
-              <>
-                <div className={styles.spinner}></div>
-                {getButtonText()}
-              </>
-            ) : (
-              <>
-                {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
-                {getButtonText()}
-              </>
-            )}
-          </button>
-
-          {/* Progress Bar */}
           {isLoading && (
             <div className={styles.progressContainer}>
               <div className={styles.progressBar}>
@@ -567,9 +484,156 @@ export default function YearbookTransformRedesigned() {
               </div>
             </div>
           )}
+
+          <button
+            onClick={handleGenerateOrRedirect}
+            disabled={isLoading || !photo || !selectedStyle || !selectedStyleName}
+            className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+          >
+            {isLoading ? (
+              <>
+                <div className={styles.spinner}></div>
+                {getButtonText()}
+              </>
+            ) : (
+              <>
+                {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                {getButtonText()}
+              </>
+            )}
+          </button>
         </div>
-        {/* Yearbook Gallery */}
-<YearbookGallery onStyleSelect={(styleValue) => setSelectedStyle(styleValue)} />
+
+        {/* Modern Options Section */}
+        <div className={styles.optionsSection}>
+          <h2 className={styles.optionsTitle}>Choose Your Style Options</h2>
+          
+          <div className={styles.dropdownGrid}>
+            {/* Left Column - 90s Vibe */}
+            <div className={styles.dropdownContainer}>
+              <span className={styles.labelText}>📚 90s Yearbook Vibe</span>
+              
+              <div className={styles.categoryButtons}>
+                {Object.keys(styleCategories).map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setSelectedStyle(null);
+                    }}
+                    className={`${styles.categoryButton} ${selectedCategory === category ? styles.selectedCategory : ''}`}
+                  >
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              <div className={styles.stylesGrid}>
+                {styleCategories[selectedCategory]?.map((style) => {
+                  // Safer label splitting with fallback
+                  const labelParts = style.label ? style.label.split(" ") : ["🎨", "Unknown"];
+                  const emoji = labelParts[0] || "🎨";
+                  const name = labelParts.slice(1).join(" ") || "Unknown Style";
+
+                  return (
+                    <div 
+                      key={style.value} 
+                      onClick={() => handleStyleSelect(style.value)}
+                      className={`${styles.styleCard} ${selectedStyle === style.value ? styles.selectedStyle : ''}`}
+                    >
+                      <div className={styles.badgesContainer}>
+                        {getBadgeInfo(style).map((badge, idx) => (
+                          <span 
+                            key={idx} 
+                            className={`${styles.badge} ${styles[`badge${badge.type}`] || ''}`}
+                            style={{ backgroundColor: badge.color }}
+                          >
+                            {badge.text}
+                          </span>
+                        ))}
+                      </div>
+                      <div className={styles.styleLabel}>
+                        <span className={styles.styleEmoji}>{emoji}</span>
+                        <span className={styles.styleName}>{name}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column - Art Style */}
+            <div className={styles.dropdownContainer}>
+              <span className={styles.labelText}>🎨 Artistic Style</span>
+              
+              <div className={styles.artStyleList}>
+                {styleNameOptions.map((styleName) => (
+                  <div 
+                    key={styleName}
+                    onClick={() => handleArtStyleSelect(styleName)}
+                    className={`${styles.artStyleItem} ${selectedStyleName === styleName ? styles.selectedArtStyle : ''}`}
+                  >
+                    <span className={styles.artStyleEmoji}>🎨</span>
+                    <span className={styles.artStyleName}>{styleName}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {selectedStyleDetails && (
+            <div className={styles.selectedStyleDetails}>
+              <h3 className={styles.detailsTitle}>Style Details</h3>
+              <p className={styles.detailsDesc}>
+                {selectedStyleDetails.promptDesc}
+              </p>
+              <p className={styles.detailsParams}>
+                <span>Style Strength: {selectedStyleDetails.styleStrength}</span> | 
+                <span> Guidance: {selectedStyleDetails.guidanceScale}</span>
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Generate Button */}
+        <div className={styles.generateSection}>
+          <button
+            onClick={handleGenerateOrRedirect}
+            disabled={isLoading || !photo || !selectedStyle || !selectedStyleName}
+            className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+          >
+            {isLoading ? (
+              <>
+                <div className={styles.spinner}></div>
+                {getButtonText()}
+              </>
+            ) : (
+              <>
+                {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                {getButtonText()}
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Progress Bar */}
+        {isLoading && (
+          <div className={styles.progressContainer}>
+            <div className={styles.progressBar}>
+              <div
+                className={styles.progressFill}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className={styles.progressText}>
+              <span>{progressStage}</span>
+              <span>{progress}%</span>
+            </div>
+          </div>
+        )}
+
+        {/* Gallery Section */}
+        <YearbookGallery />
       </main>
     </>
   );

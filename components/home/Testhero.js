@@ -72,7 +72,7 @@ export default function TestHeroSection() {
         after: "/images/yearbook90s-after.jpg"
       },
       link: "/replicate/yearbook",
-      credits: 35,
+      credits: 20,
       buttonText: "Make Yearbook",
       icon: "📚"
     }

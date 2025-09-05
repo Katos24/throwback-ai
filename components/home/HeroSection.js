@@ -60,7 +60,7 @@ export default function HeroSection() {
         after: "/images/yearbook-after.jpg"
       },
       link: "/replicate/yearbook",
-      credits: 20,
+      credits: 5,
       category: "create"
     },
     {

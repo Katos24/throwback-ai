@@ -23,7 +23,7 @@ const FEATURES = [
     icon: '📚',
     title: '90s Yearbook Transform',
     description: 'Turn your photo into an authentic 90s yearbook portrait with retro styling.',
-    cost: '20 credits',
+    cost: '5 credits',
     path: '/replicate/yearbook'
   },
   {

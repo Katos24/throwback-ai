@@ -51,7 +51,7 @@ const AISuitePage = () => {
       name: '90s Yearbook Transform',
       tagline: 'Retro Style Magic',
       cardImage: '/images/yearbook-card.jpg',
-      credits: 20,
+      credits: 5,
       link: '/replicate/yearbook',
       accent: '#f59e0b',
     },

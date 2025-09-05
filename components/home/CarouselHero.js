@@ -36,7 +36,7 @@ export default function HeroSection() {
       link: "replicate/yearbook",
       description:
         "Go back in time! Get that classic 90s school portrait look with vintage styling, perfect for nostalgia lovers and social media.",
-      credits: 20,
+      credits: 5,
       buttonText: "Go Retro",
       badge: "Trending",
       badgeColor: "trending",

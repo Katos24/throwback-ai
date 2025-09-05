@@ -47,7 +47,7 @@ const CREDIT_PACKS = [
     includes: {
       basic: 400,
       premium: 10,
-      yearbook: 20,
+      yearbook: 80,
       cartoon: 10,
       avatar: 8
     }
@@ -62,7 +62,7 @@ const CREDIT_PACKS = [
     includes: {
       basic: 1000,
       premium: 25,
-      yearbook: 50,
+      yearbook: 200,
       cartoon: 25,
       avatar: 20
     }
@@ -77,7 +77,7 @@ const CREDIT_PACKS = [
     includes: {
       basic: 1600,
       premium: 40,
-      yearbook: 80,
+      yearbook: 320,
       cartoon: 40,
       avatar: 32
     }
@@ -92,7 +92,7 @@ const CREDIT_PACKS = [
     includes: {
       basic: 3500,
       premium: 87,
-      yearbook: 175,
+      yearbook: 700,
       cartoon: 87,
       avatar: 70
     }
@@ -294,7 +294,7 @@ export default function PricingPage() {
               <span className={styles.serviceIcon}>📸</span>
               <div>
                 <strong>90s Yearbook Style</strong>
-                <span className={styles.serviceCost}>20 credits</span>
+                <span className={styles.serviceCost}>5 credits</span>
               </div>
             </div>
             <div className={styles.serviceItem}>

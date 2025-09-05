@@ -92,7 +92,7 @@ export default function Header({ showMenu, setShowMenu }) {
       label: "90s Yearbook Transform", 
       icon: "📸",
       description: "Create authentic 90s yearbook photos",
-      credits: "20 Credits",
+      credits: "5 Credits",
       badge: "Popular"
     },
     { 

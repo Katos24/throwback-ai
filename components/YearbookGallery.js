@@ -84,7 +84,7 @@ const YearbookGallery = ({ onStyleSelect }) => {
       {/* Yearbook Header */}
       <div className={styles.yearbookHeader}>
         <div className={styles.yearbookTitle}>
-          <h2 className={styles.yearbookMainTitle}>Class of '95 - AI Yearbook Gallery</h2>
+          <h2 className={styles.yearbookMainTitle}>Class of &apos;95 - AI Yearbook Gallery</h2>
           <p className={styles.yearbookSubtitle}>See the magic in action with real transformations</p>
         </div>
         <div className={styles.yearbookDecoration}>
@@ -125,8 +125,7 @@ const YearbookGallery = ({ onStyleSelect }) => {
                   <span className={styles.styleEmoji}>{sample.emoji}</span>
                   {sample.style}
                 </p>
-                <p className={styles.studentQuote}>"{sample.quote}"</p>
-                
+                <p className={styles.studentQuote}>&apos;{sample.quote}&apos;</p>
 
               </div>
             </div>

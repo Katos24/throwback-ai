@@ -15,7 +15,7 @@ export default function SEOYearbook() {
       <meta property="og:title" content="90s Yearbook Photo AI | Throwback AI" />
       <meta property="og:description" content="Transform your photos into authentic 90s yearbook portraits with AI. Multiple styles and characters for the ultimate retro look." />
       <meta property="og:url" content="https://throwbackai.app/replicate/yearbook" />
-      <meta property="og:image" content="https://throwbackai.app/images/yearbook-og.jpg" />
+      <meta property="og:image" content="https://throwbackai.app/images/yearbook-card.jpg" />
       <meta property="og:image:alt" content="AI-generated 90s yearbook photo example by Throwback AI" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@ export default function SEOYearbook() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="90s Yearbook Photo AI | Throwback AI" />
       <meta name="twitter:description" content="Transform your photos into authentic 90s yearbook portraits with AI. Multiple styles and characters for the ultimate retro look." />
-      <meta name="twitter:image" content="https://throwbackai.app/images/yearbook-og.jpg" />
+      <meta name="twitter:image" content="https://throwbackai.app/images/yearbook-card.jpg" />
 
       {/* Theme color */}
       <meta name="theme-color" content="#111827" />
@@ -39,7 +39,7 @@ export default function SEOYearbook() {
             "name": "90s Yearbook Photo AI | Throwback AI",
             "url": "https://throwbackai.app/replicate/yearbook",
             "description": "Transform your photos into authentic 90s yearbook portraits with AI. Choose from multiple styles and characters for the ultimate retro look.",
-            "image": "https://throwbackai.app/images/yearbook-og.jpg",
+            "image": "https://throwbackai.app/images/yearbook-card.jpg",
             "publisher": {
               "@type": "Organization",
               "name": "Throwback AI",

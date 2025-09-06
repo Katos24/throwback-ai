@@ -15,7 +15,7 @@ export default function SEOCartoon() {
       <meta property="og:title" content="AI Cartoon Photo Generator | Throwback AI" />
       <meta property="og:description" content="Transform your photos into stunning cartoon-style artwork with AI. Multiple cartoon styles and creative options for unique results." />
       <meta property="og:url" content="https://throwbackai.app/replicate/cartoon" />
-      <meta property="og:image" content="https://throwbackai.app/images/cartoon-og.jpg" />
+      <meta property="og:image" content="https://throwbackai.app/images/cartoon-card.png" />
       <meta property="og:image:alt" content="AI-generated cartoon photo example by Throwback AI" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@ export default function SEOCartoon() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="AI Cartoon Photo Generator | Throwback AI" />
       <meta name="twitter:description" content="Transform your photos into stunning cartoon-style artwork with AI. Multiple cartoon styles and creative options for unique results." />
-      <meta name="twitter:image" content="https://throwbackai.app/images/cartoon-og.jpg" />
+      <meta name="twitter:image" content="https://throwbackai.app/images/cartoon-card.png" />
 
       {/* Theme color */}
       <meta name="theme-color" content="#111827" />
@@ -39,7 +39,7 @@ export default function SEOCartoon() {
             "name": "AI Cartoon Photo Generator | Throwback AI",
             "url": "https://throwbackai.app/replicate/cartoon",
             "description": "Transform your photos into stunning cartoon-style artwork with AI. Choose from multiple cartoon styles and creative options for unique results.",
-            "image": "https://throwbackai.app/images/cartoon-og.jpg",
+            "image": "https://throwbackai.app/images/cartoon-card.png",
             "publisher": {
               "@type": "Organization",
               "name": "Throwback AI",

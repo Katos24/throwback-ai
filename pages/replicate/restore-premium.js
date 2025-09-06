@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import ImageCompareSlider from "../../components/ImageCompareSlider";
 import ProgressBar from "../../components/Restores/ProgressBar";
-import styles from "../../styles/ModernRestore.module.css"; // Use same styles as basic
+import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import CreditsInfo from "../../components/Restores/CreditsInfo";
 
 export default function RestorePremium() {
-  // State management - same as basic but with premium cost
+  const router = useRouter();
+  
+  // State management
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedPreviewUrl, setSelectedPreviewUrl] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
@@ -59,7 +62,7 @@ export default function RestorePremium() {
     }
   }, [restoredUrl]);
 
-  // Drag and drop handlers - same as basic
+  // Drag and drop handlers
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -150,8 +153,8 @@ export default function RestorePremium() {
     }
   };
 
-  // Premium restore function
-  const handleRestore = async () => {
+  // Updated function to handle button clicks based on user state (matching yearbook logic)
+  const handleGenerateOrRedirect = () => {
     if (!selectedFile) {
       toast.error('Please upload an image first', {
         icon: '📤',
@@ -159,31 +162,39 @@ export default function RestorePremium() {
       });
       return;
     }
-    
     if (!isLoggedIn) {
-      toast.error('Sign up required for premium restoration', {
-        icon: '🔒',
-        duration: 4000,
-        action: {
-          label: 'Sign Up',
-          onClick: () => window.location.href = "/signup"
-        }
-      });
+      router.push('/signup');
       return;
     }
-    
     if (credits < restoreCost) {
-      toast.error(`You need ${restoreCost} credits for premium restoration`, {
-        icon: '💎',
-        duration: 4000,
-        action: {
-          label: 'Get Credits',
-          onClick: () => window.location.href = "/pricing"
-        }
-      });
+      router.push('/pricing');
       return;
     }
-    
+    handleRestore();
+  };
+
+  // Helper functions for button text and emoji (matching yearbook logic)
+  const getButtonText = () => {
+    if (loading || processing) {
+      if (processing) return "Optimizing image...";
+      return "Premium restoring...";
+    }
+    if (!selectedFile) return "Upload a Photo First";
+    if (!isLoggedIn) return "Sign Up to Restore";
+    if (credits < restoreCost) return "Get More Credits";
+    return "Premium Restore";
+  };
+
+  const getButtonEmoji = () => {
+    if (loading || processing) return null;
+    if (!selectedFile) return "📷";
+    if (!isLoggedIn) return "🔒";
+    if (credits < restoreCost) return "💎";
+    return "🌈";
+  };
+
+  // Premium restore function (simplified since logic moved to handleGenerateOrRedirect)
+  const handleRestore = async () => {
     setLoading(true);
     setProgressStatus("uploading");
     setProgressPercent(0);
@@ -330,7 +341,7 @@ export default function RestorePremium() {
     } catch (downloadError) {
       console.error('Download failed:', downloadError);
       toast.error('Download failed. Please try again.', {
-        id: downloadToast,
+        id: downloadError,
         icon: '❌',
         duration: 4000,
       });
@@ -354,6 +365,9 @@ export default function RestorePremium() {
       duration: 2000,
     });
   };
+
+  // Check if all conditions are met for completion
+  const isComplete = selectedFile && isLoggedIn && credits >= restoreCost;
 
   // SEO values
   const siteUrl = 'https://throwbackai.app';
@@ -442,7 +456,7 @@ export default function RestorePremium() {
                 <span className={styles.creditsText}>{credits} credits</span>
               </div>
               <button 
-                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
                 className={styles.compactCreditsButton}
               >
                 {isLoggedIn ? "+" : "Sign Up"}
@@ -461,11 +475,12 @@ export default function RestorePremium() {
             <p className={styles.description}>
               Transform black & white photos into stunning color masterpieces with our premium AI technology. 
               Advanced colorization and enhancement for extraordinary results.
-              <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>Costs 40 credits</span>
+              <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>Costs {restoreCost} credits</span>
+            </p>
+            <p className={styles.signupBonus}>
+              Sign up today and get <strong>5 free credits</strong> to start your premium restoration!
             </p>
           </div>
-
-          
 
           {/* Main Content Grid */}
           <div className={styles.mainGrid}>
@@ -532,31 +547,23 @@ export default function RestorePremium() {
                   )}
                 </div>
 
-                {/* Action Buttons */}
+                {/* Action Buttons - Updated with yearbook-style logic */}
                 <div className={styles.buttonRow}>
                   <button
-                    onClick={handleRestore}
-                    disabled={!selectedFile || loading || processing || !isLoggedIn || credits < restoreCost}
-                    className={styles.primaryButton}
+                    onClick={handleGenerateOrRedirect}
+                    disabled={loading || processing}
+                    className={`${styles.primaryButton} ${isComplete ? styles.ready : ''}`}
                     style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
                   >
                     {loading || processing ? (
                       <>
                         <div className={styles.loadingSpinner}></div>
-                        {processing ? 'Optimizing...' : 'Premium Restoring...'}
-                      </>
-                    ) : !isLoggedIn ? (
-                      <>
-                        🔒 Sign Up for Premium
-                      </>
-                    ) : credits < restoreCost ? (
-                      <>
-                        💎 Get More Credits
+                        {getButtonText()}
                       </>
                     ) : (
                       <>
-                        <span>🌈</span>
-                        Premium Restore
+                        {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                        {getButtonText()}
                       </>
                     )}
                   </button>
@@ -600,17 +607,6 @@ export default function RestorePremium() {
                     <span>✨</span>
                     Premium Results
                   </h2>
-                  
-                  {restoredUrl && (
-                    <button
-                      onClick={handleDownload}
-                      className={styles.downloadButton}
-                      style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
-                    >
-                      <span>⬇️</span>
-                      Download
-                    </button>
-                  )}
                 </div>
 
                 {restoredUrl && selectedPreviewUrl ? (
@@ -623,6 +619,18 @@ export default function RestorePremium() {
                           afterImage={restoredUrl}
                         />
                       </div>
+                    </div>
+
+                    {/* Download button below image */}
+                    <div className={styles.downloadSection}>
+                      <button
+                        onClick={handleDownload}
+                        className={styles.downloadButton}
+                        style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
+                      >
+                        <span>⬇️</span>
+                        Download
+                      </button>
                     </div>
 
                     <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>

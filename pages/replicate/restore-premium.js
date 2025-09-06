@@ -477,9 +477,6 @@ export default function RestorePremium() {
               Advanced colorization and enhancement for extraordinary results.
               <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>Costs {restoreCost} credits</span>
             </p>
-            <p className={styles.signupBonus}>
-              Sign up today and get <strong>5 free credits</strong> to start your premium restoration!
-            </p>
           </div>
 
           {/* Main Content Grid */}

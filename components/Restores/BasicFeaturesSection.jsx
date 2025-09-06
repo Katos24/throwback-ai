@@ -120,7 +120,7 @@ export default function BasicFeaturesSection() {
       </div>
 
       <div className={styles.poweredBy}>
-        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
+        ⚡ Powered by Throwback AI 
       </div>
     </>
   );

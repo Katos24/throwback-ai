@@ -287,7 +287,7 @@ export default function RestoreBasicTest() {
       </div>
 
       <div className={AiStyles.poweredBy}>
-        ⚡ Powered by Throwback AI | Built with ❤️ by Anastasis
+        ⚡ Powered by Throwback AI
       </div>
     </main>
   );

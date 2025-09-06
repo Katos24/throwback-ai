@@ -259,8 +259,8 @@ export default function SignupPage() {
   return (
     <>
       <Head>
-        <title>Sign Up - ANASTASIS</title>
-        <meta name="description" content="Join ANASTASIS and start restoring your precious memories with AI technology" />
+        <title>Sign Up - Throwback AI</title>
+        <meta name="description" content="Join Throwback AI and start restoring your precious memories with AI technology" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -272,7 +272,7 @@ export default function SignupPage() {
               <Link href="/" className={styles.backLink}>
                 ← Back to Home
               </Link>
-              <h1 className={styles.title}>Join ANASTASIS</h1>
+              <h1 className={styles.title}>Join Throwback AI</h1>
               <p className={styles.subtitle}>
                 Create your account and start restoring precious memories with AI
               </p>
@@ -488,7 +488,7 @@ export default function SignupPage() {
             <div className={styles.logo}>
               <div className={styles.logoContainer}>
                 <div className={styles.logoIcon}>🌀</div>
-                <h2>ANASTASIS</h2>
+                <h2>THROWBACK AI</h2>
               </div>
             </div>
             <p className={styles.brandingText}>

@@ -244,8 +244,8 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login - ANASTASIS</title>
-        <meta name="description" content="Sign in to your ANASTASIS account and continue restoring memories" />
+        <title>Login - THROWBACK AI</title>
+        <meta name="description" content="Sign in to your Throwback AI account and continue restoring memories" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -423,7 +423,7 @@ export default function LoginPage() {
             <div className={styles.logo}>
               <div className={styles.logoContainer}>
                 <div className={styles.logoIcon}>🌀</div>
-                <h2>ANASTASIS</h2>
+                <h2>THROWBACK AI</h2>
               </div>
             </div>
             <p className={styles.brandingText}>

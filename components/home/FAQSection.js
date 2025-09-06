@@ -4,9 +4,9 @@ import faqStyles from '../../styles/FAQ.module.css';
 const FAQSection = () => {
   const faqs = [
     {
-      question: "What makes Anastasis better than apps like Remini or MyHeritage?",
+      question: "What makes Throwback AI better than apps like Remini or MyHeritage?",
       answer:
-        "We don't use generic models or push subscriptions. Anastasis is tailored for historic, sentimental photos and built by people who care about family legacy.",
+        "We don't use generic models or push subscriptions. Throwback AI is tailored for historic, sentimental photos and built by people who care about family legacy.",
     },
     {
       question: "Is it really free to try?",

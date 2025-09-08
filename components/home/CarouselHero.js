@@ -98,13 +98,13 @@ export default function HeroSection() {
                   <Image
                     src={item.image}
                     alt={item.category}
-                    width={400}
-                    height={250}
+                    width={196}  // Match actual display size
+                    height={245} // Match actual display size
                     className={styles.img}
-                    priority={item.id === "restore-1"} // first card loads immediately
-                    sizes="(max-width: 768px) 100vw,
-                           (max-width: 1200px) 50vw,
-                           33vw"
+                    priority={item.id === "restore-1"}
+                    sizes="(max-width: 768px) 280px,
+                          (max-width: 1200px) 320px,
+                          196px"
                   />
                   <span className={styles.overlayButton}>
                     {item.buttonText}

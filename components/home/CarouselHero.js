@@ -98,13 +98,13 @@ export default function HeroSection() {
                   <Image
                     src={item.image}
                     alt={item.category}
-                    width={196}  // Match actual display size
-                    height={245} // Match actual display size
+                    width={196}
+                    height={245}
                     className={styles.img}
                     priority={item.id === "restore-1"}
-                    sizes="(max-width: 768px) 280px,
+                    sizes="(max-width: 640px) 180px,
                           (max-width: 1200px) 320px,
-                          196px"
+                          350px"
                   />
                   <span className={styles.overlayButton}>
                     {item.buttonText}

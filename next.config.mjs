@@ -4,10 +4,13 @@ const nextConfig = {
   images: {
     domains: ['replicate.delivery'],
   },
+  
+  // Target modern browsers
+  transpilePackages: [],
+  
   async headers() {
     return [
       {
-        // Disable caching for Next.js CSS files so you won't see stale styles
         source: '/_next/static/css/:file*',
         headers: [
           {

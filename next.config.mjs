@@ -5,8 +5,10 @@ const nextConfig = {
     domains: ['replicate.delivery'],
   },
   
-  // Target modern browsers
-  transpilePackages: [],
+  // Force modern target
+  experimental: {
+    forceSwcTransforms: true,
+  },
   
   async headers() {
     return [

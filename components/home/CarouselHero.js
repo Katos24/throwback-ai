@@ -102,9 +102,8 @@ export default function HeroSection() {
                     height={245}
                     className={styles.img}
                     priority={item.id === "restore-1"}
-                    sizes="(max-width: 640px) 180px,
-                          (max-width: 1200px) 320px,
-                          350px"
+                    fetchPriority={item.id === "restore-1" ? "high" : "low"}
+                    sizes="(max-width: 640px) 150px, 196px"
                   />
                   <span className={styles.overlayButton}>
                     {item.buttonText}

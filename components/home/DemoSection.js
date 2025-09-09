@@ -11,56 +11,76 @@ export default function DemoSection() {
     {
       id: 'restore',
       title: "Photo Restoration",
-      subtitle: "Repair & Enhance",
-      description: "Advanced AI repairs damage, removes scratches, and restores faded photographs",
+      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
+      icon: "✨",
+      buttonText: "Try Restore",
       beforeAfter: {
         before: "/images/basicpage-before.jpg",
         after: "/images/basicpage-after.jpg"
       },
+      link: "/replicate/restore-basic",
+      credits: 1,
+      category: "restore",
       color: "#06b6d4"
     },
     {
       id: 'colorize',
       title: "Historical Colorization",
-      subtitle: "Bring History to Life",
-      description: "Neural networks analyze context to add authentic, period-accurate colors",
+      description: "Add historically accurate, vibrant colors to black and white family photos.",
+      icon: "🎨",
+      buttonText: "Try Colorize",
       beforeAfter: {
         before: "/images/before6.jpg",
         after: "/images/after6.jpg"
       },
+      link: "/replicate/restore-premium",
+      credits: 40,
+      category: "restore",
       color: "#8b5cf6"
     },
     {
       id: 'cartoon',
-      title: "Artistic Transformation",
-      subtitle: "Create Digital Art",
-      description: "Style transfer algorithms convert photos into vibrant cartoon artwork",
+      title: "Cartoon Art",
+      description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
+      icon: "🖼️",
+      buttonText: "Try Cartoon",
       beforeAfter: {
         before: "/images/cartoon-before.jpg",
         after: "/images/cartoon-example.jpg"
       },
+      link: "/replicate/cartoon",
+      credits: 40,
+      category: "create",
       color: "#f59e0b"
     },
     {
       id: 'yearbook',
-      title: "Style Recreation",
-      subtitle: "90s Portrait Magic",
-      description: "Time-specific modeling recreates authentic vintage photography aesthetics",
+      title: "90s Yearbook Style",
+      description: "Get that classic 90s school portrait look with vintage styling.",
+      icon: "📸",
+      buttonText: "Try Yearbook",
       beforeAfter: {
         before: "/images/yearbook-before.jpg",
         after: "/images/yearbook-after.jpg"
       },
+      link: "/replicate/yearbook",
+      credits: 5,
+      category: "create",
       color: "#ef4444"
     },
     {
       id: 'avatar',
-      title: "Professional Enhancement",
-      subtitle: "Perfect Headshots",
-      description: "Multi-stage processing creates polished, professional portrait photography",
+      title: "Professional Avatar",
+      description: "Create polished, professional headshots and avatars.",
+      icon: "👤",
+      buttonText: "Try Avatar",
       beforeAfter: {
         before: "/images/avatar-before.jpg",
         after: "/images/avatar-after.jpg"
       },
+      link: "/replicate/avatar",
+      credits: 50,
+      category: "create",
       color: "#10b981"
     }
   ];
@@ -124,6 +144,13 @@ export default function DemoSection() {
     setActiveDemo(demoId);
   };
 
+  const handleDemoAction = (demo) => {
+    // Navigate to the demo's link
+    window.location.href = demo.link;
+    // Or if using Next.js router:
+    // router.push(demo.link);
+  };
+
   return (
     <section className={demoStyles.demoSection}>
       <div className={demoStyles.container}>
@@ -167,7 +194,10 @@ export default function DemoSection() {
               style={{ '--demo-color': demo.color }}
             >
               <div className={demoStyles.cardHeader}>
-                <div className={demoStyles.cardBadge}>{demo.subtitle}</div>
+                <div className={demoStyles.cardBadge}>
+                  <span className={demoStyles.icon}>{demo.icon}</span>
+                  {demo.credits} credit{demo.credits !== 1 ? 's' : ''}
+                </div>
                 <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
               </div>
               
@@ -215,6 +245,22 @@ export default function DemoSection() {
                       <div className={demoStyles.stepIcon}>3</div>
                       <span>Download</span>
                     </div>
+                  </div>
+
+                  {/* Action Button - Added above Hide Demo */}
+                  <div className={demoStyles.actionButtonWrapper}>
+                    <button 
+                      className={demoStyles.actionButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDemoAction(demo);
+                      }}
+                      style={{ '--demo-color': demo.color }}
+                    >
+                      <span>{demo.buttonText}</span>
+                      <span className={demoStyles.credits}>({demo.credits} credit{demo.credits !== 1 ? 's' : ''})</span>
+                      <div className={demoStyles.arrow}>→</div>
+                    </button>
                   </div>
 
                   <div className={demoStyles.closeButton}>

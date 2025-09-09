@@ -19,7 +19,7 @@ export default function HeroSection() {
     },
     {
       id: "restore-2",
-      image: "/images/photo-colorization-card.jpg",
+      image: "/images/colorizecardgrid.png",
       category: "Colorize B&W Photo",
       link: "replicate/restore-premium",
       description:

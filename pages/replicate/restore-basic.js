@@ -348,7 +348,7 @@ export default function RestoreBasic() {
   // SEO values
   const siteUrl = 'https://throwbackai.app';
   const pageUrl = `${siteUrl}/replicate/restore-basic`;
-  const ogImage = `${siteUrl}/images/greek-after.png`;
+  const ogImage = `${siteUrl}/images/throwback-ai.jpg`;
   const twitterImage = ogImage;
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';

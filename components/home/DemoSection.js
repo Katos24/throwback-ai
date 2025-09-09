@@ -39,21 +39,6 @@ export default function DemoSection() {
       color: "#8b5cf6"
     },
     {
-      id: 'cartoon',
-      title: "Cartoon Art",
-      description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
-      icon: "🖼️",
-      buttonText: "Try Cartoon",
-      beforeAfter: {
-        before: "/images/cartoon-before.jpg",
-        after: "/images/cartoon-example.jpg"
-      },
-      link: "/replicate/cartoon",
-      credits: 40,
-      category: "create",
-      color: "#f59e0b"
-    },
-    {
       id: 'yearbook',
       title: "90s Yearbook Style",
       description: "Get that classic 90s school portrait look with vintage styling.",
@@ -67,6 +52,21 @@ export default function DemoSection() {
       credits: 5,
       category: "create",
       color: "#ef4444"
+    },
+      {
+      id: 'cartoon',
+      title: "Cartoon Art",
+      description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
+      icon: "🖼️",
+      buttonText: "Try Cartoon",
+      beforeAfter: {
+        before: "/images/cartoon-before.jpg",
+        after: "/images/cartoon-example.jpg"
+      },
+      link: "/replicate/cartoon",
+      credits: 40,
+      category: "create",
+      color: "#f59e0b"
     },
     {
       id: 'avatar',

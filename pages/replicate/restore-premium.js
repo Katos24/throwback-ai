@@ -9,6 +9,7 @@ import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import Link from 'next/link';
 import CreditsInfo from "../../components/Restores/CreditsInfo";
 
 export default function RestorePremium() {
@@ -480,12 +481,12 @@ export default function RestorePremium() {
                 Costs {restoreCost} credits
               </span>
               <br />
-              <a 
-                href="/gallery" 
-                className={styles.galleryLink}
-              >
-                See gallery for examples →
-              </a>
+              <Link 
+    href="/gallery" 
+    className={styles.galleryLink}
+  >
+    See gallery for examples →
+  </Link>
             </p>
           </div>
 

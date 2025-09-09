@@ -58,7 +58,7 @@ const restoreItems = [
   },
   {
     before: "/images/basic-before.jpg", 
-    after: "/images/basic-after.jpg",
+    after: "/images/premium-after.jpg",
     category: "Holiday Memories",
     year: "1958",
     description: "Christmas colorization"

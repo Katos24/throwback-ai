@@ -471,11 +471,21 @@ export default function RestorePremium() {
               <span className={styles.subtitle}>Full Color AI Studio</span>
             </div>
 
+            
             {/* Grid Cell: Description (full width below) */}
             <p className={styles.description}>
-              Transform black & white photos into stunning color masterpieces with our premium AI technology. 
+              Transform black & white photos into stunning color masterpieces with our premium AI technology.
               Advanced colorization and enhancement for extraordinary results.
-              <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>Costs {restoreCost} credits</span>
+              <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>
+                Costs {restoreCost} credits
+              </span>
+              <br />
+              <a 
+                href="/gallery" 
+                className={styles.galleryLink}
+              >
+                See gallery for examples →
+              </a>
             </p>
           </div>
 

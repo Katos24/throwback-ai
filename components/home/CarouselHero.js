@@ -16,6 +16,7 @@ export default function HeroSection() {
       credits: 1,
       buttonText: "Restore (Try Free)",
       badgeColor: "success",
+      priority: true, // Mark as priority for faster loading
     },
     {
       id: "restore-2",
@@ -28,6 +29,7 @@ export default function HeroSection() {
       buttonText: "Add Color",
       badge: "Most Popular",
       badgeColor: "premium",
+      priority: true, // Also prioritize this popular one
     },
     {
       id: "yearbook-1",
@@ -84,7 +86,7 @@ export default function HeroSection() {
 
         {/* All Cards in One Grid - No Tabs */}
         <div className={styles.grid}>
-          {items.map((item) => (
+          {items.map((item, index) => (
             <div key={item.id} className={styles.card}>
               <Link href={item.link} className={styles.cardLink}>
                 <div className={styles.imgWrap}>
@@ -101,9 +103,13 @@ export default function HeroSection() {
                     width={196}
                     height={245}
                     className={styles.img}
-                    priority={item.id === "restore-1"}
-                    fetchPriority={item.id === "restore-1" ? "high" : "low"}
-                    sizes="(max-width: 640px) 150px, 196px"
+                    priority={item.priority || false}
+                    loading={item.priority ? "eager" : "lazy"}
+                    fetchPriority={item.priority ? "high" : "low"}
+                    sizes="(max-width: 480px) 140px, (max-width: 768px) 160px, (max-width: 1024px) 180px, 196px"
+                    quality={85}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                   />
                   <span className={styles.overlayButton}>
                     {item.buttonText}
@@ -123,8 +129,6 @@ export default function HeroSection() {
             </div>
           ))}
         </div>
-
-   
 
         <div className={styles.trustBar}>
           <div className={styles.trustItem}>

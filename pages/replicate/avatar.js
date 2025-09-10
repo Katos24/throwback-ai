@@ -151,12 +151,18 @@ export default function AiAvatarsRedesigned() {
       icon: '🎭',
     });
 
-    const headers = { "Content-Type": "application/json" };
-    if (session?.access_token) {
-      headers.Authorization = `Bearer ${session.access_token}`;
-    }
-
     try {
+      // Get fresh session to avoid expired token
+      const { data: { session: freshSession } } = await supabase.auth.getSession();
+      if (!freshSession) {
+        throw new Error("Please log in again to continue");
+      }
+
+      const headers = { "Content-Type": "application/json" };
+      if (freshSession?.access_token) {
+        headers.Authorization = `Bearer ${freshSession.access_token}`;
+      }
+
       const compressedFile = await imageCompression(photo, {
         maxSizeMB: 1.0,
         maxWidthOrHeight: 1024,
@@ -468,6 +474,7 @@ export default function AiAvatarsRedesigned() {
                 <div className={styles.sectionContent}>
                   <div className={styles.categoryGrid}>
                     {[
+                      { value: "nineties", label: "90s Vibes", emoji: "📼" },
                       { value: "portrait", label: "Portrait", emoji: "📸" },
                       { value: "fantasy", label: "Fantasy", emoji: "🧙" },
                       { value: "scifi", label: "Sci-Fi", emoji: "🚀" },

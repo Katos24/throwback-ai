@@ -1,0 +1,500 @@
+/* Windows XP Style Desktop CSS */
+
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Tahoma', 'Segoe UI', sans-serif;
+  font-size: 11px;
+  user-select: none;
+  cursor: default;
+}
+
+/* Desktop Background */
+.desktopBackground {
+  width: 100%;
+  height: calc(100vh - 40px);
+  background: linear-gradient(135deg, #3a6ea5 0%, #004e98 100%);
+  background-image: 
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+.iconsContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Desktop Icons */
+.desktopIcon {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.1s;
+}
+
+.desktopIcon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.desktopIcon:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.iconImage {
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  border: 1px solid #999;
+  border-radius: 2px;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 4px;
+}
+
+.iconLabel {
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  line-height: 12px;
+  max-width: 70px;
+  word-wrap: break-word;
+}
+
+/* Welcome Window */
+.welcomeWindow {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  background: linear-gradient(180deg, #ece9d8 0%, #ece9d8 100%);
+  border: 1px solid #0054e3;
+  box-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 8px 8px 0 0;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.windowTitleBar {
+  background: linear-gradient(180deg, #0054e3 0%, #0040a3 100%);
+  color: white;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0;
+}
+
+.windowTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.windowIcon {
+  font-size: 16px;
+}
+
+.windowControls {
+  display: flex;
+  gap: 2px;
+}
+
+.minimizeBtn,
+.maximizeBtn,
+.closeBtn {
+  width: 21px;
+  height: 21px;
+  border: 1px solid #999;
+  background: linear-gradient(180deg, #ddd 0%, #bbb 100%);
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimizeBtn:hover,
+.maximizeBtn:hover {
+  background: linear-gradient(180deg, #e5e5e5 0%, #c5c5c5 100%);
+}
+
+.closeBtn:hover {
+  background: linear-gradient(180deg, #ff6b6b 0%, #e53e3e 100%);
+  color: white;
+}
+
+.windowContent {
+  padding: 16px;
+  background: #ece9d8;
+  color: #000;
+  line-height: 1.4;
+}
+
+.windowContent h2 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #0054e3;
+}
+
+.windowContent p {
+  margin: 0 0 12px 0;
+  font-size: 11px;
+}
+
+.windowContent ul {
+  margin: 0 0 16px 20px;
+  font-size: 11px;
+}
+
+.windowContent li {
+  margin-bottom: 4px;
+}
+
+.windowActions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.retryBtn,
+.exitBtn {
+  padding: 6px 16px;
+  font-size: 11px;
+  border: 1px solid #999;
+  background: linear-gradient(180deg, #ece9d8 0%, #d4d0c8 100%);
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.retryBtn:hover,
+.exitBtn:hover {
+  background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+.retryBtn:active,
+.exitBtn:active {
+  background: linear-gradient(180deg, #d0d0d0 0%, #c0c0c0 100%);
+  border: 1px solid #666;
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, #245edb 0%, #1941a5 50%, #1635a2 100%);
+  border-top: 1px solid #4a90e2;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  z-index: 1000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.startButton {
+  height: 32px;
+  padding: 0 16px;
+  background: linear-gradient(180deg, #73b555 0%, #5a9041 100%);
+  border: 1px outset #5a9041;
+  border-radius: 6px;
+  color: white;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+}
+
+.startButton:hover {
+  background: linear-gradient(180deg, #7bc75f 0%, #62984a 100%);
+}
+
+.startButtonActive {
+  background: linear-gradient(180deg, #5a9041 0%, #73b555 100%);
+  border: 1px inset #5a9041;
+}
+
+.startIcon {
+  font-size: 16px;
+}
+
+.taskbarCenter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.quickLaunch {
+  display: flex;
+  gap: 4px;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  margin-right: 8px;
+}
+
+.quickLaunchIcon {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.quickLaunchIcon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.systemTray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.systemTime {
+  color: white;
+  font-size: 10px;
+  text-align: center;
+  line-height: 11px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.systemTime:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Start Menu */
+.startMenu {
+  position: fixed;
+  bottom: 40px;
+  left: 4px;
+  width: 300px;
+  background: linear-gradient(180deg, #ece9d8 0%, #ece9d8 100%);
+  border: 1px solid #0054e3;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 2px -2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.startMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  z-index: 999;
+}
+
+.startMenuHeader {
+  background: linear-gradient(135deg, #0054e3 0%, #0040a3 100%);
+  color: white;
+  padding: 12px;
+  border-radius: 8px 8px 0 0;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #0054e3;
+}
+
+.userName {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.startMenuItems {
+  padding: 8px 0;
+}
+
+.startMenuItem {
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #000;
+}
+
+.startMenuItem:hover {
+  background: linear-gradient(90deg, #3584e4 0%, #2563eb 100%);
+  color: white;
+}
+
+.startMenuIcon {
+  width: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.startMenuFooter {
+  border-top: 1px solid #ccc;
+  padding: 8px;
+}
+
+.powerButton {
+  width: 100%;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #ece9d8 0%, #d4d0c8 100%);
+  border: 1px solid #999;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.powerButton:hover {
+  background: linear-gradient(180deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .desktop {
+    font-size: 10px;
+  }
+  
+  .welcomeWindow {
+    width: 90%;
+    max-width: 400px;
+    top: 50px;
+  }
+  
+  .windowContent {
+    padding: 12px;
+  }
+  
+  .windowContent h2 {
+    font-size: 12px;
+  }
+  
+  .desktopIcon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .iconImage {
+    width: 28px;
+    height: 28px;
+    font-size: 24px;
+  }
+  
+  .iconLabel {
+    font-size: 10px;
+    max-width: 60px;
+  }
+  
+  .startMenu {
+    width: 250px;
+  }
+  
+  .taskbar {
+    height: 35px;
+  }
+  
+  .startButton {
+    height: 28px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+  
+  .quickLaunchIcon {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+  
+  .systemTime {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcomeWindow {
+    width: 95%;
+    top: 30px;
+  }
+  
+  .desktopIcon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .iconImage {
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
+  }
+  
+  .iconsContainer .desktopIcon {
+    position: static !important;
+    display: inline-flex;
+    margin: 8px;
+  }
+  
+  .iconsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+}

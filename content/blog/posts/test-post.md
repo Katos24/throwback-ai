@@ -4,7 +4,7 @@ excerpt: "Learn how AI technology is revolutionizing photo restoration, from bas
 date: "2025-01-15"
 author: "Alex"
 authorBio: "Professional photo restoration expert with 10+ years of experience in digital imaging and AI enhancement technologies."
-authorImage: "/images/author-alex.jpg"
+authorImage: "/images/avatar-after2.jpg"
 category: "restoration-guides"
 categoryName: "Restoration Guides"
 featuredImage: "/images/restore-preview.jpg"

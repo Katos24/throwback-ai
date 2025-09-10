@@ -38,8 +38,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4>Company</h4>
+            <h4>Resources</h4>
             <ul>
+               <li>
+                <Link href="/blog">Blog</Link>
+              </li>
               <li>
                 <Link href="/how-it-works">How it Works</Link>
               </li>

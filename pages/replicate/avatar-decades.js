@@ -6,7 +6,7 @@ import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
-import styles from "../../styles/AvatarPage.module.css";
+import styles from "../../styles/AvatarPageNew.module.css";
 import AVATAR_STYLES from "../../components/AvatarStyles";
 import SEOAvatar from "../../components/SEO/SEOAvatar";
 

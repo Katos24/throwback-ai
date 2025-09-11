@@ -26,7 +26,7 @@ export default function Home() {
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 
-  // Intersection Observers - Updated for DemoSection
+  // Intersection Observers
   const [carouselHeroRef, carouselHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -137,6 +137,8 @@ export default function Home() {
         <div ref={carouselHeroRef}>
           {carouselHeroInView && <Suspense fallback={<Loader />}><CarouselHero /></Suspense>}
         </div>
+
+      
 
         {/* Modern AI Demo Section */}
         <div ref={demoSectionRef}>

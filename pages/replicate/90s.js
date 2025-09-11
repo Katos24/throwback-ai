@@ -8,18 +8,7 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/NinetiesPage.module.css";
-
-// 90s specific styles
-const NINETIES_STYLES = [
-  { value: "90s grunge yearbook photo", label: "Grunge Style" },
-  { value: "90s hip hop yearbook photo", label: "Hip Hop Vibe" },
-  { value: "90s preppy yearbook photo", label: "Preppy Look" },
-  { value: "90s alternative rock yearbook photo", label: "Alternative Rock" },
-  { value: "90s rave culture yearbook photo", label: "Rave Culture" },
-  { value: "90s skater yearbook photo", label: "Skater Style" },
-  { value: "90s minimalist yearbook photo", label: "Minimalist 90s" },
-  { value: "90s punk yearbook photo", label: "90s Punk" }
-];
+import { NINETIES_STYLES, buildNinetiesPrompt } from "../../components/NinetiesPrompts";
 
 export default function NinetiesPage() {
   const router = useRouter();
@@ -195,7 +184,13 @@ export default function NinetiesPage() {
       setProgress(50);
       setProgressStage("Sending to the 90s AI...");
 
-      const prompt = `${userGender} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure, authentic 1990s photography style`;
+      // Use the enhanced prompt builder from the component
+      const prompt = buildNinetiesPrompt({
+        gender: userGender,
+        styleId: selectedStyle,
+        preserveFacialFeatures: true,
+        intensity: styleStrength > 25 ? 'strong' : styleStrength < 15 ? 'subtle' : 'medium'
+      });
 
       const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
@@ -386,7 +381,7 @@ export default function NinetiesPage() {
                     >
                       <div className={styles.uploadPrompt}>
                         <div className={styles.uploadIcon}>📷</div>
-                        <h4>Drop your photo here</h4>
+                        <h2>Drop your photo here</h2>
                         <p>Drag & drop or click to select</p>
                         <small>Best results with clear face photos<br/>PNG, JPG, HEIC up to 10MB</small>
                       </div>
@@ -489,7 +484,7 @@ export default function NinetiesPage() {
                   <span className={styles.sectionIcon}>✨</span>
                   <span className={styles.sectionTitle}>Choose 90s Style</span>
                   <span className={styles.sectionValue}>
-                    {selectedStyle ? NINETIES_STYLES.find(s => s.value === selectedStyle)?.label || 'Selected' : 'Select'}
+                    {selectedStyle ? NINETIES_STYLES.find(s => s.id === selectedStyle)?.label || 'Selected' : 'Select'}
                   </span>
                   <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
                 </button>
@@ -499,22 +494,16 @@ export default function NinetiesPage() {
                     <div className={styles.styleGrid}>
                       {NINETIES_STYLES.map((style) => (
                         <button
-                          key={style.value}
-                          className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
+                          key={style.id}
+                          className={`${styles.styleButton} ${selectedStyle === style.id ? styles.selected : ''}`}
                           onClick={() => {
-                            setSelectedStyle(style.value);
+                            setSelectedStyle(style.id);
                             setExpandedSections(prev => ({ ...prev, strength: true }));
                           }}
+                          title={style.description}
                         >
                           <span className={styles.styleEmoji}>
-                            {style.label.includes('Grunge') ? '🎸' :
-                             style.label.includes('Hip Hop') ? '🎤' :
-                             style.label.includes('Preppy') ? '👔' :
-                             style.label.includes('Alternative') ? '🎵' :
-                             style.label.includes('Rave') ? '💿' :
-                             style.label.includes('Skater') ? '🛹' :
-                             style.label.includes('Minimalist') ? '⚪' :
-                             style.label.includes('Punk') ? '🤘' : '📼'}
+                            {style.emoji}
                           </span>
                           {style.label}
                         </button>

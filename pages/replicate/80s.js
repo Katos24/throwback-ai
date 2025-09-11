@@ -8,18 +8,7 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/EightiesPage.module.css";
-
-// 80s specific styles
-const EIGHTIES_STYLES = [
-  { value: "80s new wave yearbook photo", label: "New Wave" },
-  { value: "80s rock yearbook photo", label: "Rock & Metal" },
-  { value: "80s pop yearbook photo", label: "Pop Culture" },
-  { value: "80s preppy yearbook photo", label: "Preppy Style" },
-  { value: "80s punk yearbook photo", label: "Punk Rock" },
-  { value: "80s valley girl yearbook photo", label: "Valley Girl" },
-  { value: "80s business yearbook photo", label: "Corporate" },
-  { value: "80s neon yearbook photo", label: "Neon Aesthetic" }
-];
+import { EIGHTIES_STYLES, buildEightiesPrompt } from "../../components/EightiesPrompts";
 
 export default function EightiesPage() {
   const router = useRouter();
@@ -195,7 +184,13 @@ export default function EightiesPage() {
       setProgress(50);
       setProgressStage("Sending to the 80s AI...");
 
-      const prompt = `${userGender} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure, authentic 1980s photography style`;
+      // Use the enhanced prompt builder from the component
+      const prompt = buildEightiesPrompt({
+        gender: userGender,
+        styleId: selectedStyle,
+        preserveFacialFeatures: true,
+        intensity: styleStrength > 25 ? 'strong' : styleStrength < 15 ? 'subtle' : 'medium'
+      });
 
       const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
@@ -482,7 +477,7 @@ export default function EightiesPage() {
                   <span className={styles.sectionIcon}>⚡</span>
                   <span className={styles.sectionTitle}>Choose 80s Style</span>
                   <span className={styles.sectionValue}>
-                    {selectedStyle ? EIGHTIES_STYLES.find(s => s.value === selectedStyle)?.label || 'Selected' : 'Select'}
+                    {selectedStyle ? EIGHTIES_STYLES.find(s => s.id === selectedStyle)?.label || 'Selected' : 'Select'}
                   </span>
                   <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
                 </button>
@@ -492,22 +487,16 @@ export default function EightiesPage() {
                     <div className={styles.styleGrid}>
                       {EIGHTIES_STYLES.map((style) => (
                         <button
-                          key={style.value}
-                          className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
+                          key={style.id}
+                          className={`${styles.styleButton} ${selectedStyle === style.id ? styles.selected : ''}`}
                           onClick={() => {
-                            setSelectedStyle(style.value);
+                            setSelectedStyle(style.id);
                             setExpandedSections(prev => ({ ...prev, strength: true }));
                           }}
+                          title={style.description}
                         >
                           <span className={styles.styleEmoji}>
-                            {style.label.includes('New Wave') ? '🎹' :
-                             style.label.includes('Rock') ? '🎸' :
-                             style.label.includes('Pop') ? '🎤' :
-                             style.label.includes('Preppy') ? '👔' :
-                             style.label.includes('Punk') ? '🤘' :
-                             style.label.includes('Valley') ? '💅' :
-                             style.label.includes('Corporate') ? '💼' :
-                             style.label.includes('Neon') ? '⚡' : '📻'}
+                            {style.emoji}
                           </span>
                           {style.label}
                         </button>

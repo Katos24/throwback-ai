@@ -1,9 +1,8 @@
-// pages/index.js (or pages/throwback.js)
-import { useState } from 'react';
-import styles from '../styles/ThrowbackLanding.module.css';
+import { useRouter } from 'next/router';
+import styles from '../styles/DecadesLanding.module.css';
 
 export default function ThrowbackPage() {
-  const [selectedDecade, setSelectedDecade] = useState(null);
+  const router = useRouter();
 
   const decades = [
     {
@@ -48,11 +47,8 @@ export default function ThrowbackPage() {
     }
   ];
 
-  const handleDecadeSelect = (decade) => {
-    setSelectedDecade(decade);
-    // Add your navigation logic here
-    // For example: router.push(`/chat/${decade.id}`);
-    console.log('Selected decade:', decade);
+  const handleDecadeClick = (decadeId) => {
+    router.push(`/replicate/${decadeId}`);
   };
 
   return (
@@ -78,11 +74,9 @@ export default function ThrowbackPage() {
           {decades.map((decade, index) => (
             <div
               key={decade.id}
-              className={`${styles.decadeCard} ${styles[decade.className]} ${
-                selectedDecade?.id === decade.id ? styles.selected : ''
-              }`}
-              onClick={() => handleDecadeSelect(decade)}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`${styles.decadeCard} ${styles[decade.className]}`}
+              onClick={() => handleDecadeClick(decade.id)}
+              style={{ animationDelay: `${index * 0.1}s`, cursor: 'pointer' }}
             >
               <div className={styles.cardContent}>
                 <div className={styles.decadeEmoji}>{decade.emoji}</div>
@@ -95,14 +89,6 @@ export default function ThrowbackPage() {
             </div>
           ))}
         </div>
-
-        {/* Action button */}
-        {selectedDecade && (
-          <button className={styles.continueBtn}>
-            Travel to the {selectedDecade.title}
-            <span className={styles.btnArrow}>→</span>
-          </button>
-        )}
       </div>
     </div>
   );

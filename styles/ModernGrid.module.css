@@ -1,0 +1,752 @@
+/* ==========================================================================
+   Modern Grid Section - Inspired by Modern Design
+   ========================================================================== */
+
+.gridSection {
+  padding: 80px 16px;
+  background: #111827;
+  min-height: 100vh;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Header Section
+   ========================================================================== */
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.headerContent h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.headerContent p {
+  font-size: 1.25rem;
+  color: #9ca3af;
+  max-width: 32rem;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: none;
+  padding: 12px 24px;
+  background: white;
+  color: #111827;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Grid Layout
+   ========================================================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.featureCard {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: inherit;
+  height: 320px;
+}
+
+.featureCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.cardContent {
+  position: relative;
+  height: 100%;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   Background Gradients
+   ========================================================================== */
+
+.gradient1 {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #f97316 100%);
+}
+
+.gradient2 {
+  background: linear-gradient(135deg, #374151 0%, #4b5563 50%, #2563eb 100%);
+}
+
+.gradient3 {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+}
+
+.gradient4 {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+}
+
+.gradient5 {
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 50%, #ec4899 100%);
+}
+
+.gradient6 {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #ef4444 100%);
+}
+
+/* ==========================================================================
+   Background Patterns
+   ========================================================================== */
+
+.pattern1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern3::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern4::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern5::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+.pattern6::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   Illustrations
+   ========================================================================== */
+
+.illustration {
+  position: relative;
+  height: 160px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustrationElement {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featureCard:hover .illustrationElement {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Photo Restoration Illustration */
+.photoRestore {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oldPhoto {
+  width: 96px;
+  height: 128px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 8px;
+  transform: rotate(12deg);
+  opacity: 0.8;
+}
+
+.newPhoto {
+  width: 96px;
+  height: 128px;
+  background: linear-gradient(135deg, #ffffff, #f3f4f6);
+  border-radius: 8px;
+  transform: rotate(-6deg);
+  margin-left: -64px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Colorization Illustration */
+.colorize {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bwPhoto {
+  width: 80px;
+  height: 112px;
+  background: linear-gradient(180deg, #9ca3af, #4b5563);
+  border-radius: 8px;
+}
+
+.colorDot1 {
+  width: 24px;
+  height: 24px;
+  background: #ef4444;
+  border-radius: 50%;
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.colorDot2 {
+  width: 16px;
+  height: 16px;
+  background: #3b82f6;
+  border-radius: 50%;
+  position: absolute;
+  top: 80px;
+  right: 48px;
+}
+
+.colorDot3 {
+  width: 12px;
+  height: 12px;
+  background: #eab308;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 64px;
+  left: 48px;
+}
+
+/* Cartoon Illustration */
+.cartoon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartoonFace {
+  width: 64px;
+  height: 80px;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  border-radius: 50%;
+}
+
+.cartoonEye1, .cartoonEye2 {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 48px;
+}
+
+.cartoonEye1 {
+  left: 50%;
+  transform: translateX(-8px);
+}
+
+.cartoonEye2 {
+  left: 50%;
+  transform: translateX(8px);
+}
+
+.cartoonMouth {
+  width: 32px;
+  height: 8px;
+  background: white;
+  border-radius: 9999px;
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-16px);
+}
+
+/* 60s Style Illustration */
+.sixties {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sixtiesCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
+}
+
+.sixtiesFlower {
+  width: 16px;
+  height: 32px;
+  background: linear-gradient(180deg, #fbbf24, #f97316);
+  border-radius: 9999px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 32px;
+  left: 48px;
+}
+
+.sixtiesDot {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}
+
+/* 80s Style Illustration */
+.eighties {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eightiesMain {
+  width: 96px;
+  height: 64px;
+  background: linear-gradient(90deg, #06b6d4, #ec4899, #eab308);
+  border-radius: 8px;
+  transform: rotate(12deg);
+}
+
+.eightiesLine1 {
+  width: 8px;
+  height: 48px;
+  background: linear-gradient(180deg, #ec4899, #8b5cf6);
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 32px;
+  left: 32px;
+}
+
+.eightiesLine2 {
+  width: 32px;
+  height: 8px;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  position: absolute;
+  bottom: 40px;
+  right: 32px;
+}
+
+/* Professional Headshot Illustration */
+.headshot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suit {
+  width: 64px;
+  height: 80px;
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  border-radius: 50% 50% 0 0;
+}
+
+.face {
+  width: 48px;
+  height: 64px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 50%;
+  position: absolute;
+  top: 32px;
+}
+
+.tie {
+  width: 24px;
+  height: 32px;
+  background: linear-gradient(135deg, #ffffff, #f3f4f6);
+  border-radius: 0 0 50% 50%;
+  position: absolute;
+  bottom: 24px;
+}
+
+/* ==========================================================================
+   Card Content
+   ========================================================================== */
+
+.cardInfo {
+  position: relative;
+  z-index: 10;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cardIcon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.featureCard:hover .cardTitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cardDescription {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Hover Effects
+   ========================================================================== */
+
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.featureCard:hover .hoverOverlay {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Bottom CTA
+   ========================================================================== */
+
+.bottomCTA {
+  text-align: center;
+  margin-top: 64px;
+}
+
+.mobileCTA {
+  display: none;
+  padding: 16px 32px;
+  background: white;
+  color: #111827;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileCTA:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid > *:nth-child(1) { 
+  animation: fadeInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+.grid > *:nth-child(2) { 
+  animation: fadeInUp 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+.grid > *:nth-child(3) { 
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
+  opacity: 0;
+}
+.grid > *:nth-child(4) { 
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+.grid > *:nth-child(5) { 
+  animation: fadeInUp 0.6s ease-out 0.5s forwards;
+  opacity: 0;
+}
+.grid > *:nth-child(6) { 
+  animation: fadeInUp 0.6s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  .ctaButton {
+    display: block;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .headerTop {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  
+  .headerContent h2 {
+    font-size: 2.5rem;
+  }
+  
+  .headerContent p {
+    font-size: 1.125rem;
+  }
+  
+  /* Mobile: Stack sidebar and content */
+  .mainContent {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 16px 12px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+  }
+  
+  .categoryTab {
+    flex-shrink: 0;
+    min-width: 120px;
+    padding: 10px 16px;
+    margin: 0;
+    width: auto;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+  
+  .categoryTab.active::before {
+    display: none;
+  }
+  
+  .categoryTab.active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .categoryIcon {
+    font-size: 1rem;
+  }
+  
+  .categoryLabel {
+    font-size: 0.85rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .featureCard {
+    height: 280px;
+  }
+  
+  .cardContent {
+    padding: 24px;
+  }
+  
+  .mobileCTA {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .gridSection {
+    padding: 60px 12px;
+  }
+  
+  .headerContent h2 {
+    font-size: 2rem;
+  }
+  
+  .headerContent p {
+    font-size: 1rem;
+  }
+  
+  .grid {
+    gap: 16px;
+  }
+  
+  .featureCard {
+    height: 260px;
+  }
+  
+  .cardContent {
+    padding: 20px;
+  }
+}
+
+/* Add this to your ModernGrid.module.css file */
+
+/* Main Content Layout */
+.mainContent {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+  border-radius: 16px;
+}
+
+/* Category Tabs */
+.categoryTab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  margin: 0 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: calc(100% - 24px);
+  position: relative;
+}
+
+.categoryTab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateX(2px);
+}
+
+.categoryTab.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-weight: 600;
+}
+
+.categoryTab.active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: white;
+  border-radius: 2px;
+}
+
+.categoryIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 20px;
+  text-align: center;
+}
+
+.categoryLabel {
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+/* Content Area */
+.contentArea {
+  flex: 1;
+  min-width: 0;
+}

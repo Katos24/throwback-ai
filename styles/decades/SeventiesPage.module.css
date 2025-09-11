@@ -1,0 +1,857 @@
+/* styles/decades/SeventiesPage.module.css - 70s TV Set Interface */
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap');
+
+/* Main container - 70s living room */
+.container {
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 30% 70%, #8B4513 0%, #654321 30%, #4A2C17 60%, #2F1B14 100%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(139, 69, 19, 0.1) 2px,
+      rgba(139, 69, 19, 0.1) 4px
+    );
+  background-size: 100% 100%, 20px 20px;
+  font-family: 'Righteous', cursive;
+  padding: 40px 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Wood grain texture overlay */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(101, 67, 33, 0.3) 0px,
+      rgba(139, 69, 19, 0.2) 2px,
+      rgba(160, 82, 45, 0.1) 4px,
+      rgba(101, 67, 33, 0.3) 6px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Main TV Set */
+.tvSet {
+  max-width: 900px;
+  margin: 0 auto;
+  background: 
+    linear-gradient(135deg, #8B4513 0%, #A0522D 20%, #CD853F  40%, #8B4513 100%);
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 2px 10px rgba(222, 184, 135, 0.3),
+    inset 0 -2px 10px rgba(101, 67, 33, 0.5);
+  position: relative;
+  z-index: 2;
+  border: 8px solid #654321;
+}
+
+/* Wood grain effect on TV */
+.tvSet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(139, 69, 19, 0.1) 1px,
+      transparent 2px,
+      rgba(160, 82, 45, 0.1) 3px
+    );
+  border-radius: 25px;
+  pointer-events: none;
+}
+
+/* TV Screen */
+.tvScreen {
+  background: 
+    radial-gradient(ellipse at center, #1a1a1a 0%, #000000 70%);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 
+    inset 0 0 30px rgba(0, 0, 0, 0.8),
+    inset 0 0 60px rgba(0, 0, 0, 0.6);
+  border: 6px solid #2a2a2a;
+  position: relative;
+  min-height: 600px;
+}
+
+/* TV screen static effect */
+.tvScreen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    );
+  pointer-events: none;
+  border-radius: 9px;
+  animation: tvStatic 0.1s linear infinite;
+}
+
+@keyframes tvStatic {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(4px); }
+}
+
+/* TV Content Area */
+.tvContent {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+/* Channel Bar */
+.channelBar {
+  background: 
+    linear-gradient(90deg, #FF6B35 0%, #F7931E 50%, #FF6B35 100%);
+  padding: 8px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 14px;
+  color: #000;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.channelNumber {
+  background: #000;
+  color: #FF6B35;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.channelName {
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.creditsInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.creditsIcon {
+  font-size: 14px;
+}
+
+.creditsButton {
+  background: #8B4513;
+  border: 2px solid #654321;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Fredoka One', cursive;
+  font-size: 10px;
+  transition: all 0.3s ease;
+}
+
+.creditsButton:hover {
+  background: #A0522D;
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 36px;
+  color: #FF6B35;
+  margin-bottom: 15px;
+  text-shadow: 
+    0 0 1px #FF6B35,
+    2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes groovyGlow {
+  0% { 
+    text-shadow: 
+      0 0 10px #FF6B35,
+      2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  100% { 
+    text-shadow: 
+      0 0 20px #FF6B35,
+      0 0 30px #F7931E,
+      2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.titleEmoji {
+  margin-right: 15px;
+  animation: groovyBounce 2s ease-in-out infinite;
+}
+
+@keyframes groovyBounce {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  75% { transform: scale(0.9) rotate(5deg); }
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #F7931E;
+  font-family: 'Righteous', cursive;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.creditPill {
+  background: 
+    linear-gradient(45deg, #8B4513, #CD853F);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-left: 15px;
+  font-size: 12px;
+  border: 2px solid #654321;
+  box-shadow: 0 4px 10px rgba(139, 69, 19, 0.4);
+}
+
+/* Photo Section */
+.photoSection {
+  margin-bottom: 30px;
+}
+
+.tvPhotoFrame {
+  background: 
+    linear-gradient(135deg, #654321 0%, #8B4513 50%, #654321 100%);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 
+    inset 0 2px 5px rgba(222, 184, 135, 0.3),
+    inset 0 -2px 5px rgba(101, 67, 33, 0.5);
+}
+
+.frameTitle {
+  color: #F7931E;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Fredoka One', cursive;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.photoDisplay {
+  background: #000;
+  border-radius: 10px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #2a2a2a;
+  position: relative;
+}
+
+.imageContainer {
+  text-align: center;
+  position: relative;
+}
+
+.displayImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.buttonRow {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.toggleButton,
+.changePhotoButton,
+.downloadButton {
+  background: 
+    linear-gradient(45deg, #FF6B35, #F7931E);
+  border: 2px solid #CD853F;
+  color: #000;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Fredoka One', cursive;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+}
+
+.toggleButton:hover,
+.changePhotoButton:hover,
+.downloadButton:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 107, 53, 0.5);
+}
+
+.uploadArea {
+  width: 100%;
+  height: 100%;
+  min-height: 288px;
+  background: 
+    radial-gradient(circle at center, #2a4a2a 0%, #1a3a1a 100%);
+  border: 3px dashed #4a8a4a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.uploadArea:hover {
+  background: 
+    radial-gradient(circle at center, #3a5a3a 0%, #2a4a2a 100%);
+  border-color: #6aaa6a;
+}
+
+.uploadArea.dragActive {
+  background: 
+    radial-gradient(circle at center, #4a6a4a 0%, #3a5a3a 100%);
+  border-color: #8aca8a;
+  box-shadow: 0 0 20px rgba(138, 202, 138, 0.3);
+}
+
+.uploadPrompt {
+  text-align: center;
+  color: #8aca8a;
+}
+
+.uploadPrompt h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'Fredoka One', cursive;
+}
+
+.uploadPrompt p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-family: 'Righteous', cursive;
+}
+
+.uploadPrompt small {
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.uploadIcon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px #8aca8a);
+}
+
+/* Control Panel - Like TV Buttons with Two-Column Layout */
+.controlPanel {
+  background: 
+    linear-gradient(135deg, #654321 0%, #8B4513 50%, #654321 100%);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 
+    inset 0 2px 5px rgba(222, 184, 135, 0.3),
+    inset 0 -2px 5px rgba(101, 67, 33, 0.5);
+}
+
+.controlRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.controlSection {
+  /* Individual control section styling remains the same */
+}
+
+.controlButton {
+  width: 100%;
+  background: 
+    linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
+  border: 3px outset #CD853F;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #000;
+  font-family: 'Righteous', cursive;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(160, 82, 45, 0.3);
+}
+
+.controlButton:hover {
+  background: 
+    linear-gradient(135deg, #B8623A 0%, #DEB887 50%, #B8623A 100%);
+}
+
+.controlButton:active {
+  border: 3px inset #CD853F;
+  transform: translateY(1px);
+}
+
+.controlButton.expanded {
+  background: 
+    linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+}
+
+.controlButton.completed {
+  background: 
+    linear-gradient(135deg, #228B22 0%, #32CD32 50%, #228B22 100%);
+  border-color: #32CD32;
+}
+
+.controlIcon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.controlTitle {
+  flex: 1;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.controlValue {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expandIcon {
+  font-size: 16px;
+  font-weight: bold;
+  width: 20px;
+  text-align: center;
+}
+
+.controlContent {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.optionButton {
+  background: 
+    linear-gradient(135deg, #F4A460 0%, #DEB887 100%);
+  border: 2px outset #DEB887;
+  color: #000;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: 'Righteous', cursive;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.optionButton:hover {
+  background: 
+    linear-gradient(135deg, #FFB347 0%, #F5DEB3 100%);
+}
+
+.optionButton:active {
+  border: 2px inset #DEB887;
+}
+
+.optionButton.selected {
+  background: 
+    linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  border-color: #FF6B35;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.styleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.styleButton {
+  background: 
+    linear-gradient(135deg, #F4A460 0%, #DEB887 100%);
+  border: 2px outset #DEB887;
+  color: #000;
+  padding: 12px 8px;
+  cursor: pointer;
+  font-family: 'Righteous', cursive;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  min-height: 70px;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.styleButton:hover {
+  background: 
+    linear-gradient(135deg, #FFB347 0%, #F5DEB3 100%);
+  transform: scale(1.05);
+}
+
+.styleButton:active {
+  border: 2px inset #DEB887;
+}
+
+.styleButton.selected {
+  background: 
+    linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  border-color: #FF6B35;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+.styleEmoji {
+  font-size: 20px;
+}
+
+.sliderContainer {
+  padding: 15px 0;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  background: 
+    linear-gradient(90deg, #654321, #8B4513);
+  border: 2px inset #A0522D;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: 
+    linear-gradient(135deg, #FF6B35, #F7931E);
+  border: 3px outset #F7931E;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: 
+    linear-gradient(135deg, #FF6B35, #F7931E);
+  border: 3px outset #F7931E;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #F7931E;
+  font-family: 'Righteous', cursive;
+  font-weight: bold;
+}
+
+/* Generate Section */
+.generateSection {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.generateButton {
+  background: 
+    linear-gradient(45deg, #FF6B35 0%, #F7931E 50%, #FFB347 100%);
+  background-size: 200% 200%;
+  border: 4px outset #F7931E;
+  color: #000;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Fredoka One', cursive;
+  cursor: pointer;
+  min-width: 300px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  transition: all 0.4s ease;
+  animation: groovyPulse 2s ease-in-out infinite;
+}
+
+@keyframes groovyPulse {
+  0%, 100% {
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    background-position: 0% 50%;
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(255, 107, 53, 0.6);
+    background-position: 100% 50%;
+  }
+}
+
+.generateButton:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(255, 107, 53, 0.6);
+}
+
+.generateButton:active {
+  border: 4px inset #F7931E;
+  transform: translateY(-1px);
+}
+
+.generateButton.ready {
+  animation: readyGroovy 1s ease-in-out infinite alternate;
+}
+
+@keyframes readyGroovy {
+  0% {
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  }
+  100% {
+    box-shadow: 
+      0 10px 40px rgba(255, 107, 53, 0.8),
+      0 0 20px rgba(247, 147, 30, 0.6);
+  }
+}
+
+.generateButton:disabled {
+  background: #8B7355;
+  color: #555;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: #FF6B35;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progressContainer {
+  margin-top: 20px;
+  background: 
+    linear-gradient(135deg, #654321, #8B4513);
+  border: 3px inset #A0522D;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  background: 
+    linear-gradient(90deg, #4a2c17, #2f1b14);
+  border: 2px inset #654321;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: 
+    linear-gradient(90deg, #FF6B35, #F7931E, #FFB347);
+  background-size: 200% 100%;
+  animation: groovyProgress 2s ease-in-out infinite;
+  transition: width 0.3s ease;
+}
+
+@keyframes groovyProgress {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #F7931E;
+  font-family: 'Righteous', cursive;
+  font-weight: bold;
+}
+
+/* TV Physical Controls */
+.tvControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 40px;
+}
+
+.knob {
+  width: 60px;
+  height: 60px;
+  background: 
+    radial-gradient(circle at 30% 30%, #DEB887, #8B4513);
+  border-radius: 50%;
+  border: 4px outset #CD853F;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.knob::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 20px;
+  background: #654321;
+  border-radius: 4px;
+}
+
+.speaker {
+  width: 80px;
+  height: 40px;
+  background: #654321;
+  border: 2px inset #8B4513;
+  border-radius: 8px;
+  position: relative;
+}
+
+.speaker::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 20px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #4a2c17 0px,
+      #4a2c17 2px,
+      transparent 2px,
+      transparent 4px
+    );
+  border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 10px;
+  }
+  
+  .tvSet {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .buttonGroup {
+    grid-template-columns: 1fr;
+  }
+  
+  .styleGrid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+  
+  .generateButton {
+    font-size: 14px;
+    padding: 12px 24px;
+    min-width: 250px;
+  }
+  
+  .tvControls {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .channelBar {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .buttonRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .generateButton {
+    font-size: 12px;
+    padding: 10px 20px;
+    min-width: 200px;
+  }
+}

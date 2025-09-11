@@ -6,8 +6,8 @@ import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
-import styles from "../../styles/AvatarPageNew.module.css";
-import AVATAR_STYLES from "../../components/AvatarStyles";
+import styles from "../../styles/AvatarPageDecades.module.css";
+import AVATAR_STYLES_DECADES, { getAllDecades, getDecadeStyles } from "../../components/AvatarStylesDecades";
 import SEOAvatar from "../../components/SEO/SEOAvatar";
 
 export default function AiAvatarsRedesigned() {
@@ -22,9 +22,9 @@ export default function AiAvatarsRedesigned() {
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
 
-  // Configuration state
+  // Configuration state - updated for decades
   const [userGender, setUserGender] = useState("");
-  const [styleCategory, setStyleCategory] = useState("portrait");
+  const [selectedDecade, setSelectedDecade] = useState("nineties"); // Changed from styleCategory
   const [selectedStyle, setSelectedStyle] = useState("");
   const [styleStrength, setStyleStrength] = useState(20);
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
@@ -33,13 +33,17 @@ export default function AiAvatarsRedesigned() {
   const [expandedSections, setExpandedSections] = useState({
     gender: false,
     workflow: false,
-    category: false,
+    decade: false, // Changed from category
     style: false,
     strength: false
   });
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
+
+  // Get available decades and styles
+  const availableDecades = getAllDecades();
+  const currentDecadeStyles = getDecadeStyles(selectedDecade)?.styles || [];
 
   useEffect(() => {
     async function getSession() {
@@ -103,8 +107,8 @@ export default function AiAvatarsRedesigned() {
     setPreviewUrl(URL.createObjectURL(file));
     setResultImageUrl(null);
     
-    toast.success('Photo uploaded! Now configure your avatar settings.', {
-      icon: '🎭',
+    toast.success('Photo uploaded! Now configure your yearbook settings.', {
+      icon: '📚',
       duration: 2000,
     });
 
@@ -122,7 +126,7 @@ export default function AiAvatarsRedesigned() {
     }
 
     if (!userGender || !selectedStyle) {
-      toast.error('Please select your gender and avatar style', {
+      toast.error('Please select your gender and yearbook style', {
         icon: '⚙️',
         duration: 3000,
       });
@@ -147,8 +151,8 @@ export default function AiAvatarsRedesigned() {
     setProgress(0);
     setProgressStage("Preparing your image...");
 
-    const processingToast = toast.loading('Creating your AI avatar...', {
-      icon: '🎭',
+    const processingToast = toast.loading('Creating your yearbook photo...', {
+      icon: '📚',
     });
 
     try {
@@ -198,10 +202,10 @@ export default function AiAvatarsRedesigned() {
       });
 
       setProgress(80);
-      setProgressStage("Generating avatar...");
+      setProgressStage("Generating yearbook photo...");
 
       if (!response.ok) {
-        throw new Error(`Failed to generate avatar: ${response.status}`);
+        throw new Error(`Failed to generate yearbook photo: ${response.status}`);
       }
 
       const data = await response.json();
@@ -211,9 +215,9 @@ export default function AiAvatarsRedesigned() {
         setProgressStage("Complete!");
         setResultImageUrl(data.imageUrl);
         
-        toast.success('Avatar generation complete!', {
+        toast.success('Yearbook photo complete!', {
           id: processingToast,
-          icon: '🎭',
+          icon: '📚',
           duration: 5000,
         });
 
@@ -222,8 +226,8 @@ export default function AiAvatarsRedesigned() {
         throw new Error("No image URL returned from server");
       }
     } catch (err) {
-      console.error("Error generating avatar:", err);
-      toast.error(err.message || "Avatar generation failed. Please try again.", {
+      console.error("Error generating yearbook photo:", err);
+      toast.error(err.message || "Yearbook photo generation failed. Please try again.", {
         id: processingToast,
         icon: '❌',
         duration: 5000,
@@ -242,14 +246,14 @@ export default function AiAvatarsRedesigned() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `ai-avatar-${Date.now()}.png`;
+      a.download = `yearbook-photo-${selectedDecade}-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
       
-      toast.success('Avatar downloaded!', {
-        icon: '🎭',
+      toast.success('Yearbook photo downloaded!', {
+        icon: '📚',
         duration: 3000,
       });
     } catch (error) {
@@ -261,12 +265,12 @@ export default function AiAvatarsRedesigned() {
   };
 
   const getButtonText = () => {
-    if (isLoading) return "Creating your avatar...";
+    if (isLoading) return "Creating your yearbook photo...";
     if (!photo) return "Upload a Photo First";
     if (!userGender || !selectedStyle) return "Complete Setup First";
     if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < avatarCost) return "Get More Credits";
-    return "Generate My AI Avatar!";
+    return "Generate My Yearbook Photo!";
   };
 
   const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
@@ -274,8 +278,8 @@ export default function AiAvatarsRedesigned() {
   return (
     <>
       <Head>
-        <title>AI Avatar Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photos into amazing AI avatars with custom styles" />
+        <title>Yearbook Photo Generator | Throwback AI</title>
+        <meta name="description" content="Transform your photos into authentic vintage yearbook photos from the 60s, 70s, 80s, 90s, and 2000s" />
       </Head>
 
       <main className={styles.container}>
@@ -284,7 +288,7 @@ export default function AiAvatarsRedesigned() {
         {/* Fixed Credits Header */}
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
-            <span className={styles.creditsIcon}>🎭</span>
+            <span className={styles.creditsIcon}>📚</span>
             <span className={styles.creditsText}>{credits} credits</span>
           </div>
           <button 
@@ -298,11 +302,11 @@ export default function AiAvatarsRedesigned() {
         {/* Hero Section */}
         <div className={styles.hero}>
           <h1 className={styles.title}>
-            <span className={styles.titleEmoji}>🎭</span>
-            AI Avatar Generator
+            <span className={styles.titleEmoji}>📚</span>
+            Yearbook Photo Generator
           </h1>
           <p className={styles.subtitle}>
-            Transform your photo into amazing AI avatars with our AI-powered transformation.
+            Transform your photo into authentic vintage yearbook photos from any decade.
             <span className={styles.creditPill}>Costs {avatarCost} credits</span>
           </p>
         </div>
@@ -354,13 +358,13 @@ export default function AiAvatarsRedesigned() {
 
             {/* Results Card */}
             <div className={styles.resultCard}>
-              <h3 className={styles.cardTitle}>Your AI Avatar</h3>
+              <h3 className={styles.cardTitle}>Your Yearbook Photo</h3>
               <div className={styles.resultZone}>
                 {resultImageUrl ? (
                   <div className={styles.resultContainer}>
                     <Image
                       src={resultImageUrl}
-                      alt="Generated Avatar"
+                      alt="Generated Yearbook Photo"
                       width={200}
                       height={200}
                       unoptimized
@@ -374,8 +378,8 @@ export default function AiAvatarsRedesigned() {
                   </div>
                 ) : (
                   <div className={styles.placeholder}>
-                    <div className={styles.placeholderIcon}>🎭</div>
-                    <p>Your avatar will appear here</p>
+                    <div className={styles.placeholderIcon}>📚</div>
+                    <p>Your yearbook photo will appear here</p>
                   </div>
                 )}
               </div>
@@ -426,7 +430,7 @@ export default function AiAvatarsRedesigned() {
                 onClick={() => toggleSection('workflow')}
               >
                 <span className={styles.sectionIcon}>⚙️</span>
-                <span className={styles.sectionTitle}>Workflow Type</span>
+                <span className={styles.sectionTitle}>Photo Quality</span>
                 <span className={styles.sectionValue}>{workflowType === 'HyperRealistic-likeness' ? 'HyperRealistic' : workflowType}</span>
                 <span className={styles.expandIcon}>{expandedSections.workflow ? '−' : '+'}</span>
               </button>
@@ -444,7 +448,7 @@ export default function AiAvatarsRedesigned() {
                         className={`${styles.optionButton} ${workflowType === workflow.value ? styles.selected : ''}`}
                         onClick={() => {
                           setWorkflowType(workflow.value);
-                          setExpandedSections(prev => ({ ...prev, category: true }));
+                          setExpandedSections(prev => ({ ...prev, decade: true }));
                         }}
                       >
                         {workflow.label}
@@ -456,42 +460,43 @@ export default function AiAvatarsRedesigned() {
             </div>
           </div>
 
-          {/* Row 2: Style Category, Choose Style, Style Strength */}
+          {/* Row 2: Decade, Choose Style, Style Strength */}
           <div className={styles.optionRow}>
-            {/* Style Category */}
+            {/* Decade Selection */}
             <div className={styles.optionSection}>
               <button 
-                className={`${styles.sectionButton} ${expandedSections.category ? styles.expanded : ''} ${styleCategory ? styles.completed : ''}`}
-                onClick={() => toggleSection('category')}
+                className={`${styles.sectionButton} ${expandedSections.decade ? styles.expanded : ''} ${selectedDecade ? styles.completed : ''}`}
+                onClick={() => toggleSection('decade')}
               >
-                <span className={styles.sectionIcon}>🎨</span>
-                <span className={styles.sectionTitle}>Style Category</span>
-                <span className={styles.sectionValue}>{styleCategory.charAt(0).toUpperCase() + styleCategory.slice(1)}</span>
-                <span className={styles.expandIcon}>{expandedSections.category ? '−' : '+'}</span>
+                <span className={styles.sectionIcon}>📅</span>
+                <span className={styles.sectionTitle}>Choose Decade</span>
+                <span className={styles.sectionValue}>
+                  {AVATAR_STYLES_DECADES[selectedDecade]?.name || selectedDecade}
+                </span>
+                <span className={styles.expandIcon}>{expandedSections.decade ? '−' : '+'}</span>
               </button>
               
-              {expandedSections.category && (
+              {expandedSections.decade && (
                 <div className={styles.sectionContent}>
                   <div className={styles.categoryGrid}>
-                    {[
-                      { value: "nineties", label: "90s Vibes", emoji: "📼" },
-                      { value: "portrait", label: "Portrait", emoji: "📸" },
-                      { value: "fantasy", label: "Fantasy", emoji: "🧙" },
-                      { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
-                      { value: "historical", label: "Historical", emoji: "🏛️" },
-                      { value: "anime", label: "Anime", emoji: "🎌" }
-                    ].map((category) => (
+                    {availableDecades.map((decade) => (
                       <button
-                        key={category.value}
-                        className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
+                        key={decade.key}
+                        className={`${styles.categoryButton} ${selectedDecade === decade.key ? styles.selected : ''}`}
                         onClick={() => {
-                          setStyleCategory(category.value);
+                          setSelectedDecade(decade.key);
                           setSelectedStyle("");
                           setExpandedSections(prev => ({ ...prev, style: true }));
                         }}
                       >
-                        <span className={styles.categoryEmoji}>{category.emoji}</span>
-                        <span>{category.label}</span>
+                        <span className={styles.categoryEmoji}>
+                          {decade.key === 'nineties' ? '📼' : 
+                           decade.key === 'twothousands' ? '💿' : 
+                           decade.key === 'eighties' ? '📻' : 
+                           decade.key === 'seventies' ? '🎵' : 
+                           decade.key === 'sixties' ? '✌️' : '📸'}
+                        </span>
+                        <span>{decade.name}</span>
                       </button>
                     ))}
                   </div>
@@ -508,7 +513,7 @@ export default function AiAvatarsRedesigned() {
                 <span className={styles.sectionIcon}>✨</span>
                 <span className={styles.sectionTitle}>Choose Style</span>
                 <span className={styles.sectionValue}>
-                  {selectedStyle ? AVATAR_STYLES[styleCategory]?.find(s => s.value === selectedStyle)?.label || 'Selected' : 'Select'}
+                  {selectedStyle ? currentDecadeStyles.find(s => s.value === selectedStyle)?.label || 'Selected' : 'Select'}
                 </span>
                 <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
               </button>
@@ -516,7 +521,7 @@ export default function AiAvatarsRedesigned() {
               {expandedSections.style && (
                 <div className={styles.sectionContent}>
                   <div className={styles.styleList}>
-                    {AVATAR_STYLES[styleCategory]?.map((style) => (
+                    {currentDecadeStyles.map((style) => (
                       <button
                         key={style.value}
                         className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}

@@ -1,0 +1,417 @@
+/* HeroGridLanding.module.css */
+
+.heroSection {
+  background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+  min-height: 100vh;
+  padding: 64px 16px;
+  position: relative;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Hero Content */
+.heroContent {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  margin-bottom: 48px;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Restore Grid */
+.restoreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 32px;
+  max-width: 64rem;
+  margin: 0 auto 64px auto;
+}
+
+.restoreCardWrapper {
+  position: relative;
+}
+
+.restoreCardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.restoreCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+}
+
+.restoreCard:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.success {
+  background: #10b981;
+  color: white;
+}
+
+.popular {
+  background: #8b5cf6;
+  color: white;
+}
+
+.restoreImageContainer {
+  position: relative;
+  height: 192px;
+  background: #374151;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.restoreImage {
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.restoreCard:hover .restoreImage {
+  opacity: 1;
+}
+
+.restoreTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.restoreDescription {
+  color: #d1d5db;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.restoreFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.creditsInfo {
+  color: #9ca3af;
+}
+
+.creditsNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.creditsLabel {
+  margin-left: 4px;
+}
+
+.restoreButton {
+  background: #2563eb;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.restoreButton:hover {
+  background: #1d4ed8;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.dividerLine {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  width: 100%;
+  max-width: 24rem;
+}
+
+.dividerText {
+  padding: 0 24px;
+  color: #9ca3af;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Decades Section */
+.decadesSection {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.decadesTitle {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.decadesDescription {
+  font-size: 1.125rem;
+  color: #d1d5db;
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Decades Grid */
+.decadesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.decadeCardWrapper {
+  position: relative;
+}
+
+.decadeCardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.decadeCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.decadeCard:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.eraBadge {
+  padding: 12px;
+}
+
+.orange {
+  background: linear-gradient(90deg, #f97316, #eab308);
+}
+
+.purple {
+  background: linear-gradient(90deg, #9333ea, #ec4899);
+}
+
+.blue {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+}
+
+.eraText {
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.decadeImageContainer {
+  position: relative;
+  height: 160px;
+  background: #374151;
+}
+
+.decadeImage {
+  object-fit: cover;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.decadeCard:hover .decadeImage {
+  opacity: 1;
+}
+
+.decadeContent {
+  padding: 24px;
+}
+
+.decadeTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.decadeDescription {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.decadeFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.decadeCredits {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.decadeCreditsNumber {
+  color: white;
+  font-weight: 600;
+}
+
+.decadeCta {
+  color: #60a5fa;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.decadeCard:hover .decadeCta {
+  color: #93c5fd;
+}
+
+/* Bottom CTA */
+.bottomCta {
+  text-align: center;
+  margin-top: 64px;
+}
+
+.ctaCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.ctaIcon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.ctaTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.ctaDescription {
+  color: #d1d5db;
+  margin-bottom: 16px;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: linear-gradient(90deg, #2563eb, #8b5cf6);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 48px 12px;
+  }
+  
+  .restoreGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .decadesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .divider {
+    margin-bottom: 32px;
+  }
+  
+  .dividerText {
+    padding: 0 16px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .restoreCard {
+    padding: 24px;
+  }
+  
+  .restoreImageContainer {
+    height: 160px;
+  }
+  
+  .decadeContent {
+    padding: 20px;
+  }
+  
+  .ctaCard {
+    padding: 24px;
+    margin: 0 16px;
+  }
+}

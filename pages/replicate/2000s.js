@@ -1,4 +1,4 @@
-// pages/replicate/70s.js
+// pages/replicate/2000s.js
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -7,10 +7,10 @@ import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
-import styles from "../../styles/decades/SeventiesPage.module.css";
-import { SEVENTIES_STYLES, buildSeventiesPrompt } from "../../components/SeventiesPrompts";
+import styles from "../../styles/decades/TwothousandsPage.module.css";
+import { TWOTHOUSANDS_STYLES, buildTwothousandsPrompt } from "../../components/TwothousandsPrompts";
 
-export default function SeventiesPage() {
+export default function TwothousandsPage() {
   const router = useRouter();
   
   const [photo, setPhoto] = useState(null);
@@ -22,7 +22,7 @@ export default function SeventiesPage() {
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
   const [showingOriginal, setShowingOriginal] = useState(false);
-  const [filterEnabled, setFilterEnabled] = useState(true); // NEW: Filter toggle state
+  const [filterEnabled, setFilterEnabled] = useState(true);
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -85,7 +85,7 @@ export default function SeventiesPage() {
   const handleFile = (file) => {
     if (!file.type.startsWith('image/')) {
       toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
-        icon: '📺',
+        icon: '💻',
         duration: 4000,
       });
       return;
@@ -104,8 +104,8 @@ export default function SeventiesPage() {
     setResultImageUrl(null);
     setShowingOriginal(false);
     
-    toast.success('Photo uploaded! Time to get groovy with your 70s style!', {
-      icon: '📺',
+    toast.success('Photo uploaded! Ready for Y2K transformation!', {
+      icon: '💻',
       duration: 2000,
     });
 
@@ -123,7 +123,7 @@ export default function SeventiesPage() {
     }
 
     if (!userGender || !selectedStyle) {
-      toast.error('Please select your gender and 70s style', {
+      toast.error('Please select your gender and 2000s style', {
         icon: '⚙️',
         duration: 3000,
       });
@@ -146,11 +146,11 @@ export default function SeventiesPage() {
   const generateAvatar = async () => {
     setIsLoading(true);
     setProgress(0);
-    setProgressStage("Getting groovy with your image...");
+    setProgressStage("Initializing Y2K transformation...");
     setShowingOriginal(false);
 
-    const processingToast = toast.loading('Creating your far out 70s yearbook photo...', {
-      icon: '📺',
+    const processingToast = toast.loading('Creating your totally awesome 2000s yearbook photo...', {
+      icon: '💻',
     });
 
     try {
@@ -183,10 +183,10 @@ export default function SeventiesPage() {
       });
 
       setProgress(50);
-      setProgressStage("Sending to the 70s AI...");
+      setProgressStage("Sending to the Y2K AI...");
 
       // Use the detailed prompt builder
-      const prompt = buildSeventiesPrompt(userGender, selectedStyle, workflowType, styleStrength);
+      const prompt = buildTwothousandsPrompt(userGender, selectedStyle, workflowType, styleStrength);
 
       const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
@@ -201,22 +201,22 @@ export default function SeventiesPage() {
       });
 
       setProgress(80);
-      setProgressStage("Creating your groovy 70s photo...");
+      setProgressStage("Creating your awesome 2000s photo...");
 
       if (!response.ok) {
-        throw new Error(`Failed to generate 70s yearbook photo: ${response.status}`);
+        throw new Error(`Failed to generate 2000s yearbook photo: ${response.status}`);
       }
 
       const data = await response.json();
       
       if (data.imageUrl) {
         setProgress(100);
-        setProgressStage("Far out!");
+        setProgressStage("Totally awesome!");
         setResultImageUrl(data.imageUrl);
         
-        toast.success('Your 70s yearbook photo is totally groovy!', {
+        toast.success('Your 2000s yearbook photo is totally rad!', {
           id: processingToast,
-          icon: '📺',
+          icon: '💻',
           duration: 5000,
         });
 
@@ -225,8 +225,8 @@ export default function SeventiesPage() {
         throw new Error("No image URL returned from server");
       }
     } catch (err) {
-      console.error("Error generating 70s yearbook photo:", err);
-      toast.error(err.message || "70s photo generation failed. Please try again.", {
+      console.error("Error generating 2000s yearbook photo:", err);
+      toast.error(err.message || "2000s photo generation failed. Please try again.", {
         id: processingToast,
         icon: '❌',
         duration: 5000,
@@ -245,14 +245,14 @@ export default function SeventiesPage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `70s-yearbook-photo-${filterEnabled ? 'filtered' : 'unfiltered'}-${Date.now()}.png`;
+      a.download = `2000s-yearbook-photo-${filterEnabled ? 'filtered' : 'unfiltered'}-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
       
-      toast.success('Your groovy 70s photo downloaded!', {
-        icon: '📺',
+      toast.success('Your awesome 2000s photo downloaded!', {
+        icon: '💻',
         duration: 3000,
       });
     } catch (error) {
@@ -264,12 +264,12 @@ export default function SeventiesPage() {
   };
 
   const getButtonText = () => {
-    if (isLoading) return "Creating your groovy 70s photo...";
+    if (isLoading) return "Creating your awesome 2000s photo...";
     if (!photo) return "Upload a Photo First";
     if (!userGender || !selectedStyle) return "Complete Setup First";
     if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < avatarCost) return "Get More Credits";
-    return "Generate My 70s Yearbook Photo!";
+    return "Generate My 2000s Yearbook Photo!";
   };
 
   const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
@@ -277,146 +277,171 @@ export default function SeventiesPage() {
   return (
     <>
       <Head>
-        <title>70s Yearbook Photo Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photo into an authentic 70s yearbook photo with hippie, disco, punk, and glam rock styles from the groovy decade." />
+        <title>2000s Yearbook Photo Generator | Throwback AI</title>
+        <meta name="description" content="Transform your photo into an authentic 2000s yearbook photo with emo, scene, pop punk, and hipster styles from the Y2K era." />
       </Head>
 
       <main className={styles.container}>
-        {/* 70s TV Set */}
-        <div className={styles.tvSet}>
-          {/* TV Screen */}
-          <div className={styles.tvScreen}>
-            {/* TV Content Area */}
-            <div className={styles.tvContent}>
-              {/* Channel Info Bar */}
-              <div className={styles.channelBar}>
-                <span className={styles.channelNumber}>CH 7</span>
-                <span className={styles.channelName}>GROOVY-TV</span>
-                <span className={styles.creditsInfo}>
-                  <span className={styles.creditsIcon}>📺</span>
-                  <span>{credits} credits</span>
-                  <button 
-                    onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
-                    className={styles.creditsButton}
-                  >
-                    {isLoggedIn ? "+" : "Sign Up"}
-                  </button>
-                </span>
-              </div>
+        {/* XP Taskbar */}
+        <div className={styles.taskbar}>
+          <div className={styles.startButton}>
+            <span className={styles.startIcon}>🏠</span>
+            <span>Start</span>
+          </div>
+          <div className={styles.taskbarCenter}>
+            <div className={styles.openWindow}>
+              <span className={styles.windowIcon}>💻</span>
+              <span>2000s Photo Generator</span>
+            </div>
+          </div>
+          <div className={styles.systemTray}>
+            <span className={styles.creditsInfo}>
+              <span className={styles.creditsIcon}>💻</span>
+              <span>{credits} credits</span>
+              <button 
+                onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
+                className={styles.creditsButton}
+              >
+                {isLoggedIn ? "+" : "Sign Up"}
+              </button>
+            </span>
+            <span className={styles.clock}>
+              {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+            </span>
+          </div>
+        </div>
 
-              {/* 70s TV Show Hero Section */}
+        {/* XP Desktop */}
+        <div className={styles.desktop}>
+          {/* Main Application Window */}
+          <div className={styles.windowContainer}>
+            {/* Window Title Bar */}
+            <div className={styles.titleBar}>
+              <div className={styles.titleBarLeft}>
+                <span className={styles.windowIcon}>💻</span>
+                <span className={styles.windowTitle}>2000s Yearbook Photo Generator</span>
+              </div>
+              <div className={styles.titleBarRight}>
+                <button className={styles.minimizeButton}>_</button>
+                <button className={styles.maximizeButton}>□</button>
+                <button className={styles.closeButton}>✕</button>
+              </div>
+            </div>
+
+            {/* Window Content */}
+            <div className={styles.windowContent}>
+              {/* Hero Section */}
               <div className={styles.hero}>
                 <h1 className={styles.title}>
-                  <span className={styles.titleEmoji}>📺</span>
-                  70s Yearbook Photos
+                  <span className={styles.titleEmoji}>💻</span>
+                  2000s Yearbook Photos
                 </h1>
                 <p className={styles.subtitle}>
-                  Get groovy with authentic 70s yearbook vibes.
+                  Get totally awesome Y2K yearbook vibes from the new millennium!
                   <span className={styles.creditPill}>Costs {avatarCost} credits</span>
                 </p>
               </div>
 
-              {/* TV Photo Display */}
-              <div className={styles.photoSection}>
-                <div className={styles.tvPhotoFrame}>
-                  <h3 className={styles.frameTitle}>
-                    {resultImageUrl ? '70s Yearbook Result' : 'Upload Your Photo'}
-                  </h3>
-                  
-                  <div className={styles.photoDisplay}>
-                    {previewUrl || resultImageUrl ? (
-                      <div className={styles.imageContainer}>
-                        <Image
-                          src={showingOriginal ? previewUrl : (resultImageUrl || previewUrl)}
-                          alt={resultImageUrl && !showingOriginal ? "Generated 70s Yearbook Photo" : "Your photo"}
-                          width={280}
-                          height={280}
-                          unoptimized={!showingOriginal && !!resultImageUrl}
-                          className={`${styles.displayImage} ${resultImageUrl && !showingOriginal && filterEnabled ? styles.seventiesFilter : ''}`}
-                        />
-                        
-                        {/* Action Buttons */}
-                        <div className={styles.buttonRow}>
-                          {resultImageUrl && previewUrl && (
-                            <button 
-                              onClick={() => setShowingOriginal(!showingOriginal)}
-                              className={styles.toggleButton}
-                            >
-                              {showingOriginal ? '✌️ View 70s Result' : '👀 View Original'}
-                            </button>
-                          )}
-                          
-                          {/* NEW: Filter toggle button - only show when viewing AI result */}
-                          {resultImageUrl && !showingOriginal && (
-                            <button 
-                              onClick={() => setFilterEnabled(!filterEnabled)}
-                              className={styles.filterToggleButton}
-                            >
-                              {filterEnabled ? '📺 Remove 70s Filter' : '📺 Add 70s Filter'}
-                            </button>
-                          )}
-                          
-                          <button 
-                            onClick={() => document.getElementById('photo-upload').click()}
-                            className={styles.changePhotoButton}
-                          >
-                            📷 Change Photo
-                          </button>
-                          
-                          {resultImageUrl && (
-                            <button onClick={handleDownload} className={styles.downloadButton}>
-                              💾 Save Photo
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className={`${styles.uploadArea} ${dragActive ? styles.dragActive : ''}`}
-                        onDragEnter={handleDrag}
-                        onDragLeave={handleDrag}
-                        onDragOver={handleDrag}
-                        onDrop={handleDrop}
-                        onClick={() => document.getElementById('photo-upload').click()}
-                      >
-                        <div className={styles.uploadPrompt}>
-                          <div className={styles.uploadIcon}>📷</div>
-                          <h4>Drop your photo here</h4>
-                          <p>Drag & drop or click to select</p>
-                          <small>Best results with clear face photos<br/>PNG, JPG, HEIC up to 10MB</small>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <input
-                    id="photo-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handlePhotoUpload}
-                    style={{ display: 'none' }}
-                  />
+              {/* Photo Display Window */}
+              <div className={styles.photoWindow}>
+                <div className={styles.photoTitleBar}>
+                  <span className={styles.photoWindowTitle}>
+                    {resultImageUrl ? '2000s Result Viewer' : 'Photo Upload'}
+                  </span>
                 </div>
+                
+                <div className={styles.photoContent}>
+                  {previewUrl || resultImageUrl ? (
+                    <div className={styles.imageContainer}>
+                      <Image
+                        src={showingOriginal ? previewUrl : (resultImageUrl || previewUrl)}
+                        alt={resultImageUrl && !showingOriginal ? "Generated 2000s Yearbook Photo" : "Your photo"}
+                        width={320}
+                        height={320}
+                        unoptimized={!showingOriginal && !!resultImageUrl}
+                        className={`${styles.displayImage} ${resultImageUrl && !showingOriginal && filterEnabled ? styles.y2kFilter : ''}`}
+                      />
+                      
+                      {/* Action Buttons */}
+                      <div className={styles.buttonRow}>
+                        {resultImageUrl && previewUrl && (
+                          <button 
+                            onClick={() => setShowingOriginal(!showingOriginal)}
+                            className={styles.toggleButton}
+                          >
+                            {showingOriginal ? '💻 View 2000s Result' : '👀 View Original'}
+                          </button>
+                        )}
+                        
+                        {resultImageUrl && !showingOriginal && (
+                          <button 
+                            onClick={() => setFilterEnabled(!filterEnabled)}
+                            className={styles.filterToggleButton}
+                          >
+                            {filterEnabled ? '💻 Remove Y2K Filter' : '💻 Add Y2K Filter'}
+                          </button>
+                        )}
+                        
+                        <button 
+                          onClick={() => document.getElementById('photo-upload').click()}
+                          className={styles.changePhotoButton}
+                        >
+                          📷 Change Photo
+                        </button>
+                        
+                        {resultImageUrl && (
+                          <button onClick={handleDownload} className={styles.downloadButton}>
+                            💾 Save Photo
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className={`${styles.uploadArea} ${dragActive ? styles.dragActive : ''}`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => document.getElementById('photo-upload').click()}
+                    >
+                      <div className={styles.uploadPrompt}>
+                        <div className={styles.uploadIcon}>📷</div>
+                        <h4>Drop your photo here</h4>
+                        <p>Drag & drop or click to browse</p>
+                        <small>Best results with clear face photos<br/>PNG, JPG, HEIC up to 10MB</small>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                <input
+                  id="photo-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  style={{ display: 'none' }}
+                />
               </div>
 
-              {/* TV Control Panel */}
-              <div className={styles.controlPanel}>
+              {/* Options Panel */}
+              <div className={styles.optionsPanel}>
                 {/* Row 1: Gender & Photo Quality */}
-                <div className={styles.controlRow}>
-                  {/* Gender Controls */}
-                  <div className={styles.controlSection}>
+                <div className={styles.optionRow}>
+                  {/* Gender Section */}
+                  <div className={styles.optionSection}>
                     <button 
-                      className={`${styles.controlButton} ${expandedSections.gender ? styles.expanded : ''} ${userGender ? styles.completed : ''}`}
+                      className={`${styles.sectionButton} ${expandedSections.gender ? styles.expanded : ''} ${userGender ? styles.completed : ''}`}
                       onClick={() => toggleSection('gender')}
                     >
-                      <span className={styles.controlIcon}>👤</span>
-                      <span className={styles.controlTitle}>Gender</span>
-                      <span className={styles.controlValue}>{userGender || 'Select'}</span>
+                      <span className={styles.sectionIcon}>👤</span>
+                      <span className={styles.sectionTitle}>Gender</span>
+                      <span className={styles.sectionValue}>{userGender || 'Select'}</span>
                       <span className={styles.expandIcon}>{expandedSections.gender ? '−' : '+'}</span>
                     </button>
                     
                     {expandedSections.gender && (
-                      <div className={styles.controlContent}>
+                      <div className={styles.sectionContent}>
                         <div className={styles.buttonGroup}>
                           {["male", "female", "non-binary"].map((gender) => (
                             <button
@@ -435,20 +460,20 @@ export default function SeventiesPage() {
                     )}
                   </div>
 
-                  {/* Workflow Controls */}
-                  <div className={styles.controlSection}>
+                  {/* Workflow Section */}
+                  <div className={styles.optionSection}>
                     <button 
-                      className={`${styles.controlButton} ${expandedSections.workflow ? styles.expanded : ''} ${workflowType ? styles.completed : ''}`}
+                      className={`${styles.sectionButton} ${expandedSections.workflow ? styles.expanded : ''} ${workflowType ? styles.completed : ''}`}
                       onClick={() => toggleSection('workflow')}
                     >
-                      <span className={styles.controlIcon}>⚙️</span>
-                      <span className={styles.controlTitle}>Photo Quality</span>
-                      <span className={styles.controlValue}>{workflowType === 'HyperRealistic-likeness' ? 'HyperRealistic' : workflowType}</span>
+                      <span className={styles.sectionIcon}>⚙️</span>
+                      <span className={styles.sectionTitle}>Photo Quality</span>
+                      <span className={styles.sectionValue}>{workflowType === 'HyperRealistic-likeness' ? 'HyperRealistic' : workflowType}</span>
                       <span className={styles.expandIcon}>{expandedSections.workflow ? '−' : '+'}</span>
                     </button>
                     
                     {expandedSections.workflow && (
-                      <div className={styles.controlContent}>
+                      <div className={styles.sectionContent}>
                         <div className={styles.buttonGroup}>
                           {[
                             { value: "HyperRealistic-likeness", label: "HyperRealistic" },
@@ -473,25 +498,25 @@ export default function SeventiesPage() {
                 </div>
 
                 {/* Row 2: Style & Style Strength */}
-                <div className={styles.controlRow}>
-                  {/* Style Controls */}
-                  <div className={styles.controlSection}>
+                <div className={styles.optionRow}>
+                  {/* Style Section */}
+                  <div className={styles.optionSection}>
                     <button 
-                      className={`${styles.controlButton} ${expandedSections.style ? styles.expanded : ''} ${selectedStyle ? styles.completed : ''}`}
+                      className={`${styles.sectionButton} ${expandedSections.style ? styles.expanded : ''} ${selectedStyle ? styles.completed : ''}`}
                       onClick={() => toggleSection('style')}
                     >
-                      <span className={styles.controlIcon}>✌️</span>
-                      <span className={styles.controlTitle}>Choose 70s Style</span>
-                      <span className={styles.controlValue}>
-                        {selectedStyle ? SEVENTIES_STYLES.find(s => s.id === selectedStyle)?.label || 'Selected' : 'Select'}
+                      <span className={styles.sectionIcon}>💻</span>
+                      <span className={styles.sectionTitle}>Choose 2000s Style</span>
+                      <span className={styles.sectionValue}>
+                        {selectedStyle ? TWOTHOUSANDS_STYLES.find(s => s.id === selectedStyle)?.label || 'Selected' : 'Select'}
                       </span>
                       <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
                     </button>
                     
                     {expandedSections.style && (
-                      <div className={styles.controlContent}>
+                      <div className={styles.sectionContent}>
                         <div className={styles.styleGrid}>
-                          {SEVENTIES_STYLES.map((style) => (
+                          {TWOTHOUSANDS_STYLES.map((style) => (
                             <button
                               key={style.id}
                               className={`${styles.styleButton} ${selectedStyle === style.id ? styles.selected : ''}`}
@@ -510,19 +535,19 @@ export default function SeventiesPage() {
                   </div>
 
                   {/* Style Strength */}
-                  <div className={styles.controlSection}>
+                  <div className={styles.optionSection}>
                     <button 
-                      className={`${styles.controlButton} ${expandedSections.strength ? styles.expanded : ''} ${styles.completed}`}
+                      className={`${styles.sectionButton} ${expandedSections.strength ? styles.expanded : ''} ${styles.completed}`}
                       onClick={() => toggleSection('strength')}
                     >
-                      <span className={styles.controlIcon}>📊</span>
-                      <span className={styles.controlTitle}>Style Strength</span>
-                      <span className={styles.controlValue}>{styleStrength}%</span>
+                      <span className={styles.sectionIcon}>📊</span>
+                      <span className={styles.sectionTitle}>Style Strength</span>
+                      <span className={styles.sectionValue}>{styleStrength}%</span>
                       <span className={styles.expandIcon}>{expandedSections.strength ? '−' : '+'}</span>
                     </button>
                     
                     {expandedSections.strength && (
-                      <div className={styles.controlContent}>
+                      <div className={styles.sectionContent}>
                         <div className={styles.sliderContainer}>
                           <input
                             type="range"
@@ -534,7 +559,7 @@ export default function SeventiesPage() {
                           />
                           <div className={styles.sliderLabels}>
                             <span>Preserve Face</span>
-                            <span>Strong 70s Style</span>
+                            <span>Strong 2000s Style</span>
                           </div>
                         </div>
                       </div>
@@ -577,13 +602,6 @@ export default function SeventiesPage() {
                 )}
               </div>
             </div>
-          </div>
-
-          {/* TV Controls (Knobs/Buttons) */}
-          <div className={styles.tvControls}>
-            <div className={styles.knob}></div>
-            <div className={styles.knob}></div>
-            <div className={styles.speaker}></div>
           </div>
         </div>
       </main>

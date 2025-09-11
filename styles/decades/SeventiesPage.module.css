@@ -43,7 +43,7 @@
 
 /* Main TV Set */
 .tvSet {
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
   background: 
     linear-gradient(135deg, #8B4513 0%, #A0522D 20%, #CD853F  40%, #8B4513 100%);
@@ -280,15 +280,18 @@
 }
 
 .imageContainer {
-  text-align: center;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .displayImage {
-  max-width: 100%;
-  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
 }
 
 .buttonRow {
@@ -519,34 +522,32 @@
 
 .styleGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .styleButton {
-  background: 
-    linear-gradient(135deg, #F4A460 0%, #DEB887 100%);
+  background: linear-gradient(135deg, #F4A460 0%, #DEB887 100%);
   border: 2px outset #DEB887;
   color: #000;
-  padding: 12px 8px;
+  padding: 8px 6px;
   cursor: pointer;
   font-family: 'Righteous', cursive;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 6px;
   text-align: center;
-  min-height: 70px;
+  min-height: 50px;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.3s ease;
 }
 
 .styleButton:hover {
-  background: 
-    linear-gradient(135deg, #FFB347 0%, #F5DEB3 100%);
+  background: linear-gradient(135deg, #FFB347 0%, #F5DEB3 100%);
   transform: scale(1.05);
 }
 
@@ -555,8 +556,7 @@
 }
 
 .styleButton.selected {
-  background: 
-    linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
   border-color: #FF6B35;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -564,7 +564,7 @@
 }
 
 .styleEmoji {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .sliderContainer {
@@ -822,7 +822,7 @@
   }
   
   .styleGrid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .generateButton {
@@ -854,4 +854,72 @@
     padding: 10px 20px;
     min-width: 200px;
   }
+  
+  .styleGrid {
+    grid-template-columns: 1fr;
+  }
+  .styleButton {
+    font-size: 9px;
+    padding: 6px 4px;
+    min-height: 40px;
+  }
+  .styleEmoji {
+    font-size: 14px;
+  }
+}
+
+
+.seventiesFilter {
+  filter: 
+    sepia(15%) 
+    saturate(120%) 
+    contrast(95%) 
+    brightness(102%) 
+    hue-rotate(5deg) 
+    blur(0.3px);
+  position: relative;
+}
+
+.seventiesFilter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, transparent 20%, rgba(255,255,255,0.02) 21%, rgba(255,255,255,0.02) 34%, transparent 35%, transparent),
+    linear-gradient(0deg, rgba(255,255,255,0.01), rgba(0,0,0,0.01));
+  opacity: 0.3;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.seventiesFilter::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at center, transparent 60%, rgba(101, 67, 33, 0.1) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.filterToggleButton {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterToggleButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }

@@ -1,0 +1,802 @@
+/* styles/decades/TwothousandsPage.module.css - Windows XP Luna Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap');
+
+/* Main container - XP desktop background */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #003d7a 0%, #0066cc 50%, #ffffff 100%);
+  background-image: 
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  font-family: 'Tahoma', sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* XP Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(180deg, #3A6EA5 0%, #4688D4 50%, #6B91D4 100%);
+  border-top: 1px solid #8BB7E8;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+}
+
+.startButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(180deg, #4E9A06 0%, #73D216 50%, #4E9A06 100%);
+  border: 1px outset #73D216;
+  border-radius: 6px 6px 0 0;
+  padding: 6px 16px;
+  margin: 2px 4px 0 4px;
+  color: white;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.startButton:hover {
+  background: linear-gradient(180deg, #5AA306 0%, #7FE216 50%, #5AA306 100%);
+}
+
+.startButton:active {
+  border: 1px inset #73D216;
+}
+
+.startIcon {
+  font-size: 14px;
+}
+
+.taskbarCenter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.openWindow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(180deg, #E6F3FF 0%, #B3D9FF 100%);
+  border: 1px inset #B3D9FF;
+  padding: 4px 12px;
+  border-radius: 2px;
+  color: #000;
+  font-size: 11px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.windowIcon {
+  font-size: 12px;
+}
+
+.systemTray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border: 1px inset #6B91D4;
+  padding: 4px 8px;
+  margin: 2px 4px 0 0;
+}
+
+.creditsInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: white;
+  font-size: 10px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.creditsIcon {
+  font-size: 11px;
+}
+
+.creditsButton {
+  background: linear-gradient(180deg, #E6E6E6 0%, #CCCCCC 100%);
+  border: 1px outset #CCCCCC;
+  padding: 2px 6px;
+  font-size: 9px;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  color: #000;
+  border-radius: 2px;
+}
+
+.creditsButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+.clock {
+  color: white;
+  font-size: 11px;
+  font-weight: normal;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  min-width: 45px;
+  text-align: center;
+}
+
+/* XP Desktop */
+.desktop {
+  min-height: calc(100vh - 40px);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Application Window */
+.windowContainer {
+  width: 100%;
+  max-width: 900px;
+  background: #ECE9D8;
+  border: 1px solid #0054E3;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.3);
+}
+
+.titleBar {
+  background: linear-gradient(180deg, #0078D4 0%, #106EBE 50%, #0054E3 100%);
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  color: white;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.titleBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.windowTitle {
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.titleBarRight {
+  display: flex;
+  gap: 2px;
+}
+
+.minimizeButton,
+.maximizeButton,
+.closeButton {
+  width: 21px;
+  height: 21px;
+  background: linear-gradient(180deg, #E6E6E6 0%, #CCCCCC 100%);
+  border: 1px outset #CCCCCC;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.minimizeButton:hover,
+.maximizeButton:hover {
+  background: linear-gradient(180deg, #F0F0F0 0%, #DDDDDD 100%);
+}
+
+.closeButton {
+  background: linear-gradient(180deg, #FF6B6B 0%, #E55353 100%);
+  border: 1px outset #FF6B6B;
+  color: white;
+}
+
+.closeButton:hover {
+  background: linear-gradient(180deg, #FF7F7F 0%, #F06666 100%);
+}
+
+.minimizeButton:active,
+.maximizeButton:active,
+.closeButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+/* Window Content */
+.windowContent {
+  padding: 16px;
+  background: #ECE9D8;
+  min-height: 600px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: linear-gradient(180deg, #F7F7F7 0%, #E8E8E8 100%);
+  border: 1px inset #CCCCCC;
+  border-radius: 4px;
+}
+
+.title {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #003d7a;
+  margin: 0 0 8px 0;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.titleEmoji {
+  margin-right: 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #000;
+  margin: 0;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.creditPill {
+  background: linear-gradient(180deg, #FFE135 0%, #FFCC02 100%);
+  color: #000;
+  padding: 2px 8px;
+  border: 1px solid #FFCC02;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Photo Display Window */
+.photoWindow {
+  background: #F7F7F7;
+  border: 1px inset #CCCCCC;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.photoTitleBar {
+  background: linear-gradient(180deg, #E8E8E8 0%, #CCCCCC 100%);
+  padding: 4px 8px;
+  border-bottom: 1px solid #999999;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.photoContent {
+  padding: 16px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.displayImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 2px inset #CCCCCC;
+  margin: 0 auto;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Y2K Filter for authentic early digital camera look */
+.y2kFilter {
+  filter: 
+    contrast(105%) 
+    saturate(110%) 
+    brightness(102%) 
+    hue-rotate(2deg) 
+    blur(0.2px);
+  position: relative;
+}
+
+.y2kFilter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0,0,255,0.02) 1px,
+      rgba(0,0,255,0.02) 2px
+    );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.buttonRow {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.toggleButton,
+.changePhotoButton,
+.downloadButton,
+.filterToggleButton {
+  background: linear-gradient(180deg, #E6E6E6 0%, #CCCCCC 100%);
+  border: 1px outset #CCCCCC;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  color: #000;
+  border-radius: 2px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.toggleButton:hover,
+.changePhotoButton:hover,
+.downloadButton:hover,
+.filterToggleButton:hover {
+  background: linear-gradient(180deg, #F0F0F0 0%, #DDDDDD 100%);
+}
+
+.toggleButton:active,
+.changePhotoButton:active,
+.downloadButton:active,
+.filterToggleButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+.uploadArea {
+  width: 100%;
+  height: 100%;
+  min-height: 268px;
+  background: linear-gradient(135deg, #E8F4FD 0%, #B3D9FF 100%);
+  border: 2px dashed #0066CC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #003d7a;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.uploadArea:hover {
+  background: linear-gradient(135deg, #F0F8FF 0%, #CCE5FF 100%);
+  border-color: #0054E3;
+}
+
+.uploadArea.dragActive {
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFE082 100%);
+  border-color: #FF8F00;
+}
+
+.uploadPrompt h4 {
+  color: #003d7a;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-family: 'Tahoma', sans-serif;
+  font-weight: bold;
+}
+
+.uploadPrompt p {
+  color: #0066CC;
+  font-size: 11px;
+  margin-bottom: 8px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.uploadPrompt small {
+  color: #666666;
+  font-size: 10px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.uploadIcon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #0066CC;
+}
+
+/* Options Panel */
+.optionsPanel {
+  margin-bottom: 16px;
+}
+
+.optionRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.optionSection {
+  background: #F7F7F7;
+  border: 1px inset #CCCCCC;
+  border-radius: 4px;
+}
+
+.sectionButton {
+  width: 100%;
+  background: linear-gradient(180deg, #E8E8E8 0%, #CCCCCC 100%);
+  border: none;
+  border-bottom: 1px solid #999999;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #000;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.sectionButton:hover {
+  background: linear-gradient(180deg, #F0F0F0 0%, #DDDDDD 100%);
+}
+
+.sectionButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+.sectionButton.expanded {
+  background: linear-gradient(180deg, #B3D9FF 0%, #99CCFF 100%);
+  border-bottom: 1px solid #0066CC;
+}
+
+.sectionButton.completed {
+  background: linear-gradient(180deg, #C8E6C9 0%, #A5D6A7 100%);
+}
+
+.sectionIcon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.sectionTitle {
+  flex: 1;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.sectionValue {
+  background: white;
+  border: 1px inset #CCCCCC;
+  padding: 2px 6px;
+  font-size: 10px;
+  color: #003d7a;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 2px;
+}
+
+.expandIcon {
+  font-size: 12px;
+  color: #000;
+  width: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.sectionContent {
+  padding: 12px 16px;
+  background: white;
+  border-top: 1px solid #CCCCCC;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.optionButton {
+  background: linear-gradient(180deg, #F7F7F7 0%, #E8E8E8 100%);
+  border: 1px outset #CCCCCC;
+  color: #000;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  text-align: center;
+  font-weight: normal;
+  border-radius: 2px;
+}
+
+.optionButton:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%);
+}
+
+.optionButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+.optionButton.selected {
+  background: linear-gradient(180deg, #0078D4 0%, #0054E3 100%);
+  color: white;
+  border: 1px inset #0054E3;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.styleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.styleButton {
+  background: linear-gradient(180deg, #F7F7F7 0%, #E8E8E8 100%);
+  border: 1px outset #CCCCCC;
+  color: #000;
+  padding: 8px 6px;
+  cursor: pointer;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  min-height: 50px;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.styleButton:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%);
+  transform: translateY(-1px);
+}
+
+.styleButton:active {
+  border: 1px inset #CCCCCC;
+}
+
+.styleButton.selected {
+  background: linear-gradient(180deg, #0078D4 0%, #0054E3 100%);
+  color: white;
+  border: 1px inset #0054E3;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.styleEmoji {
+  font-size: 16px;
+}
+
+.sliderContainer {
+  padding: 12px 0;
+}
+
+.slider {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
+  border: 1px inset #CCCCCC;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 2px;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(180deg, #E6E6E6 0%, #CCCCCC 100%);
+  border: 1px outset #CCCCCC;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(180deg, #E6E6E6 0%, #CCCCCC 100%);
+  border: 1px outset #CCCCCC;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 10px;
+  color: #000;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Generate Section */
+.generateSection {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.generateButton {
+  background: linear-gradient(180deg, #E8E8E8 0%, #CCCCCC 100%);
+  border: 2px outset #CCCCCC;
+  color: #000;
+  padding: 8px 24px;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: 'Tahoma', sans-serif;
+  cursor: pointer;
+  min-width: 200px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.generateButton:hover {
+  background: linear-gradient(180deg, #F0F0F0 0%, #DDDDDD 100%);
+}
+
+.generateButton:active {
+  border: 2px inset #CCCCCC;
+}
+
+.generateButton.ready {
+  animation: readyBlinkXP 2s ease-in-out infinite;
+}
+
+@keyframes readyBlinkXP {
+  0%, 50% { 
+    background: linear-gradient(180deg, #E8E8E8 0%, #CCCCCC 100%);
+    color: #000;
+  }
+  51%, 100% { 
+    background: linear-gradient(180deg, #4CAF50 0%, #45A049 100%);
+    color: white;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  }
+}
+
+.generateButton:disabled {
+  background: #E0E0E0;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #CCCCCC;
+  border-radius: 50%;
+  border-top-color: #0066CC;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progressContainer {
+  margin-top: 16px;
+  background: #F7F7F7;
+  border: 1px inset #CCCCCC;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 16px;
+  background: white;
+  border: 1px inset #CCCCCC;
+  border-radius: 2px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 50%, #4CAF50 100%);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 10px;
+  color: #000;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .desktop {
+    padding: 10px;
+  }
+  
+  .windowContainer {
+    max-width: 100%;
+  }
+  
+  .optionRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .styleGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .taskbar {
+    font-size: 10px;
+  }
+  
+  .startButton {
+    padding: 4px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttonRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .styleGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .generateButton {
+    font-size: 10px;
+    padding: 6px 20px;
+  }
+  
+  .styleButton {
+    font-size: 9px;
+    padding: 6px 4px;
+    min-height: 40px;
+  }
+  
+  .styleEmoji {
+    font-size: 14px;
+  }
+  
+  .windowContent {
+    padding: 12px;
+  }
+}

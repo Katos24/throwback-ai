@@ -78,6 +78,8 @@
     inset 0 0 20px rgba(0, 255, 255, 0.1);
   position: relative;
   z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Terminal scanlines effect */

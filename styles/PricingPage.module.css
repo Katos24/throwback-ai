@@ -582,3 +582,155 @@
     font-size: 11px;
   }
 }
+
+/* Decade Showcase Section - Fixed with solid colors and clickable links */
+.decadeShowcase {
+  margin: 4rem 0;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.showcaseTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.showcaseSubtitle {
+  font-size: 1.125rem;
+  color: #e2e8f0;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.decadeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.decadePreviewLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.decadePreview {
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.decadePreview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.decadeEmoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.decadePreview h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.decadePreview p {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.tryNowCta {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #5a0459;
+  margin-top: 1rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.decadePreview:hover .tryNowCta {
+  opacity: 1;
+  color: #60a5fa;
+  transform: translateX(5px);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .decadeShowcase {
+    margin: 3rem 0;
+    padding: 2rem;
+  }
+  
+  .showcaseTitle {
+    font-size: 1.5rem;
+  }
+  
+  .showcaseSubtitle {
+    font-size: 1rem;
+  }
+  
+  .decadeGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .decadePreview {
+    padding: 1.5rem 1rem;
+  }
+  
+  .decadeEmoji {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .decadeGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .decadePreview {
+    padding: 1rem;
+  }
+  
+  .decadeEmoji {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .decadePreview h4 {
+    font-size: 1rem;
+  }
+  
+  .decadePreview p {
+    font-size: 0.75rem;
+  }
+  
+  .tryNowCta {
+    font-size: 0.75rem;
+  }
+}

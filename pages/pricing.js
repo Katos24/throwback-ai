@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/PricingPage.module.css";
+import Link from 'next/link';
 
 // Toast Component
 const Toast = ({ message, type = 'info', onClose, isVisible }) => {
@@ -44,10 +45,12 @@ const CREDIT_PACKS = [
     price: "$4.99",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false,
+    tagline: "Perfect for trying out our AI tools",
+    useCase: "Great for basic photo restoration and a few creative projects",
     includes: {
       basic: 400,
       premium: 10,
-      yearbook: 80,
+      decades: 8,
       cartoon: 10,
       avatar: 8
     }
@@ -59,10 +62,12 @@ const CREDIT_PACKS = [
     price: "$9.99",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false,
+    tagline: "Most popular for families and hobbyists",
+    useCase: "Ideal for restoring family albums and creative decade styling",
     includes: {
       basic: 1000,
       premium: 25,
-      yearbook: 200,
+      decades: 20,
       cartoon: 25,
       avatar: 20
     }
@@ -74,10 +79,12 @@ const CREDIT_PACKS = [
     price: "$14.99",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true,
+    tagline: "Best value for power users",
+    useCase: "Perfect for content creators and social media enthusiasts",
     includes: {
       basic: 1600,
       premium: 40,
-      yearbook: 320,
+      decades: 32,
       cartoon: 40,
       avatar: 32
     }
@@ -89,10 +96,12 @@ const CREDIT_PACKS = [
     price: "$29.99",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false,
+    tagline: "Ultimate package for professionals",
+    useCase: "For photographers, designers, and content creation businesses",
     includes: {
       basic: 3500,
       premium: 87,
-      yearbook: 700,
+      decades: 70,
       cartoon: 87,
       avatar: 70
     }
@@ -203,7 +212,7 @@ export default function PricingPage() {
         "@id": `${pageUrl}#webpage`,
         "url": pageUrl,
         "name": "Pricing — Throwback AI",
-        "description": "Purchase Throwback AI credit packs to restore, colorize, and transform photos. From basic restoration to professional avatars and yearbook styles.",
+        "description": "Purchase Throwback AI credit packs to restore, colorize, and transform photos. From basic restoration to professional avatars and decade styles.",
         "isPartOf": { "@id": `${siteUrl}#website` }
       },
       {
@@ -225,9 +234,9 @@ export default function PricingPage() {
         <title>Pricing — Throwback AI Credits & Plans</title>
         <meta
           name="description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art. Flexible plans for every need."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art. Flexible plans for every need."
         />
-        <meta name="keywords" content="Throwback AI pricing, photo restoration credits, AI avatar cost, yearbook photo price, cartoon art credits" />
+        <meta name="keywords" content="Throwback AI pricing, photo restoration credits, AI avatar cost, decade photo price, cartoon art credits" />
         <link rel="canonical" href={pageUrl} />
 
         {/* Open Graph */}
@@ -236,7 +245,7 @@ export default function PricingPage() {
         <meta property="og:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           property="og:description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art."
         />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
@@ -251,7 +260,7 @@ export default function PricingPage() {
         <meta name="twitter:title" content="Pricing — Throwback AI Credits & Plans" />
         <meta
           name="twitter:description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, yearbook photos, professional avatars, and cartoon art."
+          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art."
         />
         <meta name="twitter:image" content={twitterImage} />
 
@@ -270,7 +279,7 @@ export default function PricingPage() {
             <span className={styles.titleSub}>Transform Any Photo Into Something Amazing</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            From restoring precious family memories to creating professional avatars and fun art — 
+            From restoring precious family memories to creating professional avatars and time-traveling through decades — 
             <strong> Throwback AI Credit Packs</strong> give you the power to transform any photo.
           </p>
 
@@ -291,10 +300,10 @@ export default function PricingPage() {
               </div>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>📸</span>
+              <span className={styles.serviceIcon}>📼</span>
               <div>
-                <strong>90s Yearbook Style</strong>
-                <span className={styles.serviceCost}>5 credits</span>
+                <strong>Decade Styles</strong>
+                <span className={styles.serviceCost}>50 credits</span>
               </div>
             </div>
             <div className={styles.serviceItem}>
@@ -365,8 +374,8 @@ export default function PricingPage() {
                         <span>{includes.premium} Colorizations</span>
                       </div>
                       <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>📸</span>
-                        <span>{includes.yearbook} Yearbook Photos</span>
+                        <span className={styles.includeIcon}>📼</span>
+                        <span>{includes.decades} Decade Photos</span>
                       </div>
                       <div className={styles.includeItem}>
                         <span className={styles.includeIcon}>🎭</span>
@@ -399,6 +408,46 @@ export default function PricingPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* New Decade Showcase Section */}
+          <div className={styles.decadeShowcase}>
+            <h3 className={styles.showcaseTitle}>Travel Through Time with Decade Styles</h3>
+            <p className={styles.showcaseSubtitle}>Transform your photos with authentic styling from the 70s, 80s, 90s, and 2000s</p>
+            <div className={styles.decadeGrid}>
+              <Link href="/replicate/70s" className={styles.decadePreviewLink}>
+                <div className={styles.decadePreview}>
+                  <span className={styles.decadeEmoji}>🌈</span>
+                  <h4>70s Groovy</h4>
+                  <p>Hippie, disco, punk vibes</p>
+                  <div className={styles.tryNowCta}>Try 70s Style →</div>
+                </div>
+              </Link>
+              <Link href="/replicate/80s" className={styles.decadePreviewLink}>
+                <div className={styles.decadePreview}>
+                  <span className={styles.decadeEmoji}>⚡</span>
+                  <h4>80s Neon</h4>
+                  <p>New wave, synthpop aesthetics</p>
+                  <div className={styles.tryNowCta}>Try 80s Style →</div>
+                </div>
+              </Link>
+              <Link href="/replicate/90s" className={styles.decadePreviewLink}>
+                <div className={styles.decadePreview}>
+                  <span className={styles.decadeEmoji}>📼</span>
+                  <h4>90s Grunge</h4>
+                  <p>Alternative, grunge culture</p>
+                  <div className={styles.tryNowCta}>Try 90s Style →</div>
+                </div>
+              </Link>
+              <Link href="/replicate/2000s" className={styles.decadePreviewLink}>
+                <div className={styles.decadePreview}>
+                  <span className={styles.decadeEmoji}>💿</span>
+                  <h4>2000s Y2K</h4>
+                  <p>Emo, scene, digital era</p>
+                  <div className={styles.tryNowCta}>Try 2000s Style →</div>
+                </div>
+              </Link>
+            </div>
           </div>
 
           {/* Features Section */}
@@ -441,9 +490,6 @@ export default function PricingPage() {
             <span className={styles.throwbackAi}>Throwback AI</span>
           </div>
         </div>
-        
-       
-     
       </section>
 
       {/* Toast Notification */}

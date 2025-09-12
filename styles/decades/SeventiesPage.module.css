@@ -1,4 +1,4 @@
-/* styles/decades/SeventiesPage.module.css - 70s TV Set Interface */
+/* styles/decades/SeventiesPage.module.css - 70s TV Set Interface - MOBILE FIXED */
 
 @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap');
 
@@ -383,7 +383,7 @@
   filter: drop-shadow(0 0 10px #8aca8a);
 }
 
-/* Control Panel - Like TV Buttons with Two-Column Layout */
+/* Control Panel - FIXED FOR MOBILE */
 .controlPanel {
   background: 
     linear-gradient(135deg, #654321 0%, #8B4513 50%, #654321 100%);
@@ -397,7 +397,7 @@
 
 .controlRow {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 15px;
   margin-bottom: 15px;
 }
@@ -485,7 +485,7 @@
 
 .buttonGroup {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 8px;
 }
 
@@ -633,7 +633,8 @@
   font-weight: bold;
   font-family: 'Fredoka One', cursive;
   cursor: pointer;
-  min-width: 300px;
+  min-width: 200px;
+  max-width: 90%;
   border-radius: 25px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -803,71 +804,242 @@
   border-radius: 4px;
 }
 
-/* Responsive Design */
+/* MOBILE RESPONSIVE FIXES */
 @media (max-width: 768px) {
   .container {
-    padding: 20px 10px;
+    padding: 15px 8px;
   }
   
   .tvSet {
-    padding: 20px;
+    padding: 15px;
+    border-radius: 20px;
+    border: 6px solid #654321;
+  }
+  
+  .tvScreen {
+    padding: 15px;
+    min-height: 500px;
   }
   
   .title {
-    font-size: 28px;
+    font-size: 24px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+  }
+  
+  /* FIXED: Control row grid for mobile */
+  .controlRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .controlButton {
+    padding: 10px 12px;
+    font-size: 13px;
   }
   
   .buttonGroup {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
   }
   
   .styleGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   
   .generateButton {
     font-size: 14px;
-    padding: 12px 24px;
-    min-width: 250px;
+    padding: 12px 20px;
+    min-width: 180px;
+    max-width: 95%;
   }
   
   .tvControls {
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    padding: 0 20px;
+  }
+  
+  .channelBar {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+  
+  .photoDisplay {
+    min-height: 250px;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 10px 5px;
+  }
+  
+  .tvSet {
+    padding: 10px;
+    border-radius: 15px;
+    border: 4px solid #654321;
+  }
+  
+  .tvScreen {
+    padding: 10px;
+    min-height: 400px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .titleEmoji {
+    margin-right: 8px;
+  }
+  
   .channelBar {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     text-align: center;
+    padding: 10px;
+    font-size: 11px;
   }
   
   .buttonRow {
     flex-direction: column;
     align-items: center;
+    gap: 8px;
+  }
+  
+  .toggleButton,
+  .changePhotoButton,
+  .downloadButton {
+    padding: 6px 12px;
+    font-size: 11px;
   }
   
   .generateButton {
     font-size: 12px;
-    padding: 10px 20px;
-    min-width: 200px;
+    padding: 10px 16px;
+    min-width: 150px;
+    max-width: 98%;
+    letter-spacing: 0.5px;
   }
   
   .styleGrid {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
+  
   .styleButton {
-    font-size: 9px;
+    font-size: 10px;
     padding: 6px 4px;
-    min-height: 40px;
+    min-height: 35px;
+    gap: 4px;
   }
+  
   .styleEmoji {
+    font-size: 12px;
+  }
+  
+  .controlButton {
+    padding: 8px 10px;
+    font-size: 12px;
+    gap: 8px;
+  }
+  
+  .controlIcon {
+    font-size: 16px;
+    width: 20px;
+  }
+  
+  .controlTitle {
+    font-size: 12px;
+  }
+  
+  .controlValue {
+    font-size: 10px;
+    padding: 2px 6px;
+    max-width: 80px;
+  }
+  
+  .optionButton {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+  
+  .buttonGroup {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  
+  .sliderLabels {
+    font-size: 10px;
+  }
+  
+  .progressText {
+    font-size: 10px;
+  }
+  
+  .photoDisplay {
+    min-height: 200px;
+  }
+  
+  .uploadPrompt h4 {
     font-size: 14px;
+  }
+  
+  .uploadPrompt p {
+    font-size: 12px;
+  }
+  
+  .uploadPrompt small {
+    font-size: 9px;
+  }
+  
+  .uploadIcon {
+    font-size: 30px;
+  }
+  
+  .knob {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .speaker {
+    width: 70px;
+    height: 35px;
   }
 }
 
+/* Extra small screens */
+@media (max-width: 360px) {
+  .title {
+    font-size: 18px;
+  }
+  
+  .generateButton {
+    font-size: 11px;
+    padding: 8px 12px;
+    min-width: 120px;
+    max-width: 100%;
+  }
+  
+  .controlButton {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  
+  .styleButton {
+    font-size: 9px;
+    padding: 4px 2px;
+    min-height: 30px;
+  }
+  
+  .styleEmoji {
+    font-size: 10px;
+  }
+}
 
 .seventiesFilter {
   filter: 

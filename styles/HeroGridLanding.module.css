@@ -1,33 +1,32 @@
-/* HeroGridLanding.module.css */
+/* HeroGridLanding.module.css - Before/After Card Updates */
 
 .heroSection {
-  background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
-  min-height: 100vh;
-  padding: 64px 16px;
-  position: relative;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 /* Hero Content */
 .heroContent {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 4rem;
 }
 
 .heroTitle {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: 3.5rem;
   font-weight: 800;
-  color: white;
-  margin-bottom: 24px;
   line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #60a5fa, #a855f7);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -35,21 +34,18 @@
 
 .heroDescription {
   font-size: 1.25rem;
-  color: #d1d5db;
-  margin-bottom: 48px;
-  max-width: 48rem;
-  margin-left: auto;
-  margin-right: auto;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
   line-height: 1.6;
 }
 
-/* Restore Grid */
+/* Restoration Grid */
 .restoreGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 32px;
-  max-width: 64rem;
-  margin: 0 auto 64px auto;
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 .restoreCardWrapper {
@@ -63,28 +59,32 @@
 }
 
 .restoreCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: white;
   border-radius: 16px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
   height: 100%;
 }
 
 .restoreCard:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* Badge */
 .badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  font-size: 0.875rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.575rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .success {
@@ -93,93 +93,159 @@
 }
 
 .popular {
-  background: #8b5cf6;
+  background: #f59e0b;
   color: white;
 }
 
+/* Before/After Image Container */
 .restoreImageContainer {
   position: relative;
-  height: 192px;
-  background: #374151;
-  border-radius: 8px;
+  height: 250px;
   overflow: hidden;
-  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .restoreImage {
   object-fit: cover;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.restoreCard:hover .restoreImage {
-  opacity: 1;
+/* Split Image Layout */
+.beforeAfterSplit {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
 }
 
+.beforeImage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(0 50% 0 0);
+  filter: contrast(75%) brightness(80%) saturate(50%) sepia(25%) blur(0.3px);
+  background: linear-gradient(45deg, transparent 40%, rgba(139,69,19,0.3) 42%, rgba(139,69,19,0.3) 44%, transparent 46%);
+}
+
+.afterImage {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(0 0 0 50%);
+}
+
+/* Split Line */
+.splitLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  transform: translateX(-50%);
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* Before/After Labels */
+.beforeLabel,
+.afterLabel {
+  position: absolute;
+  bottom: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.beforeLabel {
+  left: 0.75rem;
+}
+
+.afterLabel {
+  right: 0.75rem;
+}
+
+/* Card Content */
 .restoreTitle {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
+  margin: 1.5rem 1.5rem 0.75rem 1.5rem;
+  color: #1e293b;
 }
 
 .restoreDescription {
-  color: #d1d5db;
-  margin-bottom: 24px;
-  line-height: 1.6;
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0 1.5rem;
+  line-height: 1.5;
 }
 
 .restoreFooter {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
 }
 
 .creditsInfo {
-  color: #9ca3af;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
 }
 
 .creditsNumber {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: white;
+  color: #3b82f6;
 }
 
 .creditsLabel {
-  margin-left: 4px;
+  font-size: 0.875rem;
+  color: #64748b;
 }
 
 .restoreButton {
-  background: #2563eb;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .restoreButton:hover {
-  background: #1d4ed8;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
 /* Divider */
 .divider {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 48px;
+  margin: 2rem 0;
+  gap: 2rem;
 }
 
 .dividerLine {
+  flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  width: 100%;
-  max-width: 24rem;
+  background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
 }
 
 .dividerText {
-  padding: 0 24px;
-  color: #9ca3af;
+  font-size: 1.125rem;
+  color: #64748b;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -187,31 +253,31 @@
 /* Decades Section */
 .decadesSection {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 2rem;
 }
 
 .decadesTitle {
-  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-size: 2.5rem;
   font-weight: 700;
-  color: white;
-  margin-bottom: 16px;
+  color: #1e293b;
+  margin-bottom: 1rem;
 }
 
 .decadesDescription {
   font-size: 1.125rem;
-  color: #d1d5db;
-  max-width: 32rem;
+  color: #64748b;
+  max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 /* Decades Grid */
 .decadesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  max-width: 80rem;
-  margin: 0 auto;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
 }
 
 .decadeCardWrapper {
@@ -225,193 +291,244 @@
 }
 
 .decadeCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
 .decadeCard:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
+/* Era Badge */
 .eraBadge {
-  padding: 12px;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  z-index: 2;
+  backdrop-filter: blur(8px);
 }
 
 .orange {
-  background: linear-gradient(90deg, #f97316, #eab308);
+  background: rgba(249, 115, 22, 0.9);
+  color: white;
+}
+
+.neon {
+  background: rgba(236, 72, 153, 0.9);
+  color: white;
 }
 
 .purple {
-  background: linear-gradient(90deg, #9333ea, #ec4899);
+  background: rgba(147, 51, 234, 0.9);
+  color: white;
 }
 
 .blue {
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
 }
 
 .eraText {
-  text-align: center;
-  color: white;
-  font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 0.775rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+/* Decade Before/After Images */
 .decadeImageContainer {
   position: relative;
-  height: 160px;
-  background: #374151;
+  height: 220px;
+  overflow: hidden;
 }
 
 .decadeImage {
   object-fit: cover;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .decadeCard:hover .decadeImage {
-  opacity: 1;
+  transform: scale(1.05);
 }
 
+/* Decade Before/After Split */
+.decadeBeforeAfter {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+}
+
+.decadeBeforeImage {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+}
+
+.decadeAfterImage {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  position: relative;
+}
+
+/* Decade-specific filters for after images */
+.orange .decadeAfterImage {
+  filter: sepia(20%) saturate(120%) hue-rotate(-10deg) contrast(110%);
+}
+
+.neon .decadeAfterImage {
+  filter: saturate(150%) contrast(120%) brightness(110%) hue-rotate(10deg);
+}
+
+.purple .decadeAfterImage {
+  filter: contrast(110%) saturate(90%) brightness(95%) sepia(10%);
+}
+
+.blue .decadeAfterImage {
+  filter: contrast(105%) saturate(110%) brightness(102%) hue-rotate(5deg);
+}
+
+/* Decade Content */
 .decadeContent {
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 .decadeTitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: white;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
 }
 
 .decadeDescription {
-  color: #9ca3af;
   font-size: 0.875rem;
-  margin-bottom: 16px;
+  color: #64748b;
+  margin-bottom: 1rem;
   line-height: 1.5;
 }
 
 .decadeFooter {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .decadeCredits {
-  color: #9ca3af;
   font-size: 0.875rem;
+  color: #64748b;
 }
 
 .decadeCreditsNumber {
-  color: white;
-  font-weight: 600;
+  font-weight: 700;
+  color: #3b82f6;
 }
 
 .decadeCta {
-  color: #60a5fa;
-  font-size: 0.875rem;
   font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.decadeCard:hover .decadeCta {
-  color: #93c5fd;
+  color: #3b82f6;
+  font-size: 0.875rem;
 }
 
 /* Bottom CTA */
 .bottomCta {
   text-align: center;
-  margin-top: 64px;
 }
 
 .ctaCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 28rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  padding: 1rem 1rem;
+  border-radius: 20px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 .ctaIcon {
-  font-size: 3rem;
-  margin-bottom: 16px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .ctaTitle {
-  font-size: 1.25rem;
+  font-size: 1.875rem;
   font-weight: 700;
-  color: white;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .ctaDescription {
-  color: #d1d5db;
-  margin-bottom: 16px;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
 }
 
 .ctaButton {
-  display: inline-block;
-  background: linear-gradient(90deg, #2563eb, #8b5cf6);
-  color: white;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-weight: 600;
+  background: white;
+  color: #3b82f6;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
   text-decoration: none;
+  display: inline-block;
   transition: all 0.3s ease;
 }
 
 .ctaButton:hover {
-  background: linear-gradient(90deg, #1d4ed8, #7c3aed);
   transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
 }
 
-/* Responsive Design */
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .heroSection {
-    padding: 48px 12px;
+  .heroTitle {
+    font-size: 2.5rem;
   }
   
   .restoreGrid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 1.5rem;
   }
   
   .decadesGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
   }
   
-  .divider {
-    margin-bottom: 32px;
+  .restoreImageContainer,
+  .decadeImageContainer {
+    height: 200px;
   }
   
-  .dividerText {
-    padding: 0 16px;
-    font-size: 0.875rem;
+  .beforeAfterSplit,
+  .decadeBeforeAfter {
+    height: 200px;
   }
 }
 
 @media (max-width: 480px) {
-  .restoreCard {
-    padding: 24px;
+  .heroTitle {
+    font-size: 2rem;
   }
   
-  .restoreImageContainer {
-    height: 160px;
+  .restoreGrid,
+  .decadesGrid {
+    grid-template-columns: 1fr;
   }
   
-  .decadeContent {
-    padding: 20px;
+  .container {
+    padding: 0 1rem;
   }
   
   .ctaCard {
-    padding: 24px;
-    margin: 0 16px;
+    padding: 2rem 1.5rem;
   }
 }

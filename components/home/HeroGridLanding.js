@@ -13,8 +13,9 @@ export default function HeroGridLanding() {
       badge: 'Try Free',
       badgeColor: 'success',
       link: '/replicate/restore-basic',
-      image: '/images/restore-card.png',
-      buttonText: 'Restore Photos'
+      beforeImage: '/images/basic-before.jpg',
+      afterImage: '/images/basic-after.jpg',
+      buttonText: 'Restore (Try Free)'
     },
     {
       id: 'colorize',
@@ -24,7 +25,8 @@ export default function HeroGridLanding() {
       badge: 'Most Popular',
       badgeColor: 'popular',
       link: '/replicate/restore-premium',
-      image: '/images/colorizecardgrid.png',
+      beforeImage: '/images/beforeexample.jpg',
+      afterImage: '/images/afterexample.jpg',
       buttonText: 'Add Color'
     }
   ];
@@ -37,8 +39,20 @@ export default function HeroGridLanding() {
       credits: 50,
       era: '1970s',
       link: '/replicate/70s',
-      image: '/images/70s-style.jpg',
+      beforeImage: '/images/70s-before.jpg',
+      afterImage: '/images/70s-after.jpg',
       colorClass: styles.orange
+    },
+    {
+      id: '80s',
+      title: '80s Neon',
+      description: 'New wave, synthpop, and neon-bright aesthetics',
+      credits: 50,
+      era: '1980s',
+      link: '/replicate/80s',
+      beforeImage: '/images/sarahbefore.jpg',
+      afterImage: '/images/sarah80s.jpg',
+      colorClass: styles.neon
     },
     {
       id: '90s',
@@ -47,7 +61,8 @@ export default function HeroGridLanding() {
       credits: 50,
       era: '1990s',
       link: '/replicate/90s',
-      image: '/images/90s-style.jpg',
+      beforeImage: '/images/mikebefore.jpg',
+      afterImage: '/images/90s-after.jpg',
       colorClass: styles.purple
     },
     {
@@ -57,7 +72,8 @@ export default function HeroGridLanding() {
       credits: 50,
       era: '2000s',
       link: '/replicate/2000s',
-      image: '/images/2000s-style.jpg',
+      beforeImage: '/images/alexbefore.jpg',
+      afterImage: '/images/2000s-after.jpg',
       colorClass: styles.blue
     }
   ];
@@ -90,14 +106,25 @@ export default function HeroGridLanding() {
                       </div>
                     )}
                     
-                    {/* Image Preview */}
-                    <div className={styles.restoreImageContainer}>
+                    {/* Before/After Image Split */}
+                    <div className={styles.beforeAfterSplit}>
                       <Image
-                        src={option.image}
-                        alt={option.title}
+                        src={option.beforeImage}
+                        alt={`${option.title} - Before`}
                         fill
-                        className={styles.restoreImage}
+                        className={styles.beforeImage}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
+                      <Image
+                        src={option.afterImage}
+                        alt={`${option.title} - After`}
+                        fill
+                        className={styles.afterImage}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className={styles.splitLine}></div>
+                      <div className={styles.beforeLabel}>Before</div>
+                      <div className={styles.afterLabel}>After</div>
                     </div>
                     
                     {/* Content */}
@@ -124,7 +151,7 @@ export default function HeroGridLanding() {
         {/* Divider */}
         <div className={styles.divider}>
           <div className={styles.dividerLine}></div>
-          <span className={styles.dividerText}>or try something different</span>
+          <span className={styles.dividerText}>Want to get creative instead?</span>
           <div className={styles.dividerLine}></div>
         </div>
 
@@ -134,56 +161,67 @@ export default function HeroGridLanding() {
             Time Travel Through the Decades
           </h2>
           <p className={styles.decadesDescription}>
-            Transform your photos with authentic styling from different eras. Perfect for creative projects and social media.
+            Transform your selfies into viral social media content with authentic decade styling. 
+            Perfect for TikTok, Instagram, and standing out online.
           </p>
-        </div>
 
-        {/* Decades Grid */}
-        <div className={styles.decadesGrid}>
-          {decadeOptions.map((decade) => (
-            <div key={decade.id} className={styles.decadeCardWrapper}>
-              <Link href={decade.link} className={styles.decadeCardLink}>
-                <div className={styles.decadeCard}>
-                  
-                  {/* Era Badge */}
-                  <div className={`${styles.eraBadge} ${decade.colorClass}`}>
-                    <div className={styles.eraText}>{decade.era}</div>
-                  </div>
-                  
-                  {/* Image */}
-                  <div className={styles.decadeImageContainer}>
-                    <Image
-                      src={decade.image}
-                      alt={decade.title}
-                      fill
-                      className={styles.decadeImage}
-                    />
-                  </div>
-                  
-                  {/* Content */}
-                  <div className={styles.decadeContent}>
-                    <h3 className={styles.decadeTitle}>{decade.title}</h3>
-                    <p className={styles.decadeDescription}>{decade.description}</p>
+          {/* Decades Grid */}
+          <div className={styles.decadesGrid}>
+            {decadeOptions.map((decade) => (
+              <div key={decade.id} className={styles.decadeCardWrapper}>
+                <Link href={decade.link} className={styles.decadeCardLink}>
+                  <div className={styles.decadeCard}>
                     
-                    <div className={styles.decadeFooter}>
-                      <div className={styles.decadeCredits}>
-                        <span className={styles.decadeCreditsNumber}>{decade.credits}</span> credits
-                      </div>
-                      <div className={styles.decadeCta}>
-                        Try Style →
+                    {/* Era Badge */}
+                    <div className={`${styles.eraBadge} ${decade.colorClass}`}>
+                      <div className={styles.eraText}>{decade.era}</div>
+                    </div>
+                    
+                    {/* Before/After Images */}
+                    <div className={styles.decadeBeforeAfter}>
+                      <Image
+                        src={decade.beforeImage}
+                        alt={`${decade.title} - Before`}
+                        width={140}
+                        height={220}
+                        className={styles.decadeBeforeImage}
+                      />
+                      <Image
+                        src={decade.afterImage}
+                        alt={`${decade.title} - After`}
+                        width={140}
+                        height={220}
+                        className={styles.decadeAfterImage}
+                      />
+                      <div className={styles.splitLine}></div>
+                      <div className={styles.beforeLabel}>Now</div>
+                      <div className={styles.afterLabel}>{decade.era}</div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className={styles.decadeContent}>
+                      <h3 className={styles.decadeTitle}>{decade.title}</h3>
+                      <p className={styles.decadeDescription}>{decade.description}</p>
+                      
+                      <div className={styles.decadeFooter}>
+                        <div className={styles.decadeCredits}>
+                          <span className={styles.decadeCreditsNumber}>{decade.credits}</span> credits
+                        </div>
+                        <div className={styles.decadeCta}>
+                          Try Style →
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom CTA */}
         <div className={styles.bottomCta}>
           <div className={styles.ctaCard}>
-            <div className={styles.ctaIcon}>⚡</div>
             <h3 className={styles.ctaTitle}>Ready to Get Started?</h3>
             <p className={styles.ctaDescription}>Try photo restoration for free</p>
             <Link href="/pricing" className={styles.ctaButton}>

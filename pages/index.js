@@ -5,8 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { Suspense } from 'react';
 
 // Lazy-load sections - Updated to use DemoSection
-
-const CarouselHero = dynamic(() => import('../components/home/CarouselHero'));
+const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
 const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
 const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
 const TopBanner = dynamic(() => import('../components/home/TopBanner'));
@@ -28,8 +27,7 @@ export default function Home() {
   const facebookPageId = '61578072554521';
 
   // Intersection Observers
-
-  const [carouselHeroRef, carouselHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -135,14 +133,12 @@ export default function Home() {
       </Head>
 
       <main>
-       
-        {/* Simple Carousel Hero */}
-        <div ref={carouselHeroRef}>
-          {carouselHeroInView && <Suspense fallback={<Loader />}><CarouselHero /></Suspense>}
+        {/* Hero Grid Landing */}
+        <div ref={heroGridRef}>
+          {heroGridInView && <Suspense fallback={<Loader />}><HeroGridLanding /></Suspense>}
         </div>
 
       
-
         {/* Modern AI Demo Section */}
         <div ref={demoSectionRef}>
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}

@@ -6,14 +6,6 @@ export default function ThrowbackPage() {
 
   const decades = [
     {
-      id: '60s',
-      title: '1960s',
-      subtitle: 'Peace & Love',
-      emoji: '✌️',
-      description: 'Flower power & groovy vibes',
-      className: 'decade-60s'
-    },
-    {
       id: '70s',
       title: '1970s',
       subtitle: 'Disco Fever',

@@ -33,6 +33,20 @@ export default function HeroGridLanding() {
 
   const decadeOptions = [
     {
+      id: 'all-decades',
+      title: 'All Decades',
+      description: 'Try every era - 70s, 80s, 90s, and 2000s styles in one collection',
+      credits: 50,
+      era: 'Time Travel',
+      link: '/decades', // Could link to a page that shows all decades
+      fullBackgroundImage: '/images/ThrowbackDecadesCard.jpg', // The synthwave image you showed
+      colorClass: styles.rainbow,
+      cardClass: styles.allDecadesCard,
+      badge: 'Complete Collection',
+      badgeColor: 'rainbow',
+      isFullBackground: true // Flag to render differently
+    },
+    {
       id: '70s',
       title: '70s Groovy',
       description: 'Hippie, disco, punk, and glam rock styles',
@@ -41,7 +55,8 @@ export default function HeroGridLanding() {
       link: '/replicate/70s',
       beforeImage: '/images/70s-before.jpg',
       afterImage: '/images/70s-after.jpg',
-      colorClass: styles.orange
+      colorClass: styles.orange,
+      cardClass: styles.seventiesCard
     },
     {
       id: '80s',
@@ -52,7 +67,8 @@ export default function HeroGridLanding() {
       link: '/replicate/80s',
       beforeImage: '/images/sarahbefore.jpg',
       afterImage: '/images/sarah80s.jpg',
-      colorClass: styles.neon
+      colorClass: styles.neon,
+      cardClass: styles.eightiesCard
     },
     {
       id: '90s',
@@ -63,7 +79,8 @@ export default function HeroGridLanding() {
       link: '/replicate/90s',
       beforeImage: '/images/mikebefore.jpg',
       afterImage: '/images/90s-after.jpg',
-      colorClass: styles.purple
+      colorClass: styles.purple,
+      cardClass: styles.ninetiesCard
     },
     {
       id: '2000s',
@@ -74,7 +91,8 @@ export default function HeroGridLanding() {
       link: '/replicate/2000s',
       beforeImage: '/images/alexbefore.jpg',
       afterImage: '/images/2000s-after.jpg',
-      colorClass: styles.blue
+      colorClass: styles.blue,
+      cardClass: styles.twothousandsCard
     }
   ];
 
@@ -170,33 +188,54 @@ export default function HeroGridLanding() {
             {decadeOptions.map((decade) => (
               <div key={decade.id} className={styles.decadeCardWrapper}>
                 <Link href={decade.link} className={styles.decadeCardLink}>
-                  <div className={styles.decadeCard}>
+                  <div className={`${styles.decadeCard} ${decade.cardClass}`}>
+                    
+                    {/* Badge */}
+                    {decade.badge && (
+                      <div className={`${styles.badge} ${styles[decade.badgeColor]}`}>
+                        {decade.badge}
+                      </div>
+                    )}
                     
                     {/* Era Badge */}
                     <div className={`${styles.eraBadge} ${decade.colorClass}`}>
                       <div className={styles.eraText}>{decade.era}</div>
                     </div>
                     
-                    {/* Before/After Images */}
-                    <div className={styles.decadeBeforeAfter}>
-                      <Image
-                        src={decade.beforeImage}
-                        alt={`${decade.title} - Before`}
-                        width={140}
-                        height={220}
-                        className={styles.decadeBeforeImage}
-                      />
-                      <Image
-                        src={decade.afterImage}
-                        alt={`${decade.title} - After`}
-                        width={140}
-                        height={220}
-                        className={styles.decadeAfterImage}
-                      />
-                      <div className={styles.splitLine}></div>
-                      <div className={styles.beforeLabel}>Now</div>
-                      <div className={styles.afterLabel}>{decade.era}</div>
-                    </div>
+                    {/* Conditional rendering: Full Background vs Before/After Split */}
+                    {decade.isFullBackground ? (
+                      // Full background image for All Decades card
+                      <div className={styles.fullBackgroundContainer}>
+                        <Image
+                          src={decade.fullBackgroundImage}
+                          alt={`${decade.title} - Time Travel Background`}
+                          width={280}
+                          height={240}
+                          className={styles.fullBackgroundImage}
+                        />
+                      </div>
+                    ) : (
+                      // Regular before/after split for individual decade cards
+                      <div className={styles.decadeBeforeAfter}>
+                        <Image
+                          src={decade.beforeImage}
+                          alt={`${decade.title} - Before`}
+                          width={140}
+                          height={220}
+                          className={styles.decadeBeforeImage}
+                        />
+                        <Image
+                          src={decade.afterImage}
+                          alt={`${decade.title} - After`}
+                          width={140}
+                          height={220}
+                          className={styles.decadeAfterImage}
+                        />
+                        <div className={styles.splitLine}></div>
+                        <div className={styles.beforeLabel}>Now</div>
+                        <div className={styles.afterLabel}>{decade.era}</div>
+                      </div>
+                    )}
                     
                     {/* Content */}
                     <div className={styles.decadeContent}>
@@ -208,7 +247,7 @@ export default function HeroGridLanding() {
                           <span className={styles.decadeCreditsNumber}>{decade.credits}</span> credits
                         </div>
                         <div className={styles.decadeCta}>
-                          Try Style →
+                          {decade.isFullBackground ? 'Explore All →' : 'Try Style →'}
                         </div>
                       </div>
                     </div>

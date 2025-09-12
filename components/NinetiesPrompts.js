@@ -70,8 +70,18 @@ const NINETIES_STYLES = [
     label: "Gangsta Rap",
     description: "Slicked hair, plaid shirts, sunglasses, gold jewelry, serious look",
     emoji: "🕶️"
+  },
+  // ───────────────────────────────────────────────────────
+  // NEW PRESET: 2K Windbreaker
+  {
+    id: '2k-windbreaker',
+    value: "1990s Y2K windbreaker yearbook photo with black, orange, red, pink, and yellow horizontal stripes, dark voluminous hair and beard, silver chain necklace, plain light blue background, bold color-block streetwear aesthetic",
+    label: "2K Windbreaker",
+    description: "Black/orange/red/pink/yellow windbreaker, 2K patch, chain necklace",
+    emoji: "🧥"
   }
 ];
+
 
 // Enhanced prompt builder that combines style with user preferences
 const buildNinetiesPrompt = ({
@@ -84,14 +94,13 @@ const buildNinetiesPrompt = ({
   if (!style) return null;
 
   let prompt = `${gender} ${style.value}`;
-  
+
   if (preserveFacialFeatures) {
     prompt += ", IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure";
   }
-  
+
   prompt += ", authentic 1990s photography style with period-accurate lighting and composition";
-  
-  // Add intensity modifiers
+
   switch (intensity) {
     case 'subtle':
       prompt += ", subtle vintage styling maintaining natural appearance";
@@ -99,10 +108,10 @@ const buildNinetiesPrompt = ({
     case 'strong':
       prompt += ", bold dramatic 1990s transformation with exaggerated period elements";
       break;
-    default: // medium
+    default:
       prompt += ", balanced vintage styling with authentic 1990s elements";
   }
-  
+
   return prompt;
 };
 

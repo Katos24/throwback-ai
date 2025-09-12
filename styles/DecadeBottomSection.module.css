@@ -1,0 +1,424 @@
+/* styles/DecadeBottomSection.module.css */
+
+.bottomSection {
+  margin-top: 4rem;
+  padding-top: 4rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Section Title Styles */
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.sectionSubtitle {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* How It Works Section */
+.howItWorks {
+  margin-bottom: 6rem;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.stepNumber {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+}
+
+.step h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.step p {
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Other Decades Section */
+.otherDecades {
+  margin-bottom: 6rem;
+}
+
+.decadeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.decadeCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: block;
+}
+
+.decadeCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Decade-specific colors */
+.decadeCard.orange {
+  border-color: #ff6b35;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.2);
+}
+
+.decadeCard.orange:hover {
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.4);
+}
+
+.decadeCard.neon {
+  border-color: #ff006e;
+  box-shadow: 0 8px 32px rgba(255, 0, 110, 0.2);
+}
+
+.decadeCard.neon:hover {
+  box-shadow: 0 20px 60px rgba(255, 0, 110, 0.4);
+}
+
+.decadeCard.purple {
+  border-color: #6c5ce7;
+  box-shadow: 0 8px 32px rgba(108, 92, 231, 0.2);
+}
+
+.decadeCard.purple:hover {
+  box-shadow: 0 20px 60px rgba(108, 92, 231, 0.4);
+}
+
+.decadeCard.blue {
+  border-color: #0984e3;
+  box-shadow: 0 8px 32px rgba(9, 132, 227, 0.2);
+}
+
+.decadeCard.blue:hover {
+  box-shadow: 0 20px 60px rgba(9, 132, 227, 0.4);
+}
+
+.decadeEmoji {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.decadeTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.decadeDescription {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.decadeCta {
+  font-weight: 700;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 0.875rem;
+}
+
+/* FAQ Section */
+.faq {
+  margin-bottom: 6rem;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.faqItem h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.faqItem p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+/* Pricing Section */
+.pricing {
+  margin-bottom: 6rem;
+}
+
+.pricingCard {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pricingCard h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.pricingCard p {
+  font-size: 1.125rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+}
+
+.pricingOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pricingOption {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.creditAmount {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.decadeCount {
+  display: block;
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.popular {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricingButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+}
+
+.pricingButton:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
+}
+
+/* Footer CTA */
+.footerCta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footerCta h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.footerCta p {
+  font-size: 1.25rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  padding: 1.25rem 3rem;
+  border-radius: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  font-size: 1.125rem;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+  
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+  
+  .stepsGrid,
+  .decadeGrid,
+  .faqGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .pricingOptions {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricingCard {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+  
+  .footerCta {
+    padding: 3rem 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .footerCta h2 {
+    font-size: 2rem;
+  }
+  
+  .ctaButton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottomSection {
+    margin-top: 3rem;
+    padding-top: 3rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+  
+  .step,
+  .faqItem,
+  .decadeCard {
+    padding: 1.5rem;
+  }
+  
+  .stepNumber {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+}

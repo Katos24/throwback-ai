@@ -9,6 +9,7 @@ import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/NinetiesPage.module.css";
 import { NINETIES_STYLES, buildNinetiesPrompt } from "../../components/NinetiesPrompts";
+import DecadeBottomSection from "../../components/DecadeBottomSection";
 
 export default function NinetiesPage() {
   const router = useRouter();
@@ -381,7 +382,7 @@ export default function NinetiesPage() {
                     >
                       <div className={styles.uploadPrompt}>
                         <div className={styles.uploadIcon}>📷</div>
-                        <h2>Drop your photo here</h2>
+                        <h4>Drop your photo here</h4>
                         <p>Drag & drop or click to select</p>
                         <small>Best results with clear face photos<br/>PNG, JPG, HEIC up to 10MB</small>
                       </div>
@@ -581,6 +582,9 @@ export default function NinetiesPage() {
             )}
           </div>
         </div>
+
+        {/* Reusable Bottom Section Component */}
+        <DecadeBottomSection currentDecade="90s" />
       </main>
     </>
   );

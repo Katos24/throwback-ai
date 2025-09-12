@@ -200,7 +200,7 @@
 /* Enhanced Split Image Layout - FIXED for Next.js Images */
 .beforeAfterSplit {
   position: relative;
-  height: 280px;
+  height: 380px;
   overflow: hidden;
 }
 
@@ -459,7 +459,7 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.55rem 1.05rem;
   border-radius: 20px;
   font-weight: 700;
   z-index: 2;
@@ -488,7 +488,7 @@
 }
 
 .eraText {
-  font-size: 0.875rem;
+  font-size: 0.675rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -781,4 +781,442 @@
     padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
   }
+}
+
+
+
+/* 70s Groovy Card - Warm oranges, browns, earth tones */
+.seventiesCard {
+  background: linear-gradient(135deg, #ff6b35, #f7931e, #ff8c00);
+  border: 3px solid #d2691e;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.seventiesCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 140, 0, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(210, 105, 30, 0.3) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.seventiesCard .decadeContent {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 20px 20px;
+}
+
+.seventiesCard .decadeTitle {
+  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.seventiesCard .decadeDescription {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.seventiesCard .decadeCredits {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.seventiesCard .decadeCta {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* 80s Neon Card - Electric blues, magentas, neon colors */
+.eightiesCard {
+  background: linear-gradient(135deg, #ff006e, #8338ec, #3a86ff);
+  border: 3px solid #ff1493;
+  box-shadow: 0 8px 32px rgba(255, 0, 110, 0.4),
+              inset 0 0 20px rgba(131, 56, 236, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.eightiesCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 20, 147, 0.1) 2px,
+      rgba(255, 20, 147, 0.1) 4px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(58, 134, 255, 0.1) 2px,
+      rgba(58, 134, 255, 0.1) 4px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.eightiesCard .decadeContent {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 20px 20px;
+}
+
+.eightiesCard .decadeTitle {
+  color: #fff;
+  text-shadow: 0 0 15px #ff1493, 3px 3px 6px rgba(0, 0, 0, 0.9);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.eightiesCard .decadeDescription {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.eightiesCard .decadeCredits {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.eightiesCard .decadeCta {
+  color: #fff;
+  text-shadow: 0 0 10px #ff1493, 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* 90s Grunge Card - Deep purples, blacks, muted tones */
+.ninetiesCard {
+  background: linear-gradient(135deg, #2d1b69, #11051b, #6c5ce7);
+  border: 3px solid #a29bfe;
+  box-shadow: 0 8px 32px rgba(45, 27, 105, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.ninetiesCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(108, 92, 231, 0.2) 0%, transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(162, 155, 254, 0.15) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ninetiesCard .decadeContent {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 20px 20px;
+}
+
+.ninetiesCard .decadeTitle {
+  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+  font-family: 'Arial Black', sans-serif;
+  font-weight: 900;
+  text-transform: lowercase;
+}
+
+.ninetiesCard .decadeDescription {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.ninetiesCard .decadeCredits {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.ninetiesCard .decadeCta {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* 2000s Y2K Card - Metallics, cyber blues, digital aesthetic */
+.twothousandsCard {
+  background: linear-gradient(135deg, #0984e3, #74b9ff, #00cec9);
+  border: 3px solid #00b894;
+  box-shadow: 0 8px 32px rgba(9, 132, 227, 0.4),
+              inset 0 0 30px rgba(116, 185, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.twothousandsCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(0, 206, 201, 0.1) 50%, transparent 70%),
+    radial-gradient(circle at 60% 20%, rgba(116, 185, 255, 0.2) 0%, transparent 40%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.twothousandsCard .decadeContent {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 0 0 20px 20px;
+}
+
+.twothousandsCard .decadeTitle {
+  color: #fff;
+  text-shadow: 0 0 12px #74b9ff, 3px 3px 6px rgba(0, 0, 0, 0.8);
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.twothousandsCard .decadeDescription {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.twothousandsCard .decadeCredits {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.twothousandsCard .decadeCta {
+  color: #fff;
+  text-shadow: 0 0 8px #74b9ff, 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* Enhanced hover effects for all decade cards */
+.seventiesCard:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(255, 107, 53, 0.5);
+}
+
+.eightiesCard:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(255, 0, 110, 0.6),
+              inset 0 0 30px rgba(131, 56, 236, 0.4);
+}
+
+.ninetiesCard:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(45, 27, 105, 0.7);
+}
+
+.twothousandsCard:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(9, 132, 227, 0.6),
+              inset 0 0 40px rgba(116, 185, 255, 0.3);
+}
+
+/* Transition for smooth hover effects */
+.decadeCard {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Override any existing gradient text styles for decade cards */
+.seventiesCard .decadeCreditsNumber,
+.eightiesCard .decadeCreditsNumber,
+.ninetiesCard .decadeCreditsNumber,
+.twothousandsCard .decadeCreditsNumber {
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+
+/* All Decades Card - Synthwave/Retrowave theme with full background image */
+.allDecadesCard {
+  background: transparent;
+  border: 3px solid #ff006e;
+  box-shadow: 
+    0 8px 32px rgba(255, 0, 110, 0.4),
+    inset 0 0 20px rgba(131, 56, 236, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.allDecadesCard::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    #ff006e, #8338ec, #3a86ff, #00cec9, #ff6b35,
+    #ff006e, #8338ec, #3a86ff, #00cec9, #ff6b35
+  );
+  background-size: 200% 200%;
+  border-radius: 23px;
+  z-index: -1;
+  animation: borderRainbow 3s linear infinite;
+}
+
+/* Full background image container */
+.fullBackgroundContainer {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.fullBackgroundImage {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: all 0.4s ease;
+}
+
+.allDecadesCard:hover .fullBackgroundImage {
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.2);
+}
+
+@keyframes borderRainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.allDecadesCard .decadeContent {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 20px 20px;
+}
+
+.allDecadesCard .decadeTitle {
+  color: #fff;
+  text-shadow: 
+    0 0 10px rgba(255, 0, 110, 0.8),
+    0 0 20px rgba(131, 56, 236, 0.6),
+    2px 2px 4px rgba(0, 0, 0, 0.9);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.25rem;
+}
+
+.allDecadesCard .decadeDescription {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.allDecadesCard .decadeCredits {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.allDecadesCard .decadeCta {
+  color: #fff;
+  text-shadow: 
+    0 0 8px rgba(255, 0, 110, 0.8),
+    1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.allDecadesCard .decadeCreditsNumber {
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+
+/* Rainbow color class for era badge */
+.rainbow {
+  background: linear-gradient(135deg, 
+    #ff006e 0%, #8338ec 33%, #3a86ff 66%, #00cec9 100%
+  );
+  background-size: 200% 200%;
+  animation: badgeRainbow 2s ease-in-out infinite alternate;
+}
+
+@keyframes badgeRainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Enhanced hover effect for All Decades card */
+.allDecadesCard:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 
+    0 20px 60px rgba(255, 0, 110, 0.6),
+    0 20px 60px rgba(131, 56, 236, 0.4),
+    inset 0 0 30px rgba(58, 134, 255, 0.3);
+}
+
+.allDecadesCard:hover::before {
+  animation-duration: 1s;
+}
+
+/* Special badge styling for rainbow badge */
+.badge.rainbow {
+  background: linear-gradient(135deg, 
+    #ff006e 0%, #8338ec 33%, #3a86ff 66%, #00cec9 100%
+  );
+  background-size: 200% 200%;
+  animation: badgeRainbow 2s ease-in-out infinite alternate;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: 800;
 }

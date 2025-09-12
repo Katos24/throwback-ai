@@ -398,3 +398,21 @@
 .actionButton:hover .arrow {
   transform: translateX(2px);
 }
+
+.cardImageWrapper {
+  width: 100%;
+  aspect-ratio: 4 / 3;   /* keeps all cards same shape (square = 1/1 if you prefer) */
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111;       /* fallback bg while image loads */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* fills frame without distortion */
+}

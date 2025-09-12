@@ -96,14 +96,14 @@ const DecadeBottomSection = ({ currentDecade = '90s' }) => {
           </div>
           <div className={styles.faqItem}>
             <h3>How long does it take?</h3>
-            <p>Generation typically takes 20-45 seconds. You'll see a progress bar showing the current status.</p>
+            <p>Generation typically takes 20-45 seconds. You&apos;ll see a progress bar showing the current status.</p>
           </div>
           <div className={styles.faqItem}>
             <h3>Can I use this commercially?</h3>
             <p>Generated images are for personal use. For commercial usage rights, please contact our support team.</p>
           </div>
           <div className={styles.faqItem}>
-            <h3>What if I'm not happy with the result?</h3>
+            <h3>What if I&apos;m not happy with the result?</h3>
             <p>Try adjusting the style strength slider or selecting a different style. Each generation uses credits, so experiment with settings first.</p>
           </div>
         </div>

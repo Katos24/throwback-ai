@@ -1,36 +1,33 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import suiteStyles from '../../styles/AISuite.module.css';
+import React, { useRef, useEffect, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import styles from '../../styles/AISuite.module.css'
 
 const AISuitePage = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeFilter, setActiveFilter] = useState('all')
+  const containerRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setIsVisible(true)
+          observer.disconnect()
         }
       },
       { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+    )
+    if (containerRef.current) observer.observe(containerRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const categories = [
     { id: 'all', label: 'All Tools', count: 7 },
     { id: 'restore', label: 'Restore', count: 2 },
     { id: 'transform', label: 'Transform', count: 1 },
-    { id: 'decades', label: 'Decades', count: 4 }
-  ];
+    { id: 'decades', label: 'Decades', count: 4 },
+  ]
 
   const aiSuites = [
     {
@@ -43,7 +40,7 @@ const AISuitePage = () => {
       link: '/replicate/restore-basic',
       accent: '#10b981',
       category: 'restore',
-      popular: true
+      popular: true,
     },
     {
       id: 'colorize',
@@ -55,7 +52,7 @@ const AISuitePage = () => {
       link: '/replicate/restore-premium',
       accent: '#3b82f6',
       category: 'restore',
-      popular: true
+      popular: true,
     },
     {
       id: 'cartoon',
@@ -67,7 +64,7 @@ const AISuitePage = () => {
       link: '/replicate/cartoon',
       accent: '#8b5cf6',
       category: 'transform',
-      popular: false
+      popular: false,
     },
     {
       id: '70s',
@@ -79,7 +76,7 @@ const AISuitePage = () => {
       link: '/replicate/70s',
       accent: '#f59e0b',
       category: 'decades',
-      popular: false
+      popular: false,
     },
     {
       id: '80s',
@@ -91,7 +88,7 @@ const AISuitePage = () => {
       link: '/replicate/80s',
       accent: '#ec4899',
       category: 'decades',
-      popular: false
+      popular: false,
     },
     {
       id: '90s',
@@ -103,7 +100,7 @@ const AISuitePage = () => {
       link: '/replicate/90s',
       accent: '#8b5cf6',
       category: 'decades',
-      popular: false
+      popular: false,
     },
     {
       id: '2000s',
@@ -115,83 +112,87 @@ const AISuitePage = () => {
       link: '/replicate/2000s',
       accent: '#06b6d4',
       category: 'decades',
-      popular: false
+      popular: false,
     },
-  ];
+  ]
 
   const getFilteredTools = () => {
     if (activeFilter === 'all') {
-      return [...aiSuites.filter(tool => tool.popular), ...aiSuites.filter(tool => !tool.popular)];
+      return [
+        ...aiSuites.filter((tool) => tool.popular),
+        ...aiSuites.filter((tool) => !tool.popular),
+      ]
     }
-    return aiSuites.filter(tool => tool.category === activeFilter);
-  };
+    return aiSuites.filter((tool) => tool.category === activeFilter)
+  }
 
-  const filteredTools = getFilteredTools();
+  const filteredTools = getFilteredTools()
 
   return (
-    <div className={suiteStyles.suitePage}>
-      {/* Background Effects */}
-      <div className={suiteStyles.backgroundGrid}></div>
-      <div className={suiteStyles.floatingOrbs}>
-        <div className={suiteStyles.orb1}></div>
-        <div className={suiteStyles.orb2}></div>
-        <div className={suiteStyles.orb3}></div>
+    <div className={styles.suitePage}>
+      <div className={styles.backgroundGrid} />
+      <div className={styles.floatingOrbs}>
+        <div className={styles.orb1} />
+        <div className={styles.orb2} />
+        <div className={styles.orb3} />
       </div>
 
       <div
         ref={containerRef}
-        className={`${suiteStyles.container} ${isVisible ? suiteStyles.visible : ''}`}
+        className={`${styles.container} ${isVisible ? styles.visible : ''}`}
       >
-        {/* Header Section */}
-        <header className={suiteStyles.header}>
-          <h1 className={suiteStyles.title}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>
             Seven Powerful AI Engines
-            <span className={suiteStyles.titleGradient}> One Amazing Platform</span>
+            <span className={styles.titleGradient}> One Amazing Platform</span>
           </h1>
-          <p className={suiteStyles.subtitle}>
-            Choose the perfect AI transformation for your photos. Each engine is specially trained
-            for different types of enhancement and creative projects.
+          <p className={styles.subtitle}>
+            Choose the perfect AI transformation for your photos. Each engine is
+            specially trained for different types of enhancement and creative
+            projects.
           </p>
         </header>
 
-        {/* Filter Tabs */}
-        <div className={suiteStyles.filterSection}>
-          <div className={suiteStyles.filterTabs}>
-            {categories.map((category) => (
+        <div className={styles.filterSection}>
+          <div className={styles.filterTabs}>
+            {categories.map((cat) => (
               <button
-                key={category.id}
-                onClick={() => setActiveFilter(category.id)}
-                className={`${suiteStyles.filterTab} ${activeFilter === category.id ? suiteStyles.active : ''}`}
+                key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
+                className={`${styles.filterTab} ${
+                  activeFilter === cat.id ? styles.active : ''
+                }`}
               >
-                <span className={suiteStyles.filterLabel}>{category.label}</span>
-                <span className={suiteStyles.filterCount}>{category.count}</span>
+                <span className={styles.filterLabel}>{cat.label}</span>
+                <span className={styles.filterCount}>{cat.count}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Card Grid Section */}
-        <div className={suiteStyles.cardGrid}>
-          {filteredTools.map((suite) => (
+        <div className={styles.cardGrid}>
+          {filteredTools.map((tool) => (
             <Link
-              key={suite.id}
-              href={suite.link}
-              className={suiteStyles.suiteCard}
-              style={{ '--accent': suite.accent }}
+              key={tool.id}
+              href={tool.link}
+              className={styles.suiteCard}
+              style={{ '--accent': tool.accent }}
             >
-              <div className={suiteStyles.cardImageContainer}>
+              <div className={styles.cardImageContainer}>
                 <Image
-                  src={suite.cardImage}
-                  alt={`${suite.name} preview`}
+                  src={tool.cardImage}
+                  alt={`${tool.name} preview`}
                   fill
-                  className={suiteStyles.cardImage}
+                  className={styles.cardImage}
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 />
-                <div className={suiteStyles.cardOverlay}>
-                  <div className={suiteStyles.cardIcon}>{suite.icon}</div>
-                  <h3 className={suiteStyles.cardName}>{suite.name}</h3>
-                  <p className={suiteStyles.cardTagline}>{suite.tagline}</p>
-                  <div className={suiteStyles.cardCredits}>{suite.credits} Credits</div>
+                <div className={styles.cardOverlay}>
+                  <div className={styles.cardIcon}>{tool.icon}</div>
+                  <h3 className={styles.cardName}>{tool.name}</h3>
+                  <p className={styles.cardTagline}>{tool.tagline}</p>
+                  <div className={styles.cardCredits}>
+                    {tool.credits} Credits
+                  </div>
                 </div>
               </div>
             </Link>
@@ -199,7 +200,7 @@ const AISuitePage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AISuitePage;
+export default AISuitePage

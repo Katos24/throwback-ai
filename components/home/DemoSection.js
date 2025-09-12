@@ -48,12 +48,12 @@ export default function DemoSection() {
         before: "/images/debrabefore.jpg",
         after: "/images/debraafter.jpg"
       },
-      link: "/replicate/80s",
+      link: "/replicate/yearbook",
       credits: 50,
       category: "create",
       color: "#ef4444"
     },
-    {
+      {
       id: 'cartoon',
       title: "Cartoon Art",
       description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
@@ -85,7 +85,7 @@ export default function DemoSection() {
     }
   ];
 
-  // Preload images
+  // Preload images when component mounts
   useEffect(() => {
     const preloadImages = async () => {
       const imagePromises = demos.flatMap(demo => [
@@ -107,6 +107,7 @@ export default function DemoSection() {
     preloadImages();
   }, []);
 
+  // Helper function to preload individual images
   const preloadImage = (src) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -125,6 +126,7 @@ export default function DemoSection() {
     const demo = demos.find(d => d.id === demoId);
     const imagesToLoad = [demo.beforeAfter.before, demo.beforeAfter.after];
     
+    // Check if images are already loaded
     const allImagesLoaded = imagesToLoad.every(img => loadedImages.has(img));
     
     if (!allImagesLoaded) {
@@ -143,16 +145,39 @@ export default function DemoSection() {
   };
 
   const handleDemoAction = (demo) => {
+    // Navigate to the demo's link
     window.location.href = demo.link;
+    // Or if using Next.js router:
+    // router.push(demo.link);
   };
 
   return (
     <section className={demoStyles.demoSection}>
       <div className={demoStyles.container}>
+        {/* Hidden preload images - improves caching */}
+        <div style={{ display: 'none' }}>
+          {demos.map(demo => (
+            <React.Fragment key={demo.id}>
+              <img 
+                src={demo.beforeAfter.before} 
+                alt=""
+                loading="eager"
+              />
+              <img 
+                src={demo.beforeAfter.after} 
+                alt=""
+                loading="eager"
+              />
+            </React.Fragment>
+          ))}
+        </div>
+
         {/* Section Header */}
         <div className={demoStyles.header}>
           <div className={demoStyles.badge}>AI TECHNOLOGY</div>
-          <h2 className={demoStyles.title}>See Our AI in Action</h2>
+          <h2 className={demoStyles.title}>
+            See Our AI in Action
+          </h2>
           <p className={demoStyles.subtitle}>
             Advanced neural networks trained on millions of images deliver professional results in seconds. 
             Click any transformation to see the technology at work.
@@ -161,7 +186,7 @@ export default function DemoSection() {
 
         {/* Demo Grid */}
         <div className={demoStyles.demoGrid}>
-          {demos.map((demo) => (
+          {demos.map((demo, index) => (
             <div 
               key={demo.id} 
               className={`${demoStyles.demoCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
@@ -175,25 +200,14 @@ export default function DemoSection() {
                 </div>
                 <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
               </div>
-
-              {/* Preview image wrapper */}
-              {activeDemo !== demo.id && (
-                <div className={demoStyles.cardImageWrapper}>
-                  <img 
-                    src={demo.beforeAfter.after} 
-                    alt={demo.title}
-                    className={demoStyles.cardImage}
-                    loading="lazy"
-                  />
-                </div>
-              )}
               
-              {/* Default Card Content */}
+              {/* Default Card Content - Hidden when slider is active */}
               {activeDemo !== demo.id && (
                 <>
                   <div className={demoStyles.cardContent}>
                     <p className={demoStyles.cardDescription}>{demo.description}</p>
                   </div>
+
                   <div className={demoStyles.cardFooter}>
                     <div className={demoStyles.demoButton}>
                       <span>{isLoading ? 'Loading...' : 'View Demo'}</span>
@@ -203,7 +217,7 @@ export default function DemoSection() {
                 </>
               )}
 
-              {/* Inline Slider */}
+              {/* Inline Slider - Replaces card content when active */}
               {activeDemo === demo.id && (
                 <div className={demoStyles.inlineSliderContent}>
                   <div className={demoStyles.sliderWrapper}>
@@ -233,6 +247,7 @@ export default function DemoSection() {
                     </div>
                   </div>
 
+                  {/* Action Button - Added above Hide Demo */}
                   <div className={demoStyles.actionButtonWrapper}>
                     <button 
                       className={demoStyles.actionButton}
@@ -243,9 +258,7 @@ export default function DemoSection() {
                       style={{ '--demo-color': demo.color }}
                     >
                       <span>{demo.buttonText}</span>
-                      <span className={demoStyles.credits}>
-                        ({demo.credits} credit{demo.credits !== 1 ? 's' : ''})
-                      </span>
+                      <span className={demoStyles.credits}>({demo.credits} credit{demo.credits !== 1 ? 's' : ''})</span>
                       <div className={demoStyles.arrow}>→</div>
                     </button>
                   </div>
@@ -260,6 +273,22 @@ export default function DemoSection() {
               <div className={demoStyles.cardGlow}></div>
             </div>
           ))}
+        </div>
+
+        {/* Processing Stats */}
+        <div className={demoStyles.techStats}>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>12.3s</div>
+            <div className={demoStyles.statLabel}>Processing Time</div>
+          </div>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>99.7%</div>
+            <div className={demoStyles.statLabel}>Accuracy Rate</div>
+          </div>
+          <div className={demoStyles.techStat}>
+            <div className={demoStyles.statValue}>4K</div>
+            <div className={demoStyles.statLabel}>Max Resolution</div>
+          </div>
         </div>
       </div>
     </section>

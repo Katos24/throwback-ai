@@ -675,6 +675,7 @@
 }
 
 /* Mobile Responsive */
+/* Mobile Responsive - Updated to keep restore cards side by side */
 @media (max-width: 768px) {
   .heroSection {
     padding: 4rem 0 6rem;
@@ -691,8 +692,8 @@
   }
   
   .restoreGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr); /* Keep side by side */
+    gap: 1.5rem; /* Reduce gap for mobile */
   }
   
   .decadesGrid {
@@ -704,21 +705,29 @@
   .decadeImageContainer,
   .beforeAfterSplit,
   .decadeBeforeAfter {
-    height: 220px;
+    height: 200px; /* Slightly smaller on mobile */
   }
   
   .restoreTitle {
-    font-size: 1.5rem;
-    margin: 1.5rem 1.5rem 0.75rem 1.5rem;
+    font-size: 1.25rem; /* Smaller title */
+    margin: 1.5rem 1rem 0.75rem 1rem; /* Reduced padding */
   }
   
   .restoreDescription {
-    font-size: 1rem;
-    margin: 0 1.5rem;
+    font-size: 0.875rem; /* Smaller description */
+    margin: 0 1rem; /* Reduced padding */
   }
   
   .restoreFooter {
-    padding: 1.5rem;
+    padding: 1rem; /* Reduced padding */
+    flex-direction: column; /* Stack credits and button vertically */
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .restoreButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
   }
   
   .ctaCard {
@@ -753,14 +762,43 @@
     font-size: 1rem;
   }
   
-  .restoreGrid,
+  .restoreGrid {
+    grid-template-columns: repeat(2, 1fr); /* Still keep side by side on very small screens */
+    gap: 1rem;
+  }
+  
   .decadesGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* But decades can stack on very small screens */
   }
   
   .restoreCard,
   .decadeCard {
-    margin: 0 0.5rem;
+    margin: 0 0.25rem;
+  }
+  
+  .beforeAfterSplit,
+  .decadeBeforeAfter {
+    height: 180px; /* Even smaller on very small screens */
+  }
+  
+  .restoreTitle {
+    font-size: 1.125rem;
+    margin: 1rem 0.75rem 0.5rem 0.75rem;
+  }
+  
+  .restoreDescription {
+    font-size: 0.75rem;
+    margin: 0 0.75rem;
+    line-height: 1.4;
+  }
+  
+  .restoreFooter {
+    padding: 0.75rem;
+  }
+  
+  .restoreButton {
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
   }
   
   .ctaCard {
@@ -776,13 +814,11 @@
     font-size: 1rem;
   }
   
-  .restoreButton,
   .ctaButton {
     padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
   }
 }
-
 
 
 /* 70s Groovy Card - Warm oranges, browns, earth tones */

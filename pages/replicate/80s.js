@@ -577,7 +577,7 @@ export default function EightiesPage() {
           </div>
         </div>
          {/* Reusable Bottom Section Component */}
-        <DecadeBottomSection currentDecade="90s" />
+        <DecadeBottomSection currentDecade="80s" />
       </main>
     </>
   );

@@ -11,7 +11,6 @@ import styles from "../../styles/decades/SeventiesPage.module.css";
 import { SEVENTIES_STYLES, buildSeventiesPrompt } from "../../components/SeventiesPrompts";
 import DecadeBottomSection from "../../components/DecadeBottomSection";
 
-
 export default function SeventiesPage() {
   const router = useRouter();
   
@@ -24,7 +23,7 @@ export default function SeventiesPage() {
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
   const [showingOriginal, setShowingOriginal] = useState(false);
-  const [filterEnabled, setFilterEnabled] = useState(true); // NEW: Filter toggle state
+  const [filterEnabled, setFilterEnabled] = useState(true); // Filter toggle state
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -43,8 +42,6 @@ export default function SeventiesPage() {
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
-
-  
   useEffect(() => {
     async function getSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -189,7 +186,7 @@ export default function SeventiesPage() {
       setProgress(50);
       setProgressStage("Sending to the 70s AI...");
 
-      // Use the detailed prompt builder
+      // Use the 70s prompt builder with correct parameters
       const prompt = buildSeventiesPrompt(userGender, selectedStyle, workflowType, styleStrength);
 
       const response = await fetch("/api/replicate/aiAvatars", {
@@ -350,7 +347,7 @@ export default function SeventiesPage() {
                             </button>
                           )}
                           
-                          {/* NEW: Filter toggle button - only show when viewing AI result */}
+                          {/* Filter toggle button - only show when viewing AI result */}
                           {resultImageUrl && !showingOriginal && (
                             <button 
                               onClick={() => setFilterEnabled(!filterEnabled)}
@@ -503,6 +500,7 @@ export default function SeventiesPage() {
                                 setSelectedStyle(style.id);
                                 setExpandedSections(prev => ({ ...prev, strength: true }));
                               }}
+                              title={style.description}
                             >
                               <span className={styles.styleEmoji}>{style.emoji}</span>
                               {style.label}
@@ -590,8 +588,9 @@ export default function SeventiesPage() {
             <div className={styles.speaker}></div>
           </div>
         </div>
-               {/* Reusable Bottom Section Component */}
-        <DecadeBottomSection currentDecade="90s" />
+
+        {/* Reusable Bottom Section Component */}
+        <DecadeBottomSection currentDecade="70s" />
       </main>
     </>
   );

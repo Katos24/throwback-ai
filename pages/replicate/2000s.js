@@ -607,7 +607,7 @@ export default function TwothousandsPage() {
           </div>
         </div>
                {/* Reusable Bottom Section Component */}
-        <DecadeBottomSection currentDecade="90s" />
+        <DecadeBottomSection currentDecade="2000s" />
       </main>
     </>
   );

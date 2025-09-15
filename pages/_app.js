@@ -25,7 +25,7 @@ export default function MyApp({ Component, pageProps }) {
       // Close mobile menu if open
       setShowMenu(false);
       // Scroll to top
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);

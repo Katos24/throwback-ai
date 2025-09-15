@@ -40,11 +40,12 @@
   }
 }
 
+/* Option 1: Decade-Inspired Colors (70s-2000s) */
 .title {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 900;
   margin-bottom: 3rem;
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 25%, #ff6b6b 75%, #ee5a24 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #ff006e 25%, #6c5ce7 50%, #0984e3 75%, #00cec9 100%);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -55,11 +56,6 @@
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
 .title::after {
   content: '';
   position: absolute;
@@ -68,21 +64,22 @@
   transform: translateX(-50%);
   width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+  background: linear-gradient(90deg, #ff6b35, #6c5ce7);
   border-radius: 2px;
   animation: underlineGlow 3s ease-in-out infinite alternate;
 }
 
 @keyframes underlineGlow {
   0% {
-    box-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+    box-shadow: 0 0 5px rgba(255, 107, 53, 0.5);
     width: 120px;
   }
   100% {
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.8);
     width: 160px;
   }
 }
+
 
 .subtitle {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);

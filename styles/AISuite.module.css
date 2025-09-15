@@ -159,7 +159,7 @@
 .filterTab.active {
   background-color: var(--accent);
   border-color: var(--accent);
-  color: #ffffff;
+  color: #000000;
 }
 
 .filterLabel {
@@ -197,10 +197,11 @@
 }
 
 /* Image container and overlay */
+
 .cardImageContainer {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
+  padding-top: 100%; /* 1:1 aspect ratio - square */
 }
 
 .cardImage {

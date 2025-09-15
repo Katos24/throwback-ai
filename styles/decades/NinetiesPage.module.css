@@ -42,7 +42,7 @@
     4px 4px 12px rgba(0,0,0,0.3);
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px */
   margin: 0 auto;
 }
 
@@ -176,7 +176,7 @@
 }
 
 .singleComputer {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -496,7 +496,7 @@
   font-size: 10px;
   font-weight: bold;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* Changed from row to column for better text layout */
   align-items: center;
   gap: 8px;
   text-align: center;

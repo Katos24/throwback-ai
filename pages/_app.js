@@ -9,29 +9,37 @@ import { Toaster } from "react-hot-toast";
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
-  
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Mark app as loaded after hydration
+    setIsLoaded(true);
+  }, []);
+
   return (
     <SessionContextProvider
       supabaseClient={supabase}
       initialSession={pageProps.initialSession}
     >
-      <Header showMenu={showMenu} setShowMenu={setShowMenu} />
-      <main>
-        <Component {...pageProps} />
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: "#1a1a1a",
-              color: "#fff",
-              border: "1px solid #333",
-            },
-          }}
-        />
-      </main>
-      <Footer />
-      <CookieBanner />
+      <div className={isLoaded ? 'loaded' : 'loading'}>
+        <Header showMenu={showMenu} setShowMenu={setShowMenu} />
+        <main>
+          <Component {...pageProps} />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "#1a1a1a",
+                color: "#fff",
+                border: "1px solid #333",
+              },
+            }}
+          />
+        </main>
+        <Footer />
+        <CookieBanner />
+      </div>
     </SessionContextProvider>
   );
 }

@@ -9,6 +9,8 @@ import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/TwothousandsPage.module.css";
 import { TWOTHOUSANDS_STYLES, buildTwothousandsPrompt } from "../../components/TwothousandsPrompts";
+import DecadeBottomSection from "../../components/DecadeBottomSection";
+
 
 export default function TwothousandsPage() {
   const router = useRouter();
@@ -604,6 +606,8 @@ export default function TwothousandsPage() {
             </div>
           </div>
         </div>
+               {/* Reusable Bottom Section Component */}
+        <DecadeBottomSection currentDecade="90s" />
       </main>
     </>
   );

@@ -9,6 +9,8 @@ import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/SeventiesPage.module.css";
 import { SEVENTIES_STYLES, buildSeventiesPrompt } from "../../components/SeventiesPrompts";
+import DecadeBottomSection from "../../components/DecadeBottomSection";
+
 
 export default function SeventiesPage() {
   const router = useRouter();
@@ -40,6 +42,11 @@ export default function SeventiesPage() {
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
+
+// Force scroll to top when page loads
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   useEffect(() => {
     async function getSession() {
@@ -586,6 +593,8 @@ export default function SeventiesPage() {
             <div className={styles.speaker}></div>
           </div>
         </div>
+               {/* Reusable Bottom Section Component */}
+        <DecadeBottomSection currentDecade="90s" />
       </main>
     </>
   );

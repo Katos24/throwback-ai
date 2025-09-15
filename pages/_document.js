@@ -50,20 +50,81 @@ export default function Document() {
           />
         </noscript>
         
-        {/* Inline critical CSS for immediate text rendering */}
+        {/* Inline critical CSS for immediate rendering - prevents flash */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            /* System font fallbacks for immediate render */
+            /* CSS Reset and Critical Base Styles */
+            *, *::before, *::after {
+              box-sizing: border-box;
+            }
+            
+            * {
+              margin: 0;
+            }
+            
+            html, body {
+              height: 100%;
+            }
+            
             body {
               font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
               font-weight: 400;
               line-height: 1.6;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              /* Add your app's background color here */
+              background-color: #ffffff; /* or whatever your main bg color is */
+              color: #000000; /* or your main text color */
+            }
+            
+            #__next {
+              isolation: isolate;
+            }
+            
+            img, picture, video, canvas, svg {
+              display: block;
+              max-width: 100%;
+            }
+            
+            input, button, textarea, select {
+              font: inherit;
+            }
+            
+            p, h1, h2, h3, h4, h5, h6 {
+              overflow-wrap: break-word;
+            }
+            
+            /* Critical layout styles */
+            main {
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+            }
+            
+            /* Header critical styles */
+            header {
+              /* Add your header's critical styles here */
+              position: relative;
+              z-index: 50;
+            }
+            
+            /* Footer critical styles */
+            footer {
+              /* Add your footer's critical styles here */
+              margin-top: auto;
             }
             
             /* Critical text elements */
             h1, h2, h3, h4, h5, h6 {
               font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
               font-weight: 600;
+            }
+            
+            /* Toast notification critical styles */
+            .react-hot-toast-wrapper {
+              /* Ensure toasts don't cause layout shift */
+              position: fixed;
+              z-index: 9999;
             }
             
             /* Hide decorative text until fonts load */
@@ -85,6 +146,16 @@ export default function Document() {
             /* Transition from system to custom fonts */
             .fonts-loaded body {
               font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            }
+            
+            /* Loading state to prevent flash */
+            .loading {
+              opacity: 0;
+              transition: opacity 0.2s ease-in-out;
+            }
+            
+            .loaded {
+              opacity: 1;
             }
           `
         }} />
@@ -114,8 +185,12 @@ export default function Document() {
                 // Mark fonts as loaded for CSS transitions
                 link2.onload = () => {
                   document.documentElement.classList.add('fonts-loaded');
+                  document.body.classList.add('loaded');
                 };
               };
+              
+              // Mark body as loaded initially
+              document.body.classList.add('loaded');
               
               // Load fonts after a short delay or on user interaction
               if (document.readyState === 'complete') {

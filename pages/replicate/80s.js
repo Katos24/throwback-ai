@@ -9,6 +9,8 @@ import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/decades/EightiesPage.module.css";
 import { EIGHTIES_STYLES, buildEightiesPrompt } from "../../components/EightiesPrompts";
+import DecadeBottomSection from "../../components/DecadeBottomSection";
+
 
 export default function EightiesPage() {
   const router = useRouter();
@@ -574,6 +576,8 @@ export default function EightiesPage() {
             )}
           </div>
         </div>
+         {/* Reusable Bottom Section Component */}
+        <DecadeBottomSection currentDecade="90s" />
       </main>
     </>
   );

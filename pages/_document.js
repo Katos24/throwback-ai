@@ -62,23 +62,37 @@ export default function Document() {
               margin: 0;
             }
             
-            html, body {
+            html {
               height: 100%;
+              scroll-behavior: smooth;
             }
             
             body {
+              height: 100%;
               font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
               font-weight: 400;
               line-height: 1.6;
               -webkit-font-smoothing: antialiased;
               -moz-osx-font-smoothing: grayscale;
-              /* Add your app's background color here */
-              background-color: #ffffff; /* or whatever your main bg color is */
-              color: #000000; /* or your main text color */
+              background-color: #ffffff;
+              color: #000000;
+              /* Ensure body can scroll properly */
+              overflow-x: hidden;
+              overflow-y: auto;
             }
             
             #__next {
               isolation: isolate;
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+            }
+            
+            /* App container styles */
+            .app-container {
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
             }
             
             img, picture, video, canvas, svg {
@@ -94,23 +108,27 @@ export default function Document() {
               overflow-wrap: break-word;
             }
             
-            /* Critical layout styles */
-            main {
-              min-height: 100vh;
+            /* Main content area */
+            .main-content {
+              flex: 1;
               display: flex;
               flex-direction: column;
+              width: 100%;
+              /* Remove any height constraints that might cause issues */
+              min-height: auto;
             }
             
             /* Header critical styles */
             header {
-              /* Add your header's critical styles here */
               position: relative;
               z-index: 50;
+              /* Ensure header doesn't interfere with scrolling */
+              flex-shrink: 0;
             }
             
             /* Footer critical styles */
             footer {
-              /* Add your footer's critical styles here */
+              flex-shrink: 0;
               margin-top: auto;
             }
             
@@ -122,9 +140,14 @@ export default function Document() {
             
             /* Toast notification critical styles */
             .react-hot-toast-wrapper {
-              /* Ensure toasts don't cause layout shift */
               position: fixed;
               z-index: 9999;
+              pointer-events: none;
+            }
+            
+            /* Ensure toasts don't block interactions */
+            .react-hot-toast-wrapper > div {
+              pointer-events: auto;
             }
             
             /* Hide decorative text until fonts load */
@@ -156,6 +179,17 @@ export default function Document() {
             
             .loaded {
               opacity: 1;
+            }
+            
+            /* Ensure clickable elements work properly */
+            button, a, [role="button"] {
+              cursor: pointer;
+              touch-action: manipulation;
+            }
+            
+            /* Fix for mobile tap delays */
+            a, button, input, select, textarea, [tabindex] {
+              -webkit-tap-highlight-color: rgba(0,0,0,0.1);
             }
           `
         }} />
@@ -210,6 +244,11 @@ export default function Document() {
               interactions.forEach(event => 
                 document.addEventListener(event, loadOnInteraction, { passive: true })
               );
+              
+              // Ensure scroll to top functionality works
+              window.scrollToTop = function() {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              };
             `
           }}
         />

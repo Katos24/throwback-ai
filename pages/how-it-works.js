@@ -292,11 +292,11 @@ export default function HowItWorksPage() {
             </div>
             <div className={styles.faqItem}>
               <h3>Can I use the photos commercially?</h3>
-              <p>Yes! You own the rights to your transformed photos and can use them however you'd like.</p>
+              <p>Yes! You own the rights to your transformed photos and can use them however you&apos;d like.</p>
             </div>
             <div className={styles.faqItem}>
-              <h3>What if I'm not satisfied with the result?</h3>
-              <p>We offer refunds for failed generations. If the AI can't process your image, your credits are automatically refunded.</p>
+              <h3>What if I&apos;m not satisfied with the result?</h3>
+              <p>We offer refunds for failed generations. If the AI can&apos;t process your image, your credits are automatically refunded.</p>
             </div>
           </div>
         </section>

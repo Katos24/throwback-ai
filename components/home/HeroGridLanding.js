@@ -41,7 +41,6 @@ const DECADE_OPTIONS = [
     fullBackgroundImage: '/images/ThrowbackDecadesCard.jpg',
     colorClass: 'rainbow',
     cardClass: 'allDecadesCard',
-    badge: 'Complete Collection',
     badgeColor: 'rainbow',
     isFullBackground: true
   },

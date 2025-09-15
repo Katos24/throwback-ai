@@ -43,11 +43,8 @@ export default function SeventiesPage() {
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
-// Force scroll to top when page loads
-useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
 
+  
   useEffect(() => {
     async function getSession() {
       const { data: { session } } = await supabase.auth.getSession();

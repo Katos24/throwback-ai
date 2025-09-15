@@ -88,11 +88,11 @@ export default function Header({ showMenu, setShowMenu }) {
       badge: "Premium"
     },
     { 
-      href: "/replicate/yearbook", 
-      label: "90s Yearbook Transform", 
+      href: "/decades", 
+      label: "Decades", 
       icon: "📸",
-      description: "Create authentic 90s yearbook photos",
-      credits: "5 Credits",
+      description: "Create authentic Decades yearbook photos",
+      credits: "50 Credits",
       badge: "Popular"
     },
     { 

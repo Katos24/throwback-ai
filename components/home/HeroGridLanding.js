@@ -4,20 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from '../../styles/HeroGridLanding.module.css';
 
-// Move static data outside component to prevent recreation on each render
+// Move static data outside component - COLORIZATION FIRST
 const RESTORE_OPTIONS = [
-  {
-    id: 'restore-basic',
-    title: 'Photo Restoration',
-    description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos',
-    credits: 1,
-    badge: 'Try Free',
-    badgeColor: 'success',
-    link: '/replicate/restore-basic',
-    beforeImage: '/images/basic-before.jpg',
-    afterImage: '/images/basic-after.jpg',
-    buttonText: 'Restore (Try Free)'
-  },
   {
     id: 'colorize',
     title: 'Colorize B&W Photos',
@@ -26,9 +14,19 @@ const RESTORE_OPTIONS = [
     badge: 'Most Popular',
     badgeColor: 'popular',
     link: '/replicate/restore-premium',
-    beforeImage: '/images/beforeexample.jpg',
-    afterImage: '/images/afterexample.jpg',
+    combinedImage: '/images/colorize-before-after-combined.jpg', // Single combined image
     buttonText: 'Add Color'
+  },
+  {
+    id: 'restore-basic',
+    title: 'Photo Restoration',
+    description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos',
+    credits: 1,
+    badge: 'Try Free',
+    badgeColor: 'success',
+    link: '/replicate/restore-basic',
+    combinedImage: '/images/restore-before-after-combined.jpg', // Single combined image
+    buttonText: 'Restore (Try Free)'
   }
 ];
 
@@ -97,7 +95,7 @@ const DECADE_OPTIONS = [
   }
 ];
 
-// Memoized RestoreCard component
+// Memoized RestoreCard component - Updated for single combined image
 const RestoreCard = React.memo(({ option, index, onNavigate }) => (
   <div className={styles.restoreCardWrapper}>
     <button 
@@ -114,25 +112,16 @@ const RestoreCard = React.memo(({ option, index, onNavigate }) => (
           </div>
         )}
         
-        {/* Before/After Image Split */}
-        <div className={styles.beforeAfterSplit}>
+        {/* Combined Before/After Image */}
+        <div className={styles.combinedImageContainer}>
           <Image
-            src={option.beforeImage}
-            alt={`${option.title} - Before`}
+            src={option.combinedImage}
+            alt={`${option.title} - Before and After comparison`}
             fill
-            className={styles.beforeImage}
+            className={styles.combinedImage}
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority={index === 0} // Only first image gets priority
-            quality={80}
-          />
-          <Image
-            src={option.afterImage}
-            alt={`${option.title} - After`}
-            fill
-            className={styles.afterImage}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority={index === 0}
-            quality={80}
+            priority={index === 0} // First card (colorization) gets priority
+            quality={85}
           />
           <div className={styles.splitLine}></div>
           <div className={styles.beforeLabel}>Before</div>
@@ -160,7 +149,7 @@ const RestoreCard = React.memo(({ option, index, onNavigate }) => (
 
 RestoreCard.displayName = 'RestoreCard';
 
-// Memoized DecadeCard component
+// Memoized DecadeCard component - Updated for combined images
 const DecadeCard = React.memo(({ decade, onNavigate }) => (
   <div className={styles.decadeCardWrapper}>
     <button 
@@ -310,7 +299,7 @@ export default function HeroGridLanding() {
             From fixing tears and scratches to adding vibrant colors to black and white images.
           </p>
           
-          {/* Main Restoration Options */}
+          {/* Main Restoration Options - Colorization now first */}
           <div className={styles.restoreGrid}>
             {RESTORE_OPTIONS.map((option, index) => (
               <RestoreCard

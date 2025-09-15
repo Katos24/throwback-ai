@@ -291,10 +291,7 @@ export default function TwothousandsPage() {
             <span>Start</span>
           </div>
           <div className={styles.taskbarCenter}>
-            <div className={styles.openWindow}>
-              <span className={styles.windowIcon}>💻</span>
-              <span>2000s Photo Generator</span>
-            </div>
+           
           </div>
           <div className={styles.systemTray}>
             <span className={styles.creditsInfo}>

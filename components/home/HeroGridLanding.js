@@ -1,9 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styles from '../../styles/HeroGridLanding.module.css';
 
 export default function HeroGridLanding() {
+  const router = useRouter();
+
+  // Handle navigation with forced scroll to top
+  const handleNavigation = (href) => {
+    // Force scroll to top immediately
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Navigate to the page
+    router.push(href);
+  };
+
   const restoreOptions = [
     {
       id: 'restore-basic',
@@ -38,13 +52,13 @@ export default function HeroGridLanding() {
       description: 'Try every era - 70s, 80s, 90s, and 2000s styles in one collection',
       credits: 50,
       era: 'Time Travel',
-      link: '/decades', // Could link to a page that shows all decades
-      fullBackgroundImage: '/images/ThrowbackDecadesCard.jpg', // The synthwave image you showed
+      link: '/decades',
+      fullBackgroundImage: '/images/ThrowbackDecadesCard.jpg',
       colorClass: styles.rainbow,
       cardClass: styles.allDecadesCard,
       badge: 'Complete Collection',
       badgeColor: 'rainbow',
-      isFullBackground: true // Flag to render differently
+      isFullBackground: true
     },
     {
       id: '70s',
@@ -115,7 +129,12 @@ export default function HeroGridLanding() {
           <div className={styles.restoreGrid}>
             {restoreOptions.map((option) => (
               <div key={option.id} className={styles.restoreCardWrapper}>
-                <Link href={option.link} className={styles.restoreCardLink}>
+                {/* Use button with custom navigation instead of Link */}
+                <button 
+                  className={styles.restoreCardLink}
+                  onClick={() => handleNavigation(option.link)}
+                  style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
+                >
                   <div className={styles.restoreCard}>
                     {/* Badge */}
                     {option.badge && (
@@ -160,7 +179,7 @@ export default function HeroGridLanding() {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </button>
               </div>
             ))}
           </div>
@@ -187,7 +206,12 @@ export default function HeroGridLanding() {
           <div className={styles.decadesGrid}>
             {decadeOptions.map((decade) => (
               <div key={decade.id} className={styles.decadeCardWrapper}>
-                <Link href={decade.link} className={styles.decadeCardLink}>
+                {/* Use button with custom navigation for decade links too */}
+                <button 
+                  className={styles.decadeCardLink}
+                  onClick={() => handleNavigation(decade.link)}
+                  style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
+                >
                   <div className={`${styles.decadeCard} ${decade.cardClass}`}>
                     
                     {/* Badge */}
@@ -252,13 +276,13 @@ export default function HeroGridLanding() {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </button>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Keep this as Link since it's not a decade page */}
         <div className={styles.bottomCta}>
           <div className={styles.ctaCard}>
             <h3 className={styles.ctaTitle}>Ready to Get Started?</h3>

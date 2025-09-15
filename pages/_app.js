@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
+import ScrollToTop from "../components/ScrollToTop"; // Import the component
 import { Toaster } from "react-hot-toast";
 
 export default function MyApp({ Component, pageProps }) {
@@ -56,6 +57,9 @@ export default function MyApp({ Component, pageProps }) {
         </main>
         <Footer />
         <CookieBanner />
+        
+        {/* Scroll to top button - appears on all pages */}
+        <ScrollToTop />
       </div>
     </SessionContextProvider>
   );

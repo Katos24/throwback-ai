@@ -676,6 +676,7 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+
   .heroSection {
     padding: 4rem 0 6rem;
   }
@@ -698,6 +699,16 @@
   .decadesGrid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
+  }
+
+    /* Disable all animations and transitions on container and children */
+  .container,
+  .container *,
+  .container *::before,
+  .container *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
   }
   
   .restoreImageContainer,

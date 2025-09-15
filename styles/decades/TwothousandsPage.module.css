@@ -813,3 +813,106 @@
     min-height: calc(100vh - 100px); /* leave space for titlebar + taskbar */
   }
 }
+
+
+
+.startButtonActive {
+  background: #0066cc !important;
+  border: 1px inset #0066cc !important;
+}
+
+.startMenu {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  width: 300px;
+  background: linear-gradient(to bottom, #245fdb 0%, #3f8def 50%, #245fdb 100%);
+  border: 2px outset #c0c0c0;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.startMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.startMenuHeader {
+  background: linear-gradient(to right, #2251a3, #4a8cec);
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.startMenuUser {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.startMenuSeparator {
+  height: 1px;
+  background: #808080;
+  margin: 0 8px;
+}
+
+.startMenuItems {
+  padding: 8px 0;
+}
+
+.startMenuSection {
+  margin: 4px 0;
+}
+
+.sectionLabel {
+  padding: 4px 16px;
+  font-size: 11px;
+  color: #666;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.startMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: black;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.1s;
+}
+
+.startMenuItem:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.currentPage {
+  background: rgba(255,255,255,0.3);
+  font-weight: bold;
+}
+
+.currentIndicator {
+  margin-left: auto;
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.menuIcon {
+  width: 16px;
+  text-align: center;
+}
+
+.startMenuFooter {
+  border-top: 1px solid #808080;
+  padding: 4px 0;
+}

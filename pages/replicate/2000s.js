@@ -11,7 +11,6 @@ import styles from "../../styles/decades/TwothousandsPage.module.css";
 import { TWOTHOUSANDS_STYLES, buildTwothousandsPrompt } from "../../components/TwothousandsPrompts";
 import DecadeBottomSection from "../../components/DecadeBottomSection";
 
-
 export default function TwothousandsPage() {
   const router = useRouter();
   
@@ -25,6 +24,7 @@ export default function TwothousandsPage() {
   const [progressStage, setProgressStage] = useState("");
   const [showingOriginal, setShowingOriginal] = useState(false);
   const [filterEnabled, setFilterEnabled] = useState(true);
+  const [startMenuOpen, setStartMenuOpen] = useState(false);
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -187,7 +187,7 @@ export default function TwothousandsPage() {
       setProgress(50);
       setProgressStage("Sending to the Y2K AI...");
 
-      // Use the detailed prompt builder
+      // Use the 2000s prompt builder with correct parameters
       const prompt = buildTwothousandsPrompt(userGender, selectedStyle, workflowType, styleStrength);
 
       const response = await fetch("/api/replicate/aiAvatars", {
@@ -286,10 +286,91 @@ export default function TwothousandsPage() {
       <main className={styles.container}>
         {/* XP Taskbar */}
         <div className={styles.taskbar}>
-          <div className={styles.startButton}>
+          <div 
+            className={`${styles.startButton} ${startMenuOpen ? styles.startButtonActive : ''}`}
+            onClick={() => setStartMenuOpen(!startMenuOpen)}
+          >
             <span className={styles.startIcon}>🏠</span>
             <span>Start</span>
           </div>
+
+          {/* Start Menu */}
+          {startMenuOpen && (
+            <div className={styles.startMenu}>
+              <div className={styles.startMenuHeader}>
+                <div className={styles.startMenuUser}>
+                  <span className={styles.userIcon}>👤</span>
+                  <span>Y2K User</span>
+                </div>
+              </div>
+              
+              <div className={styles.startMenuSeparator}></div>
+              
+              <div className={styles.startMenuItems}>
+                <div className={styles.startMenuSection}>
+                  <div className={styles.sectionLabel}>Decade Generators</div>
+                  
+                  <button 
+                    className={styles.startMenuItem}
+                    onClick={() => router.push('/replicate/70s')}
+                  >
+                    <span className={styles.menuIcon}>📺</span>
+                    <span>70s Yearbook Photos</span>
+                  </button>
+                  
+                  <button 
+                    className={styles.startMenuItem}
+                    onClick={() => router.push('/replicate/90s')}
+                  >
+                    <span className={styles.menuIcon}>📼</span>
+                    <span>90s Yearbook Photos</span>
+                  </button>
+                  
+                  <button 
+                    className={`${styles.startMenuItem} ${styles.currentPage}`}
+                    onClick={() => setStartMenuOpen(false)}
+                  >
+                    <span className={styles.menuIcon}>💻</span>
+                    <span>2000s Yearbook Photos</span>
+                    <span className={styles.currentIndicator}>•</span>
+                  </button>
+                </div>
+
+                <div className={styles.startMenuSeparator}></div>
+
+                <div className={styles.startMenuSection}>
+                  <div className={styles.sectionLabel}>Quick Actions</div>
+                  
+                  <button 
+                    className={styles.startMenuItem}
+                    onClick={() => router.push('/pricing')}
+                  >
+                    <span className={styles.menuIcon}>💳</span>
+                    <span>Get More Credits</span>
+                  </button>
+                  
+                  <button 
+                    className={styles.startMenuItem}
+                    onClick={() => router.push('/profile')}
+                  >
+                    <span className={styles.menuIcon}>⚙️</span>
+                    <span>Account Settings</span>
+                  </button>
+                </div>
+              </div>
+
+
+            </div>
+          )}
+
+          {/* Overlay to close menu when clicking outside */}
+          {startMenuOpen && (
+            <div 
+              className={styles.startMenuOverlay}
+              onClick={() => setStartMenuOpen(false)}
+            ></div>
+          )}
+
           <div className={styles.taskbarCenter}>
            
           </div>
@@ -523,6 +604,7 @@ export default function TwothousandsPage() {
                                 setSelectedStyle(style.id);
                                 setExpandedSections(prev => ({ ...prev, strength: true }));
                               }}
+                              title={style.description}
                             >
                               <span className={styles.styleEmoji}>{style.emoji}</span>
                               {style.label}
@@ -603,7 +685,8 @@ export default function TwothousandsPage() {
             </div>
           </div>
         </div>
-               {/* Reusable Bottom Section Component */}
+
+        {/* Reusable Bottom Section Component */}
         <DecadeBottomSection currentDecade="2000s" />
       </main>
     </>

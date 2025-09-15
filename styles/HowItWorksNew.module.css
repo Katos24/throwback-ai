@@ -1,399 +1,545 @@
-/* HowItWorksNew.module.css */
+/* HowItWorksNew.module.css - Complete Redesign */
 
+/* === CONTAINER & LAYOUT === */
 .container {
   min-height: 100vh;
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #333;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #ffffff;
+  padding: 0;
 }
 
-/* Hero Section */
+/* === HERO SECTION === */
 .hero {
   text-align: center;
-  margin-bottom: 4rem;
-  padding: 2rem 0;
+  padding: 8rem 2rem 6rem;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
 }
 
 .title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff, #f0f0f0);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.1;
+  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.4rem;
+  color: #cbd5e1;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
-  font-weight: 400;
+  font-weight: 300;
 }
 
-/* Section Titles */
+/* === SECTION TITLES === */
 .sectionTitle {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 800;
   text-align: center;
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: white;
-  margin-bottom: 3rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Steps Section */
+.sectionSubtitle {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === STEPS SECTION === */
 .stepsSection {
-  margin-bottom: 5rem;
+  padding: 6rem 2rem;
 }
 
 .stepsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .stepCard {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 2rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stepCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+  border-radius: 20px 20px 0 0;
 }
 
 .stepCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .stepNumber {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #667eea;
-  min-width: 60px;
-  text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  line-height: 1;
 }
 
 .stepContent {
-  flex: 1;
+  text-align: left;
 }
 
 .stepTitle {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
-  margin: 0 0 0.5rem 0;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .stepDescription {
-  color: #666;
+  color: #cbd5e1;
   line-height: 1.6;
-  margin: 0;
   font-size: 1rem;
 }
 
-/* Features Section */
+/* === FEATURES SECTION === */
 .featuresSection {
-  margin-bottom: 5rem;
+  padding: 6rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .featuresGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .featureCard {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 280px;
 }
 
 .featureCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.featureBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.freeBadge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.popularBadge {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
 }
 
 .featureIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.featureDescription {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.featureCost {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 1.5rem;
+}
+
+.tryButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tryButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+}
+
+/* === USE CASES SECTION === */
+.useCasesSection {
+  padding: 6rem 2rem;
+}
+
+.useCasesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.useCaseCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.useCaseCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.useCaseIcon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   display: block;
 }
 
-.featureTitle {
+.useCaseCard h3 {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #333;
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
-.featureDescription {
-  color: #666;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  flex: 1;
+.useCaseCard p {
+  color: #cbd5e1;
+  line-height: 1.5;
+  font-size: 0.95rem;
 }
 
-.featureCost {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  display: inline-block;
-}
-
-.tryButton {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: white;
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-
-.tryButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
-  text-decoration: none;
-  color: white;
-}
-
-/* Credits Section */
+/* === CREDITS SECTION === */
 .creditsSection {
-  margin-bottom: 5rem;
-  display: flex;
-  justify-content: center;
+  padding: 6rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .creditsCard {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 3rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 32px;
+  padding: 4rem 3rem;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 500px;
-  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .creditsTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
-  margin: 0 0 2rem 0;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .creditsInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .creditsBenefit {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
-  padding: 0.75rem;
-  background: rgba(102, 126, 234, 0.1);
-  border-radius: 12px;
-  font-weight: 500;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #e2e8f0;
 }
 
 .benefitIcon {
-  font-size: 1.2rem;
-  min-width: 24px;
+  font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
+  padding: 1.25rem 3rem;
+  border-radius: 16px;
+  font-weight: 800;
   text-decoration: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
   display: inline-block;
-  border: none;
-  cursor: pointer;
+  transition: all 0.4s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
 }
 
 .ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-  text-decoration: none;
-  color: white;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 }
 
-/* Info Section */
+/* === INFO SECTION === */
 .infoSection {
-  margin-bottom: 3rem;
+  padding: 6rem 2rem;
 }
 
 .infoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .infoCard {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
   text-align: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 .infoCard:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .infoIcon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
   display: block;
 }
 
 .infoCard h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #333;
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .infoCard p {
-  color: #666;
+  color: #cbd5e1;
   line-height: 1.6;
-  margin: 0;
+}
+
+/* === FAQ SECTION === */
+.faqSection {
+  padding: 6rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.faqItem h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.faqItem p {
+  color: #cbd5e1;
+  line-height: 1.6;
   font-size: 0.95rem;
 }
 
-/* Mobile Responsive */
+/* === MOBILE RESPONSIVE === */
 @media (max-width: 768px) {
-  .container {
-    padding: 1rem 0.5rem;
-  }
-
   .hero {
-    margin-bottom: 3rem;
-    padding: 1rem 0;
+    padding: 6rem 1rem 4rem;
   }
 
-  .sectionTitle {
-    margin-bottom: 2rem;
+  .title {
+    font-size: 2.5rem;
   }
 
-  .stepsSection, .featuresSection, .creditsSection {
-    margin-bottom: 3rem;
-  }
-
-  .stepsGrid {
-    gap: 1.5rem;
-  }
-
-  .stepCard {
-    padding: 1.5rem;
-    gap: 1rem;
-  }
-
-  .stepNumber {
-    font-size: 1.5rem;
-    min-width: 40px;
-  }
-
-  .stepTitle {
+  .subtitle {
     font-size: 1.1rem;
   }
 
-  .stepDescription {
-    font-size: 0.9rem;
+  .stepsSection,
+  .featuresSection,
+  .useCasesSection,
+  .creditsSection,
+  .infoSection,
+  .faqSection {
+    padding: 4rem 1rem;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .featuresGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
-  .featureCard {
-    padding: 1.5rem;
-    min-height: auto;
-  }
-
-  .featureIcon {
-    font-size: 2rem;
-  }
-
-  .featureTitle {
-    font-size: 1.2rem;
-  }
-
-  .creditsCard {
+  .stepCard,
+  .featureCard,
+  .useCaseCard,
+  .infoCard,
+  .faqItem {
     padding: 2rem 1.5rem;
   }
 
-  .creditsTitle {
-    font-size: 1.5rem;
+  .creditsCard {
+    padding: 3rem 2rem;
+    margin: 0 1rem;
   }
 
-  .creditsBenefit {
-    padding: 0.5rem;
+  .stepNumber {
+    font-size: 2.5rem;
   }
 
-  .infoCard {
-    padding: 1.5rem;
-  }
-
+  .featureIcon,
   .infoIcon {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
 
-  .infoCard h3 {
-    font-size: 1.1rem;
+  .useCaseIcon {
+    font-size: 2rem;
+  }
+
+  /* Remove hover effects on mobile for better performance */
+  .stepCard:hover,
+  .featureCard:hover,
+  .useCaseCard:hover,
+  .infoCard:hover,
+  .faqItem:hover {
+    transform: none;
+  }
+
+  .tryButton:hover,
+  .ctaButton:hover {
+    transform: none;
   }
 }
 
 @media (max-width: 480px) {
-  .stepCard {
-    flex-direction: column;
-    text-align: center;
+  .hero {
+    padding: 4rem 1rem 3rem;
   }
 
-  .stepNumber {
-    margin-bottom: 0.5rem;
+  .sectionTitle {
+    font-size: 2rem;
   }
 
-  .ctaButton {
-    padding: 0.9rem 1.5rem;
+  .creditsTitle {
+    font-size: 2rem;
+  }
+
+  .creditsBenefit {
     font-size: 1rem;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .stepCard,
+  .featureCard,
+  .useCaseCard,
+  .infoCard,
+  .faqItem {
+    padding: 1.5rem;
+  }
+
+  .creditsCard {
+    padding: 2.5rem 1.5rem;
   }
 }

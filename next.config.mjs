@@ -4,12 +4,11 @@ const nextConfig = {
   images: {
     domains: ['replicate.delivery'],
   },
-  
   // Force modern target
   experimental: {
     forceSwcTransforms: true,
+    scrollRestoration: false, // Added this to disable Next.js scroll restoration
   },
-  
   async headers() {
     return [
       {

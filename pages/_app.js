@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
-import ScrollToTop from "../components/ScrollToTop"; // Import the component
+import ScrollToTop from "../components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 
 export default function MyApp({ Component, pageProps }) {
@@ -15,22 +15,70 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Mark app as loaded after hydration
     setIsLoaded(true);
+    
+    // Force disable scroll restoration globally
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      
+      // Override any existing scroll behavior
+      const originalPushState = window.history.pushState;
+      const originalReplaceState = window.history.replaceState;
+      
+      window.history.pushState = function(...args) {
+        originalPushState.apply(window.history, args);
+        setTimeout(() => window.scrollTo(0, 0), 0);
+      };
+      
+      window.history.replaceState = function(...args) {
+        originalReplaceState.apply(window.history, args);
+        setTimeout(() => window.scrollTo(0, 0), 0);
+      };
+    }
   }, []);
 
-  // Scroll to top on route change
   useEffect(() => {
-    const handleRouteChange = () => {
-      // Close mobile menu if open
-      setShowMenu(false);
-      // Scroll to top
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const handleRouteChangeStart = (url) => {
+      // Multiple methods to ensure scroll to top
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
+      // Force it with setTimeout
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 0);
     };
 
-    router.events.on('routeChangeComplete', handleRouteChange);
+    const handleRouteChangeComplete = () => {
+      setShowMenu(false);
+      
+      // Multiple aggressive scroll attempts
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 0);
+      
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 100);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
     };
   }, [router.events]);
 
@@ -57,8 +105,6 @@ export default function MyApp({ Component, pageProps }) {
         </main>
         <Footer />
         <CookieBanner />
-        
-        {/* Scroll to top button - appears on all pages */}
         <ScrollToTop />
       </div>
     </SessionContextProvider>

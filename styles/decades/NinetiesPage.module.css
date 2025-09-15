@@ -1,7 +1,5 @@
 /* styles/decades/NinetiesPage.module.css - 90s Grunge Aesthetic */
 
-@import url('https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Impact:wght@400&family=Arial+Black:wght@900&display=swap');
-
 /* Main container - 90s grunge background */
 .container {
   min-height: 100vh;

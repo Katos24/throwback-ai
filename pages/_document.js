@@ -7,36 +7,24 @@ export default function Document() {
       <Head>
         {/* Social Sharing Meta Tags */}
         <meta property="og:title" content="ThrowbackAI – Restore Your Memories" />
-        <meta
-          property="og:description"
-          content="Bring your old photos back to life with AI-powered restoration."
-        />
-        <meta
-          property="og:image"
-          content="https://throwbackai.app/images/Throwback-AI.jpg"
-        />
+        <meta property="og:description" content="Bring your old photos back to life with AI-powered restoration." />
+        <meta property="og:image" content="https://throwbackai.app/images/Throwback-AI.jpg" />
         <meta property="og:url" content="https://throwbackai.app" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="ThrowbackAI" />
         <meta property="og:locale" content="en_US" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ThrowbackAI – Restore Your Memories" />
-        <meta
-          name="twitter:description"
-          content="Bring your old photos back to life with AI-powered restoration."
-        />
-        <meta
-          name="twitter:image"
-          content="https://throwbackai.app/images/throwback-ai.jpg"
-        />
+        <meta name="twitter:description" content="Bring your old photos back to life with AI-powered restoration." />
+        <meta name="twitter:image" content="https://throwbackai.app/images/throwback-ai.jpg" />
         <meta name="twitter:url" content="https://throwbackai.app" />
         <meta name="twitter:site" content="@ThrowbackAI" />
 
         {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        
-        {/* Critical font preload - only Inter for immediate render */}
+
+        {/* Preload critical font - Inter */}
         <link
           rel="preload"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -45,28 +33,18 @@ export default function Document() {
         />
         <noscript>
           <link
-            rel="stylesheet" 
+            rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
           />
         </noscript>
-        
-        {/* Inline critical CSS for immediate rendering - prevents flash */}
+
+        {/* Inline critical CSS */}
         <style dangerouslySetInnerHTML={{
           __html: `
             /* CSS Reset and Critical Base Styles */
-            *, *::before, *::after {
-              box-sizing: border-box;
-            }
-            
-            * {
-              margin: 0;
-            }
-            
-            html {
-              height: 100%;
-              scroll-behavior: smooth;
-            }
-            
+            *, *::before, *::after { box-sizing: border-box; }
+            * { margin: 0; }
+            html { height: 100%; scroll-behavior: smooth; }
             body {
               height: 100%;
               font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -76,184 +54,82 @@ export default function Document() {
               -moz-osx-font-smoothing: grayscale;
               background-color: #ffffff;
               color: #000000;
-              /* Ensure body can scroll properly */
               overflow-x: hidden;
               overflow-y: auto;
             }
-            
-            #__next {
-              isolation: isolate;
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-            }
-            
-            /* App container styles */
-            .app-container {
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-            }
-            
-            img, picture, video, canvas, svg {
-              display: block;
-              max-width: 100%;
-            }
-            
-            input, button, textarea, select {
-              font: inherit;
-            }
-            
-            p, h1, h2, h3, h4, h5, h6 {
-              overflow-wrap: break-word;
-            }
-            
-            /* Main content area */
-            .main-content {
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-              /* Remove any height constraints that might cause issues */
-              min-height: auto;
-            }
-            
-            /* Header critical styles */
-            header {
-              position: relative;
-              z-index: 50;
-              /* Ensure header doesn't interfere with scrolling */
-              flex-shrink: 0;
-            }
-            
-            /* Footer critical styles */
-            footer {
-              flex-shrink: 0;
-              margin-top: auto;
-            }
-            
-            /* Critical text elements */
-            h1, h2, h3, h4, h5, h6 {
-              font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-              font-weight: 600;
-            }
-            
-            /* Toast notification critical styles */
-            .react-hot-toast-wrapper {
-              position: fixed;
-              z-index: 9999;
-              pointer-events: none;
-            }
-            
-            /* Ensure toasts don't block interactions */
-            .react-hot-toast-wrapper > div {
-              pointer-events: auto;
-            }
-            
-            /* Hide decorative text until fonts load */
-            .gfs-didot-text, .press-start-text {
-              visibility: hidden;
-            }
-            
-            /* Show decorative text once fonts are loaded */
-            .fonts-loaded .gfs-didot-text {
-              visibility: visible;
-              font-family: 'GFS Didot', Georgia, serif;
-            }
-            
-            .fonts-loaded .press-start-text {
-              visibility: visible;
-              font-family: 'Press Start 2P', monospace;
-            }
-            
-            /* Transition from system to custom fonts */
-            .fonts-loaded body {
-              font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            }
-            
-            /* Loading state to prevent flash */
-            .loading {
-              opacity: 0;
-              transition: opacity 0.2s ease-in-out;
-            }
-            
-            .loaded {
-              opacity: 1;
-            }
-            
-            /* Ensure clickable elements work properly */
-            button, a, [role="button"] {
-              cursor: pointer;
-              touch-action: manipulation;
-            }
-            
-            /* Fix for mobile tap delays */
-            a, button, input, select, textarea, [tabindex] {
-              -webkit-tap-highlight-color: rgba(0,0,0,0.1);
-            }
+            #__next { isolation: isolate; min-height: 100vh; display: flex; flex-direction: column; }
+            .app-container { min-height: 100vh; display: flex; flex-direction: column; }
+            img, picture, video, canvas, svg { display: block; max-width: 100%; }
+            input, button, textarea, select { font: inherit; }
+            p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+            .main-content { flex: 1; display: flex; flex-direction: column; width: 100%; min-height: auto; }
+            header { position: relative; z-index: 50; flex-shrink: 0; }
+            footer { flex-shrink: 0; margin-top: auto; }
+            h1, h2, h3, h4, h5, h6 { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
+            .react-hot-toast-wrapper { position: fixed; z-index: 9999; pointer-events: none; }
+            .react-hot-toast-wrapper > div { pointer-events: auto; }
+
+            /* Decorative fonts placeholders - hidden until loaded */
+            .gfs-didot-text, .press-start-text { visibility: hidden; }
+
+            /* Once fonts are loaded */
+            .fonts-loaded .gfs-didot-text { visibility: visible; font-family: 'Righteous', 'Fredoka One', cursive; }
+            .fonts-loaded .press-start-text { visibility: visible; font-family: 'Courier New', Impact, 'Arial Black', sans-serif; }
+
+            .fonts-loaded body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+            .loading { opacity: 0; transition: opacity 0.2s ease-in-out; }
+            .loaded { opacity: 1; }
+
+            button, a, [role="button"] { cursor: pointer; touch-action: manipulation; }
+            a, button, input, select, textarea, [tabindex] { -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
           `
         }} />
       </Head>
+
       <body className="antialiased">
         <Main />
         <NextScript />
-        
-        {/* Load non-critical fonts after page interactive */}
+
+        {/* Load 70s & 90s fonts after interactive */}
         <Script
           id="load-fonts"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              // Load decorative fonts after page is interactive
               const loadFonts = () => {
-                const link1 = document.createElement('link');
-                link1.rel = 'stylesheet';
-                link1.href = 'https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap';
-                document.head.appendChild(link1);
-                
-                const link2 = document.createElement('link');
-                link2.rel = 'stylesheet'; 
-                link2.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
-                document.head.appendChild(link2);
-                
-                // Mark fonts as loaded for CSS transitions
-                link2.onload = () => {
-                  document.documentElement.classList.add('fonts-loaded');
-                  document.body.classList.add('loaded');
-                };
+                const fonts = [
+                  'https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap',
+                  'https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Impact:wght@400&family=Arial+Black:wght@900&display=swap'
+                ];
+                fonts.forEach(href => {
+                  const link = document.createElement('link');
+                  link.rel = 'stylesheet';
+                  link.href = href;
+                  document.head.appendChild(link);
+                });
+                document.documentElement.classList.add('fonts-loaded');
+                document.body.classList.add('loaded');
               };
-              
-              // Mark body as loaded initially
-              document.body.classList.add('loaded');
-              
-              // Load fonts after a short delay or on user interaction
+
               if (document.readyState === 'complete') {
                 setTimeout(loadFonts, 100);
               } else {
                 window.addEventListener('load', () => setTimeout(loadFonts, 100));
               }
-              
-              // Also load on first user interaction for better perceived performance
-              const interactions = ['click', 'keydown', 'mousemove', 'scroll', 'touchstart'];
-              const loadOnInteraction = () => {
-                loadFonts();
-                interactions.forEach(event => 
-                  document.removeEventListener(event, loadOnInteraction, { passive: true })
-                );
-              };
-              interactions.forEach(event => 
-                document.addEventListener(event, loadOnInteraction, { passive: true })
-              );
-              
-              // Ensure scroll to top functionality works
-              window.scrollToTop = function() {
-                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-              };
+
+              ['click','keydown','mousemove','scroll','touchstart'].forEach(ev => {
+                const handler = () => {
+                  loadFonts();
+                  ['click','keydown','mousemove','scroll','touchstart'].forEach(e => document.removeEventListener(e, handler));
+                };
+                ['click','keydown','mousemove','scroll','touchstart'].forEach(e => document.addEventListener(e, handler));
+              });
             `
           }}
         />
-        
-        {/* Defer Google Analytics */}
+
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-JCY37JB8YP"
           strategy="afterInteractive"

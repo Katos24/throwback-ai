@@ -80,11 +80,6 @@ export default function SeventiesPage() {
       return;
     }
 
-    // Debug: Test the prompt generation
-    const testPrompt = seventiesPromptWrapper(userGender, selectedStyle, workflowType, styleStrength);
-    console.log('Generated prompt:', testPrompt);
-    console.log('Parameters:', { userGender, selectedStyle, workflowType, styleStrength });
-
     try {
       const imageUrl = await generateAvatar(photo, userGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);

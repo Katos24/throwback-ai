@@ -1,4 +1,4 @@
-// components/ConfigurationSection.js
+// components/decades/shared/ConfigurationSection.js
 export default function ConfigurationSection({
   userGender,
   setUserGender,
@@ -166,4 +166,15 @@ export default function ConfigurationSection({
       </div>
     </div>
   );
+}
+
+// Helper function for decade emojis
+function getDecadeEmoji(decade) {
+  const emojis = {
+    "70s": "✌️",
+    "80s": "🕺", 
+    "90s": "✨",
+    "2000s": "💻"
+  };
+  return emojis[decade] || "✨";
 }

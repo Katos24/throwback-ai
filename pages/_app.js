@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
 import ScrollToTop from "../components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
+import Head from "next/head"; // <-- Import Head
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -16,21 +17,19 @@ export default function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    // Force disable scroll restoration globally
-    if (typeof window !== 'undefined') {
-      window.history.scrollRestoration = 'manual';
-      
-      // Override any existing scroll behavior
+
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+
       const originalPushState = window.history.pushState;
       const originalReplaceState = window.history.replaceState;
-      
-      window.history.pushState = function(...args) {
+
+      window.history.pushState = function (...args) {
         originalPushState.apply(window.history, args);
         setTimeout(() => window.scrollTo(0, 0), 0);
       };
-      
-      window.history.replaceState = function(...args) {
+
+      window.history.replaceState = function (...args) {
         originalReplaceState.apply(window.history, args);
         setTimeout(() => window.scrollTo(0, 0), 0);
       };
@@ -39,12 +38,10 @@ export default function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const handleRouteChangeStart = (url) => {
-      // Multiple methods to ensure scroll to top
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      
-      // Force it with setTimeout
+
       setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
@@ -54,18 +51,17 @@ export default function MyApp({ Component, pageProps }) {
 
     const handleRouteChangeComplete = () => {
       setShowMenu(false);
-      
-      // Multiple aggressive scroll attempts
+
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      
+
       setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
       }, 0);
-      
+
       setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
@@ -73,12 +69,12 @@ export default function MyApp({ Component, pageProps }) {
       }, 100);
     };
 
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
     };
   }, [router.events]);
 
@@ -87,7 +83,13 @@ export default function MyApp({ Component, pageProps }) {
       supabaseClient={supabase}
       initialSession={pageProps.initialSession}
     >
-      <div className={`app-container ${isLoaded ? 'loaded' : 'loading'}`}>
+      <Head>
+        <meta
+          name="facebook-domain-verification"
+          content="a8g2fjbwbuha4i98c0jotplpn54k01"
+        />
+      </Head>
+      <div className={`app-container ${isLoaded ? "loaded" : "loading"}`}>
         <Header showMenu={showMenu} setShowMenu={setShowMenu} />
         <main className="main-content">
           <Component {...pageProps} />

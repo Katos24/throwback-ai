@@ -80,6 +80,20 @@ export default function SeventiesPage() {
       return;
     }
 
+    // Scroll to photo section on mobile when generation starts
+    const scrollToPhoto = () => {
+      const photoSection = document.querySelector(`.${styles.photoSection}`) || 
+                          document.querySelector(`.${styles.tvPhotoFrame}`) ||
+                          document.querySelector(`.${styles.photoDisplay}`);
+      
+      if (photoSection && window.innerWidth <= 768) {
+        photoSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }
+    };
+
     // Debug: Test the prompt generation
     const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
     const testPrompt = seventiesPromptWrapper(apiGender, selectedStyle, workflowType, styleStrength);
@@ -87,6 +101,9 @@ export default function SeventiesPage() {
     console.log('Parameters:', { apiGender, selectedStyle, workflowType, styleStrength });
 
     try {
+      // Start scrolling right when generation begins
+      setTimeout(scrollToPhoto, 100);
+      
       const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);
     } catch (error) {

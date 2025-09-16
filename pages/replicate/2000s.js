@@ -92,9 +92,27 @@ export default function TwothousandsPage() {
       return;
     }
 
+    // Scroll to photo section on mobile when generation starts
+    const scrollToPhoto = () => {
+      const photoSection = document.querySelector(`.${styles.photoWindow}`) || 
+                          document.querySelector(`.${styles.photoContent}`) ||
+                          document.querySelector(`.${styles.windowContent}`);
+      
+      if (photoSection && window.innerWidth <= 768) {
+        photoSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }
+    };
+
     try {
       // Convert gender format to match API expectations
       const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
+      
+      // Start scrolling right when generation begins
+      setTimeout(scrollToPhoto, 100);
+      
       const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);
     } catch (error) {

@@ -1,5 +1,6 @@
 // components/ImageDisplay.js
 import Image from "next/image";
+import ImageLoadingOverlay from "./ImageLoadingOverlay";
 
 export default function ImageDisplay({
   previewUrl,
@@ -30,41 +31,13 @@ export default function ImageDisplay({
           className={`${styles.displayImage} ${getFilterClass(decade, resultImageUrl, showingOriginal, filterEnabled, styles)}`}
         />
         
-        {/* Loading spinner overlay */}
-        {isLoading && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.8)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '8px',
-            color: 'white',
-            fontSize: '14px',
-            zIndex: 999
-          }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              border: '3px solid rgba(255, 255, 255, 0.3)',
-              borderTop: '3px solid white',
-              borderRadius: '50%',
-              animation: 'spin 1s linear infinite',
-              marginBottom: '10px'
-            }} />
-            <div style={{ textAlign: 'center' }}>
-              <div>{progressStage}</div>
-              <div style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '5px' }}>
-                {progress}%
-              </div>
-            </div>
-          </div>
-        )}
+        {/* New Enhanced Loading Overlay */}
+        <ImageLoadingOverlay 
+          isLoading={isLoading}
+          progress={progress}
+          progressStage={progressStage}
+          decade={decade}
+        />
       </div>
 
       <div className={styles.buttonRow}>
@@ -95,8 +68,8 @@ export default function ImageDisplay({
         </button>
 
         {resultImageUrl && (
-          <button 
-            onClick={handleDownload} 
+          <button
+            onClick={handleDownload}
             className={styles.downloadButton}
           >
             💾 Save Photo

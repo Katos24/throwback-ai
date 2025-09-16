@@ -93,7 +93,9 @@ export default function TwothousandsPage() {
     }
 
     try {
-      const imageUrl = await generateAvatar(photo, userGender, selectedStyle, workflowType, styleStrength, refreshCredits);
+      // Convert gender format to match API expectations
+      const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
+      const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);
     } catch (error) {
       console.error('Generation failed:', error);
@@ -309,6 +311,10 @@ export default function TwothousandsPage() {
                       handleDownload={handleDownload}
                       decade="2000s"
                       styles={styles}
+                      // Add loading overlay props
+                      isLoading={isLoading}
+                      progress={progress}
+                      progressStage={progressStage}
                     />
                   )}
                 </div>

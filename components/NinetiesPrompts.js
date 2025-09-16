@@ -1,5 +1,12 @@
 const NINETIES_STYLES = [
-  {
+    {
+    id: 'teen-sitcom',
+    label: "90s Teen Sitcom Star",
+    value: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
+    description: "Bright, colorful teen sitcom vibes with varsity jackets and blue lockers",
+    emoji: "🏫"
+  },
+    {
     id: 'high-school-yearbook',
     label: "90s High School Yearbook",
     value: "90s high school yearbook photo, retro windbreaker jacket, big hair, bright neon colors, soft lighting, vintage Kodak film grain, centered school portrait, cheesy smile, plain background, 1990s fashion aesthetic",

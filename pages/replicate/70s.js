@@ -81,12 +81,13 @@ export default function SeventiesPage() {
     }
 
     // Debug: Test the prompt generation
-    const testPrompt = seventiesPromptWrapper(userGender, selectedStyle, workflowType, styleStrength);
+    const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
+    const testPrompt = seventiesPromptWrapper(apiGender, selectedStyle, workflowType, styleStrength);
     console.log('Generated prompt:', testPrompt);
-    console.log('Parameters:', { userGender, selectedStyle, workflowType, styleStrength });
+    console.log('Parameters:', { apiGender, selectedStyle, workflowType, styleStrength });
 
     try {
-      const imageUrl = await generateAvatar(photo, userGender, selectedStyle, workflowType, styleStrength, refreshCredits);
+      const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);
     } catch (error) {
       console.error('Generation failed:', error);
@@ -201,6 +202,10 @@ export default function SeventiesPage() {
                         handleDownload={handleDownload}
                         decade="70s"
                         styles={styles}
+                        // Add loading overlay props
+                        isLoading={isLoading}
+                        progress={progress}
+                        progressStage={progressStage}
                       />
                     )}
                   </div>

@@ -20,23 +20,9 @@ export default function Document() {
         <meta name="twitter:url" content="https://throwbackai.app" />
         <meta name="twitter:site" content="@ThrowbackAI" />
 
-        {/* Preconnect for Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-
-        {/* Preload critical font - Inter */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-          as="style"
-          onLoad="this.onload=null;this.rel='stylesheet'"
-        />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-          />
-        </noscript>
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
         {/* Inline critical CSS */}
         <style dangerouslySetInnerHTML={{
@@ -47,7 +33,6 @@ export default function Document() {
             html { height: 100%; scroll-behavior: smooth; }
             body {
               height: 100%;
-              font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
               font-weight: 400;
               line-height: 1.6;
               -webkit-font-smoothing: antialiased;
@@ -65,7 +50,7 @@ export default function Document() {
             .main-content { flex: 1; display: flex; flex-direction: column; width: 100%; min-height: auto; }
             header { position: relative; z-index: 50; flex-shrink: 0; }
             footer { flex-shrink: 0; margin-top: auto; }
-            h1, h2, h3, h4, h5, h6 { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
+            h1, h2, h3, h4, h5, h6 { font-weight: 600; }
             .react-hot-toast-wrapper { position: fixed; z-index: 9999; pointer-events: none; }
             .react-hot-toast-wrapper > div { pointer-events: auto; }
 
@@ -75,8 +60,6 @@ export default function Document() {
             /* Once fonts are loaded */
             .fonts-loaded .gfs-didot-text { visibility: visible; font-family: 'Righteous', 'Fredoka One', cursive; }
             .fonts-loaded .press-start-text { visibility: visible; font-family: 'Courier New', Impact, 'Arial Black', sans-serif; }
-
-            .fonts-loaded body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 
             .loading { opacity: 0; transition: opacity 0.2s ease-in-out; }
             .loaded { opacity: 1; }
@@ -91,7 +74,7 @@ export default function Document() {
         <Main />
         <NextScript />
 
-        {/* Load 70s & 90s fonts after interactive */}
+        {/* Load decorative fonts after interactive - non-critical */}
         <Script
           id="load-fonts"
           strategy="afterInteractive"
@@ -120,7 +103,6 @@ export default function Document() {
                 document.body.classList.add('loaded');
               };
 
-
               if (document.readyState === 'complete') {
                 setTimeout(loadFonts, 100);
               } else {
@@ -132,7 +114,7 @@ export default function Document() {
                   loadFonts();
                   ['click','keydown','mousemove','scroll','touchstart'].forEach(e => document.removeEventListener(e, handler));
                 };
-                ['click','keydown','mousemove','scroll','touchstart'].forEach(e => document.addEventListener(e, handler));
+                document.addEventListener(ev, handler, { once: true });
               });
             `
           }}

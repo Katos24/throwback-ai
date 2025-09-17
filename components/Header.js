@@ -73,19 +73,19 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const aiSuiteItems = [
     { 
-      href: "/replicate/restore-basic", 
-      label: "Photo Restoration", 
-      icon: "🔧",
-      description: "Repair scratches & damage",
-      credits: "1 Credit"
-    },
-    { 
       href: "/replicate/restore-premium", 
       label: "Photo Colorization", 
       icon: "🌈",
       description: "Add beautiful colors",
       credits: "40 Credits",
       badge: "Premium"
+    },
+    { 
+      href: "/replicate/restore-basic", 
+      label: "Photo Restoration", 
+      icon: "🔧",
+      description: "Repair scratches & damage",
+      credits: "1 Credit"
     },
     { 
       href: "/decades", 

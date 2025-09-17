@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import { supabase } from "../../lib/supabaseClient";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
@@ -17,14 +17,15 @@ export default function RadioNinetiesTest() {
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
+  const [session, setSession] = useState(null);
   const [showingOriginal, setShowingOriginal] = useState(false);
 
   // Credits and auth
   const { credits, isLoggedIn, refreshCredits } = useCredits();
   const avatarCost = 50;
 
-  // Generation hook with custom prompt builder for 90s format
-  const customPromptBuilder = (gender, styleId, workflowType, strength) => {
+  // Generation hook with 90s prompt builder wrapper
+  const ninetiesPromptWrapper = (gender, styleId, workflowType, strength) => {
     return buildNinetiesPrompt({
       gender,
       styleId,
@@ -33,7 +34,7 @@ export default function RadioNinetiesTest() {
     });
   };
   
-  const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("90s", customPromptBuilder);
+  const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("90s", ninetiesPromptWrapper);
 
   // Radio state
   const [currentFrequency, setCurrentFrequency] = useState(91.1);
@@ -46,6 +47,7 @@ export default function RadioNinetiesTest() {
   const [userGender, setUserGender] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("");
   const [styleStrength, setStyleStrength] = useState(20);
+  const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
 
   // Radio stations mapping to actual 90s styles - using correct NINETIES_STYLES IDs
   const radioStations = [
@@ -58,6 +60,14 @@ export default function RadioNinetiesTest() {
     { freq: 97.5, style: 'boy-band', name: 'TEEN-FM', tagline: 'Heartthrob headquarters', angle: 270 },
     { freq: 98.3, style: 'sitcom-character', name: 'FAMILY-FM', tagline: 'Must-see TV vibes', angle: 315 }
   ];
+
+  useEffect(() => {
+    async function getSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
+    }
+    getSession();
+  }, []);
 
   useEffect(() => {
     // Set initial station
@@ -84,31 +94,38 @@ export default function RadioNinetiesTest() {
   };
 
   const handleGenerateOrRedirect = async () => {
-    if (!photo) {
-      alert('Please upload a photo first');
-      return;
-    }
-    if (!selectedStyle) {
-      alert('Please tune to a station first');
-      return;
-    }
-    if (!userGender) {
-      alert('Please select gender using the antenna');
-      return;
-    }
-
+    if (!photo) return;
+    if (!userGender || !selectedStyle) return;
     if (!isLoggedIn) {
       router.push('/signup');
       return;
     }
-    
     if (credits < avatarCost) {
       router.push('/pricing');
       return;
     }
 
+    // Scroll to photo section on mobile when generation starts
+    const scrollToPhoto = () => {
+      const photoSection = document.querySelector(`.${styles.photoSection}`) || 
+                          document.querySelector(`.${styles.mainContent}`);
+      
+      if (photoSection && window.innerWidth <= 768) {
+        photoSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }
+    };
+
     try {
-      const imageUrl = await generateAvatar(photo, userGender, selectedStyle, "HyperRealistic-likeness", styleStrength, refreshCredits);
+      // Convert gender format to match API expectations
+      const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
+      
+      // Start scrolling right when generation begins
+      setTimeout(scrollToPhoto, 100);
+      
+      const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
       setResultImageUrl(imageUrl);
     } catch (error) {
       console.error('Generation failed:', error);
@@ -124,6 +141,8 @@ export default function RadioNinetiesTest() {
     if (credits < avatarCost) return "Get More Credits";
     return "🎵 RECORD 90s YEARBOOK PHOTO 🎵";
   };
+
+  const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
 
   const handleDownload = async () => {
     if (!resultImageUrl) return;
@@ -141,7 +160,6 @@ export default function RadioNinetiesTest() {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Download failed:', error);
-      alert('Download failed. Please try again.');
     }
   };
 
@@ -191,8 +209,20 @@ export default function RadioNinetiesTest() {
                 handleDownload={handleDownload}
                 decade="90s"
                 styles={styles}
+                // Add loading overlay props
+                isLoading={isLoading}
+                progress={progress}
+                progressStage={progressStage}
               />
             )}
+
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={() => {}} // Handled by PhotoUpload component
+              style={{ display: 'none' }}
+            />
           </div>
         </div>
 
@@ -271,12 +301,12 @@ export default function RadioNinetiesTest() {
             </div>
           </div>
 
-          {/* Generate Button - Replace the old one */}
+          {/* Generate Button - Using shared component */}
           <GenerateButton 
             onClick={handleGenerateOrRedirect}
             isLoading={isLoading}
             getButtonText={getButtonText}
-            isComplete={photo && selectedStyle && userGender && isLoggedIn && credits >= avatarCost}
+            isComplete={isComplete}
             progress={progress}
             progressStage={progressStage}
             styles={styles}

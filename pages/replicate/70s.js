@@ -13,6 +13,9 @@ import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
+import SeventiesSEO from "../../components/SEO/SeventiesSEO";
+
+
 
 export default function SeventiesPage() {
   const router = useRouter();
@@ -147,10 +150,7 @@ export default function SeventiesPage() {
 
   return (
     <>
-      <Head>
-        <title>70s Yearbook Photo Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photo into an authentic 70s yearbook photo with hippie, disco, punk, and glam rock styles from the groovy decade." />
-      </Head>
+      <SeventiesSEO />
 
       <main className={styles.container}>
         {/* 70s TV Set */}

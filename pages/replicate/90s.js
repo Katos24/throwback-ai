@@ -12,6 +12,7 @@ import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
+import NinetiesSEO from "../../components/SEO/NinetiesSEO";
 
 export default function NinetiesPage() {
   const router = useRouter();
@@ -135,10 +136,7 @@ export default function NinetiesPage() {
 
   return (
     <>
-      <Head>
-        <title>90s Yearbook Photo Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photo into an authentic 90s yearbook photo with grunge, hip hop, alternative, and skater styles from the radical decade." />
-      </Head>
+      <NinetiesSEO />
 
       <main className={styles.container}>
         {/* 90s Bedroom Wall Posters */}

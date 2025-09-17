@@ -12,6 +12,7 @@ import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
+import TwothousandsSEO from "../../components/SEO/TwothousandsSEO";
 
 export default function TwothousandsPage() {
   const router = useRouter();
@@ -156,10 +157,7 @@ export default function TwothousandsPage() {
 
   return (
     <>
-      <Head>
-        <title>2000s Yearbook Photo Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photo into an authentic 2000s yearbook photo with emo, scene, pop punk, and hipster styles from the Y2K era." />
-      </Head>
+      <TwothousandsSEO />
 
       <main className={styles.container}>
         {/* XP Taskbar */}

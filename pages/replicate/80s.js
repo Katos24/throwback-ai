@@ -12,6 +12,7 @@ import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
+import EightiesSEO from "../../components/SEO/EightiesSEO";
 
 export default function EightiesPage() {
   const router = useRouter();
@@ -134,10 +135,7 @@ export default function EightiesPage() {
 
   return (
     <>
-      <Head>
-        <title>80s Yearbook Photo Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photo into an authentic 80s yearbook photo with new wave, rock, pop, and neon styles from the totally awesome decade." />
-      </Head>
+      <EightiesSEO />
 
       <main className={styles.container}>
         {/* 80s Desktop Content */}

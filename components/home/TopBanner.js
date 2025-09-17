@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import TopBannerStyles from '../../styles/TopBannerTest.module.css';
 
 const TopBanner = () => {
@@ -94,7 +95,7 @@ const TopBanner = () => {
               <Image
                 src="/images/before6.jpg"
                 alt="Black and white family photo being colorized"
-                layout="fill"
+                fill
                 className={TopBannerStyles.bwImage}
                 sizes="(max-width: 768px) 100vw, 500px"
                 priority
@@ -104,7 +105,7 @@ const TopBanner = () => {
                 <Image
                   src="/images/after6.jpg"
                   alt="Historically accurate colorized version"
-                  layout="fill"
+                  fill
                   className={TopBannerStyles.colorImage}
                   sizes="(max-width: 768px) 100vw, 500px"
                 />
@@ -171,9 +172,9 @@ const TopBanner = () => {
                 <p>Transform black & white family memories into vibrant, historically accurate color photos.</p>
               </div>
               <div className={TopBannerStyles.ctaButtons}>
-                <a href="/replicate/restore-premium" className={TopBannerStyles.primaryCta}>
+                <Link href="/replicate/restore-premium" className={TopBannerStyles.primaryCta}>
                   Try Colorization (40 credits)
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -190,7 +191,7 @@ const TopBanner = () => {
               <Image
                 src="/images/basicpage-before.jpg"
                 alt="Damaged family photo with scratches and tears"
-                layout="fill"
+                fill
                 className={TopBannerStyles.damagedImage}
                 sizes="(max-width: 768px) 100vw, 500px"
               />
@@ -199,7 +200,7 @@ const TopBanner = () => {
                 <Image
                   src="/images/basicpage-after.jpg"
                   alt="Professionally restored version"
-                  layout="fill"
+                  fill
                   className={TopBannerStyles.repairedImage}
                   sizes="(max-width: 768px) 100vw, 500px"
                 />
@@ -266,9 +267,9 @@ const TopBanner = () => {
                 <p>Remove scratches, tears, and water damage from irreplaceable family memories.</p>
               </div>
               <div className={TopBannerStyles.ctaButtons}>
-                <a href="/replicate/restore-basic" className={TopBannerStyles.primaryCta}>
+                <Link href="/replicate/restore-basic" className={TopBannerStyles.primaryCta}>
                   Try Free Restore
-                </a>
+                </Link>
               </div>
             </div>
           </div>

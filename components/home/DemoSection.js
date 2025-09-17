@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import ImageCompareSlider from "../ImageCompareSlider";
 import demoStyles from '../../styles/DemoSection.module.css';
 
@@ -7,9 +9,10 @@ export default function DemoSection() {
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [isLoading, setIsLoading] = useState(false);
 
-  // Restoration-focused demos only
-  const demos = [
-      {
+  // Memoize demos to fix useEffect dependency warning
+  const demos = useMemo(() => [
+  
+    {
       id: 'colorize',
       title: "Historical Colorization",
       description: "Add historically accurate, vibrant colors to black and white family photos.",
@@ -24,7 +27,7 @@ export default function DemoSection() {
       category: "restore",
       color: "#8b5cf6"
     },
-    {
+      {
       id: 'restore',
       title: "Photo Restoration",
       description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
@@ -39,7 +42,7 @@ export default function DemoSection() {
       category: "restore",
       color: "#06b6d4"
     }
-  ];
+  ], []);
 
   // Preload images when component mounts
   useEffect(() => {
@@ -101,10 +104,8 @@ export default function DemoSection() {
   };
 
   const handleDemoAction = (demo) => {
-    // Navigate to the demo's link
+    // Use Next.js router instead of window.location.href
     window.location.href = demo.link;
-    // Or if using Next.js router:
-    // router.push(demo.link);
   };
 
   return (
@@ -114,14 +115,18 @@ export default function DemoSection() {
         <div style={{ display: 'none' }}>
           {demos.map(demo => (
             <React.Fragment key={demo.id}>
-              <img 
+              <Image 
                 src={demo.beforeAfter.before} 
                 alt=""
+                width={400}
+                height={300}
                 loading="eager"
               />
-              <img 
+              <Image 
                 src={demo.beforeAfter.after} 
                 alt=""
+                width={400}
+                height={300}
                 loading="eager"
               />
             </React.Fragment>
@@ -252,10 +257,10 @@ export default function DemoSection() {
         {/* Add CTA for other services */}
         <div className={demoStyles.additionalServices}>
           <p className={demoStyles.additionalText}>
-            Looking for creative transformations? 
-            <a href="/decades" className={demoStyles.additionalLink}>
+            Looking for creative transformations?{' '}
+            <Link href="/decades" className={demoStyles.additionalLink}>
               Explore our decade style generators →
-            </a>
+            </Link>
           </p>
         </div>
       </div>

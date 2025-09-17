@@ -15,7 +15,7 @@ const EightiesSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/og/80s-yearbook-og.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/80sCard.jpg";
 
   // Structured data for the 80s photo generator
   const structuredData = {

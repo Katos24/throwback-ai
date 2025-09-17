@@ -15,7 +15,7 @@ const NinetiesSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/og/90s-yearbook-og.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/90sCard.jpg"
 
   // Structured data for the 90s photo generator
   const structuredData = {

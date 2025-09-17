@@ -15,7 +15,7 @@ const TwothousandsSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/og/2000s-yearbook-og.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/2000sCard.jpg";
 
   // Structured data for the 2000s photo generator
   const structuredData = {

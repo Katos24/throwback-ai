@@ -15,7 +15,7 @@ const SeventiesSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/og/70s-yearbook-og.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/70sCard.jpg";
 
   // Structured data for the 70s photo generator
   const structuredData = {

@@ -19,8 +19,8 @@ export default function DemoSection() {
       icon: "🎨",
       buttonText: "Try Colorize",
       beforeAfter: {
-        before: "/images/BeforePremium.jpg",
-        after: "/images/AfterPremium.jpg"
+        before: "/images/beforepremium.jpg",
+        after: "/images/afterpremium.jpg"
       },
       link: "/replicate/restore-premium",
       credits: 40,

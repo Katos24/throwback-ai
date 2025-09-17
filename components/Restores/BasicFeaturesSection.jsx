@@ -45,7 +45,7 @@ export default function BasicFeaturesSection() {
     }}>
       <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
       <ImageCompareSlider
-        beforeImage="/images/beforeexample.jpg"
+        beforeImage="/images/BasicDemoAfter.jpg"
         afterImage="/images/basicdemo.jpg"
       />
       <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>

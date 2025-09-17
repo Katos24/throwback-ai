@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import TopBannerStyles from '../../styles/TopBannerTest.module.css';
-import ImageCompareSlider from '../ImageCompareSlider';
 
 const TopBanner = () => {
   const containerRef = useRef(null);
@@ -49,59 +48,38 @@ const TopBanner = () => {
         <div className={TopBannerStyles.orb2}></div>
       </div>
 
-      {/* AI Transformation Demos */}
+      {/* AI Photo Restoration Demos */}
       <aside className={TopBannerStyles.analysisSection}>
         <div className={TopBannerStyles.sectionBadge}>
           <span className={TopBannerStyles.statusDot}></span>
-          <span className={TopBannerStyles.badgeText}>AI TRANSFORMATION</span>
+          <span className={TopBannerStyles.badgeText}>AI PHOTO RESTORATION</span>
         </div>
         
         <h2 className={TopBannerStyles.sectionTitle}>
-          Neural Enhancement
-          <span className={TopBannerStyles.titleGradient}> Showcase</span>
+          Preserve Your
+          <span className={TopBannerStyles.titleGradient}> Family Memories</span>
         </h2>
         
         <p className={TopBannerStyles.sectionSubtitle}>
-          Experience our <strong>5 AI engines</strong> in action. 
-          Watch as advanced neural networks transform your images with precision.
+          Watch our <strong>advanced AI restoration engines</strong> bring damaged family photos back to life. 
+          Professional-grade neural networks trained specifically on historical photography.
         </p>
 
-        {/* Transformation Tabs */}
+        {/* Restoration Service Tabs */}
         <div className={TopBannerStyles.transformTabs}>
           <button 
             className={`${TopBannerStyles.tabButton} ${activeTab === 'colorize' ? TopBannerStyles.active : ''}`}
             onClick={() => handleTabClick('colorize')}
           >
-            <span className={TopBannerStyles.tabIcon}>🌈</span>
-            <span>Colorize</span>
-          </button>
-          <button 
-            className={`${TopBannerStyles.tabButton} ${activeTab === 'cartoon' ? TopBannerStyles.active : ''}`}
-            onClick={() => handleTabClick('cartoon')}
-          >
             <span className={TopBannerStyles.tabIcon}>🎨</span>
-            <span>Cartoon</span>
+            <span>Colorize</span>
           </button>
           <button 
             className={`${TopBannerStyles.tabButton} ${activeTab === 'repair' ? TopBannerStyles.active : ''}`}
             onClick={() => handleTabClick('repair')}
           >
-            <span className={TopBannerStyles.tabIcon}>🔧</span>
+            <span className={TopBannerStyles.tabIcon}>✨</span>
             <span>Repair</span>
-          </button>
-          <button 
-            className={`${TopBannerStyles.tabButton} ${activeTab === 'yearbook' ? TopBannerStyles.active : ''}`}
-            onClick={() => handleTabClick('yearbook')}
-          >
-            <span className={TopBannerStyles.tabIcon}>📸</span>
-            <span>Yearbook</span>
-          </button>
-          <button 
-            className={`${TopBannerStyles.tabButton} ${activeTab === 'avatar' ? TopBannerStyles.active : ''}`}
-            onClick={() => handleTabClick('avatar')}
-          >
-            <span className={TopBannerStyles.tabIcon}>👤</span>
-            <span>Avatar</span>
           </button>
         </div>
 
@@ -110,23 +88,25 @@ const TopBanner = () => {
           className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'colorize' ? TopBannerStyles.hidden : ''}`} 
           id="colorize-demo"
         >
+          {/* Left Column - Image */}
           <div className={TopBannerStyles.scanningFrame}>
             <div className={TopBannerStyles.imageFrame}>
               <Image
-                src="/images/beforeexample.jpg"
-                alt="Black and white photo being colorized"
+                src="/images/before6.jpg"
+                alt="Black and white family photo being colorized"
                 layout="fill"
                 className={TopBannerStyles.bwImage}
-                sizes="(max-width: 768px) 100vw, 700px"
+                sizes="(max-width: 768px) 100vw, 500px"
+                priority
               />
               
               <div className={TopBannerStyles.colorLayer}>
                 <Image
-                  src="/images/afterexample.jpg"
-                  alt="Colorized version"
+                  src="/images/after6.jpg"
+                  alt="Historically accurate colorized version"
                   layout="fill"
                   className={TopBannerStyles.colorImage}
-                  sizes="(max-width: 768px) 100vw, 700px"
+                  sizes="(max-width: 768px) 100vw, 500px"
                 />
               </div>
               
@@ -141,11 +121,15 @@ const TopBanner = () => {
                   </div>
                   <div className={TopBannerStyles.processingLine}>
                     <span className={TopBannerStyles.processingDot}></span>
-                    Applying skin tone algorithms...
+                    Applying period-accurate skin tones...
                   </div>
                   <div className={TopBannerStyles.processingLine}>
                     <span className={TopBannerStyles.processingDot}></span>
-                    Rendering color transitions...
+                    Reconstructing fabric and material colors...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Preserving original photo quality...
                   </div>
                 </div>
               </div>
@@ -155,106 +139,42 @@ const TopBanner = () => {
               <div className={TopBannerStyles.progressBar}>
                 <div className={TopBannerStyles.progressFill}></div>
               </div>
-              <span className={TopBannerStyles.progressText}>Colorizing... 87%</span>
+              <span className={TopBannerStyles.progressText}>Adding historical colors... 87%</span>
             </div>
           </div>
 
-          {/* Results Panel */}
-          <div className={TopBannerStyles.resultsPanel}>
-            <div className={TopBannerStyles.resultsSummary}>
-              <div className={TopBannerStyles.confidenceScore}>
-                <div className={TopBannerStyles.scoreNumber}>94.8%</div>
-                <div className={TopBannerStyles.scoreLabel}>Color Accuracy</div>
-              </div>
-              <div className={TopBannerStyles.detectionsFound}>
-                <div className={TopBannerStyles.detectionsNumber}>8</div>
-                <div className={TopBannerStyles.detectionsLabel}>Regions Mapped</div>
-              </div>
-            </div>
-            
-            <div className={TopBannerStyles.detectedIssues}>
-              <div className={TopBannerStyles.colorTag}>Skin Tones (2)</div>
-              <div className={TopBannerStyles.colorTag}>Clothing (3)</div>
-              <div className={TopBannerStyles.colorTag}>Background (3)</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Cartoon Demo */}
-        <div 
-          className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'cartoon' ? TopBannerStyles.hidden : ''}`} 
-          id="cartoon-demo"
-        >
-          <div className={TopBannerStyles.scanningFrame}>
-            <div className={TopBannerStyles.imageFrame}>
-              <Image
-                src="/images/cartoon-before.jpg"
-                alt="Regular photo being cartoonized"
-                layout="fill"
-                className={TopBannerStyles.photoImage}
-                sizes="(max-width: 768px) 100vw, 700px"
-              />
-              
-              <div className={TopBannerStyles.cartoonLayer}>
-                <Image
-                  src="/images/cartoon-example.jpg"
-                  alt="Cartoon version"
-                  layout="fill"
-                  className={TopBannerStyles.cartoonImage}
-                  sizes="(max-width: 768px) 100vw, 700px"
-                />
-              </div>
-              
-              <div className={TopBannerStyles.styleWave}></div>
-              
-              {/* Processing Text */}
-              <div className={TopBannerStyles.processingOverlay}>
-                <div className={TopBannerStyles.processingText}>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Analyzing facial features...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Applying artistic filters...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Rendering cartoon style...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Finalizing output...
-                  </div>
+          {/* Right Column - Stats */}
+          <div className={TopBannerStyles.statsColumn}>
+            <div className={TopBannerStyles.resultsPanel}>
+              <div className={TopBannerStyles.resultsSummary}>
+                <div className={TopBannerStyles.confidenceScore}>
+                  <div className={TopBannerStyles.scoreNumber}>96.3%</div>
+                  <div className={TopBannerStyles.scoreLabel}>Historical Accuracy</div>
+                </div>
+                <div className={TopBannerStyles.detectionsFound}>
+                  <div className={TopBannerStyles.detectionsNumber}>12</div>
+                  <div className={TopBannerStyles.detectionsLabel}>Color Regions</div>
                 </div>
               </div>
+              
+              <div className={TopBannerStyles.detectedIssues}>
+                <div className={TopBannerStyles.colorTag}>Skin Tones (3)</div>
+                <div className={TopBannerStyles.colorTag}>Clothing (4)</div>
+                <div className={TopBannerStyles.colorTag}>Environment (5)</div>
+              </div>
             </div>
 
-            <div className={TopBannerStyles.colorProgress}>
-              <div className={TopBannerStyles.progressBar}>
-                <div className={TopBannerStyles.styleProgressFill}></div>
+            {/* CTA for Colorize */}
+            <div className={TopBannerStyles.ctaSection}>
+              <div className={TopBannerStyles.ctaText}>
+                <h3>Ready to colorize your photos?</h3>
+                <p>Transform black & white family memories into vibrant, historically accurate color photos.</p>
               </div>
-              <span className={TopBannerStyles.progressText}>Stylizing... 92%</span>
-            </div>
-          </div>
-
-          {/* Cartoon Results */}
-          <div className={TopBannerStyles.resultsPanel}>
-            <div className={TopBannerStyles.resultsSummary}>
-              <div className={TopBannerStyles.confidenceScore}>
-                <div className={TopBannerStyles.scoreNumber}>96.2%</div>
-                <div className={TopBannerStyles.scoreLabel}>Style Accuracy</div>
+              <div className={TopBannerStyles.ctaButtons}>
+                <a href="/replicate/restore-premium" className={TopBannerStyles.primaryCta}>
+                  Try Colorization (40 credits)
+                </a>
               </div>
-              <div className={TopBannerStyles.detectionsFound}>
-                <div className={TopBannerStyles.detectionsNumber}>12</div>
-                <div className={TopBannerStyles.detectionsLabel}>Features Mapped</div>
-              </div>
-            </div>
-            
-            <div className={TopBannerStyles.detectedIssues}>
-              <div className={TopBannerStyles.cartoonTag}>Face (4)</div>
-              <div className={TopBannerStyles.cartoonTag}>Hair (3)</div>
-              <div className={TopBannerStyles.cartoonTag}>Expression (5)</div>
             </div>
           </div>
         </div>
@@ -264,23 +184,24 @@ const TopBanner = () => {
           className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'repair' ? TopBannerStyles.hidden : ''}`} 
           id="repair-demo"
         >
+          {/* Left Column - Image */}
           <div className={TopBannerStyles.scanningFrame}>
             <div className={TopBannerStyles.imageFrame}>
               <Image
-                src="/images/damaged-snippet.jpg"
-                alt="Damaged photo being repaired"
+                src="/images/basicpage-before.jpg"
+                alt="Damaged family photo with scratches and tears"
                 layout="fill"
                 className={TopBannerStyles.damagedImage}
-                sizes="(max-width: 768px) 100vw, 700px"
+                sizes="(max-width: 768px) 100vw, 500px"
               />
               
               <div className={TopBannerStyles.repairLayer}>
                 <Image
-                  src="/images/repaired-snippet.jpg"
-                  alt="Repaired version"
+                  src="/images/basicpage-after.jpg"
+                  alt="Professionally restored version"
                   layout="fill"
                   className={TopBannerStyles.repairedImage}
-                  sizes="(max-width: 768px) 100vw, 700px"
+                  sizes="(max-width: 768px) 100vw, 500px"
                 />
               </div>
               
@@ -291,15 +212,19 @@ const TopBanner = () => {
                 <div className={TopBannerStyles.processingText}>
                   <div className={TopBannerStyles.processingLine}>
                     <span className={TopBannerStyles.processingDot}></span>
-                    Identifying damage patterns...
+                    Scanning for tears and scratches...
                   </div>
                   <div className={TopBannerStyles.processingLine}>
                     <span className={TopBannerStyles.processingDot}></span>
-                    Reconstructing missing data...
+                    Reconstructing missing pixels...
                   </div>
                   <div className={TopBannerStyles.processingLine}>
                     <span className={TopBannerStyles.processingDot}></span>
-                    Blending repairs seamlessly...
+                    Removing water damage and stains...
+                  </div>
+                  <div className={TopBannerStyles.processingLine}>
+                    <span className={TopBannerStyles.processingDot}></span>
+                    Enhancing faded areas...
                   </div>
                 </div>
               </div>
@@ -309,185 +234,42 @@ const TopBanner = () => {
               <div className={TopBannerStyles.progressBar}>
                 <div className={TopBannerStyles.repairProgressFill}></div>
               </div>
-              <span className={TopBannerStyles.progressText}>Repairing... 78%</span>
+              <span className={TopBannerStyles.progressText}>Restoring family photo... 78%</span>
             </div>
           </div>
 
-          {/* Repair Results */}
-          <div className={TopBannerStyles.resultsPanel}>
-            <div className={TopBannerStyles.resultsSummary}>
-              <div className={TopBannerStyles.confidenceScore}>
-                <div className={TopBannerStyles.scoreNumber}>91.7%</div>
-                <div className={TopBannerStyles.scoreLabel}>Repair Quality</div>
-              </div>
-              <div className={TopBannerStyles.detectionsFound}>
-                <div className={TopBannerStyles.detectionsNumber}>15</div>
-                <div className={TopBannerStyles.detectionsLabel}>Issues Fixed</div>
-              </div>
-            </div>
-            
-            <div className={TopBannerStyles.detectedIssues}>
-              <div className={TopBannerStyles.repairTag}>Scratches (7)</div>
-              <div className={TopBannerStyles.repairTag}>Fading (4)</div>
-              <div className={TopBannerStyles.repairTag}>Tears (4)</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Yearbook Demo */}
-        <div 
-          className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'yearbook' ? TopBannerStyles.hidden : ''}`} 
-          id="yearbook-demo"
-        >
-          <div className={TopBannerStyles.scanningFrame}>
-            <div className={TopBannerStyles.imageFrame}>
-              <Image
-                src="/images/yearbook-before.jpg"
-                alt="Modern photo being transformed to 90s yearbook style"
-                layout="fill"
-                className={TopBannerStyles.photoImage}
-                sizes="(max-width: 768px) 100vw, 700px"
-              />
-              
-              <div className={TopBannerStyles.cartoonLayer}>
-                <Image
-                  src="/images/yearbook-after.jpg"
-                  alt="90s yearbook style"
-                  layout="fill"
-                  className={TopBannerStyles.cartoonImage}
-                  sizes="(max-width: 768px) 100vw, 700px"
-                />
-              </div>
-              
-              <div className={TopBannerStyles.styleWave}></div>
-
-              {/* Processing Text */}
-              <div className={TopBannerStyles.processingOverlay}>
-                <div className={TopBannerStyles.processingText}>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Analyzing 90s style patterns...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Applying retro clothing styles...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Adjusting hair and makeup trends...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Adding yearbook studio lighting...
-                  </div>
+          {/* Right Column - Stats */}
+          <div className={TopBannerStyles.statsColumn}>
+            <div className={TopBannerStyles.resultsPanel}>
+              <div className={TopBannerStyles.resultsSummary}>
+                <div className={TopBannerStyles.confidenceScore}>
+                  <div className={TopBannerStyles.scoreNumber}>94.1%</div>
+                  <div className={TopBannerStyles.scoreLabel}>Restoration Quality</div>
+                </div>
+                <div className={TopBannerStyles.detectionsFound}>
+                  <div className={TopBannerStyles.detectionsNumber}>18</div>
+                  <div className={TopBannerStyles.detectionsLabel}>Issues Repaired</div>
                 </div>
               </div>
-            </div>
-
-            <div className={TopBannerStyles.colorProgress}>
-              <div className={TopBannerStyles.progressBar}>
-                <div className={TopBannerStyles.styleProgressFill}></div>
-              </div>
-              <span className={TopBannerStyles.progressText}>Transforming to 90s... 85%</span>
-            </div>
-          </div>
-
-          {/* Yearbook Results */}
-          <div className={TopBannerStyles.resultsPanel}>
-            <div className={TopBannerStyles.resultsSummary}>
-              <div className={TopBannerStyles.confidenceScore}>
-                <div className={TopBannerStyles.scoreNumber}>93.5%</div>
-                <div className={TopBannerStyles.scoreLabel}>Style Authenticity</div>
-              </div>
-              <div className={TopBannerStyles.detectionsFound}>
-                <div className={TopBannerStyles.detectionsNumber}>10</div>
-                <div className={TopBannerStyles.detectionsLabel}>Elements Applied</div>
-              </div>
-            </div>
-            
-            <div className={TopBannerStyles.detectedIssues}>
-              <div className={TopBannerStyles.cartoonTag}>Clothing (3)</div>
-              <div className={TopBannerStyles.cartoonTag}>Hairstyle (4)</div>
-              <div className={TopBannerStyles.cartoonTag}>Background (3)</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Avatar Demo */}
-        <div 
-          className={`${TopBannerStyles.analysisDemo} ${activeTab !== 'avatar' ? TopBannerStyles.hidden : ''}`} 
-          id="avatar-demo"
-        >
-          <div className={TopBannerStyles.scanningFrame}>
-            <div className={TopBannerStyles.imageFrame}>
-              <Image
-                src="/images/avatar-before.jpg"
-                alt="Regular photo being transformed to professional avatar"
-                layout="fill"
-                className={TopBannerStyles.photoImage}
-                sizes="(max-width: 768px) 100vw, 700px"
-              />
               
-              <div className={TopBannerStyles.repairLayer}>
-                <Image
-                  src="/images/avatar-after.jpg"
-                  alt="Professional avatar"
-                  layout="fill"
-                  className={TopBannerStyles.repairedImage}
-                  sizes="(max-width: 768px) 100vw, 700px"
-                />
-              </div>
-              
-              <div className={TopBannerStyles.repairWave}></div>
-
-              {/* Processing Text */}
-              <div className={TopBannerStyles.processingOverlay}>
-                <div className={TopBannerStyles.processingText}>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Extracting facial features...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Enhancing image quality...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Applying professional styling...
-                  </div>
-                  <div className={TopBannerStyles.processingLine}>
-                    <span className={TopBannerStyles.processingDot}></span>
-                    Optimizing for social media...
-                  </div>
-                </div>
+              <div className={TopBannerStyles.detectedIssues}>
+                <div className={TopBannerStyles.repairTag}>Scratches (8)</div>
+                <div className={TopBannerStyles.repairTag}>Fading (6)</div>
+                <div className={TopBannerStyles.repairTag}>Tears (4)</div>
               </div>
             </div>
 
-            <div className={TopBannerStyles.colorProgress}>
-              <div className={TopBannerStyles.progressBar}>
-                <div className={TopBannerStyles.repairProgressFill}></div>
+            {/* CTA for Repair */}
+            <div className={TopBannerStyles.ctaSection}>
+              <div className={TopBannerStyles.ctaText}>
+                <h3>Fix your damaged photos?</h3>
+                <p>Remove scratches, tears, and water damage from irreplaceable family memories.</p>
               </div>
-              <span className={TopBannerStyles.progressText}>Generating avatar... 91%</span>
-            </div>
-          </div>
-
-          {/* Avatar Results */}
-          <div className={TopBannerStyles.resultsPanel}>
-            <div className={TopBannerStyles.resultsSummary}>
-              <div className={TopBannerStyles.confidenceScore}>
-                <div className={TopBannerStyles.scoreNumber}>97.1%</div>
-                <div className={TopBannerStyles.scoreLabel}>Quality Score</div>
+              <div className={TopBannerStyles.ctaButtons}>
+                <a href="/replicate/restore-basic" className={TopBannerStyles.primaryCta}>
+                  Try Free Restore
+                </a>
               </div>
-              <div className={TopBannerStyles.detectionsFound}>
-                <div className={TopBannerStyles.detectionsNumber}>14</div>
-                <div className={TopBannerStyles.detectionsLabel}>Enhancements</div>
-              </div>
-            </div>
-            
-            <div className={TopBannerStyles.detectedIssues}>
-              <div className={TopBannerStyles.repairTag}>Face (5)</div>
-              <div className={TopBannerStyles.repairTag}>Lighting (4)</div>
-              <div className={TopBannerStyles.repairTag}>Background (5)</div>
             </div>
           </div>
         </div>

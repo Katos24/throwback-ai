@@ -7,31 +7,17 @@ export default function DemoSection() {
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [isLoading, setIsLoading] = useState(false);
 
+  // Restoration-focused demos only
   const demos = [
-    {
-      id: 'restore',
-      title: "Photo Restoration",
-      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
-      icon: "✨",
-      buttonText: "Try Restore",
-      beforeAfter: {
-        before: "/images/basicpage-before.jpg",
-        after: "/images/basicpage-after.jpg"
-      },
-      link: "/replicate/restore-basic",
-      credits: 1,
-      category: "restore",
-      color: "#06b6d4"
-    },
-    {
+      {
       id: 'colorize',
       title: "Historical Colorization",
       description: "Add historically accurate, vibrant colors to black and white family photos.",
       icon: "🎨",
       buttonText: "Try Colorize",
       beforeAfter: {
-        before: "/images/before6.jpg",
-        after: "/images/after6.jpg"
+        before: "/images/BeforePremium.jpg",
+        after: "/images/AfterPremium.jpg"
       },
       link: "/replicate/restore-premium",
       credits: 40,
@@ -39,49 +25,19 @@ export default function DemoSection() {
       color: "#8b5cf6"
     },
     {
-      id: 'yearbook',
-      title: "80s Yearbook Style",
-      description: "Get that classic 80s school portrait look with vintage styling.",
-      icon: "📸",
-      buttonText: "Try Yearbook",
+      id: 'restore',
+      title: "Photo Restoration",
+      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
+      icon: "✨",
+      buttonText: "Try Restore",
       beforeAfter: {
-        before: "/images/debrabefore.jpg",
-        after: "/images/debraafter.jpg"
+        before: "/images/BasicDemo.jpg",
+        after: "/images/BasicDemoAfter.jpg"
       },
-      link: "/replicate/yearbook",
-      credits: 50,
-      category: "create",
-      color: "#ef4444"
-    },
-      {
-      id: 'cartoon',
-      title: "Cartoon Art",
-      description: "Transform yourself, friends, or pets into stunning cartoon artwork.",
-      icon: "🖼️",
-      buttonText: "Try Cartoon",
-      beforeAfter: {
-        before: "/images/cartoon-before.jpg",
-        after: "/images/cartoon-example.jpg"
-      },
-      link: "/replicate/cartoon",
-      credits: 40,
-      category: "create",
-      color: "#f59e0b"
-    },
-    {
-      id: 'avatar',
-      title: "Professional Avatar",
-      description: "Create polished, professional headshots and avatars.",
-      icon: "👤",
-      buttonText: "Try Avatar",
-      beforeAfter: {
-        before: "/images/avatar-before.jpg",
-        after: "/images/avatar-after.jpg"
-      },
-      link: "/replicate/avatar",
-      credits: 50,
-      category: "create",
-      color: "#10b981"
+      link: "/replicate/restore-basic",
+      credits: 1,
+      category: "restore",
+      color: "#06b6d4"
     }
   ];
 
@@ -174,22 +130,22 @@ export default function DemoSection() {
 
         {/* Section Header */}
         <div className={demoStyles.header}>
-          <div className={demoStyles.badge}>AI TECHNOLOGY</div>
+          <div className={demoStyles.badge}>AI RESTORATION TECHNOLOGY</div>
           <h2 className={demoStyles.title}>
-            See Our AI in Action
+            Bring Your Family Photos Back to Life
           </h2>
           <p className={demoStyles.subtitle}>
-            Advanced neural networks trained on millions of images deliver professional results in seconds. 
-            Click any transformation to see the technology at work.
+            Advanced neural networks trained on millions of historical images deliver professional restoration results in seconds. 
+            Click any transformation to see our AI preservation technology at work.
           </p>
         </div>
 
-        {/* Demo Grid */}
-        <div className={demoStyles.demoGrid}>
+        {/* Demo Grid - Two cards side by side with landscape orientation */}
+        <div className={`${demoStyles.demoGrid} ${demoStyles.landscapeGrid}`}>
           {demos.map((demo, index) => (
             <div 
               key={demo.id} 
-              className={`${demoStyles.demoCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
+              className={`${demoStyles.demoCard} ${demoStyles.landscapeCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
               onClick={() => toggleDemo(demo.id)}
               style={{ '--demo-color': demo.color }}
             >
@@ -219,7 +175,7 @@ export default function DemoSection() {
 
               {/* Inline Slider - Replaces card content when active */}
               {activeDemo === demo.id && (
-                <div className={demoStyles.inlineSliderContent}>
+                <div className={`${demoStyles.inlineSliderContent} ${demoStyles.landscapeSlider}`}>
                   <div className={demoStyles.sliderWrapper}>
                     <ImageCompareSlider
                       beforeImage={demo.beforeAfter.before}
@@ -235,15 +191,15 @@ export default function DemoSection() {
                   <div className={demoStyles.processingSteps}>
                     <div className={demoStyles.processingStep}>
                       <div className={demoStyles.stepIcon}>1</div>
-                      <span>Upload</span>
+                      <span>Upload Photo</span>
                     </div>
                     <div className={demoStyles.processingStep}>
                       <div className={demoStyles.stepIcon}>2</div>
-                      <span>AI Processing</span>
+                      <span>AI Restoration</span>
                     </div>
                     <div className={demoStyles.processingStep}>
                       <div className={demoStyles.stepIcon}>3</div>
-                      <span>Download</span>
+                      <span>Download Result</span>
                     </div>
                   </div>
 
@@ -258,7 +214,9 @@ export default function DemoSection() {
                       style={{ '--demo-color': demo.color }}
                     >
                       <span>{demo.buttonText}</span>
-                      <span className={demoStyles.credits}>({demo.credits} credit{demo.credits !== 1 ? 's' : ''})</span>
+                      <span className={demoStyles.credits}>
+                        ({demo.credits} credit{demo.credits !== 1 ? 's' : ''})
+                      </span>
                       <div className={demoStyles.arrow}>→</div>
                     </button>
                   </div>
@@ -275,20 +233,30 @@ export default function DemoSection() {
           ))}
         </div>
 
-        {/* Processing Stats */}
+        {/* Processing Stats - Updated for restoration focus */}
         <div className={demoStyles.techStats}>
           <div className={demoStyles.techStat}>
-            <div className={demoStyles.statValue}>12.3s</div>
-            <div className={demoStyles.statLabel}>Processing Time</div>
+            <div className={demoStyles.statValue}>45s</div>
+            <div className={demoStyles.statLabel}>Average Processing</div>
           </div>
           <div className={demoStyles.techStat}>
-            <div className={demoStyles.statValue}>99.7%</div>
-            <div className={demoStyles.statLabel}>Accuracy Rate</div>
+            <div className={demoStyles.statValue}>99.1%</div>
+            <div className={demoStyles.statLabel}>Success Rate</div>
           </div>
           <div className={demoStyles.techStat}>
             <div className={demoStyles.statValue}>4K</div>
             <div className={demoStyles.statLabel}>Max Resolution</div>
           </div>
+        </div>
+
+        {/* Add CTA for other services */}
+        <div className={demoStyles.additionalServices}>
+          <p className={demoStyles.additionalText}>
+            Looking for creative transformations? 
+            <a href="/decades" className={demoStyles.additionalLink}>
+              Explore our decade style generators →
+            </a>
+          </p>
         </div>
       </div>
     </section>

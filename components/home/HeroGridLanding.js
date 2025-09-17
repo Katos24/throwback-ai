@@ -119,9 +119,11 @@ const RestoreCard = React.memo(({ option, index, onNavigate }) => (
             fill
             className={styles.combinedImage}
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority={index === 0} // First card (colorization) gets priority
-            quality={85}
-          />
+            priority={index === 0} // You already have this
+            fetchPriority={index === 0 ? "high" : "auto"} // Add this
+            quality={75} // Lower from 85
+            loading={index === 0 ? "eager" : "lazy"} // Add this explicitly
+            />
           <div className={styles.splitLine}></div>
           <div className={styles.beforeLabel}>Before</div>
           <div className={styles.afterLabel}>After</div>

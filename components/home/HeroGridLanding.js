@@ -63,8 +63,8 @@ const DECADE_OPTIONS = [
     credits: 50,
     era: '1980s',
     link: '/replicate/80s',
-    beforeImage: '/images/sarahbefore.jpg',
-    afterImage: '/images/sarah80s.jpg',
+    beforeImage: '/images/80sbeforecard.jpg',
+    afterImage: '/images/80sbeforeafter.jpg',
     colorClass: 'neon',
     cardClass: 'eightiesCard'
   },

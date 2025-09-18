@@ -8,9 +8,9 @@ import { Suspense } from 'react';
 const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
 const TopBanner = dynamic(() => import('../components/home/TopBanner'));
 const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
-const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); // NEW
 const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
 const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories'));
+const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); // NEW
 const HowItWorks = dynamic(() => import('../components/home/HowItWorksSection'));
 const PricingSection = dynamic(() => import('../components/home/PricingSection'));
 const CTASection = dynamic(() => import('../components/home/CTASection'));
@@ -31,9 +31,9 @@ export default function Home() {
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+    const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); 
-  const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [ctaRef, ctaInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -155,15 +155,11 @@ export default function Home() {
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
         </div>
 
-        {/* Decades Section - Time Travel Transformations */}
-        <div ref={decadesRef}>
-          {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
-        </div>
-
         {/* Customer Success */}
         <div ref={successRef}>
           {successInView && <Suspense fallback={<Loader />}><CustomerSuccess /></Suspense>}
         </div>
+
 
         {/* How It Works */}
         <div ref={howItWorksRef}>
@@ -173,6 +169,12 @@ export default function Home() {
         {/* Pricing Section */}
         <div ref={pricingRef}>
           {pricingInView && <Suspense fallback={<Loader />}><PricingSection /></Suspense>}
+        </div>
+
+
+         {/* Decades Section - Time Travel Transformations */}
+        <div ref={decadesRef}>
+          {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
         </div>
 
         {/* CTA Section */}

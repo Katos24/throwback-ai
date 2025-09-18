@@ -19,7 +19,7 @@ export default function About() {
       </p>
 
       <p className={styles.paragraph}>
-        We are not just another photo app. We are a team that understands the weight of family memories—the importance of that wedding photo from decades past, the value of preserving your great-grandfather's military portrait, or the joy of seeing your parents' young faces in vibrant color for the first time. Every algorithm we have developed, every model we have trained, serves families who want to keep their history alive.
+        We are not just another photo app. We are a team that understands the weight of family memories—the importance of that wedding photo from decades past, the value of preserving your great-grandfather&apos;s military portrait, or the joy of seeing your parents&apos; young faces in vibrant color for the first time. Every algorithm we have developed, every model we have trained, serves families who want to keep their history alive.
       </p>
 
       <p className={styles.paragraph}>

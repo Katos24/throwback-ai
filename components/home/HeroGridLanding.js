@@ -94,7 +94,7 @@ const DECADE_OPTIONS = [
   }
 ];
 
-// Memoized RestoreCard component - Updated for single combined image
+// Memoized RestoreCard component - Updated with pricing info
 const RestoreCard = React.memo(({ option, index, onNavigate }) => (
   <div className={styles.restoreCardWrapper}>
     <button 
@@ -119,10 +119,10 @@ const RestoreCard = React.memo(({ option, index, onNavigate }) => (
             fill
             className={styles.combinedImage}
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority={index === 0} // You already have this
-            fetchPriority={index === 0 ? "high" : "auto"} // Add this
-            quality={75} // Lower from 85
-            loading={index === 0 ? "eager" : "lazy"} // Add this explicitly
+            priority={index === 0}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            quality={75}
+            loading={index === 0 ? "eager" : "lazy"}
             />
           <div className={styles.splitLine}></div>
           <div className={styles.beforeLabel}>Before</div>
@@ -332,13 +332,15 @@ export default function HeroGridLanding() {
             ))}
           </div>
 
-          {/* Pricing Transparency */}
+          {/* Enhanced Pricing Transparency */}
           <div className={styles.pricingInfo}>
             <p className={styles.pricingText}>
-              <strong>Simple, fair pricing:</strong> Try basic restoration free • Colorization just $4.99 • No monthly fees
+              <strong>Transparent Pricing:</strong> Try basic restoration free • $4.99 gets you 400 credits (enough for 10 professional colorizations) • No recurring fees
             </p>
-            <p className={styles.comparisonText}>
-            </p>
+            <div className={styles.valueHighlight}>
+              <span className={styles.valueIcon}>💡</span>
+              <span>That's just $0.50 per colorized photo — significantly less than industry standard $5-15 per image</span>
+            </div>
           </div>
         </div>
 

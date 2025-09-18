@@ -34,8 +34,8 @@ export default function DemoSection() {
       icon: "✨",
       buttonText: "Try Restore",
       beforeAfter: {
-        before: "/images/basicdemo2.jpg",
-        after: "/images/basicdemoafter2.jpg"
+        before: "/images/photofixbefore.jpg",
+        after: "/images/photofixafter.jpg"
       },
       link: "/replicate/restore-basic",
       credits: 1,

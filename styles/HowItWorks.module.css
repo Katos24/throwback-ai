@@ -1,545 +1,577 @@
-/* HowItWorksNew.module.css - Complete Redesign */
+/* howItWorks.module.css - Mobile-First Enhanced Version */
 
-/* === CONTAINER & LAYOUT === */
+/* === MAIN SECTION CONTAINER === */
 .container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  color: #ffffff;
-  padding: 0;
-}
-
-/* === HERO SECTION === */
-.hero {
-  text-align: center;
-  padding: 8rem 2rem 6rem;
-  background: 
-    radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-}
-
-.title {
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.02em;
-}
-
-.subtitle {
-  font-size: 1.4rem;
-  color: #cbd5e1;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-  font-weight: 300;
-}
-
-/* === SECTION TITLES === */
-.sectionTitle {
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.sectionSubtitle {
-  font-size: 1.2rem;
-  color: #94a3b8;
-  text-align: center;
-  margin-bottom: 3rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* === STEPS SECTION === */
-.stepsSection {
-  padding: 6rem 2rem;
-}
-
-.stepsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.stepCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  transition: all 0.3s ease;
   position: relative;
+  --bg-start: #111827;
+  --bg-end: #1f2937;
+  --neon-1: #a78bfa;
+  --neon-2: #6366f1;
+  --underline: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.3);
+  
+  /* Mobile-first base styles */
+  max-width: 100%;
+  margin: 1rem auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  
+  background: linear-gradient(145deg, var(--bg-start), var(--bg-end));
+  background-size: 200% 200%;
+  border: 1px solid #2c2c2c;
+  border-radius: 16px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px var(--accent-glow),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: #f3f4f6;
   overflow: hidden;
+  animation: bgShift 12s ease infinite;
+  backdrop-filter: blur(10px);
 }
 
-.stepCard::before {
+@keyframes bgShift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+/* Animated background overlay */
+.container::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-  border-radius: 20px 20px 0 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+  animation: overlayFloat 10s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-.stepCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.2);
+@keyframes overlayFloat {
+  0% { opacity: 0.3; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.05); }
 }
 
-.stepNumber {
-  font-size: 3rem;
+/* === SECTION TITLE === */
+.titleWrapper {
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
   font-weight: 900;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--neon-1) 0%, var(--neon-2) 50%, #a78bfa 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGradient 4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+@keyframes titleGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.titleAccent {
+  margin-left: 0.25rem;
+  background: linear-gradient(135deg, #d1d5db, #f8fafc);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1.5rem;
-  line-height: 1;
+  animation: accentGlow 3s ease-in-out infinite alternate;
 }
 
-.stepContent {
-  text-align: left;
+@keyframes accentGlow {
+  0% { filter: drop-shadow(0 0 3px rgba(209, 213, 219, 0.3)); }
+  100% { filter: drop-shadow(0 0 8px rgba(209, 213, 219, 0.6)); }
 }
 
-.stepTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff;
+.titleUnderline {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--underline), var(--neon-2));
+  margin: 1rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--underline);
+  animation: underlinePulse 3s ease-in-out infinite alternate;
 }
 
-.stepDescription {
+@keyframes underlinePulse {
+  0% { 
+    width: 60px;
+    box-shadow: 0 0 10px var(--underline);
+  }
+  100% { 
+    width: 80px;
+    box-shadow: 0 0 15px var(--underline);
+  }
+}
+
+/* === SUBTITLE === */
+.subtitle {
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
   color: #cbd5e1;
-  line-height: 1.6;
-  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.5;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+  padding: 0 0.5rem;
 }
 
-/* === FEATURES SECTION === */
-.featuresSection {
-  padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.02);
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* === CARD GRID - MOBILE FIRST === */
 .featuresGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  /* Mobile: Single column */
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  justify-items: center;
+  position: relative;
+  z-index: 1;
 }
 
+/* === FEATURE CARDS === */
 .featureCard {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  width: 100%;
+  max-width: 350px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #242442 50%, #1a1a1a 100%);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(129, 140, 248, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  cursor: pointer;
+}
+
+/* Animated border effect */
+.featureCard::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 18px;
+  background: linear-gradient(45deg, var(--neon-2), var(--neon-1), #8b5cf6, var(--neon-2));
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0;
+  animation: borderRotate 4s linear infinite;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes borderRotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Shimmer effect */
+.featureCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
 }
 
 .featureCard:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 15px 40px rgba(99, 102, 241, 0.3),
+    0 0 30px rgba(129, 140, 248, 0.4),
+    0 0 0 1px rgba(129, 140, 248, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.featureBadge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  z-index: 2;
+.featureCard:hover::before {
+  opacity: 1;
 }
 
-.freeBadge {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
+.featureCard:hover::after {
+  left: 100%;
 }
 
-.popularBadge {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: white;
+/* Staggered animation */
+.featureCard:nth-child(1) { animation: cardSlideIn 0.6s ease-out 0.1s both; }
+.featureCard:nth-child(2) { animation: cardSlideIn 0.6s ease-out 0.2s both; }
+.featureCard:nth-child(3) { animation: cardSlideIn 0.6s ease-out 0.3s both; }
+.featureCard:nth-child(4) { animation: cardSlideIn 0.6s ease-out 0.4s both; }
+
+@keyframes cardSlideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
 }
 
-.featureIcon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  display: block;
+/* === FEATURE STATS & LABELS === */
+.featureStat {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--neon-1) 0%, var(--neon-2) 50%, #a78bfa 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  animation: statGlow 3s ease-in-out infinite alternate;
+  position: relative;
 }
 
-.featureTitle {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: #ffffff;
+@keyframes statGlow {
+  0% { 
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3));
+  }
+  100% { 
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+  }
 }
 
-.featureDescription {
-  color: #cbd5e1;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
-
-.featureCost {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #3b82f6;
-  margin-bottom: 1.5rem;
-}
-
-.tryButton {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 16px;
-  font-weight: 700;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.tryButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-}
-
-/* === USE CASES SECTION === */
-.useCasesSection {
-  padding: 6rem 2rem;
-}
-
-.useCasesGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.useCaseCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2rem;
-  text-align: center;
+.featureLabel {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 3vw, 1.1rem);
+  color: #e2e8f0;
+  line-height: 1.4;
   transition: all 0.3s ease;
 }
 
-.useCaseCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.15);
+.featureCard:hover .featureLabel {
+  color: #f1f5f9;
+  transform: translateY(-1px);
 }
 
-.useCaseIcon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  display: block;
+/* === RESPONSIVE BREAKPOINTS - MOBILE FIRST === */
+
+/* Small Mobile (320px+) */
+@media (min-width: 320px) {
+  .container {
+    padding: 2rem 1.25rem;
+  }
+  
+  .featuresGrid {
+    max-width: 350px;
+  }
 }
 
-.useCaseCard h3 {
-  font-size: 1.3rem;
+/* Large Mobile (480px+) */
+@media (min-width: 480px) {
+  .container {
+    margin: 1.5rem auto;
+    padding: 2.5rem 1.5rem;
+    gap: 2.5rem;
+    border-radius: 18px;
+  }
+  
+  .featuresGrid {
+    /* 2 columns on larger mobile */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 500px;
+  }
+  
+  .featureCard {
+    padding: 1.75rem 1.25rem;
+  }
+  
+  .titleUnderline {
+    width: 70px;
+  }
+  
+  @keyframes underlinePulse {
+    0% { 
+      width: 70px;
+      box-shadow: 0 0 12px var(--underline);
+    }
+    100% { 
+      width: 90px;
+      box-shadow: 0 0 18px var(--underline);
+    }
+  }
+}
+
+/* Tablet (640px+) */
+@media (min-width: 640px) {
+  .container {
+    margin: 2rem auto;
+    padding: 3rem 2rem;
+    gap: 3rem;
+    border-radius: 20px;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 600px;
+  }
+  
+  .featureCard {
+    padding: 2.25rem 1.5rem;
+    border-radius: 18px;
+  }
+  
+  .featureCard::before {
+    border-radius: 20px;
+  }
+}
+
+/* Tablet Large (768px+) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 800px;
+    padding: 3.5rem 2.5rem;
+    gap: 3.5rem;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 700px;
+  }
+  
+  .featureCard {
+    padding: 2.5rem 1.75rem;
+  }
+}
+
+/* Desktop Small (968px+) */
+@media (min-width: 968px) {
+  .container {
+    max-width: 1000px;
+    gap: 4rem;
+  }
+  
+  .featuresGrid {
+    /* 4 columns on desktop */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+  
+  .featureCard {
+    max-width: 220px;
+    padding: 2.25rem 1.5rem;
+  }
+}
+
+/* Desktop Medium (1200px+) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    padding: 4rem 3rem 5rem;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+  }
+  
+  .featureCard {
+    max-width: 250px;
+    padding: 2.75rem 1.75rem;
+    border-radius: 20px;
+  }
+  
+  .featureCard::before {
+    border-radius: 22px;
+  }
+}
+
+/* Desktop Large (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
+    padding: 4rem 3rem 5rem;
+  }
+  
+  .featuresGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+  }
+  
+  .featureCard {
+    max-width: 280px;
+    padding: 3rem 2rem;
+  }
+  
+  .titleUnderline {
+    width: 80px;
+  }
+  
+  @keyframes underlinePulse {
+    0% { 
+      width: 80px;
+      box-shadow: 0 0 15px var(--underline);
+    }
+    100% { 
+      width: 120px;
+      box-shadow: 0 0 25px var(--underline);
+    }
+  }
+}
+
+/* Reduce animations on mobile for better performance */
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .featureCard,
+  .sectionTitle,
+  .titleAccent,
+  .titleUnderline,
+  .featureStat {
+    animation: none;
+  }
+  
+  .featureCard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .featureCard:hover {
+    transform: none;
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(129, 140, 248, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .featureCard:active {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+
+/* Add these styles to your howItWorks.module.css file */
+
+/* Step Title Styles */
+.stepTitle {
+  font-size: clamp(1rem, 3vw, 1.3rem);
   font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff;
+  color: #f1f5f9;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  transition: all 0.3s ease;
 }
 
-.useCaseCard p {
+.featureCard:hover .stepTitle {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Step Description Styles */
+.stepDescription {
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
   color: #cbd5e1;
   line-height: 1.5;
-  font-size: 0.95rem;
+  margin: 0;
+  transition: all 0.3s ease;
 }
 
-/* === CREDITS SECTION === */
-.creditsSection {
-  padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.creditsCard {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 32px;
-  padding: 4rem 3rem;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.creditsTitle {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.creditsInfo {
-  margin-bottom: 3rem;
-}
-
-.creditsBenefit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+.featureCard:hover .stepDescription {
   color: #e2e8f0;
 }
 
-.benefitIcon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.ctaButton {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  color: white;
-  padding: 1.25rem 3rem;
-  border-radius: 16px;
-  font-weight: 800;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.4s ease;
-  font-size: 1.1rem;
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
-}
-
-.ctaButton:hover {
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-}
-
-/* === INFO SECTION === */
-.infoSection {
-  padding: 6rem 2rem;
-}
-
-.infoGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.infoCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
+/* Credit Note Section */
+.creditNote {
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
   text-align: center;
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.8s ease-out 0.8s both;
 }
 
-.infoCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.infoIcon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.infoCard h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff;
-}
-
-.infoCard p {
-  color: #cbd5e1;
+.creditNote p {
+  margin: 0;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  color: #94a3b8;
   line-height: 1.6;
 }
 
-/* === FAQ SECTION === */
-.faqSection {
-  padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.02);
+.creditNote strong {
+  color: #e2e8f0;
+  font-weight: 600;
 }
 
-.faqGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.faqItem {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-}
-
-.faqItem:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.faqItem h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff;
-  line-height: 1.4;
-}
-
-.faqItem p {
-  color: #cbd5e1;
-  line-height: 1.6;
-  font-size: 0.95rem;
-}
-
-/* === MOBILE RESPONSIVE === */
-@media (max-width: 768px) {
-  .hero {
-    padding: 6rem 1rem 4rem;
+/* Responsive adjustments for the new elements */
+@media (min-width: 480px) {
+  .creditNote {
+    padding: 1.75rem;
+    border-radius: 14px;
   }
+}
 
-  .title {
-    font-size: 2.5rem;
+@media (min-width: 640px) {
+  .creditNote {
+    padding: 2rem;
+    border-radius: 16px;
   }
+}
 
-  .subtitle {
+@media (min-width: 968px) {
+  .stepTitle {
     font-size: 1.1rem;
   }
-
-  .stepsSection,
-  .featuresSection,
-  .useCasesSection,
-  .creditsSection,
-  .infoSection,
-  .faqSection {
-    padding: 4rem 1rem;
-  }
-
-  .stepsGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .featuresGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .stepCard,
-  .featureCard,
-  .useCaseCard,
-  .infoCard,
-  .faqItem {
-    padding: 2rem 1.5rem;
-  }
-
-  .creditsCard {
-    padding: 3rem 2rem;
-    margin: 0 1rem;
-  }
-
-  .stepNumber {
-    font-size: 2.5rem;
-  }
-
-  .featureIcon,
-  .infoIcon {
-    font-size: 2.5rem;
-  }
-
-  .useCaseIcon {
-    font-size: 2rem;
-  }
-
-  /* Remove hover effects on mobile for better performance */
-  .stepCard:hover,
-  .featureCard:hover,
-  .useCaseCard:hover,
-  .infoCard:hover,
-  .faqItem:hover {
-    transform: none;
-  }
-
-  .tryButton:hover,
-  .ctaButton:hover {
-    transform: none;
+  
+  .stepDescription {
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 480px) {
-  .hero {
-    padding: 4rem 1rem 3rem;
+@media (min-width: 1200px) {
+  .stepTitle {
+    font-size: 1.2rem;
   }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .creditsTitle {
-    font-size: 2rem;
-  }
-
-  .creditsBenefit {
-    font-size: 1rem;
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  .stepCard,
-  .featureCard,
-  .useCaseCard,
-  .infoCard,
-  .faqItem {
-    padding: 1.5rem;
-  }
-
-  .creditsCard {
-    padding: 2.5rem 1.5rem;
+  
+  .stepDescription {
+    font-size: 0.95rem;
   }
 }

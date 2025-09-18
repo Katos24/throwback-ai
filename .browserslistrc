@@ -1,4 +1,11 @@
-last 2 versions
-not dead
-not ie 11
-> 1%
+# Target modern browsers that support ES2020+ features
+> 0.2% and last 2 versions and not dead
+Chrome >= 80
+Firefox >= 72
+Safari >= 13.1
+Edge >= 80
+
+# Exclude legacy browsers
+not IE 11
+not op_mini all
+not Samsung < 12

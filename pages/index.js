@@ -4,10 +4,11 @@ import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import { Suspense } from 'react';
 
-// Lazy-load sections - Updated to use DemoSection
+// Lazy-load sections - Updated to include DecadesSection
 const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
 const TopBanner = dynamic(() => import('../components/home/TopBanner'));
 const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
+const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); // NEW
 const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
 const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories'));
 const HowItWorks = dynamic(() => import('../components/home/HowItWorksSection'));
@@ -26,10 +27,11 @@ export default function Home() {
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 
-  // Intersection Observers
+  // Intersection Observers - Added decades observer
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); 
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -151,6 +153,11 @@ export default function Home() {
         {/* Modern AI Demo Section */}
         <div ref={demoSectionRef}>
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
+        </div>
+
+        {/* Decades Section - Time Travel Transformations */}
+        <div ref={decadesRef}>
+          {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
         </div>
 
         {/* Customer Success */}

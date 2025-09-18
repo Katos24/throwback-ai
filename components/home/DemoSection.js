@@ -19,8 +19,8 @@ export default function DemoSection() {
       icon: "🎨",
       buttonText: "Try Colorize",
       beforeAfter: {
-        before: "/images/beforepremium.jpg",
-        after: "/images/afterpremium.jpg"
+        before: "/images/beforepremium2.jpg",
+        after: "/images/afterpremium2.jpg"
       },
       link: "/replicate/restore-premium",
       credits: 40,
@@ -34,8 +34,8 @@ export default function DemoSection() {
       icon: "✨",
       buttonText: "Try Restore",
       beforeAfter: {
-        before: "/images/basicdemo.jpg",
-        after: "/images/basicdemoafter.jpg"
+        before: "/images/basicdemo2.jpg",
+        after: "/images/basicdemoafter2.jpg"
       },
       link: "/replicate/restore-basic",
       credits: 1,

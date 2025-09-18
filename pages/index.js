@@ -6,9 +6,9 @@ import { Suspense } from 'react';
 
 // Lazy-load sections - Updated to use DemoSection
 const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
-const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
-const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
 const TopBanner = dynamic(() => import('../components/home/TopBanner'));
+const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
+const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
 const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories'));
 const HowItWorks = dynamic(() => import('../components/home/HowItWorksSection'));
 const PricingSection = dynamic(() => import('../components/home/PricingSection'));
@@ -28,9 +28,9 @@ export default function Home() {
 
   // Intersection Observers
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); 
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -138,10 +138,9 @@ export default function Home() {
           {heroGridInView && <Suspense fallback={<Loader />}><HeroGridLanding /></Suspense>}
         </div>
 
-      
-        {/* Modern AI Demo Section */}
-        <div ref={demoSectionRef}>
-          {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
+        {/* Top Banner */}
+        <div ref={topBannerRef}>
+          {topBannerInView && <Suspense fallback={<Loader />}><TopBanner /></Suspense>}
         </div>
 
         {/* Features Section - Your enhanced features */}
@@ -149,9 +148,9 @@ export default function Home() {
           {featuresInView && <Suspense fallback={<Loader />}><FeaturesSection /></Suspense>}
         </div>
 
-        {/* Top Banner */}
-        <div ref={topBannerRef}>
-          {topBannerInView && <Suspense fallback={<Loader />}><TopBanner /></Suspense>}
+        {/* Modern AI Demo Section */}
+        <div ref={demoSectionRef}>
+          {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
         </div>
 
         {/* Customer Success */}

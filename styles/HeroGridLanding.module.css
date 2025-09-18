@@ -951,3 +951,73 @@
     font-size: 0.7rem;
   }
 }
+
+/* Value Props Bar */
+.valueProps {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.valueProp {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.valueIcon {
+  font-size: 1.2rem;
+}
+
+/* Pricing Info */
+.pricingInfo {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(248, 250, 252, 0.5);
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.pricingText {
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.comparisonText {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .valueProps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .valueProp {
+    font-size: 0.8rem;
+    justify-content: center;
+  }
+  
+  .pricingInfo {
+    padding: 1rem;
+  }
+  
+  .pricingText {
+    font-size: 0.9rem;
+  }
+  
+  .comparisonText {
+    font-size: 0.8rem;
+  }
+}

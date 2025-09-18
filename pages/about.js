@@ -1,21 +1,37 @@
 import Link from "next/link";
-import styles from "../styles/About.module.css"; // Adjust path if needed
+import styles from "../styles/About.module.css";
 
 export default function About() {
   return (
     <main className={styles.main}>
       <h1 className={styles.heading}>About Throwback AI</h1>
+      
       <p className={styles.paragraph}>
-        Throwback AI is a creative transformation platform that brings your photos to life in ways you never imagined. From restoring precious family memories to creating stunning artistic transformations, our AI-powered tools unlock endless possibilities for your images.
+        It started with a shoebox of faded family photos in a Long Island home. Like many families with roots that span generations, I found myself holding onto pieces of family history that were slowly disappearing—scratched wedding photos from the 1940s, water-damaged portraits of grandparents I'd never met, and countless black and white memories that felt more distant with each passing year.
       </p>
+
       <p className={styles.paragraph}>
-        Whether you&apos;re looking to restore damaged photos, colorize black and white memories, create professional avatars, transform into cartoon art, or capture that perfect 90s yearbook vibe—we&apos;ve got the tools to make it happen. Our advanced AI analyzes each image and applies the perfect enhancement for breathtaking results.
+        After watching my grandmother struggle to share stories about people in photos that had become too faded to recognize, I knew there had to be a better way. Traditional photo restoration was expensive, time-consuming, and often out of reach for families just trying to preserve their memories. That's when I discovered the potential of AI—not the generic, one-size-fits-all kind, but specialized algorithms trained specifically on historical photography.
       </p>
+
       <p className={styles.paragraph}>
-        No subscriptions. No complicated processes. Just upload your photo, choose your transformation, and watch the magic happen in seconds. From basic restoration that&apos;s free to try, to premium colorization and creative transformations that bring out your photo&apos;s full potential.
+        Based here on Long Island, we built Throwback AI with one mission: making professional-quality photo restoration accessible to every family. Our AI is trained on thousands of vintage photographs, understanding how images age, how colors fade, and most importantly, how to bring back the life in old family photos without losing their authentic character.
       </p>
+
       <p className={styles.paragraph}>
-        Every photo has a story, and we&apos;re here to help you tell it better. Whether it&apos;s a century-old family portrait or today&apos;s selfie that needs that special touch, <Link className={styles.link} href="/contact">reach out</Link> and share your vision—we&apos;re always listening and improving.
+        We're not just another photo app. We're a team that understands the weight of family memories—the importance of that wedding photo from decades past, the value of preserving your great-grandfather's military portrait, or the joy of seeing your parents' young faces in vibrant color for the first time. Every algorithm we've developed, every model we've trained, serves families who want to keep their history alive.
+      </p>
+
+      <p className={styles.paragraph}>
+        Whether you're dealing with a century-old family portrait or a damaged photo from last decade, our tools work in seconds, not hours. No subscriptions, no complicated processes—just upload, restore, and rediscover your memories. We offer free basic restoration because we believe everyone deserves to preserve their family history, regardless of budget.
+      </p>
+
+      <p className={styles.paragraph}>
+        From our base on Long Island to families around the world, we've helped restore over 100,000 precious memories. Every restored photo represents a story saved, a connection preserved, a piece of history rescued from time.
+      </p>
+
+      <p className={styles.paragraph}>
+        Have a challenging photo or a special restoration need? <Link className={styles.link} href="/contact">We'd love to hear from you</Link>. Behind every algorithm is a team that genuinely cares about helping families reconnect with their visual heritage.
       </p>
     </main>
   );

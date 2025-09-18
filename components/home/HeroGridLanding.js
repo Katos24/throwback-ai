@@ -289,16 +289,36 @@ export default function HeroGridLanding() {
     <section className={styles.heroSection}>
       <div className={styles.container}>
         
-        {/* Hero Section - Restore Focus */}
+        {/* Hero Section - Enhanced with positioning */}
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             Bring Your Photos
             <span className={styles.gradientText}> Back to Life</span>
           </h1>
           <p className={styles.heroDescription}>
-            Restore damaged family photos and preserve precious memories with our AI-powered tools. 
-            From fixing tears and scratches to adding vibrant colors to black and white images.
+            Professional photo restoration powered by AI trained on 50,000+ vintage images. 
+            Unlike generic AI tools, we specialize in family photos with historically accurate results in seconds, not hours.
           </p>
+
+          {/* Value Props Bar */}
+          <div className={styles.valueProps}>
+            <div className={styles.valueProp}>
+              <span className={styles.valueIcon}>⚡</span>
+              <span>45-second processing</span>
+            </div>
+            <div className={styles.valueProp}>
+              <span className={styles.valueIcon}>🎯</span>
+              <span>Specialized photo AI</span>
+            </div>
+            <div className={styles.valueProp}>
+              <span className={styles.valueIcon}>💰</span>
+              <span>No subscriptions</span>
+            </div>
+            <div className={styles.valueProp}>
+              <span className={styles.valueIcon}>🎨</span>
+              <span>Museum-quality results</span>
+            </div>
+          </div>
           
           {/* Main Restoration Options - Colorization now first */}
           <div className={styles.restoreGrid}>
@@ -310,6 +330,16 @@ export default function HeroGridLanding() {
                 onNavigate={handleNavigation}
               />
             ))}
+          </div>
+
+          {/* Pricing Transparency */}
+          <div className={styles.pricingInfo}>
+            <p className={styles.pricingText}>
+              <strong>Simple, fair pricing:</strong> Try basic restoration free • Colorization just $4.99 • No monthly fees
+            </p>
+            <p className={styles.comparisonText}>
+              Professional restoration services: $50-200 per photo | Generic AI apps: Hit-or-miss results
+            </p>
           </div>
         </div>
 

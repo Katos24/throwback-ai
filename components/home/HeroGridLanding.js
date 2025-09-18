@@ -338,7 +338,6 @@ export default function HeroGridLanding() {
               <strong>Simple, fair pricing:</strong> Try basic restoration free • Colorization just $4.99 • No monthly fees
             </p>
             <p className={styles.comparisonText}>
-              Professional restoration services: $50-200 per photo | Generic AI apps: Hit-or-miss results
             </p>
           </div>
         </div>

@@ -339,7 +339,7 @@ export default function HeroGridLanding() {
             </p>
             <div className={styles.valueHighlight}>
               <span className={styles.valueIcon}>💡</span>
-              <span>That's just $0.50 per colorized photo — significantly less than industry standard $5-15 per image</span>
+              <span>That&apos;s just $0.50 per colorized photo — significantly less than industry standard $5-15 per image</span>
             </div>
           </div>
         </div>

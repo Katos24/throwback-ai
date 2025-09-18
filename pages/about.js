@@ -7,11 +7,11 @@ export default function About() {
       <h1 className={styles.heading}>About Throwback AI</h1>
       
       <p className={styles.paragraph}>
-        It started with a shoebox of faded family photos in a Long Island home. Like many families with roots that span generations, I found myself holding onto pieces of family history that were slowly disappearing—scratched wedding photos from the 1940s, water-damaged portraits of grandparents I'd never met, and countless black and white memories that felt more distant with each passing year.
+        It started with a shoebox of faded family photos in a Long Island home. Like many families with roots that span generations, I found myself holding onto pieces of family history that were slowly disappearing—scratched wedding photos from the 1940s, water-damaged portraits of grandparents I had never met, and countless black and white memories that felt more distant with each passing year.
       </p>
 
       <p className={styles.paragraph}>
-        After watching my grandmother struggle to share stories about people in photos that had become too faded to recognize, I knew there had to be a better way. Traditional photo restoration was expensive, time-consuming, and often out of reach for families just trying to preserve their memories. That's when I discovered the potential of AI—not the generic, one-size-fits-all kind, but specialized algorithms trained specifically on historical photography.
+        After watching my grandmother struggle to share stories about people in photos that had become too faded to recognize, I knew there had to be a better way. Traditional photo restoration was expensive, time-consuming, and often out of reach for families just trying to preserve their memories. That is when I discovered the potential of AI—not the generic, one-size-fits-all kind, but specialized algorithms trained specifically on historical photography.
       </p>
 
       <p className={styles.paragraph}>
@@ -19,19 +19,19 @@ export default function About() {
       </p>
 
       <p className={styles.paragraph}>
-        We're not just another photo app. We're a team that understands the weight of family memories—the importance of that wedding photo from decades past, the value of preserving your great-grandfather's military portrait, or the joy of seeing your parents' young faces in vibrant color for the first time. Every algorithm we've developed, every model we've trained, serves families who want to keep their history alive.
+        We are not just another photo app. We are a team that understands the weight of family memories—the importance of that wedding photo from decades past, the value of preserving your great-grandfather's military portrait, or the joy of seeing your parents' young faces in vibrant color for the first time. Every algorithm we have developed, every model we have trained, serves families who want to keep their history alive.
       </p>
 
       <p className={styles.paragraph}>
-        Whether you're dealing with a century-old family portrait or a damaged photo from last decade, our tools work in seconds, not hours. No subscriptions, no complicated processes—just upload, restore, and rediscover your memories. We offer free basic restoration because we believe everyone deserves to preserve their family history, regardless of budget.
+        Whether you are dealing with a century-old family portrait or a damaged photo from last decade, our tools work in seconds, not hours. No subscriptions, no complicated processes—just upload, restore, and rediscover your memories. We offer free basic restoration because we believe everyone deserves to preserve their family history, regardless of budget.
       </p>
 
       <p className={styles.paragraph}>
-        From our base on Long Island to families around the world, we've helped restore over 100,000 precious memories. Every restored photo represents a story saved, a connection preserved, a piece of history rescued from time.
+        From our base on Long Island to families around the world, we have helped restore over 100,000 precious memories. Every restored photo represents a story saved, a connection preserved, a piece of history rescued from time.
       </p>
 
       <p className={styles.paragraph}>
-        Have a challenging photo or a special restoration need? <Link className={styles.link} href="/contact">We'd love to hear from you</Link>. Behind every algorithm is a team that genuinely cares about helping families reconnect with their visual heritage.
+        Have a challenging photo or a special restoration need? <Link className={styles.link} href="/contact">We would love to hear from you</Link>. Behind every algorithm is a team that genuinely cares about helping families reconnect with their visual heritage.
       </p>
     </main>
   );

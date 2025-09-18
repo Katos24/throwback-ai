@@ -661,7 +661,7 @@ export default function RestorePremium() {
                 <div className={styles.bottomProTip}>
                   <span className={styles.proTipIcon}>💎</span>
                   <span className={styles.proTipText}>
-                    <strong>Premium Tip:</strong> Our advanced AI analyzes historical context and artistic styles to create realistic, vibrant colorizations that bring your memories to life.
+                    <strong>Premium Tip:</strong> For old or black & white photos, start with <strong>Photo Restoration</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
                   </span>
                 </div>
               </div>

@@ -626,7 +626,7 @@ export default function RestoreBasic() {
                 <div className={styles.bottomProTip}>
                   <span className={styles.proTipIcon}>💡</span>
                   <span className={styles.proTipText}>
-                    <strong>Pro Tip:</strong> For old or black & white photos, start with <strong>Photo Fix</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
+                    <strong>Pro Tip:</strong> For old or black & white photos, start with <strong>Photo Restoration</strong> for clarity, then use <strong>Full Color Restore</strong> to bring it to life.
                   </span>
                 </div>
               </div>

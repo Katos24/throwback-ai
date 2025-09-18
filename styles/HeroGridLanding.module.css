@@ -1103,3 +1103,190 @@
     padding: 0.5rem 0.8rem;
   }
 }
+
+/* Professional Pricing Section CSS - Add to HeroGridLanding.module.css */
+
+.pricingInfo {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pricingCard {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricingCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(99, 102, 241, 0.05) 0%,
+    rgba(167, 139, 250, 0.05) 50%,
+    rgba(99, 102, 241, 0.05) 100%
+  );
+  pointer-events: none;
+}
+
+.pricingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pricingTitle {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.pricingBadge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricingDetails {
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.pricingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.pricingItem:last-child {
+  margin-bottom: 0;
+}
+
+.pricingLabel {
+  font-weight: 600;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.pricingValue {
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.valueProposition {
+  border-top: 1px solid #334155;
+  padding-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.valueStats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+
+.valueStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.valueNumber {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.valueDesc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pricingCard {
+    padding: 1.5rem;
+  }
+  
+  .pricingHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .pricingItem {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+  
+  .pricingValue {
+    text-align: left;
+  }
+  
+  .valueStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .valueStat {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricingCard {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .pricingTitle {
+    font-size: 1rem;
+  }
+  
+  .pricingBadge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+  }
+}

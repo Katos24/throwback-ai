@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import DecadesSection from './DecadesSection'; // Import the new component
 import styles from '../../styles/HeroGridLanding.module.css';
 
 // Restore options data - COLORIZATION FIRST
@@ -89,7 +88,6 @@ RestoreCard.displayName = 'RestoreCard';
 
 export default function HeroGridLanding() {
   const router = useRouter();
-  const [showDecades, setShowDecades] = useState(false);
 
   // Optimized navigation handler with useCallback
   const handleNavigation = useCallback((href) => {
@@ -101,15 +99,6 @@ export default function HeroGridLanding() {
     // Navigate to the page
     router.push(href);
   }, [router]);
-
-  // Lazy load decades section after initial render
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowDecades(true);
-    }, 300); // Small delay to prioritize above-the-fold content
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section className={styles.heroSection}>
@@ -158,19 +147,47 @@ export default function HeroGridLanding() {
             ))}
           </div>
 
-          {/* Enhanced Pricing Transparency */}
+          {/* Professional Pricing Section */}
           <div className={styles.pricingInfo}>
-            <p className={styles.pricingText}>
-              <strong>Transparent Pricing:</strong> Try basic restoration free • $4.99 gets you 400 credits (enough for 10 professional colorizations) • No recurring fees
-            </p>
-            <div className={styles.valueHighlight}>
-              <span className={styles.valueIcon}>💡</span>
-              <span>That&apos;s just $0.50 per colorized photo — significantly less than industry standard $5-15 per image</span>
+            <div className={styles.pricingCard}>
+              <div className={styles.pricingHeader}>
+                <h3 className={styles.pricingTitle}>Transparent, Pay-Per-Use Pricing</h3>
+                <span className={styles.pricingBadge}>No Subscriptions</span>
+              </div>
+              
+              <div className={styles.pricingDetails}>
+                <div className={styles.pricingItem}>
+                  <span className={styles.pricingLabel}>Try Free:</span>
+                  <span className={styles.pricingValue}>Basic restoration included</span>
+                </div>
+                
+                <div className={styles.pricingItem}>
+                  <span className={styles.pricingLabel}>Get Started:</span>
+                  <span className={styles.pricingValue}>$4.99 for 400 credits</span>
+                </div>
+                
+                <div className={styles.pricingItem}>
+                  <span className={styles.pricingLabel}>Professional Colorization:</span>
+                  <span className={styles.pricingValue}>$0.48 per photo (vs $5-15 industry standard)</span>
+                </div>
+              </div>
+              
+              <div className={styles.valueProposition}>
+                <div className={styles.valueStats}>
+                  <div className={styles.valueStat}>
+                    <span className={styles.valueNumber}>90%</span>
+                    <span className={styles.valueDesc}>Cost Savings</span>
+                  </div>
+                  <div className={styles.valueStat}>
+                    <span className={styles.valueNumber}>10×</span>
+                    <span className={styles.valueDesc}>Faster Processing</span>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Decades section removed - now available as separate component */}
 
         {/* Bottom CTA */}
         <div className={styles.bottomCta}>

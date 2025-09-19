@@ -11,6 +11,14 @@ export default function Success() {
     let intervalId;
     let redirectIntervalId;
 
+    // Track Facebook Purchase event
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'Purchase', {
+        value: 4.99,
+        currency: 'USD'
+      });
+    }
+
     async function checkCredits() {
       const {
         data: { user },
@@ -62,8 +70,6 @@ export default function Success() {
   const handleStartRestoring = () => {
     window.location.href = "/";
   };
-
-
 
   return (
     <div style={{

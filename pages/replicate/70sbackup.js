@@ -3,16 +3,13 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
+import toast from 'react-hot-toast';
 import styles from "../../styles/decades/SeventiesPage.module.css";
 import { SEVENTIES_STYLES, buildSeventiesPrompt } from "../../components/SeventiesPrompts";
 import DecadeBottomSection from "../../components/DecadeBottomSection";
-import PhotoUpload from "../../components/decades/shared/PhotoUpload";
-import ImageDisplay from "../../components/decades/shared/ImageDisplay";
-import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
-import GenerateButton from "../../components/decades/shared/GenerateButton";
-import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 
 export default function SeventiesPage() {
   const router = useRouter();
@@ -20,9 +17,13 @@ export default function SeventiesPage() {
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [progressStage, setProgressStage] = useState("");
   const [showingOriginal, setShowingOriginal] = useState(false);
-  const [filterEnabled, setFilterEnabled] = useState(true);
+  const [filterEnabled, setFilterEnabled] = useState(true); // Filter toggle state
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -41,18 +42,6 @@ export default function SeventiesPage() {
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
-  // Generation hook with 70s prompt builder wrapper
-  const seventiesPromptWrapper = (gender, styleId, workflowType, strength) => {
-    return buildSeventiesPrompt({
-      gender,
-      styleId,
-      preserveFacialFeatures: true,
-      intensity: strength > 25 ? 'strong' : strength < 15 ? 'subtle' : 'medium'
-    });
-  };
-  
-  const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("70s", seventiesPromptWrapper);
-
   useEffect(() => {
     async function getSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -61,12 +50,84 @@ export default function SeventiesPage() {
     getSession();
   }, []);
 
-  const handleGenerateOrRedirect = async () => {
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handlePhotoUpload = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      handleFile(e.target.files[0]);
+    }
+  };
+
+  const handleFile = (file) => {
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
+        icon: '📺',
+        duration: 4000,
+      });
+      return;
+    }
+    
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('File size must be under 10MB', {
+        icon: '📏',
+        duration: 4000,
+      });
+      return;
+    }
+
+    setPhoto(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setResultImageUrl(null);
+    setShowingOriginal(false);
+    
+    toast.success('Photo uploaded! Time to get groovy with your 70s style!', {
+      icon: '📺',
+      duration: 2000,
+    });
+
+    // Auto-expand gender section after photo upload
+    setExpandedSections(prev => ({ ...prev, gender: true }));
+  };
+
+  const handleGenerateOrRedirect = () => {
     if (!photo) {
+      toast.error('Please upload an image first', {
+        icon: '📤',
+        duration: 3000,
+      });
       return;
     }
 
     if (!userGender || !selectedStyle) {
+      toast.error('Please select your gender and 70s style', {
+        icon: '⚙️',
+        duration: 3000,
+      });
       return;
     }
 
@@ -80,11 +141,99 @@ export default function SeventiesPage() {
       return;
     }
 
+    generateAvatar();
+  };
+
+  const generateAvatar = async () => {
+    setIsLoading(true);
+    setProgress(0);
+    setProgressStage("Getting groovy with your image...");
+    setShowingOriginal(false);
+
+    const processingToast = toast.loading('Creating your far out 70s yearbook photo...', {
+      icon: '📺',
+    });
+
     try {
-      const imageUrl = await generateAvatar(photo, userGender, selectedStyle, workflowType, styleStrength, refreshCredits);
-      setResultImageUrl(imageUrl);
-    } catch (error) {
-      console.error('Generation failed:', error);
+      // Get fresh session to avoid expired token
+      const { data: { session: freshSession } } = await supabase.auth.getSession();
+      if (!freshSession) {
+        throw new Error("Please log in again to continue");
+      }
+
+      const headers = { "Content-Type": "application/json" };
+      if (freshSession?.access_token) {
+        headers.Authorization = `Bearer ${freshSession.access_token}`;
+      }
+
+      const compressedFile = await imageCompression(photo, {
+        maxSizeMB: 1.0,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+        maxIteration: 10,
+        initialQuality: 0.8,
+      });
+
+      setProgress(25);
+      setProgressStage("Compressing image...");
+
+      const base64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result.split(",")[1]);
+        reader.readAsDataURL(compressedFile);
+      });
+
+      setProgress(50);
+      setProgressStage("Sending to the 70s AI...");
+
+      // Use the 70s prompt builder with correct parameters
+      const prompt = buildSeventiesPrompt(userGender, selectedStyle, workflowType, styleStrength);
+
+      const response = await fetch("/api/replicate/aiAvatars", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          imageBase64: base64,
+          prompt: prompt,
+          styleStrength: styleStrength,
+          user_gender: userGender,
+          workflow_type: workflowType
+        }),
+      });
+
+      setProgress(80);
+      setProgressStage("Creating your groovy 70s photo...");
+
+      if (!response.ok) {
+        throw new Error(`Failed to generate 70s yearbook photo: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.imageUrl) {
+        setProgress(100);
+        setProgressStage("Far out!");
+        setResultImageUrl(data.imageUrl);
+        
+        toast.success('Your 70s yearbook photo is totally groovy!', {
+          id: processingToast,
+          icon: '📺',
+          duration: 5000,
+        });
+
+        await refreshCredits();
+      } else {
+        throw new Error("No image URL returned from server");
+      }
+    } catch (err) {
+      console.error("Error generating 70s yearbook photo:", err);
+      toast.error(err.message || "70s photo generation failed. Please try again.", {
+        id: processingToast,
+        icon: '❌',
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,8 +251,16 @@ export default function SeventiesPage() {
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
+      
+      toast.success('Your groovy 70s photo downloaded!', {
+        icon: '📺',
+        duration: 3000,
+      });
     } catch (error) {
-      console.error('Download failed:', error);
+      toast.error('Download failed. Please try again.', {
+        icon: '❌',
+        duration: 4000,
+      });
     }
   };
 
@@ -117,10 +274,6 @@ export default function SeventiesPage() {
   };
 
   const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
-
-  const handlePhotoUploadCallback = () => {
-    setExpandedSections(prev => ({ ...prev, gender: true }));
-  };
 
   return (
     <>
@@ -172,31 +325,68 @@ export default function SeventiesPage() {
                   </h3>
                   
                   <div className={styles.photoDisplay}>
-                    {!previewUrl && !resultImageUrl ? (
-                      <PhotoUpload
-                        photo={photo}
-                        setPhoto={setPhoto}
-                        previewUrl={previewUrl}
-                        setPreviewUrl={setPreviewUrl}
-                        resultImageUrl={resultImageUrl}
-                        setResultImageUrl={setResultImageUrl}
-                        setShowingOriginal={setShowingOriginal}
-                        onPhotoUpload={handlePhotoUploadCallback}
-                        decade="70s"
-                        styles={styles}
-                      />
+                    {previewUrl || resultImageUrl ? (
+                      <div className={styles.imageContainer}>
+                        <Image
+                          src={showingOriginal ? previewUrl : (resultImageUrl || previewUrl)}
+                          alt={resultImageUrl && !showingOriginal ? "Generated 70s Yearbook Photo" : "Your photo"}
+                          width={280}
+                          height={280}
+                          unoptimized={!showingOriginal && !!resultImageUrl}
+                          className={`${styles.displayImage} ${resultImageUrl && !showingOriginal && filterEnabled ? styles.seventiesFilter : ''}`}
+                        />
+                        
+                        {/* Action Buttons */}
+                        <div className={styles.buttonRow}>
+                          {resultImageUrl && previewUrl && (
+                            <button 
+                              onClick={() => setShowingOriginal(!showingOriginal)}
+                              className={styles.toggleButton}
+                            >
+                              {showingOriginal ? '✌️ View 70s Result' : '👀 View Original'}
+                            </button>
+                          )}
+                          
+                          {/* Filter toggle button - only show when viewing AI result */}
+                          {resultImageUrl && !showingOriginal && (
+                            <button 
+                              onClick={() => setFilterEnabled(!filterEnabled)}
+                              className={styles.filterToggleButton}
+                            >
+                              {filterEnabled ? '📺 Remove 70s Filter' : '📺 Add 70s Filter'}
+                            </button>
+                          )}
+                          
+                          <button 
+                            onClick={() => document.getElementById('photo-upload').click()}
+                            className={styles.changePhotoButton}
+                          >
+                            📷 Change Photo
+                          </button>
+                          
+                          {resultImageUrl && (
+                            <button onClick={handleDownload} className={styles.downloadButton}>
+                              💾 Save Photo
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     ) : (
-                      <ImageDisplay
-                        previewUrl={previewUrl}
-                        resultImageUrl={resultImageUrl}
-                        showingOriginal={showingOriginal}
-                        setShowingOriginal={setShowingOriginal}
-                        filterEnabled={filterEnabled}
-                        setFilterEnabled={setFilterEnabled}
-                        handleDownload={handleDownload}
-                        decade="70s"
-                        styles={styles}
-                      />
+                      <div
+                        className={`${styles.uploadArea} ${dragActive ? styles.dragActive : ''}`}
+                        onDragEnter={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDragOver={handleDrag}
+                        onDrop={handleDrop}
+                        onClick={() => document.getElementById('photo-upload').click()}
+                      >
+                        <div className={styles.uploadPrompt}>
+                          <div className={styles.uploadIcon}>📷</div>
+                          <h4>Drop your photo here</h4>
+                          <p>Drag & drop or click to select</p>
+                          <small>Best results with clear face photos<br/>PNG, JPG, HEIC up to 10MB</small>
+                        </div>
+                      </div>
                     )}
                   </div>
                   
@@ -204,39 +394,190 @@ export default function SeventiesPage() {
                     id="photo-upload"
                     type="file"
                     accept="image/*"
-                    onChange={() => {}} // Handled by PhotoUpload component
+                    onChange={handlePhotoUpload}
                     style={{ display: 'none' }}
                   />
                 </div>
               </div>
 
-              {/* Configuration Section */}
-              <ConfigurationSection
-                userGender={userGender}
-                setUserGender={setUserGender}
-                selectedStyle={selectedStyle}
-                setSelectedStyle={setSelectedStyle}
-                styleStrength={styleStrength}
-                setStyleStrength={setStyleStrength}
-                workflowType={workflowType}
-                setWorkflowType={setWorkflowType}
-                expandedSections={expandedSections}
-                setExpandedSections={setExpandedSections}
-                styles={styles}
-                decade="70s"
-                decadeStyles={SEVENTIES_STYLES}
-              />
+              {/* TV Control Panel */}
+              <div className={styles.controlPanel}>
+                {/* Row 1: Gender & Photo Quality */}
+                <div className={styles.controlRow}>
+                  {/* Gender Controls */}
+                  <div className={styles.controlSection}>
+                    <button 
+                      className={`${styles.controlButton} ${expandedSections.gender ? styles.expanded : ''} ${userGender ? styles.completed : ''}`}
+                      onClick={() => toggleSection('gender')}
+                    >
+                      <span className={styles.controlIcon}>👤</span>
+                      <span className={styles.controlTitle}>Gender</span>
+                      <span className={styles.controlValue}>{userGender || 'Select'}</span>
+                      <span className={styles.expandIcon}>{expandedSections.gender ? '−' : '+'}</span>
+                    </button>
+                    
+                    {expandedSections.gender && (
+                      <div className={styles.controlContent}>
+                        <div className={styles.buttonGroup}>
+                          {["male", "female", "non-binary"].map((gender) => (
+                            <button
+                              key={gender}
+                              className={`${styles.optionButton} ${userGender === gender ? styles.selected : ''}`}
+                              onClick={() => {
+                                setUserGender(gender);
+                                setExpandedSections(prev => ({ ...prev, workflow: true }));
+                              }}
+                            >
+                              {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Workflow Controls */}
+                  <div className={styles.controlSection}>
+                    <button 
+                      className={`${styles.controlButton} ${expandedSections.workflow ? styles.expanded : ''} ${workflowType ? styles.completed : ''}`}
+                      onClick={() => toggleSection('workflow')}
+                    >
+                      <span className={styles.controlIcon}>⚙️</span>
+                      <span className={styles.controlTitle}>Photo Quality</span>
+                      <span className={styles.controlValue}>{workflowType === 'HyperRealistic-likeness' ? 'HyperRealistic' : workflowType}</span>
+                      <span className={styles.expandIcon}>{expandedSections.workflow ? '−' : '+'}</span>
+                    </button>
+                    
+                    {expandedSections.workflow && (
+                      <div className={styles.controlContent}>
+                        <div className={styles.buttonGroup}>
+                          {[
+                            { value: "HyperRealistic-likeness", label: "HyperRealistic" },
+                            { value: "Realistic", label: "Realistic" },
+                            { value: "Stylistic", label: "Stylistic" }
+                          ].map((workflow) => (
+                            <button
+                              key={workflow.value}
+                              className={`${styles.optionButton} ${workflowType === workflow.value ? styles.selected : ''}`}
+                              onClick={() => {
+                                setWorkflowType(workflow.value);
+                                setExpandedSections(prev => ({ ...prev, style: true }));
+                              }}
+                            >
+                              {workflow.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Row 2: Style & Style Strength */}
+                <div className={styles.controlRow}>
+                  {/* Style Controls */}
+                  <div className={styles.controlSection}>
+                    <button 
+                      className={`${styles.controlButton} ${expandedSections.style ? styles.expanded : ''} ${selectedStyle ? styles.completed : ''}`}
+                      onClick={() => toggleSection('style')}
+                    >
+                      <span className={styles.controlIcon}>✌️</span>
+                      <span className={styles.controlTitle}>Choose 70s Style</span>
+                      <span className={styles.controlValue}>
+                        {selectedStyle ? SEVENTIES_STYLES.find(s => s.id === selectedStyle)?.label || 'Selected' : 'Select'}
+                      </span>
+                      <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
+                    </button>
+                    
+                    {expandedSections.style && (
+                      <div className={styles.controlContent}>
+                        <div className={styles.styleGrid}>
+                          {SEVENTIES_STYLES.map((style) => (
+                            <button
+                              key={style.id}
+                              className={`${styles.styleButton} ${selectedStyle === style.id ? styles.selected : ''}`}
+                              onClick={() => {
+                                setSelectedStyle(style.id);
+                                setExpandedSections(prev => ({ ...prev, strength: true }));
+                              }}
+                              title={style.description}
+                            >
+                              <span className={styles.styleEmoji}>{style.emoji}</span>
+                              {style.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Style Strength */}
+                  <div className={styles.controlSection}>
+                    <button 
+                      className={`${styles.controlButton} ${expandedSections.strength ? styles.expanded : ''} ${styles.completed}`}
+                      onClick={() => toggleSection('strength')}
+                    >
+                      <span className={styles.controlIcon}>📊</span>
+                      <span className={styles.controlTitle}>Style Strength</span>
+                      <span className={styles.controlValue}>{styleStrength}%</span>
+                      <span className={styles.expandIcon}>{expandedSections.strength ? '−' : '+'}</span>
+                    </button>
+                    
+                    {expandedSections.strength && (
+                      <div className={styles.controlContent}>
+                        <div className={styles.sliderContainer}>
+                          <input
+                            type="range"
+                            min="5"
+                            max="35"
+                            value={styleStrength}
+                            onChange={(e) => setStyleStrength(Number(e.target.value))}
+                            className={styles.slider}
+                          />
+                          <div className={styles.sliderLabels}>
+                            <span>Preserve Face</span>
+                            <span>Strong 70s Style</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
 
               {/* Generate Button */}
-              <GenerateButton
-                onClick={handleGenerateOrRedirect}
-                isLoading={isLoading}
-                getButtonText={getButtonText}
-                isComplete={isComplete}
-                progress={progress}
-                progressStage={progressStage}
-                styles={styles}
-              />
+              <div className={styles.generateSection}>
+                <button
+                  onClick={handleGenerateOrRedirect}
+                  disabled={isLoading}
+                  className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+                >
+                  {isLoading ? (
+                    <>
+                      <div className={styles.spinner}></div>
+                      {getButtonText()}
+                    </>
+                  ) : (
+                    getButtonText()
+                  )}
+                </button>
+
+                {/* Progress Bar */}
+                {isLoading && (
+                  <div className={styles.progressContainer}>
+                    <div className={styles.progressBar}>
+                      <div 
+                        className={styles.progressFill}
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                    <div className={styles.progressText}>
+                      <span>{progressStage}</span>
+                      <span>{progress}%</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

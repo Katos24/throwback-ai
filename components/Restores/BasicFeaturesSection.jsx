@@ -1,63 +1,103 @@
 import ImageCompareSlider from "../ImageCompareSlider";
 import styles from "../../styles/BasicFeatures.module.css";
 
-
 export default function BasicFeaturesSection() {
   return (
     <>
-{/* ─── Comparison Grid ─────────────────────────────── */}
-<section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
-  <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
-    Experience the Power of AI Restoration
-  </h2>
-  <div style={{
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "2rem",
-    justifyContent: "center"
-  }}>
-    
-    {/* Premium Restore - LEFT */}
-    <div style={{
-      flex: "1 1 300px",
-      maxWidth: "500px",
-      backgroundColor: "#1a1a1a",
-      padding: "1rem",
-      borderRadius: "8px"
-    }}>
-      <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Full Color Restore</h3>
-      <ImageCompareSlider
-        beforeImage="/images/demo-before.jpg"
-        afterImage="/images/demo-after.jpg"
-      />
-      <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
-        Includes colorization, facial repair, and deep reconstruction.
-      </p>
-    </div>
+   {/* ─── Pricing Button ─────────────────────────────── */}
+       <div style={{ textAlign: "center", marginTop: "2rem" }}>
+  <a href="/pricing" className={styles.pricingButton}>
+    See Pricing
+  </a>
+</div>
 
-    {/* Basic Restore - RIGHT */}
-    <div style={{
-      flex: "1 1 300px",
-      maxWidth: "500px",
-      backgroundColor: "#1a1a1a",
-      padding: "1rem",
-      borderRadius: "8px"
-    }}>
-      <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
-      <ImageCompareSlider
-        beforeImage="/images/photofixbefore.jpg"
-        afterImage="/images/photofixafter.jpg"
-      />
-      <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
-        Scratch removal + clarity boost for B&W and color photos.
-      </p>
-    </div>
-
-  </div>
-</section>
-
+{/* ─── Before/After Examples ──────────────────────── */}
+      <section style={{ padding: "2rem 1rem", backgroundColor: "#1f1f1f", textAlign: "center" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2rem" }}>
           
+          <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
+            <img
+              src="/images/familyrestoredphoto.jpg"
+              alt="Before and After 1"
+              style={{ width: "100%", borderRadius: "8px" }}
+              className={styles.brightImage}
+            />
+          </div>
 
+          <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
+            <img
+              src="/images/museumrestoredphoto.jpg"
+              alt="Before and After 2"
+              style={{ width: "100%", borderRadius: "8px" }}
+              className={styles.brightImage}
+            />
+          </div>
+
+          <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
+            <img
+              src="/images/weddingrestoredohoto.jpg"
+              alt="Before and After 3"
+              style={{ width: "100%", borderRadius: "8px" }}
+              className={styles.brightImage}
+            />
+          </div>
+
+        </div>
+      </section>
+
+    
+      {/* ─── Comparison Grid ─────────────────────────────── */}
+      <section style={{ padding: "3rem 1rem", backgroundColor: "#121212", color: "white" }}>
+        <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
+          Experience the Power of AI Restoration
+        </h2>
+        <div style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "center"
+        }}>
+          {/* Premium Restore - LEFT */}
+          <div style={{
+            flex: "1 1 300px",
+            maxWidth: "500px",
+            backgroundColor: "#1a1a1a",
+            padding: "1rem",
+            borderRadius: "8px"
+          }}>
+            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Full Color Restore</h3>
+            <ImageCompareSlider
+              beforeImage="/images/demo-before.jpg"
+              afterImage="/images/demo-after.jpg"
+            />
+            <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
+              Includes colorization, facial repair, and deep reconstruction.
+            </p>
+          </div>
+
+          {/* Basic Restore - RIGHT */}
+          <div style={{
+            flex: "1 1 300px",
+            maxWidth: "500px",
+            backgroundColor: "#1a1a1a",
+            padding: "1rem",
+            borderRadius: "8px"
+          }}>
+            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
+            <ImageCompareSlider
+              beforeImage="/images/photofixbefore.jpg"
+              afterImage="/images/photofixafter.jpg"
+            />
+            <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
+              Scratch removal + clarity boost for B&W and color photos.
+            </p>
+          </div>
+        </div>
+
+      
+
+
+      </section>
 
       {/* ─── Feature Promo ─────────────────────────────── */}
       <section className={styles.featurePromoSection}>

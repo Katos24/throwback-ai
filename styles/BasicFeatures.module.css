@@ -397,3 +397,37 @@
   outline: 2px solid #6366f1;
   outline-offset: 2px;
 }
+
+/* Pricing Button - Big & Bold */
+.pricingButton {
+  display: inline-block;
+  background-color: #ff6600 !important; /* bright orange */
+  color: #ffffff !important;
+  padding: 1.25rem 2.5rem; /* bigger padding */
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 1.5rem; /* larger text */
+  text-align: center;
+  margin: 3rem 0; /* top & bottom spacing */
+  box-shadow: 0 6px 20px rgba(255, 102, 0, 0.7); /* more pop */
+  filter: brightness(1) !important;
+  opacity: 1 !important;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.pricingButton:hover {
+  background-color: #e65c00 !important;
+  transform: translateY(-3px) scale(1.05); /* bigger hover effect */
+}
+
+
+.brightImage {
+  filter: brightness(1) !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  max-width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}

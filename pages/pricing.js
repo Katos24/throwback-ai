@@ -1,4 +1,4 @@
-// pages/pricing.js
+// pages/pricing.js - Restoration Focused
 import Head from 'next/head';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
@@ -45,15 +45,9 @@ const CREDIT_PACKS = [
     price: "$4.99",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
     popular: false,
-    tagline: "Perfect for trying out our AI tools",
-    useCase: "Great for basic photo restoration and a few creative projects",
-    includes: {
-      basic: 400,
-      premium: 10,
-      decades: 8,
-      cartoon: 10,
-      avatar: 8
-    }
+    tagline: "Perfect starter pack",
+    restores: 400,
+    colorizations: 10
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
@@ -62,15 +56,9 @@ const CREDIT_PACKS = [
     price: "$9.99",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
     popular: false,
-    tagline: "Most popular for families and hobbyists",
-    useCase: "Ideal for restoring family albums and creative decade styling",
-    includes: {
-      basic: 1000,
-      premium: 25,
-      decades: 20,
-      cartoon: 25,
-      avatar: 20
-    }
+    tagline: "Great for families",
+    restores: 1000,
+    colorizations: 25
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
@@ -79,15 +67,9 @@ const CREDIT_PACKS = [
     price: "$14.99",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: true,
-    tagline: "Best value for power users",
-    useCase: "Perfect for content creators and social media enthusiasts",
-    includes: {
-      basic: 1600,
-      premium: 40,
-      decades: 32,
-      cartoon: 40,
-      avatar: 32
-    }
+    tagline: "Best value pack",
+    restores: 1600,
+    colorizations: 40
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
@@ -96,22 +78,15 @@ const CREDIT_PACKS = [
     price: "$29.99",
     gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
     popular: false,
-    tagline: "Ultimate package for professionals",
-    useCase: "For photographers, designers, and content creation businesses",
-    includes: {
-      basic: 3500,
-      premium: 87,
-      decades: 70,
-      cartoon: 87,
-      avatar: 70
-    }
+    tagline: "Professional package",
+    restores: 3500,
+    colorizations: 87
   },
 ];
 
 export default function PricingPage() {
   const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
   
   // Toast state
   const [toast, setToast] = useState({
@@ -212,7 +187,7 @@ export default function PricingPage() {
         "@id": `${pageUrl}#webpage`,
         "url": pageUrl,
         "name": "Pricing — Throwback AI",
-        "description": "Purchase Throwback AI credit packs to restore, colorize, and transform photos. From basic restoration to professional avatars and decade styles.",
+        "description": "Purchase Throwback AI credit packs to restore and colorize vintage photos. Affordable pricing for photo restoration services.",
         "isPartOf": { "@id": `${siteUrl}#website` }
       },
       {
@@ -231,25 +206,25 @@ export default function PricingPage() {
   return (
     <>
       <Head>
-        <title>Pricing — Throwback AI Credits & Plans</title>
+        <title>Pricing — Throwback AI Photo Restoration Credits</title>
         <meta
           name="description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art. Flexible plans for every need."
+          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life with AI-powered technology."
         />
-        <meta name="keywords" content="Throwback AI pricing, photo restoration credits, AI avatar cost, decade photo price, cartoon art credits" />
+        <meta name="keywords" content="photo restoration pricing, vintage photo repair, AI colorization cost, family photo restoration" />
         <link rel="canonical" href={pageUrl} />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Throwback AI" />
-        <meta property="og:title" content="Pricing — Throwback AI Credits & Plans" />
+        <meta property="og:title" content="Pricing — Throwback AI Photo Restoration Credits" />
         <meta
           property="og:description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art."
+          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life."
         />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content="Pricing and credit pack preview for Throwback AI" />
+        <meta property="og:image:alt" content="Photo restoration pricing and credit packs" />
 
         {/* Facebook-specific */}
         <meta property="fb:pages" content={facebookPageId} />
@@ -257,10 +232,10 @@ export default function PricingPage() {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pricing — Throwback AI Credits & Plans" />
+        <meta name="twitter:title" content="Pricing — Throwback AI Photo Restoration Credits" />
         <meta
           name="twitter:description"
-          content="Buy Throwback AI Credit Packs: affordable credits for photo restoration, colorization, decade photos, professional avatars, and cartoon art."
+          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life."
         />
         <meta name="twitter:image" content={twitterImage} />
 
@@ -275,55 +250,16 @@ export default function PricingPage() {
         <div className={styles.heroSection}>
           <div className={styles.backgroundPattern}></div>
           <h1 className={styles.mainTitle}>
-            <span className={styles.titleMain}>Choose Your Credit Pack</span>
-            <span className={styles.titleSub}>Transform Any Photo Into Something Amazing</span>
+            <span className={styles.titleMain}>Restore Your Photos</span>
+            <span className={styles.titleSub}>Bring Vintage Memories Back to Life</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            From restoring precious family memories to creating professional avatars and time-traveling through decades — 
-            <strong> Throwback AI Credit Packs</strong> give you the power to transform any photo.
+            Transform old, damaged, and faded family photos with our AI-powered restoration technology. 
+            <strong> Choose the credit pack</strong> that fits your restoration needs.
           </p>
 
-          {/* Service Overview */}
-          <div className={styles.serviceOverview}>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>🔧</span>
-              <div>
-                <strong>Photo Restoration</strong>
-                <span className={styles.serviceCost}>1 credit</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>🎨</span>
-              <div>
-                <strong>Photo Colorization</strong>
-                <span className={styles.serviceCost}>40 credits</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>📼</span>
-              <div>
-                <strong>Decade Styles</strong>
-                <span className={styles.serviceCost}>50 credits</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>🎭</span>
-              <div>
-                <strong>Cartoon Art</strong>
-                <span className={styles.serviceCost}>40 credits</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>👔</span>
-              <div>
-                <strong>Professional Avatar</strong>
-                <span className={styles.serviceCost}>50 credits</span>
-              </div>
-            </div>
-          </div>
-
           <div className={styles.packGrid}>
-            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, useCase, gradient, popular, includes }) => {
+            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, gradient, popular, restores, colorizations }) => {
               const priceNumber = parseFloat(price.slice(1));
               const costPerCredit = (priceNumber / credits).toFixed(3);
 
@@ -331,8 +267,6 @@ export default function PricingPage() {
                 <div 
                   key={id} 
                   className={`${styles.creditCard} ${popular ? styles.featured : ''}`}
-                  onMouseEnter={() => setHoveredCard(id)}
-                  onMouseLeave={() => setHoveredCard(null)}
                   style={{ '--card-gradient': gradient }}
                 >
                   {popular && (
@@ -344,6 +278,7 @@ export default function PricingPage() {
                   
                   <div className={styles.cardHeader}>
                     <h2 className={styles.packName}>{name}</h2>
+                    <p className={styles.tagline}>{tagline}</p>
                   </div>
 
                   <div className={styles.priceSection}>
@@ -360,30 +295,16 @@ export default function PricingPage() {
                     </div>
                   </div>
 
+                  {/* Simplified includes - focus on main restoration services */}
                   <div className={styles.cardContent}>
-                    <p className={styles.tagline}>{tagline}</p>
-                    <p className={styles.useCase}>{useCase}</p>
-
                     <div className={styles.includesGrid}>
                       <div className={styles.includeItem}>
                         <span className={styles.includeIcon}>🔧</span>
-                        <span>{includes.basic} Basic Restorations</span>
+                        <span>{restores} Photo Restorations</span>
                       </div>
                       <div className={styles.includeItem}>
                         <span className={styles.includeIcon}>🎨</span>
-                        <span>{includes.premium} Colorizations</span>
-                      </div>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>📼</span>
-                        <span>{includes.decades} Decade Photos</span>
-                      </div>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>🎭</span>
-                        <span>{includes.cartoon} Cartoon Arts</span>
-                      </div>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>👔</span>
-                        <span>{includes.avatar} Pro Avatars</span>
+                        <span>{colorizations} Full Colorizations</span>
                       </div>
                     </div>
                   </div>
@@ -401,7 +322,7 @@ export default function PricingPage() {
                     ) : (
                       <>
                         <span className={styles.buttonIcon}>🚀</span>
-                        Get Credits Now
+                        Get Credits
                       </>
                     )}
                   </button>
@@ -410,78 +331,79 @@ export default function PricingPage() {
             })}
           </div>
 
-          {/* New Decade Showcase Section */}
-          <div className={styles.decadeShowcase}>
-            <h3 className={styles.showcaseTitle}>Travel Through Time with Decade Styles</h3>
-            <p className={styles.showcaseSubtitle}>Transform your photos with authentic styling from the 70s, 80s, 90s, and 2000s</p>
-            <div className={styles.decadeGrid}>
-              <Link href="/replicate/70s" className={styles.decadePreviewLink}>
-                <div className={styles.decadePreview}>
-                  <span className={styles.decadeEmoji}>🌈</span>
-                  <h4>70s Groovy</h4>
-                  <p>Hippie, disco, punk vibes</p>
-                  <div className={styles.tryNowCta}>Try 70s Style →</div>
-                </div>
-              </Link>
-              <Link href="/replicate/80s" className={styles.decadePreviewLink}>
-                <div className={styles.decadePreview}>
-                  <span className={styles.decadeEmoji}>⚡</span>
-                  <h4>80s Neon</h4>
-                  <p>New wave, synthpop aesthetics</p>
-                  <div className={styles.tryNowCta}>Try 80s Style →</div>
-                </div>
-              </Link>
-              <Link href="/replicate/90s" className={styles.decadePreviewLink}>
-                <div className={styles.decadePreview}>
-                  <span className={styles.decadeEmoji}>📼</span>
-                  <h4>90s Grunge</h4>
-                  <p>Alternative, grunge culture</p>
-                  <div className={styles.tryNowCta}>Try 90s Style →</div>
-                </div>
-              </Link>
-              <Link href="/replicate/2000s" className={styles.decadePreviewLink}>
-                <div className={styles.decadePreview}>
-                  <span className={styles.decadeEmoji}>💿</span>
-                  <h4>2000s Y2K</h4>
-                  <p>Emo, scene, digital era</p>
-                  <div className={styles.tryNowCta}>Try 2000s Style →</div>
-                </div>
-              </Link>
+          {/* Service Overview - Now positioned after cards */}
+          <div className={styles.serviceOverview}>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>🔧</span>
+              <div>
+                <strong>Photo Restoration</strong>
+                <span className={styles.serviceCost}>Costs 1 credit</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>🎨</span>
+              <div>
+                <strong>Full Colorization</strong>
+                <span className={styles.serviceCost}>Costs 40 credits</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>📸</span>
+              <div>
+                <strong>Creative Styles</strong>
+                <span className={styles.serviceCost}>Costs 40-50 credits</span>
+              </div>
             </div>
           </div>
 
-          {/* Features Section */}
+          {/* Simplified Features Section */}
           <div className={styles.featuresSection}>
-            <h3 className={styles.featuresTitle}>What You Get With Every Pack</h3>
+            <h3 className={styles.featuresTitle}>Why Choose Throwback AI</h3>
             <div className={styles.featuresList}>
               <div className={styles.globalFeature}>
                 <span className={styles.globalFeatureIcon}>🔒</span>
                 <div>
-                  <strong>100% Private & Secure</strong>
-                  <span>Your photos are deleted after 1 hour</span>
+                  <strong>100% Private</strong>
+                  <span>Photos deleted after processing</span>
                 </div>
               </div>
               <div className={styles.globalFeature}>
                 <span className={styles.globalFeatureIcon}>⚡</span>
                 <div>
-                  <strong>Lightning Fast Results</strong>
-                  <span>Most photos processed in under 30 seconds</span>
+                  <strong>Lightning Fast</strong>
+                  <span>Results in under 30 seconds</span>
                 </div>
               </div>
               <div className={styles.globalFeature}>
                 <span className={styles.globalFeatureIcon}>🎯</span>
                 <div>
-                  <strong>AI-Powered Quality</strong>
-                  <span>Advanced models trained on millions of photos</span>
+                  <strong>AI-Powered</strong>
+                  <span>Professional quality results</span>
                 </div>
               </div>
               <div className={styles.globalFeature}>
                 <span className={styles.globalFeatureIcon}>💝</span>
                 <div>
-                  <strong>Credits Never Expire</strong>
-                  <span>Use them whenever you&apos;re ready</span>
+                  <strong>Never Expire</strong>
+                  <span>Use credits anytime</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Small Creative Options Section */}
+          <div className={styles.additionalServices}>
+            <h4 className={styles.additionalTitle}>Also Available</h4>
+            <div className={styles.additionalGrid}>
+              <Link href="/replicate/80s" className={styles.additionalLink}>
+                <span>📼 Decade Styles</span>
+              </Link>
+              <Link href="/replicate/cartoon" className={styles.additionalLink}>
+                <span>🎭 Cartoon Art</span>
+              </Link>
+              <Link href="/replicate/avatar" className={styles.additionalLink}>
+                <span>👔 Pro Avatars</span>
+              </Link>
             </div>
           </div>
 

@@ -45,8 +45,8 @@ export default function BasicFeaturesSection() {
     }}>
       <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
       <ImageCompareSlider
-        beforeImage="/images/BasicDemoAfter.jpg"
-        afterImage="/images/basicdemo.jpg"
+        beforeImage="/images/photofixbefore.jpg"
+        afterImage="/images/photofixafter.jpg"
       />
       <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
         Scratch removal + clarity boost for B&W and color photos.
@@ -91,13 +91,58 @@ export default function BasicFeaturesSection() {
       </div>
 
       {/* ─── FAQ ─────────────────────────────────────── */}
-      <section className={styles.faqSection}>
-        <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
-        <div className={styles.accordion}>
-          <details><summary>What does the restore actually do?</summary><p>It removes scratches, corrects blur, and enhances faded sections. Premium restores add colorization and facial reconstruction.</p></details>
-          <details><summary>Is my image private?</summary><p>Yes. We never store your images long-term and do not use them for training or sharing.</p></details>
-        </div>
-      </section>
+{/* ─── FAQ ─────────────────────────────────────── */}
+<section className={styles.faqSection}>
+  <h2 className={styles.sectionTitle}>🙋‍♂️ Frequently Asked Questions</h2>
+  <div className={styles.accordion}>
+    <details>
+      <summary>What does the restore actually do?</summary>
+      <p>Our restoration removes scratches, corrects blur, and enhances faded sections. Premium restores add full colorization and facial reconstruction using advanced AI trained on historical photography.</p>
+    </details>
+
+    <details>
+      <summary>Why use Throwback AI instead of ChatGPT or other AI tools?</summary>
+      <p>Unlike general AI chatbots, we're specifically built for photo restoration with specialized models trained on historical photography. Our AI understands period-appropriate colors, clothing, and facial features that general tools miss. Plus, we're optimized for speed and quality - no prompting required.</p>
+    </details>
+    
+    <details>
+      <summary>Is my image private?</summary>
+      <p>Yes. We never store your images long-term and do not use them for training or sharing. Images are processed securely and deleted after restoration.</p>
+    </details>
+    
+    <details>
+      <summary>What file formats are supported?</summary>
+      <p>We support PNG, JPG, JPEG, and HEIC files up to 10MB. For best results, use high-resolution images with clear facial features.</p>
+    </details>
+    
+    <details>
+      <summary>How accurate is the colorization?</summary>
+      <p>Our AI is trained on thousands of historical photos and achieves high accuracy for skin tones, clothing, and common objects. However, specific colors like unusual clothing or unique items may vary from the original.</p>
+    </details>
+    
+    <details>
+      <summary>Can I restore very old or damaged photos?</summary>
+      <p>Yes! Our AI works best on photos from the 1900s onward, but can restore even severely damaged images. For extremely old photos (1800s), results may vary depending on the original quality.</p>
+    </details>
+    
+    <details>
+      <summary>How long does restoration take?</summary>
+      <p>Basic restoration is super fast - usually under 15 seconds. Premium colorization takes up to a minute, but typically completes in under 45 seconds.</p>
+    </details>
+    
+    <details>
+      <summary>What's the difference between basic and premium restore?</summary>
+      <p>Basic restore (1 credit) quickly fixes damage and enhances clarity. Premium restore (40 credits) includes full colorization, advanced facial reconstruction, and studio-quality enhancement.</p>
+    </details>
+    
+    <details>
+      <summary>Do you restore photos of people who have passed away?</summary>
+      <p>Yes, we help preserve family memories by restoring photos of deceased loved ones. This is one of our most meaningful use cases - bringing old family photos back to life.</p>
+    </details>
+    
+    
+  </div>
+</section>
 
       {/* ─── Testimonials ─────────────────────────────── */}
       <section className={styles.testimonials}>

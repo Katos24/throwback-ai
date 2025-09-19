@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import styles from '../../styles/HeroGridLanding.module.css'; // Shared CSS
+import styles from '../../styles/DecadesGridLanding.module.css';
 
 // Static decades data
 const DECADE_OPTIONS = [
@@ -74,7 +74,14 @@ const DecadeCard = React.memo(({ decade, onNavigate }) => (
     <button 
       className={styles.decadeCardLink}
       onClick={() => onNavigate(decade.link)}
-      style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
+      style={{ 
+        all: 'unset', 
+        cursor: 'pointer', 
+        display: 'block', 
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box'
+      }}
       aria-label={`${decade.title} - ${decade.description}`}
     >
       <div className={`${styles.decadeCard} ${styles[decade.cardClass]}`}>
@@ -98,34 +105,38 @@ const DecadeCard = React.memo(({ decade, onNavigate }) => (
             <Image
               src={decade.fullBackgroundImage}
               alt={`${decade.title} - Time Travel Background`}
-              width={320}
-              height={240}
+              fill
               className={styles.fullBackgroundImage}
               loading="lazy"
               quality={75}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
         ) : (
           // Regular before/after split for individual decade cards
           <div className={styles.decadeBeforeAfter}>
-            <Image
-              src={decade.beforeImage}
-              alt={`${decade.title} - Before`}
-              width={160}
-              height={240}
-              className={styles.decadeBeforeImage}
-              loading="lazy"
-              quality={75}
-            />
-            <Image
-              src={decade.afterImage}
-              alt={`${decade.title} - After`}
-              width={160}
-              height={240}
-              className={styles.decadeAfterImage}
-              loading="lazy"
-              quality={75}
-            />
+            <div style={{ position: 'relative', width: '50%', height: '100%' }}>
+              <Image
+                src={decade.beforeImage}
+                alt={`${decade.title} - Before`}
+                fill
+                className={styles.decadeBeforeImage}
+                loading="lazy"
+                quality={75}
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+            </div>
+            <div style={{ position: 'relative', width: '50%', height: '100%' }}>
+              <Image
+                src={decade.afterImage}
+                alt={`${decade.title} - After`}
+                fill
+                className={styles.decadeAfterImage}
+                loading="lazy"
+                quality={75}
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+            </div>
             <div className={styles.splitLine}></div>
             <div className={styles.beforeLabel}>Now</div>
             <div className={styles.afterLabel}>{decade.era}</div>
@@ -170,23 +181,25 @@ export default function DecadesSection() {
 
   return (
     <div className={styles.decadesSection}>
-      <h2 className={styles.decadesTitle}>
-        Time Travel Through the Decades
-      </h2>
-      <p className={styles.decadesDescription}>
-        Transform your selfies into viral social media content with authentic decade styling. 
-        Perfect for TikTok, Instagram, and standing out online.
-      </p>
+      <div className={styles.container}>
+        <h2 className={styles.decadesTitle}>
+          Time Travel Through the Decades
+        </h2>
+        <p className={styles.decadesDescription}>
+          Transform your selfies into viral social media content with authentic decade styling. 
+          Perfect for TikTok, Instagram, and standing out online.
+        </p>
 
-      {/* Decades Grid */}
-      <div className={styles.decadesGrid}>
-        {DECADE_OPTIONS.map((decade) => (
-          <DecadeCard 
-            key={decade.id} 
-            decade={decade} 
-            onNavigate={handleNavigation} 
-          />
-        ))}
+        {/* Decades Grid */}
+        <div className={styles.decadesGrid}>
+          {DECADE_OPTIONS.map((decade) => (
+            <DecadeCard 
+              key={decade.id} 
+              decade={decade} 
+              onNavigate={handleNavigation} 
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

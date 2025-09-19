@@ -482,11 +482,11 @@ export default function RestorePremium() {
               </span>
               <br />
               <Link 
-    href="/gallery" 
-    className={styles.galleryLink}
-  >
-    See gallery for examples →
-  </Link>
+              href="/gallery" 
+              className={styles.galleryLink}
+            >
+              See gallery for examples →
+            </Link>
             </p>
           </div>
 

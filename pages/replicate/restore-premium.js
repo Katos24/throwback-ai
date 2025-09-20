@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
 import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
@@ -11,6 +10,7 @@ import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import Link from 'next/link';
 import CreditsInfo from "../../components/Restores/CreditsInfo";
+import RestorePremiumSEO from "../../components/seo/RestorePremiumSEO";
 
 export default function RestorePremium() {
   const router = useRouter();
@@ -194,10 +194,10 @@ export default function RestorePremium() {
     return "🌈";
   };
 
-  // Premium restore function (simplified since logic moved to handleGenerateOrRedirect)
+  // Premium restore function
   const handleRestore = async () => {
     setLoading(true);
-    setProgressStatus("uploading");
+    setProgressStatus("Uploading your image...");
     setProgressPercent(0);
     setError('');
     
@@ -218,8 +218,12 @@ export default function RestorePremium() {
         let progress = 0;
         const interval = setInterval(() => {
           progress += 8;
-          if (progress > 85) clearInterval(interval);
-          else setProgressPercent(progress);
+          if (progress > 85) {
+            clearInterval(interval);
+            setProgressStatus("AI is analyzing and colorizing your photo...");
+          } else {
+            setProgressPercent(progress);
+          }
         }, 400);
 
         const response = await fetch("/api/replicate/restorePremium", {
@@ -233,8 +237,7 @@ export default function RestorePremium() {
 
         clearInterval(interval);
         setProgressPercent(100);
-        setProgressStatus("processing");
-        setProgressPercent(null);
+        setProgressStatus("Adding finishing touches...");
         
         const data = await response.json();
         if (response.ok && data.imageUrl) {
@@ -342,7 +345,7 @@ export default function RestorePremium() {
     } catch (downloadError) {
       console.error('Download failed:', downloadError);
       toast.error('Download failed. Please try again.', {
-        id: downloadError,
+        id: downloadToast,
         icon: '❌',
         duration: 4000,
       });
@@ -370,78 +373,9 @@ export default function RestorePremium() {
   // Check if all conditions are met for completion
   const isComplete = selectedFile && isLoggedIn && credits >= restoreCost;
 
-  // SEO values
-  const siteUrl = 'https://throwbackai.app';
-  const pageUrl = `${siteUrl}/replicate/restore-premium`;
-  const ogImage = `${siteUrl}/images/throwback-ai.jpg`;
-  const twitterImage = ogImage;
-  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
-  const facebookPageId = '61578072554521';
-
   return (
     <>
-      <Head>
-        <title>Restore Premium – Full Color AI Photo Restoration | Throwback AI</title>
-        <meta
-          name="description"
-          content="Bring your vintage photos to vibrant life with Throwback AI's Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
-        />
-        <link rel="canonical" href={pageUrl} />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="Restore Premium – Full Color AI Photo Restoration | Throwback AI" />
-        <meta
-          property="og:description"
-          content="Bring your vintage photos to vibrant life with Throwback AI's Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
-        />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content="Before and after AI full color photo restoration example" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Throwback AI" />
-
-        {/* Facebook-specific */}
-        <meta property="fb:pages" content={facebookPageId} />
-        <meta property="article:publisher" content={facebookPageUrl} />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Restore Premium – Full Color AI Photo Restoration | Throwback AI" />
-        <meta
-          name="twitter:description"
-          content="Bring your vintage photos to vibrant life with Throwback AI's Restore Premium. Advanced AI colorization and restoration for stunning, high-quality results."
-        />
-        <meta name="twitter:image" content={twitterImage} />
-
-        {/* Structured Data JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Throwback AI Restore Premium",
-              "url": pageUrl,
-              "applicationCategory": "Photo Editing",
-              "operatingSystem": "Web",
-              "description": "Premium AI colorization and restoration tool — advanced model for high-quality color restores and detail enhancement.",
-              "image": ogImage,
-              "offers": {
-                "@type": "Offer",
-                "price": "40",
-                "priceCurrency": "credits",
-                "url": "https://throwbackai.app/pricing"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Throwback AI",
-                "url": siteUrl,
-                "sameAs": [facebookPageUrl]
-              }
-            }),
-          }}
-        />
-      </Head>
+      <RestorePremiumSEO />
 
       <div className={`${styles.container} ${styles.premiumContainer}`}>
         {/* Premium Animated Background */}

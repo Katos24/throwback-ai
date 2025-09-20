@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import Link from 'next/link';
 import CreditsInfo from "../../components/Restores/CreditsInfo";
-import RestorePremiumSEO from "../../components/seo/RestorePremiumSEO";
+import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";
 
 export default function RestorePremium() {
   const router = useRouter();

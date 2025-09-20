@@ -506,7 +506,6 @@
   }
 }
 
-/* Option 1: Remove the flex-direction change entirely to keep images side by side */
 @media (max-width: 480px) {
   .hero {
     padding: 1.5rem 1rem 1rem;
@@ -530,15 +529,15 @@
     left: -8px;
     right: -8px;
   }
-
-  /* Keep images side by side - remove flex-direction: column */
+  
   .imageContainer {
-    gap: 0.5rem; /* Smaller gap for mobile */
+    flex-direction: column;
+    gap: 0.75rem;
   }
   
   .imageWrapper {
     width: 100%;
-    height: 200px; /* Smaller height since they're side by side */
+    height: 250px;
   }
   
   .btn {

@@ -341,7 +341,7 @@ export default function Gallery() {
             </button>
             <button
               className={`${styles.btn} ${styles.secondary}`}
-              onClick={() => handleNavigateToFeature("/replicate/yearbook")}
+              onClick={() => handleNavigateToFeature("/replicate/90s")}
             >
               📚 90s Yearbook
             </button>

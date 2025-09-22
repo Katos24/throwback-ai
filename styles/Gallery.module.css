@@ -618,6 +618,7 @@
 .heroSlider {
   margin: 2rem auto;
   max-width: 600px;
+  touch-action: pan-x; /* Allows vertical scrolling, only captures horizontal */
 }
 
 .sliderCaption {

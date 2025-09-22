@@ -1119,21 +1119,22 @@
   .heroDescription {
     font-size: 1rem;
     margin-bottom: 2rem;
+    line-height: 1.5; /* Fixed line height */
   }
   
   .inlineGalleryLink {
     font-size: 0.85rem;
     padding: 0.3rem 0.6rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-    margin-left: 0;
+    display: block; /* Forces new line */
+    width: fit-content;
+    margin: 0.75rem auto 0 auto; /* Centers and adds top margin */
   }
 }
 
 @media (max-width: 480px) {
   .heroDescription {
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.4;
   }
   
   .inlineGalleryLink {

@@ -125,8 +125,20 @@ export default function HeroGridLanding() {
               </div>
             </div>
           </div>
+          
+          {/* Main Restoration Options */}
+          <div className={styles.restoreGrid}>
+            {RESTORE_OPTIONS.map((option, index) => (
+              <RestoreCard
+                key={option.id}
+                option={option}
+                index={index}
+                onNavigate={handleNavigation}
+              />
+            ))}
+          </div>
 
-          {/* Value Props Bar */}
+          {/* Value Props Bar - MOVED HERE */}
           <div className={styles.valueProps}>
             <div className={styles.valueProp}>
               <span className={styles.valueIcon}>⚡</span>
@@ -144,18 +156,6 @@ export default function HeroGridLanding() {
               <span className={styles.valueIcon}>🎨</span>
               <span>Museum-quality results</span>
             </div>
-          </div>
-          
-          {/* Main Restoration Options */}
-          <div className={styles.restoreGrid}>
-            {RESTORE_OPTIONS.map((option, index) => (
-              <RestoreCard
-                key={option.id}
-                option={option}
-                index={index}
-                onNavigate={handleNavigation}
-              />
-            ))}
           </div>
 
           {/* Professional Pricing Section */}

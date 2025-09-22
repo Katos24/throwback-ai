@@ -51,7 +51,7 @@ const HowItWorksSection = () => {
       
       {/* Optional: Add a note about credits */}
       <div className={howItWorksStyles.creditNote}>
-        <p>💡 <strong>Credit System:</strong> Different transformations use different amounts of credits based on complexity. Photo restoration starts at just 1 credit, while advanced features like Photo Colorization use 50 credits.</p>
+        <p>💡 <strong>Credit System:</strong> Different transformations use different amounts of credits based on complexity. Photo restoration starts at just 1 credit, while advanced features like Photo Colorization use 40 credits and Decades uses 50 credits.</p>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Image from 'next/image'
+import ImageCompareSlider from '../components/ImageCompareSlider'
 import styles from '../styles/Gallery.module.css'
 
 // Restore gallery items (keeping your existing ones with subcategories)
@@ -152,12 +153,12 @@ const avatarItems = [
     after: "/images/sarah-90avatar.jpg",
     description: "Premium 90s high school student avatar with enhanced detail"
   },
- {
-  before: "/images/western-avatar.jpg",
-  after: "/images/western-avatar-after.jpg",
-  description: "Portrait transformed into rugged Wild West character with frontier styling"
-}];
-
+  {
+    before: "/images/western-avatar.jpg",
+    after: "/images/western-avatar-after.jpg",
+    description: "Portrait transformed into rugged Wild West character with frontier styling"
+  }
+];
 
 // Main categories
 const mainCategories = ["All", "Restore", "90s Yearbook", "Avatar", "Cartoon"];
@@ -228,6 +229,15 @@ export default function Gallery() {
         <section className={styles.hero}>
           <h1 className={styles.title}>AI Transformation Gallery</h1>
           <p className={styles.subtitle}>See the magic of AI photo transformations</p>
+          
+          {/* Interactive Hero Example */}
+          <div className={styles.heroSlider}>
+            <ImageCompareSlider
+              beforeImage="/images/weddingbefore.jpg"
+              afterImage="/images/weddingafter.jpg"
+            />
+            <p className={styles.sliderCaption}>Drag to see the transformation - 1952 wedding photo restored and colorized</p>
+          </div>
         </section>
 
         {/* Main Category Filter */}
@@ -304,7 +314,6 @@ export default function Gallery() {
                   </div>
                   
                   <div className={styles.divider}>
-
                   </div>
                   
                   <div className={styles.imageWrapper}>

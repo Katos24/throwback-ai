@@ -613,3 +613,16 @@
     padding: 0.75rem;
   }
 }
+
+
+.heroSlider {
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.sliderCaption {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}

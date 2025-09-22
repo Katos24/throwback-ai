@@ -113,6 +113,7 @@ export default function HeroGridLanding() {
           <p className={styles.heroDescription}>
             Professional photo restoration powered by AI trained on 50,000+ vintage images. 
             Unlike generic AI tools, we specialize in family photos with historically accurate results in seconds, not hours.
+            <Link href="/gallery" className={styles.inlineGalleryLink}>See examples</Link>
           </p>
 
           {/* Signup Bonus Banner */}

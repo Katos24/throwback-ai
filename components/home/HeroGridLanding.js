@@ -4,29 +4,29 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from '../../styles/HeroGridLanding.module.css';
 
-// Restore options data - COLORIZATION FIRST
+// Restore options data - COLORIZATION FIRST (now positioned as free trial)
 const RESTORE_OPTIONS = [
   {
     id: 'colorize',
-    title: 'Colorize B&W Photos',
-    description: 'Add historically accurate, vibrant colors to black and white family photos',
+    title: 'Premium Colorization',
+    description: 'Experience museum-quality colorization - add historically accurate, vibrant colors to black and white family photos',
     credits: 40,
-    badge: 'Most Popular',
-    badgeColor: 'popular',
+    badge: 'Try Free',
+    badgeColor: 'success',
     link: '/replicate/restore-premium',
     combinedImage: '/images/colorize-before-after-combined.jpg',
-    buttonText: 'Add Color'
+    buttonText: 'Try Premium Free'
   },
   {
     id: 'restore-basic',
     title: 'Photo Restoration',
     description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos',
     credits: 1,
-    badge: 'Try Free',
-    badgeColor: 'success',
+    badge: 'Try Now',
+    badgeColor: 'popular',
     link: '/replicate/restore-basic',
     combinedImage: '/images/restore-before-after-combined.jpg',
-    buttonText: 'Restore (Try Free)'
+    buttonText: 'Restore Photo'
   }
 ];
 
@@ -115,6 +115,16 @@ export default function HeroGridLanding() {
             Unlike generic AI tools, we specialize in family photos with historically accurate results in seconds, not hours.
           </p>
 
+          {/* Signup Bonus Banner */}
+          <div className={styles.signupBonus}>
+            <div className={styles.signupBonusContent}>
+              <span className={styles.bonusIcon}>🎁</span>
+              <div className={styles.bonusText}>
+                <strong>Sign up now and get 40 free credits</strong> - Try premium colorization at no cost!
+              </div>
+            </div>
+          </div>
+
           {/* Value Props Bar */}
           <div className={styles.valueProps}>
             <div className={styles.valueProp}>
@@ -151,38 +161,37 @@ export default function HeroGridLanding() {
           <div className={styles.pricingInfo}>
             <div className={styles.pricingCard}>
               <div className={styles.pricingHeader}>
-                <h3 className={styles.pricingTitle}>Transparent, Pay-Per-Use Pricing</h3>
+                <h3 className={styles.pricingTitle}>Try Everything Free, Then Pay-Per-Use</h3>
                 <span className={styles.pricingBadge}>No Subscriptions</span>
               </div>
               
               <div className={styles.pricingDetails}>
                 <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>Try Free:</span>
-                  <span className={styles.pricingValue}>Basic restoration included</span>
+                  <span className={styles.pricingLabel}>Signup Bonus:</span>
+                  <span className={styles.pricingValue}>40 free credits (try premium colorization!)</span>
                 </div>
                 
                 <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>Get Started:</span>
-                  <span className={styles.pricingValue}>$4.99 for 400 credits</span>
+                  <span className={styles.pricingLabel}>After Free Credits:</span>
+                  <span className={styles.pricingValue}>$4.99 for 400 more credits</span>
                 </div>
                 
                 <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>Professional Colorization:</span>
-                  <span className={styles.pricingValue}>$0.48 per photo (vs $5-15 industry standard)</span>
+                  <span className={styles.pricingLabel}>Industry Comparison:</span>
+                  <span className={styles.pricingValue}>$0.48/photo vs $15-50 elsewhere</span>
                 </div>
               </div>
               
               <div className={styles.valueProposition}>
                 <div className={styles.valueStats}>
                   <div className={styles.valueStat}>
-                    <span className={styles.valueNumber}>90%</span>
+                    <span className={styles.valueNumber}>95%</span>
                     <span className={styles.valueDesc}>Cost Savings</span>
                   </div>
                   <div className={styles.valueStat}>
                     <span className={styles.valueNumber}>10×</span>
                     <span className={styles.valueDesc}>Faster Processing</span>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -193,9 +202,9 @@ export default function HeroGridLanding() {
         <div className={styles.bottomCta}>
           <div className={styles.ctaCard}>
             <h3 className={styles.ctaTitle}>Ready to Get Started?</h3>
-            <p className={styles.ctaDescription}>Try photo restoration for free</p>
+            <p className={styles.ctaDescription}>Try premium colorization and photo restoration completely free</p>
             <Link href="/pricing" className={styles.ctaButton}>
-              Get 5 Free Credits
+              Get 40 Free Credits
             </Link>
           </div>
         </div>

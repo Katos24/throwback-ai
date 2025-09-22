@@ -177,7 +177,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
         return;
       }
 
-      setSuccessMsg('🎉 Magic link sent! Check your email to activate your 5 free AI credits.');
+      setSuccessMsg('🎉 Magic link sent! Check your email to activate your 40 free AI credits.');
       startCooldown(90);
       setEmail('');
       if (onSuccess) onSuccess();
@@ -194,7 +194,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
   const getButtonText = () => {
     if (loading) return 'Creating account...';
     if (cooldown > 0) return `Wait ${cooldown}s`;
-    return 'Claim 5 Free Credits';
+    return 'Claim 40 Free Credits';
   };
 
   const isFormDisabled = isDisabled || loading || oauthLoading || cooldown > 0;
@@ -245,7 +245,7 @@ export function SignupForm({ onSuccess, onError, isDisabled }) {
               <path fill="#FBBC05" d="M5.19 14.21a7.2 7.2 0 010-4.42V6.64H1.26a11.98 11.98 0 000 10.72l3.93-3.15z" />
               <path fill="#EA4335" d="M12 4.48c1.77 0 3.35.61 4.6 1.81l3.45-3.45C17.96 1.07 15.24 0 12 0 7.92 0 4.27 2.42 2.7 5.87l3.93 3.15c.94-2.89 3.62-5.03 6.81-5.03z" />
             </svg>
-            <span>Get 5 credits with Google</span>
+            <span>Get 40 credits with Google</span>
           </>
         )}
       </button>

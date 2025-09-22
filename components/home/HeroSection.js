@@ -163,7 +163,7 @@ export default function HeroSection() {
               <div className={heroStyles.offerText}>
                 <strong>Try It Free Right Now</strong>
                 <span className={heroStyles.offerDetails}>
-                  <Link href="/pricing" className={heroStyles.ctaLink}>Get 5 Free Credits</Link> • No credit card needed
+                  <Link href="/pricing" className={heroStyles.ctaLink}>Get 40 Free Credits</Link> • No credit card needed
                 </span>
               </div>
             </div>

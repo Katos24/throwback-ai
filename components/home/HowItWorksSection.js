@@ -6,7 +6,7 @@ const HowItWorksSection = () => {
     {
       icon: '👤',
       title: 'Sign Up & Get Free Credits',
-      description: 'Create your free account and get 5 credits to start transforming photos right away. No subscription required - just pay as you go.',
+      description: 'Create your free account and get 40 credits to start transforming photos right away. No subscription required - just pay as you go.',
     },
     {
       icon: '📤',

@@ -235,7 +235,7 @@ export default function HowItWorksPage() {
               </div>
               <div className={styles.creditsBenefit}>
                 <span className={styles.benefitIcon}>🎁</span>
-                <span>Get 5 free credits when you sign up</span>
+                <span>Get 40 free credits when you sign up</span>
               </div>
               <div className={styles.creditsBenefit}>
                 <span className={styles.benefitIcon}>⏰</span>

@@ -449,7 +449,7 @@ export default function SignupPage() {
                 <span className={styles.offerIcon}>🎁</span>
                 <div className={styles.offerContent}>
                   <div className={styles.offerTitle}>Welcome Gift!</div>
-                  <div className={styles.offerText}>Get 5 free credits to restore your photos when you sign up today</div>
+                  <div className={styles.offerText}>Get 40 free credits to restore your photos when you sign up today</div>
                 </div>
               </div>
             </div>

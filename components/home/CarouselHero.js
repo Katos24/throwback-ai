@@ -152,7 +152,7 @@ export default function HeroSection() {
               <strong>Try It Free Right Now</strong>
               <span className={styles.offerDetails}>
                 <Link href="/pricing" className={styles.ctaLink}>
-                  Get 5 Free Credits
+                  Get 40 Free Credits
                 </Link>{" "}
                 • No credit card needed
               </span>

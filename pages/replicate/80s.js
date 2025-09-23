@@ -1,4 +1,3 @@
-// pages/replicate/80s.js
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -9,7 +8,6 @@ import { EIGHTIES_STYLES, buildEightiesPrompt } from "../../components/EightiesP
 import DecadeBottomSection from "../../components/DecadeBottomSection";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
-import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import EightiesSEO from "../../components/SEO/EightiesSEO";
@@ -29,13 +27,8 @@ export default function EightiesPage() {
   const [styleStrength, setStyleStrength] = useState(20);
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
 
-  // UI state for expandable sections
-  const [expandedSections, setExpandedSections] = useState({
-    gender: false,
-    workflow: false,
-    style: false,
-    strength: false
-  });
+  // Advanced settings visibility
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
@@ -74,7 +67,7 @@ export default function EightiesPage() {
 
     // Scroll to photo section on mobile when generation starts
     const scrollToPhoto = () => {
-      const photoSection = document.querySelector(`.${styles.photoSection}`) || 
+      const photoSection = document.querySelector(`.${styles.computerSection}`) || 
                           document.querySelector(`.${styles.monitorScreen}`);
       
       if (photoSection && window.innerWidth <= 768) {
@@ -129,8 +122,8 @@ export default function EightiesPage() {
 
   const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
 
-  const handlePhotoUploadCallback = () => {
-    setExpandedSections(prev => ({ ...prev, gender: true }));
+  const toggleAdvancedSettings = () => {
+    setShowAdvancedSettings(!showAdvancedSettings);
   };
 
   return (
@@ -138,103 +131,199 @@ export default function EightiesPage() {
       <EightiesSEO />
 
       <main className={styles.container}>
-        {/* 80s Desktop Content */}
-        <div className={styles.screenContent}>
-          {/* Taskbar Credits Header */}
-          <div className={styles.creditsHeader}>
-            <div className={styles.creditsInfo}>
-              <span className={styles.creditsIcon}>📻</span>
-              <span className={styles.creditsText}>{credits} credits</span>
+        {/* Animated Background Elements */}
+        <div className={styles.gridBg}></div>
+        <div className={styles.neonParticles}>
+          <div className={styles.particle} style={{left: '10%', animationDelay: '0s'}}></div>
+          <div className={styles.particle} style={{left: '30%', animationDelay: '2s'}}></div>
+          <div className={styles.particle} style={{left: '70%', animationDelay: '4s'}}></div>
+          <div className={styles.particle} style={{left: '90%', animationDelay: '6s'}}></div>
+        </div>
+
+        {/* Credits Header */}
+        <div className={styles.creditsHeader}>
+          <div className={styles.creditsInfo}>
+            <span className={styles.creditsIcon}>📻</span>
+            <span className={styles.creditsText}>{credits} CREDITS</span>
+          </div>
+          <button 
+            onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
+            className={styles.creditsButton}
+          >
+            {isLoggedIn ? "GET MORE" : "SIGN UP"}
+          </button>
+        </div>
+
+        {/* Hero Section */}
+        <div className={styles.hero}>
+          <h1 className={styles.title}>80S YEARBOOK</h1>
+          <p className={styles.subtitle}>
+            GET TOTALLY AWESOME WITH AUTHENTIC 80S VIBES
+          </p>
+          <div className={styles.costPill}>COSTS {avatarCost} CREDITS</div>
+        </div>
+
+        {/* Computer Monitor Section */}
+        <div className={styles.computerSection}>
+          <div className={styles.computerMonitor}>
+            <div className={styles.monitorHeader}>
+              {resultImageUrl ? '80S YEARBOOK RESULT' : 'UPLOAD YOUR PHOTO'}
             </div>
-            <button 
-              onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
-              className={styles.creditsButton}
-            >
-              {isLoggedIn ? "+" : "Sign Up"}
-            </button>
-          </div>
-
-          {/* 80s Computer UI Hero Section */}
-          <div className={styles.hero}>
-            <h1 className={styles.title}>
-              <span className={styles.titleEmoji}>📻</span>
-              80s Yearbook Photos
-            </h1>
-            <p className={styles.subtitle}>
-              Get totally awesome with authentic 80s yearbook vibes.
-              <span className={styles.creditPill}>Costs {avatarCost} credits</span>
-            </p>
-          </div>
-
-          {/* Single Computer Photo Section */}
-          <div className={styles.photoSection}>
-            <div className={styles.singleComputer}>
-              {/* Computer Monitor */}
-              <div className={styles.computerMonitor}>
-                <h3 className={styles.monitorTitle}>
-                  {resultImageUrl ? '80s Yearbook Result' : 'Upload Your Photo'}
-                </h3>
-                
-                <div className={styles.monitorScreen}>
-                  {!previewUrl && !resultImageUrl ? (
-                    <PhotoUpload
-                      photo={photo}
-                      setPhoto={setPhoto}
-                      previewUrl={previewUrl}
-                      setPreviewUrl={setPreviewUrl}
-                      resultImageUrl={resultImageUrl}
-                      setResultImageUrl={setResultImageUrl}
-                      setShowingOriginal={setShowingOriginal}
-                      onPhotoUpload={handlePhotoUploadCallback}
-                      decade="80s"
-                      styles={styles}
-                    />
-                  ) : (
-                    <ImageDisplay
-                      previewUrl={previewUrl}
-                      resultImageUrl={resultImageUrl}
-                      showingOriginal={showingOriginal}
-                      setShowingOriginal={setShowingOriginal}
-                      handleDownload={handleDownload}
-                      decade="80s"
-                      styles={styles}
-                      // Add loading overlay props
-                      isLoading={isLoading}
-                      progress={progress}
-                      progressStage={progressStage}
-                    />
-                  )}
-                </div>
-                
-                <input
-                  id="photo-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={() => {}} // Handled by PhotoUpload component
-                  style={{ display: 'none' }}
+            
+            <div className={styles.monitorScreen}>
+              {!previewUrl && !resultImageUrl ? (
+                <PhotoUpload
+                  photo={photo}
+                  setPhoto={setPhoto}
+                  previewUrl={previewUrl}
+                  setPreviewUrl={setPreviewUrl}
+                  resultImageUrl={resultImageUrl}
+                  setResultImageUrl={setResultImageUrl}
+                  setShowingOriginal={setShowingOriginal}
+                  decade="80s"
+                  styles={styles}
                 />
+              ) : (
+                <ImageDisplay
+                  previewUrl={previewUrl}
+                  resultImageUrl={resultImageUrl}
+                  showingOriginal={showingOriginal}
+                  setShowingOriginal={setShowingOriginal}
+                  handleDownload={handleDownload}
+                  decade="80s"
+                  styles={styles}
+                  isLoading={isLoading}
+                  progress={progress}
+                  progressStage={progressStage}
+                />
+              )}
+            </div>
+            
+            {/* Hidden file input for "Change Photo" functionality */}
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  const file = e.target.files[0];
+                  setPhoto(file);
+                  setPreviewUrl(URL.createObjectURL(file));
+                  setResultImageUrl(null);
+                  setShowingOriginal(false);
+                }
+              }}
+              style={{ display: 'none' }}
+            />
+          </div>
+        </div>
+
+        {/* Main Configuration */}
+        <div className={styles.configSection}>
+          <div className={styles.configPanel}>
+            <div className={styles.configTitle}>CHOOSE GENDER</div>
+            <div className={styles.styleGrid}>
+              <button 
+                className={`${styles.styleOption} ${userGender === 'male' ? styles.active : ''}`}
+                onClick={() => setUserGender('male')}
+              >
+                MALE
+              </button>
+              <button 
+                className={`${styles.styleOption} ${userGender === 'female' ? styles.active : ''}`}
+                onClick={() => setUserGender('female')}
+              >
+                FEMALE
+              </button>
+              <button 
+                className={`${styles.styleOption} ${userGender === 'non-binary' ? styles.active : ''}`}
+                onClick={() => setUserGender('non-binary')}
+              >
+                NON-BINARY
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.configPanel}>
+            <div className={styles.configTitle}>80S STYLE</div>
+            <div className={styles.styleGrid}>
+              {EIGHTIES_STYLES && EIGHTIES_STYLES.map((style) => (
+                <button 
+                  key={style.id}
+                  className={`${styles.styleOption} ${selectedStyle === style.id ? styles.active : ''}`}
+                  onClick={() => setSelectedStyle(style.id)}
+                >
+                  {style.label ? style.label.toUpperCase() : 'STYLE'}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Advanced Settings - Collapsible */}
+        <div className={styles.advancedSection}>
+          <button className={styles.advancedToggle} onClick={toggleAdvancedSettings}>
+            <span className={`${styles.toggleIcon} ${showAdvancedSettings ? styles.expanded : ''}`}>
+              ▶
+            </span>
+            ADVANCED SETTINGS
+            <span className={styles.optionalLabel}>(OPTIONAL)</span>
+          </button>
+          
+          <div className={`${styles.advancedContent} ${showAdvancedSettings ? styles.show : ''}`}>
+            <div className={styles.configSection}>
+              <div className={styles.configPanel}>
+                <div className={styles.configTitle}>PHOTO QUALITY</div>
+                <div className={styles.styleGrid}>
+                  <button 
+                    className={`${styles.styleOption} ${workflowType === 'HyperRealistic-likeness' ? styles.active : ''}`}
+                    onClick={() => setWorkflowType('HyperRealistic-likeness')}
+                  >
+                    REALISTIC
+                  </button>
+                  <button 
+                    className={`${styles.styleOption} ${workflowType === 'HyperRealistic' ? styles.active : ''}`}
+                    onClick={() => setWorkflowType('HyperRealistic')}
+                  >
+                    HYPER-REAL
+                  </button>
+                  <button 
+                    className={`${styles.styleOption} ${workflowType === 'Stylistic' ? styles.active : ''}`}
+                    onClick={() => setWorkflowType('Stylistic')}
+                  >
+                    STYLISTIC
+                  </button>
+                </div>
+                <div className={styles.settingDescription}>
+                  Realistic preserves natural look, Hyper-Real adds detail, Stylistic emphasizes artistic 80s effects
+                </div>
+              </div>
+
+              <div className={styles.configPanel}>
+                <div className={styles.configTitle}>STYLE STRENGTH</div>
+                <div className={styles.sliderContainer}>
+                  <span className={styles.sliderLabel}>SUBTLE</span>
+                  <input 
+                    type="range" 
+                    className={styles.styleSlider} 
+                    min="5" 
+                    max="35" 
+                    value={styleStrength}
+                    onChange={(e) => setStyleStrength(parseInt(e.target.value))}
+                  />
+                  <span className={styles.sliderLabel}>INTENSE</span>
+                </div>
+                <div className={styles.sliderValue}>STRENGTH: {styleStrength}</div>
+                <div className={styles.settingDescription}>
+                  Controls how dramatically the 80s style is applied
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Configuration Section */}
-          <ConfigurationSection
-            userGender={userGender}
-            setUserGender={setUserGender}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
-            styleStrength={styleStrength}
-            setStyleStrength={setStyleStrength}
-            workflowType={workflowType}
-            setWorkflowType={setWorkflowType}
-            expandedSections={expandedSections}
-            setExpandedSections={setExpandedSections}
-            styles={styles}
-            decade="80s"
-            decadeStyles={EIGHTIES_STYLES}
-          />
-
-          {/* Generate Button */}
+        {/* Generate Button */}
+        <div className={styles.generateSection}>
           <GenerateButton
             onClick={handleGenerateOrRedirect}
             isLoading={isLoading}

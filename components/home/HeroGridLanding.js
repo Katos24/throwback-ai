@@ -4,79 +4,103 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from '../../styles/HeroGridLanding.module.css';
 
-// Restore options data - COLORIZATION FIRST (now positioned as free trial)
-const RESTORE_OPTIONS = [
+// Updated feature options - all three main features with equal prominence
+const FEATURE_OPTIONS = [
   {
     id: 'colorize',
     title: 'Premium Colorization',
-    description: 'Experience museum-quality colorization - add historically accurate, vibrant colors to black and white family photos',
+    description: 'Transform black and white family photos with museum-quality, historically accurate colorization.',
     credits: 40,
     badge: 'Try Free',
-    badgeColor: 'success',
+    badgeColor: 'free',
     link: '/replicate/restore-premium',
     combinedImage: '/images/colorize-before-after-combined.jpg',
-    buttonText: 'Try Premium Free'
+    buttonText: 'Try Premium Free',
+    beforeLabel: 'Before',
+    afterLabel: 'After'
+  },
+  {
+    id: 'decades',
+    title: 'Decades Time Travel',
+    description: 'Transform your selfies into viral social media content with authentic 70s, 80s, 90s, and 2000s styling.',
+    credits: 50,
+    badge: 'Viral Content',
+    badgeColor: 'viral',
+    link: '/decades',
+    combinedImage: '/images/decades-before-after-combined.jpg',
+    buttonText: 'Explore Decades',
+    beforeLabel: 'Now',
+    afterLabel: '80s'
   },
   {
     id: 'restore-basic',
     title: 'Photo Restoration',
-    description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos',
+    description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos instantly.',
     credits: 1,
-    badge: 'Try Now',
-    badgeColor: 'popular',
+    badge: 'Lightning Fast',
+    badgeColor: 'fast',
     link: '/replicate/restore-basic',
     combinedImage: '/images/restore-before-after-combined.jpg',
-    buttonText: 'Restore Photo'
+    buttonText: 'Restore Now',
+    beforeLabel: 'Damaged',
+    afterLabel: 'Restored'
   }
 ];
 
-// Memoized RestoreCard component
-const RestoreCard = React.memo(({ option, index, onNavigate }) => (
-  <div className={styles.restoreCardWrapper}>
+// Memoized FeatureCard component
+const FeatureCard = React.memo(({ feature, index, onNavigate }) => (
+  <div className={styles.featureCardWrapper}>
     <button 
-      className={styles.restoreCardLink}
-      onClick={() => onNavigate(option.link)}
+      className={styles.featureCardLink}
+      onClick={() => onNavigate(feature.link)}
       style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
-      aria-label={`${option.title} - ${option.description}`}
+      aria-label={`${feature.title} - ${feature.description}`}
     >
-      <div className={styles.restoreCard}>
+      <div className={styles.featureCard}>
         {/* Badge */}
-        {option.badge && (
-          <div className={`${styles.badge} ${styles[option.badgeColor]}`}>
-            {option.badge}
+        {feature.badge && (
+          <div className={`${styles.featureBadge} ${styles[`badge-${feature.badgeColor}`]}`}>
+            {feature.badge}
           </div>
         )}
         
-        {/* Combined Before/After Image */}
-        <div className={styles.combinedImageContainer}>
-          <Image
-            src={option.combinedImage}
-            alt={`${option.title} - Before and After comparison`}
-            fill
-            className={styles.combinedImage}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority={index === 0}
-            fetchPriority={index === 0 ? "high" : "auto"}
-            quality={75}
-            loading={index === 0 ? "eager" : "lazy"}
+        {/* Before/After Image Container */}
+        <div className={styles.featureImage}>
+          <div className={styles.combinedImageContainer}>
+            <Image
+              src={feature.combinedImage}
+              alt={`${feature.title} - Before and After comparison`}
+              fill
+              className={styles.combinedImage}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={index === 0}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              quality={75}
+              loading={index === 0 ? "eager" : "lazy"}
             />
-          <div className={styles.splitLine}></div>
-          <div className={styles.beforeLabel}>Before</div>
-          <div className={styles.afterLabel}>After</div>
+            <div className={styles.splitLine}></div>
+            <div className={`${styles.imageLabel} ${styles.labelBefore}`}>
+              {feature.beforeLabel}
+            </div>
+            <div className={`${styles.imageLabel} ${styles.labelAfter}`}>
+              {feature.afterLabel}
+            </div>
+          </div>
         </div>
         
         {/* Content */}
-        <h3 className={styles.restoreTitle}>{option.title}</h3>
-        <p className={styles.restoreDescription}>{option.description}</p>
-        
-        {/* Credits and Button */}
-        <div className={styles.restoreFooter}>
-          <div className={styles.creditsInfo}>
-            <span className={styles.creditsNumber}>{option.credits}</span>
-            <span className={styles.creditsLabel}>{option.credits === 1 ? 'credit' : 'credits'}</span>
-          </div>
-          <div className={styles.restoreButton}>
-            {option.buttonText}
+        <div className={styles.featureContent}>
+          <h3 className={styles.featureTitle}>{feature.title}</h3>
+          <p className={styles.featureDescription}>{feature.description}</p>
+          
+          <div className={styles.featureFooter}>
+            <div className={styles.credits}>
+              <span className={styles.creditsNumber}>{feature.credits}</span>
+              <span className={styles.creditsLabel}>{feature.credits === 1 ? 'credit' : 'credits'}</span>
+            </div>
+            <button className={styles.featureButton}>
+              {feature.buttonText}
+            </button>
           </div>
         </div>
       </div>
@@ -84,7 +108,7 @@ const RestoreCard = React.memo(({ option, index, onNavigate }) => (
   </div>
 ));
 
-RestoreCard.displayName = 'RestoreCard';
+FeatureCard.displayName = 'FeatureCard';
 
 export default function HeroGridLanding() {
   const router = useRouter();
@@ -104,109 +128,69 @@ export default function HeroGridLanding() {
     <section className={styles.heroSection}>
       <div className={styles.container}>
         
-        {/* Hero Section */}
-        <div className={styles.heroContent}>
+        {/* Floating Particles Background */}
+        <div className={styles.floatingParticles}>
+          <div className={styles.particle} style={{left: '10%', animationDelay: '0s'}}></div>
+          <div className={styles.particle} style={{left: '20%', animationDelay: '1s'}}></div>
+          <div className={styles.particle} style={{left: '30%', animationDelay: '2s'}}></div>
+          <div className={styles.particle} style={{left: '70%', animationDelay: '3s'}}></div>
+          <div className={styles.particle} style={{left: '80%', animationDelay: '4s'}}></div>
+          <div className={styles.particle} style={{left: '90%', animationDelay: '5s'}}></div>
+        </div>
+
+        {/* Hero Header */}
+        <div className={styles.heroHeader}>
           <h1 className={styles.heroTitle}>
-            Bring Your Photos
-            <span className={styles.gradientText}> Back to Life</span>
+            AI Photo Magic
+            <br />
+            <span className={styles.gradientText}>in Seconds</span>
           </h1>
-          <p className={styles.heroDescription}>
-            Professional photo restoration powered by AI trained on 50,000+ vintage images. 
-            Unlike generic AI tools, we specialize in family photos with historically accurate results in seconds, not hours.
-            <Link href="/gallery" className={styles.inlineGalleryLink}>See examples</Link>
+          <p className={styles.heroSubtitle}>
+            Professional photo restoration, viral decade transformations, and colorization powered by AI trained on 50,000+ vintage images.
           </p>
 
           {/* Signup Bonus Banner */}
           <div className={styles.signupBonus}>
-            <div className={styles.signupBonusContent}>
-              <span className={styles.bonusIcon}>🎁</span>
-              <div className={styles.bonusText}>
-                <strong>Sign up now and get 40 free credits</strong> - Try premium colorization at no cost!
-              </div>
-            </div>
-          </div>
-          
-          {/* Main Restoration Options */}
-          <div className={styles.restoreGrid}>
-            {RESTORE_OPTIONS.map((option, index) => (
-              <RestoreCard
-                key={option.id}
-                option={option}
-                index={index}
-                onNavigate={handleNavigation}
-              />
-            ))}
-          </div>
-
-          {/* Value Props Bar - MOVED HERE */}
-          <div className={styles.valueProps}>
-            <div className={styles.valueProp}>
-              <span className={styles.valueIcon}>⚡</span>
-              <span>45-second processing</span>
-            </div>
-            <div className={styles.valueProp}>
-              <span className={styles.valueIcon}>🎯</span>
-              <span>Specialized photo AI</span>
-            </div>
-            <div className={styles.valueProp}>
-              <span className={styles.valueIcon}>💰</span>
-              <span>No subscriptions</span>
-            </div>
-            <div className={styles.valueProp}>
-              <span className={styles.valueIcon}>🎨</span>
-              <span>Museum-quality results</span>
-            </div>
-          </div>
-
-          {/* Professional Pricing Section */}
-          <div className={styles.pricingInfo}>
-            <div className={styles.pricingCard}>
-              <div className={styles.pricingHeader}>
-                <h3 className={styles.pricingTitle}>Try Everything Free, Then Pay-Per-Use</h3>
-                <span className={styles.pricingBadge}>No Subscriptions</span>
-              </div>
-              
-              <div className={styles.pricingDetails}>
-                <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>Signup Bonus:</span>
-                  <span className={styles.pricingValue}>40 free credits (try premium colorization!)</span>
-                </div>
-                
-                <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>After Free Credits:</span>
-                  <span className={styles.pricingValue}>$4.99 for 400 more credits</span>
-                </div>
-                
-                <div className={styles.pricingItem}>
-                  <span className={styles.pricingLabel}>Industry Comparison:</span>
-                  <span className={styles.pricingValue}>$0.48/photo vs $15-50 elsewhere</span>
-                </div>
-              </div>
-              
-              <div className={styles.valueProposition}>
-                <div className={styles.valueStats}>
-                  <div className={styles.valueStat}>
-                    <span className={styles.valueNumber}>95%</span>
-                    <span className={styles.valueDesc}>Cost Savings</span>
-                  </div>
-                  <div className={styles.valueStat}>
-                    <span className={styles.valueNumber}>10×</span>
-                    <span className={styles.valueDesc}>Faster Processing</span>
-                  </div>
-                </div>
-              </div>
+            <span className={styles.bonusIcon}>🎁</span>
+            <div className={styles.bonusText}>
+              <strong>Sign up now and get 40 free credits</strong> - Try everything at no cost!
             </div>
           </div>
         </div>
+          
+        {/* Main Features Grid */}
+        <div className={styles.featuresGrid}>
+          {FEATURE_OPTIONS.map((feature, index) => (
+            <FeatureCard
+              key={feature.id}
+              feature={feature}
+              index={index}
+              onNavigate={handleNavigation}
+            />
+          ))}
+        </div>
 
-        {/* Bottom CTA */}
-        <div className={styles.bottomCta}>
-          <div className={styles.ctaCard}>
-            <h3 className={styles.ctaTitle}>Ready to Get Started?</h3>
-            <p className={styles.ctaDescription}>Try premium colorization and photo restoration completely free</p>
-            <Link href="/pricing" className={styles.ctaButton}>
-              Get 40 Free Credits
-            </Link>
+        {/* Value Props */}
+        <div className={styles.valueProps}>
+          <div className={styles.valueProp}>
+            <span className={styles.valueIcon}>⚡</span>
+            <div className={styles.valueTitle}>45-Second Processing</div>
+            <div className={styles.valueDesc}>AI magic happens instantly</div>
+          </div>
+          <div className={styles.valueProp}>
+            <span className={styles.valueIcon}>🎯</span>
+            <div className={styles.valueTitle}>Specialized Photo AI</div>
+            <div className={styles.valueDesc}>Trained on 50K+ vintage images</div>
+          </div>
+          <div className={styles.valueProp}>
+            <span className={styles.valueIcon}>💰</span>
+            <div className={styles.valueTitle}>No Subscriptions</div>
+            <div className={styles.valueDesc}>Pay per use, own forever</div>
+          </div>
+          <div className={styles.valueProp}>
+            <span className={styles.valueIcon}>🎨</span>
+            <div className={styles.valueTitle}>Museum Quality</div>
+            <div className={styles.valueDesc}>Professional-grade results</div>
           </div>
         </div>
 

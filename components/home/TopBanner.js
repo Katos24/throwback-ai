@@ -20,7 +20,7 @@ const TopBanner = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-        }
+        } 
       },
       { threshold: 0.2 }
     );

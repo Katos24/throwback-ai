@@ -4,13 +4,13 @@ import { useInView } from 'react-intersection-observer';
 import { Suspense } from 'react';
 import HomepageSEO from '../components/SEO/HomepageSEO';
 
-// Lazy-load sections - Updated order with DecadesSection moved up
+// Lazy-load sections - Reordered with Success Stories moved up
 const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
-const TopBanner = dynamic(() => import('../components/home/TopBanner'));
-const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); // MOVED UP
+const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories')); // MOVED UP TO #2
+const TopBanner = dynamic(() => import('../components/home/TopBanner')); // Technical restoration demo
+const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); 
 const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
-const DemoSection = dynamic(() => import('../components/home/DemoSection')); // Modern AI demo section
-const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories'));
+const DemoSection = dynamic(() => import('../components/home/DemoSection')); 
 const HowItWorks = dynamic(() => import('../components/home/HowItWorksSection'));
 const PricingSection = dynamic(() => import('../components/home/PricingSection'));
 const CTASection = dynamic(() => import('../components/home/CTASection'));
@@ -19,13 +19,13 @@ const CTASection = dynamic(() => import('../components/home/CTASection'));
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 
 export default function Home() {
-  // Intersection Observers - Reordered to match new layout
+  // Intersection Observers - Reordered for new flow
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // MOVED UP
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // MOVED UP
+  const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); 
-  const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [ctaRef, ctaInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -36,34 +36,34 @@ export default function Home() {
       <HomepageSEO />
 
       <main>
-        {/* 1. Hero Grid Landing */}
+        {/* 1. Hero Grid Landing - Overview of 3 main features */}
         <div ref={heroGridRef}>
           {heroGridInView && <Suspense fallback={<Loader />}><HeroGridLanding /></Suspense>}
         </div>
 
-        {/* 2. Top Banner */}
+        {/* 2. Customer Success Stories - Immediate social proof with tabs */}
+        <div ref={successRef}>
+          {successInView && <Suspense fallback={<Loader />}><CustomerSuccess /></Suspense>}
+        </div>
+
+        {/* 3. Top Banner - Technical restoration demo (how AI works) */}
         <div ref={topBannerRef}>
           {topBannerInView && <Suspense fallback={<Loader />}><TopBanner /></Suspense>}
         </div>
 
-        {/* 3. Decades Section - Time Travel Transformations (MOVED UP) */}
+        {/* 4. Decades Section - Deep dive into each decade */}
         <div ref={decadesRef}>
           {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
         </div>
 
-        {/* 4. Features Section - Your enhanced features */}
+        {/* 5. Features Section */}
         <div ref={featuresRef} id="features">
           {featuresInView && <Suspense fallback={<Loader />}><FeaturesSection /></Suspense>}
         </div>
 
-        {/* 5. Modern AI Demo Section */}
+        {/* 6. Demo Section */}
         <div ref={demoSectionRef}>
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
-        </div>
-
-        {/* 6. Customer Success */}
-        <div ref={successRef}>
-          {successInView && <Suspense fallback={<Loader />}><CustomerSuccess /></Suspense>}
         </div>
 
         {/* 7. How It Works */}

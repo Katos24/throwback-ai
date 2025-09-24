@@ -612,7 +612,6 @@
 
    .dropdownMenu {
     width: 220px;       /* make it skinnier */
-    max-width: 90vw;    /* fallback for very small screens */
     padding: 12px;
   }
 

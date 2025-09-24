@@ -8,7 +8,7 @@ const DECADE_OPTIONS = [
   {
     id: 'all-decades',
     title: 'All Decades',
-    description: 'Try every era - 70s, 80s, 90s, and 2000s styles in one collection',
+    description: 'Try 70s, 80s, 90s, and 2000s styles',
     credits: 50,
     era: 'Time Travel',
     link: '/decades',

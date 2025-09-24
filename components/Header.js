@@ -75,7 +75,6 @@ export default function Header({ showMenu, setShowMenu }) {
     { 
       href: "/replicate/restore-premium", 
       label: "Photo Colorization", 
-      icon: "🌈",
       description: "Add beautiful colors",
       credits: "40 Credits",
       badge: "Premium"
@@ -83,14 +82,12 @@ export default function Header({ showMenu, setShowMenu }) {
     { 
       href: "/replicate/restore-basic", 
       label: "Photo Restoration", 
-      icon: "🔧",
       description: "Repair scratches & damage",
       credits: "1 Credit"
     },
     { 
       href: "/decades", 
       label: "Decades", 
-      icon: "📸",
       description: "Create authentic Decades yearbook photos",
       credits: "50 Credits",
       badge: "Popular"
@@ -98,7 +95,6 @@ export default function Header({ showMenu, setShowMenu }) {
     { 
       href: "/replicate/avatar", 
       label: "AI Avatar Generator", 
-      icon: "👤",
       description: "Professional AI-generated avatars",
       credits: "50 Credits",
       badge: "New"
@@ -106,7 +102,6 @@ export default function Header({ showMenu, setShowMenu }) {
      { 
       href: "/replicate/cartoon", 
       label: "Cartoon Creator", 
-      icon: "🎨",
       description: "Transform to cartoon art",
       credits: "40 Credits",
       badge: "New"

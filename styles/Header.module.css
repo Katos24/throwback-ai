@@ -610,21 +610,9 @@
     padding-right: max(16px, env(safe-area-inset-right));
   }
 
-  .dropdownMenu {
-    width: 260px;       /* make it skinnier */
-    max-width: 90vw;    /* fallback for very small screens */
-    padding: 12px;
-  }
-
-  .dropdownItemContent {
-    flex-wrap: wrap;    /* allow text to wrap */
-  }
-
-  .dropdownItemCredits {
-    white-space: nowrap;      /* keep credits on one line */
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+   .dropdownMenu {
+      max-width: 220px; /* makes it skinnier */
+    }
   
   .showMenu {
     display: flex;

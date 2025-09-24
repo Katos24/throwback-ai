@@ -186,7 +186,7 @@ export default function TestHeroSection() {
             <div className={styles.offerText}>
               <strong>Start Free Right Now</strong>
               <span className={styles.offerDetails}>
-                <Link href="/signup" className={styles.ctaLink}>Get 40 Free Credits</Link> • No card required
+                <Link href="/signup" className={styles.ctaLink}>Get 50 Free Credits</Link> • No card required
               </span>
             </div>
           </div>

@@ -410,7 +410,7 @@ export default function RestorePremium() {
             {/* Grid Cell: Description (full width below) */}
            <p className={styles.description}>
             
-            Transform black & white photos into vibrant color masterpieces with premium AI. <strong>Sign up and get 40 free credits</strong> - Try premium colorization free!
+            Transform black & white photos into vibrant color masterpieces with premium AI. <strong>Sign up and get 50 free credits</strong> - Try premium colorization free!
             <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>
               Costs {restoreCost} credits
             </span>

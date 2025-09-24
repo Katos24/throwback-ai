@@ -153,7 +153,7 @@ export default function HeroGridLanding() {
           <div className={styles.signupBonus}>
             <span className={styles.bonusIcon}>🎁</span>
             <div className={styles.bonusText}>
-              <strong>Sign up now and get 40 free credits</strong> - Try everything at no cost!
+              <strong>Sign up now and get 50 free credits</strong> - Try everything at no cost!
             </div>
           </div>
         </div>

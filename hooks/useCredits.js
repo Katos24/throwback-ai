@@ -24,13 +24,13 @@ export default function useCredits() {
       if (error || !data) {
         setCredits(0);
       } else if (data.credits_remaining == null) {
-        // First-time login → give 40 credits as fallback
+        // First-time login → give 50 credits as fallback
         // (Database trigger should handle this, but this is a safety net)
         await supabase
           .from("profiles")
-          .update({ credits_remaining: 40 })
+          .update({ credits_remaining: 50 })
           .eq("id", session.user.id);
-        setCredits(40); // Fixed: Now matches the database update
+        setCredits(50); // Fixed: Now matches the database update
       } else {
         setCredits(data.credits_remaining);
       }

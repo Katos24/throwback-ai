@@ -385,7 +385,7 @@ const styleNameOptions = [
             <span className={styles.creditPill}>Costs {YEARBOOK_COST} credits</span>
           </p>
           <p className={styles.signupBonus}>
-            Sign up today and get <strong>40 free credits</strong> to start your transformation!
+            Sign up today and get <strong>50 free credits</strong> to start your transformation!
           </p>
         </div>
 

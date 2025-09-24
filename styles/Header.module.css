@@ -638,7 +638,7 @@
   /* COMPACT MOBILE DROPDOWN */
   .showMenu .dropdownMenu {
     position: static;
-    width: 100%;
+    width: auto;
     max-width: 280px; /* <-- Make it skinnier */
     background: rgba(45, 45, 68, 0.3);
     margin: 8px 0;

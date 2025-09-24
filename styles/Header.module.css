@@ -639,7 +639,7 @@
   .showMenu .dropdownMenu {
     position: static;
     width: 100%;
-    max-width: 320px; /* <-- Make it skinnier */
+    max-width: 280px; /* <-- Make it skinnier */
     background: rgba(45, 45, 68, 0.3);
     margin: 8px 0;
     border-radius: 12px;

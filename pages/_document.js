@@ -82,15 +82,22 @@ export default function Document() {
             __html: `
               const loadFonts = () => {
                 const fonts = [
-                  // 70s fonts
-                  'https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap',
-                  // 90s fonts
-                  'https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Impact:wght@400&family=Arial+Black:wght@900&display=swap',
-                  // 2000s fonts
-                  'https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap',
-                  // Decades section
-                  'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Righteous&display=swap'
-                ];
+                // Core UI font
+                'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
+
+                // 70s fonts
+                'https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap',
+
+                // 90s fonts
+                'https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Impact:wght@400&family=Arial+Black:wght@900&display=swap',
+
+                // 2000s fonts
+                'https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap',
+
+                // Decades section
+                'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Righteous&display=swap'
+              ];
+
 
                 fonts.forEach(href => {
                   const link = document.createElement('link');

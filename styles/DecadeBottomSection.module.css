@@ -472,12 +472,28 @@
   
   .dynamicYearbook {
     margin: 3rem 0;
-    padding: 0 0.5rem;
+    padding: 0;
+    width: 100%;
+    max-width: 100vw;
   }
   
   .yearbookCarousel {
     margin-top: 1.5rem;
-    padding: 0 10px;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .yearbookCarousel :global(.slick-slider) {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .yearbookCarousel :global(.slick-list) {
+    padding: 15px 0 !important;
+    overflow: hidden !important;
+    width: 100%;
+    max-width: 100%;
   }
   
   .yearbookImage {
@@ -492,10 +508,6 @@
   .yearbookButton {
     padding: 0.875rem 1.5rem;
     font-size: 0.95rem;
-  }
-  
-  .yearbookCarousel :global(.slick-list) {
-    padding: 15px 0 !important;
   }
   
   .stepsGrid,
@@ -533,6 +545,9 @@
   .bottomSection {
     margin-top: 2rem;
     padding-top: 2rem;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
   
   .sectionTitle {
@@ -542,11 +557,20 @@
   .dynamicYearbook {
     margin: 2rem 0;
     padding: 0;
+    width: 100%;
+    max-width: 100vw;
   }
   
   .yearbookCarousel {
-    padding: 0 5px;
+    padding: 0;
     margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .yearbookCarousel :global(.slick-slider) {
+    margin: 0;
+    width: 100%;
   }
   
   .yearbookSlide {
@@ -571,6 +595,8 @@
   
   .yearbookCarousel :global(.slick-list) {
     overflow: hidden !important;
+    width: 100%;
+    max-width: 100%;
   }
   
   .yearbookCarousel :global(.slick-dots) {

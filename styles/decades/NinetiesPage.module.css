@@ -873,13 +873,13 @@
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain; /* change from cover to contain */
+    /* object-fit: contain; */ /* remove this */
   }
 
   .digitalDisplay {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* prevent any image from overflowing */
+    /* overflow: hidden; */ /* remove this */
   }
 }

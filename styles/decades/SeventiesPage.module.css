@@ -870,6 +870,8 @@
 
 @media (max-width: 480px) {
   .tvContent { height: 300px; }
-  .generateButton { min-width: 250px; font-size: 15px; }
   .styleOption { font-size: 0.65rem; padding: 8px 6px; }
+   .uploadArea { min-height: 180px; }
+  .displayImage { max-width: 180px; max-height: 140px; }
+  .generateButton { min-width: 220px; font-size: 14px; }
 }

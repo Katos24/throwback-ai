@@ -865,3 +865,21 @@
   .generateButton { min-width: 250px; font-size: 15px; }
   .styleOption { font-size: 0.6rem; padding: 8px 6px; }
 }
+
+/* Ensure images stay within container on mobile */
+@media (max-width: 768px) {
+  .displayImage {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* change from cover to contain */
+  }
+
+  .digitalDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* prevent any image from overflowing */
+  }
+}

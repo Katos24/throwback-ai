@@ -110,7 +110,6 @@ const EightiesSEO = ({
 
       {/* Preload Critical Resources */}
       <link rel="preload" href="/fonts/retro-font.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" href="/images/computer-monitor.png" as="image" />
 
       {/* DNS Prefetch for External Resources */}
       <link rel="dns-prefetch" href="//replicate.com" />

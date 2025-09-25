@@ -614,41 +614,80 @@
 
 /* Update mobile responsive styles */
 @media (max-width: 768px) {
-  .container { padding: 15px; }
-  .creditsHeader { padding: 12px 20px; flex-direction: column; gap: 10px; }
-  .title { font-size: 2.5rem; transform: none; }
-  .monitorScreen { height: auto; min-height: 400px; }
-  .uploadArea { min-height: 300px; }
+  .container { 
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .creditsHeader { 
+    padding: 12px 20px; 
+    flex-direction: column; 
+    gap: 10px; 
+  }
+  
+  .title { 
+    font-size: 2.5rem; 
+    transform: none; 
+  }
+  
+  .monitorScreen { 
+    height: auto; 
+    min-height: auto;
+  }
+  
+  .uploadArea { 
+    min-height: 250px; 
+  }
+  
   .displayImage { 
     max-width: 90%;
     max-height: none;
     width: auto;
     height: auto;
   }
-  .configSection { grid-template-columns: 1fr; gap: 15px; }
-  .generateButton { min-width: 280px; font-size: 16px; }
+  
+  .configSection { 
+    grid-template-columns: 1fr; 
+    gap: 15px; 
+  }
+  
+  .generateButton { 
+    min-width: 280px; 
+    font-size: 16px; 
+  }
+  
   .imageContainer {
     padding: 15px;
     max-height: none;
   }
+  
   .buttonRow {
     margin-top: 15px;
   }
 }
 
-
 @media (max-width: 480px) {
-  .uploadArea { min-height: 250px; }
+  .container {
+    padding: 8px;
+    overflow-y: auto;
+  }
+  
+  .uploadArea { 
+    min-height: 200px; 
+  }
+  
   .displayImage { 
     max-width: 95%;
     max-height: none;
     width: auto;
     height: auto;
   }
+  
   .buttonRow { 
     flex-direction: row;
     gap: 8px;
   }
+  
   .toggleButton,
   .changePhotoButton,
   .downloadButton,
@@ -657,10 +696,16 @@
     padding: 6px 10px;
     min-width: 70px;
   }
-  .generateButton { min-width: 250px; font-size: 15px; }
-  .monitorScreen { min-height: 380px; }
+  
+  .generateButton { 
+    min-width: 250px; 
+    font-size: 15px; 
+  }
+  
+  .monitorScreen { 
+    min-height: auto;
+  }
 }
-
 /* Loading text that appears below generate button */
 .loadingText {
   color: #00ffff;

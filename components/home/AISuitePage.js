@@ -5,11 +5,10 @@ import styles from '../../styles/AISuite.module.css'
 
 const AISuitePage = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeFilter, setActiveFilter] = useState('all')
+  const [activeFilter, setActiveFilter] = useState('decades') // Show decades first
   const containerRef = useRef(null)
 
   useEffect(() => {
-    // Delay observer to let initial scroll settle
     const timer = setTimeout(() => {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -21,7 +20,6 @@ const AISuitePage = () => {
         { threshold: 0.1 }
       )
       if (containerRef.current) observer.observe(containerRef.current)
-      
       return () => observer.disconnect()
     }, 150)
 
@@ -29,49 +27,12 @@ const AISuitePage = () => {
   }, [])
 
   const categories = [
-    { id: 'all', label: 'All Tools', count: 7 },
-    { id: 'restore', label: 'Restore', count: 2 },
-    { id: 'transform', label: 'Transform', count: 1 },
     { id: 'decades', label: 'Decades', count: 4 },
+    { id: 'restore', label: 'Restore', count: 2 },
+    { id: 'all', label: 'All Tools', count: 6 },
   ]
 
   const aiSuites = [
-    {
-      id: 'restore-basic',
-      icon: '🔧',
-      name: 'Photo Restoration',
-      tagline: 'Repair & Restore',
-      cardImage: '/images/restore-card.png',
-      credits: 1,
-      link: '/replicate/restore-basic',
-      accent: '#10b981',
-      category: 'restore',
-      popular: true,
-    },
-    {
-      id: 'colorize',
-      icon: '🌈',
-      name: 'Photo Colorization',
-      tagline: 'Add Life & Color',
-      cardImage: '/images/colorizecardgrid.png',
-      credits: 40,
-      link: '/replicate/restore-premium',
-      accent: '#3b82f6',
-      category: 'restore',
-      popular: true,
-    },
-    {
-      id: 'cartoon',
-      icon: '🎨',
-      name: 'Cartoon Creator',
-      tagline: 'Artistic Transformation',
-      cardImage: '/images/cartoon-card.png',
-      credits: 40,
-      link: '/replicate/cartoon',
-      accent: '#8b5cf6',
-      category: 'transform',
-      popular: false,
-    },
     {
       id: '70s',
       icon: '✌️',
@@ -82,7 +43,7 @@ const AISuitePage = () => {
       link: '/replicate/70s',
       accent: '#f59e0b',
       category: 'decades',
-      popular: false,
+      popular: true,
     },
     {
       id: '80s',
@@ -120,6 +81,30 @@ const AISuitePage = () => {
       category: 'decades',
       popular: false,
     },
+    {
+      id: 'restore-basic',
+      icon: '🔧',
+      name: 'Photo Restoration',
+      tagline: 'Repair & Restore',
+      cardImage: '/images/restore-card.png',
+      credits: 1,
+      link: '/replicate/restore-basic',
+      accent: '#10b981',
+      category: 'restore',
+      popular: true,
+    },
+    {
+      id: 'colorize',
+      icon: '🌈',
+      name: 'Photo Colorization',
+      tagline: 'Add Life & Color',
+      cardImage: '/images/colorizecardgrid.png',
+      credits: 40,
+      link: '/replicate/restore-premium',
+      accent: '#3b82f6',
+      category: 'restore',
+      popular: true,
+    }
   ]
 
   const getFilteredTools = () => {

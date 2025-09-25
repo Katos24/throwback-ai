@@ -1,140 +1,84 @@
-/* Gallery.module.css - Modern Colorful Design */
+/* Gallery.module.css - 2-per-row Grid with Tabs */
 
 .container {
   box-sizing: border-box;
   min-height: 100vh;
   background: linear-gradient(135deg, #2c3e50 0%, #4a6741 50%, #8b4a6e 100%);
   color: white;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.3;
-  position: relative;
+  font-family: 'Inter', sans-serif;
 }
 
-.container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(155, 89, 182, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(52, 152, 219, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Hero Section */
+/* Hero */
 .hero {
   text-align: center;
-  padding: 4rem 2rem 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+  padding: 2rem 1rem;
 }
 
 .title {
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   background: linear-gradient(135deg, #e74c3c, #3498db, #9b59b6, #f39c12);
-  background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientShift 4s ease-in-out infinite;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
-  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-/* Categories */
+/* Main Categories */
 .categories {
-  padding: 2rem 1rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-  z-index: 1;
+  padding: 1rem;
+  text-align: center;
 }
 
 .categoryList {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 0.5rem;
 }
 
 .categoryBtn {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.categoryBtn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
 }
 
 .categoryBtn.active {
   background: linear-gradient(135deg, #e74c3c, #3498db);
   border-color: transparent;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
 }
 
 /* Subcategories */
 .subcategories {
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  position: relative;
-  z-index: 1;
+  padding: 0.5rem;
+  text-align: center;
 }
 
 .subcategoryList {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  gap: 0.5rem;
 }
 
 .subcategoryBtn {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.subcategoryBtn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  transform: translateY(-1px);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .subcategoryBtn.active {
@@ -143,283 +87,74 @@
   color: white;
 }
 
-/* Gallery */
+/* Gallery Grid */
 .gallery {
-  padding: 3rem 2rem;
-  max-width: 1400px;
+  padding: 2rem 1rem;
+  max-width: 1000px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 
 .galleryTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
   text-align: center;
-  margin-bottom: 0.5rem;
-  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .galleryCount {
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 3rem;
-  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 2rem;
 }
 
 .grid {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  margin-top: 1rem;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* EXACTLY 2 per row */
+  gap: 16px;
+  justify-content: center;
 }
 
+/* Card / Image */
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
   position: relative;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  left: -15px;
-  top: 30px;
-  bottom: 30px;
-  width: 10px;
-  background: 
-    repeating-linear-gradient(
-      to bottom,
-      rgba(231, 76, 60, 0.6) 0px,
-      rgba(231, 76, 60, 0.6) 20px,
-      transparent 20px,
-      transparent 30px
-    );
-  border-radius: 5px;
-}
-
-.card::after {
-  content: '';
-  position: absolute;
-  right: -15px;
-  top: 30px;
-  bottom: 30px;
-  width: 10px;
-  background: 
-    repeating-linear-gradient(
-      to bottom,
-      rgba(52, 152, 219, 0.6) 0px,
-      rgba(52, 152, 219, 0.6) 20px,
-      transparent 20px,
-      transparent 30px
-    );
-  border-radius: 5px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.category {
-  background: linear-gradient(135deg, #e74c3c, #f39c12);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-}
-
-.year {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  font-weight: 600;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-}
-
-.imageContainer {
-  margin-bottom: 2rem;
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
 .imageWrapper {
-  position: relative;
-  border-radius: 16px;
+  width: 100%;
+  aspect-ratio: 1/1;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
-  flex: 1;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .image {
   width: 100%;
-  height: 500px;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
+.cardHeader {
+  text-align: center;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.9);
+}
+
 .label {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
+  top: 0.3rem;
+  left: 0.3rem;
+  background: rgba(0,0,0,0.6);
   color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.divider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-}
-
-.aiIcon {
-  background: linear-gradient(135deg, #3498db, #9b59b6);
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 800;
-  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-  border: 3px solid rgba(255, 255, 255, 0.2);
-}
-
-.description {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  text-align: center;
-  margin: 0;
-  line-height: 1.6;
-  font-weight: 500;
-}
-
-/* Call to Action */
-.cta {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 5rem 2rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.ctaTitle {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #e74c3c, #3498db);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-}
-
-.ctaText {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 3rem;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ctaButtons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 1.25rem 2.5rem;
-  border-radius: 15px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  min-width: 200px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.btn.primary {
-  background: linear-gradient(135deg, #e74c3c, #f39c12);
-  color: white;
-  border: 2px solid transparent;
-}
-
-.btn.primary:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(231, 76, 60, 0.4);
-}
-
-.btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
-}
-
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
-  font-weight: 500;
-  flex-wrap: wrap;
-}
-
-.features span {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  backdrop-filter: blur(5px);
+  padding: 0.2rem 0.4rem;
+  font-size: 0.65rem;
+  border-radius: 4px;
 }
 
 /* Animations */
@@ -429,201 +164,13 @@
 }
 
 /* Responsive */
-/* Replace your existing mobile breakpoints with these updated versions */
-
 @media (max-width: 768px) {
-  .hero {
-    padding: 2rem 1rem 1rem;
-  }
-  
-  .title {
-    font-size: 2.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1.1rem;
-  }
-  
-  .categories {
-    padding: 1rem 1rem 0.5rem;
-  }
-  
-  .categoryList {
-    gap: 0.75rem;
-  }
-  
-  .categoryBtn {
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
-  }
-  
-  .gallery {
-    padding: 1.5rem 1rem;
-  }
-  
-  .galleryTitle {
-    font-size: 2rem;
-  }
-  
-  .galleryCount {
-    margin-bottom: 2rem;
-  }
-  
   .grid {
-    gap: 2rem;
-    padding: 0 0.5rem;
-  }
-  
-  .card {
-    padding: 1.5rem;
-  }
-  
-  /* Keep images side by side on tablet */
-  .imageContainer {
-    gap: 0.75rem;
-  }
-  
-  .image {
-    height: 300px; /* Slightly smaller for tablets */
-  }
-  
-  .cta {
-    padding: 3rem 1rem;
-  }
-  
-  .ctaTitle {
-    font-size: 2.5rem;
-  }
-  
-  .ctaButtons {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .features {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    grid-template-columns: 1fr; /* 1 per row on tablets */
   }
 }
 
 @media (max-width: 480px) {
-  .hero {
-    padding: 1.5rem 1rem 1rem;
-  }
-  
-  .gallery {
-    padding: 1rem;
-  }
-  
-  .galleryCount {
-    margin-bottom: 1.5rem;
-  }
-  
-  .card {
-    padding: 1rem;
-  }
-  
-  .card::before,
-  .card::after {
-    width: 6px;
-    left: -8px;
-    right: -8px;
-  }
-
-  /* KEEP IMAGES SIDE BY SIDE ON MOBILE */
-  .imageContainer {
-    gap: 0.5rem; /* Smaller gap for mobile */
-    /* Remove flex-direction: column to keep side-by-side */
-  }
-  
-  .imageWrapper {
-    width: 100%;
-    /* Remove fixed height, let it be responsive */
-  }
-  
-  .image {
-    height: 220px; /* Smaller but contained height for mobile side-by-side */
-    object-fit: contain; /* Change to contain so full image is visible */
-    background: rgba(255, 255, 255, 0.05); /* Add subtle background for letterboxing */
-  }
-  
-  /* Make labels smaller and move to bottom on mobile */
-  .label {
-    top: auto;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.6rem;
-    font-weight: 600;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-  }
-  
-  .btn {
-    min-width: 180px;
-    padding: 1rem 2rem;
-  }
-  
-  .grid {
-    gap: 1.5rem;
-    padding: 0;
-  }
-  
-  .divider {
-    transform: rotate(90deg);
-    padding: 0.75rem 0;
-  }
-  
-  .aiIcon {
-    width: 40px;
-    height: 40px;
-    font-size: 0.9rem;
-  }
-  
-  .ctaTitle {
-    font-size: 2rem;
-  }
-  
-  .cta {
-    padding: 2.5rem 1rem;
-  }
-}
-
-/* Optional: Even smaller screens (very narrow phones) */
-@media (max-width: 360px) {
-  .imageContainer {
-    gap: 0.25rem;
-  }
-  
-  .image {
-    height: 180px; /* Even smaller for very narrow screens */
-  }
-  
-  /* Even smaller labels for very narrow screens */
-  .label {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.55rem;
-    bottom: 0.25rem;
-    left: 0.25rem;
-  }
-  
-  .card {
-    padding: 0.75rem;
-  }
-}
-
-
-.heroSlider {
-  margin: 2rem auto;
-  max-width: 600px;
-  touch-action: pan-x; /* Allows vertical scrolling, only captures horizontal */
-}
-
-.sliderCaption {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 1rem;
-  font-size: 0.9rem;
+  .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .subtitle { font-size: 1rem; }
 }

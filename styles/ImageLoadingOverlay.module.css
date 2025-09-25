@@ -14,6 +14,16 @@
   overflow: hidden;
 }
 
+.content {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding: 0.5rem;
+  z-index: 1001;
+  max-width: 200px;
+  width: 100%;
+}
+
 .backdrop {
   position: absolute;
   top: 0;
@@ -24,22 +34,14 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
-.content {
-  position: relative;
-  text-align: center;
-  color: white;
-  padding: 2rem;
-  z-index: 1001;
-}
-
 /* Spinner animations */
 .spinnerContainer {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .spinner {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   margin: 0 auto;
   border-radius: 50%;
   display: flex;
@@ -52,17 +54,17 @@
 .spinner::before {
   content: '';
   position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
   border-radius: 50%;
-  border: 4px solid transparent;
+  border: 3px solid transparent;
   animation: spin 1.5s linear infinite reverse;
 }
 
 .spinnerIcon {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   animation: bounce 1s ease-in-out infinite alternate;
 }
 
@@ -78,41 +80,43 @@
 
 /* Loading text */
 .loadingText {
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
 }
 
 .stage {
-  font-size: 1rem;
+  font-size: 0.7rem;
   margin: 0;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
 }
 
 /* Progress bar */
 .progressContainer {
-  margin-bottom: 2rem;
-  min-width: 200px;
+  margin-bottom: 0.75rem;
+  min-width: 120px;
 }
 
 .progressBar {
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   position: relative;
 }
 
 .progressFill {
   height: 100%;
   transition: width 0.3s ease;
-  border-radius: 4px;
+  border-radius: 3px;
   position: relative;
   overflow: hidden;
 }
@@ -138,7 +142,7 @@
 }
 
 .progressText {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
@@ -147,15 +151,15 @@
 .retroLoader {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  height: 30px;
+  gap: 3px;
+  height: 20px;
   align-items: flex-end;
 }
 
 .retroBar {
-  width: 8px;
+  width: 6px;
   height: 100%;
-  border-radius: 4px 4px 0 0;
+  border-radius: 3px 3px 0 0;
   animation: retroPulse 1.2s infinite ease-in-out;
 }
 
@@ -169,7 +173,7 @@
 /* 70s Theme - Earth tones, groovy vibes */
 .seventies .spinner::before {
   border-color: #d4af37 transparent transparent transparent;
-  border-width: 6px;
+  border-width: 4px;
 }
 
 .seventies .progressBar {
@@ -191,7 +195,7 @@
 /* 80s Theme - Neon and synthwave */
 .eighties .spinner::before {
   border-color: #ff1493 transparent transparent transparent;
-  border-width: 6px;
+  border-width: 4px;
 }
 
 .eighties .progressBar {
@@ -208,13 +212,13 @@
 
 .eighties .title {
   color: #00ffff;
-  text-shadow: 0 0 10px #ff1493, 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 8px #ff1493, 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* 90s Theme - Grunge and alternative */
 .nineties .spinner::before {
   border-color: #32cd32 transparent transparent transparent;
-  border-width: 6px;
+  border-width: 4px;
 }
 
 .nineties .progressBar {
@@ -236,7 +240,7 @@
 /* 2000s Theme - Digital and metallic */
 .twothousands .spinner::before {
   border-color: #1e90ff transparent transparent transparent;
-  border-width: 6px;
+  border-width: 4px;
 }
 
 .twothousands .progressBar {
@@ -258,31 +262,36 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .content {
-    padding: 1rem;
+    padding: 0.5rem;
+    max-width: 180px;
   }
   
   .spinner {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
   }
   
   .spinnerIcon {
-    font-size: 2rem;
-  }
-  
-  .title {
     font-size: 1.2rem;
   }
   
+  .title {
+    font-size: 0.8rem;
+  }
+  
+  .stage {
+    font-size: 0.6rem;
+  }
+  
   .progressContainer {
-    min-width: 150px;
+    min-width: 100px;
   }
   
   .retroLoader {
-    height: 20px;
+    height: 15px;
   }
   
   .retroBar {
-    width: 6px;
+    width: 4px;
   }
 }

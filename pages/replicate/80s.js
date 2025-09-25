@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import Head from "next/head";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -15,11 +14,15 @@ import EightiesSEO from "../../components/SEO/EightiesSEO";
 export default function EightiesPage() {
   const router = useRouter();
   
+  // Photo state
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
-  const [session, setSession] = useState(null);
   const [showingOriginal, setShowingOriginal] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  // Auth state
+  const [session, setSession] = useState(null);
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -27,24 +30,26 @@ export default function EightiesPage() {
   const [styleStrength, setStyleStrength] = useState(20);
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
 
-  // Advanced settings visibility
+  // UI state
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
+  // Credits and costs
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
   // Generation hook with 80s prompt builder wrapper
-  const eightiesPromptWrapper = (gender, styleId, workflowType, strength) => {
+  const eightiesPromptWrapper = useCallback((gender, styleId, workflowType, strength) => {
     return buildEightiesPrompt({
       gender,
       styleId,
       preserveFacialFeatures: true,
       intensity: strength > 25 ? 'strong' : strength < 15 ? 'subtle' : 'medium'
     });
-  };
+  }, []);
   
   const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("80s", eightiesPromptWrapper);
 
+  // Initialize session
   useEffect(() => {
     async function getSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -53,9 +58,82 @@ export default function EightiesPage() {
     getSession();
   }, []);
 
-  const handleGenerateOrRedirect = async () => {
+  // Improved mobile scroll functionality
+  const scrollToPhotoOnMobile = useCallback(() => {
+    // Multiple fallback selectors for better reliability
+    const selectors = [
+      `.${styles.computerSection}`,
+      `.${styles.computerMonitor}`,
+      `.${styles.monitorScreen}`,
+      `.${styles.monitorHeader}`
+    ];
+
+    let photoSection = null;
+    
+    // Try each selector until we find an element
+    for (const selector of selectors) {
+      photoSection = document.querySelector(selector);
+      if (photoSection) break;
+    }
+    
+    // Only scroll on mobile and if element is found
+    if (photoSection && window.innerWidth <= 768) {
+      photoSection.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+  }, []);
+
+  // Handle file processing (for both upload and drag-drop)
+  const handleFileProcessing = useCallback((file) => {
+    if (file && file.type.startsWith('image/')) {
+      setPhoto(file);
+      setPreviewUrl(URL.createObjectURL(file));
+      setResultImageUrl(null);
+      setShowingOriginal(false);
+    }
+  }, []);
+
+  // Drag and drop handlers
+  const handleDragEnter = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only set drag over to false if we're leaving the drop zone entirely
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsDragOver(false);
+    }
+  }, []);
+
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+    
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      handleFileProcessing(files[0]);
+    }
+  }, [handleFileProcessing]);
+
+  // Enhanced generation handler
+  const handleGenerateOrRedirect = useCallback(async () => {
+    // Validation checks
     if (!photo) return;
     if (!userGender || !selectedStyle) return;
+    
+    // Authentication and credits checks
     if (!isLoggedIn) {
       router.push('/signup');
       return;
@@ -65,66 +143,108 @@ export default function EightiesPage() {
       return;
     }
 
-    // Scroll to photo section on mobile when generation starts
-    const scrollToPhoto = () => {
-      const photoSection = document.querySelector(`.${styles.computerSection}`) || 
-                          document.querySelector(`.${styles.monitorScreen}`);
-      
-      if (photoSection && window.innerWidth <= 768) {
-        photoSection.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-      }
-    };
-
     try {
       // Convert gender format to match API expectations
       const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
       
-      // Start scrolling right when generation begins
-      setTimeout(scrollToPhoto, 100);
+      // Start mobile scroll immediately when generation begins
+      setTimeout(scrollToPhotoOnMobile, 100);
       
-      const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
+      // Generate the avatar
+      const imageUrl = await generateAvatar(
+        photo, 
+        apiGender, 
+        selectedStyle, 
+        workflowType, 
+        styleStrength, 
+        refreshCredits
+      );
+      
       setResultImageUrl(imageUrl);
+      
     } catch (error) {
       console.error('Generation failed:', error);
+      // You could add error toast notification here
     }
-  };
+  }, [
+    photo, 
+    userGender, 
+    selectedStyle, 
+    isLoggedIn, 
+    credits, 
+    avatarCost, 
+    router, 
+    workflowType, 
+    styleStrength, 
+    generateAvatar, 
+    refreshCredits, 
+    scrollToPhotoOnMobile
+  ]);
 
-  const handleDownload = async () => {
+  // Enhanced download handler
+  const handleDownload = useCallback(async () => {
     if (!resultImageUrl) return;
     
     try {
-      const resp = await fetch(resultImageUrl);
-      const blob = await resp.blob();
+      const response = await fetch(resultImageUrl);
+      const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `80s-yearbook-photo-${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+      
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `80s-yearbook-photo-${Date.now()}.png`;
+      
+      // Temporarily add to DOM for download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up object URL
       window.URL.revokeObjectURL(url);
+      
     } catch (error) {
       console.error('Download failed:', error);
+      // You could add error toast notification here
     }
-  };
+  }, [resultImageUrl]);
 
-  const getButtonText = () => {
+  // Photo upload callback to auto-expand gender selection
+  const handlePhotoUploadCallback = useCallback(() => {
+    // Auto-expand gender section after photo upload for better UX
+    // This could trigger a smooth scroll to gender selection
+  }, []);
+
+  // Dynamic button text
+  const getButtonText = useCallback(() => {
     if (isLoading) return "Creating your awesome 80s photo...";
     if (!photo) return "Upload a Photo First";
     if (!userGender || !selectedStyle) return "Complete Setup First";
     if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < avatarCost) return "Get More Credits";
     return "Generate My 80s Yearbook Photo!";
-  };
+  }, [isLoading, photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost]);
 
+  // Check if all requirements are met
   const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
 
-  const toggleAdvancedSettings = () => {
-    setShowAdvancedSettings(!showAdvancedSettings);
-  };
+  // Advanced settings toggle
+  const toggleAdvancedSettings = useCallback(() => {
+    setShowAdvancedSettings(prev => !prev);
+  }, []);
+
+  // Gender selection options
+  const genderOptions = [
+    { id: 'male', label: 'MALE' },
+    { id: 'female', label: 'FEMALE' },
+    { id: 'non-binary', label: 'NON-BINARY' }
+  ];
+
+  // Workflow options
+  const workflowOptions = [
+    { id: 'HyperRealistic-likeness', label: 'REALISTIC', description: 'Preserves natural look' },
+    { id: 'HyperRealistic', label: 'HYPER-REAL', description: 'Adds fine detail' },
+    { id: 'Stylistic', label: 'STYLISTIC', description: 'Emphasizes artistic 80s effects' }
+  ];
 
   return (
     <>
@@ -134,38 +254,51 @@ export default function EightiesPage() {
         {/* Animated Background Elements */}
         <div className={styles.gridBg}></div>
         <div className={styles.neonParticles}>
-          <div className={styles.particle} style={{left: '10%', animationDelay: '0s'}}></div>
-          <div className={styles.particle} style={{left: '30%', animationDelay: '2s'}}></div>
-          <div className={styles.particle} style={{left: '70%', animationDelay: '4s'}}></div>
-          <div className={styles.particle} style={{left: '90%', animationDelay: '6s'}}></div>
+          {[0, 2, 4, 6].map((delay, index) => (
+            <div 
+              key={index}
+              className={styles.particle} 
+              style={{
+                left: `${10 + index * 30}%`, 
+                animationDelay: `${delay}s`
+              }}
+            />
+          ))}
         </div>
 
         {/* Credits Header */}
-        <div className={styles.creditsHeader}>
+        <header className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
-            <span className={styles.creditsIcon}>📻</span>
+            <span className={styles.creditsIcon} role="img" aria-label="Radio">📻</span>
             <span className={styles.creditsText}>{credits} CREDITS</span>
           </div>
           <button 
             onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
             className={styles.creditsButton}
+            aria-label={isLoggedIn ? "Get more credits" : "Sign up for account"}
           >
             {isLoggedIn ? "GET MORE" : "SIGN UP"}
           </button>
-        </div>
+        </header>
 
         {/* Hero Section */}
-        <div className={styles.hero}>
+        <section className={styles.hero}>
           <h1 className={styles.title}>80S YEARBOOK</h1>
           <p className={styles.subtitle}>
             GET TOTALLY AWESOME WITH AUTHENTIC 80S VIBES
           </p>
           <div className={styles.costPill}>COSTS {avatarCost} CREDITS</div>
-        </div>
+        </section>
 
         {/* Computer Monitor Section */}
-        <div className={styles.computerSection}>
-          <div className={styles.computerMonitor}>
+        <section className={styles.computerSection}>
+          <div 
+            className={styles.computerMonitor}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
             <div className={styles.monitorHeader}>
               {resultImageUrl ? '80S YEARBOOK RESULT' : 'UPLOAD YOUR PHOTO'}
             </div>
@@ -180,6 +313,7 @@ export default function EightiesPage() {
                   resultImageUrl={resultImageUrl}
                   setResultImageUrl={setResultImageUrl}
                   setShowingOriginal={setShowingOriginal}
+                  onPhotoUpload={handlePhotoUploadCallback}
                   decade="80s"
                   styles={styles}
                 />
@@ -206,63 +340,59 @@ export default function EightiesPage() {
               accept="image/*"
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
-                  const file = e.target.files[0];
-                  setPhoto(file);
-                  setPreviewUrl(URL.createObjectURL(file));
-                  setResultImageUrl(null);
-                  setShowingOriginal(false);
+                  handleFileProcessing(e.target.files[0]);
                 }
               }}
               style={{ display: 'none' }}
             />
           </div>
-        </div>
+        </section>
 
         {/* Main Configuration */}
-        <div className={styles.configSection}>
+        <section className={styles.configSection}>
+          {/* Gender Selection */}
           <div className={styles.configPanel}>
-            <div className={styles.configTitle}>CHOOSE GENDER</div>
+            <h3 className={styles.configTitle}>CHOOSE GENDER</h3>
             <div className={styles.styleGrid}>
-              <button 
-                className={`${styles.styleOption} ${userGender === 'male' ? styles.active : ''}`}
-                onClick={() => setUserGender('male')}
-              >
-                MALE
-              </button>
-              <button 
-                className={`${styles.styleOption} ${userGender === 'female' ? styles.active : ''}`}
-                onClick={() => setUserGender('female')}
-              >
-                FEMALE
-              </button>
-              <button 
-                className={`${styles.styleOption} ${userGender === 'non-binary' ? styles.active : ''}`}
-                onClick={() => setUserGender('non-binary')}
-              >
-                NON-BINARY
-              </button>
+              {genderOptions.map((option) => (
+                <button 
+                  key={option.id}
+                  className={`${styles.styleOption} ${userGender === option.id ? styles.active : ''}`}
+                  onClick={() => setUserGender(option.id)}
+                  aria-pressed={userGender === option.id}
+                >
+                  {option.label}
+                </button>
+              ))}
             </div>
           </div>
 
+          {/* Style Selection */}
           <div className={styles.configPanel}>
-            <div className={styles.configTitle}>80S STYLE</div>
+            <h3 className={styles.configTitle}>80S STYLE</h3>
             <div className={styles.styleGrid}>
               {EIGHTIES_STYLES && EIGHTIES_STYLES.map((style) => (
                 <button 
                   key={style.id}
                   className={`${styles.styleOption} ${selectedStyle === style.id ? styles.active : ''}`}
                   onClick={() => setSelectedStyle(style.id)}
+                  aria-pressed={selectedStyle === style.id}
                 >
                   {style.label ? style.label.toUpperCase() : 'STYLE'}
                 </button>
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Advanced Settings - Collapsible */}
-        <div className={styles.advancedSection}>
-          <button className={styles.advancedToggle} onClick={toggleAdvancedSettings}>
+        <section className={styles.advancedSection}>
+          <button 
+            className={styles.advancedToggle} 
+            onClick={toggleAdvancedSettings}
+            aria-expanded={showAdvancedSettings}
+            aria-controls="advanced-settings-content"
+          >
             <span className={`${styles.toggleIcon} ${showAdvancedSettings ? styles.expanded : ''}`}>
               ▶
             </span>
@@ -270,60 +400,62 @@ export default function EightiesPage() {
             <span className={styles.optionalLabel}>(OPTIONAL)</span>
           </button>
           
-          <div className={`${styles.advancedContent} ${showAdvancedSettings ? styles.show : ''}`}>
+          <div 
+            id="advanced-settings-content"
+            className={`${styles.advancedContent} ${showAdvancedSettings ? styles.show : ''}`}
+          >
             <div className={styles.configSection}>
+              {/* Photo Quality */}
               <div className={styles.configPanel}>
-                <div className={styles.configTitle}>PHOTO QUALITY</div>
+                <h4 className={styles.configTitle}>PHOTO QUALITY</h4>
                 <div className={styles.styleGrid}>
-                  <button 
-                    className={`${styles.styleOption} ${workflowType === 'HyperRealistic-likeness' ? styles.active : ''}`}
-                    onClick={() => setWorkflowType('HyperRealistic-likeness')}
-                  >
-                    REALISTIC
-                  </button>
-                  <button 
-                    className={`${styles.styleOption} ${workflowType === 'HyperRealistic' ? styles.active : ''}`}
-                    onClick={() => setWorkflowType('HyperRealistic')}
-                  >
-                    HYPER-REAL
-                  </button>
-                  <button 
-                    className={`${styles.styleOption} ${workflowType === 'Stylistic' ? styles.active : ''}`}
-                    onClick={() => setWorkflowType('Stylistic')}
-                  >
-                    STYLISTIC
-                  </button>
+                  {workflowOptions.map((option) => (
+                    <button 
+                      key={option.id}
+                      className={`${styles.styleOption} ${workflowType === option.id ? styles.active : ''}`}
+                      onClick={() => setWorkflowType(option.id)}
+                      aria-pressed={workflowType === option.id}
+                      title={option.description}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
                 </div>
-                <div className={styles.settingDescription}>
+                <p className={styles.settingDescription}>
                   Realistic preserves natural look, Hyper-Real adds detail, Stylistic emphasizes artistic 80s effects
-                </div>
+                </p>
               </div>
 
+              {/* Style Strength */}
               <div className={styles.configPanel}>
-                <div className={styles.configTitle}>STYLE STRENGTH</div>
+                <h4 className={styles.configTitle}>STYLE STRENGTH</h4>
                 <div className={styles.sliderContainer}>
-                  <span className={styles.sliderLabel}>SUBTLE</span>
+                  <label htmlFor="style-strength-slider" className={styles.sliderLabel}>SUBTLE</label>
                   <input 
+                    id="style-strength-slider"
                     type="range" 
                     className={styles.styleSlider} 
                     min="5" 
                     max="35" 
                     value={styleStrength}
                     onChange={(e) => setStyleStrength(parseInt(e.target.value))}
+                    aria-label="Style strength"
                   />
                   <span className={styles.sliderLabel}>INTENSE</span>
                 </div>
-                <div className={styles.sliderValue}>STRENGTH: {styleStrength}</div>
-                <div className={styles.settingDescription}>
-                  Controls how dramatically the 80s style is applied
+                <div className={styles.sliderValue} aria-live="polite">
+                  STRENGTH: {styleStrength}
                 </div>
+                <p className={styles.settingDescription}>
+                  Controls how dramatically the 80s style is applied
+                </p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Generate Button */}
-        <div className={styles.generateSection}>
+        <section className={styles.generateSection}>
           <GenerateButton
             onClick={handleGenerateOrRedirect}
             isLoading={isLoading}
@@ -333,7 +465,7 @@ export default function EightiesPage() {
             progressStage={progressStage}
             styles={styles}
           />
-        </div>
+        </section>
         
         {/* Reusable Bottom Section Component */}
         <DecadeBottomSection currentDecade="80s" />

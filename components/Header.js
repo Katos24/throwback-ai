@@ -75,6 +75,7 @@ export default function Header({ showMenu, setShowMenu }) {
     { 
       href: "/replicate/restore-premium", 
       label: "Photo Colorization", 
+      icon: "🌈",
       description: "Add beautiful colors",
       credits: "40 Credits",
       badge: "Premium"
@@ -82,28 +83,32 @@ export default function Header({ showMenu, setShowMenu }) {
     { 
       href: "/replicate/restore-basic", 
       label: "Photo Restoration", 
+      icon: "🔧",
       description: "Repair scratches & damage",
       credits: "1 Credit"
     },
     { 
       href: "/decades", 
       label: "Decades", 
+      icon: "📸",
       description: "Create authentic Decades yearbook photos",
       credits: "50 Credits",
       badge: "Popular"
     },
     { 
-      href: "/replicate/avatar", 
-      label: "AI Avatar Generator", 
-      description: "Professional AI-generated avatars",
+      href: "/replicate/70s", 
+      label: "70s Style", 
+      icon: "✨",
+      description: "Transform into groovy 70s style",
       credits: "50 Credits",
       badge: "New"
     },
-     { 
-      href: "/replicate/cartoon", 
-      label: "Cartoon Creator", 
-      description: "Transform to cartoon art",
-      credits: "40 Credits",
+    { 
+      href: "/replicate/90s", 
+      label: "90s Style", 
+      icon: "🎮",
+      description: "Get that iconic 90s look",
+      credits: "50 Credits",
       badge: "New"
     }
   ];

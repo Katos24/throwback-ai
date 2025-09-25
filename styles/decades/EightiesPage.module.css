@@ -267,15 +267,15 @@
 .displayImage {
   display: block;
   margin: 0 auto 15px auto;
-  object-fit: contain; /* Changed from cover to contain */
+  object-fit: contain;
   border-radius: 10px;
   border: 2px solid var(--neon-cyan);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   transition: all 0.3s ease;
-  width: 100%; /* Add full width */
-  max-width: 100%; /* Changed from 320px */
-  height: auto; /* Let height adjust automatically */
+  max-width: 320px;
   max-height: 280px;
+  width: auto;
+  height: auto;
 }
 
 .displayImage:hover {
@@ -630,6 +630,7 @@
     padding: 10px;
   }
 }
+
 
 @media (max-width: 480px) {
   .uploadArea { min-height: 200px; }

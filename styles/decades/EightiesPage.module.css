@@ -617,31 +617,48 @@
   .container { padding: 15px; }
   .creditsHeader { padding: 12px 20px; flex-direction: column; gap: 10px; }
   .title { font-size: 2.5rem; transform: none; }
-  .monitorScreen { height: auto; min-height: 350px; } /* Changed to auto height */
-  .uploadArea { min-height: 250px; }
+  .monitorScreen { height: auto; min-height: 400px; }
+  .uploadArea { min-height: 300px; }
   .displayImage { 
-    max-width: 100%; /* Use full available width */
-    max-height: 350px; /* Increased from 220px */
-    width: 100%;
+    max-width: 90%;
+    max-height: none;
+    width: auto;
+    height: auto;
   }
   .configSection { grid-template-columns: 1fr; gap: 15px; }
   .generateButton { min-width: 280px; font-size: 16px; }
   .imageContainer {
-    padding: 10px;
+    padding: 15px;
+    max-height: none;
+  }
+  .buttonRow {
+    margin-top: 15px;
   }
 }
 
 
 @media (max-width: 480px) {
-  .uploadArea { min-height: 200px; }
+  .uploadArea { min-height: 250px; }
   .displayImage { 
-    max-width: 100%; /* Full width on small screens */
-    max-height: 300px; /* Increased from 180px */
-    width: 100%;
+    max-width: 95%;
+    max-height: none;
+    width: auto;
+    height: auto;
   }
-  .buttonRow { flex-direction: column; align-items: center; }
+  .buttonRow { 
+    flex-direction: row;
+    gap: 8px;
+  }
+  .toggleButton,
+  .changePhotoButton,
+  .downloadButton,
+  .filterToggleButton {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    min-width: 70px;
+  }
   .generateButton { min-width: 250px; font-size: 15px; }
-  .monitorScreen { min-height: 320px; } /* Adjust monitor height */
+  .monitorScreen { min-height: 380px; }
 }
 
 /* Loading text that appears below generate button */

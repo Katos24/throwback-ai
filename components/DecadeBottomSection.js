@@ -1,7 +1,9 @@
-// components/DecadeBottomSection.js
 import React from 'react';
 import Link from 'next/link';
+import Slider from 'react-slick';
 import styles from '../styles/DecadeBottomSection.module.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const DECADE_INFO = {
   '70s': {
@@ -13,33 +15,67 @@ const DECADE_INFO = {
   },
   '80s': {
     emoji: '⚡',
-    title: '80s Neon',
-    description: 'New wave, synthpop, and neon-bright aesthetics',
+    title: '80s Punk Rock',
+    description: 'Mohawks, leather jackets, ripped jeans, and rebellious vibes',
     path: '/replicate/80s',
     color: 'neon'
   },
   '90s': {
     emoji: '📼',
-    title: '90s Grunge',
-    description: 'Alternative, grunge, and pop culture vibes',
+    title: '90s Boy Band Member',
+    description: 'Frosted tips, matching outfits, and pop-star style',
     path: '/replicate/90s',
     color: 'purple'
   },
   '2000s': {
     emoji: '💿',
-    title: '2000s Y2K',
-    description: 'Emo, scene, pop punk, and digital era styles',
+    title: '2000s Skater',
+    description: 'Baggy jeans, skate shoes, and rebellious streetwear',
     path: '/replicate/2000s',
     color: 'blue'
   }
 };
 
 const DecadeBottomSection = ({ currentDecade = '90s' }) => {
-  // Filter out current decade and get other options
   const otherDecades = Object.entries(DECADE_INFO).filter(([key]) => key !== currentDecade);
-  
+
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 1 } }
+    ]
+  };
+
   return (
     <div className={styles.bottomSection}>
+      
+      {/* Dynamic Yearbook Section */}
+      <section className={styles.dynamicYearbook}>
+        <h2 className={styles.sectionTitle}>Dynamic Yearbook</h2>
+        <p className={styles.sectionSubtitle}>
+          See how others rocked their retro transformations
+        </p>
+        <Slider {...carouselSettings} className={styles.yearbookCarousel}>
+          {Object.keys(DECADE_INFO).map(decade => (
+            <div key={decade} className={styles.yearbookSlide}>
+             <img 
+                src={`/images/yearbook/${decade}.jpg`} 
+                alt={`${decade} style`} 
+                className={styles.yearbookImage} 
+              />
+              <div className={styles.yearbookLabel}>{DECADE_INFO[decade].title}</div>
+            </div>
+          ))}
+        </Slider>
+        <Link href="/gallery" className={styles.yearbookButton}>
+          Explore Full Yearbook →
+        </Link>
+      </section>
       
       {/* How It Works Section */}
       <section className={styles.howItWorks}>

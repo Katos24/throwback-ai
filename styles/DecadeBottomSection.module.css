@@ -424,4 +424,38 @@
 }
 
 
+.dynamicYearbook {
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.yearbookCarousel {
+  margin-top: 2rem;
+}
+
+.yearbookSlide {
+  padding: 0 10px;
+}
+
+.yearbookImage {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.yearbookLabel {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.yearbookButton {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+}
 

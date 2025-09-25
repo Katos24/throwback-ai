@@ -9,17 +9,23 @@ const AISuitePage = () => {
   const containerRef = useRef(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (containerRef.current) observer.observe(containerRef.current)
-    return () => observer.disconnect()
+    // Delay observer to let initial scroll settle
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.1 }
+      )
+      if (containerRef.current) observer.observe(containerRef.current)
+      
+      return () => observer.disconnect()
+    }, 150)
+
+    return () => clearTimeout(timer)
   }, [])
 
   const categories = [
@@ -173,28 +179,27 @@ const AISuitePage = () => {
         <div className={styles.cardGrid}>
           {filteredTools.map((tool) => (
             <Link
-  key={tool.id}
-  href={tool.link}
-  className={styles.suiteCard}
-  style={{ '--accent': tool.accent }}
->
-  <div className={styles.cardImageContainer}>
-    <Image
-      src={tool.cardImage}
-      alt={`${tool.name} preview`}
-      fill
-      className={styles.cardImage}
-      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-    />
-  </div>
-  <div className={styles.cardOverlay}>
-    <div className={styles.cardIcon}>{tool.icon}</div>
-    <h3 className={styles.cardName}>{tool.name}</h3>
-    <p className={styles.cardTagline}>{tool.tagline}</p>
-    <div className={styles.cardCredits}>{tool.credits} Credits</div>
-  </div>
-</Link>
-
+              key={tool.id}
+              href={tool.link}
+              className={styles.suiteCard}
+              style={{ '--accent': tool.accent }}
+            >
+              <div className={styles.cardImageContainer}>
+                <Image
+                  src={tool.cardImage}
+                  alt={`${tool.name} preview`}
+                  fill
+                  className={styles.cardImage}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
+              </div>
+              <div className={styles.cardOverlay}>
+                <div className={styles.cardIcon}>{tool.icon}</div>
+                <h3 className={styles.cardName}>{tool.name}</h3>
+                <p className={styles.cardTagline}>{tool.tagline}</p>
+                <div className={styles.cardCredits}>{tool.credits} Credits</div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

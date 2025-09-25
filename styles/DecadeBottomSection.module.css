@@ -30,6 +30,107 @@
   line-height: 1.6;
 }
 
+/* Dynamic Yearbook Section */
+.dynamicYearbook {
+  margin: 4rem 0;
+  text-align: center;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+.yearbookCarousel {
+  margin-top: 2rem;
+  padding: 0 20px;
+}
+
+.yearbookSlide {
+  padding: 0 10px;
+}
+
+.yearbookImage {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.yearbookImage:hover {
+  transform: scale(1.05);
+}
+
+.yearbookLabel {
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.yearbookButton {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: #fff;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+}
+
+.yearbookButton:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
+}
+
+/* Slick carousel overrides for better mobile display */
+.yearbookCarousel :global(.slick-slider) {
+  margin: 0 -10px;
+}
+
+.yearbookCarousel :global(.slick-list) {
+  overflow: visible;
+  padding: 20px 0 !important;
+}
+
+.yearbookCarousel :global(.slick-track) {
+  display: flex;
+  align-items: center;
+}
+
+.yearbookCarousel :global(.slick-slide) {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.yearbookCarousel :global(.slick-slide.slick-active) {
+  opacity: 1;
+}
+
+.yearbookCarousel :global(.slick-slide.slick-center) {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.yearbookCarousel :global(.slick-dots) {
+  bottom: -40px;
+}
+
+.yearbookCarousel :global(.slick-dots li button:before) {
+  color: #3b82f6;
+  font-size: 10px;
+}
+
+.yearbookCarousel :global(.slick-dots li.slick-active button:before) {
+  color: #8b5cf6;
+}
+
 /* How It Works Section */
 .howItWorks {
   margin-bottom: 6rem;
@@ -279,7 +380,7 @@
   margin-bottom: 0.5rem;
 }
 
-.decadeCount {
+.yearbook {
   display: block;
   font-size: 0.875rem;
   color: #cbd5e1;
@@ -369,6 +470,34 @@
     font-size: 1rem;
   }
   
+  .dynamicYearbook {
+    margin: 3rem 0;
+    padding: 0 0.5rem;
+  }
+  
+  .yearbookCarousel {
+    margin-top: 1.5rem;
+    padding: 0 10px;
+  }
+  
+  .yearbookImage {
+    max-width: 280px;
+  }
+  
+  .yearbookLabel {
+    font-size: 1rem;
+    margin-top: 0.75rem;
+  }
+  
+  .yearbookButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .yearbookCarousel :global(.slick-list) {
+    padding: 15px 0 !important;
+  }
+  
   .stepsGrid,
   .decadeGrid,
   .faqGrid {
@@ -382,12 +511,12 @@
   
   .pricingCard {
     padding: 2rem;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
   }
   
   .footerCta {
     padding: 3rem 1.5rem;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
   }
   
   .footerCta h2 {
@@ -402,12 +531,50 @@
 
 @media (max-width: 480px) {
   .bottomSection {
-    margin-top: 3rem;
-    padding-top: 3rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
   }
   
   .sectionTitle {
     font-size: 1.75rem;
+  }
+  
+  .dynamicYearbook {
+    margin: 2rem 0;
+    padding: 0;
+  }
+  
+  .yearbookCarousel {
+    padding: 0 5px;
+    margin-top: 1rem;
+  }
+  
+  .yearbookSlide {
+    padding: 0 5px;
+  }
+  
+  .yearbookImage {
+    max-width: 240px;
+    border-radius: 8px;
+  }
+  
+  .yearbookLabel {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .yearbookButton {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    margin-top: 2rem;
+  }
+  
+  .yearbookCarousel :global(.slick-list) {
+    overflow: hidden !important;
+  }
+  
+  .yearbookCarousel :global(.slick-dots) {
+    bottom: -30px;
   }
   
   .step,
@@ -422,40 +589,3 @@
     font-size: 1.25rem;
   }
 }
-
-
-.dynamicYearbook {
-  margin: 4rem 0;
-  text-align: center;
-}
-
-.yearbookCarousel {
-  margin-top: 2rem;
-}
-
-.yearbookSlide {
-  padding: 0 10px;
-}
-
-.yearbookImage {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.yearbookLabel {
-  margin-top: 0.5rem;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.yearbookButton {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #000;
-  color: #fff;
-  border-radius: 4px;
-  text-decoration: none;
-}
-

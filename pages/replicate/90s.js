@@ -58,6 +58,7 @@ export default function NinetiesPage() {
     getSession();
   }, []);
 
+  
   // Mobile scroll functionality
   const scrollToPhotoOnMobile = useCallback(() => {
     const selectors = [

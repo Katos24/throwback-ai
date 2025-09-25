@@ -833,12 +833,40 @@
   .container { padding: 15px; }
   .creditsHeader { padding: 12px 20px; flex-direction: column; gap: 10px; }
   .title { font-size: 2.5rem; transform: none; }
-  .tvSet { margin: 0 -15px; border-radius: 20px; }
-  .tvContent { height: 350px; }
   .configSection { grid-template-columns: 1fr; gap: 15px; }
-  .generateButton { min-width: 280px; font-size: 16px; transform: none; }
+  .generateButton {
+    min-width: 280px;
+    font-size: 16px;
+  }
   .generateButton:hover { transform: scale(1.02); }
+    .tvSet {
+    width: 100%;
+    max-width: 100vw;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .tvContent {
+    width: 100%;
+    max-width: 100vw;
+    padding: 8px;
+  }
+    .uploadArea {
+    min-width: 0;
+    width: 100%;
+    max-width: 100vw;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .imageContainer {
+    padding: 8px;
+    max-width: 100vw;
+  }
+  .displayImage {
+    max-width: 90vw;
+    height: auto;
+  }
 }
+
 
 @media (max-width: 480px) {
   .tvContent { height: 300px; }

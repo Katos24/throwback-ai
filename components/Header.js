@@ -16,7 +16,7 @@ export default function Header({ showMenu, setShowMenu }) {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
-      setIsLoading(false);
+      setIsLoading(false); // Set loading to false after auth check
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
@@ -65,21 +65,14 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const navigationItems = [
     { href: "/", label: "Home", icon: "🏠" },
-    { href: "/decades", label: "Decades", icon: "📸", badge: "Popular" },
     { href: "/gallery", label: "Gallery" },
+    
     { href: "/how-it-works", label: "How It Works" },
     { href: "/about", label: "About" },
     { href: "/pricing", label: "Pricing", icon: "💰" }
   ];
 
   const aiSuiteItems = [
-    { 
-      href: "/replicate/restore-basic", 
-      label: "Photo Restoration", 
-      icon: "🔧",
-      description: "Repair scratches & damage",
-      credits: "1 Credit"
-    },
     { 
       href: "/replicate/restore-premium", 
       label: "Photo Colorization", 
@@ -89,17 +82,42 @@ export default function Header({ showMenu, setShowMenu }) {
       badge: "Premium"
     },
     { 
-      href: "/replicate/cartoon", 
-      label: "Cartoon Avatar", 
-      icon: "🎨",
-      description: "Transform into cartoon style",
-      credits: "30 Credits"
+      href: "/replicate/restore-basic", 
+      label: "Photo Restoration", 
+      icon: "🔧",
+      description: "Repair scratches & damage",
+      credits: "1 Credit"
+    },
+    { 
+      href: "/decades", 
+      label: "Decades", 
+      icon: "📸",
+      description: "Create authentic Decades yearbook photos",
+      credits: "50 Credits",
+      badge: "Popular"
+    },
+    { 
+      href: "/replicate/70s", 
+      label: "70s Style", 
+      icon: "✨",
+      description: "Transform into groovy 70s style",
+      credits: "50 Credits",
+      badge: "New"
+    },
+    { 
+      href: "/replicate/90s", 
+      label: "90s Style", 
+      icon: "🎮",
+      description: "Get that iconic 90s look",
+      credits: "50 Credits",
+      badge: "New"
     }
   ];
 
   // Check if current page is in AI Suite
   const isAISuitePage = aiSuiteItems.some(item => router.pathname === item.href);
 
+  // Prevent CSS flash by ensuring styles are loaded
   if (isLoading) {
     return (
       <header style={{
@@ -142,7 +160,7 @@ export default function Header({ showMenu, setShowMenu }) {
         <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
       </button>
 
-      {/* Logo */}
+      {/* Updated Logo */}
       <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
         <div className={styles.logoContainer}>
           <div className={styles.logoText}>
@@ -151,7 +169,7 @@ export default function Header({ showMenu, setShowMenu }) {
         </div>
       </Link>
 
-      {/* Navigation */}
+      {/* Enhanced Nav Links */}
       <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
         
         {/* AI Suite Dropdown */}
@@ -165,7 +183,7 @@ export default function Header({ showMenu, setShowMenu }) {
             type="button"
           >
             <span className={styles.navIcon}>⚡</span>
-            <span>Photo Tools</span>
+            <span>AI Suite</span>
             <span className={`${styles.dropdownArrow} ${showDropdown ? styles.dropdownArrowOpen : ""}`}>
               ▼
             </span>
@@ -173,7 +191,7 @@ export default function Header({ showMenu, setShowMenu }) {
           
           <div className={`${styles.dropdownMenu} ${showDropdown ? styles.dropdownMenuOpen : ""}`}>
             <div className={styles.dropdownHeader}>
-              <span className={styles.dropdownTitle}>Photo Enhancement Tools</span>
+              <span className={styles.dropdownTitle}>Choose Your AI Engine</span>
             </div>
             
             {aiSuiteItems.map((item) => (

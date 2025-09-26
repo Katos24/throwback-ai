@@ -65,12 +65,12 @@ export default function SeventiesPage() {
   const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("70s", seventiesPromptWrapper);
 
   // Scroll selectors for mobile
-  const scrollSelectors = [
-    `.${styles.tvPhotoFrame}`,
-    `.${styles.photoSection}`,
-    `.${styles.photoDisplay}`,
-    `.${styles.tvScreen}`
-  ];
+const scrollSelectors = [
+  `.${styles.tvSection}`,
+  `.${styles.tvSet}`,
+  `.${styles.tvScreen}`,
+  `.${styles.tvContent}`
+];
 
   // Use generation handler hook
   const { handleGenerateOrRedirect, getButtonText } = useDecadeGenerationHandler({

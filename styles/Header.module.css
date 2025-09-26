@@ -640,14 +640,13 @@
   /* Mobile nav links */
   .showMenu .navLink,
   .showMenu .dropdownTrigger {
-    width: 100%;
-    justify-content: flex-start;
-    margin-bottom: 2px;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 12px;
-    min-height: 44px;
-  }
+  width: auto; /* Let content determine width */
+  justify-content: flex-start; /* Align left like other items */
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 12px;
+  min-height: 44px;
+}
 
   /* COMPACT MOBILE DROPDOWN */
   .showMenu .dropdownMenu {

@@ -460,6 +460,7 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  text-align: center; /* Add this */
 }
 
 .examplesTitle {
@@ -480,6 +481,8 @@
 
 .carouselContainer {
   padding: 20px 0;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .carouselSlide {
@@ -519,4 +522,16 @@
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* Slick carousel centering overrides */
+.carouselContainer :global(.slick-track) {
+  display: flex;
+  align-items: center;
+}
+
+.carouselContainer :global(.slick-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

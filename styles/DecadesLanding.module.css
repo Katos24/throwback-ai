@@ -384,15 +384,11 @@
 .carouselContainer {
   padding: 20px 0;
   margin: 0 auto;
-  max-width: 100%;
   width: 100%;
 }
 
 .carouselSlide {
   padding: 0 15px;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
 }
 
 .exampleCard {
@@ -403,7 +399,6 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   margin: 0 auto;
-  max-width: 100%;
 }
 
 .exampleCard:hover {
@@ -477,21 +472,15 @@
   
   .carouselContainer {
     padding: 20px 0;
-    width: 100%;
-    max-width: 90%;
     margin: 0 auto;
   }
   
   .carouselSlide {
     padding: 0 10px;
-    display: flex !important;
-    justify-content: center;
   }
   
   .exampleCard {
     border-radius: 12px;
-    width: 100%;
-    max-width: 100%;
   }
   
   .exampleOverlay {
@@ -534,20 +523,15 @@
   
   .carouselContainer {
     padding: 15px 0;
-    width: 100%;
-    max-width: 85%;
     margin: 0 auto;
   }
   
   .carouselSlide {
-    padding: 0 8px;
-    display: flex !important;
-    justify-content: center;
+    padding: 0 5px;
   }
   
   .exampleCard {
-    width: 100%;
-    max-width: 100%;
+    border-radius: 12px;
   }
   
   .exampleOverlay {

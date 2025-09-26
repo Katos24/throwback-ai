@@ -59,16 +59,14 @@ const carouselSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
-  centerMode: true,
-  centerPadding: '20px',
+  centerMode: false, // Turn OFF for desktop
   responsive: [
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
-        centerMode: true,
-        centerPadding: '20px'
+        centerMode: false
       }
     },
     {
@@ -77,7 +75,7 @@ const carouselSettings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         centerMode: true,
-        centerPadding: '20px'  // Adjust this value for spacing
+        centerPadding: '40px' // This adds space on sides
       }
     }
   ]

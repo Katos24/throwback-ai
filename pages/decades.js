@@ -59,14 +59,12 @@ const carouselSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
-  centerMode: false,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 1,
-        centerMode: false
+        slidesToScroll: 1
       }
     },
     {
@@ -74,8 +72,9 @@ const carouselSettings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        centerMode: false, // Turn off centerMode
-        arrows: true // Make sure arrows are enabled
+        centerMode: true,
+        centerPadding: '50px',  // Space on sides
+        arrows: false           // No arrows, just dots
       }
     }
   ]

@@ -26,7 +26,7 @@ export default function Footer() {
                 <Link href="/replicate/restore-premium">AI Colorization</Link>
               </li>
               <li>
-                <Link href="/replicate/yearbook">90&apos;s Yearbook</Link>
+                <Link href="/decades">Decades</Link>
               </li>
               <li>
                 <Link href="/replicate/avatar">Avatar Creator</Link>

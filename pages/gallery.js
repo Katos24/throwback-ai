@@ -8,13 +8,13 @@ import styles from '../styles/Gallery.module.css'
 // ================= Restore Items =================
 const restoreItems = [
   {
-    image: "/images/weddingrestoredohoto.jpg",
+    image: "/images/weddingrestoredohoto.png",
     category: "Wedding Photos",
     year: "1952",
     description: "Vintage wedding portrait with full colorization"
   },
   {
-    image: "/images/familyrestoredphoto.jpg",
+    image: "/images/familyrestoredphoto.png",
     category: "Family Photos",
     year: "1938",
     description: "Multi-generational family photo restoration"

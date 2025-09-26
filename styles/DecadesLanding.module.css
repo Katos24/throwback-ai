@@ -463,7 +463,7 @@
   }
   
   .examplesSection {
-    padding: 40px 15px;
+    padding: 40px 20px;
   }
   
   .examplesTitle {
@@ -478,12 +478,12 @@
   .carouselContainer {
     padding: 20px 0;
     width: 100%;
-    max-width: 400px;
+    max-width: 90%;
     margin: 0 auto;
   }
   
   .carouselSlide {
-    padding: 0 15px;
+    padding: 0 10px;
     display: flex !important;
     justify-content: center;
   }
@@ -491,7 +491,7 @@
   .exampleCard {
     border-radius: 12px;
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
   }
   
   .exampleOverlay {
@@ -525,7 +525,7 @@
   }
   
   .examplesSection {
-    padding: 30px 10px;
+    padding: 30px 15px;
   }
   
   .examplesTitle {
@@ -535,19 +535,19 @@
   .carouselContainer {
     padding: 15px 0;
     width: 100%;
-    max-width: 280px;
+    max-width: 85%;
     margin: 0 auto;
   }
   
   .carouselSlide {
-    padding: 0 10px;
+    padding: 0 8px;
     display: flex !important;
     justify-content: center;
   }
   
   .exampleCard {
     width: 100%;
-    max-width: 250px;
+    max-width: 100%;
   }
   
   .exampleOverlay {

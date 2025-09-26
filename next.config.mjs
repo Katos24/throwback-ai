@@ -4,10 +4,14 @@ const nextConfig = {
   images: {
     domains: ['replicate.delivery'],
   },
+  // Compiler optimizations to reduce bundle size
+  compiler: {
+    reactRemoveProperties: true,
+  },
   // Force modern target
   experimental: {
     forceSwcTransforms: true,
-    scrollRestoration: false, // Added this to disable Next.js scroll restoration
+    scrollRestoration: false,
   },
   async headers() {
     return [

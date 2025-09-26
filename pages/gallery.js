@@ -39,15 +39,52 @@ const decadesItems = [
     image: "/images/yearbook/70s.jpg",
     decade: "70s",
   },
+   {
+    image: "/images/yearbook/70s2.jpg",
+    decade: "70s",
+  },
+  {
+    image: "/images/yearbook/70s3.jpg",
+    decade: "70s",
+  },
   {
     image: "/images/yearbook/80s.jpg",
     decade: "80s",
   },
   {
+    image: "/images/yearbook/80s2.jpg",
+    decade: "80s",
+  },
+  {
+    image: "/images/yearbook/80s3.jpg",
+    decade: "80s",
+  },
+  {
     image: "/images/yearbook/90s.jpg",
     decade: "90s",
+  },
+   {
+    image: "/images/yearbook/90s2.jpg",
+    decade: "90s",
+  },
+   {
+    image: "/images/yearbook/90s3.jpg",
+    decade: "90s",
+  },
+    {
+    image: "/images/yearbook/2000s.jpg",
+    decade: "2000s",
+  },
+  {
+    image: "/images/yearbook/2000s2.jpg",
+    decade: "2000s",
+  },
+  {
+    image: "/images/yearbook/2000s3.jpg",
+    decade: "2000s",
   }
 ];
+
 
 // ================= Cartoon Items =================
 const cartoonItems = [
@@ -69,7 +106,7 @@ const restoreSubcategories = [
   "Family Photos"
 ];
 
-const decadeSubcategories = ["All Decades", "70s", "80s", "90s"];
+const decadeSubcategories = ["All Decades", "70s", "80s", "90s", "2000s"];
 
 export default function Gallery() {
   const router = useRouter();

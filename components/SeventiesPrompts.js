@@ -27,9 +27,9 @@ const SEVENTIES_STYLES = [
     description: "Androgynous theatrical looks, glitter, stage dramatics",
     emoji: "⭐"
   },
-  {
+    {
     id: 'bohemian',
-    value: "1970s bohemian yearbook photo with long wavy hair, flowing vintage dress or layered vests, fringes, artisanal jewelry, soft natural makeup, warm amber palette, tactile fabrics like suede and corduroy, introspective artist/poet vibe",
+    value: "1970s bohemian yearbook photo with long flowing hair, layered vintage clothing, natural relaxed expression, warm earth tones, soft bohemian aesthetic",
     label: "Bohemian",
     description: "Soft flowing silhouettes, artisanal textures, layered jewelry",
     emoji: "🌻"

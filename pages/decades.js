@@ -51,31 +51,37 @@ export default function ThrowbackPage() {
     { src: '/images/yearbook/80s3.jpg', decade: '80s', alt: '80s yearbook example 2' }
   ];
 
-  const carouselSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
+const carouselSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  centerMode: true,
+  centerPadding: '20px',
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: '20px'
       }
-    ]
-  };
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: '20px'  // Adjust this value for spacing
+      }
+    }
+  ]
+};
 
   const handleDecadeClick = (decadeId) => {
     router.push(`/replicate/${decadeId}`);

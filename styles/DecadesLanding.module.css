@@ -354,7 +354,6 @@
 }
 
 
-
 /* Examples Section with Carousel */
 .examplesSection {
   margin-top: 5px;
@@ -385,6 +384,7 @@
   padding: 20px 0;
   margin: 0 auto;
   width: 100%;
+  position: relative;
 }
 
 .carouselSlide {
@@ -470,17 +470,23 @@
     margin-bottom: 30px;
   }
   
+  /* Mobile carousel fixes */
   .carouselContainer {
     padding: 20px 0;
     margin: 0 auto;
+    max-width: calc(100% - 80px); /* Leave room for arrows */
   }
   
   .carouselSlide {
     padding: 0 10px;
+    display: flex !important;
+    justify-content: center;
   }
   
   .exampleCard {
     border-radius: 12px;
+    width: 100%;
+    max-width: 350px;
   }
   
   .exampleOverlay {
@@ -521,17 +527,23 @@
     font-size: 1.75rem;
   }
   
+  /* Mobile carousel fixes */
   .carouselContainer {
     padding: 15px 0;
     margin: 0 auto;
+    max-width: calc(100% - 60px); /* Leave room for arrows */
   }
   
   .carouselSlide {
-    padding: 0 5px;
+    padding: 0 8px;
+    display: flex !important;
+    justify-content: center;
   }
   
   .exampleCard {
     border-radius: 12px;
+    width: 100%;
+    max-width: 280px;
   }
   
   .exampleOverlay {

@@ -134,7 +134,7 @@ const AISuitePage = () => {
       >
         <header className={styles.header}>
           <h1 className={styles.title}>
-            Seven Powerful AI Engines
+            Six Powerful AI Engines
             <span className={styles.titleGradient}> One Amazing Platform</span>
           </h1>
           <p className={styles.subtitle}>

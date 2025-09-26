@@ -610,8 +610,8 @@
   }
 
    .dropdownMenu {
-    width: 200px;       /* make it skinnier */
-    padding: 12px;
+    width: 100%; /* Full width on mobile */
+    max-width: 320px; /* Cap it */
   }
 
   .dropdownItemContent {

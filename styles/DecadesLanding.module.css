@@ -382,6 +382,34 @@
     padding: 15px 30px;
     font-size: 1rem;
   }
+  .examplesSection {
+    padding: 40px 10px;
+  }
+
+  .examplesTitle {
+    font-size: 2rem;
+  }
+
+  .examplesSubtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .carouselSlide {
+    padding: 0 10px;
+  }
+
+  .exampleCard {
+    border-radius: 12px;
+  }
+
+  .exampleOverlay {
+    padding: 15px;
+  }
+
+  .exampleDecade {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -403,6 +431,25 @@
   
   .decadeTitle {
     font-size: 1.6rem;
+  }
+  .examplesSection {
+    padding: 30px 5px;
+  }
+
+  .examplesTitle {
+    font-size: 1.75rem;
+  }
+
+  .carouselSlide {
+    padding: 0 5px;
+  }
+
+  .exampleOverlay {
+    padding: 12px;
+  }
+
+  .exampleDecade {
+    font-size: 0.8rem;
   }
 }
 

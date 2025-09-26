@@ -1,4 +1,3 @@
-
 /* Base Styles */
 .container {
   --groovy-gold: #FFD700;
@@ -74,15 +73,11 @@
 .creditsInfo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-size: 1rem;
 }
-
-.creditsIcon { font-size: 1.3rem; }
-.creditsText { font-size: 1rem; }
 
 .creditsButton {
   background: linear-gradient(45deg, var(--groovy-gold), var(--sunset-orange));
@@ -95,7 +90,6 @@
   transform: skew(-10deg);
   transition: all 0.3s ease;
   font-family: inherit;
-  font-size: 0.9rem;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
 }
@@ -145,7 +139,7 @@
   color: var(--sunset-orange);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .costPill {
@@ -161,7 +155,7 @@
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
-/* TV Set */
+/* TV Set Section */
 .tvSection {
   display: flex;
   justify-content: center;
@@ -170,7 +164,7 @@
 
 .tvSet {
   width: 100%;
-  max-width: 650px;
+  max-width: 600px;
   background: linear-gradient(135deg, var(--earth-brown), #A0522D, var(--earth-brown));
   border: 8px solid var(--wood-dark);
   border-radius: 30px;
@@ -231,7 +225,6 @@
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--groovy-gold);
-  font-size: 1.1rem;
   position: relative;
   z-index: 2;
 }
@@ -245,6 +238,7 @@
   align-items: center;
   justify-content: center;
   z-index: 2;
+  overflow: hidden;
 }
 
 .tvControls {
@@ -298,6 +292,136 @@
   border-radius: 1px;
 }
 
+/* Upload Area */
+.uploadArea {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  background: radial-gradient(circle at center, rgba(139, 69, 19, 0.6) 0%, rgba(101, 67, 33, 0.8) 100%);
+  border: 3px dashed rgba(255, 215, 0, 0.7);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+.uploadArea:hover,
+.uploadArea.dragActive {
+  background: radial-gradient(circle at center, rgba(218, 165, 32, 0.8) 0%, rgba(160, 82, 45, 0.9) 100%);
+  border-color: var(--groovy-gold);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.6), inset 0 0 40px rgba(255, 140, 0, 0.3);
+}
+
+.uploadPrompt {
+  text-align: center;
+  color: var(--groovy-gold);
+  z-index: 3;
+}
+
+.uploadPrompt h4 {
+  color: var(--groovy-gold);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.uploadPrompt p {
+  color: var(--sunset-orange);
+  margin-bottom: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.uploadIcon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  display: block;
+  animation: groovyPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+}
+
+/* Image Display */
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.displayImage {
+  display: block;
+  margin: 0 auto 15px auto;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 3px solid var(--groovy-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  max-width: 320px;
+  max-height: 280px;
+  width: auto;
+  height: auto;
+}
+
+.displayImage:hover {
+  transform: scale(1.02);
+  border-color: var(--sunset-orange);
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.6);
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+  width: 100%;
+  max-width: 350px;
+}
+
+.toggleButton,
+.changePhotoButton,
+.downloadButton,
+.filterToggleButton {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+  border: 2px solid var(--groovy-gold);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--groovy-gold);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+}
+
+.toggleButton:hover,
+.changePhotoButton:hover,
+.downloadButton:hover,
+.filterToggleButton:hover {
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.3), rgba(218, 165, 32, 0.3));
+  border-color: var(--sunset-orange);
+  color: var(--cream);
+  transform: translateY(-2px) scale(1.02);
+}
+
 /* Configuration */
 .configSection {
   display: grid;
@@ -314,18 +438,6 @@
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
-}
-
-.configPanel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.2), transparent);
-  animation: groovySweep 4s ease-in-out infinite;
 }
 
 .configTitle {
@@ -333,45 +445,26 @@
   text-transform: uppercase;
   font-weight: 700;
   margin-bottom: 15px;
-  letter-spacing: 1px;
-  font-size: 1rem;
-  position: relative;
-  z-index: 1;
-  text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.2);
 }
 
 .styleGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 8px;
-  position: relative;
-  z-index: 1;
 }
 
 .styleOption {
   background: rgba(139, 69, 19, 0.4);
   border: 2px solid var(--groovy-gold);
   border-radius: 12px;
-  padding: 10px 8px;
+  padding: 8px 6px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 0.65rem;
   color: var(--groovy-gold);
   font-family: inherit;
-  line-height: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.styleEmoji {
-  font-size: 1.2rem;
-  display: block;
 }
 
 .styleOption:hover,
@@ -379,8 +472,7 @@
   background: rgba(255, 140, 0, 0.3);
   border-color: var(--sunset-orange);
   color: var(--cream);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
+  transform: scale(1.02);
 }
 
 /* Advanced Settings */
@@ -399,7 +491,6 @@
   font-family: inherit;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -407,14 +498,8 @@
   backdrop-filter: blur(10px);
 }
 
-.advancedToggle:hover {
-  background: linear-gradient(135deg, rgba(255, 140, 0, 0.25), rgba(255, 215, 0, 0.2));
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-}
-
 .toggleIcon {
   transition: transform 0.3s ease;
-  font-size: 0.8rem;
 }
 
 .toggleIcon.expanded {
@@ -424,7 +509,7 @@
 .optionalLabel {
   margin-left: auto;
   font-size: 0.7rem;
-  opacity: 0.8;
+  opacity: 0.7;
   font-weight: 400;
 }
 
@@ -441,7 +526,6 @@
   padding-bottom: 0;
 }
 
-/* Settings */
 .settingDescription {
   font-size: 0.7rem;
   color: rgba(255, 215, 0, 0.7);
@@ -463,39 +547,26 @@
   font-size: 0.7rem;
   color: var(--groovy-gold);
   text-transform: uppercase;
-  letter-spacing: 1px;
   font-weight: 700;
 }
 
 .styleSlider {
   flex: 1;
-  height: 6px;
+  height: 4px;
   background: rgba(255, 215, 0, 0.3);
   border: none;
   outline: none;
   cursor: pointer;
   appearance: none;
-  border-radius: 3px;
 }
 
 .styleSlider::-webkit-slider-thumb {
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: linear-gradient(135deg, var(--groovy-gold), var(--sunset-orange));
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
-}
-
-.styleSlider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, var(--groovy-gold), var(--sunset-orange));
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
 }
 
 .sliderValue {
@@ -504,28 +575,24 @@
   color: var(--sunset-orange);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 /* Generate Button */
 .generateSection {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   margin: 15px 0;
-  gap: 15px;
 }
 
 .generateButton {
-  background: linear-gradient(45deg, var(--groovy-gold), var(--sunset-orange), #FF8C00);
+  background: linear-gradient(45deg, var(--groovy-gold), var(--sunset-orange));
   border: none;
   border-radius: 20px;
   padding: 18px 40px;
   font-size: 18px;
   font-weight: bold;
-  font-family: 'Fredoka One', cursive;
   text-transform: uppercase;
   color: var(--earth-brown);
   cursor: pointer;
@@ -534,10 +601,12 @@
   min-width: 320px;
   min-height: 60px;
   transition: all 0.3s ease;
-  box-shadow: 
-    0 8px 25px rgba(255, 140, 0, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  transform: perspective(500px) rotateX(-8deg);
+  box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+}
+
+.generateButton .buttonText {
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 .generateButton::before {
@@ -552,10 +621,8 @@
 }
 
 .generateButton:hover {
-  transform: perspective(500px) rotateX(-8deg) scale(1.02);
-  box-shadow: 
-    0 12px 35px rgba(255, 140, 0, 0.6),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(255, 140, 0, 0.6);
 }
 
 .generateButton:hover::before {
@@ -563,46 +630,24 @@
 }
 
 .generateButton:disabled {
-  background: linear-gradient(135deg, #999, #666);
-  color: #ccc;
+  background: linear-gradient(135deg, #666, #444);
+  color: #999;
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
 .generateButton.loading {
-  animation: groovyPulse 2s ease-in-out infinite;
+  animation: loadingPulse 2s ease-in-out infinite;
+  cursor: wait;
+}
+
+.generateButton.loading .buttonText {
+  animation: loadingTextGlow 2s ease-in-out infinite;
 }
 
 .generateButton.complete {
-  animation: readyGroove 2s ease-in-out infinite alternate;
-}
-
-/* Loading text that appears below generate button */
-.loadingText {
-  color: var(--groovy-gold);
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  animation: groovyTextGlow 2s ease-in-out infinite;
-  text-shadow: 
-    0 0 5px rgba(255, 215, 0, 0.8),
-    0 0 10px rgba(255, 140, 0, 0.6),
-    0 0 15px rgba(218, 165, 32, 0.4);
-  margin-top: 15px;
-}
-
-.progressText {
-  color: var(--sunset-orange);
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-top: 10px;
-  opacity: 0.9;
+  animation: readyPulse 2s ease-in-out infinite alternate;
 }
 
 /* Animations */
@@ -617,8 +662,8 @@
 }
 
 @keyframes groovyGlow {
-  0%, 100% { opacity: 0.6; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
-  50% { opacity: 1; box-shadow: 0 0 25px rgba(255, 140, 0, 0.5); }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 @keyframes tvScanlines {
@@ -626,251 +671,160 @@
   100% { transform: translateY(6px); }
 }
 
-@keyframes groovySweep {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
 @keyframes groovyPulse {
-  0%, 100% { opacity: 1; transform: perspective(500px) rotateX(-8deg) scale(1); }
-  50% { opacity: 0.9; transform: perspective(500px) rotateX(-8deg) scale(1.02); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
-@keyframes readyGroove {
+@keyframes loadingPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+@keyframes loadingTextGlow {
+  0%, 100% { 
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 140, 0, 0.6);
+  }
+  50% { 
+    text-shadow: 0 0 10px rgba(255, 215, 0, 1), 0 0 20px rgba(255, 140, 0, 0.8);
+  }
+}
+
+@keyframes readyPulse {
   0% { box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4); }
   100% { box-shadow: 0 12px 35px rgba(255, 140, 0, 0.6); }
 }
 
-@keyframes groovyTextGlow {
-  0%, 100% { 
-    text-shadow: 
-      0 0 5px rgba(255, 215, 0, 0.8),
-      0 0 10px rgba(255, 140, 0, 0.6),
-      0 0 15px rgba(218, 165, 32, 0.4);
-  }
-  50% { 
-    text-shadow: 
-      0 0 10px rgba(255, 215, 0, 1),
-      0 0 20px rgba(255, 140, 0, 0.8),
-      0 0 30px rgba(218, 165, 32, 0.6);
-  }
-}
-
-/* Upload Area Styles */
-.uploadArea {
-  width: 100%;
-  height: 100%;
-  min-height: 320px;
-  background: 
-    radial-gradient(circle at center, rgba(139, 69, 19, 0.6) 0%, rgba(101, 67, 33, 0.8) 100%);
-  border: 3px dashed rgba(255, 215, 0, 0.7);
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
-  backdrop-filter: blur(5px);
-}
-
-.uploadArea:hover {
-  background: 
-    radial-gradient(circle at center, rgba(160, 82, 45, 0.7) 0%, rgba(139, 69, 19, 0.9) 100%);
-  border-color: var(--sunset-orange);
-  box-shadow: 
-    0 0 25px rgba(255, 215, 0, 0.4),
-    inset 0 0 30px rgba(255, 140, 0, 0.2);
-  transform: scale(1.02);
-}
-
-.uploadArea.dragActive {
-  background: 
-    radial-gradient(circle at center, rgba(218, 165, 32, 0.8) 0%, rgba(160, 82, 45, 0.9) 100%);
-  border-color: var(--groovy-gold);
-  box-shadow: 
-    0 0 35px rgba(255, 215, 0, 0.6),
-    inset 0 0 40px rgba(255, 140, 0, 0.3);
-}
-
-.uploadPrompt {
-  text-align: center;
+/* Loading text below button */
+.loadingText {
   color: var(--groovy-gold);
-  z-index: 3;
-  pointer-events: none;
-}
-
-.uploadPrompt h4 {
-  color: var(--groovy-gold);
-  margin-bottom: 15px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-.uploadPrompt p {
-  color: var(--sunset-orange);
-  margin-bottom: 15px;
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  text-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+  letter-spacing: 1px;
+  text-align: center;
+  animation: loadingTextGlow 2s ease-in-out infinite;
+  margin-top: 15px;
 }
 
-.uploadPrompt small {
-  color: rgba(255, 215, 0, 0.7);
-  font-size: 0.8rem;
-  line-height: 1.4;
-  text-transform: none;
-  letter-spacing: normal;
-  display: block;
-  margin-top: 10px;
-}
-
-.uploadIcon {
-  font-size: 3.5rem;
-  margin-bottom: 15px;
-  display: block;
-  animation: groovyPulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-}
-
-/* Image display styles */
-.imageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 15px;
-  position: relative;
-  z-index: 2;
-}
-
-.displayImage {
-  display: block;
-  margin: 0 auto 15px auto;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 3px solid var(--groovy-gold);
-  box-shadow: 
-    0 0 20px rgba(255, 215, 0, 0.4),
-    0 0 40px rgba(255, 140, 0, 0.2);
-  transition: all 0.3s ease;
-  max-width: 320px;
-  max-height: 280px;
-  width: auto;
-  height: auto;
-}
-
-.displayImage:hover {
-  transform: scale(1.02);
-  box-shadow: 
-    0 0 30px rgba(255, 140, 0, 0.6),
-    0 0 50px rgba(255, 215, 0, 0.3);
-  border-color: var(--sunset-orange);
-}
-
-/* Button row styles */
-.buttonRow {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: auto;
-  width: 100%;
-  max-width: 350px;
-}
-
-.toggleButton,
-.changePhotoButton,
-.downloadButton,
-.filterToggleButton {
-  background: 
-    linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
-  border: 2px solid var(--groovy-gold);
-  border-radius: 10px;
-  padding: 8px 12px;
-  color: var(--groovy-gold);
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 600;
+.progressText {
+  color: var(--sunset-orange);
+  font-size: 0.9rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.75rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
-  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
-  flex: 1;
-  min-width: 80px;
   text-align: center;
+  margin-top: 10px;
+  opacity: 0.8;
 }
 
-.toggleButton:hover,
-.changePhotoButton:hover,
-.downloadButton:hover,
-.filterToggleButton:hover {
-  background: 
-    linear-gradient(135deg, rgba(255, 140, 0, 0.3), rgba(218, 165, 32, 0.3));
-  border-color: var(--sunset-orange);
-  color: var(--cream);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 
-    0 5px 15px rgba(255, 140, 0, 0.4),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+.generateSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .container { padding: 15px; }
-  .creditsHeader { padding: 12px 20px; flex-direction: column; gap: 10px; }
-  .title { font-size: 2.5rem; transform: none; }
-  .configSection { grid-template-columns: 1fr; gap: 15px; }
-  .generateButton {
-    min-width: 280px;
-    font-size: 16px;
-  }
-  .generateButton:hover { transform: scale(1.02); }
-    .tvSet {
-    width: 100%;
-    max-width: 100vw;
+  .container { 
     padding: 10px;
-    box-sizing: border-box;
-  }
-  .tvContent {
+    padding-bottom: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
-    padding: 8px;
   }
-    .uploadArea {
-    min-width: 0;
-    width: 100%;
-    max-width: 100vw;
-    padding: 10px;
-    box-sizing: border-box;
+  
+  .creditsHeader { 
+    padding: 12px 20px; 
+    flex-direction: column; 
+    gap: 10px; 
   }
-  .imageContainer {
-    padding: 8px;
-    max-width: 100vw;
+  
+  .title { 
+    font-size: 2.5rem; 
+    transform: none; 
   }
-  .displayImage {
-    max-width: 90vw;
+  
+  .tvContent { 
+    height: auto; 
+    min-height: auto;
+  }
+  
+  .uploadArea { 
+    min-height: 250px; 
+  }
+  
+  .displayImage { 
+    max-width: 90%;
+    max-height: none;
+    width: auto;
     height: auto;
+  }
+  
+  .configSection { 
+    grid-template-columns: 1fr; 
+    gap: 15px; 
+  }
+  
+  .generateButton { 
+    min-width: 280px; 
+    font-size: 16px; 
+  }
+  
+  .imageContainer {
+    padding: 15px;
+    max-height: none;
+  }
+  
+  .buttonRow {
+    margin-top: 15px;
   }
 }
 
-
 @media (max-width: 480px) {
-  .tvContent { height: 300px; }
-  .styleOption { font-size: 0.65rem; padding: 8px 6px; }
-   .uploadArea { min-height: 180px; }
-  .displayImage { max-width: 180px; max-height: 140px; }
-  .generateButton { min-width: 220px; font-size: 14px; }
+  .container {
+    padding: 8px;
+    padding-bottom: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .uploadArea { 
+    min-height: 200px; 
+  }
+  
+  .displayImage { 
+    max-width: 95%;
+    max-height: none;
+    width: auto;
+    height: auto;
+  }
+  
+  .buttonRow { 
+    flex-direction: row;
+    gap: 8px;
+  }
+  
+  .toggleButton,
+  .changePhotoButton,
+  .downloadButton,
+  .filterToggleButton {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    min-width: 70px;
+  }
+  
+  .generateButton { 
+    min-width: 250px; 
+    font-size: 15px; 
+  }
+  
+  .tvContent { 
+    min-height: auto;
+  }
 }

@@ -1,159 +1,100 @@
-// pages/replicate/2000s.js
-import { useState, useEffect } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { supabase } from "../../lib/supabaseClient";
-import useCredits from "../../hooks/useCredits";
+import { useState, useCallback } from "react";
 import styles from "../../styles/decades/TwothousandsPage.module.css";
 import { TWOTHOUSANDS_STYLES, buildTwothousandsPrompt } from "../../components/TwothousandsPrompts";
 import DecadeBottomSection from "../../components/DecadeBottomSection";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
-import ConfigurationSection from "../../components/decades/shared/ConfigurationSection";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
+import GenderSelector from "../../components/decades/shared/GenderSelector";
+import StyleSelector from "../../components/decades/shared/StyleSelector";
+import AdvancedSettings from "../../components/decades/shared/AdvancedSettings";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
+import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
+import { useDecadeGenerationHandler } from "../../components/decades/hooks/useDecadeGenerationHandler";
 import TwothousandsSEO from "../../components/SEO/TwothousandsSEO";
 
 export default function TwothousandsPage() {
-  const router = useRouter();
-  
-  const [photo, setPhoto] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [resultImageUrl, setResultImageUrl] = useState(null);
-  const [session, setSession] = useState(null);
-  const [showingOriginal, setShowingOriginal] = useState(false);
-  const [filterEnabled, setFilterEnabled] = useState(true);
+  // XP Start Menu state
   const [startMenuOpen, setStartMenuOpen] = useState(false);
 
-  // Configuration state
-  const [userGender, setUserGender] = useState("");
-  const [selectedStyle, setSelectedStyle] = useState("");
-  const [styleStrength, setStyleStrength] = useState(20);
-  const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
-
-  // UI state for expandable sections
-  const [expandedSections, setExpandedSections] = useState({
-    gender: false,
-    workflow: false,
-    style: false,
-    strength: false
-  });
-
-  const avatarCost = 50;
-  const { credits, isLoggedIn, refreshCredits } = useCredits();
+  // Use the page logic hook for all state and basic handlers
+  const {
+    photo,
+    setPhoto,
+    previewUrl,
+    setPreviewUrl,
+    resultImageUrl,
+    setResultImageUrl,
+    showingOriginal,
+    setShowingOriginal,
+    userGender,
+    setUserGender,
+    selectedStyle,
+    setSelectedStyle,
+    styleStrength,
+    setStyleStrength,
+    workflowType,
+    setWorkflowType,
+    showAdvancedSettings,
+    credits,
+    isLoggedIn,
+    refreshCredits,
+    router,
+    handleFileProcessing,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleDownload,
+    handlePhotoUploadCallback,
+    toggleAdvancedSettings,
+    scrollToPhotoOnMobile,
+    isComplete,
+    avatarCost
+  } = useDecadePageLogic("2000s", 50);
 
   // Generation hook with 2000s prompt builder wrapper
-  const twothousandsPromptWrapper = (gender, styleId, workflowType, strength) => {
+  const twothousandsPromptWrapper = useCallback((gender, styleId, workflowType, strength) => {
     const promptResult = buildTwothousandsPrompt(gender, styleId, workflowType, strength);
-    
-    // Debug logging
-    console.log('buildTwothousandsPrompt result:', promptResult);
-    console.log('typeof promptResult:', typeof promptResult);
     
     // Ensure we return a string - handle both string and object returns
     if (typeof promptResult === 'string') {
       return promptResult;
     } else if (promptResult && typeof promptResult === 'object') {
-      // If it's an object, check if it has a 'prompt' property or convert to string
       return promptResult.prompt || JSON.stringify(promptResult);
     } else {
-      // Fallback - create a basic prompt
       const styleObj = TWOTHOUSANDS_STYLES.find(s => s.id === styleId);
       const styleName = styleObj ? styleObj.label : styleId;
       return `A ${gender} person in authentic 2000s ${styleName} style yearbook photo`;
     }
-  };
+  }, []);
   
   const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("2000s", twothousandsPromptWrapper);
 
-  useEffect(() => {
-    async function getSession() {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-    }
-    getSession();
-  }, []);
+  // Scroll selectors for mobile
+  const scrollSelectors = [
+    `.${styles.photoWindow}`,
+    `.${styles.photoContent}`,
+    `.${styles.windowContent}`
+  ];
 
-  const handleGenerateOrRedirect = async () => {
-    if (!photo) {
-      return;
-    }
-
-    if (!userGender || !selectedStyle) {
-      return;
-    }
-
-    if (!isLoggedIn) {
-      router.push('/signup');
-      return;
-    }
-    
-    if (credits < avatarCost) {
-      router.push('/pricing');
-      return;
-    }
-
-    // Scroll to photo section on mobile when generation starts
-    const scrollToPhoto = () => {
-      const photoSection = document.querySelector(`.${styles.photoWindow}`) || 
-                          document.querySelector(`.${styles.photoContent}`) ||
-                          document.querySelector(`.${styles.windowContent}`);
-      
-      if (photoSection && window.innerWidth <= 768) {
-        photoSection.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
-      }
-    };
-
-    try {
-      // Convert gender format to match API expectations
-      const apiGender = userGender === 'non-binary' ? 'non_binary' : userGender;
-      
-      // Start scrolling right when generation begins
-      setTimeout(scrollToPhoto, 100);
-      
-      const imageUrl = await generateAvatar(photo, apiGender, selectedStyle, workflowType, styleStrength, refreshCredits);
-      setResultImageUrl(imageUrl);
-    } catch (error) {
-      console.error('Generation failed:', error);
-    }
-  };
-
-  const handleDownload = async () => {
-    if (!resultImageUrl) return;
-    
-    try {
-      const resp = await fetch(resultImageUrl);
-      const blob = await resp.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `2000s-yearbook-photo-${filterEnabled ? 'filtered' : 'unfiltered'}-${Date.now()}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-    }
-  };
-
-  const getButtonText = () => {
-    if (isLoading) return "Creating your awesome 2000s photo...";
-    if (!photo) return "Upload a Photo First";
-    if (!userGender || !selectedStyle) return "Complete Setup First";
-    if (!isLoggedIn) return "Sign Up to Generate";
-    if (credits < avatarCost) return "Get More Credits";
-    return "Generate My 2000s Yearbook Photo!";
-  };
-
-  const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
-
-  const handlePhotoUploadCallback = () => {
-    setExpandedSections(prev => ({ ...prev, gender: true }));
-  };
+  // Use generation handler hook
+  const { handleGenerateOrRedirect, getButtonText } = useDecadeGenerationHandler({
+    photo,
+    userGender,
+    selectedStyle,
+    isLoggedIn,
+    credits,
+    avatarCost,
+    router,
+    workflowType,
+    styleStrength,
+    generateAvatar,
+    refreshCredits,
+    scrollToPhotoOnMobile,
+    setResultImageUrl,
+    scrollSelectors
+  });
 
   return (
     <>
@@ -192,6 +133,14 @@ export default function TwothousandsPage() {
                   >
                     <span className={styles.menuIcon}>📺</span>
                     <span>70s Yearbook Photos</span>
+                  </button>
+                  
+                  <button 
+                    className={styles.startMenuItem}
+                    onClick={() => router.push('/replicate/80s')}
+                  >
+                    <span className={styles.menuIcon}>📻</span>
+                    <span>80s Yearbook Photos</span>
                   </button>
                   
                   <button 
@@ -237,7 +186,7 @@ export default function TwothousandsPage() {
             </div>
           )}
 
-          {/* Overlay to close menu when clicking outside */}
+          {/* Overlay to close menu */}
           {startMenuOpen && (
             <div 
               className={styles.startMenuOverlay}
@@ -322,12 +271,9 @@ export default function TwothousandsPage() {
                       resultImageUrl={resultImageUrl}
                       showingOriginal={showingOriginal}
                       setShowingOriginal={setShowingOriginal}
-                      filterEnabled={filterEnabled}
-                      setFilterEnabled={setFilterEnabled}
                       handleDownload={handleDownload}
                       decade="2000s"
                       styles={styles}
-                      // Add loading overlay props
                       isLoading={isLoading}
                       progress={progress}
                       progressStage={progressStage}
@@ -339,27 +285,125 @@ export default function TwothousandsPage() {
                   id="photo-upload"
                   type="file"
                   accept="image/*"
-                  onChange={() => {}} // Handled by PhotoUpload component
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleFileProcessing(e.target.files[0]);
+                    }
+                  }}
                   style={{ display: 'none' }}
                 />
               </div>
 
-              {/* Configuration Section */}
-              <ConfigurationSection
-                userGender={userGender}
-                setUserGender={setUserGender}
-                selectedStyle={selectedStyle}
-                setSelectedStyle={setSelectedStyle}
-                styleStrength={styleStrength}
-                setStyleStrength={setStyleStrength}
-                workflowType={workflowType}
-                setWorkflowType={setWorkflowType}
-                expandedSections={expandedSections}
-                setExpandedSections={setExpandedSections}
-                styles={styles}
-                decade="2000s"
-                decadeStyles={TWOTHOUSANDS_STYLES}
-              />
+              {/* Configuration Section - XP Style */}
+              <div className={styles.optionsPanel}>
+                <div className={styles.optionRow}>
+                  {/* Gender Selection */}
+                  <div className={styles.optionSection}>
+                    <div className={styles.sectionButton}>
+                      <span className={styles.sectionIcon}>👤</span>
+                      <span className={styles.sectionTitle}>CHOOSE GENDER</span>
+                      {userGender && <span className={styles.sectionValue}>{userGender.toUpperCase()}</span>}
+                    </div>
+                    <div className={styles.sectionContent}>
+                      <div className={styles.buttonGroup}>
+                        {[
+                          { id: 'male', label: 'MALE' },
+                          { id: 'female', label: 'FEMALE' },
+                          { id: 'non-binary', label: 'NON-BINARY' }
+                        ].map((option) => (
+                          <button
+                            key={option.id}
+                            className={`${styles.optionButton} ${userGender === option.id ? styles.selected : ''}`}
+                            onClick={() => setUserGender(option.id)}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Style Selection */}
+                  <div className={styles.optionSection}>
+                    <div className={styles.sectionButton}>
+                      <span className={styles.sectionIcon}>🎨</span>
+                      <span className={styles.sectionTitle}>2000S STYLE</span>
+                      {selectedStyle && <span className={styles.sectionValue}>{TWOTHOUSANDS_STYLES.find(s => s.id === selectedStyle)?.label.toUpperCase()}</span>}
+                    </div>
+                    <div className={styles.sectionContent}>
+                      <div className={styles.styleGrid}>
+                        {TWOTHOUSANDS_STYLES.map((style) => (
+                          <button
+                            key={style.id}
+                            className={`${styles.styleButton} ${selectedStyle === style.id ? styles.selected : ''}`}
+                            onClick={() => setSelectedStyle(style.id)}
+                            title={style.description}
+                          >
+                            <span className={styles.styleEmoji}>{style.emoji}</span>
+                            {style.label.toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Advanced Settings - XP Style */}
+                <div className={styles.optionRow}>
+                  {/* Photo Quality */}
+                  <div className={styles.optionSection}>
+                    <div className={styles.sectionButton}>
+                      <span className={styles.sectionIcon}>⚙️</span>
+                      <span className={styles.sectionTitle}>PHOTO QUALITY</span>
+                      {workflowType && <span className={styles.sectionValue}>
+                        {workflowType === 'HyperRealistic-likeness' ? 'REALISTIC' : workflowType === 'HyperRealistic' ? 'HYPER-REAL' : 'STYLISTIC'}
+                      </span>}
+                    </div>
+                    <div className={styles.sectionContent}>
+                      <div className={styles.buttonGroup}>
+                        {[
+                          { id: 'HyperRealistic-likeness', label: 'REALISTIC' },
+                          { id: 'HyperRealistic', label: 'HYPER-REAL' },
+                          { id: 'Stylistic', label: 'STYLISTIC' }
+                        ].map((option) => (
+                          <button
+                            key={option.id}
+                            className={`${styles.optionButton} ${workflowType === option.id ? styles.selected : ''}`}
+                            onClick={() => setWorkflowType(option.id)}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Style Strength */}
+                  <div className={styles.optionSection}>
+                    <div className={styles.sectionButton}>
+                      <span className={styles.sectionIcon}>🎚️</span>
+                      <span className={styles.sectionTitle}>STYLE STRENGTH</span>
+                      <span className={styles.sectionValue}>{styleStrength}</span>
+                    </div>
+                    <div className={styles.sectionContent}>
+                      <div className={styles.sliderContainer}>
+                        <input
+                          type="range"
+                          className={styles.slider}
+                          min="5"
+                          max="35"
+                          value={styleStrength}
+                          onChange={(e) => setStyleStrength(parseInt(e.target.value))}
+                        />
+                        <div className={styles.sliderLabels}>
+                          <span>SUBTLE</span>
+                          <span>INTENSE</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Generate Button */}
               <GenerateButton
@@ -375,7 +419,6 @@ export default function TwothousandsPage() {
           </div>
         </div>
 
-        {/* Reusable Bottom Section Component */}
         <DecadeBottomSection currentDecade="2000s" />
       </main>
     </>

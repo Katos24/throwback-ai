@@ -640,13 +640,14 @@
   /* Mobile nav links */
   .showMenu .navLink,
   .showMenu .dropdownTrigger {
-  width: auto; /* Let content determine width */
-  justify-content: flex-start; /* Align left like other items */
-  padding: 12px 20px;
-  font-size: 1rem;
-  border-radius: 12px;
-  min-height: 44px;
-}
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 2px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 12px;
+    min-height: 44px;
+  }
 
   /* COMPACT MOBILE DROPDOWN */
   .showMenu .dropdownMenu {
@@ -688,16 +689,16 @@
   }
 
   /* Single-line compact dropdown items */
-   .showMenu .dropdownItem {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    margin: 0; /* Remove margin */
-    border-radius: 0; /* Remove border radius for full width items */
-    min-height: 48px;
-    height: auto;
-  }
+ .showMenu .dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px; /* Increase right padding from 16px to 20px */
+  margin: 0;
+  border-radius: 0;
+  min-height: 48px;
+  height: auto;
+}
 
   .showMenu .dropdownItemIcon {
     font-size: 1rem;
@@ -748,7 +749,8 @@
   font-size: 0.75rem;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: auto;
+  min-width: 70px; /* Reserve space for "40 Credits" */
+  text-align: right;
 }
 
   .showMenu .dropdownFooter {

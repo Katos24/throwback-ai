@@ -353,6 +353,7 @@
   transform: translateX(5px);
 }
 
+
 /* Examples Section with Carousel */
 .examplesSection {
   margin-top: 5px;
@@ -383,32 +384,6 @@
   padding: 20px 0;
   margin: 0 auto;
   width: 100%;
-  position: relative;
-}
-
-/* Slick carousel overrides */
-.carouselContainer :global(.slick-list) {
-  overflow: visible;
-  padding: 20px 0 !important;
-}
-
-.carouselContainer :global(.slick-track) {
-  display: flex;
-  align-items: center;
-}
-
-.carouselContainer :global(.slick-slide) {
-  opacity: 0.6;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.carouselContainer :global(.slick-slide.slick-active) {
-  opacity: 1;
-}
-
-.carouselContainer :global(.slick-slide.slick-center) {
-  opacity: 1;
-  transform: scale(1.05);
 }
 
 .carouselSlide {
@@ -482,7 +457,7 @@
   }
   
   .examplesSection {
-    padding: 40px 20px;
+    padding: 40px 0;
   }
   
   .examplesTitle {
@@ -495,14 +470,9 @@
   }
   
   .carouselContainer {
-    padding: 20px 0;
-    margin: 0 auto;
     width: 100%;
-  }
-  
-  .carouselContainer :global(.slick-list) {
-    padding: 15px 0 !important;
-    overflow: hidden !important;
+    padding: 20px 0;
+    margin: 0;
   }
   
   .carouselSlide {
@@ -511,7 +481,6 @@
   
   .exampleCard {
     border-radius: 12px;
-    max-width: 300px;
   }
   
   .exampleOverlay {
@@ -545,7 +514,7 @@
   }
   
   .examplesSection {
-    padding: 30px 15px;
+    padding: 30px 0;
   }
   
   .examplesTitle {
@@ -553,14 +522,9 @@
   }
   
   .carouselContainer {
-    padding: 15px 0;
-    margin: 0 auto;
     width: 100%;
-  }
-  
-  .carouselContainer :global(.slick-list) {
-    padding: 15px 0 !important;
-    overflow: hidden !important;
+    padding: 15px 0;
+    margin: 0;
   }
   
   .carouselSlide {
@@ -569,7 +533,6 @@
   
   .exampleCard {
     border-radius: 12px;
-    max-width: 250px;
   }
   
   .exampleOverlay {

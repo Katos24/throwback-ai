@@ -4,6 +4,8 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { supabase } from "../lib/supabaseClient";
 import { Inter } from 'next/font/google';
 import "../styles/globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
@@ -21,11 +23,9 @@ const inter = Inter({
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    setIsLoaded(true);
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = "manual";
       const originalPushState = window.history.pushState;
@@ -110,7 +110,7 @@ export default function MyApp({ Component, pageProps }) {
         </noscript>
         {/* End Meta Pixel Code */}
       </Head>
-      <div className={`app-container ${inter.className} ${isLoaded ? "loaded" : "loading"}`}>
+      <div className={`app-container ${inter.className}`}>
         <Header showMenu={showMenu} setShowMenu={setShowMenu} />
         <main className="main-content">
           <Component {...pageProps} />

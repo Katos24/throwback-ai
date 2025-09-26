@@ -23,6 +23,7 @@ export default function Document() {
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
 
         {/* Inline critical CSS */}
         <style dangerouslySetInnerHTML={{
@@ -55,17 +56,17 @@ export default function Document() {
             .react-hot-toast-wrapper > div { pointer-events: auto; }
 
             /* Decorative fonts placeholders - hidden until loaded */
-            .gfs-didot-text, .press-start-text { visibility: hidden; }
+            .gfs-didot-text, .press-start-text { opacity: 0; transition: opacity 0.2s ease-in; }
 
             /* Once fonts are loaded */
-            .fonts-loaded .gfs-didot-text { visibility: visible; font-family: 'Righteous', 'Fredoka One', cursive; }
-            .fonts-loaded .press-start-text { visibility: visible; font-family: 'Courier New', Impact, 'Arial Black', sans-serif; }
-
-            .loading { opacity: 0; transition: opacity 0.2s ease-in-out; }
-            .loaded { opacity: 1; }
+            .fonts-loaded .gfs-didot-text { opacity: 1; font-family: 'Righteous', 'Fredoka One', cursive; }
+            .fonts-loaded .press-start-text { opacity: 1; font-family: 'Courier New', Impact, 'Arial Black', sans-serif; }
 
             button, a, [role="button"] { cursor: pointer; touch-action: manipulation; }
             a, button, input, select, textarea, [tabindex] { -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+            
+            /* Prevent carousel flash */
+            .slick-slider { opacity: 1 !important; visibility: visible !important; }
           `
         }} />
       </Head>
@@ -77,27 +78,15 @@ export default function Document() {
         {/* Load decorative fonts after interactive - non-critical */}
         <Script
           id="load-fonts"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               const loadFonts = () => {
                 const fonts = [
-                // Core UI font
-                'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
-
-                // 70s fonts
-                'https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap',
-
-                // 90s fonts
-                'https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Impact:wght@400&family=Arial+Black:wght@900&display=swap',
-
-                // 2000s fonts
-                'https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Trebuchet+MS:wght@400;700&display=swap',
-
-                // Decades section
-                'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Righteous&display=swap'
-              ];
-
+                  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap',
+                  'https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&display=swap',
+                  'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Righteous&display=swap'
+                ];
 
                 fonts.forEach(href => {
                   const link = document.createElement('link');
@@ -107,7 +96,6 @@ export default function Document() {
                 });
 
                 document.documentElement.classList.add('fonts-loaded');
-                document.body.classList.add('loaded');
               };
 
               if (document.readyState === 'complete') {
@@ -115,14 +103,6 @@ export default function Document() {
               } else {
                 window.addEventListener('load', () => setTimeout(loadFonts, 100));
               }
-
-              ['click','keydown','mousemove','scroll','touchstart'].forEach(ev => {
-                const handler = () => {
-                  loadFonts();
-                  ['click','keydown','mousemove','scroll','touchstart'].forEach(e => document.removeEventListener(e, handler));
-                };
-                document.addEventListener(ev, handler, { once: true });
-              });
             `
           }}
         />

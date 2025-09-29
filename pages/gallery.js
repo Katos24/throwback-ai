@@ -99,7 +99,7 @@ const decadesItems = [
     image: "/images/gallery/90s3.jpg",
     decade: "90s",
     style: "Grunge",
-    description: "90s grunge yearbook transformation"
+    description: "90s grunge yearbook transformation."
   },
   {
     image: "/images/gallery/90s2.jpg",

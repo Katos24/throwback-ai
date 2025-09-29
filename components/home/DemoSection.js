@@ -10,39 +10,39 @@ export default function DemoSection() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Memoize demos to fix useEffect dependency warning
-  const demos = useMemo(() => [
-  
-    {
-      id: 'colorize',
-      title: "Historical Colorization",
-      description: "Add historically accurate, vibrant colors to black and white family photos.",
-      icon: "🎨",
-      buttonText: "Try Colorize",
-      beforeAfter: {
-        before: "/images/beforepremium2.jpg",
-        after: "/images/afterpremium2.jpg"
-      },
-      link: "/replicate/restore-premium",
-      credits: 40,
-      category: "restore",
-      color: "#8b5cf6"
+const demos = useMemo(() => [
+  {
+    id: 'colorize',
+    title: "Historical Colorization",
+    description: "Add historically accurate, vibrant colors to black and white family photos.",
+    icon: "🎨",
+    buttonText: "Try Colorize",
+    beforeAfter: {
+      before: "/images/beforepremium2.jpg",
+      after: "/images/afterpremium2.jpg"
     },
-      {
-      id: 'restore',
-      title: "Photo Restoration",
-      description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
-      icon: "✨",
-      buttonText: "Try Restore",
-      beforeAfter: {
-        before: "/images/photofixbefore.jpg",
-        after: "/images/photofixafter.jpg"
-      },
-      link: "/replicate/restore-basic",
-      credits: 1,
-      category: "restore",
-      color: "#06b6d4"
-    }
-  ], []);
+    link: "/replicate/restore-premium",
+    credits: 40,
+    category: "restore",
+    color: "#8b5cf6"
+  },
+  {
+    id: 'eighties',
+    title: "1980s Style Transformation",
+    description: "Transform your photos with bold colors, VHS textures, and retro 80s vibes.",
+    icon: "📼",
+    buttonText: "Try 80s Look",
+    beforeAfter: {
+      before: "/images/80sbeforecard.jpg",
+      after: "/images/80sbeforeafter.jpg"
+    },
+    link: "/replicate/style-80s",
+    credits: 50,
+    category: "style",
+    color: "#ec4899"
+  }
+], []);
+
 
   // Preload images when component mounts
   useEffect(() => {

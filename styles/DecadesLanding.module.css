@@ -540,11 +540,13 @@
   }
   
   .carouselSlide {
-    padding: 0 8px;
+    padding: 0 5px; /* tighten spacing */
   }
   
   .exampleCard {
     border-radius: 12px;
+    aspect-ratio: 4 / 5; /* ✅ taller images on mobile look more natural */
+    max-width: 90%;      /* keep a bit of margin on sides */
   }
   
   .exampleOverlay {

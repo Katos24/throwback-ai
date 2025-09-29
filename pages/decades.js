@@ -59,6 +59,8 @@ const carouselSettings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
+  swipeToSlide: true,     // ✅ smoother swipe
+  touchThreshold: 10,     // ✅ more responsive to touch
   responsive: [
     {
       breakpoint: 1024,
@@ -68,17 +70,29 @@ const carouselSettings = {
       }
     },
     {
-      breakpoint: 600,
+      breakpoint: 768,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
         centerMode: true,
-        centerPadding: '50px',  // Space on sides
-        arrows: false           // No arrows, just dots
+        centerPadding: "20px", // ✅ tighter padding for tablets
+        arrows: false,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: false,     // ✅ avoid cut-off on small phones
+        arrows: false,
+        dots: true
       }
     }
   ]
 };
+
 
   const handleDecadeClick = (decadeId) => {
     router.push(`/replicate/${decadeId}`);

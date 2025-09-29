@@ -27,7 +27,7 @@ const SEVENTIES_STYLES = [
     description: "Androgynous theatrical looks, glitter, stage dramatics",
     emoji: "⭐"
   },
-    {
+  {
     id: 'bohemian',
     value: "1970s bohemian yearbook photo with long flowing hair, layered vintage clothing, natural relaxed expression, warm earth tones, soft bohemian aesthetic",
     label: "Bohemian",
@@ -74,8 +74,8 @@ const buildSeventiesPrompt = ({
     prompt += ", IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure";
   }
 
-  // Add era-authentic photography specs for 70s look
-  prompt += ", authentic 1970s photography aesthetic: Kodak Portra-style film grain, 85mm portrait compression, warm vintage color grading, soft natural studio/yearbook lighting, slight vignetting";
+  // IMPROVED: More authentic 70s photography specs
+  prompt += ", authentic 1970s yearbook photography: shot on Kodak Ektachrome or Kodacolor film, visible film grain with warm amber-yellow color cast typical of aged 70s prints, soft tungsten studio lighting with slight overexposure, natural edge vignetting, 85mm portrait lens compression";
 
   // Intensity modifiers
   switch (intensity) {
@@ -90,7 +90,7 @@ const buildSeventiesPrompt = ({
   }
 
   // Final anchor
-  prompt += ", preserve facial features and bone structure, no modern elements, photographed in 1975";
+  prompt += ", tight close-up yearbook portrait, preserve facial features and bone structure, no modern elements, photographed in 1975";
 
   return prompt;
 };

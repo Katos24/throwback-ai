@@ -6,7 +6,8 @@ import HomepageSEO from '../components/SEO/HomepageSEO';
 
 // Lazy-load sections - Reordered with Success Stories moved up
 const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
-const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories')); // MOVED UP TO #2
+const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories')); // #2
+const AutoScrollCarousel = dynamic(() => import('../components/home/AutoScrollCarousel')); // NEW - #3
 const TopBanner = dynamic(() => import('../components/home/TopBanner')); // Technical restoration demo
 const DecadesSection = dynamic(() => import('../components/home/DecadesSection')); 
 const FeaturesSection = dynamic(() => import('../components/home/FeaturesSection')); 
@@ -21,7 +22,8 @@ const Loader = () => <div className="my-32 text-center text-gray-500">Loading...
 export default function Home() {
   // Intersection Observers - Reordered for new flow
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // MOVED UP
+  const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
+  const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -46,37 +48,42 @@ export default function Home() {
           {successInView && <Suspense fallback={<Loader />}><CustomerSuccess /></Suspense>}
         </div>
 
-        {/* 3. Top Banner - Technical restoration demo (how AI works) */}
+        {/* 3. Auto-Scrolling Photo Carousel - Visual showcase */}
+        <div ref={carouselRef}>
+          {carouselInView && <Suspense fallback={<Loader />}><AutoScrollCarousel /></Suspense>}
+        </div>
+
+        {/* 4. Top Banner - Technical restoration demo (how AI works) */}
         <div ref={topBannerRef}>
           {topBannerInView && <Suspense fallback={<Loader />}><TopBanner /></Suspense>}
         </div>
 
-        {/* 4. Decades Section - Deep dive into each decade */}
+        {/* 5. Decades Section - Deep dive into each decade */}
         <div ref={decadesRef}>
           {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
         </div>
 
-        {/* 5. Features Section */}
+        {/* 6. Features Section */}
         <div ref={featuresRef} id="features">
           {featuresInView && <Suspense fallback={<Loader />}><FeaturesSection /></Suspense>}
         </div>
 
-        {/* 6. Demo Section */}
+        {/* 7. Demo Section */}
         <div ref={demoSectionRef}>
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
         </div>
 
-        {/* 7. How It Works */}
+        {/* 8. How It Works */}
         <div ref={howItWorksRef}>
           {howItWorksInView && <Suspense fallback={<Loader />}><HowItWorks /></Suspense>}
         </div>
 
-        {/* 8. Pricing Section */}
+        {/* 9. Pricing Section */}
         <div ref={pricingRef}>
           {pricingInView && <Suspense fallback={<Loader />}><PricingSection /></Suspense>}
         </div>
 
-        {/* 9. CTA Section */}
+        {/* 10. CTA Section */}
         <div ref={ctaRef}>
           {ctaInView && <Suspense fallback={<Loader />}><CTASection /></Suspense>}
         </div>

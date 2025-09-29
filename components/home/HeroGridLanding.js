@@ -146,7 +146,9 @@ export default function HeroGridLanding() {
             <span className={styles.gradientText}>in Seconds</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Professional photo restoration, viral decade transformations, and colorization powered by AI trained on 50,000+ vintage images.
+            AI-powered photo tools: Restore damaged vintage photos to vivid clarity, 
+            or transform yourself into iconic decades (70s, 80s, 90s, 2000s). 
+            Preserve family history or create viral social content in seconds.
           </p>
 
           {/* Signup Bonus Banner */}

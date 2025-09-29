@@ -1,148 +1,134 @@
-const NINETIES_STYLES = [
-    {
-    id: 'teen-sitcom',
-    label: "90s Teen Sitcom Star",
-    value: "iconic early 1990s teen sitcom style, standing confidently in bright colorful high school hallways with blue lockers, wearing vibrant preppy outfit with bold geometric patterns, oversized colorful windbreaker or letterman varsity jacket, baggy stone-washed jeans, white high-top sneakers, perfectly styled voluminous hair with side part or frosted tips, bright studio TV lighting, cheerful optimistic expression, classic American high school backdrop with trophy cases and bulletin boards, nostalgic 90s teen comedy aesthetic, Saved by the Bell vibes",
-    description: "Bright, colorful teen sitcom vibes with varsity jackets and blue lockers",
-    emoji: "🏫"
-  },
-    {
-    id: 'high-school-yearbook',
-    label: "90s High School Yearbook",
-    value: "90s high school yearbook photo, retro windbreaker jacket, big hair, bright neon colors, soft lighting, vintage Kodak film grain, centered school portrait, cheesy smile, plain background, 1990s fashion aesthetic",
-    description: "Classic yearbook look with neon windbreaker and big hair",
-    emoji: "🎓"
-  },
-  {
-    id: 'mall-goth',
-    label: "90s Mall Goth",
-    value: "90s mall goth, black eyeliner, dark lipstick, fishnet sleeves, band t-shirt, chunky platform boots, Hot Topic aesthetic, moody lighting, alternative 1990s style",
-    description: "Dark eyeliner, band tees, platform boots, moody mall goth vibe",
-    emoji: "🖤"
-  },
-  {
-    id: 'hip-hop',
-    label: "90s Hip-Hop Style",
-    value: "90s hip-hop fashion, baggy jeans, oversized jersey, backwards baseball cap, gold chain, boom box, urban street style, East Coast 90s vibe, grainy film photography",
-    description: "Baggy jeans, oversized jersey, gold chain, urban street look",
-    emoji: "🎤"
-  },
-  {
-    id: 'grunge',
-    label: "90s Grunge Kid",
-    value: "90s grunge aesthetic, flannel shirt, ripped jeans, Doc Martens, messy hair, guitar in background, Seattle music scene vibe, authentic 1990s alternative style",
-    description: "Flannel, ripped jeans, Doc Martens, messy hair, grunge scene",
-    emoji: "🎸"
-  },
-  {
-    id: 'preppy',
-    label: "90s Preppy Kid",
-    value: "90s preppy style, polo shirt, khaki pants, letterman jacket, perfectly styled hair, country club background, clean-cut All-American 1990s look",
-    description: "Polo shirts, letterman jackets, clean-cut preppy teen",
-    emoji: "👔"
-  },
-  {
-    id: 'rave',
-    label: "90s Rave Kid",
-    value: "90s rave culture, neon colors, glow sticks, bucket hat, oversized pants, smiley face accessories, club lighting, underground dance scene aesthetic",
-    description: "Neon outfits, glow sticks, dance club vibe",
-    emoji: "💿"
-  },
-  {
-    id: 'skater',
-    label: "90s Skater",
-    value: "90s skater style, baggy shorts, graphic t-shirt, backwards snapback, skateboard, half-pipe background, X-Games era aesthetic, rebellious 1990s youth culture",
-    description: "Baggy clothes, snapback, skateboard, X-Games vibe",
-    emoji: "🛹"
-  },
-  {
-    id: 'boy-band',
-    label: "90s Boy Band Member",
-    value: "90s boy band style, frosted tips, leather jacket, chain necklace, dramatic pose, concert stage lighting, teen heartthrob aesthetic, NSYNC/Backstreet Boys era",
-    description: "Frosted tips, leather jacket, teen heartthrob pose",
-    emoji: "🎶"
-  },
-  {
-    id: 'girl-group',
-    label: "90s Girl Group Singer",
-    value: "90s girl group style, crop top, low-rise jeans, platform shoes, butterfly hair clips, glossy lips, pop star pose, Spice Girls era aesthetic",
-    description: "Pop star outfit, platform shoes, butterfly clips",
-    emoji: "🎤"
-  },
-  {
-    id: 'sitcom-character',
-    label: "90s Sitcom Character",
-    value: "90s family sitcom style, casual home setting, laugh track era fashion, wholesome family values aesthetic, Full House/Fresh Prince vibes",
-    description: "Casual home look, sitcom-inspired fashion",
-    emoji: "📺"
-  },
-  {
-    id: 'tech-enthusiast',
-    label: "90s Tech Enthusiast",
-    value: "90s computer nerd, thick glasses, button-up shirt, pocket protector, early internet cafe background, dial-up modem era, tech pioneer aesthetic",
-    description: "Glasses, pocket protector, early tech vibes",
-    emoji: "💻"
-  },
-  {
-    id: 'cartoon-character',
-    label: "90s Cartoon Character",
-    value: "90s animated style, bold outlines, bright saturated colors, Nickelodeon/Cartoon Network aesthetic, nostalgic childhood cartoon vibes",
-    description: "Bright colors, bold outlines, cartoon aesthetic",
-    emoji: "🖍️"
-  },
-  {
-    id: 'video-store-employee',
-    label: "90s Video Store Employee",
-    value: "90s video rental store, employee vest, surrounded by VHS tapes, movie posters, Blockbuster era nostalgia, weekend night shift vibes",
-    description: "VHS store employee, Blockbuster nostalgia",
-    emoji: "📼"
-  },
-  {
-    id: 'arcade-gamer',
-    label: "90s Arcade Gamer",
-    value: "90s arcade setting, quarters in hand, Street Fighter cabinet, neon arcade lighting, competitive gaming culture, pre-internet gaming era",
-    description: "Arcade lighting, retro gaming vibes, competitive fun",
-    emoji: "🕹️"
-  },
-  {
-    id: 'roller-blader',
-    label: "90s Roller Blader",
-    value: "90s inline skating, neon rollerblades, safety pads, windbreaker, sunny park setting, extreme sports culture, weekend warrior aesthetic",
-    description: "Neon rollerblades, windbreaker, park skating vibes",
-    emoji: "🛼"
-  }
+// components/NinetiesPrompts.js
+
+export const NINETIES_STYLES = [
+  { id: 'grunge', value: "mid-1990s grunge yearbook photo: messy layered hair, minimal smudged eyeliner, oversized flannel over band tee, ripped jeans, Doc Martens, laid-back rebellious expression, Seattle alternative scene aesthetic", label: "Grunge", emoji: "🎸", description: "Seattle sound with flannel and rebellion" },
+  { id: 'hip-hop', value: "mid-1990s hip-hop yearbook photo: cornrows or high ponytail with baby hairs, bold hoop earrings, oversized jersey or baggy jeans with crop top, Timberlands or Air Force 1s, confident attitude, East Coast golden era style", label: "Hip-Hop", emoji: "🎤", description: "Urban street style with bold accessories" },
+  { id: 'minimalist', value: "mid-1990s minimalist yearbook photo: sleek straight hair or low bun, nude makeup with brown lip liner, simple slip dress or turtleneck, clean understated jewelry, serene expression, Calvin Klein era aesthetic", label: "Minimalist Chic", emoji: "🤍", description: "Clean lines and understated elegance" },
+  { id: 'pop-star', value: "mid-1990s teen pop yearbook photo: butterfly clips or crimped hair, frosted eyeshadow and glossy lips, platform sneakers with crop top and low-rise jeans, chunky highlights, bubbly energetic smile, MTV generation vibe", label: "Pop Star", emoji: "💿", description: "Teen pop with platforms and glitter" },
+  { id: 'skater', value: "mid-1990s skater yearbook photo: shaggy hair or backwards cap, oversized graphic tee, baggy cargo pants or shorts, Vans or DC shoes, laid-back expression, X-Games era alternative youth culture", label: "Skater", emoji: "🛹", description: "Baggy clothes and skate culture attitude" },
+  { id: 'rnb', value: "mid-1990s R&B yearbook photo: smooth laid edges or finger waves, brown lip liner with gloss, satin or velvet outfit, gold bamboo earrings, sultry confident expression, warm studio lighting, TLC and Aaliyah era style", label: "R&B Style", emoji: "✨", description: "Smooth sophistication with soul" },
+  { id: 'preppy', value: "mid-1990s preppy yearbook photo: center-parted straight hair or headband, natural makeup with clear lip gloss, polo shirt or cardigan over collared shirt, khakis or pleated skirt, friendly smile, classic American teen look", label: "Preppy", emoji: "👔", description: "Clean-cut collegiate fashion" },
+  { id: 'rave', value: "mid-1990s rave kid yearbook photo: space buns or colorful streaks, glitter makeup, neon windbreaker or bucket hat, smiley face accessories, glow stick bracelets, energetic expression, underground club aesthetic", label: "Rave Kid", emoji: "🌈", description: "Neon colors and dance culture energy" },
+  { id: 'mall-goth', value: "mid-1990s mall goth yearbook photo: dark hair with heavy black eyeliner, dark lipstick with pale foundation, black band t-shirt, fishnet layers, choker, silver chains, brooding expression, Hot Topic alternative style", label: "Mall Goth", emoji: "🖤", description: "Dark alternative with band merchandise" },
+  { id: 'boy-band', value: "mid-1990s boy band yearbook photo: frosted tips or gelled spiky hair, subtle groomed makeup, leather jacket or coordinated outfit, cargo pants, chain necklace, charming smile, teen heartthrob appeal", label: "Boy Band", emoji: "🎶", description: "Teen idol with coordinated styling" }
 ];
 
-const buildNinetiesPrompt = ({
-  gender,
-  styleId,
-  preserveFacialFeatures = true,
-  intensity = 'medium'
-}) => {
-  const style = NINETIES_STYLES.find(s => s.id === styleId);
-  if (!style) return null;
-
-  let prompt = `${gender} ${style.value}`;
-
-  if (preserveFacialFeatures) {
-    prompt += ", IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure";
+// Per-gender style details
+const STYLE_PROMPTS = {
+  grunge: {
+    male: "male with shoulder-length messy hair, slight stubble, oversized flannel, band tee, ripped jeans, Doc Martens, rebellious expression",
+    female: "female with layered messy hair, minimal makeup with smudged eyeliner, oversized flannel, slip dress over tee, combat boots, laid-back attitude",
+    "non-binary": "person with alternative grunge styling, flannel layers, band merchandise, combat boots, authentic Seattle scene look"
+  },
+  "hip-hop": {
+    male: "male with fade or cornrows, gold chain, oversized sports jersey, baggy jeans, Timberlands, confident stance",
+    female: "female with high ponytail and baby hairs, bold hoop earrings, crop top with baggy jeans, bamboo earrings, Air Force 1s, fierce expression",
+    "non-binary": "person with urban hip-hop styling, baggy clothes, bold accessories, confident attitude"
+  },
+  minimalist: {
+    male: "male with clean short hair, simple turtleneck or button-down, dark jeans, minimal accessories, understated elegance",
+    female: "female with sleek straight hair or low bun, nude makeup with brown lip liner, slip dress or simple turtleneck, minimal jewelry, serene look",
+    "non-binary": "person with clean minimalist styling, simple monochrome clothing, understated accessories"
+  },
+  "pop-star": {
+    male: "male with frosted tips or bleached hair, leather jacket, cargo pants, chain necklace, boy band styling, charming smile",
+    female: "female with butterfly clips or crimped hair, frosted eyeshadow, glossy lips, crop top with low-rise jeans, platform shoes, bubbly expression",
+    "non-binary": "person with vibrant teen pop styling, colorful accessories, platform shoes, energetic look"
+  },
+  skater: {
+    male: "male with shaggy hair or backwards cap, oversized graphic tee, baggy cargo shorts, Vans, relaxed smile",
+    female: "female with messy ponytail or loose hair, oversized band tee, baggy jeans, Vans or DC shoes, casual laid-back vibe",
+    "non-binary": "person with comfortable skater styling, oversized clothing, skate shoes, laid-back attitude"
+  },
+  rnb: {
+    male: "male with waves or cornrows, silk shirt or jersey, baggy jeans, gold chain, Timberlands, smooth confident look",
+    female: "female with smooth laid edges or finger waves, brown lip liner with gloss, satin or velvet outfit, bamboo earrings, sultry expression",
+    "non-binary": "person with smooth R&B styling, satin fabrics, gold jewelry, confident presence"
+  },
+  preppy: {
+    male: "male with neat side-part hair, polo shirt or sweater vest, khakis, boat shoes or loafers, friendly smile",
+    female: "female with center-parted straight hair or headband, natural makeup, cardigan over collared shirt, pleated skirt or khakis, pearl earrings, warm smile",
+    "non-binary": "person with clean preppy styling, polo or collared shirt, neat grooming, classic accessories"
+  },
+  rave: {
+    male: "male with messy spiked hair or bucket hat, neon windbreaker, baggy pants, glow stick accessories, energetic smile",
+    female: "female with space buns or colorful hair, glitter makeup, neon crop top, platform shoes, fuzzy accessories, playful expression",
+    "non-binary": "person with colorful rave styling, neon clothing, glow accessories, energetic vibe"
+  },
+  "mall-goth": {
+    male: "male with dark dyed hair, black eyeliner, band t-shirt, wide-leg black jeans, chains, studded accessories, moody expression",
+    female: "female with dark hair, heavy black eyeliner, dark lipstick, fishnet sleeves, band tee, layered chains, choker, brooding look",
+    "non-binary": "person with dark alternative styling, band merchandise, fishnet layers, chains, moody aesthetic"
+  },
+  "boy-band": {
+    male: "male with frosted tips or styled spikes, leather jacket, cargo pants, chain necklace, coordinated outfit, confident heartthrob smile",
+    female: "female with styled hair or space buns, coordinated girl group outfit, platform shoes, butterfly clips, pop star energy",
+    "non-binary": "person with coordinated pop styling, trendy 90s fashion, platform accessories"
   }
-
-  prompt += ", authentic 1990s photography style with period-accurate lighting and composition";
-
-  switch (intensity) {
-    case 'subtle':
-      prompt += ", subtle vintage styling maintaining natural appearance";
-      break;
-    case 'strong':
-      prompt += ", bold dramatic 1990s transformation with exaggerated period elements";
-      break;
-    default:
-      prompt += ", balanced vintage styling with authentic 1990s elements";
-  }
-
-  return prompt;
 };
 
-export { NINETIES_STYLES, buildNinetiesPrompt };
+// Authentic mid-1990s photo look
+const PHOTO_QUALITY_BASE = `
+shot on 35mm film or early consumer camera,
+slight film grain or digital noise,
+natural saturation with period-accurate color tones,
+school portrait or casual studio lighting,
+typical mid-1990s yearbook framing and composition
+`.replace(/\s+/g, ' ').trim();
+
+const PHOTOGRAPHY_STYLES = {
+  "HyperRealistic-likeness": `${PHOTO_QUALITY_BASE}, sharp facial focus typical of professional school portraits, clear subject exposure`,
+  "Realistic": `${PHOTO_QUALITY_BASE}, standard mid-1990s yearbook texture and authentic period feel`,
+  "Stylistic": `${PHOTO_QUALITY_BASE}, enhanced nostalgic feel with period-accurate styling emphasis`
+};
+
+// Period-specific background details
+const NINETIES_ENVIRONMENT = `
+mid-1990s yearbook backdrop (plain neutral or soft gradient),
+school portrait studio or casual setting,
+authentic 1990s photography processing and composition
+`.replace(/\s+/g, ' ').trim();
+
+// Negative prompt to avoid modern elements
+export const NEGATIVE_PROMPT = [
+  "no smartphones", "no modern technology", "no 2000s fashion", "no 2010s styling",
+  "no modern makeup trends", "no Instagram filters", "no modern hair techniques",
+  "no ultra-HD quality", "no modern accessories"
+].join(", ");
+
+// Build function returns both prompt and negative prompt
+export function buildNinetiesPrompt(userGender, selectedStyle, workflowType = "HyperRealistic-likeness", styleStrength = 20) {
+  const baseStyle = STYLE_PROMPTS[selectedStyle]?.[userGender] || STYLE_PROMPTS[selectedStyle]?.["non-binary"] || "";
+  const photoStyle = PHOTOGRAPHY_STYLES[workflowType] || PHOTOGRAPHY_STYLES["HyperRealistic-likeness"];
+
+  const intensityDescriptor = styleStrength >= 35 ? "strong mid-1990s transformation" : styleStrength >= 20 ? "moderate period styling" : "subtle period cues";
+  const photographicNotes = styleStrength >= 35 ? "pronounced vintage film character" : styleStrength >= 20 ? "noticeable 90s photographic feel" : "light nostalgic character";
+
+  const prompt = [
+    baseStyle,
+    `${intensityDescriptor}, ${photographicNotes}`,
+    photoStyle,
+    NINETIES_ENVIRONMENT,
+    "CRITICAL: preserve exact facial features, bone structure, skin tone, and ethnicity",
+    "tight close-up yearbook portrait, head and upper shoulders only, natural expression, direct eye contact",
+    "authentic 1990s aesthetic, no modern elements, period-accurate styling from 1993-1999"
+  ].filter(Boolean).join(", ");
+
+  return {
+    prompt,
+    negative_prompt: NEGATIVE_PROMPT
+  };
+}
+
+// Helpers
+export function getStyleDescription(styleId) {
+  return NINETIES_STYLES.find(s => s.id === styleId)?.description || "";
+}
+
+export const AVAILABLE_GENDERS = ["male", "female", "non-binary"];
+export const WORKFLOW_TYPES = [
+  { value: "HyperRealistic-likeness", label: "HyperRealistic" },
+  { value: "Realistic", label: "Realistic" },
+  { value: "Stylistic", label: "Stylistic" }
+];
 export default NINETIES_STYLES;

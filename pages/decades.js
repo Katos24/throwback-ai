@@ -143,24 +143,3 @@ export default function ThrowbackPage() {
   );
 }
 
-const lightboxBtnStylePrev = {
-  position: "absolute",
-  left: "10px",
-  top: "50%",
-  fontSize: "2rem",
-  color: "#fff",
-  background: "rgba(0,0,0,0.5)",
-  border: "none",
-  borderRadius: "50%",
-  width: "50px",
-  height: "50px",
-  cursor: "pointer",
-  transform: "translateY(-50%)",
-  zIndex: 10000
-};
-
-const lightboxBtnStyleNext = {
-  ...lightboxBtnStylePrev,
-  left: "auto",
-  right: "10px"
-};

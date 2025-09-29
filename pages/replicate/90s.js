@@ -52,14 +52,10 @@ export default function NinetiesPage() {
     avatarCost
   } = useDecadePageLogic("90s", 50);
 
-  // Generation hook with 90s prompt builder wrapper
-  const ninetiesPromptWrapper = useCallback((gender, styleId, workflowType, strength) => {
-    return buildNinetiesPrompt({
-      gender,
-      styleId,
-      preserveFacialFeatures: true,
-      intensity: strength > 25 ? 'strong' : strength < 15 ? 'subtle' : 'medium'
-    });
+  // FIXED: Generation hook with correct parameter structure
+  const ninetiesPromptWrapper = useCallback((gender, styleId, workflow, strength) => {
+    // Call buildNinetiesPrompt with correct parameters
+    return buildNinetiesPrompt(gender, styleId, workflow, strength);
   }, []);
   
   const { generateAvatar, isLoading, progress, progressStage } = useDecadeGeneration("90s", ninetiesPromptWrapper);

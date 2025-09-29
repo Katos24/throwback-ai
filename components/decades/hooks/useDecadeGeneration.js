@@ -51,14 +51,31 @@ export function useDecadeGeneration(decade, buildPromptFunction) {
       setProgressStage(`Sending to the ${decade} AI...`);
 
       // Use the provided prompt builder function
-      const prompt = buildPromptFunction(userGender, selectedStyle, workflowType, styleStrength);
+      const promptResult = buildPromptFunction(userGender, selectedStyle, workflowType, styleStrength);
+
+      // CRITICAL FIX: Handle both object and string returns
+      let finalPrompt, negativePrompt;
+      
+      if (typeof promptResult === 'object' && promptResult !== null) {
+        // New format (90s, 2000s) - returns { prompt: "...", negative_prompt: "..." }
+        finalPrompt = promptResult.prompt;
+        negativePrompt = promptResult.negative_prompt || "";
+      } else {
+        // Old format (70s, 80s) - returns just a string
+        finalPrompt = promptResult;
+        negativePrompt = "";
+      }
+
+      console.log('🔍 Final prompt being sent:', finalPrompt);
+      console.log('🔍 Negative prompt:', negativePrompt);
 
       const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
         headers,
         body: JSON.stringify({
           imageBase64: base64,
-          prompt: prompt,
+          prompt: finalPrompt, // ✅ Now always a string
+          negative_prompt: negativePrompt,
           styleStrength: styleStrength,
           user_gender: userGender,
           workflow_type: workflowType

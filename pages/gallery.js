@@ -8,83 +8,130 @@ import styles from '../styles/Gallery.module.css'
 // ================= Restore Items =================
 const restoreItems = [
   {
-    image: "/images/weddingrestoredohoto.png",
+    image: "/images/gallery/restore2.jpg",
     category: "Wedding Photos",
     year: "1952",
-    description: "Vintage wedding portrait with full colorization"
+    description: "Vintage wedding portrait restoration"
   },
   {
-    image: "/images/familyrestoredphoto.png",
+    image: "/images/gallery/restore9.jpg",
+    category: "Military Photos",
+    year: "1944",
+    description: "WWII military photo restoration"
+  },
+  {
+    image: "/images/gallery/restore3.jpg",
     category: "Family Photos",
     year: "1938",
-    description: "Multi-generational family photo restoration"
+    description: "Multi-generational family photo"
   },
   {
-    image: "/images/testimonials/genealogy.jpg",
-    category: "Memories",
-    year: "1960",
-    description: "Memories with vibrant color restoration"
-  },
-  {
-    image: "/images/museumrestoredphoto.png",
+    image: "/images/gallery/restore8.jpg",
     category: "Baby Photos",
     year: "1955",
     description: "Precious baby photo brought back to life"
+  },
+  {
+    image: "/images/gallery/restore5.jpg",
+    category: "Memories",
+    year: "1960",
+    description: "Cherished memories with color restoration"
+  },
+  {
+    image: "/images/gallery/restore7.jpg",
+    category: "Wedding Photos",
+    year: "1948",
+    description: "Wedding day memories restored"
+  },
+  {
+    image: "/images/gallery/restore6.jpg",
+    category: "Family Photos",
+    year: "1965",
+    description: "Family gathering colorized"
+  },
+  {
+    image: "/images/gallery/restore4.jpg",
+    category: "Memories",
+    year: "1972",
+    description: "Vintage portrait enhanced"
   }
 ];
 
 // ================= Decade Items =================
 const decadesItems = [
   {
-    image: "/images/yearbook/70s.jpg",
+    image: "/images/gallery/70s1.jpg",
     decade: "70s",
+    style: "Hippie",
+    description: "70s hippie yearbook transformation"
   },
-   {
-    image: "/images/yearbook/70s2.jpg",
+  {
+    image: "/images/gallery/70s2.jpg",
     decade: "70s",
+    style: "Disco",
+    description: "70s disco yearbook transformation"
   },
   {
-    image: "/images/yearbook/70s3.jpg",
+    image: "/images/gallery/70s3.jpg",
     decade: "70s",
+    style: "Bohemian",
+    description: "70s bohemian yearbook transformation"
   },
   {
-    image: "/images/yearbook/80s.jpg",
+    image: "/images/gallery/80s1.jpg",
     decade: "80s",
+    style: "New Wave",
+    description: "80s new wave yearbook transformation"
   },
   {
-    image: "/images/yearbook/80s2.jpg",
+    image: "/images/gallery/80s2.jpg",
     decade: "80s",
+    style: "Rock",
+    description: "80s rock yearbook transformation"
   },
   {
-    image: "/images/yearbook/80s3.jpg",
+    image: "/images/gallery/80s3.jpg",
     decade: "80s",
+    style: "Pop",
+    description: "80s pop culture yearbook transformation"
   },
   {
-    image: "/images/yearbook/90s.jpg",
+    image: "/images/gallery/90s3.jpg",
     decade: "90s",
-  },
-   {
-    image: "/images/yearbook/90s2.jpg",
-    decade: "90s",
-  },
-   {
-    image: "/images/yearbook/90s3.jpg",
-    decade: "90s",
-  },
-    {
-    image: "/images/yearbook/2000s.jpg",
-    decade: "2000s",
+    style: "Grunge",
+    description: "90s grunge yearbook transformation"
   },
   {
-    image: "/images/yearbook/2000s2.jpg",
-    decade: "2000s",
+    image: "/images/gallery/90s2.jpg",
+    decade: "90s",
+    style: "Hip-Hop",
+    description: "90s hip-hop yearbook transformation"
   },
   {
-    image: "/images/yearbook/2000s3.jpg",
+    image: "/images/gallery/90s1.jpg",
+    decade: "90s",
+    style: "Pop Star",
+    description: "90s pop star yearbook transformation"
+  },
+  {
+    image: "/images/gallery/2000s1.jpg",
     decade: "2000s",
+    style: "Emo",
+    description: "2000s emo yearbook transformation"
+  },
+  {
+    image: "/images/gallery/2000s2.jpg",
+    decade: "2000s",
+    style: "Scene",
+    description: "2000s scene yearbook transformation"
+  },
+  {
+    image: "/images/gallery/2000s3.jpg",
+    decade: "2000s",
+    style: "Pop Punk",
+    description: "2000s pop punk yearbook transformation"
   }
 ];
-
 
 // ================= Cartoon Items =================
 const cartoonItems = [
@@ -228,14 +275,15 @@ export default function Gallery() {
                 <Image
                   src={item.image}
                   alt={item.description}
-                  width={400}
-                  height={400}
+                  width={800}
+                  height={600}
                   className={styles.image}
                 />
                 {(item.category || item.decade) && (
                   <div className={styles.cardHeader}>
                     {item.category && <span>{item.category}</span>}
                     {item.decade && <span>{item.decade}</span>}
+                    {item.style && <span>{item.style}</span>}
                     {item.year && <span>{item.year}</span>}
                   </div>
                 )}

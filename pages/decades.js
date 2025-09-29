@@ -30,13 +30,13 @@ export default function ThrowbackPage() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3, // desktop
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     responsive: [
       {
-        breakpoint: 768, // mobile
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -49,11 +49,12 @@ export default function ThrowbackPage() {
   };
 
   const handleDecadeClick = (decadeId) => router.push(`/replicate/${decadeId}`);
+  
   const handleImageClick = (index) => {
     if (window.innerWidth <= 768) {
       setCurrentIndex(index);
       setLightboxOpen(true);
-      document.body.style.overflow = 'hidden'; // prevent background scroll
+      document.body.style.overflow = 'hidden';
     }
   };
 
@@ -129,17 +130,16 @@ export default function ThrowbackPage() {
 
         {lightboxOpen && (
           <div className={styles.lightbox} onClick={closeLightbox}>
-            <button onClick={prevImage} style={lightboxBtnStylePrev}>‹</button>
+            <button onClick={prevImage} className={styles.lightboxBtnPrev}>‹</button>
             <img
               src={examplePhotos[currentIndex].src}
               alt={examplePhotos[currentIndex].alt}
               className={styles.lightboxImage}
             />
-            <button onClick={nextImage} style={lightboxBtnStyleNext}>›</button>
+            <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
           </div>
         )}
       </div>
     </div>
   );
 }
-

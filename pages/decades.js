@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 export default function ThrowbackPage() {
   const router = useRouter();
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const decades = [
     { id: '70s', title: '1970s', subtitle: 'Disco Fever', emoji: '🕺', description: 'Funky beats & bell-bottoms', className: 'decade-70s' },
@@ -27,36 +27,50 @@ export default function ThrowbackPage() {
   ];
 
   const carouselSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3, // desktop
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  responsive: [
-    {
-      breakpoint: 768, // mobile
-      settings: {
-        slidesToShow: 1,       // show 1 large image
-        slidesToScroll: 1,
-        centerMode: true,
-        centerPadding: '20px',
-        arrows: false
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3, // desktop
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768, // mobile
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '20px',
+          arrows: false
+        }
       }
-    }
-  ]
-};
-
+    ]
+  };
 
   const handleDecadeClick = (decadeId) => router.push(`/replicate/${decadeId}`);
-  const handleImageClick = (photo) => {
-  if (window.innerWidth <= 768) { // only open on mobile
-    setCurrentImage(photo);
-    setLightboxOpen(true);
-  }
-};
-  const closeLightbox = () => setLightboxOpen(false);
+  const handleImageClick = (index) => {
+    if (window.innerWidth <= 768) {
+      setCurrentIndex(index);
+      setLightboxOpen(true);
+      document.body.style.overflow = 'hidden'; // prevent background scroll
+    }
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % examplePhotos.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + examplePhotos.length) % examplePhotos.length);
+  };
 
   return (
     <div className={styles.container}>
@@ -101,7 +115,7 @@ export default function ThrowbackPage() {
             <Slider {...carouselSettings}>
               {examplePhotos.map((photo, index) => (
                 <div key={index} className={styles.carouselSlide}>
-                  <div className={styles.exampleCard} onClick={() => handleImageClick(photo)}>
+                  <div className={styles.exampleCard} onClick={() => handleImageClick(index)}>
                     <img src={photo.src} alt={photo.alt} className={styles.exampleImage} />
                     <div className={styles.exampleOverlay}>
                       <span className={styles.exampleDecade}>{photo.decade} Style</span>
@@ -115,10 +129,38 @@ export default function ThrowbackPage() {
 
         {lightboxOpen && (
           <div className={styles.lightbox} onClick={closeLightbox}>
-            <img src={currentImage.src} alt={currentImage.alt} className={styles.lightboxImage} />
+            <button onClick={prevImage} style={lightboxBtnStylePrev}>‹</button>
+            <img
+              src={examplePhotos[currentIndex].src}
+              alt={examplePhotos[currentIndex].alt}
+              className={styles.lightboxImage}
+            />
+            <button onClick={nextImage} style={lightboxBtnStyleNext}>›</button>
           </div>
         )}
       </div>
     </div>
   );
 }
+
+const lightboxBtnStylePrev = {
+  position: "absolute",
+  left: "10px",
+  top: "50%",
+  fontSize: "2rem",
+  color: "#fff",
+  background: "rgba(0,0,0,0.5)",
+  border: "none",
+  borderRadius: "50%",
+  width: "50px",
+  height: "50px",
+  cursor: "pointer",
+  transform: "translateY(-50%)",
+  zIndex: 10000
+};
+
+const lightboxBtnStyleNext = {
+  ...lightboxBtnStylePrev,
+  left: "auto",
+  right: "10px"
+};

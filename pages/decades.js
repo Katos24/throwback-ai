@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Slider from 'react-slick';
 import styles from '../styles/DecadesLanding.module.css';
 import "slick-carousel/slick/slick.css";
@@ -6,40 +7,14 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function ThrowbackPage() {
   const router = useRouter();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(null);
 
   const decades = [
-    {
-      id: '70s',
-      title: '1970s',
-      subtitle: 'Disco Fever',
-      emoji: '🕺',
-      description: 'Funky beats & bell-bottoms',
-      className: 'decade-70s'
-    },
-    {
-      id: '80s',
-      title: '1980s',
-      subtitle: 'Neon Dreams',
-      emoji: '🎮',
-      description: 'Synth wave & big hair',
-      className: 'decade-80s'
-    },
-    {
-      id: '90s',
-      title: '1990s',
-      subtitle: 'Grunge Era',
-      emoji: '📼',
-      description: 'Alternative rock & flannel',
-      className: 'decade-90s'
-    },
-    {
-      id: '2000s',
-      title: '2000s',
-      subtitle: 'Digital Dawn',
-      emoji: '💿',
-      description: 'Y2K aesthetic & pop culture',
-      className: 'decade-2000s'
-    }
+    { id: '70s', title: '1970s', subtitle: 'Disco Fever', emoji: '🕺', description: 'Funky beats & bell-bottoms', className: 'decade-70s' },
+    { id: '80s', title: '1980s', subtitle: 'Neon Dreams', emoji: '🎮', description: 'Synth wave & big hair', className: 'decade-80s' },
+    { id: '90s', title: '1990s', subtitle: 'Grunge Era', emoji: '📼', description: 'Alternative rock & flannel', className: 'decade-90s' },
+    { id: '2000s', title: '2000s', subtitle: 'Digital Dawn', emoji: '💿', description: 'Y2K aesthetic & pop culture', className: 'decade-2000s' }
   ];
 
   const examplePhotos = [
@@ -51,56 +26,40 @@ export default function ThrowbackPage() {
     { src: '/images/yearbook/80s3.jpg', decade: '80s', alt: '80s yearbook example 2' }
   ];
 
-const carouselSettings = {
+  const carouselSettings = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
+  slidesToShow: 3, // desktop
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
-  swipeToSlide: true,     // ✅ smoother swipe
-  touchThreshold: 10,     // ✅ more responsive to touch
   responsive: [
     {
-      breakpoint: 1024,
+      breakpoint: 768, // mobile
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1
-      }
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
+        slidesToShow: 1,       // show 1 large image
         slidesToScroll: 1,
         centerMode: true,
-        centerPadding: "20px", // ✅ tighter padding for tablets
-        arrows: false,
-        dots: true
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        centerMode: false,     // ✅ avoid cut-off on small phones
-        arrows: false,
-        dots: true
+        centerPadding: '20px',
+        arrows: false
       }
     }
   ]
 };
 
 
-  const handleDecadeClick = (decadeId) => {
-    router.push(`/replicate/${decadeId}`);
-  };
+  const handleDecadeClick = (decadeId) => router.push(`/replicate/${decadeId}`);
+  const handleImageClick = (photo) => {
+  if (window.innerWidth <= 768) { // only open on mobile
+    setCurrentImage(photo);
+    setLightboxOpen(true);
+  }
+};
+  const closeLightbox = () => setLightboxOpen(false);
 
   return (
     <div className={styles.container}>
-      {/* Animated background elements */}
       <div className={styles.bgAnimation}>
         <div className={`${styles.floatingShape} ${styles.shape1}`}></div>
         <div className={`${styles.floatingShape} ${styles.shape2}`}></div>
@@ -108,15 +67,12 @@ const carouselSettings = {
         <div className={`${styles.floatingShape} ${styles.shape4}`}></div>
       </div>
 
-      {/* Main content */}
       <div className={styles.mainContent}>
-        {/* Header */}
         <header className={styles.header}>
           <h1 className={styles.logo}>Throwback AI</h1>
           <p className={styles.tagline}>Choose Your Era</p>
         </header>
 
-        {/* Decades grid */}
         <div className={styles.decadesGrid}>
           {decades.map((decade, index) => (
             <div
@@ -137,21 +93,16 @@ const carouselSettings = {
           ))}
         </div>
 
-        {/* Example Photos Carousel */}
         <section className={styles.examplesSection}>
           <h2 className={styles.examplesTitle}>See The Results</h2>
           <p className={styles.examplesSubtitle}>Real transformations from each decade</p>
-          
+
           <div className={styles.carouselContainer}>
             <Slider {...carouselSettings}>
               {examplePhotos.map((photo, index) => (
                 <div key={index} className={styles.carouselSlide}>
-                  <div className={styles.exampleCard}>
-                    <img 
-                      src={photo.src} 
-                      alt={photo.alt}
-                      className={styles.exampleImage}
-                    />
+                  <div className={styles.exampleCard} onClick={() => handleImageClick(photo)}>
+                    <img src={photo.src} alt={photo.alt} className={styles.exampleImage} />
                     <div className={styles.exampleOverlay}>
                       <span className={styles.exampleDecade}>{photo.decade} Style</span>
                     </div>
@@ -161,6 +112,12 @@ const carouselSettings = {
             </Slider>
           </div>
         </section>
+
+        {lightboxOpen && (
+          <div className={styles.lightbox} onClick={closeLightbox}>
+            <img src={currentImage.src} alt={currentImage.alt} className={styles.lightboxImage} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import Slider from 'react-slick';
 import styles from '../styles/DecadesLanding.module.css';
 import "slick-carousel/slick/slick.css";
@@ -127,19 +128,21 @@ export default function ThrowbackPage() {
             </Slider>
           </div>
         </section>
-
-        {lightboxOpen && (
-          <div className={styles.lightbox} onClick={closeLightbox}>
-            <button onClick={prevImage} className={styles.lightboxBtnPrev}>‹</button>
-            <img
-              src={examplePhotos[currentIndex].src}
-              alt={examplePhotos[currentIndex].alt}
-              className={styles.lightboxImage}
-            />
-            <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
-          </div>
-        )}
       </div>
+
+      {/* Lightbox rendered as Portal to document.body */}
+      {lightboxOpen && typeof document !== 'undefined' && createPortal(
+        <div className={styles.lightbox} onClick={closeLightbox}>
+          <button onClick={prevImage} className={styles.lightboxBtnPrev}>‹</button>
+          <img
+            src={examplePhotos[currentIndex].src}
+            alt={examplePhotos[currentIndex].alt}
+            className={styles.lightboxImage}
+          />
+          <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function BasicFeaturesSection() {
           
           <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
             <img
-              src="/images/familyrestoredphoto.jpg"
+              src="/images/gallery/restore1.jpg"
               alt="Before and After 1"
               style={{ width: "100%", borderRadius: "8px" }}
               className={styles.brightImage}
@@ -26,7 +26,7 @@ export default function BasicFeaturesSection() {
 
           <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
             <img
-              src="/images/museumrestoredphoto.jpg"
+              src="/images/gallery/restore5.jpg"
               alt="Before and After 2"
               style={{ width: "100%", borderRadius: "8px" }}
               className={styles.brightImage}
@@ -35,7 +35,7 @@ export default function BasicFeaturesSection() {
 
           <div style={{ flex: "1 1 300px", maxWidth: "400px" }}>
             <img
-              src="/images/weddingrestoredohoto.jpg"
+              src="/images/gallery/restore9.jpg"
               alt="Before and After 3"
               style={{ width: "100%", borderRadius: "8px" }}
               className={styles.brightImage}
@@ -60,15 +60,15 @@ export default function BasicFeaturesSection() {
           {/* Premium Restore - LEFT */}
           <div style={{
             flex: "1 1 300px",
-            maxWidth: "500px",
+            maxWidth: "450px",
             backgroundColor: "#1a1a1a",
             padding: "1rem",
             borderRadius: "8px"
           }}>
             <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Full Color Restore</h3>
             <ImageCompareSlider
-              beforeImage="/images/demo-before.jpg"
-              afterImage="/images/demo-after.jpg"
+              beforeImage="/images/basic-before.jpg"
+              afterImage="/images/afterpremium2.jpg"
             />
             <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
               Includes colorization, facial repair, and deep reconstruction.
@@ -112,7 +112,7 @@ export default function BasicFeaturesSection() {
           </div>
           <div className={styles.featurePromoVisual}>
             <img
-              src="/images/basic-restore-preview.jpg"
+              src="/images/restore-preview.png"
               alt="Basic restored photo example"
               className={`${styles.featurePromoImage} ${styles.tiltImage}`}
             />

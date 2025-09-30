@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import styles from "../../styles/decades/NinetiesNew.module.css";
 import { NINETIES_STYLES, buildNinetiesPrompt } from "../../components/NinetiesPrompts";
+import DecadeBottomSection from "../../components/DecadeBottomSection";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
 import { useDecadeGenerationHandler } from "../../components/decades/hooks/useDecadeGenerationHandler";
@@ -111,7 +112,7 @@ export default function NinetiesPage() {
           </div>
           <div className={styles.headerContent}>
             <h1 className={styles.title}>90s YEARBOOK</h1>
-            <p className={styles.subtitle}>~ As if you wouldn&apos;t want a yearbook photo ~</p>
+            <p className={styles.subtitle}>~ As if you wouldn't want a yearbook photo ~</p>
           </div>
         </div>
 
@@ -249,6 +250,8 @@ export default function NinetiesPage() {
           }}
           style={{ display: 'none' }}
         />
+
+        <DecadeBottomSection currentDecade="90s" />
       </main>
     </>
   );

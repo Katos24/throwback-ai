@@ -114,6 +114,7 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .deskSection::after {
@@ -137,6 +138,7 @@
   transform: rotate(-1deg);
   margin: 0 auto;
   max-width: 600px;
+  width: 100%;
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -452,68 +454,318 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .container {
-    padding: 15px;
+    padding: 10px;
   }
 
   .notebookHeader {
-    padding: 25px 20px 25px 50px;
-    margin-bottom: 30px;
+    padding: 20px 15px 20px 40px;
+    margin-bottom: 25px;
+  }
+
+  .notebookHeader::before {
+    left: 30px;
   }
 
   .title {
     letter-spacing: 1px;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .subtitle {
+    font-size: clamp(0.85rem, 3vw, 1rem);
   }
 
   .creditsBadge {
     position: static;
-    display: inline-block;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    padding: 8px 16px;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    text-align: center;
   }
 
   .deskSection {
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 12px;
+    margin-bottom: 25px;
+    border-width: 4px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .deskSection::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
   }
 
   .polaroidFrame {
     transform: rotate(0deg);
+    padding: 10px;
+    padding-bottom: 45px;
+    max-width: 100%;
   }
 
   .polaroidPhoto {
     min-height: 300px;
   }
 
+  .uploadLabel {
+    padding: 20px 15px;
+  }
+
+  .uploadIcon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+
+  .uploadText {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .uploadHint {
+    font-size: 0.9rem;
+  }
+
+  .imageWrapper {
+    min-height: 300px;
+  }
+
+  .imageControls {
+    gap: 6px;
+    padding: 12px 8px;
+    padding-top: 35px;
+  }
+
+  .controlButton {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    min-width: 90px;
+  }
+
+  .polaroidCaption {
+    font-size: 0.85rem;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+  }
+
   .genderSection {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .genderButton {
+    font-size: 1.1rem;
+    padding: 16px;
+  }
+
+  .styleSelector {
+    padding: 20px 15px;
+    margin-bottom: 30px;
+  }
+
+  .styleTitle {
+    margin-bottom: 20px;
   }
 
   .styleGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .styleCard {
-    padding: 15px;
+    padding: 15px 10px;
   }
 
   .styleIcon {
     font-size: 2.5rem;
+    margin-bottom: 8px;
   }
 
   .styleName {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .generateSection {
+    margin-bottom: 40px;
   }
 
   .generateButton {
-    padding: 20px 40px;
+    padding: 18px 30px;
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
+    font-size: clamp(1rem, 4vw, 1.3rem);
   }
 
   .sticker {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
+
+  .loadingText {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+
+  .cassetteTape {
+    font-size: 3rem;
+  }
+
+  .progressPercent {
+    font-size: 1.2rem;
+  }
+}
+
+/* Decade Bottom Section Override for 90s Theme */
+.container :global(.bottomSection) {
+  background: linear-gradient(135deg, #2a2a3e 20%, #3a3a5e 80%);
+  border-top: 4px solid #ffd700;
+  border-radius: 20px;
+  padding: 40px 20px;
+  margin-top: 60px;
+}
+
+.container :global(.sectionTitle) {
+  font-family: 'Comic Sans MS', cursive;
+  color: #ffd700;
+  text-shadow: 2px 2px 0 #ff6b9d;
+  -webkit-text-fill-color: #ffd700;
+}
+
+.container :global(.sectionSubtitle) {
+  color: #fff;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.container :global(.decadeCard) {
+  background: white;
+  border: 4px solid #ffd700;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.container :global(.decadeCard):hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: #ff6b9d;
+}
+
+.container :global(.decadeTitle) {
+  color: #6b46c1;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.container :global(.decadeDescription) {
+  color: #333;
+}
+
+.container :global(.decadeCta) {
+  background: linear-gradient(135deg, #ff6b9d, #6b46c1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container :global(.step) {
+  background: white;
+  border: 3px solid #4facfe;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.container :global(.step):hover {
+  border-color: #ff6b9d;
+}
+
+.container :global(.step h3) {
+  color: #6b46c1;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.container :global(.step p) {
+  color: #333;
+}
+
+.container :global(.stepNumber) {
+  background: linear-gradient(135deg, #ff6b9d, #6b46c1);
+}
+
+.container :global(.faqItem) {
+  background: white;
+  border: 3px solid #ffd700;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.container :global(.faqItem h3) {
+  color: #6b46c1;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.container :global(.faqItem p) {
+  color: #333;
+}
+
+.container :global(.pricingCard) {
+  background: white;
+  border: 5px solid #6b46c1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.container :global(.pricingCard h2) {
+  color: #6b46c1;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.container :global(.pricingCard p) {
+  color: #333;
+}
+
+.container :global(.pricingOption) {
+  background: white;
+  border: 2px solid #6b46c1;
+}
+
+.container :global(.creditAmount) {
+  color: #6b46c1;
+}
+
+.container :global(.yearbook) {
+  color: #666;
+}
+
+.container :global(.pricingButton),
+.container :global(.ctaButton),
+.container :global(.yearbookButton) {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #6b46c1;
+  border: 4px solid #6b46c1;
+  font-family: 'Comic Sans MS', cursive;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.container :global(.pricingButton):hover,
+.container :global(.ctaButton):hover,
+.container :global(.yearbookButton):hover {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border-color: #ffd700;
+}
+
+.container :global(.footerCta) {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border: 5px solid white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.container :global(.footerCta h2) {
+  color: white;
+  font-family: 'Comic Sans MS', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.container :global(.footerCta p) {
+  color: white;
 }

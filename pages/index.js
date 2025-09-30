@@ -8,7 +8,6 @@ import HomepageSEO from '../components/SEO/HomepageSEO';
 const SplitHeroLanding = dynamic(() => import('../components/home/SplitHeroLanding'));
 
 // Lazy-load sections - Reordered with Success Stories moved up
-const HeroGridLanding = dynamic(() => import('../components/home/HeroGridLanding'));
 const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories')); // #2
 const AutoScrollCarousel = dynamic(() => import('../components/home/AutoScrollCarousel')); // NEW - #3
 const TopBanner = dynamic(() => import('../components/home/TopBanner')); // Technical restoration demo
@@ -25,7 +24,6 @@ const Loader = () => <div className="my-32 text-center text-gray-500">Loading...
 export default function Home() {
   // Intersection Observers
   const [splitHeroRef, splitHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
-  const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -47,10 +45,7 @@ export default function Home() {
           {splitHeroInView && <Suspense fallback={<Loader />}><SplitHeroLanding /></Suspense>}
         </div>
 
-        {/* 1. Hero Grid Landing - Overview of 3 main features (OLD - for comparison) */}
-        <div ref={heroGridRef}>
-          {heroGridInView && <Suspense fallback={<Loader />}><HeroGridLanding /></Suspense>}
-        </div>
+
 
         {/* 2. Customer Success Stories - Immediate social proof with tabs */}
         <div ref={successRef}>

@@ -1,0 +1,439 @@
+/* Professional & Trustworthy Restores Landing */
+.container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Main content */
+.mainContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: #475569;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Options Grid */
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+/* Option Cards */
+.optionCard {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 35px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.optionCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.optionCard.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.cardIcon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.recommendedBadge {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Content */
+.cardTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.cardSubtitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Example Image Section */
+.exampleImage {
+  margin-bottom: 25px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* Split Line */
+.imageSplitLine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.8) 15%, 
+    rgba(59, 130, 246, 0.8) 85%, 
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* Image Labels */
+.imageLabel {
+  position: absolute;
+  bottom: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 3;
+  backdrop-filter: blur(4px);
+}
+
+.labelBefore {
+  left: 12px;
+}
+
+.labelAfter {
+  right: 12px;
+}
+
+/* Features List */
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.featureList li {
+  padding: 10px 0 10px 32px;
+  position: relative;
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.featureList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.25rem;
+  top: 8px;
+}
+
+/* Card Footer */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 2px solid #f1f5f9;
+  margin-bottom: 20px;
+}
+
+.priceBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.priceLabel {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.timeBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border-radius: 8px;
+}
+
+.clockIcon {
+  opacity: 0.7;
+}
+
+/* Select Button */
+.selectButton {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selectButton:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.selectButton:active {
+  transform: translateY(0);
+}
+
+/* Help Section */
+.helpSection {
+  margin-bottom: 60px;
+}
+
+.helpTitle {
+  font-size: 1.75rem;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.helpGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.helpCard {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.helpCard h4 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.helpCard p {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Trust Section */
+.trustSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.trustItem {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.trustIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.trustTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.trustDesc {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .mainContent {
+    padding: 40px 20px;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .helpGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .trustSection {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 30px 25px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mainContent {
+    padding: 30px 15px;
+  }
+
+  .header {
+    margin-bottom: 35px;
+  }
+
+  .optionCard {
+    padding: 25px 20px;
+  }
+
+  .cardIcon {
+    font-size: 2.5rem;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+
+  .recommendedBadge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+
+  .featureList li {
+    font-size: 0.9rem;
+    padding: 8px 0 8px 28px;
+  }
+
+  .price {
+    font-size: 1.75rem;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .helpCard {
+    padding: 20px;
+  }
+
+  .helpCard h4 {
+    font-size: 1.1rem;
+  }
+
+  .trustSection {
+    padding: 25px 20px;
+  }
+
+  .trustItem {
+    gap: 12px;
+  }
+
+  .trustIcon {
+    font-size: 1.75rem;
+  }
+}

@@ -42,7 +42,7 @@ const HERO_CARDS = [
     title: 'Restore Family',
     titleSecond: 'Memories',
     description: 'Repair scratches, tears, fading, and water damage from irreplaceable vintage photos. Museum-quality colorization and restoration.',
-    link: '/restores',
+    link: '/replicate/restore-basic',
     combinedImage: '/images/restore-before-after-combined.jpg',
     beforeLabel: 'Before',
     afterLabel: 'After',
@@ -223,8 +223,8 @@ export default function SplitHeroLanding() {
         <div className={styles.socialProof}>
           <div className={styles.socialProofStats}>
             <div className={styles.stat}>
-              <div className={styles.statNumber}>500K+</div>
-              <div className={styles.statLabel}>Photos Created</div>
+              <div className={styles.statNumber}>50K+</div>
+              <div className={styles.statLabel}>Training Photos</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statNumber}>45 sec</div>
@@ -234,30 +234,10 @@ export default function SplitHeroLanding() {
               <div className={styles.statNumber}>4.9★</div>
               <div className={styles.statLabel}>User Rating</div>
             </div>
-          </div>
-        </div>
-
-        {/* Value Props */}
-        <div className={styles.valueProps}>
-          <div className={styles.valueProp}>
-            <div className={styles.valueIcon}>⚡</div>
-            <div className={styles.valueTitle}>Lightning Fast</div>
-            <div className={styles.valueDesc}>Results in under 90 seconds</div>
-          </div>
-          <div className={styles.valueProp}>
-            <div className={styles.valueIcon}>🎯</div>
-            <div className={styles.valueTitle}>Specialized AI</div>
-            <div className={styles.valueDesc}>Trained on 50K+ photos</div>
-          </div>
-          <div className={styles.valueProp}>
-            <div className={styles.valueIcon}>💰</div>
-            <div className={styles.valueTitle}>No Subscriptions</div>
-            <div className={styles.valueDesc}>Pay per use, own forever</div>
-          </div>
-          <div className={styles.valueProp}>
-            <div className={styles.valueIcon}>🔒</div>
-            <div className={styles.valueTitle}>100% Private</div>
-            <div className={styles.valueDesc}>Your photos, your data</div>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>Pay Per Use</div>
+              <div className={styles.statLabel}>No Subscriptions</div>
+            </div>
           </div>
         </div>
 

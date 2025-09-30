@@ -272,7 +272,7 @@
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  min-width: 420px;
+  min-width: 320px;
   background: #1a1a26;
   border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: 16px;
@@ -898,4 +898,31 @@
 .signOutBtn:focus {
   outline: 2px solid rgba(99, 102, 241, 0.5);
   outline-offset: 2px;
+}
+
+.trendingBadge {
+  background: linear-gradient(135deg, #ff6b00, #ff0080);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+  animation: pulse 2s ease-in-out infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
 }

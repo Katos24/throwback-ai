@@ -68,22 +68,24 @@
   background: linear-gradient(135deg, #1a1a2e, #16213e);
   border: 2px solid #0f4c75;
   border-radius: 12px;
-  padding: 16px 24px;
-  max-width: 500px;
+  padding: 14px 20px;
+  max-width: 320px;
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 
 .giftIcon {
-  font-size: 28px;
+  font-size: 24px;
   flex-shrink: 0;
 }
 
 .bannerText {
-  text-align: left;
+  text-align: center;
   font-size: 15px;
+  line-height: 1.4;
 }
 
 .bannerText strong {
@@ -95,7 +97,7 @@
   display: block;
   font-size: 13px;
   color: #999;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 /* Split Hero Cards */

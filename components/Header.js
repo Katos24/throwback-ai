@@ -6,12 +6,12 @@ import styles from "../styles/Header.module.css";
 
 export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
-  const aiSuiteRef = useRef(null);
+  const restoreRef = useRef(null);
   const decadesRef = useRef(null);
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showAISuiteDropdown, setShowAISuiteDropdown] = useState(false);
+  const [showRestoreDropdown, setShowRestoreDropdown] = useState(false);
   const [showDecadesDropdown, setShowDecadesDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,21 +30,21 @@ export default function Header({ showMenu, setShowMenu }) {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setShowMenu(false);
-        setShowAISuiteDropdown(false);
+        setShowRestoreDropdown(false);
         setShowDecadesDropdown(false);
       }
-      if (aiSuiteRef.current && !aiSuiteRef.current.contains(e.target)) {
-        setShowAISuiteDropdown(false);
+      if (restoreRef.current && !restoreRef.current.contains(e.target)) {
+        setShowRestoreDropdown(false);
       }
       if (decadesRef.current && !decadesRef.current.contains(e.target)) {
         setShowDecadesDropdown(false);
       }
     };
-    if (showMenu || showAISuiteDropdown || showDecadesDropdown) {
+    if (showMenu || showRestoreDropdown || showDecadesDropdown) {
       document.addEventListener("mousedown", handleClickOutside);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu, showAISuiteDropdown, showDecadesDropdown, setShowMenu]);
+  }, [showMenu, showRestoreDropdown, showDecadesDropdown, setShowMenu]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,18 +60,18 @@ export default function Header({ showMenu, setShowMenu }) {
     router.replace("/");
   };
 
-  const handleAISuiteToggle = () => {
-    setShowAISuiteDropdown(!showAISuiteDropdown);
+  const handleRestoreToggle = () => {
+    setShowRestoreDropdown(!showRestoreDropdown);
     setShowDecadesDropdown(false);
   };
 
   const handleDecadesToggle = () => {
     setShowDecadesDropdown(!showDecadesDropdown);
-    setShowAISuiteDropdown(false);
+    setShowRestoreDropdown(false);
   };
 
   const handleDropdownItemClick = () => {
-    setShowAISuiteDropdown(false);
+    setShowRestoreDropdown(false);
     setShowDecadesDropdown(false);
     setShowMenu(false);
   };
@@ -83,56 +83,50 @@ export default function Header({ showMenu, setShowMenu }) {
     { href: "/pricing", label: "Pricing", icon: "💰" }
   ];
 
-  const aiSuiteItems = [
-    { 
-      href: "/replicate/restore-premium", 
-      label: "Photo Colorization", 
-      icon: "🌈",
-      description: "Add beautiful colors to photos",
-      credits: "40 Credits",
-      badge: "Premium"
-    },
+  const restoreItems = [
     { 
       href: "/replicate/restore-basic", 
-      label: "Photo Restoration", 
-      icon: "🔧",
-      description: "Repair scratches & damage",
-      credits: "1 Credit"
+      label: "Quick Repair", 
+      icon: "⚡",
+      credits: "1 credit"
+    },
+    { 
+      href: "/replicate/restore-premium", 
+      label: "Professional Colorization", 
+      icon: "🎨",
+      credits: "40 credits"
     }
   ];
 
   const decadesItems = [
     { 
       href: "/replicate/70s", 
-      label: "70s Yearbook", 
-      icon: "📺",
-      description: "Groovy 70s vibes",
-      credits: "50 Credits"
+      label: "70s Photos", 
+      icon: "✌️",
+      credits: "50 credits"
     },
     { 
       href: "/replicate/80s", 
-      label: "80s Yearbook", 
-      icon: "📻",
-      description: "Totally rad 80s style",
-      credits: "50 Credits"
+      label: "80s Photos", 
+      icon: "🎸",
+      credits: "50 credits"
     },
     { 
       href: "/replicate/90s", 
-      label: "90s Yearbook", 
-      icon: "💾",
-      description: "Radical 90s digital look",
-      credits: "50 Credits"
+      label: "90s Photos", 
+      icon: "📼",
+      credits: "50 credits",
+      trending: true
     },
     { 
       href: "/replicate/2000s", 
-      label: "2000s Yearbook", 
-      icon: "💻",
-      description: "Y2K millennium style",
-      credits: "50 Credits"
+      label: "2000s Photos", 
+      icon: "💿",
+      credits: "50 credits"
     }
   ];
 
-  const isAISuitePage = aiSuiteItems.some(item => router.pathname === item.href);
+  const isRestorePage = restoreItems.some(item => router.pathname === item.href);
   const isDecadesPage = decadesItems.some(item => router.pathname === item.href);
 
   if (isLoading) {
@@ -186,50 +180,6 @@ export default function Header({ showMenu, setShowMenu }) {
 
       <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
         
-        {/* AI Suite Dropdown */}
-        <div 
-          className={styles.dropdownContainer}
-          ref={aiSuiteRef}
-        >
-          <button
-            className={`${styles.dropdownTrigger} ${isAISuitePage ? styles.active : ""} ${showAISuiteDropdown ? styles.dropdownOpen : ""}`}
-            onClick={handleAISuiteToggle}
-            type="button"
-          >
-            <span className={styles.navIcon}>🔧</span>
-            <span>Restore</span>
-            <span className={`${styles.dropdownArrow} ${showAISuiteDropdown ? styles.dropdownArrowOpen : ""}`}>
-              ▼
-            </span>
-          </button>
-          
-          <div className={`${styles.dropdownMenu} ${showAISuiteDropdown ? styles.dropdownMenuOpen : ""}`}>
-            <div className={styles.dropdownHeader}>
-              <span className={styles.dropdownTitle}>Restoration Tools</span>
-            </div>
-            
-            {aiSuiteItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch
-                className={`${styles.dropdownItem} ${router.pathname === item.href ? styles.active : ""}`}
-                onClick={handleDropdownItemClick}
-              >
-                <div className={styles.dropdownItemIcon}>{item.icon}</div>
-                <div className={styles.dropdownItemContent}>
-                  <div className={styles.dropdownItemHeader}>
-                    <span className={styles.dropdownItemName}>{item.label}</span>
-                    {item.badge && <span className={styles.dropdownBadge}>{item.badge}</span>}
-                  </div>
-                  <div className={styles.dropdownItemDescription}>{item.description}</div>
-                  <div className={styles.dropdownItemCredits}>{item.credits}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
         {/* Decades Dropdown */}
         <div 
           className={styles.dropdownContainer}
@@ -248,10 +198,6 @@ export default function Header({ showMenu, setShowMenu }) {
           </button>
           
           <div className={`${styles.dropdownMenu} ${showDecadesDropdown ? styles.dropdownMenuOpen : ""}`}>
-            <div className={styles.dropdownHeader}>
-              <span className={styles.dropdownTitle}>Yearbook Styles</span>
-            </div>
-            
             {decadesItems.map((item) => (
               <Link
                 key={item.href}
@@ -264,8 +210,46 @@ export default function Header({ showMenu, setShowMenu }) {
                 <div className={styles.dropdownItemContent}>
                   <div className={styles.dropdownItemHeader}>
                     <span className={styles.dropdownItemName}>{item.label}</span>
+                    {item.trending && <span className={styles.trendingBadge}>🔥 Trending</span>}
                   </div>
-                  <div className={styles.dropdownItemDescription}>{item.description}</div>
+                  <div className={styles.dropdownItemCredits}>{item.credits}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Restore Dropdown */}
+        <div 
+          className={styles.dropdownContainer}
+          ref={restoreRef}
+        >
+          <button
+            className={`${styles.dropdownTrigger} ${isRestorePage ? styles.active : ""} ${showRestoreDropdown ? styles.dropdownOpen : ""}`}
+            onClick={handleRestoreToggle}
+            type="button"
+          >
+            <span className={styles.navIcon}>🔧</span>
+            <span>Restore</span>
+            <span className={`${styles.dropdownArrow} ${showRestoreDropdown ? styles.dropdownArrowOpen : ""}`}>
+              ▼
+            </span>
+          </button>
+          
+          <div className={`${styles.dropdownMenu} ${showRestoreDropdown ? styles.dropdownMenuOpen : ""}`}>
+            {restoreItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch
+                className={`${styles.dropdownItem} ${router.pathname === item.href ? styles.active : ""}`}
+                onClick={handleDropdownItemClick}
+              >
+                <div className={styles.dropdownItemIcon}>{item.icon}</div>
+                <div className={styles.dropdownItemContent}>
+                  <div className={styles.dropdownItemHeader}>
+                    <span className={styles.dropdownItemName}>{item.label}</span>
+                  </div>
                   <div className={styles.dropdownItemCredits}>{item.credits}</div>
                 </div>
               </Link>

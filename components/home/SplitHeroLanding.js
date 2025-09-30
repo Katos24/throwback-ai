@@ -198,7 +198,6 @@ export default function SplitHeroLanding() {
           
           {/* Signup Banner */}
           <div className={styles.signupBanner}>
-            <span className={styles.giftIcon}>🎁</span>
             <div className={styles.bannerText}>
               <strong>Sign up free - Get 50 credits</strong>
               <span className={styles.bannerSubtext}>

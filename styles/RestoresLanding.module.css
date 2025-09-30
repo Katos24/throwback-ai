@@ -16,7 +16,7 @@
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .title {
@@ -35,12 +35,77 @@
   line-height: 1.6;
 }
 
+/* Why Specialized AI Section */
+.whySpecializedSection {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 35px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.whyCard {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.whyIcon {
+  font-size: 3rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.whyContent {
+  flex: 1;
+}
+
+.whyTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.whyText {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.whyHighlights {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.highlight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.highlightIcon {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
 /* Options Grid */
 .optionsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 /* Option Cards */
@@ -134,19 +199,6 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
-}
-
-.imagePlaceholder {
-  width: 100%;
-  height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f1f5f9;
-  border: 2px dashed #cbd5e1;
-  border-radius: 12px;
-  color: #94a3b8;
-  font-size: 0.95rem;
 }
 
 /* Split Line */
@@ -280,45 +332,6 @@
   transform: translateY(0);
 }
 
-/* Help Section */
-.helpSection {
-  margin-bottom: 60px;
-}
-
-.helpTitle {
-  font-size: 1.75rem;
-  color: #1e293b;
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: 700;
-}
-
-.helpGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-}
-
-.helpCard {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 25px;
-}
-
-.helpCard h4 {
-  font-size: 1.25rem;
-  color: #1e293b;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.helpCard p {
-  font-size: 0.95rem;
-  color: #475569;
-  line-height: 1.6;
-}
-
 /* Trust Section */
 .trustSection {
   display: grid;
@@ -353,20 +366,20 @@
   color: #64748b;
 }
 
-/* Mobile Responsive */
+/* Tablet Responsive */
 @media (max-width: 968px) {
   .mainContent {
     padding: 40px 20px;
   }
 
+  .whyHighlights {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   .optionsGrid {
     grid-template-columns: 1fr;
     gap: 25px;
-  }
-
-  .helpGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .trustSection {
@@ -376,64 +389,161 @@
   }
 }
 
+/* Mobile Responsive - Compact */
 @media (max-width: 640px) {
   .mainContent {
-    padding: 30px 15px;
+    padding: 20px 15px;
   }
 
   .header {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
   }
 
-  .optionCard {
+  .title {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Why Section - Mobile */
+  .whySpecializedSection {
     padding: 25px 20px;
+    margin-bottom: 30px;
   }
 
-  .cardIcon {
+  .whyCard {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .whyIcon {
     font-size: 2.5rem;
   }
 
-  .cardTitle {
-    font-size: 1.5rem;
+  .whyTitle {
+    font-size: 1.25rem;
   }
 
-  .recommendedBadge {
-    font-size: 0.7rem;
-    padding: 5px 10px;
+  .whyText {
+    font-size: 0.95rem;
   }
 
-  .featureList li {
-    font-size: 0.9rem;
-    padding: 8px 0 8px 28px;
+  .whyHighlights {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 15px;
   }
 
-  .price {
-    font-size: 1.75rem;
+  .highlight {
+    font-size: 0.875rem;
+    gap: 8px;
   }
 
-  .cardFooter {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .helpCard {
-    padding: 20px;
-  }
-
-  .helpCard h4 {
+  .highlightIcon {
     font-size: 1.1rem;
   }
 
+  /* Cards - Mobile */
+  .optionsGrid {
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .optionCard {
+    padding: 20px;
+  }
+
+  .cardIcon {
+    font-size: 2rem;
+  }
+
+  .cardTitle {
+    font-size: 1.35rem;
+  }
+
+  .cardSubtitle {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .cardDescription {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .recommendedBadge {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+
+  .imageContainer {
+    height: 200px;
+  }
+
+  .exampleImage {
+    margin-bottom: 15px;
+  }
+
+  .featureList {
+    margin-bottom: 20px;
+  }
+
+  .featureList li {
+    font-size: 0.85rem;
+    padding: 6px 0 6px 24px;
+  }
+
+  .featureList li::before {
+    font-size: 1rem;
+    top: 6px;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .priceLabel {
+    font-size: 0.8rem;
+  }
+
+  .timeBox {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .cardFooter {
+    padding: 15px 0;
+    margin-bottom: 15px;
+  }
+
+  .selectButton {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* Trust section - Mobile */
   .trustSection {
-    padding: 25px 20px;
+    padding: 20px;
+    gap: 15px;
   }
 
   .trustItem {
-    gap: 12px;
+    gap: 10px;
   }
 
   .trustIcon {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+  }
+
+  .trustTitle {
+    font-size: 0.9rem;
+  }
+
+  .trustDesc {
+    font-size: 0.8rem;
   }
 }

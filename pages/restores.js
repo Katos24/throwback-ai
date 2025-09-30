@@ -5,6 +5,25 @@ import styles from '../styles/RestoresLanding.module.css';
 
 const RESTORE_OPTIONS = [
   {
+    id: 'premium',
+    icon: '🎨',
+    title: 'Professional Colorization',
+    subtitle: 'Museum Quality Results',
+    description: 'Transform black and white photos into vivid color with historically accurate, professional-grade restoration.',
+    exampleImage: '/images/gallery/restore4.jpg',
+    features: [
+      'Full color restoration',
+      'Advanced damage repair',
+      'Historically accurate colors'
+    ],
+    credits: 40,
+    price: 'From $0.50',
+    time: '90 seconds',
+    link: '/replicate/restore-premium',
+    recommended: 'Most Popular',
+    badge: '⭐ Premium'
+  },
+  {
     id: 'basic',
     icon: '⚡',
     title: 'Quick Repair',
@@ -12,35 +31,15 @@ const RESTORE_OPTIONS = [
     description: 'Perfect for fixing scratches, tears, and fading on your precious family photos.',
     exampleImage: '/images/gallery/basicrestore.jpg',
     features: [
-      'Remove scratches and tears',
+      'Remove scratches & tears',
       'Repair water damage',
-      'Enhance faded colors',
       'Ready in 30 seconds'
     ],
     credits: 1,
     price: 'As low as $0.01',
     time: '30 seconds',
     link: '/replicate/restore-basic',
-    recommended: 'Best for minor damage'
-  },
-  {
-    id: 'premium',
-    icon: '🎨',
-    title: 'Professional Colorization',
-    subtitle: 'Museum Quality',
-    description: 'Bring black and white memories to life with authentic, historically accurate colors.',
-    exampleImage: '/images/gallery/restore4.jpg',
-    features: [
-      'Full color restoration',
-      'Advanced damage repair',
-      'Professional quality results',
-      'Historically accurate colors'
-    ],
-    credits: 40,
-    price: 'From $0.50',
-    time: '90 seconds',
-    link: '/replicate/restore-premium',
-    recommended: 'Best for black & white photos'
+    recommended: 'Best Value'
   }
 ];
 
@@ -62,9 +61,42 @@ export default function RestoresLanding() {
         <div className={styles.header}>
           <h1 className={styles.title}>Restore Your Family Photos</h1>
           <p className={styles.subtitle}>
-            Professional photo restoration powered by AI technology. 
-            Preserve your memories for generations to come.
+            Specialized AI trained exclusively on vintage photo restoration. 
+            Get professional results ChatGPT and other general AI tools can't deliver.
           </p>
+        </div>
+
+        {/* Why Specialized AI Section */}
+        <div className={styles.whySpecializedSection}>
+          <div className={styles.whyCard}>
+            <div className={styles.whyIcon}>🎯</div>
+            <div className={styles.whyContent}>
+              <h3 className={styles.whyTitle}>Built for Photos, Not Chat</h3>
+              <p className={styles.whyText}>
+                Unlike ChatGPT or general AI tools, ThrowbackAI uses specialized models 
+                trained exclusively on photo restoration. This means better accuracy, 
+                faster processing, and results that preserve your memories perfectly.
+              </p>
+            </div>
+          </div>
+          <div className={styles.whyHighlights}>
+            <div className={styles.highlight}>
+              <span className={styles.highlightIcon}>✓</span>
+              <span>Trained on vintage photos, not text</span>
+            </div>
+            <div className={styles.highlight}>
+              <span className={styles.highlightIcon}>✓</span>
+              <span>45-second processing vs 5+ minutes</span>
+            </div>
+            <div className={styles.highlight}>
+              <span className={styles.highlightIcon}>✓</span>
+              <span>Museum-quality colorization</span>
+            </div>
+            <div className={styles.highlight}>
+              <span className={styles.highlightIcon}>✓</span>
+              <span>No image quality loss or compression</span>
+            </div>
+          </div>
         </div>
 
         {/* Options Grid */}
@@ -80,7 +112,7 @@ export default function RestoresLanding() {
               <div className={styles.cardHeader}>
                 <div className={styles.cardIcon}>{option.icon}</div>
                 <div className={styles.recommendedBadge}>
-                  {option.recommended}
+                  {option.badge || option.recommended}
                 </div>
               </div>
 
@@ -90,23 +122,19 @@ export default function RestoresLanding() {
               
               {/* Example Image */}
               <div className={styles.exampleImage}>
-                {option.exampleImage ? (
-                  <div className={styles.imageContainer}>
-                    <Image
-                      src={option.exampleImage}
-                      alt={`${option.title} - Before and After example`}
-                      fill
-                      className={styles.image}
-                      sizes="(max-width: 768px) 100vw, 45vw"
-                      quality={85}
-                    />
-                    <div className={styles.imageSplitLine}></div>
-                    <span className={`${styles.imageLabel} ${styles.labelBefore}`}>Before</span>
-                    <span className={`${styles.imageLabel} ${styles.labelAfter}`}>After</span>
-                  </div>
-                ) : (
-                  <div className={styles.imagePlaceholder}>Example Image</div>
-                )}
+                <div className={styles.imageContainer}>
+                  <Image
+                    src={option.exampleImage}
+                    alt={`${option.title} example`}
+                    fill
+                    className={styles.image}
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    quality={85}
+                  />
+                  <div className={styles.imageSplitLine}></div>
+                  <span className={`${styles.imageLabel} ${styles.labelBefore}`}>Before</span>
+                  <span className={`${styles.imageLabel} ${styles.labelAfter}`}>After</span>
+                </div>
               </div>
               
               <ul className={styles.featureList}>
@@ -135,50 +163,27 @@ export default function RestoresLanding() {
           ))}
         </div>
 
-        {/* Help Section */}
-        <div className={styles.helpSection}>
-          <h3 className={styles.helpTitle}>Which option should I choose?</h3>
-          <div className={styles.helpGrid}>
-            <div className={styles.helpCard}>
-              <h4>Quick Repair</h4>
-              <p>
-                Choose Quick Repair if your photo has minor issues like small scratches, 
-                tears, or slight fading. Perfect for photos from the 1960s onward that 
-                are already in color.
-              </p>
-            </div>
-            <div className={styles.helpCard}>
-              <h4>Professional Colorization</h4>
-              <p>
-                Choose Professional Colorization for black and white photos, or photos 
-                with severe damage. This option brings old memories to life with authentic 
-                colors and advanced restoration.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Trust Indicators */}
         <div className={styles.trustSection}>
           <div className={styles.trustItem}>
             <div className={styles.trustIcon}>🔒</div>
             <div>
-              <div className={styles.trustTitle}>100% Private & Secure</div>
-              <div className={styles.trustDesc}>Your photos are never shared</div>
+              <div className={styles.trustTitle}>Private & Secure</div>
+              <div className={styles.trustDesc}>Photos never shared</div>
             </div>
           </div>
           <div className={styles.trustItem}>
             <div className={styles.trustIcon}>💾</div>
             <div>
-              <div className={styles.trustTitle}>Download & Keep Forever</div>
-              <div className={styles.trustDesc}>No subscriptions required</div>
+              <div className={styles.trustTitle}>Keep Forever</div>
+              <div className={styles.trustDesc}>No subscriptions</div>
             </div>
           </div>
           <div className={styles.trustItem}>
-            <div className={styles.trustIcon}>👨‍👩‍👧‍👦</div>
+            <div className={styles.trustIcon}>⚡</div>
             <div>
-              <div className={styles.trustTitle}>AI Trained on 500K+ Photos</div>
-              <div className={styles.trustDesc}>Advanced restoration technology</div>
+              <div className={styles.trustTitle}>Lightning Fast</div>
+              <div className={styles.trustDesc}>Results in seconds</div>
             </div>
           </div>
         </div>

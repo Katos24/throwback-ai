@@ -85,17 +85,18 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const restoreItems = [
     { 
+      href: "/replicate/restore-premium", 
+      label: "Professional Colorization", 
+      icon: "🎨",
+      credits: "40 credits",
+      premium: true
+    },
+    { 
       href: "/replicate/restore-basic", 
       label: "Quick Repair", 
       icon: "⚡",
       credits: "1 credit"
     },
-    { 
-      href: "/replicate/restore-premium", 
-      label: "Professional Colorization", 
-      icon: "🎨",
-      credits: "40 credits"
-    }
   ];
 
   const decadesItems = [
@@ -249,6 +250,7 @@ export default function Header({ showMenu, setShowMenu }) {
                 <div className={styles.dropdownItemContent}>
                   <div className={styles.dropdownItemHeader}>
                     <span className={styles.dropdownItemName}>{item.label}</span>
+                    {item.premium && <span className={styles.trendingBadge}>Premium</span>}
                   </div>
                   <div className={styles.dropdownItemCredits}>{item.credits}</div>
                 </div>

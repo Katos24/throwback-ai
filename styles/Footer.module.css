@@ -192,3 +192,33 @@
 }
 
 
+/* Add to your existing Footer.module.css */
+
+.trustpilotWidget {
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+/* Make sure the widget is visible and properly styled */
+.footerLeft :global(.trustpilot-widget) {
+  margin: 1.5rem 0;
+  display: block;
+}
+
+.footerLeft :global(.trustpilot-widget) a {
+  color: #00b67a;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footerLeft :global(.trustpilot-widget) a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footerLeft :global(.trustpilot-widget) {
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+}

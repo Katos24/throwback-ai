@@ -4,8 +4,11 @@ import { useInView } from 'react-intersection-observer';
 import { Suspense } from 'react';
 import HomepageSEO from '../components/SEO/HomepageSEO';
 
+// NEW - Split Hero for testing
+const SplitHeroLanding = dynamic(() => import('../components/home/SplitHeroLanding'));
+
 // Lazy-load sections - Reordered with Success Stories moved up
-const HeroGridLanding = dynamic(() => import('../components//home/HeroGridLanding'));
+const HeroGridLanding = dynamic(() => import('../components/home/HeroGridLanding'));
 const CustomerSuccess = dynamic(() => import('../components/home/SuccessStories')); // #2
 const AutoScrollCarousel = dynamic(() => import('../components/home/AutoScrollCarousel')); // NEW - #3
 const TopBanner = dynamic(() => import('../components/home/TopBanner')); // Technical restoration demo
@@ -20,10 +23,11 @@ const CTASection = dynamic(() => import('../components/home/CTASection'));
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 
 export default function Home() {
-  // Intersection Observers - Reordered for new flow
+  // Intersection Observers
+  const [splitHeroRef, splitHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
   const [heroGridRef, heroGridInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); // NEW
+  const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -38,7 +42,12 @@ export default function Home() {
       <HomepageSEO />
 
       <main>
-        {/* 1. Hero Grid Landing - Overview of 3 main features */}
+        {/* NEW - Split Hero Landing - Testing new layout */}
+        <div ref={splitHeroRef}>
+          {splitHeroInView && <Suspense fallback={<Loader />}><SplitHeroLanding /></Suspense>}
+        </div>
+
+        {/* 1. Hero Grid Landing - Overview of 3 main features (OLD - for comparison) */}
         <div ref={heroGridRef}>
           {heroGridInView && <Suspense fallback={<Loader />}><HeroGridLanding /></Suspense>}
         </div>

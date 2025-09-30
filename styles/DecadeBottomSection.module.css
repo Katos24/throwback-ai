@@ -4,7 +4,7 @@
   margin-top: 4rem;
   padding-top: 4rem;
   border-top: 2px solid rgba(255, 255, 255, 0.1);
-  width: 100%; max-width: 100%; overflow-x: hidden;
+  
 }
 
 /* Section Title Styles */
@@ -13,11 +13,13 @@
   font-weight: 900;
   text-align: center;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  letter-spacing: -0.02em;
+  
+  /* Light background: dark text with subtle gradient */
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.02em;
 }
 
 .sectionSubtitle {
@@ -324,9 +326,9 @@
 }
 
 .pricingCard {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(100, 116, 139, 0.2);
   border-radius: 24px;
   padding: 3rem;
   text-align: center;
@@ -337,9 +339,10 @@
 .pricingCard h2 {
   font-size: 2rem;
   font-weight: 900;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 1rem;
 }
+
 
 .pricingCard p {
   font-size: 1.125rem;
@@ -366,9 +369,12 @@
   display: block;
   font-size: 1.125rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #1e293b;
   margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  letter-spacing: 0.02em;
 }
+
 
 .price {
   display: block;
@@ -390,12 +396,12 @@
 
 .popular {
   position: absolute;
-  top: -10px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: white;
-  padding: 0.25rem 0.75rem;
+  padding: 0.15rem 0.75rem;
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 700;

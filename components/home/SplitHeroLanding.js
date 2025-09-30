@@ -42,7 +42,7 @@ const HERO_CARDS = [
     title: 'Restore Family',
     titleSecond: 'Memories',
     description: 'Repair scratches, tears, fading, and water damage from irreplaceable vintage photos. Museum-quality colorization and restoration.',
-    link: '/replicate/restore-basic',
+    link: '/restores',
     combinedImage: '/images/restore-before-after-combined.jpg',
     beforeLabel: 'Before',
     afterLabel: 'After',

@@ -843,12 +843,69 @@
   66% { color: var(--slime-green); }
 }
 
+/* Bottom Section Override */
+.container :global(.decade-bottom-section),
+.container :global([class*="bottomSection"]),
+.container :global([class*="decadeBottom"]) {
+  background: #FFF !important;
+  border: 6px solid #000 !important;
+  box-shadow: 12px 12px 0 #000 !important;
+  padding: 40px !important;
+  margin-top: 40px !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.container :global(.decade-bottom-section) h2,
+.container :global(.decade-bottom-section) h3,
+.container :global(.decade-bottom-section) p,
+.container :global(.decade-bottom-section) a,
+.container :global([class*="bottomSection"]) h2,
+.container :global([class*="bottomSection"]) h3,
+.container :global([class*="bottomSection"]) p,
+.container :global([class*="bottomSection"]) a,
+.container :global([class*="decadeBottom"]) h2,
+.container :global([class*="decadeBottom"]) h3,
+.container :global([class*="decadeBottom"]) p,
+.container :global([class*="decadeBottom"]) a {
+  color: #000 !important;
+  text-shadow: none !important;
+}
+
+.container :global(.decade-bottom-section) a:hover,
+.container :global([class*="bottomSection"]) a:hover,
+.container :global([class*="decadeBottom"]) a:hover {
+  color: var(--neon-pink) !important;
+}
+
+.container :global(.decade-bottom-section) button,
+.container :global([class*="bottomSection"]) button,
+.container :global([class*="decadeBottom"]) button {
+  background: var(--slime-green) !important;
+  border: 4px solid #000 !important;
+  color: #000 !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3) !important;
+  font-weight: 900 !important;
+}
+
+.container :global(.decade-bottom-section) button:hover,
+.container :global([class*="bottomSection"]) button:hover,
+.container :global([class*="decadeBottom"]) button:hover {
+  background: var(--neon-pink) !important;
+  color: #FFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4) !important;
+}
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .container { 
     padding: 10px;
     padding-bottom: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
   
   .creditsHeader { 
@@ -863,17 +920,29 @@
     letter-spacing: 2px; 
   }
   
+  .monitorSection {
+    overflow: hidden;
+  }
+  
+  .crtMonitor {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
   .digitalDisplay { 
     height: auto; 
     min-height: auto;
+    overflow: hidden;
   }
   
   .monitorScreen {
     min-height: 350px;
+    overflow: hidden;
   }
   
   .uploadArea { 
-    min-height: 250px; 
+    min-height: 250px;
+    overflow: hidden;
   }
   
   .displayImage { 
@@ -897,6 +966,7 @@
   .imageContainer {
     padding: 15px;
     max-height: none;
+    overflow: hidden;
   }
   
   .buttonRow {
@@ -905,10 +975,12 @@
   
   .hero {
     transform: rotate(0);
+    overflow: hidden;
   }
   
   .configPanel {
     transform: rotate(0);
+    overflow: hidden;
   }
 }
 
@@ -916,10 +988,23 @@
   .container {
     padding: 8px;
     padding-bottom: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .monitorSection {
+    overflow: hidden;
+  }
+  
+  .crtMonitor {
+    overflow: hidden;
   }
   
   .uploadArea { 
-    min-height: 200px; 
+    min-height: 200px;
+    overflow: hidden;
   }
   
   .displayImage { 
@@ -951,6 +1036,11 @@
   
   .digitalDisplay { 
     min-height: auto;
+    overflow: hidden;
+  }
+  
+  .monitorScreen {
+    overflow: hidden;
   }
   
   .styleOption { 
@@ -968,5 +1058,9 @@
   
   .configTitle {
     font-size: 1.4rem;
+  }
+  
+  .imageContainer {
+    overflow: hidden;
   }
 }

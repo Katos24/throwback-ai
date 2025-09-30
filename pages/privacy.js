@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
           We take reasonable steps to protect data, though no method is 100% secure online.
         </p>
 
-        <h2 className={styles.heading}>Children's Privacy</h2>
+        <h2 className={styles.heading}>Children&apos;s Privacy</h2>
         <p className={styles.paragraph}>
           Not intended for children under 13. We do not knowingly collect their personal data.
         </p>

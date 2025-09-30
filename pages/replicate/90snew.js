@@ -112,7 +112,7 @@ export default function NinetiesPage() {
           </div>
           <div className={styles.headerContent}>
             <h1 className={styles.title}>90s YEARBOOK</h1>
-            <p className={styles.subtitle}>~ As if you wouldn't want a yearbook photo ~</p>
+            <p className={styles.subtitle}>~ As if you wouldn&apos;t want a yearbook photo ~</p>
           </div>
         </div>
 

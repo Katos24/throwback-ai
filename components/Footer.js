@@ -10,6 +10,27 @@ export default function Footer() {
           <p className={styles.tagline}>
             Bring your precious memories back to life
           </p>
+          
+         {/* TrustBox widget - Review Collector */}
+<div 
+  className="trustpilot-widget" 
+  data-locale="en-US" 
+  data-template-id="56278e9abfbbba0bdcd568bc" 
+  data-businessunit-id="68dc47435bbef0b49f81823c" 
+  data-style-height="52px" 
+  data-style-width="100%" 
+  data-token="7509e215-680f-43ee-8c6b-6354eb17785f"
+>
+  <a 
+    href="https://www.trustpilot.com/review/throwbackai.app" 
+    target="_blank" 
+    rel="noopener"
+  >
+    Trustpilot
+  </a>
+</div>
+{/* End TrustBox widget */}
+          
           <p className={styles.copyright}>
             © 2025 Throwback AI. All rights reserved.
           </p>
@@ -40,7 +61,7 @@ export default function Footer() {
           <div>
             <h4>Resources</h4>
             <ul>
-               <li>
+              <li>
                 <Link href="/blog">Blog</Link>
               </li>
               <li>

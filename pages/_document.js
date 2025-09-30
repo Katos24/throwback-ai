@@ -24,6 +24,15 @@ export default function Document() {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="//widget.trustpilot.com" />
+
+        {/* TrustBox script */}
+        <script 
+          type="text/javascript" 
+          src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" 
+          async
+        />
+        {/* End TrustBox script */}
 
         {/* Inline critical CSS */}
         <style dangerouslySetInnerHTML={{

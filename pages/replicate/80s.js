@@ -122,7 +122,6 @@ export default function EightiesPage() {
         {/* Hero Section */}
         <DecadeHero
           title="80S YEARBOOK"
-          subtitle="GET TOTALLY AWESOME WITH AUTHENTIC 80S VIBES"
           avatarCost={avatarCost}
           styles={styles}
         />

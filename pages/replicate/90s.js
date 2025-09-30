@@ -120,7 +120,6 @@ export default function NinetiesPage() {
         {/* Hero Section */}
         <DecadeHero
           title="90S YEARBOOK"
-          subtitle="GET RADICAL WITH DIGITAL VIBES"
           avatarCost={avatarCost}
           styles={styles}
         />

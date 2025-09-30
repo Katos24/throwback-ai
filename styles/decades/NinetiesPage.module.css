@@ -429,7 +429,7 @@
 
 .uploadIcon {
   font-size: 4rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: block;
   animation: wiggle 1s ease-in-out infinite;
 }

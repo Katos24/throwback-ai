@@ -124,7 +124,6 @@ const scrollSelectors = [
         {/* Hero Section */}
         <DecadeHero
           title="70S YEARBOOK"
-          subtitle="GET GROOVY WITH AUTHENTIC 70S VIBES"
           avatarCost={avatarCost}
           styles={styles}
         />

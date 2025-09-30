@@ -7,7 +7,7 @@
   --hot-yellow: #FFD700;
   --vibrant-purple: #9D4EDD;
   
-  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
   background: var(--sunny-orange);
   background-image: 
     repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px),

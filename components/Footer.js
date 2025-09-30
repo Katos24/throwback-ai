@@ -11,29 +11,32 @@ export default function Footer() {
             Bring your precious memories back to life
           </p>
           
-         {/* TrustBox widget - Review Collector */}
-<div 
-  className="trustpilot-widget" 
-  data-locale="en-US" 
-  data-template-id="56278e9abfbbba0bdcd568bc" 
-  data-businessunit-id="68dc47435bbef0b49f81823c" 
-  data-style-height="52px" 
-  data-style-width="100%" 
-  data-token="7509e215-680f-43ee-8c6b-6354eb17785f"
->
-  <a 
-    href="https://www.trustpilot.com/review/throwbackai.app" 
-    target="_blank" 
-    rel="noopener"
-  >
-    Trustpilot
-  </a>
-</div>
-{/* End TrustBox widget */}
+         
           
           <p className={styles.copyright}>
             © 2025 Throwback AI. All rights reserved.
           </p>
+           {/* TrustBox widget - Review Collector */}
+          <div 
+            className="trustpilot-widget" 
+            data-locale="en-US" 
+            data-template-id="56278e9abfbbba0bdcd568bc" 
+            data-businessunit-id="68dc47435bbef0b49f81823c" 
+            data-style-height="52px" 
+            data-style-width="100%" 
+            data-theme="light"
+            data-token="2fe1f850-5e45-401c-9ce9-15afd96f6f52"
+            style={{ marginTop: '1rem', marginBottom: '1rem' }}
+          >
+            <a 
+              href="https://www.trustpilot.com/review/throwbackai.app" 
+              target="_blank" 
+              rel="noopener"
+            >
+              Trustpilot
+            </a>
+          </div>
+          {/* End TrustBox widget */}
         </div>
 
         <div className={styles.footerNav}>

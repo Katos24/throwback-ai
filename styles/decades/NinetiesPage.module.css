@@ -843,59 +843,6 @@
   66% { color: var(--slime-green); }
 }
 
-/* Bottom Section Override */
-.container :global(.decade-bottom-section),
-.container :global([class*="bottomSection"]),
-.container :global([class*="decadeBottom"]) {
-  background: #FFF !important;
-  border: 6px solid #000 !important;
-  box-shadow: 12px 12px 0 #000 !important;
-  padding: 40px !important;
-  margin-top: 40px !important;
-  position: relative !important;
-  z-index: 10 !important;
-}
-
-.container :global(.decade-bottom-section) h2,
-.container :global(.decade-bottom-section) h3,
-.container :global(.decade-bottom-section) p,
-.container :global(.decade-bottom-section) a,
-.container :global([class*="bottomSection"]) h2,
-.container :global([class*="bottomSection"]) h3,
-.container :global([class*="bottomSection"]) p,
-.container :global([class*="bottomSection"]) a,
-.container :global([class*="decadeBottom"]) h2,
-.container :global([class*="decadeBottom"]) h3,
-.container :global([class*="decadeBottom"]) p,
-.container :global([class*="decadeBottom"]) a {
-  color: #000 !important;
-  text-shadow: none !important;
-}
-
-.container :global(.decade-bottom-section) a:hover,
-.container :global([class*="bottomSection"]) a:hover,
-.container :global([class*="decadeBottom"]) a:hover {
-  color: var(--neon-pink) !important;
-}
-
-.container :global(.decade-bottom-section) button,
-.container :global([class*="bottomSection"]) button,
-.container :global([class*="decadeBottom"]) button {
-  background: var(--slime-green) !important;
-  border: 4px solid #000 !important;
-  color: #000 !important;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3) !important;
-  font-weight: 900 !important;
-}
-
-.container :global(.decade-bottom-section) button:hover,
-.container :global([class*="bottomSection"]) button:hover,
-.container :global([class*="decadeBottom"]) button:hover {
-  background: var(--neon-pink) !important;
-  color: #FFF !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4) !important;
-}
 
 /* Mobile Responsive */
 @media (max-width: 768px) {

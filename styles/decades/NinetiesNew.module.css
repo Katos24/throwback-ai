@@ -1,0 +1,519 @@
+/* 90s Yearbook - Full Nostalgia Mode */
+.container {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  background: linear-gradient(135deg, #e6e6fa 0%, #ffc0cb 100%);
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating Stickers */
+.floatingStickers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sticker {
+  position: absolute;
+  font-size: 2.5rem;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.sticker1 { top: 10%; left: 5%; animation-delay: 0s; }
+.sticker2 { top: 20%; right: 10%; animation-delay: 1s; }
+.sticker3 { bottom: 20%; left: 8%; animation-delay: 2s; }
+.sticker4 { bottom: 30%; right: 5%; animation-delay: 3s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Notebook Paper Header */
+.notebookHeader {
+  background: #fff;
+  border-left: 4px solid #ff6b9d;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 30px 30px 30px 60px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+  background-image: 
+    repeating-linear-gradient(
+      transparent,
+      transparent 29px,
+      #e5e5f7 29px,
+      #e5e5f7 31px
+    );
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+.notebookHeader::before {
+  content: '';
+  position: absolute;
+  left: 45px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ff6b9d;
+}
+
+.creditsBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ffd700;
+  color: #6b46c1;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 3px solid #6b46c1;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.headerContent {
+  position: relative;
+}
+
+.title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: #6b46c1;
+  text-shadow: 
+    2px 2px 0 #ff6b9d,
+    4px 4px 0 #ffd700;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #ff6b9d;
+  font-style: italic;
+}
+
+/* Wooden Desk Section */
+.deskSection {
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  border: 8px solid #654321;
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deskSection::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+/* Polaroid Frame */
+.polaroidFrame {
+  background: #fff;
+  padding: 15px;
+  padding-bottom: 60px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: rotate(-1deg);
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.polaroidFrame:hover {
+  transform: rotate(0deg);
+}
+
+.polaroidPhoto {
+  background: #f5f5f5;
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.polaroidCaption {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Upload Label */
+.uploadLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 40px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.uploadIcon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.uploadText {
+  font-size: 1.5rem;
+  color: #6b46c1;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.uploadHint {
+  font-size: 1rem;
+  color: #999;
+}
+
+/* Image Wrapper and Container */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultImage {
+  object-fit: contain;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: calc(100% - 60px);
+}
+
+/* Image Control Buttons */
+.imageControls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  z-index: 5;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 15px;
+  padding-top: 40px;
+}
+
+.controlButton {
+  background: #6b46c1;
+  color: white;
+  border: 3px solid #ffd700;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive;
+  flex: 1;
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+.controlButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: #8b5cf6;
+}
+
+.controlButton:active {
+  transform: scale(0.98);
+}
+
+/* Loading Overlay */
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(107, 70, 193, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 10;
+}
+
+.cassetteTape {
+  font-size: 4rem;
+  animation: spin 2s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.progressBar {
+  width: 80%;
+  max-width: 400px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+  margin-bottom: 10px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd700, #ff6b9d);
+  transition: width 0.3s ease;
+}
+
+.progressPercent {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* Gender Selector */
+.genderSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.genderButton {
+  background: linear-gradient(135deg, #ff6b9d, #c44569, #6b46c1);
+  border: 4px solid #fff;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.genderButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.genderButton.active {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #6b46c1;
+  border-color: #6b46c1;
+  transform: scale(1.05);
+}
+
+/* Style Selector */
+.styleSelector {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: 6px solid #fff;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.styleTitle {
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  text-align: center;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+}
+
+.styleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.styleCard {
+  background: white;
+  border: 4px solid #ffd700;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.styleCard:hover {
+  transform: scale(1.08);
+  border-color: #ff6b9d;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.styleCard.selected {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border-color: #6b46c1;
+  border-width: 5px;
+  transform: scale(1.1);
+}
+
+.styleIcon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.styleName {
+  color: #6b46c1;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Generate Button */
+.generateSection {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.generateButton {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: 6px solid #6b46c1;
+  color: #6b46c1;
+  padding: 25px 60px;
+  border-radius: 50px;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.generateButton:hover:not(:disabled) {
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.generateButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .notebookHeader {
+    padding: 25px 20px 25px 50px;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    letter-spacing: 1px;
+  }
+
+  .creditsBadge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .deskSection {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+
+  .polaroidFrame {
+    transform: rotate(0deg);
+  }
+
+  .polaroidPhoto {
+    min-height: 300px;
+  }
+
+  .genderSection {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .styleGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .styleCard {
+    padding: 15px;
+  }
+
+  .styleIcon {
+    font-size: 2.5rem;
+  }
+
+  .styleName {
+    font-size: 0.9rem;
+  }
+
+  .generateButton {
+    padding: 20px 40px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .sticker {
+    font-size: 2rem;
+  }
+}

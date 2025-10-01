@@ -752,7 +752,7 @@ export default function HalloweenPage() {
         }}>
           {/* Decades Feature */}
           <div 
-            onClick={() => router.push('/replicate/90s')}
+            onClick={() => router.push('/decades')}
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
               border: '2px solid rgba(138, 43, 226, 0.4)',

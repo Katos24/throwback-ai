@@ -1,0 +1,240 @@
+/* styles/HalloweenPage.module.css */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #1a0b2e 100%);
+  color: #fff;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Effects */
+.halloweenBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 107, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pumpkinFloat {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floatingEmoji {
+  position: absolute;
+  font-size: 40px;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+/* Hero Section */
+.heroSection {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.costBadge {
+  display: inline-block;
+  background: rgba(255, 107, 0, 0.2);
+  border: 2px solid #ff6b00;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Template Section */
+.templateSection {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  position: relative;
+  z-index: 10;
+}
+
+.templateCard {
+  background: rgba(255, 107, 0, 0.1);
+  border: 2px solid rgba(255, 107, 0, 0.4);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+}
+
+.templateTitle {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #ff8c00;
+}
+
+.templatePreview {
+  margin-bottom: 20px;
+}
+
+.templatePlaceholder {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 40px 20px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderIcon {
+  font-size: 80px;
+  margin-bottom: 15px;
+  opacity: 0.6;
+}
+
+.placeholderText {
+  font-size: 16px;
+  color: #999;
+  margin-bottom: 15px;
+}
+
+.viralTag {
+  background: linear-gradient(135deg, #ff4400, #ff6b00);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.templateDescription {
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Main Content - Two Column Layout */
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto 50px;
+  position: relative;
+  z-index: 10;
+}
+
+.uploadSection,
+.resultSection {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 107, 0, 0.3);
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #ff8c00;
+}
+
+.uploadBox,
+.resultBox {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.uploadBox:hover {
+  border-color: #ff6b00;
+  background: rgba(255, 107, 0, 0.05);
+}
+
+.resultBox {
+  cursor: default;
+  border-style: solid;
+}
+
+.resultPlaceholder {
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* Generate Section */
+.generateSection {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .templateCard {
+    padding: 20px;
+  }
+
+  .uploadSection,
+  .resultSection {
+    padding: 20px;
+  }
+
+  .uploadBox,
+  .resultBox {
+    min-height: 300px;
+  }
+}

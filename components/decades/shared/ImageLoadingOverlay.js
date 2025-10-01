@@ -46,10 +46,10 @@ export default function ImageLoadingOverlay({
 
   const getLoadingText = () => {
     switch(decade) {
-      case '70s': return 'Creating your groovy photo';
-      case '80s': return 'Creating your awesome photo';
-      case '90s': return 'Creating your rad photo';
-      case '2000s': return 'Creating your cool photo';
+      case '70s': return 'Creating your 70s photo';
+      case '80s': return 'Creating your 80s photo';
+      case '90s': return 'Creating your 90s photo';
+      case '2000s': return 'Creating your 2000s photo';
       default: return 'Creating your photo';
     }
   };

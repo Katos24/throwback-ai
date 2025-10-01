@@ -8,28 +8,28 @@ import 'slick-carousel/slick/slick-theme.css';
 const DECADE_INFO = {
   '70s': {
     emoji: '🌈',
-    title: '70s Groovy',
+    title: '70s',
     description: 'Hippie, disco, punk, and glam rock styles',
     path: '/replicate/70s',
     color: 'orange'
   },
   '80s': {
     emoji: '⚡',
-    title: '80s Punk Rock',
+    title: '80s',
     description: 'Mohawks, leather jackets, ripped jeans, and rebellious vibes',
     path: '/replicate/80s',
     color: 'neon'
   },
   '90s': {
     emoji: '📼',
-    title: '90s Boy Band Member',
+    title: '90s',
     description: 'Frosted tips, matching outfits, and pop-star style',
     path: '/replicate/90s',
     color: 'purple'
   },
   '2000s': {
     emoji: '💿',
-    title: '2000s Skater',
+    title: '2000s',
     description: 'Baggy jeans, skate shoes, and rebellious streetwear',
     path: '/replicate/2000s',
     color: 'blue'

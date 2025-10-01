@@ -381,9 +381,9 @@ export default function HalloweenPage() {
       </div>
 
       {/* Hero Section */}
-      <section style={{ textAlign: 'center', marginBottom: '40px' }}>
+      <section style={{ textAlign: 'center', marginBottom: '40px', padding: '0 10px' }}>
         <h1 style={{ 
-          fontSize: 'clamp(28px, 8vw, 48px)', 
+          fontSize: 'clamp(24px, 6vw, 48px)', 
           fontWeight: 'bold', 
           marginBottom: '15px',
           color: '#fff',
@@ -391,39 +391,40 @@ export default function HalloweenPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '10px',
-          flexWrap: 'nowrap'
+          gap: 'clamp(5px, 2vw, 15px)',
+          flexWrap: 'wrap',
+          lineHeight: 1.2
         }}>
           <span style={{ 
-            fontSize: 'clamp(30px, 8vw, 50px)',
+            fontSize: 'clamp(28px, 6vw, 50px)',
             filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))',
-            flexShrink: 0
+            display: 'inline-block'
           }}>🎃</span>
-          <span style={{ whiteSpace: 'nowrap' }}>GHOSTFACE HALLOWEEN</span>
+          <span style={{ display: 'inline-block' }}>GHOSTFACE HALLOWEEN</span>
           <span style={{ 
-            fontSize: 'clamp(30px, 8vw, 50px)',
+            fontSize: 'clamp(28px, 6vw, 50px)',
             filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))',
-            flexShrink: 0
+            display: 'inline-block'
           }}>🎃</span>
         </h1>
-        <p style={{ fontSize: '18px', color: '#ccc', marginBottom: '15px', padding: '0 20px' }}>
+        <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#ccc', marginBottom: '15px', padding: '0 20px' }}>
           Swap your face into the viral Ghostface scene
         </p>
         <div style={{
           display: 'inline-block',
           background: 'rgba(255, 107, 0, 0.2)',
           border: '2px solid #ff6b00',
-          padding: '10px 25px',
+          padding: '8px 20px',
           borderRadius: '25px',
           color: '#ff8c00',
           fontWeight: 'bold',
-          fontSize: '16px'
+          fontSize: 'clamp(14px, 3.5vw, 16px)'
         }}>
           ⚡ {HALLOWEEN_COST} Credits per swap
         </div>
       </section>
 
-      {/* Main Grid: Upload (Left) + Example (Right) - Desktop Side-by-Side */}
+      {/* Main Grid: Example (Left) + Upload (Right) - Desktop Side-by-Side */}
       <section style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -432,7 +433,51 @@ export default function HalloweenPage() {
         margin: '0 auto 30px',
         padding: '0 20px'
       }}>
-        {/* LEFT: Upload/Result Box */}
+        {/* LEFT: Example Image - Shows first on mobile (order 1) */}
+        <div style={{ order: 1 }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '20px',
+            textAlign: 'center',
+            color: 'white'
+          }}>
+            <span>👻</span> EXAMPLE RESULT
+          </h2>
+          <div style={{
+            minHeight: '450px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0, 0, 0, 0.3)',
+            borderRadius: '12px',
+            border: '2px solid rgba(255, 107, 0, 0.4)',
+            overflow: 'hidden'
+          }}>
+            <img 
+              src="/images/ghostface-template-example.jpg"
+              alt="Ghostface Halloween Example"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '8px'
+              }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = `
+                  <div style="text-align: center; padding: 40px; color: #999;">
+                    <div style="font-size: 60px; margin-bottom: 20px; opacity: 0.3;">🎃</div>
+                    <div style="font-size: 18px;">Example Image</div>
+                    <div style="font-size: 14px; margin-top: 10px;">ghostface-template-example.jpg</div>
+                  </div>
+                `;
+              }}
+            />
+          </div>
+        </div>
+
+        {/* RIGHT: Upload/Result Box */}
         <div style={{ order: 1 }}>
           <h2 style={{
             fontSize: '24px',
@@ -604,50 +649,6 @@ export default function HalloweenPage() {
                 Drop to upload!
               </div>
             )}
-          </div>
-        </div>
-
-        {/* RIGHT: Example Image - Order 3 on mobile (goes below button) */}
-        <div style={{ order: 3 }}>
-          <h2 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            marginBottom: '20px',
-            textAlign: 'center',
-            color: 'white'
-          }}>
-            <span>👻</span> EXAMPLE RESULT
-          </h2>
-          <div style={{
-            minHeight: '450px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(0, 0, 0, 0.3)',
-            borderRadius: '12px',
-            border: '2px solid rgba(255, 107, 0, 0.4)',
-            overflow: 'hidden'
-          }}>
-            <img 
-              src="/images/ghostface-template-example.jpg"
-              alt="Ghostface Halloween Example"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '8px'
-              }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.parentElement.innerHTML = `
-                  <div style="text-align: center; padding: 40px; color: #999;">
-                    <div style="font-size: 60px; margin-bottom: 20px; opacity: 0.3;">🎃</div>
-                    <div style="font-size: 18px;">Example Image</div>
-                    <div style="font-size: 14px; margin-top: 10px;">ghostface-template-example.jpg</div>
-                  </div>
-                `;
-              }}
-            />
           </div>
         </div>
       </section>

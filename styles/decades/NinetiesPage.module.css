@@ -1110,14 +1110,47 @@
   right: -50px !important;
 }
 
-/* Mobile adjustments */
+/* Center carousel content on mobile */
 @media (max-width: 768px) {
   .container :global([class*="dynamicYearbook"]) {
     padding: 0 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .container :global([class*="carouselContainer"]) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  .container :global(.slick-list) {
+    text-align: center !important;
+  }
+  
+  .container :global(.slick-track) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  .container :global(.slick-slide) {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .container :global([class*="carouselSlide"]) {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .container :global([class*="yearbookCard"]) {
+    margin: 0 auto !important;
   }
   
   .container :global(.slick-prev),
   .container :global(.slick-next) {
-    display: none !important; /* Hide arrows on mobile as specified in settings */
+    display: none !important;
   }
 }

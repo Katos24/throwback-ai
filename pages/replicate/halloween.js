@@ -408,7 +408,7 @@ export default function HalloweenPage() {
           }}>🎃</span>
         </h1>
         <p style={{ fontSize: 'clamp(16px, 4vw, 18px)', color: '#ccc', marginBottom: '15px', padding: '0 20px' }}>
-          Swap your face into the viral Ghostface scene
+          Swap your face into the viral Ghostface scene. Sign up for free and get 50 credits to try it out!
         </p>
         <div style={{
           display: 'inline-block',

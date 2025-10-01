@@ -383,7 +383,7 @@ export default function HalloweenPage() {
       {/* Hero Section */}
       <section style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h1 style={{ 
-          fontSize: '48px', 
+          fontSize: 'clamp(28px, 8vw, 48px)', 
           fontWeight: 'bold', 
           marginBottom: '15px',
           color: '#fff',
@@ -391,20 +391,22 @@ export default function HalloweenPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '15px',
-          flexWrap: 'wrap'
+          gap: '10px',
+          flexWrap: 'nowrap'
         }}>
           <span style={{ 
-            fontSize: '50px',
-            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))'
+            fontSize: 'clamp(30px, 8vw, 50px)',
+            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))',
+            flexShrink: 0
           }}>🎃</span>
-          GHOSTFACE HALLOWEEN
+          <span style={{ whiteSpace: 'nowrap' }}>GHOSTFACE HALLOWEEN</span>
           <span style={{ 
-            fontSize: '50px',
-            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))'
+            fontSize: 'clamp(30px, 8vw, 50px)',
+            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))',
+            flexShrink: 0
           }}>🎃</span>
         </h1>
-        <p style={{ fontSize: '20px', color: '#ccc', marginBottom: '15px' }}>
+        <p style={{ fontSize: '18px', color: '#ccc', marginBottom: '15px', padding: '0 20px' }}>
           Swap your face into the viral Ghostface scene
         </p>
         <div style={{

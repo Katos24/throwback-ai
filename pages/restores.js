@@ -62,7 +62,7 @@ export default function RestoresLanding() {
           <h1 className={styles.title}>Restore Your Family Photos</h1>
           <p className={styles.subtitle}>
             Specialized AI trained exclusively on vintage photo restoration. 
-            Get professional results ChatGPT and other general AI tools can't deliver.
+            Get professional results ChatGPT and other general AI tools can&apos;t deliver.
           </p>
         </div>
 

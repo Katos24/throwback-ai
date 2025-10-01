@@ -26,7 +26,7 @@ export const NINETIES_STYLES = [
   },
   {
     id: "roller_rink",
-    label: "Roller Rink Kid",
+    label: "Roller Rink",
     emoji: "🛼",
     value: "neon windbreaker or track jacket, high socks/scrunch socks, fanny pack, roller skates, playful grin under disco ball lighting"
   },
@@ -56,7 +56,7 @@ export const NINETIES_STYLES = [
   },
   {
     id: "grunge",
-    label: "Grunge Kid",
+    label: "Grunge",
     emoji: "🎸",
     value: "oversized flannel over band tee, ripped jeans, Doc Martens, messy layered hair, brooding expression in dim garage/coffee shop"
   },
@@ -68,7 +68,7 @@ export const NINETIES_STYLES = [
   },
   {
     id: "raver",
-    label: "Raver / Club Kid",
+    label: "Raver / Club",
     emoji: "🎧",
     value: "neon fishnet, bright reflective accessories, kandi bracelets, smiley faces, layered glow-sticks or festival vibes"
   },
@@ -86,7 +86,7 @@ export const NINETIES_STYLES = [
   },
   {
     id: "emo_popunk",
-    label: "Pop-Punk / Emo Teen",
+    label: "Pop-Punk / Emo",
     emoji: "🖤",
     value: "black eyeliner, layered dark accessories, band tee + skinny jeans or studded belt, side-swept bangs or dyed tips"
   }

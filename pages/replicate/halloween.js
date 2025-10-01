@@ -294,20 +294,51 @@ export default function HalloweenPage() {
     <main className={styles.container}>
       {/* Spooky Background Effects */}
       <div className={styles.halloweenBg}></div>
-      <div className={styles.pumpkinFloat}>
-        {['🎃', '👻', '🦇', '🕷️'].map((emoji, index) => (
+      
+      {/* Floating Pumpkins with Glow */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 0,
+        overflow: 'hidden'
+      }}>
+        {['🎃', '👻', '🦇', '🕷️', '🎃', '👻'].map((emoji, index) => (
           <div 
             key={index}
-            className={styles.floatingEmoji} 
             style={{
-              left: `${15 + index * 25}%`, 
-              animationDelay: `${index * 0.7}s`
+              position: 'absolute',
+              fontSize: '40px',
+              left: `${10 + index * 15}%`,
+              animation: `float${index % 3} ${8 + index}s ease-in-out infinite`,
+              animationDelay: `${index * 0.7}s`,
+              filter: emoji === '🎃' ? 'drop-shadow(0 0 10px rgba(255, 107, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 107, 0, 0.5))' : 'none',
+              opacity: 0.6
             }}
           >
             {emoji}
           </div>
         ))}
       </div>
+
+      {/* Keyframe animations */}
+      <style jsx>{`
+        @keyframes float0 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        @keyframes float1 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-40px) rotate(-5deg); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-35px) rotate(3deg); }
+        }
+      `}</style>
 
       {/* Credits Header */}
       <div style={{
@@ -355,12 +386,23 @@ export default function HalloweenPage() {
           fontSize: '48px', 
           fontWeight: 'bold', 
           marginBottom: '15px',
-          background: 'linear-gradient(135deg, #ff6b00, #ff4400)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
+          color: '#fff',
+          textShadow: '0 0 20px rgba(255, 107, 0, 0.8), 0 0 40px rgba(255, 107, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '15px',
+          flexWrap: 'wrap'
         }}>
-          🎃 GHOSTFACE HALLOWEEN 🎃
+          <span style={{ 
+            fontSize: '50px',
+            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))'
+          }}>🎃</span>
+          GHOSTFACE HALLOWEEN
+          <span style={{ 
+            fontSize: '50px',
+            filter: 'drop-shadow(0 0 15px rgba(255, 107, 0, 0.9)) drop-shadow(0 0 30px rgba(255, 107, 0, 0.6))'
+          }}>🎃</span>
         </h1>
         <p style={{ fontSize: '20px', color: '#ccc', marginBottom: '15px' }}>
           Swap your face into the viral Ghostface scene

@@ -129,6 +129,7 @@ export default function Header({ showMenu, setShowMenu }) {
 
   const isRestorePage = restoreItems.some(item => router.pathname === item.href);
   const isDecadesPage = decadesItems.some(item => router.pathname === item.href);
+  const isHalloweenPage = router.pathname === "/replicate/halloween";
 
   if (isLoading) {
     return (
@@ -258,6 +259,17 @@ export default function Header({ showMenu, setShowMenu }) {
             ))}
           </div>
         </div>
+
+        {/* Halloween Button - Standalone */}
+        <Link 
+          href="/replicate/halloween"
+          prefetch 
+          className={`${styles.navLink} ${isHalloweenPage ? styles.active : ""}`}
+          onClick={() => setShowMenu(false)}
+        >
+          <span className={styles.navIcon}>🎃</span>
+          <span>Halloween</span>
+        </Link>
 
         {/* Regular Navigation Items */}
         {navigationItems.map((item) => (

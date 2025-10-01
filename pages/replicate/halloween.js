@@ -427,14 +427,15 @@ export default function HalloweenPage() {
       {/* Main Grid: Example (Left) + Upload (Right) - Desktop Side-by-Side */}
       <section style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
         gap: '30px',
-        maxWidth: '1400px',
+        maxWidth: '1200px',
         margin: '0 auto 30px',
-        padding: '0 20px'
+        padding: '0 20px',
+        width: '100%'
       }}>
         {/* LEFT: Example Image - Shows first on mobile (order 1) */}
-        <div style={{ order: 1 }}>
+        <div style={{ order: 1, width: '100%', maxWidth: '100%' }}>
           <h2 style={{
             fontSize: '24px',
             fontWeight: 'bold',
@@ -446,6 +447,7 @@ export default function HalloweenPage() {
           </h2>
           <div style={{
             minHeight: '450px',
+            maxHeight: '500px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -460,7 +462,7 @@ export default function HalloweenPage() {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 borderRadius: '8px'
               }}
               onError={(e) => {
@@ -477,8 +479,8 @@ export default function HalloweenPage() {
           </div>
         </div>
 
-        {/* RIGHT: Upload/Result Box */}
-        <div style={{ order: 1 }}>
+        {/* RIGHT: Upload/Result Box - Order 2 on mobile */}
+        <div style={{ order: 2, width: '100%', maxWidth: '100%' }}>
           <h2 style={{
             fontSize: '24px',
             fontWeight: 'bold',
@@ -496,6 +498,7 @@ export default function HalloweenPage() {
             onDrop={!restoredUrl ? handleDrop : undefined}
             style={{
               minHeight: '450px',
+
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -518,26 +521,25 @@ export default function HalloweenPage() {
             />
             
             {restoredUrl ? (
-              <div style={{ position: 'relative', width: '100%', height: '100%', padding: '10px' }}>
-                <img 
-                  src={showingOriginal ? selectedPreviewUrl : restoredUrl}
-                  alt="Result" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'contain',
-                    borderRadius: '8px'
-                  }}
-                />
+              <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
+                  <img 
+                    src={showingOriginal ? selectedPreviewUrl : restoredUrl}
+                    alt="Result" 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'contain',
+                      borderRadius: '8px'
+                    }}
+                  />
+                </div>
                 <div style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
                   display: 'flex',
                   gap: '10px',
                   flexWrap: 'wrap',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  padding: '0 10px 10px'
                 }}>
                   <button 
                     onClick={() => setShowingOriginal(!showingOriginal)}
@@ -713,6 +715,268 @@ export default function HalloweenPage() {
           section > div:nth-child(2) { order: 3; }  /* Example */
         }
       `}</style>
+
+      {/* Explore More Features Section */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '60px auto 40px',
+        padding: '0 20px',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        <div style={{
+          textAlign: 'center',
+          marginBottom: '40px'
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(28px, 5vw, 36px)',
+            fontWeight: 'bold',
+            marginBottom: '15px',
+            color: '#fff'
+          }}>
+            Explore More AI Photo Magic
+          </h2>
+          <p style={{
+            fontSize: '18px',
+            color: '#ccc',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
+            Try our other powerful AI photo transformation tools
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '25px'
+        }}>
+          {/* Decades Feature */}
+          <div 
+            onClick={() => router.push('/replicate/90s')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '2px solid rgba(138, 43, 226, 0.4)',
+              borderRadius: '16px',
+              padding: '30px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.8)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(138, 43, 226, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <div style={{
+              fontSize: '50px',
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              📸
+            </div>
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: 'bold',
+              marginBottom: '10px',
+              color: '#fff',
+              textAlign: 'center'
+            }}>
+              Decades Time Travel
+            </h3>
+            <p style={{
+              color: '#ccc',
+              fontSize: '15px',
+              lineHeight: 1.6,
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              Transform your selfies into authentic 70s, 80s, 90s, or 2000s photos. Perfect for viral social content!
+            </p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '20px'
+            }}>
+              <span style={{
+                color: '#8a2be2',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}>
+                50 credits
+              </span>
+              <span style={{
+                background: 'rgba(138, 43, 226, 0.2)',
+                color: '#8a2be2',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: 'bold'
+              }}>
+                🔥 Trending
+              </span>
+            </div>
+          </div>
+
+          {/* Colorization Feature */}
+          <div 
+            onClick={() => router.push('/replicate/restore-premium')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '2px solid rgba(0, 212, 255, 0.4)',
+              borderRadius: '16px',
+              padding: '30px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'rgba(0, 212, 255, 0.8)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 212, 255, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(0, 212, 255, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <div style={{
+              fontSize: '50px',
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              🎨
+            </div>
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: 'bold',
+              marginBottom: '10px',
+              color: '#fff',
+              textAlign: 'center'
+            }}>
+              Premium Colorization
+            </h3>
+            <p style={{
+              color: '#ccc',
+              fontSize: '15px',
+              lineHeight: 1.6,
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              Transform black & white family photos with museum-quality, historically accurate colorization.
+            </p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '20px'
+            }}>
+              <span style={{
+                color: '#00d4ff',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}>
+                40 credits
+              </span>
+              <span style={{
+                background: 'rgba(0, 212, 255, 0.2)',
+                color: '#00d4ff',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: 'bold'
+              }}>
+                Premium
+              </span>
+            </div>
+          </div>
+
+          {/* Restoration Feature */}
+          <div 
+            onClick={() => router.push('/replicate/restore-basic')}
+            style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '2px solid rgba(34, 197, 94, 0.4)',
+              borderRadius: '16px',
+              padding: '30px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.8)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(34, 197, 94, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <div style={{
+              fontSize: '50px',
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              🔧
+            </div>
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: 'bold',
+              marginBottom: '10px',
+              color: '#fff',
+              textAlign: 'center'
+            }}>
+              Photo Restoration
+            </h3>
+            <p style={{
+              color: '#ccc',
+              fontSize: '15px',
+              lineHeight: 1.6,
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              Repair scratches, tears, water damage, and fading from irreplaceable vintage family photos.
+            </p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '20px'
+            }}>
+              <span style={{
+                color: '#22c55e',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}>
+                1 credit
+              </span>
+              <span style={{
+                background: 'rgba(34, 197, 94, 0.2)',
+                color: '#22c55e',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: 'bold'
+              }}>
+                ⚡ Fast
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

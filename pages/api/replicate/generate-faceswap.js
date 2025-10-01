@@ -22,10 +22,13 @@ const supabaseAdmin = createClient(
 
 const FACE_SWAP_COST = 50;
 
-// Use production domain or env variable
-const GHOSTFACE_TEMPLATE_URL = process.env.NEXT_PUBLIC_APP_URL 
-  ? `${process.env.NEXT_PUBLIC_APP_URL}/templates/halloween/ghostface-phone.jpg`
-  : "https://throwbackai.app/templates/halloween/ghostface-phone.jpg";
+// Template URL mapping
+const TEMPLATE_URLS = {
+  'ghostface-phone': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/ghostface-phone.jpg`,
+  'pumpkin-patch': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/freddy-krueger.jpg`,
+  'vampire': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/vampire.jpg`,
+  'zombie': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/zombie.jpg`,
+};
 
 // Helper functions
 function getBase64SizeKB(base64String) {
@@ -184,10 +187,20 @@ export default async function handler(req, res) {
   const referrerUrl = req.headers.referer;
   const sessionId = generateSessionId();
 
-  const { imageBase64 } = req.body;
+  const { imageBase64, templateId } = req.body;
   
   if (!imageBase64) {
     return res.status(400).json({ error: "Missing imageBase64" });
+  }
+
+  if (!templateId) {
+    return res.status(400).json({ error: "Missing templateId" });
+  }
+
+  // Validate template ID
+  const templateUrl = TEMPLATE_URLS[templateId];
+  if (!templateUrl) {
+    return res.status(400).json({ error: "Invalid templateId" });
   }
 
   const authHeader = req.headers.authorization;
@@ -213,12 +226,13 @@ export default async function handler(req, res) {
   let processingStartTime = null;
 
   try {
-    console.log("Template URL being used:", GHOSTFACE_TEMPLATE_URL);
+    console.log("Template URL being used:", templateUrl);
+    console.log("Template ID:", templateId);
     
     const input = {
       swap_image: `data:image/png;base64,${imageBase64}`,
-      target_image: GHOSTFACE_TEMPLATE_URL,
-      hair_source: "target" // Keep the template's background/hair
+      target_image: templateUrl,
+      hair_source: "target"
     };
 
     console.log("Creating face swap prediction...");
@@ -316,7 +330,7 @@ export default async function handler(req, res) {
       predictionId,
       status: "succeeded",
       requestData: {
-        template: "ghostface-phone",
+        template: templateId,
         prediction_id: predictionId,
         model: "easel/advanced-face-swap"
       },
@@ -338,6 +352,7 @@ export default async function handler(req, res) {
       predictionId, 
       hasUrl: !!imageUrl, 
       userId,
+      templateId,
       totalTime: `${endTime - startTime}ms`
     });
     
@@ -351,6 +366,7 @@ export default async function handler(req, res) {
       creditsDeducted,
       message: error.message,
       userId,
+      templateId,
       totalTime: `${endTime - startTime}ms`
     });
 
@@ -373,7 +389,7 @@ export default async function handler(req, res) {
       predictionId,
       status: "failed",
       requestData: {
-        template: "ghostface-phone",
+        template: templateId,
         prediction_id: predictionId,
         model: "easel/advanced-face-swap"
       },

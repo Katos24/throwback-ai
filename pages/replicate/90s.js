@@ -135,7 +135,7 @@ export default function NinetiesPage() {
           >
             <div className={styles.monitorScreen}>
               <div className={styles.screenHeader}>
-                {resultImageUrl ? '90S YEARBOOK RESULT' : 'UPLOAD YOUR RAD PHOTO'}
+                {resultImageUrl ? '90S YEARBOOK RESULT' : 'UPLOAD YOUR PHOTO'}
               </div>
               
               <div className={styles.digitalDisplay}>

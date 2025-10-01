@@ -21,6 +21,7 @@ export default function AiAvatarsRedesigned() {
   const [dragActive, setDragActive] = useState(false);
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
+  const [showingOriginal, setShowingOriginal] = useState(false);
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -30,13 +31,7 @@ export default function AiAvatarsRedesigned() {
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
 
   // UI state for expandable sections
-  const [expandedSections, setExpandedSections] = useState({
-    gender: false,
-    workflow: false,
-    category: false,
-    style: false,
-    strength: false
-  });
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
@@ -48,13 +43,6 @@ export default function AiAvatarsRedesigned() {
     }
     getSession();
   }, []);
-
-  const toggleSection = (section) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -107,9 +95,6 @@ export default function AiAvatarsRedesigned() {
       icon: '🎭',
       duration: 2000,
     });
-
-    // Auto-expand gender section after photo upload
-    setExpandedSections(prev => ({ ...prev, gender: true }));
   };
 
   const handleGenerateOrRedirect = () => {
@@ -152,7 +137,6 @@ export default function AiAvatarsRedesigned() {
     });
 
     try {
-      // Get fresh session to avoid expired token
       const { data: { session: freshSession } } = await supabase.auth.getSession();
       if (!freshSession) {
         throw new Error("Please log in again to continue");
@@ -307,264 +291,209 @@ export default function AiAvatarsRedesigned() {
           </p>
         </div>
 
-        {/* Before/After Photo Section */}
+        {/* Single Photo Display Section */}
         <div className={styles.photoSection}>
-          <div className={styles.photoComparison}>
-            {/* Upload Card */}
-            <div className={styles.uploadCard}>
-              <h3 className={styles.cardTitle}>Upload Your Photo</h3>
-              <div
-                className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''} ${previewUrl ? styles.hasImage : ''}`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-                onClick={() => document.getElementById('photo-upload').click()}
-              >
-                {previewUrl ? (
-                  <div className={styles.previewContainer}>
-                    <Image
-                      src={previewUrl}
-                      alt="Your photo"
-                      width={200}
-                      height={200}
-                      className={styles.previewImage}
-                    />
-                    <div className={styles.changePhotoOverlay}>
-                      <span>Click to change photo</span>
+          <div className={styles.singlePhotoCard}>
+            <h3 className={styles.cardTitle}>
+              {resultImageUrl ? 'Your AI Avatar' : 'Upload Your Photo'}
+            </h3>
+            <div
+              className={`${styles.photoDisplay} ${dragActive ? styles.dragActive : ''}`}
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              onClick={() => !resultImageUrl && document.getElementById('photo-upload').click()}
+            >
+              {!previewUrl && !resultImageUrl ? (
+                <div className={styles.uploadPrompt}>
+                  <div className={styles.uploadIcon}>📷</div>
+                  <h4>Drop your photo here</h4>
+                  <p>Drag & drop or click to select</p>
+                  <small>Best results with clear face photos • PNG, JPG, HEIC up to 10MB</small>
+                </div>
+              ) : resultImageUrl ? (
+                <div className={styles.resultContainer}>
+                  <Image
+                    src={showingOriginal ? previewUrl : resultImageUrl}
+                    alt={showingOriginal ? "Original photo" : "Generated Avatar"}
+                    width={400}
+                    height={400}
+                    unoptimized
+                    className={styles.displayImage}
+                  />
+                  <div className={styles.imageControls}>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowingOriginal(!showingOriginal);
+                      }}
+                      className={styles.toggleButton}
+                    >
+                      {showingOriginal ? "Show Result" : "Show Original"}
+                    </button>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDownload();
+                      }}
+                      className={styles.downloadBtn}
+                    >
+                      📥 Download
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.previewContainer}>
+                  <Image
+                    src={previewUrl}
+                    alt="Your photo"
+                    width={400}
+                    height={400}
+                    className={styles.displayImage}
+                  />
+                  {isLoading && (
+                    <div className={styles.loadingOverlay}>
+                      <div className={styles.spinner}></div>
+                      <p>{progressStage}</p>
+                      <div className={styles.progressBar}>
+                        <div 
+                          className={styles.progressFill}
+                          style={{ width: `${progress}%` }}
+                        ></div>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className={styles.uploadPrompt}>
-                    <div className={styles.uploadIcon}>📷</div>
-                    <h4>Drop your photo here</h4>
-                    <p>Drag & drop or click to select</p>
-                    <small>Best results with clear face photos • PNG, JPG, HEIC up to 10MB</small>
-                  </div>
-                )}
+                  )}
+                </div>
+              )}
+            </div>
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoUpload}
+              style={{ display: 'none' }}
+            />
+          </div>
+        </div>
+
+        {/* Configuration Options */}
+        <div className={styles.configSection}>
+          {/* Gender Selection */}
+          <div className={styles.configPanel}>
+            <h3 className={styles.configTitle}>GENDER</h3>
+            <div className={styles.buttonGroup}>
+              {["male", "female", "non-binary"].map((gender) => (
+                <button
+                  key={gender}
+                  className={`${styles.optionButton} ${userGender === gender ? styles.active : ''}`}
+                  onClick={() => setUserGender(gender)}
+                >
+                  {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Style Category and Choose Style - Same Row */}
+          <div className={styles.styleRow}>
+            {/* Style Category */}
+            <div className={styles.configPanel}>
+              <h3 className={styles.configTitle}>STYLE CATEGORY</h3>
+              <div className={styles.categoryGrid}>
+                {[
+                  { value: "nineties", label: "90s Vibes", emoji: "📼" },
+                  { value: "portrait", label: "Portrait", emoji: "📸" },
+                  { value: "fantasy", label: "Fantasy", emoji: "🧙" },
+                  { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
+                  { value: "historical", label: "Historical", emoji: "🏛️" },
+                  { value: "anime", label: "Anime", emoji: "🎌" }
+                ].map((category) => (
+                  <button
+                    key={category.value}
+                    className={`${styles.categoryButton} ${styleCategory === category.value ? styles.active : ''}`}
+                    onClick={() => {
+                      setStyleCategory(category.value);
+                      setSelectedStyle("");
+                    }}
+                  >
+                    <span className={styles.categoryEmoji}>{category.emoji}</span>
+                    <span>{category.label}</span>
+                  </button>
+                ))}
               </div>
-              <input
-                id="photo-upload"
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoUpload}
-                style={{ display: 'none' }}
-              />
             </div>
 
-            {/* Results Card */}
-            <div className={styles.resultCard}>
-              <h3 className={styles.cardTitle}>Your AI Avatar</h3>
-              <div className={styles.resultZone}>
-                {resultImageUrl ? (
-                  <div className={styles.resultContainer}>
-                    <Image
-                      src={resultImageUrl}
-                      alt="Generated Avatar"
-                      width={200}
-                      height={200}
-                      unoptimized
-                      className={styles.resultImage}
-                    />
-                    <div className={styles.resultActions}>
-                      <button onClick={handleDownload} className={styles.downloadBtn}>
-                        📥 Download
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.placeholder}>
-                    <div className={styles.placeholderIcon}>🎭</div>
-                    <p>Your avatar will appear here</p>
-                  </div>
-                )}
+            {/* Style Selection */}
+            <div className={styles.configPanel}>
+              <h3 className={styles.configTitle}>CHOOSE STYLE</h3>
+              <div className={styles.styleGrid}>
+                {AVATAR_STYLES[styleCategory]?.map((style) => (
+                  <button
+                    key={style.value}
+                    className={`${styles.styleButton} ${selectedStyle === style.value ? styles.active : ''}`}
+                    onClick={() => setSelectedStyle(style.value)}
+                  >
+                    {style.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Configuration Options Grid */}
-        <div className={styles.optionsGrid}>
-          {/* Row 1: Gender & Workflow */}
-          <div className={styles.optionRow}>
-            {/* Gender Section */}
-            <div className={styles.optionSection}>
-              <button 
-                className={`${styles.sectionButton} ${expandedSections.gender ? styles.expanded : ''} ${userGender ? styles.completed : ''}`}
-                onClick={() => toggleSection('gender')}
-              >
-                <span className={styles.sectionIcon}>👤</span>
-                <span className={styles.sectionTitle}>Gender</span>
-                <span className={styles.sectionValue}>{userGender || 'Select'}</span>
-                <span className={styles.expandIcon}>{expandedSections.gender ? '−' : '+'}</span>
-              </button>
-              
-              {expandedSections.gender && (
-                <div className={styles.sectionContent}>
-                  <div className={styles.buttonGroup}>
-                    {["male", "female", "non-binary"].map((gender) => (
-                      <button
-                        key={gender}
-                        className={`${styles.optionButton} ${userGender === gender ? styles.selected : ''}`}
-                        onClick={() => {
-                          setUserGender(gender);
-                          setExpandedSections(prev => ({ ...prev, workflow: true }));
-                        }}
-                      >
-                        {gender.charAt(0).toUpperCase() + gender.slice(1)}
-                      </button>
-                    ))}
-                  </div>
+        {/* Advanced Settings */}
+        <div className={styles.advancedSection}>
+          <button 
+            className={styles.advancedToggle}
+            onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
+          >
+            <span>⚙️ Advanced Settings</span>
+            <span>{showAdvancedSettings ? '−' : '+'}</span>
+          </button>
+          
+          {showAdvancedSettings && (
+            <div className={styles.advancedContent}>
+              {/* Workflow Type */}
+              <div className={styles.advancedOption}>
+                <h4>Workflow Type</h4>
+                <div className={styles.buttonGroup}>
+                  {[
+                    { value: "HyperRealistic-likeness", label: "HyperRealistic" },
+                    { value: "Realistic", label: "Realistic" },
+                    { value: "Stylistic", label: "Stylistic" }
+                  ].map((workflow) => (
+                    <button
+                      key={workflow.value}
+                      className={`${styles.optionButton} ${workflowType === workflow.value ? styles.active : ''}`}
+                      onClick={() => setWorkflowType(workflow.value)}
+                    >
+                      {workflow.label}
+                    </button>
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
 
-            {/* Workflow Section */}
-            <div className={styles.optionSection}>
-              <button 
-                className={`${styles.sectionButton} ${expandedSections.workflow ? styles.expanded : ''} ${workflowType ? styles.completed : ''}`}
-                onClick={() => toggleSection('workflow')}
-              >
-                <span className={styles.sectionIcon}>⚙️</span>
-                <span className={styles.sectionTitle}>Workflow Type</span>
-                <span className={styles.sectionValue}>{workflowType === 'HyperRealistic-likeness' ? 'HyperRealistic' : workflowType}</span>
-                <span className={styles.expandIcon}>{expandedSections.workflow ? '−' : '+'}</span>
-              </button>
-              
-              {expandedSections.workflow && (
-                <div className={styles.sectionContent}>
-                  <div className={styles.buttonGroup}>
-                    {[
-                      { value: "HyperRealistic-likeness", label: "HyperRealistic" },
-                      { value: "Realistic", label: "Realistic" },
-                      { value: "Stylistic", label: "Stylistic" }
-                    ].map((workflow) => (
-                      <button
-                        key={workflow.value}
-                        className={`${styles.optionButton} ${workflowType === workflow.value ? styles.selected : ''}`}
-                        onClick={() => {
-                          setWorkflowType(workflow.value);
-                          setExpandedSections(prev => ({ ...prev, category: true }));
-                        }}
-                      >
-                        {workflow.label}
-                      </button>
-                    ))}
+              {/* Style Strength */}
+              <div className={styles.advancedOption}>
+                <h4>Style Strength: {styleStrength}%</h4>
+                <div className={styles.sliderContainer}>
+                  <input
+                    type="range"
+                    min="5"
+                    max="35"
+                    value={styleStrength}
+                    onChange={(e) => setStyleStrength(Number(e.target.value))}
+                    className={styles.slider}
+                  />
+                  <div className={styles.sliderLabels}>
+                    <span>Preserve Face</span>
+                    <span>Strong Style</span>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
-
-          {/* Row 2: Style Category, Choose Style, Style Strength */}
-          <div className={styles.optionRow}>
-            {/* Style Category */}
-            <div className={styles.optionSection}>
-              <button 
-                className={`${styles.sectionButton} ${expandedSections.category ? styles.expanded : ''} ${styleCategory ? styles.completed : ''}`}
-                onClick={() => toggleSection('category')}
-              >
-                <span className={styles.sectionIcon}>🎨</span>
-                <span className={styles.sectionTitle}>Style Category</span>
-                <span className={styles.sectionValue}>{styleCategory.charAt(0).toUpperCase() + styleCategory.slice(1)}</span>
-                <span className={styles.expandIcon}>{expandedSections.category ? '−' : '+'}</span>
-              </button>
-              
-              {expandedSections.category && (
-                <div className={styles.sectionContent}>
-                  <div className={styles.categoryGrid}>
-                    {[
-                      { value: "nineties", label: "90s Vibes", emoji: "📼" },
-                      { value: "portrait", label: "Portrait", emoji: "📸" },
-                      { value: "fantasy", label: "Fantasy", emoji: "🧙" },
-                      { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
-                      { value: "historical", label: "Historical", emoji: "🏛️" },
-                      { value: "anime", label: "Anime", emoji: "🎌" }
-                    ].map((category) => (
-                      <button
-                        key={category.value}
-                        className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
-                        onClick={() => {
-                          setStyleCategory(category.value);
-                          setSelectedStyle("");
-                          setExpandedSections(prev => ({ ...prev, style: true }));
-                        }}
-                      >
-                        <span className={styles.categoryEmoji}>{category.emoji}</span>
-                        <span>{category.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Choose Style */}
-            <div className={styles.optionSection}>
-              <button 
-                className={`${styles.sectionButton} ${expandedSections.style ? styles.expanded : ''} ${selectedStyle ? styles.completed : ''}`}
-                onClick={() => toggleSection('style')}
-              >
-                <span className={styles.sectionIcon}>✨</span>
-                <span className={styles.sectionTitle}>Choose Style</span>
-                <span className={styles.sectionValue}>
-                  {selectedStyle ? AVATAR_STYLES[styleCategory]?.find(s => s.value === selectedStyle)?.label || 'Selected' : 'Select'}
-                </span>
-                <span className={styles.expandIcon}>{expandedSections.style ? '−' : '+'}</span>
-              </button>
-              
-              {expandedSections.style && (
-                <div className={styles.sectionContent}>
-                  <div className={styles.styleList}>
-                    {AVATAR_STYLES[styleCategory]?.map((style) => (
-                      <button
-                        key={style.value}
-                        className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
-                        onClick={() => {
-                          setSelectedStyle(style.value);
-                          setExpandedSections(prev => ({ ...prev, strength: true }));
-                        }}
-                      >
-                        {style.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Style Strength */}
-            <div className={styles.optionSection}>
-              <button 
-                className={`${styles.sectionButton} ${expandedSections.strength ? styles.expanded : ''} ${styles.completed}`}
-                onClick={() => toggleSection('strength')}
-              >
-                <span className={styles.sectionIcon}>📊</span>
-                <span className={styles.sectionTitle}>Style Strength</span>
-                <span className={styles.sectionValue}>{styleStrength}%</span>
-                <span className={styles.expandIcon}>{expandedSections.strength ? '−' : '+'}</span>
-              </button>
-              
-              {expandedSections.strength && (
-                <div className={styles.sectionContent}>
-                  <div className={styles.sliderContainer}>
-                    <input
-                      type="range"
-                      min="5"
-                      max="35"
-                      value={styleStrength}
-                      onChange={(e) => setStyleStrength(Number(e.target.value))}
-                      className={styles.slider}
-                    />
-                    <div className={styles.sliderLabels}>
-                      <span>Preserve Face</span>
-                      <span>Strong Style</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Generate Button */}
@@ -584,7 +513,6 @@ export default function AiAvatarsRedesigned() {
             )}
           </button>
 
-          {/* Progress Bar */}
           {isLoading && (
             <div className={styles.progressContainer}>
               <div className={styles.progressBar}>

@@ -44,17 +44,16 @@ export default function ImageDisplay({
         {resultImageUrl && previewUrl && (
           <button
             onClick={() => setShowingOriginal(!showingOriginal)}
-            className={styles.toggleButton}
+            className={styles.actionButton} // <-- update here
           >
             {showingOriginal ? `${getDecadeEmoji(decade)} View ${decade} Result` : '👀 View Original'}
           </button>
         )}
 
-        {/* Filter toggle - only for decades that have filters */}
         {resultImageUrl && !showingOriginal && setFilterEnabled && (
           <button
             onClick={() => setFilterEnabled(!filterEnabled)}
-            className={styles.filterToggleButton}
+            className={styles.actionButton} // <-- update here
           >
             {filterEnabled ? `${getDecadeIcon(decade)} Remove ${decade} Filter` : `${getDecadeIcon(decade)} Add ${decade} Filter`}
           </button>
@@ -62,7 +61,7 @@ export default function ImageDisplay({
 
         <button
           onClick={() => document.getElementById('photo-upload').click()}
-          className={styles.changePhotoButton}
+          className={styles.actionButton} // <-- update here
         >
           📷 Change Photo
         </button>
@@ -70,7 +69,7 @@ export default function ImageDisplay({
         {resultImageUrl && (
           <button
             onClick={handleDownload}
-            className={styles.downloadButton}
+            className={styles.actionButton} // <-- update here
           >
             💾 Save Photo
           </button>

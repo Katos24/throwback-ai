@@ -29,7 +29,7 @@ export function useDecadeGenerationHandler({
     if (!userGender || !selectedStyle) return "Complete Setup First";
     if (!isLoggedIn) return "Sign Up to Generate";
     if (credits < avatarCost) return "Get More Credits";
-    return `Generate My ${decadeName} Yearbook Photo!`;
+    return `Generate My ${decadeName} Photo!`;
   }, [photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, router.pathname]);
 
   // Enhanced generation handler

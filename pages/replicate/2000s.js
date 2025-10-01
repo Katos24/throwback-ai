@@ -238,7 +238,8 @@ export default function TwothousandsPage() {
                   2000s Yearbook Photos
                 </h1>
                 <p className={styles.subtitle}>
-                  Get totally awesome Y2K yearbook vibes from the new millennium!
+                  Get totally awesome Y2K yearbook vibes from the new millennium! Sign up & get 50 FREE credits to try.
+                  <p> </p>
                   <span className={styles.creditPill}>Costs {avatarCost} credits</span>
                 </p>
               </div>

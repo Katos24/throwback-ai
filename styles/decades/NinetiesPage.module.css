@@ -1,6 +1,6 @@
 /* Base Styles - 90s Millennial Vibes */
 .container {
-  --neon-pink: #FF00FF;
+  --neon-pink: #D946A6;
   --electric-cyan: #00FFFF;
   --slime-green: #66FF00;
   --sunny-orange: #FF6B35;
@@ -1062,5 +1062,62 @@
   
   .imageContainer {
     overflow: hidden;
+  }
+}
+
+.freeCreditsNote {
+  margin-top: 15px;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--hot-yellow);
+  display: inline-block;
+  padding: 8px 20px;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  transform: rotate(2deg);
+}
+
+/* Make Dynamic Yearbook section wider with visible arrows */
+.container :global([class*="dynamicYearbook"]) {
+  max-width: 100% !important;
+  padding: 0 60px !important; /* Add side padding for arrows */
+  margin: 4rem 0 !important;
+}
+
+.container :global([class*="carouselContainer"]) {
+  max-width: 1400px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 15px 0 !important;
+}
+
+/* Ensure slick arrows are visible */
+.container :global(.slick-prev),
+.container :global(.slick-next) {
+  z-index: 100 !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.container :global(.slick-prev) {
+  left: -50px !important;
+}
+
+.container :global(.slick-next) {
+  right: -50px !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .container :global([class*="dynamicYearbook"]) {
+    padding: 0 20px !important;
+  }
+  
+  .container :global(.slick-prev),
+  .container :global(.slick-next) {
+    display: none !important; /* Hide arrows on mobile as specified in settings */
   }
 }

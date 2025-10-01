@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Slider from 'react-slick';
 import styles from '../styles/DecadeBottomSection.module.css';
@@ -37,45 +38,63 @@ const DECADE_INFO = {
 };
 
 const DecadeBottomSection = ({ currentDecade = '90s' }) => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   const otherDecades = Object.entries(DECADE_INFO).filter(([key]) => key !== currentDecade);
 
+  // Updated carousel settings to match landing page
   const carouselSettings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    centerMode: false,
-    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
-      { 
-        breakpoint: 1024, 
-        settings: { 
-          slidesToShow: 2,
-          centerMode: false,
-          arrows: true
-        } 
-      },
-      { 
-        breakpoint: 768, 
-        settings: { 
+      {
+        breakpoint: 768,
+        settings: {
           slidesToShow: 1,
-          centerMode: true,
-          centerPadding: '40px',
-          arrows: false
-        } 
-      },
-      { 
-        breakpoint: 480, 
-        settings: { 
-          slidesToShow: 1,
+          slidesToScroll: 1,
           centerMode: true,
           centerPadding: '20px',
-          arrows: false,
-          dots: true
-        } 
+          arrows: false
+        }
       }
     ]
+  };
+
+  // Array of all decade images for the carousel
+  const yearbookImages = Object.keys(DECADE_INFO).map(decade => ({
+    src: `/images/yearbook/${decade}.jpg`,
+    decade: decade,
+    alt: `${decade} style`,
+    label: DECADE_INFO[decade].title
+  }));
+
+  const handleImageClick = (index) => {
+    if (window.innerWidth <= 768) {
+      setCurrentIndex(index);
+      setLightboxOpen(true);
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % yearbookImages.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + yearbookImages.length) % yearbookImages.length);
   };
 
   return (
@@ -87,18 +106,26 @@ const DecadeBottomSection = ({ currentDecade = '90s' }) => {
         <p className={styles.sectionSubtitle}>
           See how others rocked their retro transformations
         </p>
-        <Slider {...carouselSettings} className={styles.yearbookCarousel}>
-          {Object.keys(DECADE_INFO).map(decade => (
-            <div key={decade} className={styles.yearbookSlide}>
-             <img 
-                src={`/images/yearbook/${decade}.jpg`} 
-                alt={`${decade} style`} 
-                className={styles.yearbookImage} 
-              />
-              <div className={styles.yearbookLabel}>{DECADE_INFO[decade].title}</div>
-            </div>
-          ))}
-        </Slider>
+        
+        <div className={styles.carouselContainer}>
+          <Slider {...carouselSettings}>
+            {yearbookImages.map((photo, index) => (
+              <div key={index} className={styles.carouselSlide}>
+                <div className={styles.yearbookCard} onClick={() => handleImageClick(index)}>
+                  <img 
+                    src={photo.src} 
+                    alt={photo.alt} 
+                    className={styles.yearbookImage} 
+                  />
+                  <div className={styles.yearbookOverlay}>
+                    <span className={styles.yearbookLabel}>{photo.label} Style</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+        
         <Link href="/gallery" className={styles.yearbookButton}>
           Explore Full Yearbook →
         </Link>
@@ -209,6 +236,20 @@ const DecadeBottomSection = ({ currentDecade = '90s' }) => {
           Get Started Now
         </Link>
       </section>
+
+      {/* Lightbox Portal */}
+      {lightboxOpen && typeof document !== 'undefined' && createPortal(
+        <div className={styles.lightbox} onClick={closeLightbox}>
+          <button onClick={prevImage} className={styles.lightboxBtnPrev}>‹</button>
+          <img
+            src={yearbookImages[currentIndex].src}
+            alt={yearbookImages[currentIndex].alt}
+            className={styles.lightboxImage}
+          />
+          <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
+        </div>,
+        document.body
+      )}
     </div>
   );
 };

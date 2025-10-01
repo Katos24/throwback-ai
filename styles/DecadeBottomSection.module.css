@@ -4,7 +4,6 @@
   margin-top: 4rem;
   padding-top: 4rem;
   border-top: 2px solid rgba(255, 255, 255, 0.1);
-  
 }
 
 /* Section Title Styles */
@@ -14,8 +13,6 @@
   text-align: center;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  
-  /* Light background: dark text with subtle gradient */
   background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -41,37 +38,54 @@
   overflow: hidden;
 }
 
-.yearbookCarousel {
-  margin-top: 2rem;
-  padding: 0 20px;
+/* Carousel Container - matches landing page */
+.carouselContainer {
+  padding: 15px 0;
+  margin: 2rem auto 0;
+  width: 100%;
+  max-width: 1000px;
 }
 
-.yearbookSlide {
-  padding: 0 10px;
+.carouselSlide {
+  padding: 0 12px;
+}
+
+.yearbookCard {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+}
+
+.yearbookCard:hover {
+  transform: scale(1.05);
 }
 
 .yearbookImage {
   width: 100%;
-  max-width: 350px;
-  height: auto;
-  margin: 0 auto;
-  display: block;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
+  height: 100%;
+  object-fit: cover;
 }
 
-.yearbookImage:hover {
-  transform: scale(1.05);
+.yearbookOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 15px;
+  color: white;
+  width: 100%;
+  text-align: right;
 }
 
 .yearbookLabel {
-  margin-top: 1rem;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .yearbookButton {
@@ -92,47 +106,46 @@
   box-shadow: 0 16px 64px rgba(59, 130, 246, 0.4);
 }
 
-/* Slick carousel overrides for better mobile display */
-.yearbookCarousel :global(.slick-slider) {
-  margin: 0 -10px;
-}
-
-.yearbookCarousel :global(.slick-list) {
-  overflow: visible;
-  padding: 20px 0 !important;
-}
-
-.yearbookCarousel :global(.slick-track) {
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
 }
 
-.yearbookCarousel :global(.slick-slide) {
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+.lightboxImage {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
 }
 
-.yearbookCarousel :global(.slick-slide.slick-active) {
-  opacity: 1;
+.lightboxBtnPrev,
+.lightboxBtnNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 2.5rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 10001;
+  transition: background 0.2s ease;
 }
 
-.yearbookCarousel :global(.slick-slide.slick-center) {
-  opacity: 1;
-  transform: scale(1.05);
+.lightboxBtnPrev:hover,
+.lightboxBtnNext:hover {
+  background: white;
 }
 
-.yearbookCarousel :global(.slick-dots) {
-  bottom: -40px;
-}
-
-.yearbookCarousel :global(.slick-dots li button:before) {
-  color: #3b82f6;
-  font-size: 10px;
-}
-
-.yearbookCarousel :global(.slick-dots li.slick-active button:before) {
-  color: #8b5cf6;
-}
+.lightboxBtnPrev { left: 20px; }
+.lightboxBtnNext { right: 20px; }
 
 /* How It Works Section */
 .howItWorks {
@@ -343,7 +356,6 @@
   margin-bottom: 1rem;
 }
 
-
 .pricingCard p {
   font-size: 1.125rem;
   color: #cbd5e1;
@@ -374,7 +386,6 @@
   text-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
   letter-spacing: 0.02em;
 }
-
 
 .price {
   display: block;
@@ -479,37 +490,26 @@
   
   .dynamicYearbook {
     margin: 3rem 0;
-    padding: 0;
-    width: 100%;
-    max-width: 100vw;
+    padding: 0 1rem;
   }
   
-  .yearbookCarousel {
-    margin-top: 1.5rem;
-    padding: 0;
+  .carouselContainer {
     width: 100%;
     max-width: 100%;
-  }
-  
-  .yearbookCarousel :global(.slick-slider) {
+    padding: 15px 0;
     margin: 0;
-    width: 100%;
   }
   
-  .yearbookCarousel :global(.slick-list) {
-    padding: 15px 0 !important;
-    overflow: hidden !important;
-    width: 100%;
-    max-width: 100%;
+  .carouselSlide {
+    padding: 0 8px;
   }
   
-  .yearbookImage {
-    max-width: 280px;
+  .yearbookCard {
+    border-radius: 12px;
   }
   
-  .yearbookLabel {
-    font-size: 1rem;
-    margin-top: 0.75rem;
+  .yearbookOverlay {
+    padding: 12px;
   }
   
   .yearbookButton {
@@ -552,9 +552,6 @@
   .bottomSection {
     margin-top: 2rem;
     padding-top: 2rem;
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
   }
   
   .sectionTitle {
@@ -563,35 +560,23 @@
   
   .dynamicYearbook {
     margin: 2rem 0;
-    padding: 0;
-    width: 100%;
-    max-width: 100vw;
   }
   
-  .yearbookCarousel {
-    padding: 0;
-    margin-top: 1rem;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .yearbookCarousel :global(.slick-slider) {
-    margin: 0;
-    width: 100%;
-  }
-  
-  .yearbookSlide {
+  .carouselSlide {
     padding: 0 5px;
   }
   
-  .yearbookImage {
-    max-width: 240px;
-    border-radius: 8px;
+  .yearbookCard {
+    aspect-ratio: 4 / 5;
+    max-width: 90%;
+  }
+  
+  .yearbookOverlay {
+    padding: 10px;
   }
   
   .yearbookLabel {
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+    font-size: 0.85rem;
   }
   
   .yearbookButton {
@@ -600,15 +585,14 @@
     margin-top: 2rem;
   }
   
-  .yearbookCarousel :global(.slick-list) {
-    overflow: hidden !important;
-    width: 100%;
-    max-width: 100%;
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    font-size: 2rem;
+    padding: 6px 12px;
   }
   
-  .yearbookCarousel :global(.slick-dots) {
-    bottom: -30px;
-  }
+  .lightboxBtnPrev { left: 10px; }
+  .lightboxBtnNext { right: 10px; }
   
   .step,
   .faqItem,

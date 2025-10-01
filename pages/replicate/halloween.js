@@ -446,7 +446,7 @@ export default function HalloweenPage() {
             <span>👻</span> EXAMPLE RESULT
           </h2>
           <div style={{
-            minHeight: '450px',
+            minHeight: '300px',
             maxHeight: '500px',
             display: 'flex',
             alignItems: 'center',
@@ -461,7 +461,7 @@ export default function HalloweenPage() {
               alt="Ghostface Halloween Example"
               style={{
                 width: '100%',
-                height: '100%',
+                height: 'auto',
                 objectFit: 'contain',
                 borderRadius: '8px'
               }}
@@ -498,7 +498,6 @@ export default function HalloweenPage() {
             onDrop={!restoredUrl ? handleDrop : undefined}
             style={{
               minHeight: '450px',
-
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

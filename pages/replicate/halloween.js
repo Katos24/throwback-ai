@@ -28,7 +28,7 @@ export default function HalloweenPage() {
   const [showingOriginal, setShowingOriginal] = useState(false);
   
   // Hooks
-  const { credits, isLoggedIn, refreshCredits, deductCredits } = useCredits();
+  const { credits, isLoggedIn, refreshCredits } = useCredits();
   
   // Refs
   const fileInputRef = useRef(null);
@@ -43,17 +43,6 @@ export default function HalloweenPage() {
     }
     getSession();
   }, []);
-
-  useEffect(() => {
-    if (restoredUrl) {
-      setTimeout(() => {
-        const resultElement = document.querySelector(`.${styles.resultSection}`);
-        if (resultElement && window.innerWidth < 768) {
-          resultElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 500);
-    }
-  }, [restoredUrl]);
 
   // Drag and drop handlers
   const handleDrag = (e) => {
@@ -225,8 +214,8 @@ export default function HalloweenPage() {
             duration: 5000,
           });
           
+          // Only refresh credits to sync with server (server already deducted)
           await refreshCredits();
-          await deductCredits(HALLOWEEN_COST);
         } else {
           toast.error(data.error || "Face swap failed. Please try again.", {
             id: processingToast,
@@ -301,8 +290,6 @@ export default function HalloweenPage() {
     });
   };
 
-  const isComplete = selectedFile && isLoggedIn && credits >= HALLOWEEN_COST;
-
   return (
     <main className={styles.container}>
       {/* Spooky Background Effects */}
@@ -323,61 +310,114 @@ export default function HalloweenPage() {
       </div>
 
       {/* Credits Header */}
-      <div className={styles.creditsHeader}>
-        <div className={styles.creditsInfo}>
-          <span>👻</span>
-          <span>Credits: <strong>{credits || 0}</strong></span>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '20px 30px',
+        background: 'rgba(0, 0, 0, 0.3)',
+        borderRadius: '12px',
+        marginBottom: '30px',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          fontSize: '18px',
+          color: 'white'
+        }}>
+          <span style={{ fontSize: '24px' }}>👻</span>
+          <span>Credits: <strong style={{ color: '#ff8c00' }}>{credits || 0}</strong></span>
         </div>
         <button 
-          className={styles.creditsBtn}
           onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
+          style={{
+            background: 'linear-gradient(135deg, #ff6b00, #ff4400)',
+            border: 'none',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
         >
           {isLoggedIn ? "Get More Credits" : "Sign Up"}
         </button>
       </div>
 
       {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <h1 className={styles.title}>🎃 GHOSTFACE HALLOWEEN 🎃</h1>
-        <p className={styles.subtitle}>Swap your face into the viral Ghostface scene</p>
-        <div className={styles.costBadge}>
+      <section style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h1 style={{ 
+          fontSize: '48px', 
+          fontWeight: 'bold', 
+          marginBottom: '15px',
+          background: 'linear-gradient(135deg, #ff6b00, #ff4400)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text'
+        }}>
+          🎃 GHOSTFACE HALLOWEEN 🎃
+        </h1>
+        <p style={{ fontSize: '20px', color: '#ccc', marginBottom: '15px' }}>
+          Swap your face into the viral Ghostface scene
+        </p>
+        <div style={{
+          display: 'inline-block',
+          background: 'rgba(255, 107, 0, 0.2)',
+          border: '2px solid #ff6b00',
+          padding: '10px 25px',
+          borderRadius: '25px',
+          color: '#ff8c00',
+          fontWeight: 'bold',
+          fontSize: '16px'
+        }}>
           ⚡ {HALLOWEEN_COST} Credits per swap
         </div>
       </section>
 
-      {/* Template Preview */}
-      <section className={styles.templateSection}>
-        <div className={styles.templateCard}>
-          <h3 className={styles.templateTitle}>👻 The Viral Ghostface Scene</h3>
-          <div className={styles.templatePreview}>
-            <div className={styles.templatePlaceholder}>
-              <div className={styles.placeholderIcon}>📸</div>
-              <div className={styles.placeholderText}>
-                Girl blowing bubble gum with Ghostface lurking behind
-              </div>
-              <div className={styles.viralTag}>🔥 TRENDING NOW</div>
-            </div>
-          </div>
-          <p className={styles.templateDescription}>
-            Recreate the viral Halloween aesthetic! Your face will be swapped into this iconic spooky scene with vintage horror vibes, complete with retro room decor and the infamous Ghostface mask.
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content: Upload + Result */}
-      <section className={styles.mainContent}>
-        {/* Upload Section */}
-        <div className={styles.uploadSection}>
-          <h2 className={styles.sectionTitle}>
-            <span>📸</span> UPLOAD YOUR PHOTO
+      {/* Main Grid: Upload (Left) + Example (Right) - Desktop Side-by-Side */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '30px',
+        maxWidth: '1400px',
+        margin: '0 auto 30px',
+        padding: '0 20px'
+      }}>
+        {/* LEFT: Upload/Result Box */}
+        <div style={{ order: 1 }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '20px',
+            textAlign: 'center',
+            color: 'white'
+          }}>
+            <span>{restoredUrl ? '🎃' : '📸'}</span> {restoredUrl ? 'YOUR RESULT' : 'UPLOAD YOUR PHOTO'}
           </h2>
           <div 
-            className={`${styles.uploadBox} ${dragActive ? styles.uploadBoxDragActive : ''}`}
-            onClick={() => !selectedPreviewUrl && fileInputRef.current?.click()}
-            onDragEnter={handleDrag}
-            onDragLeave={handleDrag}
-            onDragOver={handleDrag}
-            onDrop={handleDrop}
+            onClick={() => !restoredUrl && !selectedPreviewUrl && fileInputRef.current?.click()}
+            onDragEnter={!restoredUrl ? handleDrag : undefined}
+            onDragLeave={!restoredUrl ? handleDrag : undefined}
+            onDragOver={!restoredUrl ? handleDrag : undefined}
+            onDrop={!restoredUrl ? handleDrop : undefined}
+            style={{
+              minHeight: '450px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(0, 0, 0, 0.3)',
+              borderRadius: '12px',
+              border: restoredUrl ? '2px solid #ff6b00' : '2px dashed rgba(255, 255, 255, 0.3)',
+              cursor: (!restoredUrl && !selectedPreviewUrl) ? 'pointer' : 'default',
+              position: 'relative',
+              overflow: 'hidden',
+              transition: 'all 0.3s ease'
+            }}
           >
             <input
               ref={fileInputRef}
@@ -388,8 +428,61 @@ export default function HalloweenPage() {
               style={{ display: 'none' }}
             />
             
-            {selectedPreviewUrl ? (
-              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            {restoredUrl ? (
+              <div style={{ position: 'relative', width: '100%', height: '100%', padding: '10px' }}>
+                <img 
+                  src={showingOriginal ? selectedPreviewUrl : restoredUrl}
+                  alt="Result" 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'contain',
+                    borderRadius: '8px'
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  bottom: '20px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  display: 'flex',
+                  gap: '10px',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center'
+                }}>
+                  <button 
+                    onClick={() => setShowingOriginal(!showingOriginal)}
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.85)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontSize: '14px'
+                    }}
+                  >
+                    👁️ {showingOriginal ? 'Show Result' : 'Show Original'}
+                  </button>
+                  <button 
+                    onClick={handleDownload}
+                    style={{
+                      background: 'linear-gradient(135deg, #ff6b00, #ff4400)',
+                      border: 'none',
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    ⬇️ Download
+                  </button>
+                </div>
+              </div>
+            ) : selectedPreviewUrl ? (
+              <div style={{ position: 'relative', width: '100%', height: '100%', padding: '10px' }}>
                 <img 
                   src={selectedPreviewUrl}
                   alt="Preview" 
@@ -407,7 +500,7 @@ export default function HalloweenPage() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.8)',
+                    background: 'rgba(0, 0, 0, 0.85)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -429,16 +522,16 @@ export default function HalloweenPage() {
                         transition: 'width 0.3s ease'
                       }}></div>
                     </div>
-                    <div style={{ color: '#fff', fontSize: '14px' }}>
+                    <div style={{ color: '#fff', fontSize: '14px', textAlign: 'center' }}>
                       {progressStage}
                     </div>
                   </div>
                 )}
               </div>
             ) : (
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ textAlign: 'center', padding: '40px' }}>
                 <div style={{ fontSize: '60px', marginBottom: '20px', opacity: 0.5 }}>📤</div>
-                <div style={{ fontSize: '18px', color: '#ccc', marginBottom: '10px' }}>
+                <div style={{ fontSize: '18px', color: '#ccc', marginBottom: '10px', fontWeight: '500' }}>
                   Drag & Drop or Click to Upload
                 </div>
                 <div style={{ fontSize: '14px', color: '#888' }}>
@@ -447,21 +540,22 @@ export default function HalloweenPage() {
               </div>
             )}
             
-            {dragActive && (
+            {dragActive && !restoredUrl && (
               <div style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'rgba(255, 107, 0, 0.2)',
+                background: 'rgba(255, 107, 0, 0.15)',
                 border: '3px dashed #ff6b00',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '20px',
-                fontWeight: 'bold'
+                fontSize: '22px',
+                fontWeight: 'bold',
+                color: '#ff6b00'
               }}>
                 Drop to upload!
               </div>
@@ -469,77 +563,62 @@ export default function HalloweenPage() {
           </div>
         </div>
 
-        {/* Result Section */}
-        <div className={styles.resultSection}>
-          <h2 className={styles.sectionTitle}>
-            <span>👻</span> YOUR GHOSTFACE RESULT
+        {/* RIGHT: Example Image - Order 3 on mobile (goes below button) */}
+        <div style={{ order: 3 }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '20px',
+            textAlign: 'center',
+            color: 'white'
+          }}>
+            <span>👻</span> EXAMPLE RESULT
           </h2>
-          <div className={styles.resultBox}>
-            {restoredUrl ? (
-              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                <img 
-                  src={showingOriginal ? selectedPreviewUrl : restoredUrl}
-                  alt="Result" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'contain',
-                    borderRadius: '8px'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  display: 'flex',
-                  gap: '10px'
-                }}>
-                  <button 
-                    onClick={() => setShowingOriginal(!showingOriginal)}
-                    style={{
-                      background: 'rgba(0, 0, 0, 0.8)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      color: 'white',
-                      cursor: 'pointer',
-                      fontSize: '14px'
-                    }}
-                  >
-                    👁️ {showingOriginal ? 'Show Result' : 'Show Original'}
-                  </button>
-                  <button 
-                    onClick={handleDownload}
-                    style={{
-                      background: 'rgba(255, 107, 0, 0.9)',
-                      border: '1px solid #ff8c00',
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      color: 'white',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      fontWeight: 'bold'
-                    }}
-                  >
-                    ⬇️ Download
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.resultPlaceholder}>
-                <div className={styles.placeholderIcon}>🎃</div>
-                <div className={styles.placeholderText}>
-                  Your spooky result will appear here
-                </div>
-              </div>
-            )}
+          <div style={{
+            minHeight: '450px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0, 0, 0, 0.3)',
+            borderRadius: '12px',
+            border: '2px solid rgba(255, 107, 0, 0.4)',
+            overflow: 'hidden'
+          }}>
+            <img 
+              src="/images/ghostface-template-example.jpg"
+              alt="Ghostface Halloween Example"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '8px'
+              }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = `
+                  <div style="text-align: center; padding: 40px; color: #999;">
+                    <div style="font-size: 60px; margin-bottom: 20px; opacity: 0.3;">🎃</div>
+                    <div style="font-size: 18px;">Example Image</div>
+                    <div style="font-size: 14px; margin-top: 10px;">ghostface-template-example.jpg</div>
+                  </div>
+                `;
+              }}
+            />
           </div>
         </div>
       </section>
 
-      {/* Generate Button */}
-      <section className={styles.generateSection}>
+      {/* Action Button - Order 2 on mobile (between upload and example) */}
+      <section style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '15px',
+        margin: '0 auto 40px',
+        maxWidth: '600px',
+        padding: '0 20px',
+        order: 2
+      }}>
         <button
           onClick={handleGenerateOrRedirect}
           disabled={loading || processing}
@@ -552,7 +631,7 @@ export default function HalloweenPage() {
             fontSize: '20px',
             fontWeight: 'bold',
             cursor: (loading || processing) ? 'not-allowed' : 'pointer',
-            boxShadow: '0 8px 30px rgba(255, 107, 0, 0.4)',
+            boxShadow: (loading || processing) ? 'none' : '0 8px 30px rgba(255, 107, 0, 0.4)',
             transition: 'all 0.3s ease',
             opacity: (loading || processing) ? 0.7 : 1,
             width: '100%',
@@ -573,13 +652,22 @@ export default function HalloweenPage() {
               color: 'white',
               cursor: (loading || processing) ? 'not-allowed' : 'pointer',
               fontSize: '16px',
-              marginTop: '15px'
+              transition: 'all 0.3s ease'
             }}
           >
             🔄 Reset
           </button>
         )}
       </section>
+
+      {/* Mobile-specific CSS to reorder on small screens */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          section > div:nth-child(1) { order: 1; }  /* Upload */
+          section + section { order: 2; }            /* Button */
+          section > div:nth-child(2) { order: 3; }  /* Example */
+        }
+      `}</style>
     </main>
   );
 }

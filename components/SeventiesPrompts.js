@@ -1,99 +1,282 @@
-const SEVENTIES_STYLES = [
+// ==============================
+// SeventiesPrompts.js (Dazed-and-Confused Vibe — Trademark-safe)
+// ==============================
+//
+// Curated 1970s presets with gender-aware snippets,
+// scene vs portrait support, photography notes,
+// negative prompt, and share captions for social sharing.
+//
+// Use buildSeventiesPrompt({ gender, styleId, workflowType, intensity, sceneMode, preserveFacialFeatures })
+// to produce a generation-ready prompt for your image model.
+//
+// ==============================
+
+export const SEVENTIES_STYLES = [
   {
-    id: 'hippie',
-    value: "1970s hippie yearbook photo with long center-parted hair, paisley or floral shirt, layered beaded necklaces, round John Lennon-style glasses, relaxed peaceful expression, natural earth-tone palette, soft natural fabric textures, organic/flowing silhouette, vintage flower-power vibe",
-    label: "Hippie",
-    description: "Flower-power, paisley prints, natural textures and earth tones",
-    emoji: "✌️"
+    id: "campus_haze",
+    label: "Campus Haze",
+    emoji: "🎓",
+    value:
+      "long relaxed hair, vintage denim jacket or corduroy blazer, loose collared shirt, mellow sun-faded tones, cigarette-in-hand pose optional, dreamy laid-back expression",
+    description: "College-town haze, hazy afternoons, retro roadtrip & campus nostalgia"
   },
   {
-    id: 'disco',
-    value: "1970s disco yearbook photo with feathered voluminous hair, glossy polyester or halter top, dramatic metallic eyeshadow, gold chain or chunky jewelry, confident nightclub pose, high-shine fabrics and subtle sparkle, saturated color palette, studio lighting with soft highlights",
-    label: "Disco",
-    description: "Feathered hair, glossy fabrics, nightclub glamour and shine",
-    emoji: "🕺"
+    id: "disco_glam",
+    label: "Disco Glam",
+    emoji: "🕺",
+    value:
+      "feathered voluminous hair, glossy high-shine blouse or halter, statement jewelry, confident nightclub pose, studio gloss and sparkle, saturated color highlight",
+    description: "Nightclub lights, sequins, glamour and movement"
   },
   {
-    id: 'punk',
-    value: "1970s punk yearbook photo with choppy or bleached hair, leather jacket with studs or DIY patches, band tee, safety-pin or torn details, hard-edged expression, gritty textures and high-contrast tonality, underground anti-establishment aesthetic",
-    label: "Punk",
-    description: "Raw DIY rebellion: leather, studs, torn fabrics, attitude",
-    emoji: "🤘"
+    id: "punk_rebel",
+    label: "Punk Rebel",
+    emoji: "🤘",
+    value:
+      "choppy or bleached hair, worn leather jacket with DIY patches, distressed denim, safety-pin or torn details, direct defiant stare, gritty texture and contrast",
+    description: "Raw DIY rebellion, underground edge and attitude"
   },
   {
-    id: 'glam-rock',
-    value: "1970s glam rock yearbook photo with dramatic teased hair, glittery or metallic makeup, androgynous theatrical styling, sequins or metallic fabric, expressive stage-like pose, exaggerated makeup and high-contrast studio lighting, artful and gender-bending look",
-    label: "Glam Rock",
-    description: "Androgynous theatrical looks, glitter, stage dramatics",
-    emoji: "⭐"
+    id: "glam_performer",
+    label: "Glam Performer",
+    emoji: "⭐",
+    value:
+      "androgynous glam styling, exaggerated makeup and glitter accents, theatrical costume elements, dramatic pose, high-contrast studio lighting, bold colors",
+    description: "Stage-ready, theatrical and gender-fluid glam"
   },
   {
-    id: 'bohemian',
-    value: "1970s bohemian yearbook photo with long flowing hair, layered vintage clothing, natural relaxed expression, warm earth tones, soft bohemian aesthetic",
-    label: "Bohemian",
-    description: "Soft flowing silhouettes, artisanal textures, layered jewelry",
-    emoji: "🌻"
+    id: "boho_folk",
+    label: "Boho Folk",
+    emoji: "🌻",
+    value:
+      "long flowing hair, layered vintage fabrics, embroidered tops, acoustic instrument or open-road props, warm earth-tone palette, honest relaxed smile",
+    description: "Singer-songwriter, natural textures, festival & road-trip warmth"
   },
   {
-    id: 'preppy',
-    value: "1970s preppy yearbook photo with neat side-part or flip hairstyle, collared Oxford or sweater-vest, pearls or simple jewelry, poised tidy smile, clean muted palette, classic collegiate yearbook composition, conservative polished aesthetic",
-    label: "Preppy",
-    description: "Collegiate neatness: sweaters, collared shirts, clean lines",
-    emoji: "👔"
+    id: "preppy_collegiate",
+    label: "Preppy Collegiate",
+    emoji: "👔",
+    value:
+      "neat flip or side-part hairstyle, collared shirt or sweater-vest, tidy smile, muted classic palette, poised tidy yearbook composition",
+    description: "Collegiate neatness and classic portrait polish"
   },
   {
-    id: 'folk',
-    value: "1970s folk yearbook photo with natural unstyled hair, flannel or denim jacket, acoustic musician presence, soft honest expression, earthy color tones, handmade accessory details, casual authentic folk performer look",
-    label: "Folk",
-    description: "Acoustic singer aesthetic: denim, flannel, natural feel",
-    emoji: "🎸"
-  },
-  {
-    id: 'mod',
-    value: "1970s mod-inspired yearbook photo with precise geometric haircut or trimmed bob, bold graphic shapes in clothing, high-contrast monochrome or limited palette, dramatic winged eyeliner, clean architectural styling, confident editorial pose",
-    label: "Mod",
-    description: "Sharp geometry, clean lines, monochrome contrasts",
-    emoji: "🎯"
+    id: "mod_graphic",
+    label: "Mod Graphic",
+    emoji: "🎯",
+    value:
+      "precise geometric haircut or sharp bob, bold graphic patterns, limited high-contrast palette, editorial makeup (winged liner), confident editorial pose",
+    description: "Sharp geometry, bold contrasts, editorial 70s fashion"
   }
 ];
 
-// Build a seventies-style prompt in the same pattern as your Eighties builder
-const buildSeventiesPrompt = ({
-  gender,
-  styleId,
-  preserveFacialFeatures = true,
-  intensity = 'medium' // 'subtle' | 'medium' | 'strong'
-}) => {
-  const style = SEVENTIES_STYLES.find(s => s.id === styleId);
-  if (!style) return null;
-
-  // Base (style.value already includes the visual/style tokens)
-  let prompt = `${gender} ${style.value}`;
-
-  if (preserveFacialFeatures) {
-    prompt += ", IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure";
+// Gender-aware prompts to add fidelity; used in prompt builder
+export const STYLE_PROMPTS = {
+  campus_haze: {
+    male:
+      "male with long center-parted hair or relaxed shag, worn denim jacket or corduroy blazer, vintage tee or collared shirt, casual slouchy posture, mellow gaze",
+    female:
+      "female with loose natural waves or layered shag, boho blouse or denim jacket, layered necklaces, sunlit relaxed smile",
+    "non-binary":
+      "person with mid-length relaxed hair, loose retro layers, neutral-toned accessories, contemplative soft expression"
+  },
+  disco_glam: {
+    male:
+      "male with feathered glossy hair, shiny blouse or tailored jacket, statement necklace or chains, confident nightclub pose, slight sheen on skin",
+    female:
+      "female with voluminous feathered hair, halter or sequined top, bold metallic eyeshadow, long dangling earrings, poised glam smile",
+    "non-binary":
+      "person with high-shine wardrobe, dramatic makeup accents, theatrical confident pose"
+  },
+  punk_rebel: {
+    male:
+      "male with short choppy or bleached hair, studded leather jacket, ripped jeans, visible safety-pins, hardened expression",
+    female:
+      "female with asymmetrical chopped hair, dark smudged eyeliner, leather or DIY patched jacket, defiant stare",
+    "non-binary":
+      "person with aggressive punk styling, DIY accessories, gritty confident presence"
+  },
+  glam_performer: {
+    male:
+      "male with androgynous theatrical makeup, glitter accents, tailored stage jacket or sequined vest, expressive stage pose",
+    female:
+      "female with high-glam makeup, glitter or metallic face accents, dramatic costume piece, performance-ready posture",
+    "non-binary":
+      "person with gender-fluid glam styling, bold stage makeup, striking theatrical expression"
+  },
+  boho_folk: {
+    male:
+      "male with long sun-bleached hair, embroidered shirt or loose knit, acoustic guitar or road-trip prop, honest relaxed expression",
+    female:
+      "female with flowing hair and layered vintage garments, handmade jewelry, soft natural smile",
+    "non-binary":
+      "person with artisanal layers, natural textures, calm open expression"
+  },
+  preppy_collegiate: {
+    male:
+      "male with neat side-part or flip hairstyle, collared shirt or sweater-vest, crisp posture, polite smile",
+    female:
+      "female with tidy hair and simple jewelry, collared blouse or sweater, composed friendly smile",
+    "non-binary":
+      "person with tidy collegiate layers, calm poised expression"
+  },
+  mod_graphic: {
+    male:
+      "male with precise cropped haircut, clean geometric-patterned shirt or jacket, strong jawline accent, editorial look",
+    female:
+      "female with sharp bob or geometric haircut, bold patterned dress, dramatic winged liner, editorial confident gaze",
+    "non-binary":
+      "person with striking geometric styling, monochrome or limited palette clothing, poised editorial expression"
   }
-
-  // IMPROVED: More authentic 70s photography specs
-  prompt += ", authentic 1970s yearbook photography: shot on Kodak Ektachrome or Kodacolor film, visible film grain with warm amber-yellow color cast typical of aged 70s prints, soft tungsten studio lighting with slight overexposure, natural edge vignetting, 85mm portrait lens compression";
-
-  // Intensity modifiers
-  switch (intensity) {
-    case 'subtle':
-      prompt += ", subtle vintage styling with minimal era alterations to preserve realism";
-      break;
-    case 'strong':
-      prompt += ", bold and theatrical 1970s transformation with exaggerated period-specific elements and pronounced film character";
-      break;
-    default: // medium
-      prompt += ", balanced 1970s styling with clear era cues while maintaining recognizability";
-  }
-
-  // Final anchor
-  prompt += ", tight close-up yearbook portrait, preserve facial features and bone structure, no modern elements, photographed in 1975";
-
-  return prompt;
 };
 
-export { SEVENTIES_STYLES, buildSeventiesPrompt };
+// Background / scene descriptors for 'scene' mode
+export const SEVENTIES_BACKGROUNDS = {
+  campus_haze: "sunlit college quad or campus lawn with vintage cars in the distance, postered bulletin boards, laid-back outdoor bench",
+  disco_glam: "nightclub interior with mirrored panels, soft haze, colored spotlights and parquet dance floor",
+  punk_rebel: "gritty club alley or underground venue with spray-painted walls, band posters and dim practical lighting",
+  glam_performer: "theatrical stage with colored gels, risers, and glossy floor, dramatic rim lighting",
+  boho_folk: "outdoor festival field or cozy coffeehouse stage with acoustic setup, woven tapestries and warm lantern light",
+  preppy_collegiate: "school portrait studio or brick quad with tidy hedges and classic campus banners",
+  mod_graphic: "minimal editorial studio with bold patterned backdrop or high-contrast graphic paneling"
+};
+
+// Authentic 1970s photo look + photography options
+const PHOTO_QUALITY_BASE = `
+shot on 35mm film or period consumer SLR, warm amber-yellow film cast, gentle film grain, soft tungsten or natural window lighting,
+slight emulsion fade & mild vignetting, softened contrast in highlights, subtle film halation at light sources
+`.replace(/\s+/g, " ").trim();
+
+const PHOTOGRAPHY_STYLES = {
+  "HyperRealistic-likeness":
+    `${PHOTO_QUALITY_BASE}, sharp facial focal plane typical of studio portraits while retaining natural skin texture`,
+  Realistic:
+    `${PHOTO_QUALITY_BASE}, true-to-era 1970s film character with moderate grain and warm color balance`,
+  Stylistic:
+    `${PHOTO_QUALITY_BASE}, heightened nostalgic palette with saturated highlights, soft bloom, and vintage film artifacts`
+};
+
+// Period environment anchor used in prompt assembly
+const SEVENTIES_ENVIRONMENT = `
+authentic mid-to-late 1970s scene or portrait setting,
+era-appropriate props and signage, no modern logos or devices,
+nostalgic film processing characteristics
+`.replace(/\s+/g, " ").trim();
+
+// Negative prompt to avoid modern artifacts and anachronisms
+export const NEGATIVE_PROMPT = [
+  "no smartphones", "no modern watches", "no visible modern logos",
+  "no modern eyeglass shapes", "no AirPods", "no modern cars", "no Instagram filters",
+  "no ultra-HDR artifacts", "no modern makeup trends"
+].join(", ");
+
+// Build function: accepts an options object and returns { prompt, negative_prompt }
+// options: { gender, styleId, workflowType, intensity, sceneMode, preserveFacialFeatures }
+export function buildSeventiesPrompt({
+  gender = "non-binary",
+  styleId = "campus_haze",
+  workflowType = "Realistic",
+  intensity = "medium", // 'subtle' | 'medium' | 'strong'
+  sceneMode = "portrait", // 'portrait' or 'scene'
+  preserveFacialFeatures = true
+} = {}) {
+  const style = SEVENTIES_STYLES.find((s) => s.id === styleId) || SEVENTIES_STYLES[0];
+  const genderSnippet =
+    (STYLE_PROMPTS[styleId] && STYLE_PROMPTS[styleId][gender]) || STYLE_PROMPTS[styleId]?.["non-binary"] || style.value;
+  const photoStyle = PHOTOGRAPHY_STYLES[workflowType] || PHOTOGRAPHY_STYLES["Realistic"];
+  const backgroundText = SEVENTIES_BACKGROUNDS[styleId] || "";
+
+  const intensityDescriptor =
+    intensity === "strong"
+      ? "strong theatrical 1970s transformation with pronounced period-specific wardrobe and props"
+      : intensity === "subtle"
+      ? "subtle 1970s accents preserving most contemporary traits"
+      : "balanced 1970s styling with clear era cues while preserving identity";
+
+  const photographicNotes =
+    intensity === "strong"
+      ? "pronounced warm amber film cast, visible grain and halation"
+      : intensity === "subtle"
+      ? "light vintage film character"
+      : "noticeable 1970s film texture and warm color balance";
+
+  const framing =
+    sceneMode === "scene"
+      ? "medium or full-body composition, include era-appropriate props and visible background elements"
+      : "tight head-and-shoulders portrait or yearbook framing, natural expression, direct eye contact";
+
+  const preserveText = preserveFacialFeatures ? "CRITICAL: preserve exact facial features, bone structure, skin tone, and ethnicity; do not alter identity" : "";
+
+  const promptParts = [
+    genderSnippet,
+    intensityDescriptor,
+    photographicNotes,
+    photoStyle,
+    SEVENTIES_ENVIRONMENT,
+    backgroundText,
+    framing,
+    preserveText,
+    "authentic 1970s aesthetic, no modern elements, looks like mid-late 1970s"
+  ]
+    .filter(Boolean)
+    .map((p) => p.trim())
+    .join(", ");
+
+  return {
+    prompt: promptParts,
+    negative_prompt: NEGATIVE_PROMPT
+  };
+}
+
+// Short helper for quick experiments
+export function buildShortPrompt(gender, styleId) {
+  const style = SEVENTIES_STYLES.find((s) => s.id === styleId) || SEVENTIES_STYLES[0];
+  const genderSnippet = (STYLE_PROMPTS[styleId] && STYLE_PROMPTS[styleId][gender]) || style.value;
+  return `${genderSnippet}, 1970s vibe, warm film grain, head-and-shoulders portrait`;
+}
+
+// Share captions + hashtag bundles to help users post
+export const SHARE_DATA = {
+  campus_haze: {
+    caption: "Took a detour back to college days — which 70s vibe should I try next?",
+    hashtags: ["#70sVibe", "#ThrowbackAI", "#CampusHaze", "#Retro"]
+  },
+  disco_glam: {
+    caption: "Disco lights and mirror floors — bring the glam back!",
+    hashtags: ["#Disco", "#70sGlam", "#ThrowbackAI", "#RetroParty"]
+  },
+  punk_rebel: {
+    caption: "Channeling that raw underground energy — tag your rebel friend.",
+    hashtags: ["#Punk", "#70sStyle", "#ThrowbackAI", "#Rebel"]
+  },
+  glam_performer: {
+    caption: "Stage-ready glam — which era should I perform next?",
+    hashtags: ["#Glam", "#StageStyle", "#ThrowbackAI", "#70s"]
+  },
+  boho_folk: {
+    caption: "Roadtrip folk vibes — acoustic afternoons and sun-faded denim.",
+    hashtags: ["#Boho", "#Folk", "#ThrowbackAI", "#Roadtrip"]
+  },
+  preppy_collegiate: {
+    caption: "Classic campus portrait — who rocked the sweater-vest?",
+    hashtags: ["#Yearbook", "#70sYearbook", "#ThrowbackAI", "#Preppy"]
+  },
+  mod_graphic: {
+    caption: "Sharp lines and bold graphics — vintage editorial energy.",
+    hashtags: ["#Mod", "#GraphicStyle", "#ThrowbackAI", "#70sFashion"]
+  }
+};
+
+export function getShareData(styleId) {
+  return SHARE_DATA[styleId] || { caption: "Which 70s vibe are you?", hashtags: ["#ThrowbackAI", "#70s"] };
+}
+
+// UI helpers
+export const AVAILABLE_GENDERS = ["male", "female", "non-binary"];
+export const WORKFLOW_TYPES = [
+  { value: "HyperRealistic-likeness", label: "HyperRealistic" },
+  { value: "Realistic", label: "Realistic" },
+  { value: "Stylistic", label: "Stylistic" }
+];
+
 export default SEVENTIES_STYLES;

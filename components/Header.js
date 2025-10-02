@@ -97,6 +97,11 @@ export default function Header({ showMenu, setShowMenu }) {
       icon: "⚡",
       credits: "1 credit"
     },
+    {
+        href: "/restores",  // Your new landing page
+        label: "View All Restore Options",
+        viewAll: true  // Style it differently
+      },
   ];
 
   const decadesItems = [
@@ -124,6 +129,11 @@ export default function Header({ showMenu, setShowMenu }) {
       label: "2000s Photos", 
       icon: "💿",
       credits: "50 credits"
+    },
+    {
+      href: "/decades",
+      label: "View All Decades",
+      viewAll: true
     }
   ];
 

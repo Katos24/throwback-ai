@@ -275,9 +275,12 @@
 
 .templateGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
+
 
 .templateCard {
   background: rgba(0, 0, 0, 0.3);
@@ -662,4 +665,146 @@
   background: linear-gradient(45deg, #ff8c00, #a020f0);
   transform: scale(1.06) rotate(-1deg);
   box-shadow: 0 0 24px rgba(255, 107, 0, 0.7), 0 0 32px rgba(138, 43, 226, 0.4);
+}
+
+/* Add these to your HalloweenPage.module.css */
+
+/* Error Message Styles */
+.errorMessage {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  padding: 16px 20px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  flex: 1;
+  color: #fef2f2;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.errorClose {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.errorClose:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Image Fallback Styles */
+.imageFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.fallbackEmoji {
+  font-size: 40px;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.fallbackText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+/* Template Card Focus Styles for Accessibility */
+.templateCard:focus {
+  outline: 3px solid #ff6b35;
+  outline-offset: 2px;
+}
+
+.exploreCard:focus {
+  outline: 3px solid #ff6b35;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for template selection */
+.templateCard {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.templateCard:hover {
+  transform: translateY(-4px);
+}
+
+.templateCard:active {
+  transform: translateY(-2px);
+}
+
+/* Explore cards keyboard navigation */
+.exploreCard {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exploreCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.exploreCard:active {
+  transform: translateY(-2px);
+}
+
+/* Mobile responsiveness for error message */
+@media (max-width: 640px) {
+  .errorMessage {
+    margin: 0 16px 20px;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .errorIcon {
+    font-size: 18px;
+  }
+
+  .errorText {
+    font-size: 14px;
+  }
 }

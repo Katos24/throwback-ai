@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import styles from "../../styles/HalloweenPage.module.css";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
@@ -11,15 +11,15 @@ import { useHalloweenGeneration } from "../../components/decades/hooks/useHallow
 const HALLOWEEN_TEMPLATES = [
   {
     id: 'ghostface-phone',
-    name: 'Ghostface Phone',
+    name: 'Phone Call',
     emoji: '📱',
     templateImage: '/templates/halloween/ghostface-phone.jpg',
-    exampleBefore: '/images/examples/halloween/ghostface-before.jpg',
+    exampleBefore: '/images/examples/halloween/ghostface-phone.jpg',
     exampleAfter: '/images/examples/halloween/ghostface-after.jpg',
   },
   {
     id: 'freddy-krueger',
-    name: 'Freddy Krueger',
+    name: 'Nightmare',
     emoji: '🔥',
     templateImage: '/templates/halloween/freddy-krueger.jpg',
     exampleBefore: '/images/examples/halloween/freddy-krueger.jpg',
@@ -27,24 +27,84 @@ const HALLOWEEN_TEMPLATES = [
   },
   {
     id: 'michael-myers',
-    name: 'Michael Myers',
+    name: 'The Stalker',
     emoji: '🔪',
     templateImage: '/templates/halloween/michael-myers.jpg',
     exampleBefore: '/images/examples/halloween/michael-myers.jpg',
     exampleAfter: '/images/examples/halloween/michael-myers-after.jpg',
   },
   {
-    id: 'chucky',
-    name: 'Chucky',
-    emoji: '🪓',
-    templateImage: '/templates/halloween/chucky.jpg',
-    exampleBefore: '/images/examples/halloween/chucky.jpg',
-    exampleAfter: '/images/examples/halloween/chucky-after.jpg',
+    id: 'pennywise',
+    name: 'Storm Drain',
+    emoji: '🎈',
+    templateImage: '/templates/halloween/pennywise.jpg',
+    exampleBefore: '/images/examples/halloween/pennywise.jpg',
+    exampleAfter: '/images/examples/halloween/pennywise-after.jpg',
+  },
+  {
+    id: 'video-store',
+    name: 'Video Store',
+    emoji: '📼',
+    templateImage: '/templates/halloween/video-store.jpg',
+    exampleBefore: '/images/examples/halloween/video-store.jpg',
+    exampleAfter: '/images/examples/halloween/video-store-after.jpg',
+  },
+  {
+    id: 'the-ring',
+    name: 'TV Static',
+    emoji: '📺',
+    templateImage: '/templates/halloween/the-ring.jpg',
+    exampleBefore: '/images/examples/halloween/the-ring.jpg',
+    exampleAfter: '/images/examples/halloween/the-ring-after.jpg',
   }
 ];
 
+// Error Message Component
+const ErrorMessage = ({ message, onClose }) => {
+  if (!message) return null;
+  
+  return (
+    <div className={styles.errorMessage}>
+      <span className={styles.errorIcon}>⚠️</span>
+      <span className={styles.errorText}>{message}</span>
+      <button 
+        onClick={onClose}
+        className={styles.errorClose}
+        aria-label="Close error message"
+      >
+        ×
+      </button>
+    </div>
+  );
+};
+
+// Image Fallback Component
+const ImageWithFallback = ({ src, alt, emoji, label, className }) => {
+  const [error, setError] = useState(false);
+
+  if (error) {
+    return (
+      <div className={styles.imageFallback}>
+        <div className={styles.fallbackEmoji}>{emoji}</div>
+        <div className={styles.fallbackText}>{label}</div>
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => setError(true)}
+    />
+  );
+};
 
 export default function HalloweenPage() {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const {
     photo,
     setPhoto,
@@ -79,24 +139,36 @@ export default function HalloweenPage() {
   ];
 
   const { handleGenerateOrRedirect: rawGenerateHandler, getButtonText } = useHalloweenGenerationHandler({
-  photo,
-  selectedTemplate, // <-- use this, not selectedStyle
-  isLoggedIn,
-  credits,
-  avatarCost,
-  router,
-  generateFaceSwap, // <-- use this, not generateAvatar
-  refreshCredits,
-  scrollToPhotoOnMobile,
-  setResultImageUrl,
-  scrollSelectors
-});
+    photo,
+    selectedTemplate,
+    isLoggedIn,
+    credits,
+    avatarCost,
+    router,
+    generateFaceSwap,
+    refreshCredits,
+    scrollToPhotoOnMobile,
+    setResultImageUrl,
+    scrollSelectors
+  });
 
   const handleGenerateOrRedirect = useCallback(
     (templateId) => {
       const templateToUse = templateId || selectedTemplate;
-      if (!photo) return alert("Please upload a photo first.");
-      if (!templateToUse) return alert("Please select a Halloween scene.");
+      
+      // Clear any previous errors
+      setErrorMessage('');
+      
+      if (!photo) {
+        setErrorMessage("Please upload a photo first.");
+        return;
+      }
+      
+      if (!templateToUse) {
+        setErrorMessage("Please select a Halloween scene.");
+        return;
+      }
+      
       rawGenerateHandler(templateToUse);
     },
     [photo, selectedTemplate, rawGenerateHandler]
@@ -104,6 +176,9 @@ export default function HalloweenPage() {
 
   const handleHalloweenPhotoUpload = useCallback((uploadedPhoto) => {
     if (!uploadedPhoto) return;
+
+    // Clear any errors when uploading
+    setErrorMessage('');
 
     setPhoto(uploadedPhoto);
 
@@ -116,9 +191,14 @@ export default function HalloweenPage() {
     if (!selectedTemplate) {
       const defaultTemplate = HALLOWEEN_TEMPLATES[0].id;
       setSelectedTemplate(defaultTemplate);
-      // Remove auto-generate here!
     }
   }, [selectedTemplate, setPhoto, setPreviewUrl, setSelectedTemplate]);
+
+  const handleTemplateSelect = (templateId) => {
+    setSelectedTemplate(templateId);
+    setResultImageUrl('');
+    setErrorMessage(''); // Clear errors when selecting template
+  };
 
   const canGenerate = !!photo && !!selectedTemplate;
 
@@ -157,6 +237,12 @@ export default function HalloweenPage() {
         </p>
         <div className={styles.costBadge}>⚡ {avatarCost} Credits per swap</div>
       </section>
+
+      {/* Error Message Display */}
+      <ErrorMessage 
+        message={errorMessage} 
+        onClose={() => setErrorMessage('')}
+      />
 
       <section 
         className={styles.uploadSection}
@@ -212,10 +298,17 @@ export default function HalloweenPage() {
           {HALLOWEEN_TEMPLATES.map((template) => (
             <div
               key={template.id}
-              onClick={() => {
-                setSelectedTemplate(template.id);
-                setResultImageUrl('');
+              onClick={() => handleTemplateSelect(template.id)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleTemplateSelect(template.id);
+                }
               }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${template.name} template`}
+              aria-pressed={selectedTemplate === template.id}
               className={`${styles.templateCard} ${selectedTemplate === template.id ? styles.templateCardSelected : ''}`}
             >
               <div className={styles.templateImageWrapper}>
@@ -223,6 +316,7 @@ export default function HalloweenPage() {
                   src={template.templateImage}
                   alt={template.name}
                   className={styles.templateImage}
+                  loading="lazy"
                 />
               </div>
               <div className={styles.templateName}>{template.emoji} {template.name}</div>
@@ -245,8 +339,6 @@ export default function HalloweenPage() {
         />
       </section>
 
-
-
       {/* Examples Section */}
       <section className={styles.examplesSection}>
         <h2 className={styles.sectionTitle}>See Examples</h2>
@@ -255,37 +347,23 @@ export default function HalloweenPage() {
           {HALLOWEEN_TEMPLATES.map((template) => (
             <div key={template.id} className={styles.exampleCard}>
               <div className={styles.exampleBefore}>
-                <img 
+                <ImageWithFallback
                   src={template.exampleBefore}
                   alt={`${template.name} before`}
+                  emoji="📸"
+                  label="Before"
                   className={styles.exampleImage}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `
-                      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #999;">
-                        <div style="font-size: 40px; margin-bottom: 10px;">📸</div>
-                        <div style="font-size: 14px;">Before</div>
-                      </div>
-                    `;
-                  }}
                 />
                 <div className={styles.exampleLabel}>BEFORE</div>
               </div>
               
               <div className={styles.exampleAfter}>
-                <img 
+                <ImageWithFallback
                   src={template.exampleAfter}
                   alt={`${template.name} after`}
+                  emoji={template.emoji}
+                  label="After"
                   className={styles.exampleImage}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `
-                      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #999;">
-                        <div style="font-size: 40px; margin-bottom: 10px;">${template.emoji}</div>
-                        <div style="font-size: 14px;">After</div>
-                      </div>
-                    `;
-                  }}
                 />
                 <div className={styles.exampleLabelAfter}>AFTER</div>
               </div>
@@ -298,8 +376,7 @@ export default function HalloweenPage() {
         </div>
       </section>
 
-
-   {/* Explore More Features */}
+      {/* Explore More Features */}
       <section className={styles.exploreSection}>
         <div className={styles.exploreHeader}>
           <h2 className={styles.exploreTitle}>Explore More AI Photo Magic</h2>
@@ -312,6 +389,15 @@ export default function HalloweenPage() {
           {/* Decades Feature */}
           <div 
             onClick={() => router.push('/decades')}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                router.push('/decades');
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Explore Decades Time Travel feature"
             className={styles.exploreCard}
             style={{ borderColor: 'rgba(138, 43, 226, 0.4)' }}
           >
@@ -331,6 +417,15 @@ export default function HalloweenPage() {
           {/* Colorization Feature */}
           <div 
             onClick={() => router.push('/replicate/restore-premium')}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                router.push('/replicate/restore-premium');
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Explore Premium Colorization feature"
             className={styles.exploreCard}
             style={{ borderColor: 'rgba(0, 212, 255, 0.4)' }}
           >
@@ -350,6 +445,15 @@ export default function HalloweenPage() {
           {/* Restoration Feature */}
           <div 
             onClick={() => router.push('/replicate/restore-basic')}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                router.push('/replicate/restore-basic');
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Explore Photo Restoration feature"
             className={styles.exploreCard}
             style={{ borderColor: 'rgba(34, 197, 94, 0.4)' }}
           >

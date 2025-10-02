@@ -1,5 +1,17 @@
-// hooks/useHalloweenGenerationHandler.js
 import { useCallback } from "react";
+
+// Helper: File/Blob → base64
+async function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64 = reader.result.split(",")[1]; // strip prefix
+      resolve(base64);
+    };
+    reader.onerror = reject;
+  });
+}
 
 export function useHalloweenGenerationHandler({
   photo,
@@ -8,13 +20,12 @@ export function useHalloweenGenerationHandler({
   credits,
   avatarCost,
   router,
-  generateFaceSwap,
+  generateFaceSwap, // function calling your API
   refreshCredits,
   scrollToPhotoOnMobile,
   setResultImageUrl,
   scrollSelectors
 }) {
-  // Dynamic button text
   const getButtonText = useCallback(() => {
     if (!photo) return "Upload a Photo First";
     if (!selectedTemplate) return "Select a Template";
@@ -23,51 +34,75 @@ export function useHalloweenGenerationHandler({
     return `🎃 Swap Face - ${avatarCost} Credits`;
   }, [photo, selectedTemplate, isLoggedIn, credits, avatarCost]);
 
-  // Enhanced generation handler
- const handleGenerateOrRedirect = useCallback(
-  async (templateId) => {
-    const templateToUse = templateId || selectedTemplate;
-    if (!photo) return;
-    if (!templateToUse) return;
+  const handleGenerateOrRedirect = useCallback(
+    async (templateId) => {
+      const templateToUse = templateId || selectedTemplate;
+      if (!photo || !templateToUse) return;
 
-    if (!isLoggedIn) {
-      router.push('/signup');
-      return;
-    }
+      if (!isLoggedIn) {
+        router.push("/signup");
+        return;
+      }
 
-    if (credits < avatarCost) {
-      router.push('/pricing');
-      return;
-    }
+      if (credits < avatarCost) {
+        router.push("/pricing");
+        return;
+      }
 
-    try {
-      setTimeout(() => scrollToPhotoOnMobile(scrollSelectors), 100);
+      try {
+        setTimeout(() => scrollToPhotoOnMobile(scrollSelectors), 100);
 
-      const imageUrl = await generateFaceSwap(photo, templateToUse);
+        // Convert File/Blob → Base64
+        let base64Photo;
+        if (photo instanceof File || photo instanceof Blob) {
+          base64Photo = await fileToBase64(photo);
+        } else if (typeof photo === "string") {
+          base64Photo = photo;
+        } else {
+          throw new Error("Unsupported photo format");
+        }
 
-      setResultImageUrl(imageUrl);
-      await refreshCredits();
-    } catch (error) {
-      console.error('Face swap failed:', error);
-    }
-  },
-  [
-    photo,
-    selectedTemplate,
-    isLoggedIn,
-    credits,
-    avatarCost,
-    router,
-    generateFaceSwap,
-    refreshCredits,
-    scrollToPhotoOnMobile,
-    setResultImageUrl,
-    scrollSelectors
-  ]
-);
+        // ✅ Send the template key, NOT the full URL
+        const validTemplates = [
+          'ghostface-phone',
+          'freddy-krueger',
+          'michael-myers',
+          'pennywise',
+          'video-store',
+          'the-ring'
+        ];
+
+        if (!validTemplates.includes(templateToUse)) {
+          throw new Error("Invalid template selected");
+        }
+
+        // Call API with template key
+        const imageUrl = await generateFaceSwap(base64Photo, templateToUse);
+
+        setResultImageUrl(imageUrl);
+        await refreshCredits();
+
+      } catch (error) {
+        console.error("Face swap failed:", error);
+      }
+    },
+    [
+      photo,
+      selectedTemplate,
+      isLoggedIn,
+      credits,
+      avatarCost,
+      router,
+      generateFaceSwap,
+      refreshCredits,
+      scrollToPhotoOnMobile,
+      setResultImageUrl,
+      scrollSelectors,
+    ]
+  );
 
   return {
     handleGenerateOrRedirect,
-    getButtonText
+    getButtonText,
   };
 }

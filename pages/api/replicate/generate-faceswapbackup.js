@@ -398,93 +398,84 @@ export default async function handler(req, res) {
   let processingStartTime = null;
 
   try {
-  console.log(`[${userId}] Starting face swap with template: ${templateId}`);
-  console.log(`[${userId}] Image size: ${imageSizeKB}KB`);
-  
-  const input = {
-    input_image: templateUrl,
-    swap_image: `data:image/png;base64,${imageBase64}`
-  };
+    console.log(`[${userId}] Starting face swap with template: ${templateId}`);
+    console.log(`[${userId}] Image size: ${imageSizeKB}KB`);
+    
+    const input = {
+      input_image: templateUrl,
+      swap_image: `data:image/png;base64,${imageBase64}`
+    };
 
-  console.log(`[${userId}] Creating face swap prediction...`);
-  queueStartTime = Date.now();
-  processingStartTime = Date.now();
+    console.log(`[${userId}] Creating face swap prediction...`);
+    queueStartTime = Date.now();
 
-  const output = await replicate.run(
-    "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111",
-    { input }
-  );
+    // Create prediction
+    const prediction = await replicate.predictions.create({
+      version: "d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111",
+      input: input
+    });
 
-  console.log(`[${userId}] Face swap completed`);
-  console.log(`[${userId}] Output type:`, typeof output);
-  console.log(`[${userId}] Output constructor:`, output?.constructor?.name);
-  console.log(`[${userId}] Has url method:`, typeof output?.url);
+    predictionId = prediction.id;
+    console.log(`[${userId}] Prediction created: ${predictionId}`);
 
- let imageUrl;
+    // Set up timeout to cancel if it takes too long
+    const cancelTimeout = setTimeout(async () => {
+      try {
+        await replicate.predictions.cancel(predictionId);
+        console.log(`[${userId}] Cancelled prediction due to timeout`);
+      } catch (e) {
+        console.log(`[${userId}] Failed to cancel:`, e.message);
+      }
+    }, REQUEST_TIMEOUT_MS);
 
-// Handle FileOutput object
-if (output && typeof output.url === 'function') {
-  const urlObj = output.url();
-  // Convert URL object to string
-  imageUrl = urlObj.href || urlObj.toString();
-  console.log(`[${userId}] Converted URL object to string:`, imageUrl);
-} else if (typeof output === 'string') {
-  imageUrl = output;
-  console.log(`[${userId}] Output is already string:`, imageUrl);
-} else if (Array.isArray(output) && output.length > 0) {
-  imageUrl = output[0];
-  console.log(`[${userId}] Output is array, using first:`, imageUrl);
-} else {
-  console.error(`[${userId}] Unexpected output:`, output);
-  throw new Error("Unexpected output format from face swap");
-}
+    // Poll for result
+    const result = await pollForResult(predictionId, cancelTimeout);
+    const imageUrl = result.output;
+    processingStartTime = result.processingStartTime;
 
-// Now imageUrl should be a string
-if (typeof imageUrl !== 'string') {
-  console.error(`[${userId}] imageUrl is still not a string:`, typeof imageUrl, imageUrl);
-  throw new Error("Output URL is not a string");
-}
+    clearTimeout(cancelTimeout);
 
-if (!imageUrl.startsWith('http')) {
-  console.error(`[${userId}] Invalid URL format:`, imageUrl);
-  throw new Error("Invalid image URL format");
-}
+    if (!imageUrl || !imageUrl.startsWith('http')) {
+      throw new Error("No valid output image URL generated");
+    }
 
-console.log(`[${userId}] Final validated imageUrl:`, imageUrl);
+    console.log(`[${userId}] Face swap completed: ${imageUrl}`);
 
-  await spendCredits(userId, FACE_SWAP_COST);
-  creditsDeducted = true;
-  
-  const endTime = Date.now();
-  
-  console.log(`[${userId}] ✅ Face swap completed successfully in ${endTime - startTime}ms`);
+    await spendCredits(userId, FACE_SWAP_COST);
+    creditsDeducted = true;
+    
+    const endTime = Date.now();
+    const totalTime = endTime - startTime;
+    
+    console.log(`[${userId}] ✅ Face swap completed successfully in ${totalTime}ms`);
+    console.log(`[${userId}] Deducted ${FACE_SWAP_COST} credits`);
 
-  await logEnhancedRequest({
-    userId,
-    predictionId: null,
-    status: "succeeded",
-    requestData: {
-      template: templateId,
-      model: "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111"
-    },
-    startTime,
-    endTime,
-    queueStartTime,
-    processingStartTime,
-    imageBase64,
-    resultUrl: imageUrl,
-    creditsUsed: FACE_SWAP_COST,
-    userAgent,
-    ipAddress,
-    referrerUrl,
-    sessionId,
-    featureType: "halloween_faceswap"
-  });
-  
-  res.status(200).json({ imageUrl });
+    await logEnhancedRequest({
+      userId,
+      predictionId,
+      status: "succeeded",
+      requestData: {
+        template: templateId,
+        prediction_id: predictionId,
+        model: "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111"
+      },
+      startTime,
+      endTime,
+      queueStartTime,
+      processingStartTime,
+      imageBase64,
+      resultUrl: imageUrl,
+      creditsUsed: FACE_SWAP_COST,
+      userAgent,
+      ipAddress,
+      referrerUrl,
+      sessionId,
+      featureType: "halloween_faceswap"
+    });
+    
+    res.status(200).json({ imageUrl });
 
-} catch (error) {
-
+  } catch (error) {
     const endTime = Date.now();
     const totalTime = endTime - startTime;
     

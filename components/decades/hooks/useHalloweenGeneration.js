@@ -1,5 +1,4 @@
-// hooks/useHalloweenGeneration.js
-
+// components/decades/hooks/useHalloweenGeneration.js
 import { useState } from 'react';
 import { supabase } from "../../../lib/supabaseClient";
 import toast from 'react-hot-toast';
@@ -9,7 +8,8 @@ export function useHalloweenGeneration() {
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState('');
 
-  const generateFaceSwap = async (photoFile, templateId) => {
+  // now expects photoBase64 (not File)
+  const generateFaceSwap = async (photoBase64, templateId) => {
     setIsLoading(true);
     setProgress(0);
     setProgressStage('Uploading your photo...');
@@ -21,21 +21,7 @@ export function useHalloweenGeneration() {
     try {
       // Get session token
       const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session?.access_token) {
-        throw new Error('Not authenticated');
-      }
-
-      // Convert file to base64
-      const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const result = reader.result.split(',')[1];
-          resolve(result);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(photoFile);
-      });
+      if (!session?.access_token) throw new Error('Not authenticated');
 
       // Simulate progress
       let progressValue = 0;
@@ -46,15 +32,12 @@ export function useHalloweenGeneration() {
           setProgressStage('Finalizing your spooky transformation...');
         } else {
           setProgress(progressValue);
-          if (progressValue < 40) {
-            setProgressStage('Uploading to face swap...');
-          } else if (progressValue < 70) {
-            setProgressStage('Swapping faces...');
-          }
+          if (progressValue < 40) setProgressStage('Uploading to face swap...');
+          else if (progressValue < 70) setProgressStage('Swapping faces...');
         }
       }, 400);
 
-      // Call API
+      // Call API — pass the base64 directly
       const response = await fetch('/api/replicate/generate-faceswap', {
         method: 'POST',
         headers: {
@@ -62,8 +45,10 @@ export function useHalloweenGeneration() {
           'Authorization': `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({
-          imageBase64: base64,
-          templateId: templateId,
+          imageBase64: photoBase64,
+          templateId,
+          hair_source: "user",
+          upscale: true
         }),
       });
 
@@ -72,14 +57,7 @@ export function useHalloweenGeneration() {
       setProgressStage('Complete! 🎃');
 
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Face swap failed');
-      }
-
-      if (!data.imageUrl) {
-        throw new Error('No image URL returned');
-      }
+      if (!response.ok || !data.imageUrl) throw new Error(data.error || 'Face swap failed');
 
       toast.success('Face swap complete! You look spooky!', {
         id: processingToast,
@@ -91,15 +69,12 @@ export function useHalloweenGeneration() {
 
     } catch (error) {
       console.error('Face swap error:', error);
-      
       toast.error(error.message || 'Face swap failed. Please try again.', {
         id: processingToast,
         icon: '❌',
         duration: 5000,
       });
-
       throw error;
-
     } finally {
       setIsLoading(false);
       setTimeout(() => {

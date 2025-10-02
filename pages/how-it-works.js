@@ -8,7 +8,7 @@ const FEATURES = [
   {
     icon: '🎨',
     title: 'Colorize B&W Photos',
-    description: 'Add historically accurate, vibrant colors to black and white family photos.',
+    description: 'Add historically accurate, vibrant colors to black and white family photos!',
     cost: '40 credits',
     path: '/replicate/restore-premium',
     badge: 'Most Popular'

@@ -21,6 +21,28 @@ const supabaseAdmin = createClient(
 );
 
 const FACE_SWAP_COST = 50;
+const MAX_IMAGE_SIZE_MB = 10;
+const REQUEST_TIMEOUT_MS = 120000;
+const MAX_POLL_ATTEMPTS = 60;
+const POLL_INTERVAL_MS = 2000;
+
+// Validate required environment variables
+const validateEnv = () => {
+  const required = [
+    'REPLICATE_API_TOKEN',
+    'SUPABASE_URL',
+    'SUPABASE_SERVICE_ROLE_KEY',
+  ];
+  
+  const missing = required.filter(key => !process.env[key]);
+  
+  if (missing.length > 0) {
+    console.error(`Missing required environment variables: ${missing.join(', ')}`);
+    throw new Error('Server configuration error');
+  }
+};
+
+validateEnv();
 
 // Template URL mapping
 const TEMPLATE_URLS = {
@@ -31,6 +53,9 @@ const TEMPLATE_URLS = {
   'video-store': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/video-store.jpg`,
   'the-ring': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/the-ring.jpg`,
 };
+
+// Rate limiting cache
+const rateLimitCache = new Map();
 
 // Helper functions
 function getBase64SizeKB(base64String) {
@@ -49,6 +74,57 @@ function getClientIP(req) {
          req.connection.remoteAddress || 
          req.socket.remoteAddress ||
          (req.connection.socket ? req.connection.socket.remoteAddress : null);
+}
+
+function getUserFriendlyError(error) {
+  const errorMessage = error.message || '';
+  
+  if (errorMessage.includes('NSFW') || errorMessage.includes('content policy')) {
+    return "Image contains content that cannot be processed. Please use a different photo.";
+  }
+  
+  if (errorMessage.includes('No face detected') || errorMessage.includes('no face found')) {
+    return "No face detected in your photo. Please upload a clear photo with a visible face.";
+  }
+  
+  if (errorMessage.includes('Multiple faces') || errorMessage.includes('more than one face')) {
+    return "Multiple faces detected. Please upload a photo with only one person.";
+  }
+  
+  if (errorMessage.includes('image quality') || errorMessage.includes('resolution')) {
+    return "Image quality is too low. Please upload a higher quality photo.";
+  }
+  
+  if (errorMessage.includes('timed out') || errorMessage.includes('timeout')) {
+    return "Processing took too long. Please try again with a different photo.";
+  }
+  
+  if (errorMessage.includes('rate limit')) {
+    return "Too many requests. Please wait a moment and try again.";
+  }
+  
+  return errorMessage || "Failed to generate face swap. Please try again.";
+}
+
+function checkRateLimit(identifier, maxRequests = 10, windowMs = 15 * 60 * 1000) {
+  const now = Date.now();
+  const userRequests = rateLimitCache.get(identifier) || [];
+  
+  const validRequests = userRequests.filter(timestamp => now - timestamp < windowMs);
+  
+  if (validRequests.length >= maxRequests) {
+    return false;
+  }
+  
+  validRequests.push(now);
+  rateLimitCache.set(identifier, validRequests);
+  
+  if (rateLimitCache.size > 10000) {
+    const keysToDelete = Array.from(rateLimitCache.keys()).slice(0, 1000);
+    keysToDelete.forEach(key => rateLimitCache.delete(key));
+  }
+  
+  return true;
 }
 
 async function logEnhancedRequest(data) {
@@ -114,34 +190,47 @@ async function logEnhancedRequest(data) {
   }
 }
 
-async function spendCredits(userId, amount) {
-  const { data: profile, error: profileError } = await supabaseAdmin
-    .from("profiles")
-    .select("credits_remaining")
-    .eq("id", userId)
-    .single();
+async function spendCredits(userId, amount, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const { data: profile, error: profileError } = await supabaseAdmin
+        .from("profiles")
+        .select("credits_remaining")
+        .eq("id", userId)
+        .single();
 
-  if (profileError) throw profileError;
-  if (!profile || profile.credits_remaining < amount) {
-    throw new Error("Insufficient credits");
+      if (profileError) throw profileError;
+      
+      if (!profile || profile.credits_remaining < amount) {
+        throw new Error("Insufficient credits");
+      }
+
+      const { error: rpcError } = await supabaseAdmin.rpc("deduct_credits", {
+        uid: userId,
+        amt: amount,
+      });
+
+      if (rpcError) throw rpcError;
+
+      const { error: insertError } = await supabaseAdmin
+        .from("credit_transactions")
+        .insert({
+          user_id: userId,
+          amount: -amount,
+          type: "spend",
+        });
+
+      if (insertError) throw insertError;
+      
+      return true;
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      if (error.message.includes('Insufficient credits')) throw error;
+      
+      console.log(`Credit deduction attempt ${i + 1} failed, retrying...`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+    }
   }
-
-  const { error: rpcError } = await supabaseAdmin.rpc("deduct_credits", {
-    uid: userId,
-    amt: amount,
-  });
-
-  if (rpcError) throw rpcError;
-
-  const { error: insertError } = await supabaseAdmin
-    .from("credit_transactions")
-    .insert({
-      user_id: userId,
-      amount: -amount,
-      type: "spend",
-    });
-
-  if (insertError) throw insertError;
 }
 
 async function refundCredits(userId, amount, reason = "prediction_failed") {
@@ -179,6 +268,56 @@ async function refundCredits(userId, amount, reason = "prediction_failed") {
   }
 }
 
+async function pollForResult(predictionId, cancelTimeout) {
+  let attempts = 0;
+  let processingStartTime = null;
+  
+  while (attempts < MAX_POLL_ATTEMPTS) {
+    try {
+      const result = await replicate.predictions.get(predictionId);
+      console.log(`Poll ${attempts + 1}/${MAX_POLL_ATTEMPTS}: ${result.status}`);
+      
+      if (result.status === 'processing' && !processingStartTime) {
+        processingStartTime = Date.now();
+        console.log(`Processing started`);
+      }
+      
+      if (result.status === "succeeded") {
+        clearTimeout(cancelTimeout);
+        return { output: result.output, processingStartTime };
+      }
+      
+      if (result.status === "failed") {
+        clearTimeout(cancelTimeout);
+        throw new Error(result.error || "Face swap failed");
+      }
+      
+      if (result.status === "canceled") {
+        clearTimeout(cancelTimeout);
+        throw new Error("Face swap was cancelled due to timeout");
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
+      attempts++;
+      
+    } catch (pollError) {
+      clearTimeout(cancelTimeout);
+      throw pollError;
+    }
+  }
+  
+  clearTimeout(cancelTimeout);
+  
+  try {
+    await replicate.predictions.cancel(predictionId);
+    console.log("Cancelled prediction due to polling timeout");
+  } catch (cancelError) {
+    console.log("Failed to cancel after polling timeout:", cancelError.message);
+  }
+  
+  throw new Error("Face swap timed out after 2 minutes");
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -192,17 +331,24 @@ export default async function handler(req, res) {
   const { imageBase64, templateId } = req.body;
   
   if (!imageBase64) {
-    return res.status(400).json({ error: "Missing imageBase64" });
+    return res.status(400).json({ error: "Missing image data" });
   }
 
   if (!templateId) {
-    return res.status(400).json({ error: "Missing templateId" });
+    return res.status(400).json({ error: "Please select a Halloween scene" });
   }
 
-  // Validate template ID
+  const imageSizeKB = getBase64SizeKB(imageBase64);
+  if (imageSizeKB > MAX_IMAGE_SIZE_MB * 1024) {
+    return res.status(400).json({ 
+      error: `Image too large. Maximum size is ${MAX_IMAGE_SIZE_MB}MB`,
+      currentSize: `${(imageSizeKB / 1024).toFixed(2)}MB`
+    });
+  }
+
   const templateUrl = TEMPLATE_URLS[templateId];
   if (!templateUrl) {
-    return res.status(400).json({ error: "Invalid templateId" });
+    return res.status(400).json({ error: "Invalid Halloween scene selected" });
   }
 
   const authHeader = req.headers.authorization;
@@ -220,6 +366,14 @@ export default async function handler(req, res) {
   }
 
   const userId = user.id;
+
+  const rateLimitKey = `${userId}:${ipAddress}`;
+  if (!checkRateLimit(rateLimitKey, 10, 15 * 60 * 1000)) {
+    return res.status(429).json({ 
+      error: "Too many requests. Please wait a few minutes and try again." 
+    });
+  }
+
   let predictionId = null;
   let creditsDeducted = false;
   
@@ -228,8 +382,8 @@ export default async function handler(req, res) {
   let processingStartTime = null;
 
   try {
-    console.log("Template URL being used:", templateUrl);
-    console.log("Template ID:", templateId);
+    console.log(`[${userId}] Starting face swap with template: ${templateId}`);
+    console.log(`[${userId}] Image size: ${imageSizeKB}KB`);
     
     const input = {
       swap_image: `data:image/png;base64,${imageBase64}`,
@@ -237,7 +391,7 @@ export default async function handler(req, res) {
       hair_source: "target"
     };
 
-    console.log("Creating face swap prediction...");
+    console.log(`[${userId}] Creating face swap prediction...`);
     queueStartTime = Date.now();
     
     const prediction = await replicate.predictions.create({
@@ -246,67 +400,19 @@ export default async function handler(req, res) {
     });
 
     predictionId = prediction.id;
-    console.log("Prediction created:", predictionId);
+    console.log(`[${userId}] Prediction created: ${predictionId}`);
 
     const cancelTimeout = setTimeout(async () => {
       try {
-        console.log(`Cancelling face swap prediction ${predictionId} due to timeout`);
+        console.log(`[${userId}] Cancelling prediction ${predictionId} due to timeout`);
         await replicate.predictions.cancel(predictionId);
       } catch (cancelError) {
-        console.log("Failed to cancel prediction:", cancelError.message);
+        console.log(`[${userId}] Failed to cancel prediction:`, cancelError.message);
       }
-    }, 120000);
+    }, REQUEST_TIMEOUT_MS);
 
-    const pollForResult = async (id, maxAttempts = 60, interval = 2000) => {
-      let attempts = 0;
-      
-      while (attempts < maxAttempts) {
-        try {
-          const result = await replicate.predictions.get(id);
-          console.log(`Poll ${attempts + 1}: ${result.status}`);
-          
-          if (result.status === 'processing' && !processingStartTime) {
-            processingStartTime = Date.now();
-            console.log(`Processing started after ${processingStartTime - queueStartTime}ms queue time`);
-          }
-          
-          if (result.status === "succeeded") {
-            clearTimeout(cancelTimeout);
-            return result.output;
-          }
-          
-          if (result.status === "failed") {
-            clearTimeout(cancelTimeout);
-            throw new Error(result.error || "Face swap failed");
-          }
-          
-          if (result.status === "canceled") {
-            clearTimeout(cancelTimeout);
-            throw new Error("Face swap was cancelled due to timeout");
-          }
-          
-          await new Promise(resolve => setTimeout(resolve, interval));
-          attempts++;
-          
-        } catch (pollError) {
-          clearTimeout(cancelTimeout);
-          throw pollError;
-        }
-      }
-      
-      clearTimeout(cancelTimeout);
-      
-      try {
-        await replicate.predictions.cancel(id);
-        console.log("Cancelled prediction due to polling timeout");
-      } catch (cancelError) {
-        console.log("Failed to cancel after polling timeout:", cancelError.message);
-      }
-      
-      throw new Error("Face swap timed out after 2 minutes");
-    };
-
-    const output = await pollForResult(predictionId);
+    const { output, processingStartTime: procStart } = await pollForResult(predictionId, cancelTimeout);
+    processingStartTime = procStart;
 
     let imageUrl;
     if (typeof output === 'string') {
@@ -323,9 +429,12 @@ export default async function handler(req, res) {
 
     await spendCredits(userId, FACE_SWAP_COST);
     creditsDeducted = true;
-    console.log(`✅ Successfully completed face swap and deducted ${FACE_SWAP_COST} credits`);
-
+    
     const endTime = Date.now();
+    const totalTime = endTime - startTime;
+    
+    console.log(`[${userId}] ✅ Face swap completed successfully in ${totalTime}ms`);
+    console.log(`[${userId}] Deducted ${FACE_SWAP_COST} credits`);
 
     await logEnhancedRequest({
       userId,
@@ -349,41 +458,32 @@ export default async function handler(req, res) {
       sessionId,
       featureType: "halloween_faceswap"
     });
-
-    console.log("Face swap successful:", { 
-      predictionId, 
-      hasUrl: !!imageUrl, 
-      userId,
-      templateId,
-      totalTime: `${endTime - startTime}ms`
-    });
     
     res.status(200).json({ imageUrl });
 
   } catch (error) {
     const endTime = Date.now();
+    const totalTime = endTime - startTime;
     
-    console.error("Error:", {
+    console.error(`[${userId}] Error after ${totalTime}ms:`, {
       predictionId,
       creditsDeducted,
       message: error.message,
-      userId,
-      templateId,
-      totalTime: `${endTime - startTime}ms`
+      templateId
     });
 
     if (predictionId) {
       try {
         await replicate.predictions.cancel(predictionId);
-        console.log("Cancelled prediction due to error:", predictionId);
+        console.log(`[${userId}] Cancelled prediction due to error: ${predictionId}`);
       } catch (cancelError) {
-        console.log("Failed to cancel prediction after error:", cancelError.message);
+        console.log(`[${userId}] Failed to cancel prediction:`, cancelError.message);
       }
     }
 
     if (creditsDeducted) {
       const refundSuccess = await refundCredits(userId, FACE_SWAP_COST, predictionId || "unknown_error");
-      console.log(`Credit refund ${refundSuccess ? "successful" : "failed"} for user ${userId}`);
+      console.log(`[${userId}] Credit refund ${refundSuccess ? "successful" : "failed"}`);
     }
 
     await logEnhancedRequest({
@@ -409,10 +509,16 @@ export default async function handler(req, res) {
       featureType: "halloween_faceswap"
     });
 
+    if (error.message.includes('Insufficient credits')) {
+      return res.status(402).json({ 
+        error: "Insufficient credits. Please purchase more credits to continue.",
+      });
+    }
+
     if (error.message.includes('timed out') || error.message.includes('cancelled')) {
       const errorMessage = creditsDeducted 
-        ? "Face swap timed out. Your credits have been refunded."
-        : "Face swap timed out. Please try again.";
+        ? "Processing took too long. Your credits have been refunded."
+        : "Processing took too long. Please try again with a different photo.";
       
       return res.status(408).json({ 
         error: errorMessage,
@@ -420,14 +526,14 @@ export default async function handler(req, res) {
       });
     }
 
-    if (error.message.includes('Insufficient credits')) {
-      return res.status(402).json({ 
-        error: "Insufficient credits. Please purchase more credits.",
+    if (error.message.includes('rate limit')) {
+      return res.status(429).json({ 
+        error: getUserFriendlyError(error)
       });
     }
 
     res.status(500).json({ 
-      error: error.message || "Failed to generate face swap",
+      error: getUserFriendlyError(error),
       creditsRefunded: creditsDeducted
     });
   }

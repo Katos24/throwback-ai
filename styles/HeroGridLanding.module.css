@@ -409,3 +409,163 @@
     transition: none;
   }
 }
+
+
+/* Halloween Special Card Styles */
+.halloweenCardWrapper {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.halloweenCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.1), rgba(156, 39, 176, 0.1));
+  border: 2px solid rgba(255, 87, 34, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 2rem;
+}
+
+.halloweenCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
+  border-color: rgba(255, 87, 34, 0.5);
+}
+
+.halloweenEmojis {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.halloweenEmoji {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.2;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.badgeHalloween {
+  background: linear-gradient(135deg, #ff5722, #9c27b0);
+  color: white;
+  font-weight: bold;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.halloweenImageSection {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.halloweenContent {
+  position: relative;
+  z-index: 2;
+}
+
+.halloweenTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #ff5722;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.halloweenIcon {
+  font-size: 1.5rem;
+  animation: wobble 1s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.halloweenDescription {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.halloweenFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.halloweenButton {
+  background: linear-gradient(135deg, #ff5722, #9c27b0);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.halloweenButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 87, 34, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .halloweenCardWrapper {
+    margin-top: 2rem;
+  }
+
+  .halloweenCard {
+    padding: 1.5rem;
+  }
+
+  .halloweenImageSection {
+    height: 250px;
+  }
+
+  .halloweenTitle {
+    font-size: 1.5rem;
+  }
+
+  .halloweenDescription {
+    font-size: 1rem;
+  }
+
+  .halloweenFooter {
+    flex-direction: column;
+  }
+
+  .halloweenButton {
+    width: 100%;
+  }
+}

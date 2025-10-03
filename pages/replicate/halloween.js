@@ -26,14 +26,14 @@ const HALLOWEEN_TEMPLATES = [
     exampleAfter: '/images/examples/halloween/freddy-krueger-after.jpg',
   },
   {
-    id: 'michael-myers',
-    name: 'The Stalker',
-    emoji: '🔪',
-    templateImage: '/templates/halloween/michael-myers.jpg',
-    exampleBefore: '/images/examples/halloween/michael-myers.jpg',
-    exampleAfter: '/images/examples/halloween/michael-myers-after.jpg',
+    id: 'the-ring',
+    name: 'TV Static',
+    emoji: '📺',
+    templateImage: '/templates/halloween/the-ring.jpg',
+    exampleBefore: '/images/examples/halloween/the-ring.jpg',
+    exampleAfter: '/images/examples/halloween/the-ring-after.jpg',
   },
-  {
+   {
     id: 'pennywise',
     name: 'Storm Drain',
     emoji: '🎈',
@@ -42,20 +42,20 @@ const HALLOWEEN_TEMPLATES = [
     exampleAfter: '/images/examples/halloween/pennywise-after.jpg',
   },
   {
+    id: 'michael-myers',
+    name: 'The Stalker',
+    emoji: '🔪',
+    templateImage: '/templates/halloween/michael-myers.jpg',
+    exampleBefore: '/images/examples/halloween/michael-myers.jpg',
+    exampleAfter: '/images/examples/halloween/michael-myers-after.jpg',
+  },
+  {
     id: 'video-store',
     name: 'Video Store',
     emoji: '📼',
     templateImage: '/templates/halloween/video-store.jpg',
     exampleBefore: '/images/examples/halloween/video-store.jpg',
     exampleAfter: '/images/examples/halloween/video-store-after.jpg',
-  },
-  {
-    id: 'the-ring',
-    name: 'TV Static',
-    emoji: '📺',
-    templateImage: '/templates/halloween/the-ring.jpg',
-    exampleBefore: '/images/examples/halloween/the-ring.jpg',
-    exampleAfter: '/images/examples/halloween/the-ring-after.jpg',
   }
 ];
 

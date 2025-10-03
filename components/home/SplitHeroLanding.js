@@ -64,6 +64,29 @@ const HERO_CARDS = [
   }
 ];
 
+// Halloween Special Card Data
+const HALLOWEEN_CARD = {
+  id: 'halloween',
+  type: 'halloween',
+  badge: '🎃 LIMITED TIME',
+  badgeClass: 'halloweenBadge',
+  title: 'Halloween Face Swap',
+  description: 'Swap your face into spooky Halloween scenes. Perfect for social media this October!',
+  link: '/replicate/halloween',
+  combinedImage: '/images/halloween-before-after-combined.jpg',
+  beforeLabel: 'Your Photo',
+  afterLabel: 'Spooky!',
+  tags: [
+    { emoji: '🎃', label: 'Scary' },
+    { emoji: '👻', label: 'Ghostly' },
+    { emoji: '🦇', label: 'Spooky' }
+  ],
+  buttonText: 'Try Halloween Swap →',
+  buttonClass: 'halloweenButton',
+  credits: '50',
+  processingTime: '⚡ 45 seconds'
+};
+
 // Memoized Hero Card Component
 const HeroCard = React.memo(({ card, onNavigate }) => (
   <div 
@@ -80,7 +103,7 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
     <div className={styles[card.badgeClass]}>{card.badge}</div>
     
     <h2 className={styles.heroTitle}>
-      {card.title}<br />{card.titleSecond}
+      {card.title}{card.titleSecond && <><br />{card.titleSecond}</>}
     </h2>
     
     <p className={styles.heroDescription}>{card.description}</p>
@@ -120,12 +143,14 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
       ))}
     </div>
     
-    {/* Features List */}
-    <ul className={styles.featureList}>
-      {card.features.map((feature, index) => (
-        <li key={index}>{feature}</li>
-      ))}
-    </ul>
+    {/* Features List (if exists) */}
+    {card.features && (
+      <ul className={styles.featureList}>
+        {card.features.map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    )}
     
     {/* CTA Button */}
     <div className={styles.heroCta}>
@@ -145,6 +170,108 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
 ));
 
 HeroCard.displayName = 'HeroCard';
+
+// Halloween Special Card Component
+const HalloweenSpecialCard = React.memo(({ onNavigate }) => (
+  <div className={styles.halloweenSpecialWrapper}>
+    <div 
+      className={styles.halloweenSpecialCard}
+      onClick={() => onNavigate(HALLOWEEN_CARD.link, HALLOWEEN_CARD.id)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onNavigate(HALLOWEEN_CARD.link, HALLOWEEN_CARD.id);
+        }
+      }}
+    >
+      {/* Floating Halloween Emojis */}
+      <div className={styles.halloweenFloatingEmojis}>
+        {['🎃', '👻', '🦇', '🕷️', '💀'].map((emoji, i) => (
+          <span 
+            key={i}
+            className={styles.halloweenFloatingEmoji}
+            style={{
+              left: `${10 + i * 20}%`,
+              animationDelay: `${i * 0.5}s`
+            }}
+          >
+            {emoji}
+          </span>
+        ))}
+      </div>
+
+      <div className={styles.halloweenContent}>
+        <div className={styles[HALLOWEEN_CARD.badgeClass]}>
+          {HALLOWEEN_CARD.badge}
+        </div>
+        
+        <h3 className={styles.halloweenTitle}>
+          <span className={styles.halloweenIcon}>🎃</span>
+          {HALLOWEEN_CARD.title}
+          <span className={styles.halloweenIcon}>👻</span>
+        </h3>
+        
+        <p className={styles.halloweenDescription}>
+          {HALLOWEEN_CARD.description}
+        </p>
+
+        {/* Before/After Image */}
+        <div className={styles.halloweenImage}>
+          <div className={styles.combinedImageContainer}>
+            {HALLOWEEN_CARD.combinedImage ? (
+              <Image
+                src={HALLOWEEN_CARD.combinedImage}
+                alt={`${HALLOWEEN_CARD.title} - Before and After comparison`}
+                fill
+                className={styles.combinedImage}
+                sizes="(max-width: 768px) 100vw, 600px"
+                quality={75}
+              />
+            ) : (
+              <div className={styles.placeholder}>Halloween Preview</div>
+            )}
+            <div className={styles.splitLine}></div>
+            <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
+              {HALLOWEEN_CARD.beforeLabel}
+            </span>
+            <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
+              {HALLOWEEN_CARD.afterLabel}
+            </span>
+          </div>
+        </div>
+
+        {/* Tags */}
+        <div className={styles.halloweenTags}>
+          {HALLOWEEN_CARD.tags.map((tag, index) => (
+            <span key={index} className={styles.halloweenTag}>
+              {tag.emoji} {tag.label}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className={styles.halloweenCta}>
+          <button className={`${styles.btnPrimary} ${styles[HALLOWEEN_CARD.buttonClass]}`}>
+            {HALLOWEEN_CARD.buttonText}
+          </button>
+        </div>
+
+        {/* Meta */}
+        <div className={styles.halloweenMeta}>
+          <div className={styles.credits}>
+            <strong>{HALLOWEEN_CARD.credits}</strong> credits
+          </div>
+          <div className={styles.processingTime}>
+            {HALLOWEEN_CARD.processingTime}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
+HalloweenSpecialCard.displayName = 'HalloweenSpecialCard';
 
 export default function SplitHeroLanding() {
   const router = useRouter();
@@ -217,6 +344,9 @@ export default function SplitHeroLanding() {
             />
           ))}
         </div>
+
+        {/* Halloween Special Card */}
+        <HalloweenSpecialCard onNavigate={handleNavigation} />
 
         {/* Social Proof */}
         <div className={styles.socialProof}>

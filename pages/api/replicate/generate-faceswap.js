@@ -79,6 +79,10 @@ function getClientIP(req) {
 function getUserFriendlyError(error) {
   const errorMessage = error.message || '';
   
+  if (errorMessage.includes('NoneType') || errorMessage.includes('shape') || errorMessage.includes('attribute')) {
+    return "Image could not be processed. Please try uploading a different photo in JPG or PNG format.";
+  }
+  
   if (errorMessage.includes('NSFW') || errorMessage.includes('content policy')) {
     return "Image contains content that cannot be processed. Please use a different photo.";
   }
@@ -101,6 +105,10 @@ function getUserFriendlyError(error) {
   
   if (errorMessage.includes('rate limit')) {
     return "Too many requests. Please wait a moment and try again.";
+  }
+  
+  if (errorMessage.includes('not accessible') || errorMessage.includes('verification failed')) {
+    return "Generated image could not be verified. Please try again.";
   }
   
   return errorMessage || "Failed to generate face swap. Please try again.";
@@ -268,22 +276,60 @@ async function refundCredits(userId, amount, reason = "prediction_failed") {
   }
 }
 
-async function pollForResult(predictionId, cancelTimeout) {
+async function verifyImageAccessible(imageUrl, userId) {
+  try {
+    console.log(`[${userId}] Verifying image accessibility: ${imageUrl}`);
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const response = await fetch(imageUrl, { 
+      method: 'HEAD',
+      signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      console.error(`[${userId}] Image not accessible - status: ${response.status}`);
+      return false;
+    }
+    
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.startsWith('image/')) {
+      console.error(`[${userId}] Invalid content type: ${contentType}`);
+      return false;
+    }
+    
+    console.log(`[${userId}] ✅ Image verified - Content-Type: ${contentType}`);
+    return true;
+    
+  } catch (error) {
+    console.error(`[${userId}] Image verification failed:`, error.message);
+    return false;
+  }
+}
+
+async function pollForResult(predictionId, cancelTimeout, userId) {
   let attempts = 0;
   let processingStartTime = null;
   
   while (attempts < MAX_POLL_ATTEMPTS) {
     try {
       const result = await replicate.predictions.get(predictionId);
-      console.log(`Poll ${attempts + 1}/${MAX_POLL_ATTEMPTS}: ${result.status}`);
+      console.log(`[${userId}] Poll ${attempts + 1}/${MAX_POLL_ATTEMPTS}: ${result.status}`);
       
       if (result.status === 'processing' && !processingStartTime) {
         processingStartTime = Date.now();
-        console.log(`Processing started`);
+        console.log(`[${userId}] Processing started`);
       }
       
       if (result.status === "succeeded") {
         clearTimeout(cancelTimeout);
+        
+        // Log full result for debugging
+        console.log(`[${userId}] Full result output:`, JSON.stringify(result.output));
+        console.log(`[${userId}] Result logs:`, result.logs);
         
         // Handle different output formats
         let imageUrl = null;
@@ -296,8 +342,25 @@ async function pollForResult(predictionId, cancelTimeout) {
         }
         
         if (!imageUrl) {
-          console.error('Unexpected output format:', result.output);
-          throw new Error("No valid image URL in prediction output");
+          console.error(`[${userId}] No valid output in result:`, result.output);
+          throw new Error("Model succeeded but returned no valid image URL");
+        }
+        
+        // Check for error indicators in URL or logs
+        if (imageUrl.includes('error') || imageUrl.includes('failed')) {
+          console.error(`[${userId}] Suspicious error URL:`, imageUrl);
+          throw new Error("Model returned error in image URL");
+        }
+        
+        // Check logs for errors (the NoneType error would appear here)
+        if (result.logs && (
+          result.logs.includes('NoneType') || 
+          result.logs.includes('error') || 
+          result.logs.includes('failed') ||
+          result.logs.includes('exception')
+        )) {
+          console.error(`[${userId}] Error detected in logs:`, result.logs);
+          throw new Error("Model processing failed - check image format and try again");
         }
         
         return { output: imageUrl, processingStartTime };
@@ -305,12 +368,14 @@ async function pollForResult(predictionId, cancelTimeout) {
       
       if (result.status === "failed") {
         clearTimeout(cancelTimeout);
+        console.error(`[${userId}] Replicate error:`, result.error);
+        console.error(`[${userId}] Replicate logs:`, result.logs);
         throw new Error(result.error || "Face swap failed");
       }
       
       if (result.status === "canceled") {
         clearTimeout(cancelTimeout);
-        throw new Error("Face swap was cancelled due to timeout");
+        throw new Error("Face swap was cancelled");
       }
       
       await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
@@ -326,9 +391,9 @@ async function pollForResult(predictionId, cancelTimeout) {
   
   try {
     await replicate.predictions.cancel(predictionId);
-    console.log("Cancelled prediction due to polling timeout");
+    console.log(`[${userId}] Cancelled prediction due to polling timeout`);
   } catch (cancelError) {
-    console.log("Failed to cancel after polling timeout:", cancelError.message);
+    console.log(`[${userId}] Failed to cancel after polling timeout:`, cancelError.message);
   }
   
   throw new Error("Face swap timed out after 2 minutes");
@@ -354,6 +419,25 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Please select a Halloween scene" });
   }
 
+  // Validate base64 format and content
+  console.log(`Base64 length: ${imageBase64?.length}`);
+  console.log(`First 50 chars: ${imageBase64?.substring(0, 50)}`);
+  
+  if (!imageBase64 || imageBase64.length < 100) {
+    return res.status(400).json({ 
+      error: "Invalid image data - image appears to be empty or corrupted" 
+    });
+  }
+
+  // Check if it's valid base64 (should not have data URL prefix)
+  const base64Regex = /^[A-Za-z0-9+/=]+$/;
+  if (!base64Regex.test(imageBase64)) {
+    console.error("Invalid base64 format detected - may contain data URL prefix");
+    return res.status(400).json({ 
+      error: "Invalid image format - please try uploading the image again" 
+    });
+  }
+
   const imageSizeKB = getBase64SizeKB(imageBase64);
   if (imageSizeKB > MAX_IMAGE_SIZE_MB * 1024) {
     return res.status(400).json({ 
@@ -365,6 +449,27 @@ export default async function handler(req, res) {
   const templateUrl = TEMPLATE_URLS[templateId];
   if (!templateUrl) {
     return res.status(400).json({ error: "Invalid Halloween scene selected" });
+  }
+
+  // Verify template URL is accessible
+  console.log(`Template URL: ${templateUrl}`);
+  try {
+    const templateCheck = await fetch(templateUrl, { 
+      method: 'HEAD',
+      signal: AbortSignal.timeout(5000)
+    });
+    
+    if (!templateCheck.ok) {
+      console.error(`Template not accessible: ${templateUrl} - Status: ${templateCheck.status}`);
+      return res.status(400).json({ 
+        error: "Template image unavailable. Please try a different scene." 
+      });
+    }
+  } catch (fetchError) {
+    console.error(`Template URL check failed:`, fetchError.message);
+    return res.status(400).json({ 
+      error: "Template image unavailable. Please try a different scene." 
+    });
   }
 
   const authHeader = req.headers.authorization;
@@ -398,93 +503,89 @@ export default async function handler(req, res) {
   let processingStartTime = null;
 
   try {
-  console.log(`[${userId}] Starting face swap with template: ${templateId}`);
-  console.log(`[${userId}] Image size: ${imageSizeKB}KB`);
-  
-  const input = {
-    input_image: templateUrl,
-    swap_image: `data:image/png;base64,${imageBase64}`
-  };
+    console.log(`[${userId}] Starting face swap with template: ${templateId}`);
+    console.log(`[${userId}] Image size: ${imageSizeKB}KB`);
+    
+    const input = {
+      input_image: templateUrl,
+      swap_image: `data:image/png;base64,${imageBase64}`
+    };
 
-  console.log(`[${userId}] Creating face swap prediction...`);
-  queueStartTime = Date.now();
-  processingStartTime = Date.now();
+    console.log(`[${userId}] Creating face swap prediction...`);
+    queueStartTime = Date.now();
 
-  const output = await replicate.run(
-    "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111",
-    { input }
-  );
+    // Create prediction
+    const prediction = await replicate.predictions.create({
+      version: "d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111",
+      input: input
+    });
 
-  console.log(`[${userId}] Face swap completed`);
-  console.log(`[${userId}] Output type:`, typeof output);
-  console.log(`[${userId}] Output constructor:`, output?.constructor?.name);
-  console.log(`[${userId}] Has url method:`, typeof output?.url);
+    predictionId = prediction.id;
+    console.log(`[${userId}] Prediction created: ${predictionId}`);
+    
+    // Set up timeout to cancel if it takes too long
+    const cancelTimeout = setTimeout(() => {
+      replicate.predictions.cancel(predictionId)
+        .then(() => console.log(`[${userId}] Cancelled prediction due to timeout`))
+        .catch((e) => console.log(`[${userId}] Failed to cancel:`, e.message));
+    }, REQUEST_TIMEOUT_MS);
+    
+    // Poll for result with improved error detection
+    const result = await pollForResult(predictionId, cancelTimeout, userId);
+    const imageUrl = result.output;
+    processingStartTime = result.processingStartTime;
+    
+    clearTimeout(cancelTimeout);
 
- let imageUrl;
+    // Validate image URL format
+    if (typeof imageUrl !== 'string' || !imageUrl.startsWith('http')) {
+      throw new Error("Invalid image URL received from model");
+    }
 
-// Handle FileOutput object
-if (output && typeof output.url === 'function') {
-  const urlObj = output.url();
-  // Convert URL object to string
-  imageUrl = urlObj.href || urlObj.toString();
-  console.log(`[${userId}] Converted URL object to string:`, imageUrl);
-} else if (typeof output === 'string') {
-  imageUrl = output;
-  console.log(`[${userId}] Output is already string:`, imageUrl);
-} else if (Array.isArray(output) && output.length > 0) {
-  imageUrl = output[0];
-  console.log(`[${userId}] Output is array, using first:`, imageUrl);
-} else {
-  console.error(`[${userId}] Unexpected output:`, output);
-  throw new Error("Unexpected output format from face swap");
-}
+    console.log(`[${userId}] Received imageUrl: ${imageUrl}`);
 
-// Now imageUrl should be a string
-if (typeof imageUrl !== 'string') {
-  console.error(`[${userId}] imageUrl is still not a string:`, typeof imageUrl, imageUrl);
-  throw new Error("Output URL is not a string");
-}
+    // CRITICAL: Verify the image is actually accessible before charging
+    const isAccessible = await verifyImageAccessible(imageUrl, userId);
+    if (!isAccessible) {
+      throw new Error("Generated image could not be verified. Please try again.");
+    }
 
-if (!imageUrl.startsWith('http')) {
-  console.error(`[${userId}] Invalid URL format:`, imageUrl);
-  throw new Error("Invalid image URL format");
-}
+    // ONLY charge credits after successful verification
+    await spendCredits(userId, FACE_SWAP_COST);
+    creditsDeducted = true;
+    
+    const endTime = Date.now();
+    const totalTime = endTime - startTime;
+    
+    console.log(`[${userId}] ✅ Face swap completed and verified in ${totalTime}ms`);
+    console.log(`[${userId}] Deducted ${FACE_SWAP_COST} credits`);
 
-console.log(`[${userId}] Final validated imageUrl:`, imageUrl);
+    await logEnhancedRequest({
+      userId,
+      predictionId,
+      status: "succeeded",
+      requestData: {
+        template: templateId,
+        prediction_id: predictionId,
+        model: "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111"
+      },
+      startTime,
+      endTime,
+      queueStartTime,
+      processingStartTime,
+      imageBase64,
+      resultUrl: imageUrl,
+      creditsUsed: FACE_SWAP_COST,
+      userAgent,
+      ipAddress,
+      referrerUrl,
+      sessionId,
+      featureType: "halloween_faceswap"
+    });
+    
+    res.status(200).json({ imageUrl });
 
-  await spendCredits(userId, FACE_SWAP_COST);
-  creditsDeducted = true;
-  
-  const endTime = Date.now();
-  
-  console.log(`[${userId}] ✅ Face swap completed successfully in ${endTime - startTime}ms`);
-
-  await logEnhancedRequest({
-    userId,
-    predictionId: null,
-    status: "succeeded",
-    requestData: {
-      template: templateId,
-      model: "cdingram/face-swap:d1d6ea8c8be89d664a07a457526f7128109dee7030fdac424788d762c71ed111"
-    },
-    startTime,
-    endTime,
-    queueStartTime,
-    processingStartTime,
-    imageBase64,
-    resultUrl: imageUrl,
-    creditsUsed: FACE_SWAP_COST,
-    userAgent,
-    ipAddress,
-    referrerUrl,
-    sessionId,
-    featureType: "halloween_faceswap"
-  });
-  
-  res.status(200).json({ imageUrl });
-
-} catch (error) {
-
+  } catch (error) {
     const endTime = Date.now();
     const totalTime = endTime - startTime;
     

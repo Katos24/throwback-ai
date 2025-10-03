@@ -94,7 +94,7 @@ export default function RestoresLanding() {
         <div className={styles.columnLeft}></div>
         <div className={styles.columnRight}></div>
 
-        {/* Hero Section */}
+      {/* Hero Section */}
         <div className={styles.heroSection}>
           {/* Main Headline */}
           <h1 className={styles.title}>
@@ -107,12 +107,21 @@ export default function RestoresLanding() {
             Fast, specialized AI built exclusively for photo restoration. Unlike general-purpose AI tools, we deliver professional results in seconds.
           </p>
 
-          {/* Hero Image Slider */}
-          <div className={styles.heroImageWrapper}>
-            <ImageCompareSlider
-              beforeImage="/images/examples/restore-hero-before.jpg"
-              afterImage="/images/examples/restore-hero-after.jpg"
-            />
+          {/* Hero Video */}
+          <div className={styles.heroVideoWrapper}>
+            <video 
+              className={styles.heroVideo}
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              preload="auto"
+              onError={(e) => console.error('Video error:', e)}
+            >
+              <source src="/videos/restore-demo.mp4" type="video/mp4" />
+              <source src="/videos/restore-demo.webm" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 

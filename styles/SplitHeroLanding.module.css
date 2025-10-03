@@ -526,3 +526,222 @@
     gap: 15px;
   }
 }
+
+/* Halloween Special Card Styles */
+.halloweenSpecialWrapper {
+  margin: 3rem auto 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.halloweenSpecialCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.08), rgba(156, 39, 176, 0.08));
+  border: 3px solid rgba(255, 87, 34, 0.4);
+  border-radius: 24px;
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.halloweenSpecialCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(255, 87, 34, 0.3);
+  border-color: rgba(255, 87, 34, 0.7);
+}
+
+.halloweenFloatingEmojis {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.halloweenFloatingEmoji {
+  position: absolute;
+  font-size: 2.5rem;
+  opacity: 0.15;
+  animation: halloweenFloat 4s ease-in-out infinite;
+}
+
+@keyframes halloweenFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-30px) rotate(10deg); 
+  }
+}
+
+.halloweenContent {
+  position: relative;
+  z-index: 2;
+}
+
+.halloweenBadge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff5722, #9c27b0);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  animation: halloweenPulse 2s ease-in-out infinite;
+}
+
+@keyframes halloweenPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 rgba(255, 87, 34, 0.4);
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
+  }
+}
+
+.halloweenTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ff5722;
+  text-align: center;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.halloweenIcon {
+  font-size: 2rem;
+  display: inline-block;
+  animation: halloweenWobble 1.5s ease-in-out infinite;
+}
+
+@keyframes halloweenWobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-15deg); }
+  75% { transform: rotate(15deg); }
+}
+
+.halloweenDescription {
+  font-size: 1.15rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.halloweenImage {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 320px;
+  margin: 0 auto 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.halloweenTags {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.halloweenTag {
+  background: rgba(255, 87, 34, 0.1);
+  border: 1px solid rgba(255, 87, 34, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  color: #ff5722;
+  font-weight: 600;
+}
+
+.halloweenCta {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.halloweenButton {
+  background: linear-gradient(135deg, #ff5722, #9c27b0);
+  color: white;
+  border: none;
+  padding: 1.1rem 2.5rem;
+  border-radius: 14px;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
+}
+
+.halloweenButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(255, 87, 34, 0.4);
+}
+
+.halloweenMeta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .halloweenSpecialWrapper {
+    margin: 2rem 1rem;
+  }
+
+  .halloweenSpecialCard {
+    padding: 1.75rem;
+  }
+
+  .halloweenTitle {
+    font-size: 1.75rem;
+  }
+
+  .halloweenDescription {
+    font-size: 1rem;
+  }
+
+  .halloweenImage {
+    height: 260px;
+  }
+
+  .halloweenTags {
+    gap: 0.75rem;
+  }
+
+  .halloweenTag {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .halloweenButton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .halloweenMeta {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .halloweenFloatingEmoji {
+    font-size: 2rem;
+  }
+}

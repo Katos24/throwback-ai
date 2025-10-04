@@ -98,10 +98,10 @@ export default function Header({ showMenu, setShowMenu }) {
       credits: "1 credit"
     },
     {
-        href: "/restores",  // Your new landing page
-        label: "View All Restore Options",
-        viewAll: true  // Style it differently
-      },
+      href: "/restores",  // Your new landing page
+      label: "View All Restore Options",
+      viewAll: true  // Style it differently
+    },
   ];
 
   const decadesItems = [

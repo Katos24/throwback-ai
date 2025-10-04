@@ -7,7 +7,6 @@ import styles from '../styles/RestoresLanding.module.css';
 const RESTORE_OPTIONS = [
   {
     id: 'premium',
-    icon: '🎨',
     title: 'Professional Colorization',
     subtitle: 'Museum Quality Results',
     description: 'Transform black and white photos into vivid color with historically accurate, professional-grade restoration.',
@@ -24,7 +23,6 @@ const RESTORE_OPTIONS = [
   },
   {
     id: 'basic',
-    icon: '⚡',
     title: 'Quick Repair',
     subtitle: 'Fast & Affordable',
     description: 'Perfect for fixing scratches, tears, and fading on your precious family photos.',

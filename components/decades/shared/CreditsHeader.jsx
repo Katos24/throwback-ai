@@ -12,7 +12,7 @@ export default function CreditsHeader({
         <span className={styles.creditsIcon} role="img" aria-label={icon.label}>
           {icon.emoji}
         </span>
-        <span className={styles.creditsText}>{credits} CREDITS</span>
+        <span className={styles.creditsText}>{credits} {credits === 1 ? 'CREDIT' : 'CREDITS'}</span>
       </div>
       <button 
         onClick={onButtonClick}

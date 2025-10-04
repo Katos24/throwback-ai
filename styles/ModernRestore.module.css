@@ -626,8 +626,9 @@
   .header { position: static; }
   .compactCredits {
     position: static;
-    margin: 1rem auto 0;
-    font-size: 0.8rem;
+    margin: 1.5rem auto;
+    justify-content: center;
+    width: fit-content;
   }
   .uploadCard { padding: 1.5rem; }
   .uploadZone { padding: 2rem 1.5rem; min-height: 14rem; }

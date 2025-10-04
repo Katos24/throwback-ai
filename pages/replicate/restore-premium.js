@@ -39,6 +39,25 @@ export default function RestorePremium() {
   // Refs
   const fileInputRef = useRef(null);
 
+  // Helper function to scroll to photo on mobile
+  const scrollToPhotoOnMobile = () => {
+    if (window.innerWidth <= 768) {
+      const selectors = [
+        `.${styles.uploadCard}`,
+        `.${styles.uploadSection}`,
+        `.${styles.mainContent}`
+      ];
+      
+      for (const selector of selectors) {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
+      }
+    }
+  };
+
   // Effects
   useEffect(() => {
     async function getSession() {
@@ -194,6 +213,9 @@ export default function RestorePremium() {
     setProgressStatus("Uploading your image...");
     setProgressPercent(0);
     setError('');
+    
+    // Scroll to photo on mobile when generation starts
+    scrollToPhotoOnMobile();
     
     const processingToast = toast.loading('Premium AI is restoring and colorizing your photo...', {
       icon: '🎨',
@@ -385,14 +407,15 @@ export default function RestorePremium() {
                 {/* Show upload zone OR results */}
                 {!restoredUrl ? (
                   <>
-                    {/* Upload Zone */}
+                    {/* Upload Zone with Progress Overlay */}
                     <div
                       className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
                       onDragEnter={handleDrag}
                       onDragLeave={handleDrag}
                       onDragOver={handleDrag}
                       onDrop={handleDrop}
-                      onClick={() => fileInputRef.current?.click()}
+                      onClick={() => !loading && fileInputRef.current?.click()}
+                      style={{ position: 'relative' }}
                     >
                       <input
                         ref={fileInputRef}
@@ -410,12 +433,6 @@ export default function RestorePremium() {
                             alt="Original" 
                             className={styles.uploadPreview}
                           />
-                          <div className={styles.uploadFileInfo}>
-                            <p className={styles.uploadFileName}>{selectedFile?.name}</p>
-                            <p className={styles.uploadFileSize}>
-                              {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
-                            </p>
-                          </div>
                         </div>
                       ) : (
                         <div className={styles.uploadPlaceholder}>
@@ -436,6 +453,60 @@ export default function RestorePremium() {
                       {dragActive && (
                         <div className={styles.dragOverlay}>
                           <p>Drop to upload!</p>
+                        </div>
+                      )}
+
+                      {/* Progress Overlay - Shows over the image during generation */}
+                      {loading && selectedPreviewUrl && (
+                        <div style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'rgba(0, 0, 0, 0.8)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '1rem',
+                          zIndex: 10,
+                          borderRadius: '12px'
+                        }}>
+                          <div className={styles.loadingSpinner} style={{
+                            width: '60px',
+                            height: '60px',
+                            border: '4px solid rgba(168, 85, 247, 0.3)',
+                            borderTop: '4px solid #a855f7',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite'
+                          }}></div>
+                          <div style={{
+                            textAlign: 'center',
+                            color: 'white',
+                            fontSize: '1.1rem',
+                            fontWeight: '600'
+                          }}>
+                            {progressStatus}
+                          </div>
+                          {progressPercent !== null && (
+                            <div style={{
+                              width: '80%',
+                              maxWidth: '300px',
+                              height: '8px',
+                              background: 'rgba(255, 255, 255, 0.2)',
+                              borderRadius: '4px',
+                              overflow: 'hidden'
+                            }}>
+                              <div style={{
+                                width: `${progressPercent}%`,
+                                height: '100%',
+                                background: 'linear-gradient(90deg, #a855f7, #ec4899)',
+                                transition: 'width 0.3s ease',
+                                borderRadius: '4px'
+                              }}></div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -520,8 +591,8 @@ export default function RestorePremium() {
                 </div>
               </div>
 
-              {/* Progress Display */}
-              {progressStatus !== "idle" && (
+              {/* Progress Display - Only show when NOT loading (legacy support) */}
+              {progressStatus !== "idle" && !loading && (
                 <div className={styles.progressCard}>
                   <ProgressBar status={progressStatus} percent={progressPercent} />
                 </div>

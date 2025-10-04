@@ -231,9 +231,7 @@
 }
 
 .cardBadge {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  display: inline-block;
   padding: 8px 20px;
   border-radius: 100px;
   font-size: 11px;
@@ -241,6 +239,7 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   backdrop-filter: blur(10px);
+  margin-bottom: 16px;
 }
 
 .premiumCard .cardBadge {
@@ -596,10 +595,10 @@
     font-size: 17px;
   }
 
-  .optionsGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+.optionsGrid {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
 
   .optionCard {
     padding: 24px 20px;

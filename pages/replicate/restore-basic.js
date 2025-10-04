@@ -1,6 +1,5 @@
-// pages/replicate/restore-basic.js
 import React, { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
+import { useRouter } from "next/router";
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -9,9 +8,12 @@ import ProgressBar from "../../components/Restores/ProgressBar";
 import styles from "../../styles/ModernRestore.module.css";
 import toast from 'react-hot-toast';
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import RestoreBasicSEO from "../../components/SEO/RestoreBasicSEO";
 
 export default function RestoreBasic() {
-  // State management - integrated from original component
+  const router = useRouter();
+  
+  // State management
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedPreviewUrl, setSelectedPreviewUrl] = useState(null);
   const [restoredUrl, setRestoredUrl] = useState("");
@@ -35,7 +37,7 @@ export default function RestoreBasic() {
   // Refs
   const fileInputRef = useRef(null);
 
-  // Effects from original component
+  // Effects
   useEffect(() => {
     async function getSession() {
       const {
@@ -52,12 +54,6 @@ export default function RestoreBasic() {
       return () => clearTimeout(timer);
     }
   }, [showScrollNotice]);
-
-  useEffect(() => {
-    if (restoredUrl) {
-      setTimeout(() => window.scrollTo({ top: 600, behavior: "smooth" }), 500);
-    }
-  }, [restoredUrl]);
 
   // Drag and drop handlers
   const handleDrag = (e) => {
@@ -165,7 +161,7 @@ export default function RestoreBasic() {
         duration: 4000,
         action: {
           label: isLoggedIn ? 'Get Credits' : 'Sign Up',
-          onClick: () => window.location.href = isLoggedIn ? "/pricing" : "/signup"
+          onClick: () => router.push(isLoggedIn ? "/pricing" : "/signup")
         }
       });
       return;
@@ -217,7 +213,7 @@ export default function RestoreBasic() {
           setShowScrollNotice(true);
           setProgressStatus("complete");
           
-          // Success toast with upgrade suggestion
+          // Success toast
           toast.success('Photo restoration complete!', {
             id: processingToast,
             icon: '🎉',
@@ -240,7 +236,7 @@ export default function RestoreBasic() {
                 <button
                   onClick={() => {
                     toast.dismiss(t.id);
-                    window.location.href = '/replicate/restore-premium';
+                    router.push('/replicate/restore-premium');
                   }}
                   style={{
                     background: 'linear-gradient(135deg, #a855f7, #ec4899)',
@@ -345,79 +341,9 @@ export default function RestoreBasic() {
     });
   };
 
-  // SEO values
-  const siteUrl = 'https://throwbackai.app';
-  const pageUrl = `${siteUrl}/replicate/restore-basic`;
-  const ogImage = `${siteUrl}/images/throwback-ai.jpg`;
-  const twitterImage = ogImage;
-  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
-  const facebookPageId = '61578072554521';
-
   return (
     <>
-      <Head>
-        <title>Restore Basic – AI Photo Restoration Tool | Throwback AI</title>
-        <meta
-          name="description"
-          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
-        />
-        <link rel="canonical" href={pageUrl} />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="Restore Basic – AI Photo Restoration Tool | Throwback AI" />
-        <meta
-          property="og:description"
-          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
-        />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content="Before and after AI photo restoration example" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Throwback AI" />
-
-        {/* Facebook-specific */}
-        <meta property="fb:pages" content={facebookPageId} />
-        <meta property="article:publisher" content={facebookPageUrl} />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Restore Basic – AI Photo Restoration Tool | Throwback AI" />
-        <meta
-          name="twitter:description"
-          content="Restore old photos quickly and affordably with Throwback AI’s Restore Basic. Remove scratches, enhance clarity, and bring your memories back to life using advanced AI technology."
-        />
-        <meta name="twitter:image" content={twitterImage} />
-
-        {/* Structured Data JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Throwback AI Restore Basic",
-              "url": pageUrl,
-              "applicationCategory": "Photo Editing",
-              "operatingSystem": "Web",
-              "description": "AI-powered Basic Restore tool for quick photo fixes — removes scratches, improves clarity, and enhances old photos.",
-              "image": ogImage,
-              "offers": {
-                "@type": "Offer",
-                "price": "1",
-                "priceCurrency": "credits",
-                "url": "https://throwbackai.app/pricing"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Throwback AI",
-                "url": siteUrl,
-                "sameAs": [facebookPageUrl]
-              }
-            }),
-          }}
-        />
-      </Head>
-
+    <RestoreBasicSEO />
       <div className={styles.container}>
         {/* Animated Background */}
         <div className={styles.backgroundParticles}></div>
@@ -425,21 +351,21 @@ export default function RestoreBasic() {
         <div className={styles.content}>
           {/* Header */}
           <div className={styles.header}>
-            {/* Grid Cell: Top Right Badge */}
+            {/* Compact Credits */}
             <div className={styles.compactCredits}>
               <div className={styles.compactCreditsInfo}>
                 <span className={styles.creditsIcon}>⚡</span>
                 <span className={styles.creditsText}>{credits} credits</span>
               </div>
               <button 
-                onClick={() => window.location.href = isLoggedIn ? "/pricing" : "/signup"}
+                onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
                 className={styles.compactCreditsButton}
               >
                 {isLoggedIn ? "+" : "Sign Up"}
               </button>
             </div>
 
-            {/* Grid Cell: Centered Title */}
+            {/* Centered Title */}
             <div className={styles.titleWrapper}>
               <h1 className={styles.title}>
                 <span className={styles.titleGradient}>PhotoFix</span>
@@ -447,7 +373,7 @@ export default function RestoreBasic() {
               <span className={styles.subtitle}>AI Studio</span>
             </div>
 
-            {/* Grid Cell: Description (full width below) */}
+            {/* Description */}
             <p className={styles.description}>
               Restore old photos to their former glory with advanced AI technology. 
               Remove scratches, enhance colors, and bring memories back to life.
@@ -455,148 +381,111 @@ export default function RestoreBasic() {
             </p>
           </div>
 
-          {/* Main Content Grid */}
-          <div className={styles.mainGrid}>
-            {/* Upload Section */}
+          {/* Single Screen Main Content */}
+          <div className={styles.mainContent}>
             <div className={styles.uploadSection}>
               <div className={styles.uploadCard}>
                 <h2 className={styles.sectionTitle}>
                   <span>📤</span>
-                  Upload Your Photo
+                  {restoredUrl ? 'Results' : 'Upload Your Photo'}
                 </h2>
                 
-                {/* Upload Zone */}
-                <div
-                  className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileInput}
-                    disabled={loading || processing}
-                    className={styles.hiddenInput}
-                  />
-                  
-                  {selectedPreviewUrl ? (
-                    <div className={styles.uploadContent}>
-                      <img 
-                        src={selectedPreviewUrl} 
-                        alt="Original" 
-                        className={styles.uploadPreview}
+                {/* Show upload zone OR results */}
+                {!restoredUrl ? (
+                  <>
+                    {/* Upload Zone */}
+                    <div
+                      className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileInput}
+                        disabled={loading || processing}
+                        className={styles.hiddenInput}
                       />
-                      <div className={styles.uploadFileInfo}>
-                        <p className={styles.uploadFileName}>{selectedFile?.name}</p>
-                        <p className={styles.uploadFileSize}>
-                          {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
-                        </p>
-                      </div>
+                      
+                      {selectedPreviewUrl ? (
+                        <div className={styles.uploadContent}>
+                          <img 
+                            src={selectedPreviewUrl} 
+                            alt="Original" 
+                            className={styles.uploadPreview}
+                          />
+                          <div className={styles.uploadFileInfo}>
+                            <p className={styles.uploadFileName}>{selectedFile?.name}</p>
+                            <p className={styles.uploadFileSize}>
+                              {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={styles.uploadPlaceholder}>
+                          <div className={styles.uploadIcon}>
+                            <span style={{ fontSize: '2rem' }}>📁</span>
+                          </div>
+                          <div>
+                            <p className={styles.uploadTitle}>
+                              Drop your photo here
+                            </p>
+                            <p className={styles.uploadDescription}>
+                              or click to browse • PNG, JPG, HEIC up to 10MB
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {dragActive && (
+                        <div className={styles.dragOverlay}>
+                          <p>Drop to upload!</p>
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className={styles.uploadPlaceholder}>
-                      <div className={styles.uploadIcon}>
-                        <span style={{ fontSize: '2rem' }}>📁</span>
-                      </div>
-                      <div>
-                        <p className={styles.uploadTitle}>
-                          Drop your photo here
-                        </p>
-                        <p className={styles.uploadDescription}>
-                          or click to browse • PNG, JPG, HEIC up to 10MB
-                        </p>
-                      </div>
+
+                    {/* Action Buttons */}
+                    <div className={styles.buttonRow}>
+                      <button
+                        onClick={handleRestore}
+                        disabled={!selectedFile || loading || processing || credits < restoreCost}
+                        className={styles.primaryButton}
+                      >
+                        {loading || processing ? (
+                          <>
+                            <div className={styles.loadingSpinner}></div>
+                            {processing ? 'Compressing...' : 'Restoring...'}
+                          </>
+                        ) : credits < restoreCost ? (
+                          <>
+                            {isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore'}
+                          </>
+                        ) : (
+                          <>
+                            <span>✨</span>
+                            Restore Photo
+                          </>
+                        )}
+                      </button>
+                      
+                      {(selectedFile || restoredUrl) && (
+                        <button
+                          onClick={handleReset}
+                          disabled={loading || processing}
+                          className={styles.secondaryButton}
+                        >
+                          <span>🔄</span>
+                        </button>
+                      )}
                     </div>
-                  )}
-                  
-                  {dragActive && (
-                    <div className={styles.dragOverlay}>
-                      <p>Drop to upload!</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className={styles.buttonRow}>
-                  <button
-                    onClick={handleRestore}
-                    disabled={!selectedFile || loading || processing || credits < restoreCost}
-                    className={styles.primaryButton}
-                  >
-                    {loading || processing ? (
-                      <>
-                        <div className={styles.loadingSpinner}></div>
-                        {processing ? 'Compressing...' : 'Restoring...'}
-                      </>
-                    ) : credits < restoreCost ? (
-                      <>
-                        {isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore'}
-                      </>
-                    ) : (
-                      <>
-                        <span>✨</span>
-                        Restore Photo
-                      </>
-                    )}
-                  </button>
-                  
-                  {(selectedFile || restoredUrl) && (
-                    <button
-                      onClick={handleReset}
-                      disabled={loading || processing}
-                      className={styles.secondaryButton}
-                    >
-                      <span>🔄</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Progress Display using original ProgressBar component */}
-              {progressStatus !== "idle" && (
-                <div className={styles.progressCard}>
-                  <ProgressBar status={progressStatus} percent={progressPercent} />
-                </div>
-              )}
-
-              {/* Success Notice with Upgrade Option */}
-              {showScrollNotice && (
-                <div className={`${styles.alert} ${styles.alertSuccess}`}>
-                  <span>✅</span>
-                  <div className={styles.alertContent}>
-                    <p className={styles.alertTitle}>Your image has been restored!</p>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Results Section */}
-            <div className={styles.resultsSection}>
-              <div className={styles.uploadCard}>
-                <div className={styles.resultsHeader}>
-                  <h2 className={styles.sectionTitle}>
-                    <span>👁️</span>
-                    Results
-                  </h2>
-                  
-                  {restoredUrl && (
-                    <button
-                      onClick={handleDownload}
-                      className={styles.downloadButton}
-                    >
-                      <span>⬇️</span>
-                      Download
-                    </button>
-                  )}
-                </div>
-
-                {restoredUrl && selectedPreviewUrl ? (
-                  <div>
-                    {/* Use original ImageCompareSlider component with proper wrapper */}
+                  </>
+                ) : (
+                  <>
+                    {/* Results - shown in same space */}
                     <div className={styles.comparisonContainer}>
                       <div className={styles.imageComparisonWrapper}>
                         <ImageCompareSlider
@@ -606,23 +495,33 @@ export default function RestoreBasic() {
                       </div>
                     </div>
 
-                    <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>
+                    {/* Download and Reset buttons */}
+                    <div className={styles.buttonRow}>
+                      <button
+                        onClick={handleDownload}
+                        className={styles.primaryButton}
+                      >
+                        <span>⬇️</span>
+                        Download
+                      </button>
+                      
+                      <button
+                        onClick={handleReset}
+                        className={styles.secondaryButton}
+                      >
+                        <span>🔄</span>
+                        New Photo
+                      </button>
+                    </div>
+
+                    <div className={`${styles.alert} ${styles.alertSuccess}`}>
                       <span>✅</span>
                       <p>Photo successfully restored! Use the slider to compare.</p>
                     </div>
-                  </div>
-                ) : (
-                  <div className={styles.resultsPlaceholder}>
-                    <div className={styles.placeholderContent}>
-                      <div className={styles.placeholderIcon}>
-                        <span style={{ fontSize: '2rem' }}>✨</span>
-                      </div>
-                      <p className={styles.placeholderText}>Your restored photo will appear here</p>
-                    </div>
-                  </div>
+                  </>
                 )}
 
-                {/* Pro Tip - Always shows under results */}
+                {/* Pro Tip - always visible */}
                 <div className={styles.bottomProTip}>
                   <span className={styles.proTipIcon}>💡</span>
                   <span className={styles.proTipText}>
@@ -630,6 +529,23 @@ export default function RestoreBasic() {
                   </span>
                 </div>
               </div>
+
+              {/* Progress Display */}
+              {progressStatus !== "idle" && (
+                <div className={styles.progressCard}>
+                  <ProgressBar status={progressStatus} percent={progressPercent} />
+                </div>
+              )}
+
+              {/* Success Notice */}
+              {showScrollNotice && (
+                <div className={`${styles.alert} ${styles.alertSuccess}`}>
+                  <span>✅</span>
+                  <div className={styles.alertContent}>
+                    <p className={styles.alertTitle}>Your image has been restored!</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

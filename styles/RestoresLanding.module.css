@@ -674,3 +674,158 @@
     display: none;
   }
 }
+
+
+
+/* How It Works Section */
+.howItWorksSection {
+  margin-bottom: 100px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.howItWorksTitle {
+  font-size: 52px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.howItWorksSubtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 60px;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.stepCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px 32px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.stepCard:hover {
+  transform: translateY(-8px);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(139, 92, 246, 0.2);
+}
+
+.stepNumber {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+}
+
+.stepImageWrapper {
+  margin-bottom: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+}
+
+.stepImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.stepTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.stepDescription {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .howItWorksTitle {
+    font-size: 36px;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .stepCard {
+    padding: 48px 24px 32px;
+  }
+
+  .stepTitle {
+    font-size: 20px;
+  }
+
+  .stepDescription {
+    font-size: 15px;
+  }
+}
+
+/* Pricing Link */
+.pricingLinkWrapper {
+  text-align: center;
+  margin: 32px auto 80px;
+}
+
+.pricingText {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.inlineLink {
+  color: #a855f7;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.inlineLink:hover {
+  color: #8b5cf6;
+  border-bottom-color: #8b5cf6;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pricingLinkWrapper {
+    margin: 24px auto 60px;
+  }
+
+  .pricingText {
+    font-size: 15px;
+  }
+}

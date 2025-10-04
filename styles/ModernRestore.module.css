@@ -62,6 +62,19 @@
   padding: calc(1.5rem + 60px) 1rem 2rem;
 }
 
+/* Main Content - Single Screen Centered */
+.mainContent {
+  max-width: 800px; /* Adjust this value: 700px for narrower, 900px for wider */
+  margin: 0 auto;
+  margin-bottom: 4rem;
+}
+
+.uploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 /* Header */
 .header {
   text-align: center;
@@ -289,14 +302,6 @@
   font-weight: 600;
 }
 
-/* Main Grid */
-.mainGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-  margin-bottom: 4rem;
-  align-items: start;
-}
 
 /* Upload Section */
 .uploadSection,
@@ -848,7 +853,10 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .mainGrid { grid-template-columns: 1fr; }
+  .mainContent {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
   .featuresGrid { grid-template-columns: 1fr; }
   .backgroundParticles::before,
   .backgroundParticles::after { width: 20rem; height: 20rem; }

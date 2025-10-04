@@ -57,12 +57,6 @@ export default function RestorePremium() {
     }
   }, [showScrollNotice]);
 
-  useEffect(() => {
-    if (restoredUrl) {
-      setTimeout(() => window.scrollTo({ top: 600, behavior: "smooth" }), 500);
-    }
-  }, [restoredUrl]);
-
   // Drag and drop handlers
   const handleDrag = (e) => {
     e.preventDefault();
@@ -154,7 +148,7 @@ export default function RestorePremium() {
     }
   };
 
-  // Updated function to handle button clicks based on user state (matching yearbook logic)
+  // Updated function to handle button clicks based on user state
   const handleGenerateOrRedirect = () => {
     if (!selectedFile) {
       toast.error('Please upload an image first', {
@@ -174,7 +168,7 @@ export default function RestorePremium() {
     handleRestore();
   };
 
-  // Helper functions for button text and emoji (matching yearbook logic)
+  // Helper functions for button text and emoji
   const getButtonText = () => {
     if (loading || processing) {
       if (processing) return "Optimizing image...";
@@ -201,7 +195,6 @@ export default function RestorePremium() {
     setProgressPercent(0);
     setError('');
     
-    // Show premium processing toast
     const processingToast = toast.loading('Premium AI is restoring and colorizing your photo...', {
       icon: '🎨',
     });
@@ -245,50 +238,11 @@ export default function RestorePremium() {
           setShowScrollNotice(true);
           setProgressStatus("complete");
           
-          // Premium success toast
           toast.success('Premium restoration complete! Stunning results achieved!', {
             id: processingToast,
             icon: '🌈',
             duration: 5000,
           });
-          
-          // Delayed upgrade suggestion toast
-          setTimeout(() => {
-            toast((t) => (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ fontSize: '1.5rem' }}>✨</span>
-                <div>
-                  <div style={{ fontWeight: '600', marginBottom: '4px' }}>
-                    Amazing results!
-                  </div>
-                  <div style={{ fontSize: '0.875rem', opacity: 0.8 }}>
-                    Your photo now has vibrant colors and enhanced clarity
-                  </div>
-                </div>
-                <button
-                  onClick={() => {
-                    toast.dismiss(t.id);
-                    handleDownload();
-                  }}
-                  style={{
-                    background: 'linear-gradient(135deg, #a855f7, #ec4899)',
-                    color: 'white',
-                    border: 'none',
-                    padding: '8px 16px',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    fontSize: '0.875rem',
-                    fontWeight: '600'
-                  }}
-                >
-                  Download 🎨
-                </button>
-              </div>
-            ), {
-              duration: 8000,
-              style: { maxWidth: '400px' }
-            });
-          }, 2000);
           
           await refreshCredits();
           await deductCredits(restoreCost);
@@ -317,7 +271,7 @@ export default function RestorePremium() {
     reader.readAsDataURL(selectedFile);
   };
 
-  // Download function with premium messaging
+  // Download function
   const handleDownload = async () => {
     if (!restoredUrl) return;
     
@@ -384,7 +338,7 @@ export default function RestorePremium() {
         <div className={styles.content}>
           {/* Premium Header */}
           <div className={`${styles.header} ${styles.premiumHeader}`}>
-            {/* Grid Cell: Top Right Badge */}
+            {/* Compact Credits */}
             <div className={styles.compactCredits}>
               <div className={styles.compactCreditsInfo}>
                 <span className={styles.creditsIcon}>💎</span>
@@ -398,7 +352,7 @@ export default function RestorePremium() {
               </button>
             </div>
 
-            {/* Grid Cell: Centered Title */}
+            {/* Centered Title */}
             <div className={styles.titleWrapper}>
               <h1 className={styles.title}>
                 <span className={styles.titleGradient}>Premium Restore</span>
@@ -406,155 +360,121 @@ export default function RestorePremium() {
               <span className={styles.subtitle}>Full Color AI Studio</span>
             </div>
 
-            
-            {/* Grid Cell: Description (full width below) */}
-           <p className={styles.description}>
-            
-            Transform black & white photos into vibrant color masterpieces with premium AI. <strong>Sign up and get 50 free credits</strong> - Try premium colorization free!
-            <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>
-              Costs {restoreCost} credits
-            </span>
-            <br />
-            
-            <Link 
-              href="/gallery" 
-              className={styles.galleryLink}
-            >
-              See gallery examples →
-            </Link>
-          </p>
+            {/* Description */}
+            <p className={styles.description}>
+              Transform black & white photos into vibrant color masterpieces with premium AI. <strong>Sign up and get 50 free credits</strong> - Try premium colorization free!
+              <span className={styles.creditPill} style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}>
+                Costs {restoreCost} credits
+              </span>
+              <br />
+              <Link href="/gallery" className={styles.galleryLink}>
+                See gallery examples →
+              </Link>
+            </p>
           </div>
 
-          {/* Main Content Grid */}
-          <div className={styles.mainGrid}>
-            {/* Upload Section */}
+          {/* Single Screen Main Content */}
+          <div className={styles.mainContent}>
             <div className={styles.uploadSection}>
               <div className={`${styles.uploadCard} ${styles.premiumCard}`}>
                 <h2 className={styles.sectionTitle}>
                   <span>🎨</span>
-                  Upload Your Photo
+                  {restoredUrl ? 'Premium Results' : 'Upload Your Photo'}
                 </h2>
                 
-                {/* Upload Zone */}
-                <div
-                  className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileInput}
-                    disabled={loading || processing}
-                    className={styles.hiddenInput}
-                  />
-                  
-                  {selectedPreviewUrl ? (
-                    <div className={styles.uploadContent}>
-                      <img 
-                        src={selectedPreviewUrl} 
-                        alt="Original" 
-                        className={styles.uploadPreview}
-                      />
-                      <div className={styles.uploadFileInfo}>
-                        <p className={styles.uploadFileName}>{selectedFile?.name}</p>
-                        <p className={styles.uploadFileSize}>
-                          {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={styles.uploadPlaceholder}>
-                      <div className={styles.uploadIcon}>
-                        <span style={{ fontSize: '2rem' }}>🌈</span>
-                      </div>
-                      <div>
-                        <p className={styles.uploadTitle}>
-                          Drop your photo here
-                        </p>
-                        <p className={styles.uploadDescription}>
-                          or click to browse • PNG, JPG, HEIC up to 10MB
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {dragActive && (
-                    <div className={styles.dragOverlay}>
-                      <p>Drop to upload!</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons - Updated with yearbook-style logic */}
-                <div className={styles.buttonRow}>
-                  <button
-                    onClick={handleGenerateOrRedirect}
-                    disabled={loading || processing}
-                    className={`${styles.primaryButton} ${isComplete ? styles.ready : ''}`}
-                    style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
-                  >
-                    {loading || processing ? (
-                      <>
-                        <div className={styles.loadingSpinner}></div>
-                        {getButtonText()}
-                      </>
-                    ) : (
-                      <>
-                        {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
-                        {getButtonText()}
-                      </>
-                    )}
-                  </button>
-                  
-                  {(selectedFile || restoredUrl) && (
-                    <button
-                      onClick={handleReset}
-                      disabled={loading || processing}
-                      className={styles.secondaryButton}
+                {/* Show upload zone OR results */}
+                {!restoredUrl ? (
+                  <>
+                    {/* Upload Zone */}
+                    <div
+                      className={`${styles.uploadZone} ${dragActive ? styles.uploadZoneDragActive : ''}`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
                     >
-                      <span>🔄</span>
-                    </button>
-                  )}
-                </div>
-              </div>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileInput}
+                        disabled={loading || processing}
+                        className={styles.hiddenInput}
+                      />
+                      
+                      {selectedPreviewUrl ? (
+                        <div className={styles.uploadContent}>
+                          <img 
+                            src={selectedPreviewUrl} 
+                            alt="Original" 
+                            className={styles.uploadPreview}
+                          />
+                          <div className={styles.uploadFileInfo}>
+                            <p className={styles.uploadFileName}>{selectedFile?.name}</p>
+                            <p className={styles.uploadFileSize}>
+                              {selectedFile ? (selectedFile.size / 1024 / 1024).toFixed(2) : '0'} MB
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={styles.uploadPlaceholder}>
+                          <div className={styles.uploadIcon}>
+                            <span style={{ fontSize: '2rem' }}>🌈</span>
+                          </div>
+                          <div>
+                            <p className={styles.uploadTitle}>
+                              Drop your photo here
+                            </p>
+                            <p className={styles.uploadDescription}>
+                              or click to browse • PNG, JPG, HEIC up to 10MB
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {dragActive && (
+                        <div className={styles.dragOverlay}>
+                          <p>Drop to upload!</p>
+                        </div>
+                      )}
+                    </div>
 
-              {/* Progress Display */}
-              {progressStatus !== "idle" && (
-                <div className={styles.progressCard}>
-                  <ProgressBar status={progressStatus} percent={progressPercent} />
-                </div>
-              )}
-
-              {/* Success Notice */}
-              {showScrollNotice && (
-                <div className={`${styles.alert} ${styles.alertSuccess}`}>
-                  <span>🌈</span>
-                  <div className={styles.alertContent}>
-                    <p className={styles.alertTitle}>Premium restoration complete!</p>
-                    <p>Your photo now has vibrant colors and enhanced clarity</p>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Results Section */}
-            <div className={styles.resultsSection}>
-              <div className={`${styles.uploadCard} ${styles.premiumCard}`}>
-                <div className={styles.resultsHeader}>
-                  <h2 className={styles.sectionTitle}>
-                    <span>✨</span>
-                    Premium Results
-                  </h2>
-                </div>
-
-                {restoredUrl && selectedPreviewUrl ? (
-                  <div>
-                    {/* Image comparison */}
+                    {/* Action Buttons */}
+                    <div className={styles.buttonRow}>
+                      <button
+                        onClick={handleGenerateOrRedirect}
+                        disabled={loading || processing}
+                        className={`${styles.primaryButton} ${isComplete ? styles.ready : ''}`}
+                        style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
+                      >
+                        {loading || processing ? (
+                          <>
+                            <div className={styles.loadingSpinner}></div>
+                            {getButtonText()}
+                          </>
+                        ) : (
+                          <>
+                            {getButtonEmoji() && <span>{getButtonEmoji()}</span>}
+                            {getButtonText()}
+                          </>
+                        )}
+                      </button>
+                      
+                      {(selectedFile || restoredUrl) && (
+                        <button
+                          onClick={handleReset}
+                          disabled={loading || processing}
+                          className={styles.secondaryButton}
+                        >
+                          <span>🔄</span>
+                        </button>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Results - shown in same space */}
                     <div className={styles.comparisonContainer}>
                       <div className={styles.imageComparisonWrapper}>
                         <ImageCompareSlider
@@ -564,35 +484,34 @@ export default function RestorePremium() {
                       </div>
                     </div>
 
-                    {/* Download button below image */}
-                    <div className={styles.downloadSection}>
+                    {/* Download and Reset buttons */}
+                    <div className={styles.buttonRow}>
                       <button
                         onClick={handleDownload}
-                        className={styles.downloadButton}
+                        className={styles.primaryButton}
                         style={{background: 'linear-gradient(135deg, #a855f7, #ec4899)'}}
                       >
                         <span>⬇️</span>
                         Download
                       </button>
+                      
+                      <button
+                        onClick={handleReset}
+                        className={styles.secondaryButton}
+                      >
+                        <span>🔄</span>
+                        New Photo
+                      </button>
                     </div>
 
-                    <div className={`${styles.alert} ${styles.alertSuccess}`} style={{ marginTop: '1rem' }}>
+                    <div className={`${styles.alert} ${styles.alertSuccess}`}>
                       <span>🌈</span>
-                      <p>Premium restoration complete! Use the slider to compare the amazing transformation.</p>
+                      <p>Premium restoration complete! Use the slider to compare.</p>
                     </div>
-                  </div>
-                ) : (
-                  <div className={styles.resultsPlaceholder}>
-                    <div className={styles.placeholderContent}>
-                      <div className={styles.placeholderIcon}>
-                        <span style={{ fontSize: '2rem' }}>🎨</span>
-                      </div>
-                      <p className={styles.placeholderText}>Your premium colorized photo will appear here</p>
-                    </div>
-                  </div>
+                  </>
                 )}
 
-                {/* Pro Tip */}
+                {/* Pro Tip - always visible */}
                 <div className={styles.bottomProTip}>
                   <span className={styles.proTipIcon}>💎</span>
                   <span className={styles.proTipText}>
@@ -600,6 +519,13 @@ export default function RestorePremium() {
                   </span>
                 </div>
               </div>
+
+              {/* Progress Display */}
+              {progressStatus !== "idle" && (
+                <div className={styles.progressCard}>
+                  <ProgressBar status={progressStatus} percent={progressPercent} />
+                </div>
+              )}
             </div>
           </div>
 

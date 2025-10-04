@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import { useInView } from 'react-intersection-observer';
+import { Suspense } from 'react';
 import Image from 'next/image';
 import ImageCompareSlider from '../components/ImageCompareSlider';
 import styles from '../styles/RestoresLanding.module.css';
+import Link from 'next/link';
+
+// Lazy-load components
+const CustomerSuccessStories = dynamic(() => import('../components/home/SuccessStories'));
+const TopBanner = dynamic(() => import('../components/home/TopBanner'));
+
+// Loader fallback
+const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 
 const RESTORE_OPTIONS = [
   {
@@ -70,6 +81,17 @@ export default function RestoresLanding() {
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(null);
 
+    // Add this line:
+  const [successRef, successInView] = useInView({ 
+    triggerOnce: true, 
+    rootMargin: '0px 0px -100px 0px' 
+  });
+
+   const [topBannerRef, topBannerInView] = useInView({ 
+    triggerOnce: true, 
+    rootMargin: '0px 0px -100px 0px' 
+  });
+
   const handleCardClick = (option) => {
     setSelectedOption(option.id);
     setTimeout(() => {
@@ -104,6 +126,7 @@ export default function RestoresLanding() {
           <p className={styles.subtitle}>
             Fast, specialized AI built exclusively for photo restoration. Unlike general-purpose AI tools, we deliver professional results in seconds.
           </p>
+          
 
           {/* Hero Video */}
           <div className={styles.heroVideoWrapper}>
@@ -176,6 +199,13 @@ export default function RestoresLanding() {
           ))}
         </div>
 
+        {/* Pricing Link */}
+<div className={styles.pricingLinkWrapper}>
+  <p className={styles.pricingText}>
+    Need more details? <Link href="/pricing" className={styles.inlineLink}>View full pricing breakdown</Link>
+  </p>
+</div>
+
         {/* Examples Section */}
         <div className={styles.examplesSection}>
           <h2 className={styles.examplesTitle}>See the Transformation</h2>
@@ -198,7 +228,92 @@ export default function RestoresLanding() {
           </div>
         </div>
 
-        {/* Trust Section */}
+        {/* AI RESTORATION DEMO - NEW */}
+      <div ref={topBannerRef}>
+        {topBannerInView && (
+          <Suspense fallback={<Loader />}>
+            <TopBanner />
+          </Suspense>
+        )}
+      </div>
+
+          {/* SUCCESS STORIES - NEW */}
+        <div ref={successRef}>
+          {successInView && (
+            <Suspense fallback={<Loader />}>
+              <CustomerSuccessStories />
+            </Suspense>
+          )}
+        </div>
+
+
+       
+
+{/* How It Works Section */}
+<div className={styles.howItWorksSection}>
+  <h2 className={styles.howItWorksTitle}>Three Simple Steps</h2>
+  <p className={styles.howItWorksSubtitle}>
+    Restore your precious memories in minutes
+  </p>
+
+  <div className={styles.stepsGrid}>
+    {/* Step 1 */}
+    <div className={styles.stepCard}>
+      <div className={styles.stepNumber}>1</div>
+      <div className={styles.stepImageWrapper}>
+        <Image
+          src="/images/how-it-works/upload.jpg"
+          alt="Upload your photo"
+          width={200}
+          height={150}
+          className={styles.stepImage}
+        />
+      </div>
+      <h3 className={styles.stepTitle}>Upload Your Photo</h3>
+      <p className={styles.stepDescription}>
+        Click to upload or drag and drop your photo from your device.
+      </p>
+    </div>
+
+    {/* Step 2 */}
+    <div className={styles.stepCard}>
+      <div className={styles.stepNumber}>2</div>
+      <div className={styles.stepImageWrapper}>
+        <Image
+          src="/images/how-it-works/restore.jpg"
+          alt="Click restore"
+          width={200}
+          height={150}
+          className={styles.stepImage}
+        />
+      </div>
+      <h3 className={styles.stepTitle}>Click Restore</h3>
+      <p className={styles.stepDescription}>
+        Choose your restoration type and click the restore button. Our AI does the rest automatically.
+      </p>
+    </div>
+
+    {/* Step 3 */}
+    <div className={styles.stepCard}>
+      <div className={styles.stepNumber}>3</div>
+      <div className={styles.stepImageWrapper}>
+        <Image
+          src="/images/how-it-works/results.jpg"
+          alt="Download and share"
+          width={200}
+          height={150}
+          className={styles.stepImage}
+        />
+      </div>
+      <h3 className={styles.stepTitle}>Download & Share</h3>
+      <p className={styles.stepDescription}>
+        Download your restored photo and share it with family and friends. Keep it forever!
+      </p>
+    </div>
+  </div>
+</div>
+
+ {/* Trust Section */}
         <div className={styles.trustSection}>
           <div className={styles.trustItem}>
             <div className={styles.trustIcon}>🔒</div>

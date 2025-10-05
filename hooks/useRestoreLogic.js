@@ -268,7 +268,6 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
           }
           
           await refreshCredits();
-          await deductCredits(restoreCost);
         } else {
           toast.error(
             data.error || `${isPremium ? 'Premium r' : 'R'}estoration failed. Please try again.`,

@@ -158,17 +158,22 @@ export default function RestoresLanding() {
 
             {/* Hero Video */}
             <div className={styles.heroVideoWrapper}>
-              <video 
+              <video
                 ref={videoRef}
                 className={styles.heroVideo}
-                autoPlay 
-                muted 
-                loop 
+                autoPlay
+                muted
+                loop
                 playsInline
-                webkit-playsinline="true"
                 preload="auto"
-                defaultMuted
-                onError={(e) => console.error('Video error:', e)}
+                onLoadedData={() => {
+                  if (videoRef.current) {
+                    videoRef.current.play().catch(err =>
+                      console.log("Autoplay prevented:", err)
+                    );
+                  }
+                }}
+                onError={(e) => console.error("Video error:", e)}
               >
                 <source src="/videos/restore-demo.mp4" type="video/mp4" />
                 <source src="/videos/restore-demo.webm" type="video/webm" />

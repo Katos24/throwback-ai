@@ -867,3 +867,65 @@
     min-width: 130px;
   }
 }
+
+
+.freeCreditsBanner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-bottom: 48px;
+  max-width: 900px; /* Add this */
+  margin-left: auto; /* Add this */
+  margin-right: auto; /* Add this */
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.bannerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bannerEmoji {
+  font-size: 24px;
+}
+
+.bannerText {
+  color: white;
+  font-size: 16px;
+}
+
+.bannerText strong {
+  font-weight: 700;
+}
+
+.bannerButton {
+  background: white;
+  color: #667eea;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bannerButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@media (max-width: 768px) {
+  .bannerContent {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

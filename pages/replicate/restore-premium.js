@@ -124,6 +124,8 @@ export default function RestorePremium() {
             </div>
           </div>
 
+
+
           {/* Before/After Gallery */}
           {restoredUrl && selectedPreviewUrl && (
             <div className={styles.beforeAfterGallery}>

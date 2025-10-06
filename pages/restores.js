@@ -126,6 +126,25 @@ export default function RestoresLanding() {
           <p className={styles.subtitle}>
             Fast, specialized AI built exclusively for photo restoration. Unlike general-purpose AI tools, we deliver professional results in seconds.
           </p>
+
+        {/* Free Credits Banner */}
+<div className={styles.freeCreditsBanner}>
+  <div className={styles.bannerContent}>
+    <span className={styles.bannerEmoji}>🎁</span>
+    <span className={styles.bannerText}>
+      <strong>New users get 50 free credits</strong> — Try any restoration risk-free
+    </span>
+ <button 
+  className={styles.bannerButton}
+  onClick={() => {
+    console.log('Clicked! Navigating to /pricing');
+    router.push('/signup');
+  }}
+>
+  Claim Free Credits
+</button>
+  </div>
+</div>
           
 
           {/* Hero Video */}
@@ -145,6 +164,7 @@ export default function RestoresLanding() {
             </video>
           </div>
         </div>
+
 
         {/* Two Option Cards */}
         <div className={styles.optionsGrid}>

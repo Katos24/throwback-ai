@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useRestoreLogic from "../../hooks/useRestoreLogic";
 import RestoreUploadCard from "../../components/Restores/RestoreUploadCard";
 import ProgressBar from "../../components/Restores/ProgressBar";
@@ -35,6 +35,41 @@ export default function RestoreBasic() {
     router
   } = useRestoreLogic(restoreCost, apiEndpoint, false);
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fixed button logic - allows restore when user has credits (even if not logged in)
+  const canRestore = selectedFile && !loading && !processing && credits >= restoreCost;
+  
+  const getFixedButtonText = () => {
+    if (loading || processing) {
+      return processing ? 'Compressing...' : 'Restoring...';
+    }
+    // Allow restore if user has enough credits (logged in or not)
+    if (credits < restoreCost) {
+      return isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore';
+    }
+    return '✨ Restore Photo';
+  };
+
+  // Debug: log credits to console
+  useEffect(() => {
+    console.log('Credits:', credits, 'Cost:', restoreCost, 'Can restore:', canRestore);
+  }, [credits, canRestore]);
+
+  const handleRestoreClick = () => {
+    // If they don't have enough credits, redirect to signup/pricing
+    if (credits < restoreCost) {
+      router.push(isLoggedIn ? "/pricing" : "/signup");
+      return;
+    }
+    // Otherwise, proceed with restoration
+    handleGenerateOrRedirect();
+  };
+
   return (
     <>
       <RestoreBasicSEO />
@@ -50,7 +85,9 @@ export default function RestoreBasic() {
             <div className={styles.compactCredits}>
               <div className={styles.compactCreditsInfo}>
                 <span className={styles.creditsIcon}>⚡</span>
-                <span className={styles.creditsText}>{credits} {credits === 1 ? 'credit' : 'credits'}</span>
+                <span className={styles.creditsText}>
+                  {credits} {credits === 1 ? 'credit' : 'credits'}
+                </span>
               </div>
               <button 
                 onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
@@ -91,10 +128,10 @@ export default function RestoreBasic() {
                 handleDrag={handleDrag}
                 handleDrop={handleDrop}
                 handleFileInput={handleFileInput}
-                handleGenerateOrRedirect={handleGenerateOrRedirect}
+                handleGenerateOrRedirect={handleRestoreClick}
                 handleDownload={handleDownload}
                 handleReset={handleReset}
-                getButtonText={getButtonText}
+                getButtonText={getFixedButtonText}
                 getButtonEmoji={getButtonEmoji}
                 isComplete={isComplete}
                 styles={styles}
@@ -108,6 +145,7 @@ export default function RestoreBasic() {
                   icon: '💡',
                   text: 'For old or black & white photos, start with Photo Restoration for clarity, then use Full Color Restore to bring it to life.'
                 }}
+                canRestore={canRestore}
               />
 
               {/* Progress Display - Only show when NOT loading */}

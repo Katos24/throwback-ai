@@ -267,7 +267,12 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
             }, 2000);
           }
           
-          await refreshCredits();
+          // Handle credits properly for logged in vs guest users
+          if (isLoggedIn) {
+            await refreshCredits(); // Logged in: refresh from database
+          } else {
+            deductCredits(restoreCost); // Guest: deduct from localStorage
+          }
         } else {
           toast.error(
             data.error || `${isPremium ? 'Premium r' : 'R'}estoration failed. Please try again.`,
@@ -292,7 +297,7 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
     reader.readAsDataURL(selectedFile);
   };
 
-  // Button handlers
+  // Button handlers - Fixed to check credits first, then login status
   const handleGenerateOrRedirect = () => {
     if (!selectedFile) {
       toast.error('Please upload an image first', {
@@ -301,14 +306,19 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
       });
       return;
     }
-    if (!isLoggedIn) {
-      router.push('/signup');
-      return;
-    }
+    
+    // Check credits first - allow restore if user has enough credits (logged in or not)
     if (credits < restoreCost) {
-      router.push('/pricing');
+      // If no credits, then check login status for appropriate redirect
+      if (!isLoggedIn) {
+        router.push('/signup');
+      } else {
+        router.push('/pricing');
+      }
       return;
     }
+    
+    // User has enough credits, proceed with restoration
     handleRestore();
   };
 
@@ -318,16 +328,19 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
       return isPremium ? "Premium restoring..." : "Restoring...";
     }
     if (!selectedFile) return "Upload a Photo First";
-    if (!isLoggedIn) return "Sign Up to Restore";
-    if (credits < restoreCost) return "Get More Credits";
+    if (credits < restoreCost) {
+      return isLoggedIn ? "Get More Credits" : "Sign Up to Restore";
+    }
     return isPremium ? "Premium Restore" : "Restore Photo";
   };
 
   const getButtonEmoji = () => {
     if (loading || processing) return null;
     if (!selectedFile) return "📷";
-    if (!isLoggedIn) return "🔒";
-    if (credits < restoreCost) return isPremium ? "💎" : "💳";
+    if (credits < restoreCost) {
+      // No lock emoji - just show credit card for logged in users
+      return isLoggedIn ? (isPremium ? "💎" : "💳") : null;
+    }
     return isPremium ? "🌈" : "✨";
   };
 
@@ -386,7 +399,7 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
     );
   };
 
-  const isComplete = selectedFile && isLoggedIn && credits >= restoreCost;
+  const isComplete = selectedFile && credits >= restoreCost;
 
   return {
     // State

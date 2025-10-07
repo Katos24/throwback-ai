@@ -52,6 +52,10 @@ const TEMPLATE_URLS = {
   'pennywise': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/pennywise.jpg`,
   'video-store': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/video-store.jpg`,
   'the-ring': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/the-ring.jpg`,
+
+   // ⬇️ NEW - ADD THESE 2 LINES ⬇️
+  'stranger-things-woman': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/stranger-things-woman.jpg`,
+  'stranger-things-man': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/stranger-things-man.jpg`,
 };
 
 // Rate limiting cache

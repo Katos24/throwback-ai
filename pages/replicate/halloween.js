@@ -33,7 +33,7 @@ const HALLOWEEN_TEMPLATES = [
     exampleBefore: '/images/examples/halloween/the-ring.jpg',
     exampleAfter: '/images/examples/halloween/the-ring-after.jpg',
   },
-   {
+  {
     id: 'pennywise',
     name: 'Storm Drain',
     emoji: '🎈',
@@ -56,7 +56,27 @@ const HALLOWEEN_TEMPLATES = [
     templateImage: '/templates/halloween/video-store.jpg',
     exampleBefore: '/images/examples/halloween/video-store.jpg',
     exampleAfter: '/images/examples/halloween/video-store-after.jpg',
-  }
+  },
+  
+  // ⬇️ NEW SCENES - ADD THESE 2 ⬇️
+  {
+    id: 'stranger-things-woman',
+    name: 'The Creature',
+    emoji: '👁️',
+    templateImage: '/templates/halloween/stranger-things-woman.jpg',
+    exampleBefore: '/images/examples/halloween/stranger-things-woman.jpg',
+    exampleAfter: '/images/examples/halloween/stranger-things-woman-after.jpg',
+    isNew: true, // Optional: adds "NEW" badge
+  },
+  {
+    id: 'stranger-things-man',
+    name: 'The Mirror',
+    emoji: '🪞',
+    templateImage: '/templates/halloween/stranger-things-man.jpg',
+    exampleBefore: '/images/examples/halloween/stranger-things-man.jpg',
+    exampleAfter: '/images/examples/halloween/stranger-things-man-after.jpg',
+    isNew: true, // Optional: adds "NEW" badge
+  },
 ];
 
 // Error Message Component

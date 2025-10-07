@@ -26,7 +26,7 @@ const REQUEST_TIMEOUT_MS = 120000;
 const MAX_POLL_ATTEMPTS = 60;
 const POLL_INTERVAL_MS = 2000;
 
-// Validate required environment variables
+// Validate required environment variabless
 const validateEnv = () => {
   const required = [
     'REPLICATE_API_TOKEN',
@@ -52,11 +52,12 @@ const TEMPLATE_URLS = {
   'pennywise': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/pennywise.jpg`,
   'video-store': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/video-store.jpg`,
   'the-ring': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/the-ring.jpg`,
-
-   // ⬇️ NEW - ADD THESE 2 LINES ⬇️
   'stranger-things-woman': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/stranger-things-woman.jpg`,
   'stranger-things-man': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/stranger-things-man.jpg`,
+  'the-shining': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/the-shining.jpg`,
+  'saw': `${process.env.NEXT_PUBLIC_APP_URL || 'https://throwbackai.app'}/templates/halloween/saw.jpg`,
 };
+
 
 // Rate limiting cache
 const rateLimitCache = new Map();

@@ -72,7 +72,9 @@ const HALLOWEEN_TEMPLATES = [
   { id: 'video-store' },
   { id: 'the-ring' },
   { id: 'stranger-things-woman' },
-  { id: 'stranger-things-man' }
+  { id: 'stranger-things-man' },
+  { id: 'the-shining' },
+  { id: 'saw' }
 ];
 
        // REPLACE WITH:

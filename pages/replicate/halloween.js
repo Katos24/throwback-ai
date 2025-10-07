@@ -57,8 +57,6 @@ const HALLOWEEN_TEMPLATES = [
     exampleBefore: '/images/examples/halloween/video-store.jpg',
     exampleAfter: '/images/examples/halloween/video-store-after.jpg',
   },
-  
-  // ⬇️ NEW SCENES - ADD THESE 2 ⬇️
   {
     id: 'stranger-things-woman',
     name: 'The Creature',
@@ -66,7 +64,6 @@ const HALLOWEEN_TEMPLATES = [
     templateImage: '/templates/halloween/stranger-things-woman.jpg',
     exampleBefore: '/images/examples/halloween/stranger-things-woman.jpg',
     exampleAfter: '/images/examples/halloween/stranger-things-woman-after.jpg',
-    isNew: true, // Optional: adds "NEW" badge
   },
   {
     id: 'stranger-things-man',
@@ -75,7 +72,24 @@ const HALLOWEEN_TEMPLATES = [
     templateImage: '/templates/halloween/stranger-things-man.jpg',
     exampleBefore: '/images/examples/halloween/stranger-things-man.jpg',
     exampleAfter: '/images/examples/halloween/stranger-things-man-after.jpg',
-    isNew: true, // Optional: adds "NEW" badge
+  },
+  {
+    id: 'the-shining',
+    name: 'The Hallway',
+    emoji: '👧',
+    templateImage: '/templates/halloween/the-shining.jpg',
+    exampleBefore: '/images/examples/halloween/the-shining.jpg',
+    exampleAfter: '/images/examples/halloween/the-shining-after.jpg',
+    isNew: true,
+  },
+  {
+    id: 'saw',
+    name: 'The Game',
+    emoji: '🎭',
+    templateImage: '/templates/halloween/saw.jpg',
+    exampleBefore: '/images/examples/halloween/saw.jpg',
+    exampleAfter: '/images/examples/halloween/saw-after.jpg',
+    isNew: true,
   },
 ];
 

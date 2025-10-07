@@ -63,14 +63,17 @@ export function useHalloweenGenerationHandler({
         }
 
         // ✅ Send the template key, NOT the full URL
-        const validTemplates = [
-          'ghostface-phone',
-          'freddy-krueger',
-          'michael-myers',
-          'pennywise',
-          'video-store',
-          'the-ring'
-        ];
+       // Import templates
+const HALLOWEEN_TEMPLATES = [
+  { id: 'ghostface-phone' },
+  { id: 'freddy-krueger' },
+  { id: 'michael-myers' },
+  { id: 'pennywise' },
+  { id: 'video-store' },
+  { id: 'the-ring' },
+  { id: 'stranger-things-woman' },
+  { id: 'stranger-things-man' }
+];
 
         if (!validTemplates.includes(templateToUse)) {
           throw new Error("Invalid template selected");

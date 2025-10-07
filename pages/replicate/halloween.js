@@ -93,7 +93,7 @@ const HALLOWEEN_TEMPLATES = [
   },
 ];
 
-// Error Message Component
+// Error Message Componentt
 const ErrorMessage = ({ message, onClose }) => {
   if (!message) return null;
   

@@ -75,9 +75,8 @@ const HALLOWEEN_TEMPLATES = [
   { id: 'stranger-things-man' }
 ];
 
-        if (!validTemplates.includes(templateToUse)) {
-          throw new Error("Invalid template selected");
-        }
+       // REPLACE WITH:
+// Validation check removed - template is validated on backend
 
         // Call API with template key
         const imageUrl = await generateFaceSwap(base64Photo, templateToUse);

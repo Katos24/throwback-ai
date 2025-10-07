@@ -23,9 +23,6 @@ export function useHalloweenPageLogic(avatarCost = 50) {
   // Credits
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
-  // Gender auto-detection
-  const [userGender, setUserGender] = useState("a man"); // default
-
   // Load session
   useEffect(() => {
     async function getSession() {
@@ -47,29 +44,6 @@ export function useHalloweenPageLogic(avatarCost = 50) {
     }
   }, []);
 
-  // Load face-api models
-  const loadModels = useCallback(async () => {
-    const MODEL_URL = "/models";
-    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-    await faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL);
-  }, []);
-
-  // Detect gender from uploaded photo
-  const detectGender = useCallback(async (imageFile) => {
-    try {
-      await loadModels();
-      const img = await faceapi.bufferToImage(imageFile);
-      const detection = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
-        .withGender();
-      if (!detection) return "a man"; // fallback
-      return detection.gender === "male" ? "a man" : "a woman";
-    } catch (err) {
-      console.warn("Gender detection failed, defaulting to male.", err);
-      return "a man";
-    }
-  }, [loadModels]);
-
   // Handle file upload
   const handleFileProcessing = useCallback(async (file) => {
     if (file && file.type.startsWith("image/")) {
@@ -78,16 +52,12 @@ export function useHalloweenPageLogic(avatarCost = 50) {
       setResultImageUrl(null);
       setShowingOriginal(false);
 
-      // Auto-gender detection
-      const detectedGender = await detectGender(file);
-      setUserGender(detectedGender);
-
       // Set default template if none selected
       if (!selectedTemplate) {
         setSelectedTemplate("ghostface-phone");
       }
     }
-  }, [detectGender, selectedTemplate]);
+  }, [selectedTemplate]);
 
   // Drag and drop
   const handleDragEnter = useCallback((e) => {
@@ -158,7 +128,6 @@ export function useHalloweenPageLogic(avatarCost = 50) {
     isLoggedIn,
     refreshCredits,
     router,
-    userGender,
 
     // Handlers
     handleFileProcessing,

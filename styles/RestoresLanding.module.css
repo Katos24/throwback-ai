@@ -994,3 +994,125 @@
     font-size: 0.75rem;
   }
 }
+
+
+
+
+/* Card Example Image */
+.cardExampleImage {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.exampleImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Video Title */
+.videoTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+/* Marquee Container */
+.marqueeContainer {
+  width: 100%;
+  overflow: hidden;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 30s linear infinite;
+}
+
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+
+.marqueeItem {
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.marqueeImage {
+  display: block;
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Enhanced Mobile Styles */
+@media (max-width: 768px) {
+  .marqueeImage {
+    width: 280px; /* Slightly smaller for mobile */
+  }
+  
+  .marqueeTrack {
+    gap: 1rem;
+  }
+  
+  .marqueeContainer {
+    margin: 2rem -1rem; /* Negative margin to allow full-width scroll */
+    padding: 1.5rem 0;
+  }
+  
+  .videoTitle {
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .heroVideoWrapper {
+    margin: 2rem 0;
+    padding: 0 0.5rem;
+  }
+  
+  .cardExampleImage {
+    margin-bottom: 1rem;
+  }
+  
+  .exampleImg {
+    max-height: 180px; /* Prevent cards from getting too tall */
+    object-fit: cover;
+  }
+  
+  .optionsGrid {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .marqueeImage {
+    width: 250px; /* Even smaller for very small phones */
+  }
+  
+  .exampleImg {
+    max-height: 150px;
+  }
+}

@@ -31,7 +31,8 @@ const RESTORE_OPTIONS = [
     price: 'From $0.50',
     time: '10-30 seconds',
     link: '/replicate/restore-premium',
-    badge: '⭐ PREMIUM'
+    badge: '⭐ PREMIUM',
+    exampleImage: '/images/examples/premium-example.jpg' // Add your image path here
   },
   {
     id: 'basic',
@@ -47,7 +48,8 @@ const RESTORE_OPTIONS = [
     price: 'As low as $0.01',
     time: 'Under 10 seconds',
     link: '/replicate/restore-basic',
-    badge: '💰 BEST VALUE'
+    badge: '💰 BEST VALUE',
+    exampleImage: '/images/examples/basic-example.jpg' // Add your image path here
   }
 ];
 
@@ -137,6 +139,36 @@ export default function RestoresLanding() {
               Fast, specialized AI built exclusively for photo restoration. Unlike general-purpose AI tools, we deliver professional results in seconds.
             </p>
 
+            {/* Auto-scrolling Before/After Banner */}
+            <div className={styles.marqueeContainer}>
+              <div className={styles.marqueeTrack}>
+                {/* First set of images */}
+                {EXAMPLE_IMAGES.map((example) => (
+                  <div key={`first-${example.id}`} className={styles.marqueeItem}>
+                    <Image
+                      src={example.combinedImage}
+                      alt={example.title}
+                      width={400}
+                      height={300}
+                      className={styles.marqueeImage}
+                    />
+                  </div>
+                ))}
+                {/* Duplicate set for seamless loop */}
+                {EXAMPLE_IMAGES.map((example) => (
+                  <div key={`second-${example.id}`} className={styles.marqueeItem}>
+                    <Image
+                      src={example.combinedImage}
+                      alt={example.title}
+                      width={400}
+                      height={300}
+                      className={styles.marqueeImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
           {/* Free Credits Banner */}
           <div className={styles.freeCreditsBanner}>
             <div className={styles.bannerContent}>
@@ -154,34 +186,7 @@ export default function RestoresLanding() {
               </button>
             </div>
           </div>
-            
-
-            {/* Hero Video */}
-            <div className={styles.heroVideoWrapper}>
-              <video
-                ref={videoRef}
-                className={styles.heroVideo}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                onLoadedData={() => {
-                  if (videoRef.current) {
-                    videoRef.current.play().catch(err =>
-                      console.log("Autoplay prevented:", err)
-                    );
-                  }
-                }}
-                onError={(e) => console.error("Video error:", e)}
-              >
-                <source src="/videos/restore-demo.mp4" type="video/mp4" />
-                <source src="/videos/restore-demo.webm" type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
           </div>
-
 
           {/* Two Option Cards */}
           <div className={styles.optionsGrid}>
@@ -201,7 +206,16 @@ export default function RestoresLanding() {
                   {option.badge}
                 </div>
 
-                <div className={styles.cardIcon}>{option.icon}</div>
+                {/* Example Image */}
+                <div className={styles.cardExampleImage}>
+                  <Image
+                    src={option.exampleImage}
+                    alt={`${option.title} example`}
+                    width={300}
+                    height={200}
+                    className={styles.exampleImg}
+                  />
+                </div>
                 
                 <h3 className={styles.cardTitle}>{option.title}</h3>
                 <p className={styles.cardSubtitle}>{option.subtitle}</p>
@@ -234,6 +248,31 @@ export default function RestoresLanding() {
                 </button>
               </div>
             ))}
+          </div>
+
+          {/* Hero Video - MOVED HERE AFTER OPTIONS */}
+          <div className={styles.heroVideoWrapper}>
+            <video
+              ref={videoRef}
+              className={styles.heroVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              onLoadedData={() => {
+                if (videoRef.current) {
+                  videoRef.current.play().catch(err =>
+                    console.log("Autoplay prevented:", err)
+                  );
+                }
+              }}
+              onError={(e) => console.error("Video error:", e)}
+            >
+              <source src="/videos/restore-demo.mp4" type="video/mp4" />
+              <source src="/videos/restore-demo.webm" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
           </div>
 
           {/* Pricing Link */}

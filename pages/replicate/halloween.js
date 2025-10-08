@@ -7,6 +7,7 @@ import CreditsHeader from "../../components/decades/shared/CreditsHeader";
 import { useHalloweenPageLogic } from "../../components/decades/hooks/useHalloweenPageLogic";
 import { useHalloweenGenerationHandler } from "../../components/decades/hooks/useHalloweenGenerationHandler";
 import { useHalloweenGeneration } from "../../components/decades/hooks/useHalloweenGeneration";
+import HalloweenSEO from "../../components/SEO/HalloweenSEO";
 
 const HALLOWEEN_TEMPLATES = [
   {
@@ -237,7 +238,9 @@ export default function HalloweenPage() {
   const canGenerate = !!photo && !!selectedTemplate;
 
   return (
+    
     <main className={styles.container}>
+      <HalloweenSEO />
       <div className={styles.halloweenBg}></div>
       <div className={styles.floatingEmojis}>
         {['🎃', '👻', '🦇', '🕷️', '🎃', '👻'].map((emoji, index) => (

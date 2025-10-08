@@ -1055,9 +1055,6 @@
   will-change: transform;
 }
 
-.marqueeTrack:hover {
-  animation-play-state: paused;
-}
 
 .marqueeItem {
   flex-shrink: 0;

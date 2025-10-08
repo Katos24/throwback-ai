@@ -132,9 +132,6 @@ export default function HeroSection() {
 
         <div className={styles.trustBar}>
           <div className={styles.trustItem}>
-            <span className={styles.checkmark}>✓</span>50K+ Photos Transformed
-          </div>
-          <div className={styles.trustItem}>
             <span className={styles.checkmark}>✓</span>Fast Results
           </div>
           <div className={styles.trustItem}>

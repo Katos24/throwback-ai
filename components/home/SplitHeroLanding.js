@@ -352,10 +352,6 @@ export default function SplitHeroLanding() {
         <div className={styles.socialProof}>
           <div className={styles.socialProofStats}>
             <div className={styles.stat}>
-              <div className={styles.statNumber}>50K+</div>
-              <div className={styles.statLabel}>Training Photos</div>
-            </div>
-            <div className={styles.stat}>
               <div className={styles.statNumber}>45 sec</div>
               <div className={styles.statLabel}>Average Processing</div>
             </div>

@@ -82,7 +82,7 @@ const FeaturesSection = () => {
             <div className={FeaturesStyles.cardIcon}>🔬</div>
             <h3 className={FeaturesStyles.cardTitle}>Historically Accurate Training</h3>
             <p className={FeaturesStyles.cardDescription}>
-              Trained on 50,000+ vintage photos from 1920s-1980s. Our AI understands sepia tones, film grain, analog damage, and period-appropriate colors that generic models completely miss.
+              Trained on vintage photos from 1920s-1980s. Our AI understands sepia tones, film grain, analog damage, and period-appropriate colors that generic models completely miss.
             </p>
           </div>
 
@@ -112,10 +112,6 @@ const FeaturesSection = () => {
           <div className={FeaturesStyles.valueItem}>
             <span className={FeaturesStyles.valueNumber}>$0.48</span>
             <span className={FeaturesStyles.valueLabel}>Per Colorized Photo</span>
-          </div>
-          <div className={FeaturesStyles.valueItem}>
-            <span className={FeaturesStyles.valueNumber}>50,000+</span>
-            <span className={FeaturesStyles.valueLabel}>Training Images</span>
           </div>
           <div className={FeaturesStyles.valueItem}>
             <span className={FeaturesStyles.valueNumber}>1 Hour</span>

@@ -1,0 +1,71 @@
+.statsContainer {
+  text-align: center;
+  padding: 1.5rem 2rem; /* Reduced from 3rem 2rem */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px; /* Reduced from 24px */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 2rem auto; /* Reduced from 3rem */
+  max-width: 400px; /* Reduced from 500px */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.mainStat {
+  /* No extra margin needed */
+}
+
+.number {
+  font-size: 3.5rem; /* Reduced from 5rem */
+  font-weight: 700;
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem; /* Reduced from 0.75rem */
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.6)); }
+}
+
+.label {
+  font-size: 1.125rem; /* Reduced from 1.5rem */
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .statsContainer {
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 1rem;
+    max-width: 90%;
+  }
+
+  .number {
+    font-size: 2.75rem;
+  }
+
+  .label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsContainer {
+    padding: 1rem;
+  }
+
+  .number {
+    font-size: 2.5rem;
+  }
+
+  .label {
+    font-size: 0.95rem;
+  }
+}

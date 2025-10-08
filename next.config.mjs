@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['replicate.delivery'],
+    domains: [
+      'replicate.delivery',
+      'files.smartsites.parentsquare.com'
+    ],
   },
   // Compiler optimizations to reduce bundle size
   compiler: {

@@ -6,6 +6,8 @@ import ProgressBar from "../../components/Restores/ProgressBar";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";
 import styles from "../../styles/ModernRestore.module.css";
+import RestorationCounter from '../../components/RestorationCounter';
+
 
 export default function RestorePremium() {
   const restoreCost = 40;
@@ -80,6 +82,9 @@ export default function RestorePremium() {
               </Link>
             </p>
           </div>
+
+          {/* ADD COUNTER HERE - Right after header */}
+          <RestorationCounter />
 
           {/* Main Content */}
           <div className={styles.mainContent}>

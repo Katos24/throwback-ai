@@ -5,6 +5,7 @@ import ProgressBar from "../../components/Restores/ProgressBar";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import RestoreBasicSEO from "../../components/SEO/RestoreBasicSEO";
 import styles from "../../styles/ModernRestore.module.css";
+import RestorationCounter from '../../components/RestorationCounter';
 
 export default function RestoreBasic() {
   const restoreCost = 1;
@@ -112,6 +113,10 @@ export default function RestoreBasic() {
               <span className={styles.creditPill}>Costs 1 credit</span>
             </p>
           </div>
+
+           {/* ADD COUNTER HERE - Right after header */}
+                    <RestorationCounter />
+          
 
           {/* Main Content */}
           <div className={styles.mainContent}>

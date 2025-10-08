@@ -55,6 +55,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 50px 40px;
+  overflow-x: hidden; /* ADD THIS LINE */
+  width: 100%; /* ADD THIS LINE */
 }
 
 /* Hero Section */
@@ -954,6 +956,10 @@
   transform: translateY(0);
 }
 
+
+
+
+
 /* Mobile responsive */
 @media (max-width: 640px) {
   .freeCreditsBanner {
@@ -998,6 +1004,7 @@
 
 
 
+
 /* Card Example Image */
 .cardExampleImage {
   width: 100%;
@@ -1033,12 +1040,14 @@
   background: rgba(255, 255, 255, 0.02);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
 .marqueeTrack {
   display: flex;
   gap: 2rem;
   animation: scroll 30s linear infinite;
+  will-change: transform;
 }
 
 .marqueeTrack:hover {
@@ -1070,17 +1079,20 @@
 
 /* Enhanced Mobile Styles */
 @media (max-width: 768px) {
+  .marqueeContainer {
+    margin: 2rem 0;
+    padding: 1.5rem 0;
+    overflow: hidden;
+  }
+  
   .marqueeImage {
-    width: 280px; /* Slightly smaller for mobile */
+    width: 280px;
+    height: 210px;
+    object-fit: cover;
   }
   
   .marqueeTrack {
     gap: 1rem;
-  }
-  
-  .marqueeContainer {
-    margin: 2rem -1rem; /* Negative margin to allow full-width scroll */
-    padding: 1.5rem 0;
   }
   
   .videoTitle {
@@ -1098,7 +1110,7 @@
   }
   
   .exampleImg {
-    max-height: 180px; /* Prevent cards from getting too tall */
+    max-height: 180px;
     object-fit: cover;
   }
   
@@ -1109,7 +1121,12 @@
 
 @media (max-width: 480px) {
   .marqueeImage {
-    width: 250px; /* Even smaller for very small phones */
+    width: 240px;
+    height: 180px;
+  }
+  
+  .marqueeTrack {
+    gap: 0.75rem;
   }
   
   .exampleImg {

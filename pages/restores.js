@@ -136,7 +136,7 @@ export default function RestoresLanding() {
             </h1>
 
             <p className={styles.subtitle}>
-              Fast, specialized AI built exclusively for photo restoration. Unlike general-purpose AI tools, we deliver professional results in seconds.
+              Transform damaged, faded, and black & white photos into vibrant memories. Our specialized AI adds historically accurate color, repairs tears and scratches, and enhances clarity—all in under 30 seconds. No subscriptions, just results.
             </p>
 
             {/* Auto-scrolling Before/After Banner */}
@@ -170,23 +170,26 @@ export default function RestoresLanding() {
             </div>
 
           {/* Free Credits Banner */}
-          <div className={styles.freeCreditsBanner}>
-            <div className={styles.bannerContent}>
-              <span className={styles.bannerText}>
-                New users get <strong>50 free credits</strong>
-              </span>
-              <button 
-                className={styles.bannerButton}
-                onClick={() => {
-                  console.log('Clicked! Navigating to /signup');
-                  router.push('/signup');
-                }}
-              >
-                Claim Free Credits
-              </button>
-            </div>
-          </div>
-          </div>
+<div className={styles.freeCreditsBanner}>
+  <div className={styles.bannerContent}>
+    <div className={styles.bannerUrgency}>
+      🔥 LIMITED TIME OFFER
+    </div>
+    <span className={styles.bannerText}>
+      New users get <strong>50 free credits</strong>
+    </span>
+    <button 
+      className={styles.bannerButton}
+      onClick={() => {
+        console.log('Clicked! Navigating to /signup');
+        router.push('/signup');
+      }}
+    >
+      Start Restoring Free
+    </button>
+  </div>
+</div>
+</div>
 
           {/* Two Option Cards */}
           <div className={styles.optionsGrid}>

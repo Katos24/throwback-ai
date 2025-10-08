@@ -871,27 +871,28 @@
 }
 
 
-/* Glassmorphism Free Credits Banner - Ultra Slim Version */
+/* Glassmorphism Free Credits Banner - BIGGER with Urgency */
 .freeCreditsBanner {
-  margin: 1.5rem auto;
-  max-width: 420px;
+  margin: 2.5rem auto;
+  max-width: 600px; /* Increased from 420px */
   padding: 0 1rem;
 }
 
 .bannerContent {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.5rem 0.875rem;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem; /* Much bigger padding */
   
   /* Glassmorphism effect */
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 24px; /* More rounded */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   
   /* Subtle gradient overlay */
   position: relative;
@@ -907,48 +908,67 @@
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba(139, 92, 246, 0.08) 0%,
-    rgba(59, 130, 246, 0.08) 100%
+    rgba(139, 92, 246, 0.1) 0%,
+    rgba(59, 130, 246, 0.1) 100%
   );
   pointer-events: none;
   z-index: 0;
+}
+
+/* Urgency text */
+.bannerUrgency {
+  position: relative;
+  z-index: 1;
+  color: #fbbf24; /* Yellow/gold color */
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .bannerText {
   position: relative;
   z-index: 1;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.85rem;
-  line-height: 1.3;
-  flex: 0 1 auto;
-  white-space: nowrap;
+  font-size: 1.25rem; /* Bigger text */
+  line-height: 1.4;
+  text-align: center;
 }
 
 .bannerText strong {
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
+  font-size: 1.5rem; /* Even bigger for the number */
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .bannerButton {
   position: relative;
   z-index: 1;
-  padding: 0.4rem 0.875rem;
+  padding: 1rem 2.5rem; /* Much bigger button */
   background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
   color: white;
   border: none;
   border-radius: 50px;
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 1.125rem; /* Bigger text */
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
-  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .bannerButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6);
   background: linear-gradient(135deg, #9d6fff 0%, #4c8fff 100%);
 }
 
@@ -956,48 +976,61 @@
   transform: translateY(0);
 }
 
-
-
-
+/* No credit card text */
+.bannerSubtext {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 
 /* Mobile responsive */
 @media (max-width: 640px) {
   .freeCreditsBanner {
-    max-width: 340px;
+    max-width: 100%;
+    padding: 0 1rem;
   }
 
   .bannerContent {
-    flex-direction: column;
-    text-align: center;
-    padding: 0.65rem 1rem;
-    gap: 0.5rem;
-    border-radius: 20px;
+    padding: 1.25rem 1.5rem;
+    gap: 0.875rem;
+  }
+
+  .bannerUrgency {
+    font-size: 0.75rem;
   }
 
   .bannerText {
-    font-size: 0.8rem;
-    white-space: normal;
+    font-size: 1rem;
+  }
+
+  .bannerText strong {
+    font-size: 1.25rem;
   }
 
   .bannerButton {
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  .bannerSubtext {
     font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .freeCreditsBanner {
-    padding: 0 0.75rem;
-    max-width: 100%;
-  }
-
   .bannerContent {
-    padding: 0.6rem 0.875rem;
+    padding: 1rem 1.25rem;
   }
 
   .bannerText {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .bannerText strong {
+    font-size: 1.15rem;
   }
 }
 

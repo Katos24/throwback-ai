@@ -26,9 +26,7 @@ const HERO_CARDS = [
     features: [
       'Multiple decade styles per credit',
       'Authentic yearbook aesthetics',
-      'Social media ready in 45 seconds',
-      'Unlimited generations'
-    ],
+      'Social media ready in 45 seconds',    ],
     buttonText: 'Try 90s AI Free →',
     buttonClass: 'viralButton',
     credits: '50',
@@ -54,9 +52,7 @@ const HERO_CARDS = [
     features: [
       'Remove scratches, tears, and stains',
       'Professional colorization option',
-      'Preserve family history forever',
-      'Fast basic or premium quality'
-    ],
+      'Preserve family history forever',    ],
     buttonText: 'Restore Photo Free →',
     buttonClass: 'restoreButton',
     credits: '1-40',
@@ -106,7 +102,6 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
       {card.title}{card.titleSecond && <><br />{card.titleSecond}</>}
     </h2>
     
-    <p className={styles.heroDescription}>{card.description}</p>
     
     {/* Before/After Image */}
     <div className={styles.heroImage}>
@@ -133,6 +128,8 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
         </span>
       </div>
     </div>
+
+        <p className={styles.heroDescription}>{card.description}</p>
     
     {/* Tags */}
     <div className={styles.tags}>
@@ -318,11 +315,11 @@ export default function SplitHeroLanding() {
 
         {/* Top Header */}
         <div className={styles.topHeader}>
-          <h1 className={styles.mainTitle}>AI-Powered Photo Magic</h1>
+         <h1 className={styles.mainTitle}>Restore Your Family Legacy</h1>
           <p className={styles.mainSubtitle}>
-            Create viral decade photos or restore precious family memories in seconds
+            Transform damaged, faded, and black & white photos into vibrant memories. Or step into any decade with AI time travel. Instant results, museum quality.
           </p>
-          
+                    
           {/* Signup Banner */}
           <div className={styles.signupBanner}>
             <div className={styles.bannerText}>

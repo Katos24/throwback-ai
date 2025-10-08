@@ -414,6 +414,12 @@ export default function RestoresLanding() {
             </div>
           </div>
 
+          {/* Early Adopter CTA */}
+<div className={styles.earlyAdopterSection}>
+  <h3>Be an Early Adopter</h3>
+  <p>Help us improve and get lifetime discounted pricing</p>
+</div>
+
           {/* Greek Column Bottom Decorative */}
           <div className={styles.columnsBottom}>
             {[1, 2, 3, 4, 5].map(i => (

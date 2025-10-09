@@ -850,3 +850,160 @@
   outline: 3px solid #60a5fa;
   outline-offset: 2px;
 }
+
+
+/* Restore Options Container */
+.restoreOptionsContainer {
+  margin: 25px 0;
+  padding: 25px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Options Grid - Horizontal layout */
+.restoreOptionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.restoreOptionCard {
+  background: white;
+  border: 3px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.restoreOptionCard:hover {
+  border-color: #9ca3af;
+  transform: translateY(-2px);
+}
+
+.optionActive {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.optionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.optionDisabled:hover {
+  transform: none;
+  border-color: #e5e7eb;
+}
+
+.optionBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.optionActive .optionBadge {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.restoreOptionCard h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+  color: #1f2937;
+}
+
+.restoreOptionCard p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Restore Button */
+.restoreButton {
+  width: 100%;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.restoreButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.restoreButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Enhance Again Section */
+.enhanceAgainSection {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #fbbf24;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.enhanceAgainButton {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.enhanceAgainButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+}
+
+.enhanceAgainHint {
+  font-size: 14px;
+  color: #92400e;
+  margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .restoreOptionsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .restoreOptionCard {
+    padding: 15px 10px;
+  }
+  
+  .restoreOptionCard h4 {
+    font-size: 16px;
+  }
+  
+  .restoreOptionCard p {
+    font-size: 12px;
+  }
+}

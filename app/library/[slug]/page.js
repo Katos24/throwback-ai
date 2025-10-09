@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
+import ImageCompareSlider from '../../../components/ImageCompareSlider';
 import styles from './library.module.css';
 
 export default function LibraryPortal() {
@@ -32,6 +33,9 @@ export default function LibraryPortal() {
   const [zipError, setZipError] = useState('');
   const [checkingZip, setCheckingZip] = useState(false);
 
+  // SHOWCASE EXAMPLES
+  const [showcaseExamples, setShowcaseExamples] = useState([]);
+
   useEffect(() => {
     if (!slug) return;
     fetchLibraryData();
@@ -46,6 +50,24 @@ export default function LibraryPortal() {
     if (library && zipInput && !zipGranted) {
       validateZipCode(zipInput, true);
     }
+  }, [library]);
+
+  useEffect(() => {
+    async function fetchShowcaseExamples() {
+      if (!library) return;
+      
+      const { data, error } = await supabase
+        .from('showcase_examples')
+        .select('*')
+        .eq('library_id', library.id)
+        .order('display_order');
+      
+      if (data && data.length > 0) {
+        setShowcaseExamples(data);
+      }
+    }
+    
+    fetchShowcaseExamples();
   }, [library]);
 
   async function fetchLibraryData() {
@@ -208,6 +230,56 @@ export default function LibraryPortal() {
       showToast('Something went wrong. Please try again.', 'error');
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleUseRestoredImage = async () => {
+    try {
+      // Convert the restored image URL to base64
+      const response = await fetch(restoredImage);
+      const blob = await response.blob();
+      
+      // Convert blob to base64
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result); // This is now base64
+        setRestoredImage(null);
+        setSliderPosition(50);
+        showToast('Ready to enhance again! Choose an option below.', 'success');
+      };
+      reader.readAsDataURL(blob);
+    } catch (error) {
+      console.error('Error converting image:', error);
+      showToast('Failed to prepare image. Please try again.', 'error');
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!restoredImage) return;
+
+    try {
+      // Fetch the image
+      const response = await fetch(restoredImage);
+      const blob = await response.blob();
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${library.name.replace(/\s+/g, '-')}-restored-${Date.now()}.jpg`;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      showToast('Photo downloaded successfully!', 'success');
+    } catch (error) {
+      console.error('Download error:', error);
+      showToast('Download failed. Please try again.', 'error');
     }
   };
 
@@ -427,40 +499,11 @@ export default function LibraryPortal() {
 
               {/* Image comparison slider */}
               {restoredImage ? (
-                <div 
-                  ref={sliderRef}
-                  className={styles.comparisonSlider}
-                  onMouseMove={handleSliderMove}
-                  onTouchMove={handleSliderMove}
-                >
-                  <div className={styles.comparisonImage}>
-                    <Image
-                      src={restoredImage}
-                      alt="Restored"
-                      width={800}
-                      height={600}
-                      className={styles.sliderImage}
-                    />
-                  </div>
-                  <div 
-                    className={styles.comparisonOverlay}
-                    style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-                  >
-                    <Image
-                      src={selectedImage}
-                      alt="Original"
-                      width={800}
-                      height={600}
-                      className={styles.sliderImage}
-                    />
-                  </div>
-                  <div 
-                    className={styles.sliderHandle}
-                    style={{ left: `${sliderPosition}%` }}
-                  >
-                    <div className={styles.sliderLine}></div>
-                    <div className={styles.sliderButton}>⟷</div>
-                  </div>
+                <div className={styles.comparisonSliderWrapper}>
+                  <ImageCompareSlider 
+                    beforeImage={selectedImage}
+                    afterImage={restoredImage}
+                  />
                 </div>
               ) : (
                 <div className={styles.previewCard}>
@@ -523,22 +566,26 @@ export default function LibraryPortal() {
                 {restoredImage && (
                   <>
                     <button
-                      onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = restoredImage;
-                        link.download = `restored-photo-${Date.now()}.jpg`;
-                        link.click();
-                        showToast('Photo downloaded!', 'success');
-                      }}
+                      onClick={handleDownload}
                       className={styles.downloadButton}
+                      style={{ 
+                        backgroundColor: library.secondary_color || '#D4AF37',
+                        color: library.primary_color || '#000000'
+                      }}
                     >
-                      Download Restored Photo
+                      Download Photo
+                    </button>
+                    <button
+                      onClick={handleUseRestoredImage}
+                      className={styles.enhanceAgainButton}
+                    >
+                      🎨 Enhance Again
                     </button>
                     <button
                       onClick={handleReset}
                       className={styles.newButton}
                     >
-                      Restore Another Photo
+                      New Photo
                     </button>
                   </>
                 )}
@@ -547,7 +594,41 @@ export default function LibraryPortal() {
           )}
         </div>
 
-  
+        {/* ===== SHOWCASE GALLERY SECTION ===== */}
+        {showcaseExamples.length > 0 && (
+          <div className={styles.showcaseSection}>
+            <div className={styles.showcaseHeader}>
+              <h2>See the Magic in Action</h2>
+              <p>Real photos from our community, brought back to life with AI</p>
+              <div className={styles.qualityNote}>
+                <span className={styles.qualityIcon}>ℹ️</span>
+                <p>Results work best on clear, well-lit subjects. Background details may vary based on original photo quality.</p>
+              </div>
+            </div>
+
+            <div className={styles.showcaseGrid}>
+              {showcaseExamples.map((example) => (
+                <div key={example.id} className={styles.showcaseCard}>
+                  <ImageCompareSlider 
+                    beforeImage={example.before_image_url}
+                    afterImage={example.after_image_url}
+                  />
+                  <div className={styles.showcaseInfo}>
+                    <h3>{example.title}</h3>
+                    <p className={styles.showcaseYear}>{example.year}</p>
+                    <p className={styles.showcaseDescription}>{example.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.showcaseCallout}>
+              <p><strong>Your family photos could look this good too!</strong></p>
+              <p>Upload your old photos above and see the transformation — completely free for {library.name} residents</p>
+            </div>
+          </div>
+        )}
+        {/* ===== END SHOWCASE SECTION ===== */}
 
         {/* How It Works */}
         <div className={styles.howItWorks}>
@@ -568,7 +649,7 @@ export default function LibraryPortal() {
           </div>
         </div>
 
-                 {/* Trust Section */}
+        {/* Trust Section */}
         <div className={styles.trustSection}>
           <div className={styles.trustItem}>
             <div className={styles.trustIcon}>🔒</div>

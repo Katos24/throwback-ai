@@ -329,7 +329,7 @@ export default function RestorePage() {
                         <div className={styles.buttonRow}>
                           <button
                             onClick={handleRestoreClick}
-                            disabled={loading || processing || credits < config.cost}
+                            disabled={loading || processing}
                             className={styles.restoreButton}
                           >
                             {getFixedButtonText()}

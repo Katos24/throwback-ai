@@ -674,7 +674,25 @@
   }
 
   .restoreOptionsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* Keep side-by-side on mobile */
+    gap: 0.75rem;
+  }
+
+  .restoreOptionCard {
+    padding: 1rem;
+  }
+
+  .restoreOptionCard h4 {
+    font-size: 1rem;
+  }
+
+  .restoreOptionCard p {
+    font-size: 0.8rem;
+  }
+
+  .optionBadge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
   }
 
   .beforeAfterGrid {

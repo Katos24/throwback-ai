@@ -227,45 +227,7 @@ export default function useRestoreLogic(restoreCost, apiEndpoint, isPremium = fa
             { id: processingToast, icon: isPremium ? '🌈' : '🎉', duration: 5000 }
           );
           
-          // Show upgrade suggestion for basic restore
-          if (!isPremium) {
-            setTimeout(() => {
-              toast((t) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '1.5rem' }}>🎨</span>
-                  <div>
-                    <div style={{ fontWeight: '600', marginBottom: '4px' }}>
-                      Want even better results?
-                    </div>
-                    <div style={{ fontSize: '0.875rem', opacity: 0.8 }}>
-                      Try Full Color Restore for vibrant colors!
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => {
-                      toast.dismiss(t.id);
-                      router.push('/replicate/restore-premium');
-                    }}
-                    style={{
-                      background: 'linear-gradient(135deg, #a855f7, #ec4899)',
-                      color: 'white',
-                      border: 'none',
-                      padding: '8px 16px',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontSize: '0.875rem',
-                      fontWeight: '600'
-                    }}
-                  >
-                    Try It ✨
-                  </button>
-                </div>
-              ), {
-                duration: 8000,
-                style: { maxWidth: '400px' }
-              });
-            }, 2000);
-          }
+          // REMOVED: The "Try Full Color Restore" toast notification
           
           // Handle credits properly for logged in vs guest users
           if (isLoggedIn) {

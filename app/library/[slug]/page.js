@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
 import ImageCompareSlider from '../../../components/ImageCompareSlider';
 import styles from './library.module.css';
+import HowItWorks from './HowItWorks';
 
 export default function LibraryPortal() {
   const params = useParams();
@@ -396,7 +397,16 @@ export default function LibraryPortal() {
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
                 onClick={() => !uploading && fileInputRef.current?.click()}
-              >
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    !uploading && fileInputRef.current?.click();
+                    }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label="Upload photo"
+                >
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -430,30 +440,58 @@ export default function LibraryPortal() {
                   
                   <div className={styles.optionsGrid}>
                     <div 
-                      className={`${styles.option} ${restoreType === 'basic' ? styles.active : ''}`}
-                      onClick={() => setRestoreType('basic')}
-                    >
+                        className={`${styles.option} ${restoreType === 'basic' ? styles.active : ''}`}
+                        onClick={() => setRestoreType('basic')}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setRestoreType('basic');
+                            }
+                        }}
+                        tabIndex={0}
+                        role="radio"
+                        aria-checked={restoreType === 'basic'}
+                        >
                       <div className={styles.badge}>💰 FREE</div>
                       <h4>Basic Restoration</h4>
                       <p>Great quality, instant results</p>
                     </div>
 
                     <div 
-                      className={`${styles.option} ${restoreType === 'premium' ? styles.active : ''} ${outOfPremiumCredits ? styles.disabled : ''}`}
-                      onClick={() => !outOfPremiumCredits && setRestoreType('premium')}
+                    className={`${styles.option} ${restoreType === 'premium' ? styles.active : ''} ${outOfPremiumCredits ? styles.disabled : ''}`}
+                    onClick={() => !outOfPremiumCredits && setRestoreType('premium')}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        !outOfPremiumCredits && setRestoreType('premium');
+                        }
+                    }}
+                    tabIndex={outOfPremiumCredits ? -1 : 0}
+                    role="radio"
+                    aria-checked={restoreType === 'premium'}
+                    aria-disabled={outOfPremiumCredits}
                     >
-                      <div className={styles.badge}>⭐ PREMIUM</div>
-                      <h4>Enhanced Details</h4>
-                      <p>{outOfPremiumCredits ? 'Out of credits' : 'Studio quality'}</p>
+                    <div className={styles.badge}>⭐ PREMIUM</div>
+                    <h4>Enhanced Details</h4>
+                    <p>{outOfPremiumCredits ? 'Out of credits' : 'Studio quality'}</p>
                     </div>
                   </div>
 
                   <div className={styles.actions}>
-                    <button onClick={handleRestore} disabled={uploading || (restoreType === 'premium' && outOfPremiumCredits)} className={styles.primaryBtn}>
-                      Restore Photo ({restoreType === 'basic' ? 'FREE' : '40 credits'})
+                    <button 
+                        onClick={handleRestore} 
+                        disabled={uploading || (restoreType === 'premium' && outOfPremiumCredits)} 
+                        className={styles.primaryBtn}
+                        aria-label={`Restore photo using ${restoreType} enhancement`}
+                        >
+                        Restore Photo ({restoreType === 'basic' ? 'FREE' : '40 credits'})
                     </button>
-                    <button onClick={handleReset} className={styles.secondaryBtn}>
-                      <span>🔄</span>
+                    <button 
+                    onClick={handleReset} 
+                    className={styles.secondaryBtn}
+                    aria-label="Reset and upload new photo"
+                    >
+                    <span aria-hidden="true">🔄</span>
                     </button>
                   </div>
                 </div>
@@ -466,8 +504,12 @@ export default function LibraryPortal() {
               </div>
 
               <div className={styles.actions}>
-                <button onClick={handleDownload} className={styles.primaryBtn}>
-                  ⬇️ Download Result
+                <button 
+                onClick={handleDownload} 
+                className={styles.primaryBtn}
+                aria-label="Download restored photo"
+                >
+                ⬇️ Download Result
                 </button>
                 <button onClick={handleReset} className={styles.secondaryBtn}>
                   <span>🔄</span>
@@ -475,8 +517,12 @@ export default function LibraryPortal() {
               </div>
 
               <div className={styles.enhanceAgain}>
-                <button onClick={handleUseRestoredImage} className={styles.enhanceBtn}>
-                  🎨 Enhance This Result Again
+                <button 
+                    onClick={handleUseRestoredImage} 
+                    className={styles.enhanceBtn}
+                    aria-label="Use restored photo as input for another enhancement"
+                    >
+                    🎨 Enhance This Result Again
                 </button>
                 <p>Use the restored photo as input for another enhancement</p>
               </div>
@@ -493,6 +539,8 @@ export default function LibraryPortal() {
             <span><strong>Pro Tip:</strong> Start with Basic to fix damage, then use Premium for vibrant colors.</span>
           </div>
         </div>
+
+        <HowItWorks />
 
         {showcaseExamples.length > 0 && (
           <div className={styles.showcase}>
@@ -537,9 +585,16 @@ export default function LibraryPortal() {
           </div>
         </div>
 
-        <footer className={styles.footer}>
-          <p>Provided by {library.name}</p>
-          <p>Powered by <a href="https://throwback.ai">Throwback AI</a></p>
+       <footer className={styles.footer}>
+        <p>Provided by {library.name}</p>
+        <p>
+            Powered by <a href="https://throwback.ai">Throwback AI</a>
+        </p>
+        <div className={styles.legalLinks}>
+            <a href="/library/privacy">Privacy Policy</a>
+            <span>•</span>
+            <a href="/library/terms">Terms of Service</a>
+        </div>
         </footer>
       </main>
     </div>

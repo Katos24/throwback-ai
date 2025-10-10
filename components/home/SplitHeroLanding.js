@@ -97,11 +97,15 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
       }
     }}
   >
-    <div className={styles[card.badgeClass]}>{card.badge}</div>
-    
-    <h2 className={styles.heroTitle}>
-      {card.title}{card.titleSecond && <><br />{card.titleSecond}</>}
-    </h2>
+    <div className={styles.heroHeader}>
+  <h2 className={styles.heroTitle}>
+    {card.title}{card.titleSecond && <><br />{card.titleSecond}</>}
+  </h2>
+  <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
+    {card.badge}
+  </div>
+</div>
+
     
     
     {/* Before/After Image */}

@@ -13,6 +13,22 @@
   z-index: 1;
 }
 
+.heroHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  gap: 10px;
+  flex-wrap: wrap; /* ✅ allows badge to drop under title if no space */
+}
+
+.heroHeader .badge {
+  margin-bottom: 0;
+  white-space: nowrap; /* ✅ keeps badge text on one line */
+}
+
+
+
 /* Floating Particles */
 .floatingParticles {
   position: absolute;
@@ -746,5 +762,13 @@
 
   .halloweenFloatingEmoji {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }

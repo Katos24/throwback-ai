@@ -33,31 +33,32 @@ const HERO_CARDS = [
     processingTime: '⚡ 45 seconds'
   },
   {
-    id: 'restore',
-    type: 'restore',
-    badge: '🏆 PROVEN QUALITY',
-    badgeClass: 'qualityBadge',
-    title: 'Restore Family',
-    titleSecond: 'Memories',
-    description: 'Repair scratches, tears, fading, and water damage from irreplaceable vintage photos. Museum-quality colorization and restoration.',
-    link: '/restores',
-    combinedImage: '/images/restore-before-after-combined.jpg',
-    beforeLabel: 'Before',
-    afterLabel: 'After',
-    tags: [
-      { emoji: '🎨', label: 'Colorization' },
-      { emoji: '🔧', label: 'Repair' },
-      { emoji: '✨', label: 'Enhancement' }
-    ],
-    features: [
-      'Remove scratches, tears, and stains',
-      'Professional colorization option',
-      'Preserve family history forever',    ],
-    buttonText: 'Restore Photo Free →',
-    buttonClass: 'restoreButton',
-    credits: '1-40',
-    processingTime: '⚡ 30-90 seconds'
-  }
+  id: 'restore',
+  type: 'restore',
+  badge: '🏆 PROVEN QUALITY',
+  badgeClass: 'qualityBadge',
+  title: 'Restore Family',
+  titleSecond: 'Memories',
+  description: 'Repair damage and add color to vintage photos. Choose Quick Repair (1 credit) or Premium Colorization (40 credits) on one easy page.',
+  link: '/replicate/restore-premium', // ✅ Updated to unified page
+  combinedImage: '/images/restore-before-after-combined.jpg',
+  beforeLabel: 'Before',
+  afterLabel: 'After',
+  tags: [
+    { emoji: '⚡', label: '1 Credit' },
+    { emoji: '🎨', label: '40 Credits' },
+    { emoji: '✨', label: 'Choose Level' }
+  ],
+  features: [
+    'Quick Repair: Fix scratches & damage (1 credit)',
+    'Premium: Studio colorization (40 credits)',
+    'Choose your enhancement level on upload',
+  ],
+  buttonText: 'Restore Photos Free →',
+  buttonClass: 'restoreButton',
+  credits: '1-40', // ✅ Keep this to show range
+  processingTime: '⚡ 10-90 seconds'
+}
 ];
 
 // Halloween Special Card Data

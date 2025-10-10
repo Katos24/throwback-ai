@@ -458,12 +458,18 @@
     gap: 0;
   }
 
-  /* Hide "Start Over" text on mobile, keep only emoji */
+  /* Hide text on mobile for secondary buttons, keep only emoji */
   .secondaryButton .buttonText {
     display: none;
   }
 
-  .secondaryButton .buttonIcon {
+  /* Hide any text nodes in secondary button on mobile */
+  .buttonRow .secondaryButton {
+    font-size: 0;
+  }
+
+  .secondaryButton .buttonIcon,
+  .secondaryButton span {
     font-size: 1.25rem;
   }
 }

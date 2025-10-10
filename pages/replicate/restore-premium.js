@@ -310,7 +310,7 @@ export default function RestorePage() {
                             className={`${styles.restoreOptionCard} ${restoreMode === 'basic' ? styles.optionActive : ''}`}
                             onClick={() => setRestoreMode('basic')}
                           >
-                            <div className={styles.optionBadge}>⚡ 1 CREDIT</div>
+                            <div className={styles.optionBadge}>⚡ ONLY 1 CREDIT</div>
                             <h4>Basic Restore</h4>
                             <p>Perfect for quick fixes - removes scratches, enhances clarity, and improves overall quality</p>
                           </div>
@@ -373,8 +373,8 @@ export default function RestorePage() {
                         onClick={handleReset}
                         className={styles.secondaryButton}
                       >
-                        <span>🔄</span>
-                        New Photo
+                        <span className={styles.buttonIcon}>🔄</span>
+                        <span className={styles.buttonText}>New Photo</span>
                       </button>
                     </div>
 

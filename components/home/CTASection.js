@@ -13,7 +13,7 @@ const CTASection = () => {
           Upload a photo and see the transformation in seconds
         </p>
         <div className={ctaStyles.ctaButtons}>
-          <Link href="/replicate/restore-basic" passHref>
+          <Link href="/replicate/restore-premium" passHref>
             <button className={ctaStyles.primaryButton}>🎁 Photo Fix (Try FREE)</button>
           </Link>
           <Link href="/replicate/restore-premium" passHref>

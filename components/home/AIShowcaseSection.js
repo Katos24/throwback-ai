@@ -7,7 +7,7 @@ const AIShowcaseSection = () => {
   const router = useRouter();
 
   const handleExperienceClick = () => {
-    router.push('/replicate/restore-basic');
+    router.push('/replicate/restore-premium');
   };
   const transformations = [
     {

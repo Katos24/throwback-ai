@@ -10,7 +10,7 @@ export default function HeroSection() {
       id: "restore-1",
       image: "/images/restore-card.png",
       category: "Photo Restoration",
-      link: "replicate/restore-basic",
+      link: "replicate/restore-premium",
       description:
         "Repair scratches, tears, water damage, and fading from irreplaceable family photos. Bring back memories you thought were lost forever.",
       credits: 1,

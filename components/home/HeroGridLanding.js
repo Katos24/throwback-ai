@@ -39,7 +39,7 @@ const FEATURE_OPTIONS = [
     credits: 1,
     badge: 'Lightning Fast',
     badgeColor: 'fast',
-    link: '/replicate/restore-basic',
+    link: '/replicate/restore-premium',
     combinedImage: '/images/restore-before-after-combined.jpg',
     buttonText: 'Restore Now',
     beforeLabel: 'Damaged',

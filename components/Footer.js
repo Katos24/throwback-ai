@@ -47,7 +47,7 @@ export default function Footer() {
             <h4>Services</h4>
             <ul>
               <li>
-                <Link href="/replicate/restore-basic">Photo Restoration</Link>
+                <Link href="/replicate/restore-premium">Photo Restoration</Link>
               </li>
               <li>
                 <Link href="/replicate/restore-premium">AI Colorization</Link>

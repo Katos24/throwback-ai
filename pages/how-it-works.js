@@ -18,7 +18,7 @@ const FEATURES = [
     title: 'Photo Restoration',
     description: 'Repair scratches, tears, water damage, and fading from irreplaceable family photos.',
     cost: '1 credit',
-    path: '/replicate/restore-basic',
+    path: '/replicate/restore-premium',
     badge: 'Try Free'
   },
   {

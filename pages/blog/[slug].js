@@ -262,7 +262,7 @@ export default function BlogPost({ post, relatedPosts }) {
             <h3>Ready to Restore Your Photos?</h3>
             <p>Try our AI-powered photo restoration tools and bring your memories back to life.</p>
             <div className={styles.ctaButtons}>
-              <Link href="/replicate/restore-basic" className={styles.ctaBtn}>
+              <Link href="/replicate/restore-premium" className={styles.ctaBtn}>
                 Start Free Restoration
               </Link>
               <Link href="/replicate/avatar" className={styles.ctaBtnSecondary}>

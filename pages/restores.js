@@ -47,7 +47,7 @@ const RESTORE_OPTIONS = [
     credits: 1,
     price: 'As low as $0.01',
     time: 'Under 10 seconds',
-    link: '/replicate/restore-basic',
+    link: '/replicate/restore-premium',
     badge: '💰 BEST VALUE',
     exampleImage: '/images/examples/basic-example.jpg' // Add your image path here
   }

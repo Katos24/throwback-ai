@@ -481,11 +481,11 @@ export default function HalloweenPage() {
 
           {/* Restoration Feature */}
           <div 
-            onClick={() => router.push('/replicate/restore-basic')}
+            onClick={() => router.push('/replicate/restore-premium')}
             onKeyPress={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                router.push('/replicate/restore-basic');
+                router.push('/replicate/restore-premium');
               }
             }}
             role="button"

@@ -92,7 +92,7 @@ export default function Header({ showMenu, setShowMenu }) {
       premium: true
     },
     { 
-      href: "/replicate/restore-basic", 
+      href: "/replicate/restore-premium", 
       label: "Quick Repair", 
       icon: "⚡",
       credits: "1 credit"

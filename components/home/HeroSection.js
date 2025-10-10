@@ -17,7 +17,7 @@ export default function HeroSection() {
         before: "/images/basicpage-before.jpg",
         after: "/images/basicpage-after.jpg"
       },
-      link: "/replicate/restore-basic",
+      link: "/replicate/restore-premium",
       credits: 1,
       category: "restore"
     },

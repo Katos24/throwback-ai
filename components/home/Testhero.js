@@ -15,7 +15,7 @@ export default function TestHeroSection() {
         before: "/images/basicpage-before.jpg",
         after: "/images/basicpage-after.jpg"
       },
-      link: "/replicate/restore-basic",
+      link: "/replicate/restore-premium",
       credits: 1,
       buttonText: "Restore (Try Free)",
       icon: "🔧"

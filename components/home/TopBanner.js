@@ -267,7 +267,7 @@ const TopBanner = () => {
                 <p>Remove scratches, tears, and water damage from irreplaceable family memories.</p>
               </div>
               <div className={TopBannerStyles.ctaButtons}>
-                <Link href="/replicate/restore-basic" className={TopBannerStyles.primaryCta}>
+                <Link href="/replicate/restore-premium" className={TopBannerStyles.primaryCta}>
                   Try Free Restore
                 </Link>
               </div>

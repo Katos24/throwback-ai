@@ -23,7 +23,7 @@ export default function RetroDesktop() {
       id: 'restore-basic',
       name: 'Photo Restore',
       icon: '🖼️',
-      path: '/replicate/restore-basic',
+      path: '/replicate/restore-premium',
       description: 'Restore old damaged photos'
     },
     {
@@ -158,7 +158,7 @@ export default function RetroDesktop() {
               <div className={styles.windowActions}>
                 <button 
                   className={styles.retryBtn}
-                  onClick={() => router.push('/replicate/restore-basic')}
+                  onClick={() => router.push('/replicate/restore-premium')}
                 >
                   Start Restoring Photos
                 </button>
@@ -187,7 +187,7 @@ export default function RetroDesktop() {
             <div className={styles.quickLaunch}>
               <button 
                 className={styles.quickLaunchIcon}
-                onClick={() => router.push('/replicate/restore-basic')}
+                onClick={() => router.push('/replicate/restore-premium')}
                 title="Photo Restore"
               >
                 🖼️

@@ -88,7 +88,7 @@ const AISuitePage = () => {
       tagline: 'Repair & Restore',
       cardImage: '/images/restore-card.png',
       credits: 1,
-      link: '/replicate/restore-basic',
+      link: '/replicate/restore-premium',
       accent: '#10b981',
       category: 'restore',
       popular: true,

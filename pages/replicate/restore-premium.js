@@ -339,8 +339,8 @@ export default function RestorePage() {
                             onClick={handleReset}
                             className={styles.secondaryButton}
                           >
-                            <span>🔄</span>
-                            Start Over
+                            <span className={styles.buttonIcon}>🔄</span>
+                            <span className={styles.buttonText}>Start Over</span>
                           </button>
                         </div>
                       </div>

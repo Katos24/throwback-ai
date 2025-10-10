@@ -358,6 +358,10 @@
   width: 100%;
 }
 
+.buttonRow.startOverRow {
+  align-items: center;
+}
+
 .restoreButton,
 .primaryButton {
   display: flex;
@@ -373,7 +377,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
+  flex: 1;
 }
 
 .restoreButton:hover,
@@ -404,12 +408,13 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   color: white;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .secondaryButton:hover {
@@ -428,7 +433,39 @@
 }
 
 .secondaryButton span {
-  font-size: 1.1rem;
+  font-size: 1rem;
+}
+
+/* Mobile - Hide text in Start Over button, keep only icon */
+@media (max-width: 768px) {
+  .buttonRow {
+    gap: 0.5rem;
+  }
+
+  .restoreButton,
+  .primaryButton {
+    flex: 1;
+    min-width: 0;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .secondaryButton {
+    padding: 0.875rem;
+    min-width: 50px;
+    width: 50px;
+    flex-shrink: 0;
+    gap: 0;
+  }
+
+  /* Hide "Start Over" text on mobile, keep only emoji */
+  .secondaryButton .buttonText {
+    display: none;
+  }
+
+  .secondaryButton .buttonIcon {
+    font-size: 1.25rem;
+  }
 }
 
 /* Results */

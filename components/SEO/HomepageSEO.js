@@ -16,11 +16,10 @@ const HomepageSEO = ({
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
   const imageUrl = ogImage || "https://throwbackai.app/images/throwback-ai.jpg";
-  const twitterImage = imageUrl;
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 
-  // Structured data for homepage
+  // Unified structured data
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -124,102 +123,64 @@ const HomepageSEO = ({
             }
           ]
         }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${canonicalUrl}#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What makes Throwback AI better than apps like Remini or MyHeritage?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We don't use generic models or push subscriptions. Throwback AI is tailored for historic, sentimental photos and built by people who care about family legacy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it really free to try?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! You get 1 free Photo Fix restoration. If you sign up you will also get an additional 50 credits!"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to my photo after it's restored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It's securely deleted within one hour. We never save, sell, or reuse your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use restored photos commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Once restored, they're yours to print, gift, publish, or share."
+            }
+          }
+        ]
       }
     ]
   };
 
   return (
     <Head>
-      {/* Primary SEO - Combining Restoration + All Decades Content */}
+      {/* Standard SEO + Open Graph tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href={canonicalUrl} />
 
-      {/* Open Graph - Combining Restoration + Decades Content */}
-      <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="Throwback AI" />
-      <meta property="og:title" content="Restore Old Photos & Create 70s 80s 90s 2000s Style Pictures | Throwback AI" />
-      <meta property="og:description" content="Restore family photos, wedding pictures, and vintage memories. Add color to old black and white photos. Create viral 70s, 80s, 90s yearbook photos, and 2000s Y2K transformations with AI in seconds." />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={imageUrl} />
-      <meta property="og:image:alt" content="Before and after examples of restored family photos, colorized black and white pictures, and retro decade style transformations from 70s to 2000s" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:locale" content="en_US" />
-
-      {/* Facebook-specific */}
-      <meta property="fb:pages" content={facebookPageId} />
-      <meta property="article:publisher" content={facebookPageUrl} />
-
-      {/* Twitter - Combining Restoration + Decades Content */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@throwbackai" />
-      <meta name="twitter:creator" content="@throwbackai" />
-      <meta name="twitter:title" content="Restore Old Photos & Create 70s 80s 90s 2000s Style Pictures" />
-      <meta name="twitter:description" content="Restore family photos and vintage memories. Create viral 70s, 80s, 90s yearbook photos, and 2000s Y2K transformations with AI in seconds." />
-      <meta name="twitter:image" content={twitterImage} />
-      <meta name="twitter:image:alt" content="Transform photos with AI - restore old pictures and create retro decade styles from 70s to 2000s" />
-
-      {/* Additional Meta Tags */}
-      <meta name="theme-color" content="#111827" />
-      <meta name="msapplication-TileColor" content="#111827" />
-      <meta name="application-name" content="Throwback AI" />
-      <meta name="apple-mobile-web-app-title" content="Throwback AI" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-      {/* Geo and Language Tags */}
-      <meta name="geo.region" content="US" />
-      <meta name="language" content="English" />
-      <meta httpEquiv="content-language" content="en-US" />
-
-      {/* Content Classification */}
-      <meta name="rating" content="general" />
-      <meta name="content-type" content="text/html; charset=UTF-8" />
-      <meta name="author" content="Throwback AI" />
-      <meta name="publisher" content="Throwback AI" />
-      <meta name="copyright" content="© 2025 Throwback AI" />
-
-      {/* Service-specific meta tags for enhanced discoverability */}
-      <meta name="service-categories" content="photo-restoration,photo-colorization,retro-transformation" />
-      <meta name="target-photos" content="family-photos,wedding-photos,vintage-photos,black-white-photos" />
-      <meta name="decades-available" content="70s,80s,90s,2000s" />
-      <meta name="transformation-styles" content="hippie,disco,neon,grunge,alternative,y2k,emo" />
-      <meta name="target-audience" content="families,millennials,gen-x,gen-z,nostalgia-enthusiasts" />
-
-      {/* Rich Snippets - Structured Data */}
+      {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData)
         }}
       />
-
-      {/* Preload Critical Resources */}
-      <link rel="preload" href="/images/throwback-ai.jpg" as="image" />
-      <link rel="preload" href="/fonts/modern-font.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-
-      {/* DNS Prefetch for External Resources */}
-      <link rel="dns-prefetch" href="//replicate.com" />
-      <link rel="dns-prefetch" href="//supabase.co" />
-      <link rel="dns-prefetch" href="//stripe.com" />
-      
-      {/* Favicon Links */}
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <link rel="manifest" href="/site.webmanifest" />
-
-      {/* Additional SEO Tags */}
-      <meta name="revisit-after" content="7 days" />
-      <meta name="distribution" content="global" />
-      <meta name="target" content="all" />
-      <meta name="HandheldFriendly" content="True" />
-      <meta name="MobileOptimized" content="320" />
     </Head>
   );
 };

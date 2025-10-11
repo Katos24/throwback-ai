@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2>Children's Privacy</h2>
+          <h2>Childrens Privacy</h2>
           <p>
             Our service is intended for use by library patrons of all ages. We do not knowingly 
             collect personal information from children under 13 without parental consent.
@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
             If you have questions about this Privacy Policy or how we handle your data, please contact us at:
           </p>
           <p className={styles.contactInfo}>
-            <strong>Email:</strong> privacy@throwback.ai
+            <strong>Email:</strong> hello@throwbackai.app
           </p>
         </section>
 

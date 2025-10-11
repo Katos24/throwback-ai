@@ -159,7 +159,7 @@ export default function TermsOfService() {
             Questions about these Terms of Service? Contact us at:
           </p>
           <p className={styles.contactInfo}>
-            <strong>Email:</strong> support@throwback.ai
+            <strong>Email:</strong> hello@throwbackai.app
           </p>
         </section>
 

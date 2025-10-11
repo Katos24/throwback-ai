@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
@@ -591,9 +592,9 @@ export default function LibraryPortal() {
             Powered by <a href="https://throwback.ai">Throwback AI</a>
         </p>
         <div className={styles.legalLinks}>
-            <a href="/library/privacy">Privacy Policy</a>
+            <Link href="/library/privacy">Privacy Policy</Link>
             <span>•</span>
-            <a href="/library/terms">Terms of Service</a>
+            <Link href="/library/terms">Terms of Service</Link>
         </div>
         </footer>
       </main>

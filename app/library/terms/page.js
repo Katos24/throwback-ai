@@ -49,7 +49,7 @@ export default function TermsOfService() {
           
           <h3>You may NOT:</h3>
           <ul>
-            <li>❌ Upload photos you don't have rights to</li>
+            <li>❌ Upload photos you don&apos;t have rights to</li>
             <li>❌ Upload illegal, offensive, or inappropriate content</li>
             <li>❌ Attempt to abuse, exploit, or overload the service</li>
             <li>❌ Use the service for commercial purposes</li>
@@ -105,7 +105,7 @@ export default function TermsOfService() {
           <h2>Disclaimer of Warranties</h2>
           <div className={styles.disclaimer}>
             <p>
-              THIS SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. 
+              THIS SERVICE IS PROVIDED &quot;AS IS&quot; WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. 
               We do not warrant that the service will be error-free, secure, or meet your specific 
               requirements.
             </p>

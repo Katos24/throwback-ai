@@ -4,6 +4,7 @@
 
 import React from 'react';
 import styles from '../legal.module.css';
+import Link from 'next/link';
 
 export default function TermsOfService() {
   return (
@@ -132,9 +133,11 @@ export default function TermsOfService() {
         <section>
           <h2>Privacy</h2>
           <p>
-            Your use of this service is also governed by our <a href="/library/privacy">Privacy Policy</a>. 
-            Please review it to understand how we handle your data.
-          </p>
+          Your use of this service is also governed by our{" "}
+          <Link href="/library/privacy" className={styles.link}>
+            Privacy Policy
+          </Link>. Please review it to understand how we handle your data.
+        </p>
         </section>
 
         <section>

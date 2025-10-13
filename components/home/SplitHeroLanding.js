@@ -3,91 +3,62 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../../styles/SplitHeroLanding.module.css';
 
-// Hero card data
-const HERO_CARDS = [
-  {
-    id: 'decades',
-    type: 'viral',
-    badge: '🔥 TRENDING NOW',
-    badgeClass: 'trendingBadge',
-    title: 'Create Viral',
-    titleSecond: '90s Photos',
-    description: 'Transform your selfie into authentic 70s, 80s, 90s, or 2000s yearbook photos. Perfect for Instagram, TikTok, and reliving the decades.',
-    link: '/decades',
-    combinedImage: '/images/decades-before-after-combined.jpg',
-    beforeLabel: 'Today',
-    afterLabel: '1995',
-    tags: [
-      { emoji: '📼', label: '90s' },
-      { emoji: '🎸', label: '80s' },
-      { emoji: '✌️', label: '70s' },
-      { emoji: '💿', label: '2000s' }
-    ],
-    features: [
-      'Multiple decade styles per credit',
-      'Authentic yearbook aesthetics',
-      'Social media ready in 45 seconds',    ],
-    buttonText: 'Try 90s AI Free →',
-    buttonClass: 'viralButton',
-    credits: '50',
-    processingTime: '⚡ 45 seconds'
-  },
-  {
+// Primary hero card (full width)
+const PRIMARY_HERO = {
   id: 'restore',
   type: 'restore',
-  badge: '🏆 PROVEN QUALITY',
+  badge: '🏆 PROFESSIONAL QUALITY',
   badgeClass: 'qualityBadge',
-  title: 'Restore Family',
-  titleSecond: 'Memories',
-  description: 'Repair damage and add color to vintage photos. Choose Quick Repair (1 credit) or Premium Colorization (40 credits) on one easy page.',
-  link: '/replicate/restore-premium', // ✅ Updated to unified page
+  title: 'Restore Your Family Memories',
+  description: 'Repair damage, enhance clarity, and add color to vintage photos. Professional AI restoration that brings your family history back to life.',
+  link: '/replicate/restore-premium',
   combinedImage: '/images/restore-before-after-combined.jpg',
   beforeLabel: 'Before',
   afterLabel: 'After',
   tags: [
-    { emoji: '⚡', label: '1 Credit' },
-    { emoji: '🎨', label: '40 Credits' },
-    { emoji: '✨', label: 'Choose Level' }
+    { emoji: '⚡', label: 'Quick Repair (1 credit)' },
+    { emoji: '🎨', label: 'Premium Colorization (40 credits)' },
   ],
   features: [
-    'Quick Repair: Fix scratches & damage (1 credit)',
-    'Premium: Studio colorization (40 credits)',
-    'Choose your enhancement level on upload',
+    'Fix scratches, tears, and damage',
+    'Enhance faded or blurry photos',
+    'Add realistic color to black & white',
+    'Choose your enhancement level'
   ],
-  buttonText: 'Restore Photos Free →',
+  buttonText: 'Start Restoring Free →',
   buttonClass: 'restoreButton',
-  credits: '1-40', // ✅ Keep this to show range
+  credits: '1-40',
   processingTime: '⚡ 10-90 seconds'
-}
-];
+};
 
-// Halloween Special Card Data
-const HALLOWEEN_CARD = {
-  id: 'halloween',
-  type: 'halloween',
-  badge: '🎃 LIMITED TIME',
-  badgeClass: 'halloweenBadge',
-  title: 'Halloween Face Swap',
-  description: 'Swap your face into spooky Halloween scenes. Perfect for social media this October!',
-  link: '/replicate/halloween',
-  combinedImage: '/images/halloween-before-after-combined.jpg',
-  beforeLabel: 'Your Photo',
-  afterLabel: 'Spooky!',
+// Secondary feature (decade transformations)
+const SECONDARY_FEATURE = {
+  id: 'decades',
+  type: 'viral',
+  badge: '🔥 TRENDING',
+  badgeClass: 'trendingBadge',
+  title: 'Or Travel Back in Time',
+  description: 'Transform your photo into authentic 70s, 80s, 90s, or 2000s yearbook styles. Perfect for social media and nostalgia.',
+  link: '/decades',
+  combinedImage: '/images/decades-before-after-combined.jpg',
+  beforeLabel: 'Today',
+  afterLabel: '1995',
   tags: [
-    { emoji: '🎃', label: 'Scary' },
-    { emoji: '👻', label: 'Ghostly' },
-    { emoji: '🦇', label: 'Spooky' }
+    { emoji: '📼', label: '90s' },
+    { emoji: '🎸', label: '80s' },
+    { emoji: '✌️', label: '70s' },
+    { emoji: '💿', label: '2000s' }
   ],
-  buttonText: 'Try Halloween Swap →',
-  buttonClass: 'halloweenButton',
+  buttonText: 'Try 90s AI Free →',
+  buttonClass: 'viralButton',
   credits: '50',
   processingTime: '⚡ 45 seconds'
 };
 
-// Memoized Hero Card Component
-const HeroCard = React.memo(({ card, onNavigate }) => (
+// Primary Hero Card Component (Full Width)
+const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
   <div 
-    className={`${styles.heroCard} ${styles[card.type]}`}
+    className={`${styles.primaryHeroCard} ${styles[card.type]}`}
     onClick={() => onNavigate(card.link, card.id)}
     role="button"
     tabIndex={0}
@@ -97,190 +68,162 @@ const HeroCard = React.memo(({ card, onNavigate }) => (
       }
     }}
   >
-    <div className={styles.heroHeader}>
-  <h2 className={styles.heroTitle}>
-    {card.title}{card.titleSecond && <><br />{card.titleSecond}</>}
-  </h2>
-  <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
-    {card.badge}
-  </div>
-</div>
-
-    
-    
-    {/* Before/After Image */}
-    <div className={styles.heroImage}>
-      <div className={styles.combinedImageContainer}>
-        {card.combinedImage ? (
-          <Image
-            src={card.combinedImage}
-            alt={`${card.title} - Before and After comparison`}
-            fill
-            className={styles.combinedImage}
-            sizes="(max-width: 768px) 100vw, 45vw"
-            quality={75}
-            priority={card.id === 'decades'}
-          />
-        ) : (
-          <div className={styles.placeholder}>Before/After Preview</div>
+    <div className={styles.primaryHeroContent}>
+      {/* Left Side: Text Content */}
+      <div className={styles.primaryHeroText}>
+        <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
+          {card.badge}
+        </div>
+        
+        <h2 className={styles.primaryHeroTitle}>{card.title}</h2>
+        <p className={styles.primaryHeroDescription}>{card.description}</p>
+        
+        {/* Features List */}
+        {card.features && (
+          <ul className={styles.primaryFeatureList}>
+            {card.features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
         )}
-        <div className={styles.splitLine}></div>
-        <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
-          {card.beforeLabel}
-        </span>
-        <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
-          {card.afterLabel}
-        </span>
-      </div>
-    </div>
-
-        <p className={styles.heroDescription}>{card.description}</p>
-    
-    {/* Tags */}
-    <div className={styles.tags}>
-      {card.tags.map((tag, index) => (
-        <span key={index} className={styles.tag}>
-          {tag.emoji} {tag.label}
-        </span>
-      ))}
-    </div>
-    
-    {/* Features List (if exists) */}
-    {card.features && (
-      <ul className={styles.featureList}>
-        {card.features.map((feature, index) => (
-          <li key={index}>{feature}</li>
-        ))}
-      </ul>
-    )}
-    
-    {/* CTA Button */}
-    <div className={styles.heroCta}>
-      <button className={`${styles.btnPrimary} ${styles[card.buttonClass]}`}>
-        {card.buttonText}
-      </button>
-    </div>
-    
-    {/* Meta Info */}
-    <div className={styles.heroMeta}>
-      <div className={styles.credits}>
-        <strong>{card.credits}</strong> credits
-      </div>
-      <div className={styles.processingTime}>{card.processingTime}</div>
-    </div>
-  </div>
-));
-
-HeroCard.displayName = 'HeroCard';
-
-// Halloween Special Card Component
-const HalloweenSpecialCard = React.memo(({ onNavigate }) => (
-  <div className={styles.halloweenSpecialWrapper}>
-    <div 
-      className={styles.halloweenSpecialCard}
-      onClick={() => onNavigate(HALLOWEEN_CARD.link, HALLOWEEN_CARD.id)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          onNavigate(HALLOWEEN_CARD.link, HALLOWEEN_CARD.id);
-        }
-      }}
-    >
-      {/* Floating Halloween Emojis */}
-      <div className={styles.halloweenFloatingEmojis}>
-        {['🎃', '👻', '🦇', '🕷️', '💀'].map((emoji, i) => (
-          <span 
-            key={i}
-            className={styles.halloweenFloatingEmoji}
-            style={{
-              left: `${10 + i * 20}%`,
-              animationDelay: `${i * 0.5}s`
-            }}
-          >
-            {emoji}
-          </span>
-        ))}
-      </div>
-
-      <div className={styles.halloweenContent}>
-        <div className={styles[HALLOWEEN_CARD.badgeClass]}>
-          {HALLOWEEN_CARD.badge}
-        </div>
         
-        <h3 className={styles.halloweenTitle}>
-          <span className={styles.halloweenIcon}>🎃</span>
-          {HALLOWEEN_CARD.title}
-          <span className={styles.halloweenIcon}>👻</span>
-        </h3>
-        
-        <p className={styles.halloweenDescription}>
-          {HALLOWEEN_CARD.description}
-        </p>
-
-        {/* Before/After Image */}
-        <div className={styles.halloweenImage}>
-          <div className={styles.combinedImageContainer}>
-            {HALLOWEEN_CARD.combinedImage ? (
-              <Image
-                src={HALLOWEEN_CARD.combinedImage}
-                alt={`${HALLOWEEN_CARD.title} - Before and After comparison`}
-                fill
-                className={styles.combinedImage}
-                sizes="(max-width: 768px) 100vw, 600px"
-                quality={75}
-              />
-            ) : (
-              <div className={styles.placeholder}>Halloween Preview</div>
-            )}
-            <div className={styles.splitLine}></div>
-            <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
-              {HALLOWEEN_CARD.beforeLabel}
-            </span>
-            <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
-              {HALLOWEEN_CARD.afterLabel}
-            </span>
-          </div>
-        </div>
-
         {/* Tags */}
-        <div className={styles.halloweenTags}>
-          {HALLOWEEN_CARD.tags.map((tag, index) => (
-            <span key={index} className={styles.halloweenTag}>
+        <div className={styles.tags}>
+          {card.tags.map((tag, index) => (
+            <span key={index} className={styles.tag}>
               {tag.emoji} {tag.label}
             </span>
           ))}
         </div>
-
-        {/* CTA */}
-        <div className={styles.halloweenCta}>
-          <button className={`${styles.btnPrimary} ${styles[HALLOWEEN_CARD.buttonClass]}`}>
-            {HALLOWEEN_CARD.buttonText}
+        
+        {/* CTA Button */}
+        <div className={styles.primaryHeroCta}>
+          <button className={`${styles.btnPrimary} ${styles[card.buttonClass]}`}>
+            {card.buttonText}
           </button>
+          
+          <div className={styles.primaryHeroMeta}>
+            <span className={styles.credits}>
+              <strong>{card.credits}</strong> credits
+            </span>
+            <span className={styles.processingTime}>{card.processingTime}</span>
+          </div>
         </div>
-
-        {/* Meta */}
-        <div className={styles.halloweenMeta}>
-          <div className={styles.credits}>
-            <strong>{HALLOWEEN_CARD.credits}</strong> credits
-          </div>
-          <div className={styles.processingTime}>
-            {HALLOWEEN_CARD.processingTime}
-          </div>
+      </div>
+      
+      {/* Right Side: Before/After Image */}
+      <div className={styles.primaryHeroImage}>
+        <div className={styles.combinedImageContainer}>
+          {card.combinedImage ? (
+            <Image
+              src={card.combinedImage}
+              alt={`${card.title} - Before and After comparison`}
+              fill
+              className={styles.combinedImage}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={85}
+              priority={true}
+            />
+          ) : (
+            <div className={styles.placeholder}>Before/After Preview</div>
+          )}
+          <div className={styles.splitLine}></div>
+          <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
+            {card.beforeLabel}
+          </span>
+          <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
+            {card.afterLabel}
+          </span>
         </div>
       </div>
     </div>
   </div>
 ));
 
-HalloweenSpecialCard.displayName = 'HalloweenSpecialCard';
+PrimaryHeroCard.displayName = 'PrimaryHeroCard';
+
+// Secondary Feature Card Component (Smaller, Less Prominent)
+const SecondaryFeatureCard = React.memo(({ card, onNavigate }) => (
+  <div className={styles.secondaryFeatureSection}>
+    <div className={styles.secondaryFeatureHeader}>
+      <h3 className={styles.secondaryFeatureTitle}>{card.title}</h3>
+      <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
+        {card.badge}
+      </div>
+    </div>
+    
+    <div 
+      className={`${styles.secondaryFeatureCard} ${styles[card.type]}`}
+      onClick={() => onNavigate(card.link, card.id)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onNavigate(card.link, card.id);
+        }
+      }}
+    >
+      {/* Before/After Image */}
+      <div className={styles.secondaryFeatureImage}>
+        <div className={styles.combinedImageContainer}>
+          {card.combinedImage ? (
+            <Image
+              src={card.combinedImage}
+              alt={`${card.title} - Before and After comparison`}
+              fill
+              className={styles.combinedImage}
+              sizes="(max-width: 768px) 100vw, 600px"
+              quality={75}
+            />
+          ) : (
+            <div className={styles.placeholder}>Before/After Preview</div>
+          )}
+          <div className={styles.splitLine}></div>
+          <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
+            {card.beforeLabel}
+          </span>
+          <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
+            {card.afterLabel}
+          </span>
+        </div>
+      </div>
+      
+      <p className={styles.secondaryFeatureDescription}>{card.description}</p>
+      
+      {/* Tags */}
+      <div className={styles.secondaryTags}>
+        {card.tags.map((tag, index) => (
+          <span key={index} className={styles.tag}>
+            {tag.emoji} {tag.label}
+          </span>
+        ))}
+      </div>
+      
+      {/* CTA */}
+      <div className={styles.secondaryFeatureCta}>
+        <button className={`${styles.btnSecondary} ${styles[card.buttonClass]}`}>
+          {card.buttonText}
+        </button>
+        
+        <div className={styles.secondaryFeatureMeta}>
+          <span className={styles.credits}>
+            <strong>{card.credits}</strong> credits
+          </span>
+          <span className={styles.processingTime}>{card.processingTime}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
+SecondaryFeatureCard.displayName = 'SecondaryFeatureCard';
 
 export default function SplitHeroLanding() {
   const router = useRouter();
 
   // Optimized navigation with tracking
   const handleNavigation = useCallback((href, cardId) => {
-    // Track which card was clicked (Google Analytics, etc.)
+    // Track which card was clicked
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'hero_card_click', {
         card_type: cardId,
@@ -288,7 +231,6 @@ export default function SplitHeroLanding() {
       });
     }
     
-    // Log for debugging
     console.log(`Hero card clicked: ${cardId} -> ${href}`);
     
     // Force scroll to top
@@ -320,9 +262,9 @@ export default function SplitHeroLanding() {
 
         {/* Top Header */}
         <div className={styles.topHeader}>
-         <h1 className={styles.mainTitle}>Restore Your Family Legacy</h1>
+          <h1 className={styles.mainTitle}>Bring Your Family History Back to Life</h1>
           <p className={styles.mainSubtitle}>
-            Transform damaged, faded, and black & white photos into vibrant memories. Or step into any decade with AI time travel. Instant results, museum quality.
+            Professional AI restoration for damaged, faded, and black & white photos. Museum-quality results in seconds.
           </p>
                     
           {/* Signup Banner */}
@@ -330,32 +272,37 @@ export default function SplitHeroLanding() {
             <div className={styles.bannerText}>
               <strong>Sign up free - Get 50 credits</strong>
               <span className={styles.bannerSubtext}>
-                Try both features at no cost
+                Try restoration at no cost
               </span>
             </div>
           </div>
         </div>
 
-        {/* Split Hero Cards */}
-        <div className={styles.splitHero}>
-          {HERO_CARDS.map((card) => (
-            <HeroCard
-              key={card.id}
-              card={card}
-              onNavigate={handleNavigation}
-            />
-          ))}
+        {/* Primary Hero Card - RESTORATION (Full Width, Prominent) */}
+        <PrimaryHeroCard
+          card={PRIMARY_HERO}
+          onNavigate={handleNavigation}
+        />
+
+        {/* Divider */}
+        <div className={styles.featureDivider}>
+          <span className={styles.dividerLine}></span>
+          <span className={styles.dividerText}>Also Available</span>
+          <span className={styles.dividerLine}></span>
         </div>
 
-        {/* Halloween Special Card */}
-        <HalloweenSpecialCard onNavigate={handleNavigation} />
+        {/* Secondary Feature Card - DECADES (Smaller, Less Prominent) */}
+        <SecondaryFeatureCard
+          card={SECONDARY_FEATURE}
+          onNavigate={handleNavigation}
+        />
 
         {/* Social Proof */}
         <div className={styles.socialProof}>
           <div className={styles.socialProofStats}>
             <div className={styles.stat}>
-              <div className={styles.statNumber}>45 sec</div>
-              <div className={styles.statLabel}>Average Processing</div>
+              <div className={styles.statNumber}>10-90 sec</div>
+              <div className={styles.statLabel}>Processing Time</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statNumber}>4.9★</div>

@@ -70,6 +70,8 @@ export default function LibraryPortal() {
     fetchShowcaseExamples();
   }, [library]);
 
+
+
   async function fetchLibraryData() {
     try {
       const { data, error } = await supabase
@@ -249,25 +251,33 @@ export default function LibraryPortal() {
   };
 
   const handleDownload = async () => {
-    if (!restoredImage) return;
+  if (!restoredImage) return;
 
-    try {
-      const response = await fetch(restoredImage);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${library.name.replace(/\s+/g, '-')}-restored-${Date.now()}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  try {
+    const response = await fetch(restoredImage);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${library.name.replace(/\s+/g, '-')}-restored-${Date.now()}.jpg`;
+    
+    document.body.appendChild(link);
+    link.click();
+    
+    // Safe cleanup with timeout and parent check
+    setTimeout(() => {
+      if (link.parentNode) {
+        document.body.removeChild(link);
+      }
       window.URL.revokeObjectURL(url);
-      showToast('Photo downloaded successfully!', 'success');
-    } catch (error) {
-      console.error('Download error:', error);
-      showToast('Download failed. Please try again.', 'error');
-    }
-  };
+    }, 100);
+    
+    showToast('Photo downloaded successfully!', 'success');
+  } catch (error) {
+    console.error('Download error:', error);
+    showToast('Download failed. Please try again.', 'error');
+  }
+};
 
   const handleReset = () => {
     setSelectedImage(null);
@@ -328,7 +338,7 @@ export default function LibraryPortal() {
           <div className={styles.zipGate}>
             <h2>Welcome!</h2>
             <p>This free service is available to {library.name} district residents.</p>
-            
+
             <form onSubmit={handleZipSubmit}>
               <label>Enter your zip code:</label>
               <div className={styles.zipInputGroup}>
@@ -378,11 +388,14 @@ export default function LibraryPortal() {
         </div>
       </header>
 
+          {/* Welcome */}
       <main className={styles.main}>
-        <div className={styles.welcome}>
-          <h2>Restore Your Family Photos</h2>
-          <p>Upload old, damaged, or black & white photos - completely free for residents</p>
-        </div>
+  <div className={styles.welcome}>
+    <h2>Restore Your Family Photos</h2>
+    <p>Upload old, damaged, or black & white photos - completely free for residents</p>
+  </div>
+
+
 
         <div className={styles.uploadCard}>
           <h2 className={styles.sectionTitle}>
@@ -517,6 +530,8 @@ export default function LibraryPortal() {
                 </button>
               </div>
 
+              
+
               <div className={styles.enhanceAgain}>
                 <button 
                     onClick={handleUseRestoredImage} 
@@ -541,6 +556,8 @@ export default function LibraryPortal() {
           </div>
         </div>
 
+
+    {/* How It Works */}
         <HowItWorks />
 
         {showcaseExamples.length > 0 && (
@@ -562,6 +579,24 @@ export default function LibraryPortal() {
           </div>
         )}
 
+          {/* FAQ */}
+        <div className={styles.faq}>
+        <h2>Frequently Asked Questions</h2>
+        <details className={styles.faqItem}>
+          <summary>Is this really free for residents?</summary>
+          <p>Yes! Completely free thanks to {library.name}.</p>
+        </details>
+        <details className={styles.faqItem}>
+          <summary>What happens to my photos?</summary>
+          <p>Photos are processed securely and never stored permanently.</p>
+        </details>
+        <details className={styles.faqItem}>
+          <summary>Can I restore multiple photos?</summary>
+          <p>Yes! You can restore as many photos as you'd like.</p>
+        </details>
+      </div>
+
+        {/* Trust Section */}
         <div className={styles.trust}>
           <div className={styles.trustItem}>
             <span>🔒</span>
@@ -586,10 +621,17 @@ export default function LibraryPortal() {
           </div>
         </div>
 
+        {/* Accessibility Info */}
+      <div className={styles.accessibility}>
+      <h3>♿ Accessibility</h3>
+      <p>Need help using this service? Visit the reference desk or call us at {library.phone}</p>
+    </div>
+
+        {/* Footer */}
        <footer className={styles.footer}>
         <p>Provided by {library.name}</p>
         <p>
-            Powered by <a href="https://throwback.ai">Throwback AI</a>
+            Powered by <a href="https://throwbackai.app">Throwback AI</a>
         </p>
         <div className={styles.legalLinks}>
             <Link href="/library/privacy">Privacy Policy</Link>

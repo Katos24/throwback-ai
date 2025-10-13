@@ -263,152 +263,179 @@ export default async function handler(req, res) {
     }
 
     // 8. DEDUCT CREDITS (only after success, only for premium)
-    if (CREDIT_COST > 0) {
-      const { error: updateError } = await supabaseAdmin
-        .from('libraries')
-        .update({ 
-          credits_used: library.credits_used + CREDIT_COST,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', library.id);
+if (CREDIT_COST > 0) {
+  const { error: updateError } = await supabaseAdmin
+    .from('libraries')
+    .update({ 
+      credits_used: library.credits_used + CREDIT_COST,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', library.id);
 
-      if (updateError) {
-        console.error("❌ Failed to deduct credits:", updateError);
-        throw new Error("Failed to deduct credits");
-      }
-
-      creditsDeducted = true;
-      console.log(`✅ Deducted ${CREDIT_COST} credits from ${library.name}`);
-    } else {
-      console.log(`✅ Basic restoration - FREE (no credits deducted)`);
-    }
-
-    const endTime = Date.now();
-    const totalTime = endTime - startTime;
-
-    console.log(`🎉 SUCCESS - ${restoreType} restoration completed in ${totalTime}ms`);
-
-    // Log successful request to library_requests table
-    try {
-      const { error: logError } = await supabaseAdmin
-        .from('library_requests')
-        .insert({
-          library_id: library.id,
-          restore_type: restoreType,
-          status: 'succeeded',
-          credits_used: CREDIT_COST,
-          processing_duration_ms: totalTime,
-          ip_address: ipAddress
-        });
-
-      if (logError) {
-        console.error('⚠️ Failed to log request:', logError);
-        // Don't fail the request if logging fails
-      } else {
-        console.log(`✅ Logged ${restoreType} restoration for ${library.name}`);
-      }
-    } catch (logErr) {
-      console.error('⚠️ Error logging request:', logErr);
-    }
-
-    return res.status(200).json({ 
-      restoredImage: imageUrl,
-      restoreType,
-      creditsUsed: CREDIT_COST,
-      creditsRemaining: creditsRemaining - CREDIT_COST,
-      processingTimeMs: totalTime,
-      libraryName: library.name
-    });
-
-  } catch (error) {
-    const endTime = Date.now();
-    const totalTime = endTime - startTime;
-    
-    console.error("❌ ERROR:", {
-      library: library?.name || 'unknown',
-      predictionId,
-      creditsDeducted,
-      restoreType,
-      message: error.message,
-      totalTime: `${totalTime}ms`
-    });
-
-    // REFUND CREDITS on failure (if they were deducted)
-    if (creditsDeducted && library) {
-      try {
-        const { error: refundError } = await supabaseAdmin
-          .from('libraries')
-          .update({ 
-            credits_used: library.credits_used, // Reset to original value
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', library.id);
-
-        if (refundError) {
-          console.error("⚠️ CRITICAL: Failed to refund credits:", refundError);
-        } else {
-          console.log(`✅ Refunded ${restoreType === 'premium' ? 40 : 0} credits to ${library.name}`);
-        }
-      } catch (refundErr) {
-        console.error("⚠️ CRITICAL: Error during refund:", refundErr);
-      }
-    }
-
-    // Cancel prediction if it exists
-    if (predictionId) {
-      try {
-        await replicate.predictions.cancel(predictionId);
-        console.log("🛑 Cancelled prediction:", predictionId);
-      } catch (cancelErr) {
-        console.log("Failed to cancel:", cancelErr.message);
-      }
-    }
-
-    // Log failed request to library_requests table
-    if (library) {
-      try {
-        const { error: logError } = await supabaseAdmin
-          .from('library_requests')
-          .insert({
-            library_id: library.id,
-            restore_type: restoreType,
-            status: 'failed',
-            credits_used: 0, // No credits charged on failure
-            processing_duration_ms: totalTime,
-            ip_address: ipAddress,
-            error_message: error.message
-          });
-
-        if (logError) {
-          console.error('⚠️ Failed to log error:', logError);
-        }
-      } catch (logErr) {
-        console.error('⚠️ Error logging failed request:', logErr);
-      }
-    }
-
-    // Handle specific errors
-    if (error.message.includes('timed out') || error.message.includes('cancelled')) {
-      return res.status(408).json({ 
-        error: `Request timed out. Please try again with a smaller image.`,
-        creditsRefunded: creditsDeducted,
-        restoreType
-      });
-    }
-
-    if (error.message.includes('out of credits')) {
-      return res.status(403).json({ 
-        error: "Library out of credits",
-        creditsRemaining: library ? library.monthly_credits - library.credits_used : 0,
-        resetDate: library?.credits_reset_date
-      });
-    }
-
-    return res.status(500).json({ 
-      error: error.message || "Failed to restore image",
-      details: predictionId ? `Prediction ID: ${predictionId}` : "Failed to create prediction",
-      creditsRefunded: creditsDeducted,
-      restoreType
-    });
+  if (updateError) {
+    console.error("❌ Failed to deduct credits:", updateError);
+    throw new Error("Failed to deduct credits");
   }
+
+  creditsDeducted = true;
+  console.log(`✅ Deducted ${CREDIT_COST} credits from ${library.name}`);
+} else {
+  console.log(`✅ Basic restoration - FREE (no credits deducted)`);
+}
+
+// 9. LOG RESTORATION TO STATS TABLE
+try {
+  const { error: statsError } = await supabaseAdmin
+    .from('library_restorations')
+    .insert({
+      library_id: library.id,
+      restoration_type: restoreType,
+      credits_used: CREDIT_COST,
+    });
+
+  if (statsError) {
+    console.error('⚠️ Failed to log restoration stats:', statsError);
+  } else {
+    console.log(`📊 Logged ${restoreType} restoration to stats`);
+    
+    // Update total restorations count (cached for performance)
+    await supabaseAdmin
+      .from('libraries')
+      .update({ 
+        total_restorations: (library.total_restorations || 0) + 1
+      })
+      .eq('id', library.id);
+  }
+} catch (statsErr) {
+  console.error('⚠️ Error logging stats:', statsErr);
+}
+
+const endTime = Date.now();
+const totalTime = endTime - startTime;
+
+console.log(`🎉 SUCCESS - ${restoreType} restoration completed in ${totalTime}ms`);
+
+// Log successful request to library_requests table
+try {
+  const { error: logError } = await supabaseAdmin
+    .from('library_requests')
+    .insert({
+      library_id: library.id,
+      restore_type: restoreType,
+      status: 'succeeded',
+      credits_used: CREDIT_COST,
+      processing_duration_ms: totalTime,
+      ip_address: ipAddress
+    });
+
+  if (logError) {
+    console.error('⚠️ Failed to log request:', logError);
+    // Don't fail the request if logging fails
+  } else {
+    console.log(`✅ Logged ${restoreType} restoration for ${library.name}`);
+  }
+} catch (logErr) {
+  console.error('⚠️ Error logging request:', logErr);
+}
+
+return res.status(200).json({ 
+  restoredImage: imageUrl,
+  restoreType,
+  creditsUsed: CREDIT_COST,
+  creditsRemaining: creditsRemaining - CREDIT_COST,
+  processingTimeMs: totalTime,
+  libraryName: library.name
+});
+
+} catch (error) {
+const endTime = Date.now();
+const totalTime = endTime - startTime;
+
+console.error("❌ ERROR:", {
+  library: library?.name || 'unknown',
+  predictionId,
+  creditsDeducted,
+  restoreType,
+  message: error.message,
+  totalTime: `${totalTime}ms`
+});
+
+// REFUND CREDITS on failure (if they were deducted)
+if (creditsDeducted && library) {
+  try {
+    const { error: refundError } = await supabaseAdmin
+      .from('libraries')
+      .update({ 
+        credits_used: library.credits_used, // Reset to original value
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', library.id);
+
+    if (refundError) {
+      console.error("⚠️ CRITICAL: Failed to refund credits:", refundError);
+    } else {
+      console.log(`✅ Refunded ${restoreType === 'premium' ? 40 : 0} credits to ${library.name}`);
+    }
+  } catch (refundErr) {
+    console.error("⚠️ CRITICAL: Error during refund:", refundErr);
+  }
+}
+
+// Cancel prediction if it exists
+if (predictionId) {
+  try {
+    await replicate.predictions.cancel(predictionId);
+    console.log("🛑 Cancelled prediction:", predictionId);
+  } catch (cancelErr) {
+    console.log("Failed to cancel:", cancelErr.message);
+  }
+}
+
+// Log failed request to library_requests table
+if (library) {
+  try {
+    const { error: logError } = await supabaseAdmin
+      .from('library_requests')
+      .insert({
+        library_id: library.id,
+        restore_type: restoreType,
+        status: 'failed',
+        credits_used: 0, // No credits charged on failure
+        processing_duration_ms: totalTime,
+        ip_address: ipAddress,
+        error_message: error.message
+      });
+
+    if (logError) {
+      console.error('⚠️ Failed to log error:', logError);
+    }
+  } catch (logErr) {
+    console.error('⚠️ Error logging failed request:', logErr);
+  }
+}
+
+// Handle specific errors
+if (error.message.includes('timed out') || error.message.includes('cancelled')) {
+  return res.status(408).json({ 
+    error: `Request timed out. Please try again with a smaller image.`,
+    creditsRefunded: creditsDeducted,
+    restoreType
+  });
+}
+
+if (error.message.includes('out of credits')) {
+  return res.status(403).json({ 
+    error: "Library out of credits",
+    creditsRemaining: library ? library.monthly_credits - library.credits_used : 0,
+    resetDate: library?.credits_reset_date
+  });
+}
+
+return res.status(500).json({ 
+  error: error.message || "Failed to restore image",
+  details: predictionId ? `Prediction ID: ${predictionId}` : "Failed to create prediction",
+  creditsRefunded: creditsDeducted,
+  restoreType
+});
+}
 }

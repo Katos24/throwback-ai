@@ -713,6 +713,168 @@
   }
 }
 
+.faq {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.faqItem {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1.25rem 0;
+  transition: all 0.2s ease;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.faqItem summary {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  padding-right: 2rem;
+  position: relative;
+  list-style: none;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+/* Remove default marker */
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom arrow */
+.faqItem summary::after {
+  content: '▼';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.3s ease;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.faqItem[open] summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.faqItem summary:hover {
+  color: #2563eb;
+}
+
+.faqItem summary:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.faqItem p {
+  margin-top: 1rem;
+  padding-left: 0.5rem;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effect on entire item */
+.faqItem:hover {
+  background: #f9fafb;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 8px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .faq {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .faq h2 {
+    font-size: 1.5rem;
+  }
+
+  .faqItem summary {
+    font-size: 1rem;
+  }
+
+  .faqItem p {
+    font-size: 0.9375rem;
+  }
+}
+
+
+/* accessibility */
+.accessibility {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+}
+
+.accessibility h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.accessibility p {
+  font-size: 1rem;
+  color: #1e3a8a;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .accessibility {
+    margin: 1.5rem 1rem;
+    padding: 1.25rem;
+  }
+
+  .accessibility h3 {
+    font-size: 1.125rem;
+  }
+
+  .accessibility p {
+    font-size: 0.9375rem;
+  }
+}
 
 /* Keyboard Focus Styles */
 .primaryBtn:focus-visible,

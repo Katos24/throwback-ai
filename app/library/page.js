@@ -20,7 +20,7 @@ return (
     <div className={styles.heroContent}>
       <span className={styles.badge}>For Public Libraries</span>
       <h1>Offer Professional Photo Restoration as a Library Service</h1>
-      <p>Transform your library into a digital preservation hub. Provide free AI-powered photo restoration to your community—fully branded with your library's identity.</p>
+      <p>Transform your library into a digital preservation hub. Provide free AI-powered photo restoration to your community—fully branded with your library&apos;s identity.</p>
       
       <div className={styles.heroButtons}>
         <Link href="/library/demo" className={styles.primaryBtn}>
@@ -67,13 +67,13 @@ return (
       <div className={styles.step}>
         <div className={styles.stepNumber}>3</div>
         <h3>Patrons Access Your Portal</h3>
-        <p>Community members upload photos and receive professional restorations—all under your library's name. No accounts required.</p>
+        <p>Community members upload photos and receive professional restorations—all under your library&apos;s name. No accounts required.</p>
       </div>
 
       <div className={styles.step}>
         <div className={styles.stepNumber}>4</div>
         <h3>Track Engagement</h3>
-        <p>View usage analytics and showcase success stories to strengthen your library's role in digital preservation.</p>
+        <p>View usage analytics and showcase success stories to strengthen your library&apos;s role in digital preservation.</p>
       </div>
     </div>
   </section>
@@ -91,7 +91,7 @@ return (
       <div className={styles.feature}>
         <div className={styles.featureIcon}>🎨</div>
         <h3>True White-Label</h3>
-        <p>Your branding everywhere. Patrons never see Throwback AI—only your library's name and logo.</p>
+        <p>Your branding everywhere. Patrons never see Throwback AI—only your library&apos;s name and logo.</p>
       </div>
 
       <div className={styles.feature}>
@@ -155,8 +155,8 @@ return (
   {/* Demo Portal */}
   <section className={styles.demo} id="demo-portal">
     <h2>See It In Action</h2>
-    <p>Here's what a library portal looks like:</p>
-    
+    <p>Here&apos;s what a library portal looks like:</p>
+
     <div className={styles.demoFrame}>
       <div className={styles.browserBar}>
         <div className={styles.browserDots}>
@@ -188,8 +188,8 @@ return (
       </details>
 
       <details className={styles.faqItem}>
-        <summary>What's the setup process?</summary>
-        <p>After you subscribe, you'll fill out a simple form with your library info (name, logo, zip codes, colors). We set up your portal within 24-48 hours and send you the link.</p>
+        <summary>What&apos;s the setup process?</summary>
+        <p>After you subscribe, you&apos;ll fill out a simple form with your library info (name, logo, zip codes, colors). We set up your portal within 24-48 hours and send you the link.</p>
       </details>
 
       <details className={styles.faqItem}>
@@ -224,7 +224,7 @@ return (
 
       <details className={styles.faqItem}>
         <summary>How do we cancel?</summary>
-        <p>Email us anytime at support@throwbackai.app. We'll process cancellations within 1 business day.</p>
+        <p>Email us anytime at hello@throwbackai.app. We&apos;ll process cancellations within 1 business day.</p>
       </details>
 
       <details className={styles.faqItem}>

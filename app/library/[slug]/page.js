@@ -592,7 +592,7 @@ export default function LibraryPortal() {
         </details>
         <details className={styles.faqItem}>
           <summary>Can I restore multiple photos?</summary>
-          <p>Yes! You can restore as many photos as you'd like.</p>
+          <p>Yes! You can restore as many photos as you&apos;d like.</p>
         </details>
       </div>
 

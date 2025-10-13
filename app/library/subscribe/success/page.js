@@ -14,9 +14,9 @@ export default function SubscribeSuccess() {
         <div className={styles.next}>
           <h2>What Happens Next?</h2>
           <ol>
-            <li>We'll set up your custom portal within 24 hours</li>
-            <li>You'll receive login details via email</li>
-            <li>We'll send marketing materials to share with patrons</li>
+            <li>We&apos;ll set up your custom portal within 24 hours</li>
+            <li>You&apos;ll receive login details via email</li>
+            <li>We&apos;ll send marketing materials to share with patrons</li>
             <li>After 30 days, your card will be charged $300/month</li>
           </ol>
         </div>

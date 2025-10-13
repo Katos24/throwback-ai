@@ -72,7 +72,7 @@ export default function LibrarySubscribe() {
             </div>
 
             <div className={styles.features}>
-              <h3>What's Included</h3>
+              <h3>What&apos;s Included</h3>
               <ul>
                 <li>✅ Unlimited basic photo restorations</li>
                 <li>✅ 200 premium credits per month</li>

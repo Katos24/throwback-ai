@@ -53,7 +53,7 @@ export default function LibraryDemo() {
         <div className={styles.success}>
           <div className={styles.successIcon}>✓</div>
           <h1>Request Received!</h1>
-          <p>Thanks for your interest. We'll reach out within 24 hours to set up your free trial.</p>
+          <p>Thanks for your interest. We&apos;ll reach out within 24 hours to set up your free trial.</p>
           <Link href="/" className={styles.homeLink}>← Back to Home</Link>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function LibraryDemo() {
                 <span>🎨</span>
                 <div>
                   <strong>Custom Branded Portal</strong>
-                  <p>Your logo, your library's name</p>
+                  <p>Your logo, your library&apos;s name</p>
                 </div>
               </li>
               <li>
@@ -215,7 +215,7 @@ export default function LibraryDemo() {
             </details>
 
             <details>
-              <summary>What's included?</summary>
+              <summary>What&apos;s included?</summary>
               <p>Unlimited basic restorations, 200 premium credits/month, custom branding, usage analytics, and email support.</p>
             </details>
 

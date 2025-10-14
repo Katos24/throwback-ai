@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';  // ← Add this import
 import { supabase } from '../../../../lib/supabaseClient';
 import styles from './admin.module.css';
 
@@ -22,7 +23,9 @@ export default function LibraryAdminDashboard() {
   useEffect(() => {
     if (!slug) return;
     fetchDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
+
 
   async function fetchDashboardData() {
     try {
@@ -90,9 +93,9 @@ export default function LibraryAdminDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <a href={`/library/${slug}`} className={styles.backLink}>
+        <Link href={`/library/${slug}`} className={styles.backLink}>
             ← Back to Library Portal
-        </a>
+        </Link>
         <h1>{library.name} - Admin Dashboard</h1>
         <p>Monthly stats and usage</p>
         </header>
@@ -209,40 +212,40 @@ export default function LibraryAdminDashboard() {
     </div>
   </div>
 
-  {/* Quick Links */}
-  <div className={styles.quickLinks}>
-    <h2>🔗 Quick Links</h2>
-    <div className={styles.linksGrid}>
-      <a href={`/library/${slug}`} className={styles.linkCard}>
-        <span>🏛️</span>
-        <div>
-          <strong>Library Portal</strong>
-          <p>View public-facing page</p>
+  {/* Quick Links - UPDATE THESE */}
+        <div className={styles.quickLinks}>
+          <h2>🔗 Quick Links</h2>
+          <div className={styles.linksGrid}>
+            <Link href={`/library/${slug}`} className={styles.linkCard}>
+              <span>🏛️</span>
+              <div>
+                <strong>Library Portal</strong>
+                <p>View public-facing page</p>
+              </div>
+            </Link>
+            <Link href={`/library/${slug}/admin/help`} className={styles.linkCard}>
+              <span>❓</span>
+              <div>
+                <strong>Help Center</strong>
+                <p>Patron support guides</p>
+              </div>
+            </Link>
+            <Link href="/library/privacy" className={styles.linkCard}>
+              <span>🔒</span>
+              <div>
+                <strong>Privacy Policy</strong>
+                <p>Review privacy terms</p>
+              </div>
+            </Link>
+            <a href={`mailto:hello@throwbackai.app?subject=Support for ${library.name}`} className={styles.linkCard}>
+              <span>📧</span>
+              <div>
+                <strong>Contact Support</strong>
+                <p>Get help from our team</p>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>
-      <a href={`/library/${slug}/admin/help`} className={styles.linkCard}>
-        <span>❓</span>
-        <div>
-          <strong>Help Center</strong>
-          <p>Patron support guides</p>
-        </div>
-      </a>
-      <a href="/library/privacy" className={styles.linkCard}>
-        <span>🔒</span>
-        <div>
-          <strong>Privacy Policy</strong>
-          <p>Review privacy terms</p>
-        </div>
-      </a>
-      <a href={`mailto:hello@throwbackai.app?subject=Support for ${library.name}`} className={styles.linkCard}>
-        <span>📧</span>
-        <div>
-          <strong>Contact Support</strong>
-          <p>Get help from our team</p>
-        </div>
-      </a>
-    </div>
-  </div>
 
   {/* Usage Insights */}
   <div className={styles.insightsSection}>
@@ -288,7 +291,7 @@ export default function LibraryAdminDashboard() {
       </div>
       <div className={styles.accountRow}>
         <strong>Portal URL:</strong>
-        <span>throwbackai.app/library/{slug}</span>
+        <span>yoursite.com/library/{slug}</span>
       </div>
     </div>
   </div>
@@ -299,7 +302,7 @@ export default function LibraryAdminDashboard() {
     <p>To cancel your subscription, adjust your plan, or discuss your service, please contact us:</p>
     <div className={styles.cancelActions}>
       <a 
-        href={`mailto:hello@throwbackai.app?subject=Subscription Changes - ${library.name}&body=Library: ${library.name}%0ARequest: [Please describe your request]`}
+        href={`mailto:support@yourservice.com?subject=Subscription Changes - ${library.name}&body=Library: ${library.name}%0ARequest: [Please describe your request]`}
         className={styles.contactButton}
       >
         📧 Contact Us About Subscription

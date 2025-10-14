@@ -123,7 +123,7 @@ export default function LibraryAdminHelp() {
         },
         {
           q: "How do I report a bug or issue?",
-          a: "Email support@yourservice.com with:\n• Description of the issue\n• What the patron was trying to do\n• Browser and device type\n• Screenshot if possible\n• Your library name"
+          a: "Email hello@throwbackai.app with:\n• Description of the issue\n• What the patron was trying to do\n• Browser and device type\n• Screenshot if possible\n• Your library name"
         },
         {
           q: "Can patrons use this on mobile devices?",
@@ -169,7 +169,7 @@ export default function LibraryAdminHelp() {
         {/* Quick Contact */}
         <div className={styles.quickContact}>
           <h3>🆘 Need Immediate Help?</h3>
-          <p>Can't find what you're looking for? We're here to help!</p>
+          <p>Can&apos;t find what you&apos;re looking for? We&apos;re here to help!</p>
           <a href="mailto:hello@throwbackai.app" className={styles.contactBtn}>
             📧 Email Support
           </a>

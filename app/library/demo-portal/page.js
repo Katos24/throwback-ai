@@ -262,7 +262,7 @@ export default function DemoPortal() {
                 <strong>Demo Access Required</strong>
                 <p>To try our demo, you'll need a demo access code.</p>
                 <p className={styles.demoSubtext}>
-                  Don't have a code? <a href="/library/demo">Request demo access here</a>
+                Don&apos;t have a code? <Link href="/library/demo">Request demo access here</Link>
                 </p>
               </div>
             </div>
@@ -295,9 +295,9 @@ export default function DemoPortal() {
 
             <div className={styles.requestAccessBox}>
               <p>Don't have an access code?</p>
-              <a href="/library/demo" className={styles.requestAccessBtn}>
+              <Link href="/library/demo" className={styles.requestAccessBtn}>
                 Request Demo Access
-              </a>
+              </Link>
             </div>
           </div>
         </main>
@@ -315,9 +315,9 @@ export default function DemoPortal() {
       )}
 
       <header className={styles.header}>
-        <a href="/library" className={styles.backLink}>
+        <Link href="/library" className={styles.backLink}>
           ← Back to Library Info
-        </a>
+        </Link>
         <div className={styles.headerContent}>
           <div>
             <h1 className={styles.libraryName}>{DEMO_LIBRARY.name}</h1>
@@ -400,9 +400,9 @@ export default function DemoPortal() {
                     <p>
                       <strong>Want Premium Colorization?</strong> Full library portals include both basic restoration (free for patrons) and premium colorization (40 credits).
                     </p>
-                    <a href="/library/demo" className={styles.demoUpsellBtn}>
+                    <Link href="/library/demo" className={styles.demoUpsellBtn}>
                       Request Free Trial →
-                    </a>
+                    </Link>
                   </div>
 
                   <div className={styles.actions}>
@@ -471,9 +471,9 @@ export default function DemoPortal() {
                 <p className={styles.postRestoreCTAText}>
                   ✨ Impressed? Your library can offer this service to your entire community!
                 </p>
-                <a href="/library" className={styles.postRestoreCTABtn}>
-                  Learn More About Library Plans
-                </a>
+                <Link href="/library" className={styles.postRestoreCTABtn}>
+                Learn More About Library Plans
+                </Link>
               </div>
             </>
           )}
@@ -536,9 +536,9 @@ export default function DemoPortal() {
               Unlimited basic restorations + 8,000 premium credits/month (~400 colorizations).
             </p>
             <div className={styles.demoFooterButtons}>
-              <a href="/library" className={styles.learnMoreButton}>
+              <Link href="/library" className={styles.learnMoreButton}>
                 Learn More
-              </a>
+                </Link>
               <a href="mailto:hello@throwbackai.app" className={styles.contactButton}>
                 Contact Us
               </a>

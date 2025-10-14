@@ -224,16 +224,17 @@ export default function LibraryAdminHelp() {
               <strong>View Library Portal</strong>
               <p>See what your patrons see</p>
             </a>
-            <a href="/library/privacy" className={styles.resourceCard}>
+            <Link href="/library/privacy" className={styles.resourceCard}>
               <span>🔒</span>
               <strong>Privacy Policy</strong>
               <p>Review our privacy terms</p>
-            </a>
-            <a href="/library/terms" className={styles.resourceCard}>
+            </Link>
+            <Link href="/library/terms" className={styles.resourceCard}>
+            
               <span>📜</span>
               <strong>Terms of Service</strong>
               <p>Review service agreement</p>
-            </a>
+            </Link>
           </div>
         </div>
       </main>

@@ -260,7 +260,7 @@ export default function DemoPortal() {
               <span className={styles.demoIcon}>🎯</span>
               <div>
                 <strong>Demo Access Required</strong>
-                <p>To try our demo, you'll need a demo access code.</p>
+                <p>To try our demo, you&apos;ll need a demo access code.</p>
                 <p className={styles.demoSubtext}>
                 Don&apos;t have a code? <Link href="/library/demo">Request demo access here</Link>
                 </p>
@@ -294,7 +294,7 @@ export default function DemoPortal() {
             </form>
 
             <div className={styles.requestAccessBox}>
-              <p>Don't have an access code?</p>
+              <p>Don&apos;t have an access code?</p>
               <Link href="/library/demo" className={styles.requestAccessBtn}>
                 Request Demo Access
               </Link>

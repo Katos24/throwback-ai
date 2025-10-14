@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './demo.module.css';
+import LibraryHeader from '../../../components/LibraryHeader';
 
 export default function LibraryDemo() {
   const [formData, setFormData] = useState({
@@ -62,10 +63,7 @@ export default function LibraryDemo() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.logo}>Throwback AI</Link>
-        <Link href="/" className={styles.backLink}>← Back</Link>
-      </header>
+     <LibraryHeader />
 
       <main className={styles.main}>
         <div className={styles.hero}>

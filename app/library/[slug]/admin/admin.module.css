@@ -166,3 +166,298 @@
     font-size: 2rem;
   }
 }
+
+
+/* Add these to your existing admin.module.css */
+
+/* Subscription Section */
+.subscriptionSection {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.subscriptionSection h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+
+.subscriptionCard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.subDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subDetail strong {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.subDetail span {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.statusActive {
+  color: #10b981 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusActive::before {
+  content: '●';
+  font-size: 1.2rem;
+}
+
+/* Quick Links */
+.quickLinks {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.quickLinks h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.linkCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.linkCard:hover {
+  background: #e9ecef;
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.linkCard span {
+  font-size: 2rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.linkCard strong {
+  display: block;
+  font-size: 1rem;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.linkCard p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Usage Insights */
+.insightsSection {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.insightsSection h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+
+.insightCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.insightCard {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+}
+
+.insightCard h4 {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.insightNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.insightLabel {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Account Section */
+.accountSection {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.accountSection h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+
+.accountCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.accountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.accountRow:last-child {
+  border-bottom: none;
+}
+
+.accountRow strong {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.accountRow span {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* Cancel Section */
+.cancelSection {
+  margin: 3rem 0 1rem 0;
+  padding: 2rem;
+  background: #fff5f5;
+  border: 2px solid #fed7d7;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.cancelSection h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+
+.cancelSection > p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.cancelActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contactButton {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.contactButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.cancelNote {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+  max-width: 500px;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .subscriptionCard,
+  .linksGrid,
+  .insightCards {
+    grid-template-columns: 1fr;
+  }
+
+  .accountRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+
+.backLink {
+  display: inline-block;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #1d4ed8;
+}

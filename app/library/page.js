@@ -1,8 +1,9 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import RestorationCounter from '../../components/RestorationCounter';
 import styles from './library.module.css';
+
 export default function LibraryLanding() {
 return (
 <div className={styles.container}>
@@ -15,6 +16,7 @@ return (
 <Link href="/library/demo" className={styles.ctaBtn}>Request Demo</Link>
 </nav>
 </header>
+
 {/* Hero Section */}
   <section className={styles.hero}>
     <div className={styles.heroContent}>
@@ -23,18 +25,18 @@ return (
       <p>Transform your library into a digital preservation hub. Provide free AI-powered photo restoration to your community—fully branded with your library&apos;s identity.</p>
       
       <div className={styles.heroButtons}>
-        <Link href="/library/demo" className={styles.primaryBtn}>
-          Request Free Trial
+        <Link href="/library/demo-portal" className={styles.primaryBtn}>
+          Try Interactive Demo
         </Link>
-        <Link href="#demo-portal" className={styles.secondaryBtn}>
-          View Sample Portal
+        <Link href="/library/demo" className={styles.secondaryBtn}>
+          Request Free Trial
         </Link>
       </div>
 
       <div className={styles.proofPoints}>
         <div className={styles.proof}>
-          <strong>5,000+</strong>
-          <span>Photos Restored</span>
+          <strong>Proven</strong>
+          <span>AI Technology</span>
         </div>
         <div className={styles.proof}>
           <strong>30-Day</strong>
@@ -46,6 +48,14 @@ return (
         </div>
       </div>
     </div>
+  </section>
+
+  {/* Restoration Counter - Live Social Proof */}
+  <section className={styles.statsSection}>
+    <RestorationCounter />
+    <p className={styles.statsSubtext}>
+      Trusted by families and libraries nationwide
+    </p>
   </section>
 
   {/* How It Works */}
@@ -85,7 +95,7 @@ return (
       <div className={styles.feature}>
         <div className={styles.featureIcon}>✓</div>
         <h3>Proven Technology</h3>
-        <p>Over 5,000 photos successfully restored. Professional-grade AI now available for your community.</p>
+        <p>Professional-grade AI restoration technology, now available for your community.</p>
       </div>
 
       <div className={styles.feature}>
@@ -154,8 +164,8 @@ return (
 
   {/* Demo Portal */}
   <section className={styles.demo} id="demo-portal">
-    <h2>See It In Action</h2>
-    <p>Here&apos;s what a library portal looks like:</p>
+    <h2>Try It Yourself</h2>
+    <p>Experience our library portal firsthand. Upload a real photo and see the restoration in action.</p>
 
     <div className={styles.demoFrame}>
       <div className={styles.browserBar}>
@@ -164,18 +174,22 @@ return (
           <span></span>
           <span></span>
         </div>
-        <div className={styles.browserUrl}>throwbackai.app/library/demo</div>
+        <div className={styles.browserUrl}>throwbackai.app/library/demo-portal</div>
       </div>
       <div className={styles.demoContent}>
-        <p style={{ textAlign: 'center', padding: '3rem', color: '#666' }}>
-          [Demo portal preview will appear here]
-        </p>
+        <div style={{ textAlign: 'center', padding: '3rem' }}>
+          <p style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1a1a1a' }}>
+            Interactive Demo Available
+          </p>
+          <p style={{ color: '#666', marginBottom: '1.5rem' }}>
+            Upload your own photo and test our restoration technology
+          </p>
+          <Link href="/library/demo-portal" className={styles.demoCTABtn}>
+            Launch Demo Portal →
+          </Link>
+        </div>
       </div>
     </div>
-
-    <Link href="/library/demo" className={styles.demoLink}>
-      Try the Demo Portal →
-    </Link>
   </section>
 
   {/* FAQ */}
@@ -280,5 +294,5 @@ return (
     </div>
   </footer>
 </div>
-);
+    );
 }

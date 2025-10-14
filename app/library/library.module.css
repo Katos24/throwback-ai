@@ -608,3 +608,206 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+/* Add these styles to your existing library.module.css */
+
+/* Demo Banner */
+.demoBanner {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(37, 99, 235, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.demoBannerContent {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.demoIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.demoBanner strong {
+  display: block;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+}
+
+.demoBanner p {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.demoCta {
+  margin-top: 0.75rem !important;
+  font-weight: 600;
+}
+
+.demoCta a {
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.demoCta a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Demo Note */
+.demoNote {
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: #ea580c;
+}
+
+.demoNote strong {
+  font-weight: 600;
+}
+
+/* Demo Footer */
+.demoFooter {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: white;
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.demoFooterContent {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.demoFooter h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.demoFooter p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.demoFooterButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.learnMoreButton,
+.contactButton {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.learnMoreButton {
+  background: white;
+  color: #1e293b;
+  border: 2px solid white;
+}
+
+.learnMoreButton:hover {
+  background: transparent;
+  color: white;
+}
+
+.contactButton {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: 2px solid transparent;
+}
+
+.contactButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Error message specific to demo limits */
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #dc2626;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .demoBanner {
+    padding: 1.25rem;
+  }
+
+  .demoBannerContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .demoIcon {
+    font-size: 2.5rem;
+  }
+
+  .demoFooter {
+    padding: 2rem 1rem;
+  }
+
+  .demoFooter h3 {
+    font-size: 1.5rem;
+  }
+
+  .demoFooter p {
+    font-size: 1rem;
+  }
+
+  .demoFooterButtons {
+    flex-direction: column;
+  }
+
+  .learnMoreButton,
+  .contactButton {
+    width: 100%;
+  }
+}
+
+
+
+/* Stats Section - For RestorationCounter */
+.statsSection {
+  text-align: center;
+}
+
+.statsSubtext {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}

@@ -283,32 +283,7 @@ if (CREDIT_COST > 0) {
   console.log(`✅ Basic restoration - FREE (no credits deducted)`);
 }
 
-// 9. LOG RESTORATION TO STATS TABLE
-try {
-  const { error: statsError } = await supabaseAdmin
-    .from('library_restorations')
-    .insert({
-      library_id: library.id,
-      restoration_type: restoreType,
-      credits_used: CREDIT_COST,
-    });
 
-  if (statsError) {
-    console.error('⚠️ Failed to log restoration stats:', statsError);
-  } else {
-    console.log(`📊 Logged ${restoreType} restoration to stats`);
-    
-    // Update total restorations count (cached for performance)
-    await supabaseAdmin
-      .from('libraries')
-      .update({ 
-        total_restorations: (library.total_restorations || 0) + 1
-      })
-      .eq('id', library.id);
-  }
-} catch (statsErr) {
-  console.error('⚠️ Error logging stats:', statsErr);
-}
 
 const endTime = Date.now();
 const totalTime = endTime - startTime;
@@ -322,7 +297,7 @@ try {
     .insert({
       library_id: library.id,
       restore_type: restoreType,
-      status: 'succeeded',
+      status: 'completed',
       credits_used: CREDIT_COST,
       processing_duration_ms: totalTime,
       ip_address: ipAddress

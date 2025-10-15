@@ -57,16 +57,16 @@ export default function Header({ showMenu, setShowMenu }) {
       highlight: true
     },
     { 
-      href: "/decades", 
-      label: "Decades", 
-      icon: "📸"
-    },
-     { 
-      href: "/aisuite", 
-      label: "All Tools", 
+      href: "/replicate/avatar", 
+      label: "Avatar", 
       highlight: false
     },
-    { href: "/pricing", label: "Pricing", icon: "💰" },
+    { 
+      href: "/decades", 
+      label: "Decades", 
+    },
+     
+    { href: "/pricing", label: "Pricing"},
     { href: "/gallery", label: "Gallery" },
     { href: "/about", label: "About" }
   ];

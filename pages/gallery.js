@@ -57,6 +57,52 @@ const restoreItems = [
   }
 ];
 
+// ================= Avatar Items =================
+const avatarItems = [
+  {
+    image: "/images/examples/avatar/dragon.png",
+    category: "Fantasy",
+    style: "Dragon Rider",
+    description: "Fantasy dragon rider avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/wizard.png",
+    category: "Fantasy",
+    style: "Magical Wizard",
+    description: "Magical wizard avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/western.png",
+    category: "Historical",
+    style: "Western Era",
+    description: "Western era avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/cyberpunk.png",
+    category: "Sci-Fi",
+    style: "Cyberpunk",
+    description: "Cyberpunk avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/medieval.png",
+    category: "Fantasy",
+    style: "Medieval Warrior",
+    description: "Medieval warrior avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/western2.png",
+    category: "Historical",
+    style: "Western Era",
+    description: "Western era avatar transformation"
+  },
+  {
+    image: "/images/examples/avatar/medieval2.png",
+    category: "Medieval",
+    style: "Medieval Fantasy",
+    description: "Medieval fantasy avatar transformation"
+  }
+];
+
 // ================= Decade Items =================
 const decadesItems = [
   {
@@ -142,7 +188,7 @@ const cartoonItems = [
 ];
 
 // ================= Categories =================
-const mainCategories = ["All", "Restore", "Decades", "Cartoon"];
+const mainCategories = ["All", "Restore", "Avatar", "Decades", "Cartoon"];
 
 const restoreSubcategories = [
   "All Restore",
@@ -153,12 +199,21 @@ const restoreSubcategories = [
   "Family Photos"
 ];
 
+const avatarSubcategories = [
+  "All Avatar",
+  "Fantasy",
+  "Historical",
+  "Sci-Fi",
+  "Medieval"
+];
+
 const decadeSubcategories = ["All Decades", "70s", "80s", "90s", "2000s"];
 
 export default function Gallery() {
   const router = useRouter();
   const [selectedMainCategory, setSelectedMainCategory] = useState("All");
   const [selectedRestoreSubcategory, setSelectedRestoreSubcategory] = useState("All Restore");
+  const [selectedAvatarSubcategory, setSelectedAvatarSubcategory] = useState("All Avatar");
   const [selectedDecadeSubcategory, setSelectedDecadeSubcategory] = useState("All Decades");
 
   // ================= Helpers =================
@@ -166,12 +221,14 @@ export default function Gallery() {
     switch (selectedMainCategory) {
       case "Restore":
         return restoreItems;
+      case "Avatar":
+        return avatarItems;
       case "Decades":
         return decadesItems;
       case "Cartoon":
         return cartoonItems;
       default: // All
-        return [...restoreItems, ...decadesItems, ...cartoonItems];
+        return [...restoreItems, ...avatarItems, ...decadesItems, ...cartoonItems];
     }
   };
 
@@ -180,6 +237,10 @@ export default function Gallery() {
 
     if (selectedMainCategory === "Restore" && selectedRestoreSubcategory !== "All Restore") {
       return allItems.filter(item => item.category === selectedRestoreSubcategory);
+    }
+
+    if (selectedMainCategory === "Avatar" && selectedAvatarSubcategory !== "All Avatar") {
+      return allItems.filter(item => item.category === selectedAvatarSubcategory);
     }
 
     if (selectedMainCategory === "Decades" && selectedDecadeSubcategory !== "All Decades") {
@@ -198,7 +259,7 @@ export default function Gallery() {
         <title>AI Transformation Gallery - Before & After Examples</title>
         <meta
           name="description"
-          content="See real before and after examples of AI photo transformations. Photo restoration, decades, cartoon styles, and more."
+          content="See real before and after examples of AI photo transformations. Photo restoration, avatars, decades, cartoon styles, and more."
         />
       </Head>
 
@@ -219,6 +280,7 @@ export default function Gallery() {
                 onClick={() => {
                   setSelectedMainCategory(category);
                   setSelectedRestoreSubcategory("All Restore");
+                  setSelectedAvatarSubcategory("All Avatar");
                   setSelectedDecadeSubcategory("All Decades");
                 }}
               >
@@ -238,6 +300,21 @@ export default function Gallery() {
                 onClick={() => setSelectedRestoreSubcategory(subcategory)}
               >
                 {subcategory === "All Restore" ? "All" : subcategory}
+              </button>
+            ))}
+          </section>
+        )}
+
+        {/* Avatar Subcategories */}
+        {selectedMainCategory === "Avatar" && (
+          <section className={styles.subcategories}>
+            {avatarSubcategories.map((subcategory) => (
+              <button
+                key={subcategory}
+                className={`${styles.subcategoryBtn} ${selectedAvatarSubcategory === subcategory ? styles.active : ''}`}
+                onClick={() => setSelectedAvatarSubcategory(subcategory)}
+              >
+                {subcategory === "All Avatar" ? "All" : subcategory}
               </button>
             ))}
           </section>
@@ -279,7 +356,7 @@ export default function Gallery() {
                   height={600}
                   className={styles.image}
                 />
-                {(item.category || item.decade) && (
+                {(item.category || item.decade || item.style) && (
                   <div className={styles.cardHeader}>
                     {item.category && <span>{item.category}</span>}
                     {item.decade && <span>{item.decade}</span>}

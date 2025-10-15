@@ -640,7 +640,7 @@ export default function AiAvatarsRedesigned() {
           <div className={styles.examplesHeader}>
             <h2 className={styles.examplesTitle}>✨ Example Transformations</h2>
             <p className={styles.examplesSubtitle}>
-              See what's possible with avatar styles across 6 categories
+              See what&apos;s possible with avatar styles across 6 categories
             </p>
           </div>
 

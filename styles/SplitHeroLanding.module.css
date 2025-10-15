@@ -566,6 +566,10 @@
   }
 
   .primaryImage {
+    height: auto;
+  }
+
+  .imageWrapper {
     height: 380px;
   }
 
@@ -596,9 +600,21 @@
     padding: 24px;
   }
 
-  .primaryImage,
-  .secondaryImage {
+  .imageWrapper {
     height: 300px;
+  }
+
+  .secondaryImage {
+    height: 280px;
+  }
+
+  .secondaryImage .imageWrapper {
+    height: 100%;
+  }
+
+  /* Avatar card mobile adjustments */
+  .secondaryCard[data-type="avatar"] .secondaryImage {
+    height: 320px;
   }
 
   .stats {
@@ -623,9 +639,21 @@
     padding: 20px;
   }
 
-  .primaryImage,
-  .secondaryImage {
+  .imageWrapper {
     height: 260px;
+  }
+
+  .secondaryImage {
+    height: 240px;
+  }
+
+  .secondaryImage .imageWrapper {
+    height: 100%;
+  }
+
+  /* Avatar card mobile - slightly taller */
+  .secondaryCard[data-type="avatar"] .secondaryImage {
+    height: 280px;
   }
 
   .primaryButton,

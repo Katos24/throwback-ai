@@ -9,9 +9,8 @@ import styles from "../../styles/UnifiedRestore.module.css";
 import RestorationCounter from '../../components/RestorationCounter';
 
 export default function RestorePage() {
-  const [restoreMode, setRestoreMode] = useState('basic'); // 'basic' or 'premiumColor'
+  const [restoreMode, setRestoreMode] = useState('basic');
   
-  // Dynamic cost and endpoint based on mode
   const getRestoreConfig = () => {
     switch(restoreMode) {
       case 'basic':
@@ -72,18 +71,6 @@ export default function RestorePage() {
     return restoreMode === 'premiumColor' ? 'Premium Colorize' : 'Restore Photo';
   };
 
-  const getModeTitle = () => {
-    return 'AI Photo Enhancement';
-  };
-
-  const getModeSubtitle = () => {
-    return 'Choose Your Enhancement Level';
-  };
-
-  const getModeDescription = () => {
-    return 'Upload your photo and choose between Basic Restore (1 credit) for quick fixes or Premium Colorization (40 credits) for stunning, studio-quality color transformation.';
-  };
-
   const handleRestoreClick = () => {
     if (credits < config.cost) {
       router.push(isLoggedIn ? "/pricing" : "/signup");
@@ -92,7 +79,6 @@ export default function RestorePage() {
     handleGenerateOrRedirect();
   };
 
-  // Handle using restored image as new input
   const handleUseRestoredImage = async () => {
     try {
       const response = await fetch(restoredUrl);
@@ -114,7 +100,6 @@ export default function RestorePage() {
     }
   };
 
-  // Get background class based on mode
   const getBackgroundClass = () => {
     return restoreMode === 'premiumColor' ? styles.premiumBackground : '';
   };
@@ -124,7 +109,6 @@ export default function RestorePage() {
       <RestoreBasicSEO />
       
       <div className={styles.container}>
-        {/* Animated Background */}
         <div className={`${styles.backgroundParticles} ${getBackgroundClass()}`}></div>
 
         <div className={styles.content}>
@@ -160,11 +144,62 @@ export default function RestorePage() {
               </span>
             </div>
 
-            {/* Description */}
-            <p className={styles.description}>
-              Upload your photo and choose between <strong>Basic Restore (1 credit)</strong> for quick fixes or <strong>Premium Colorization (40 credits)</strong> for stunning, studio-quality color transformation.
-              {' '}<strong>Sign up and get 50 free credits</strong> - Try it free!
-            </p>
+            {/* Badge Pills */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.75rem',
+              justifyContent: 'center',
+              marginTop: '1.5rem'
+            }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                background: 'rgba(59, 130, 246, 0.1)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                borderRadius: '999px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#60a5fa'
+              }}>
+                <span>⚡</span>
+                Basic: 1 Credit
+              </div>
+              
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                background: 'rgba(168, 85, 247, 0.1)',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+                borderRadius: '999px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#c084fc'
+              }}>
+                <span>💎</span>
+                Premium: 40 Credits
+              </div>
+              
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                background: 'rgba(34, 197, 94, 0.1)',
+                border: '1px solid rgba(34, 197, 94, 0.3)',
+                borderRadius: '999px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#4ade80'
+              }}>
+                <span>🎁</span>
+                50 Free Credits on Signup
+              </div>
+            </div>
           </div>
 
           {/* Restoration Counter */}

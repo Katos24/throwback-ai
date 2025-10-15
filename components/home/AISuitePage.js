@@ -5,7 +5,7 @@ import styles from '../../styles/AISuite.module.css'
 
 const AISuitePage = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeFilter, setActiveFilter] = useState('decades') // Show decades first
+  const [activeFilter, setActiveFilter] = useState('all')
   const containerRef = useRef(null)
 
   useEffect(() => {
@@ -27,12 +27,57 @@ const AISuitePage = () => {
   }, [])
 
   const categories = [
+    { id: 'all', label: 'All Tools', count: 7 },
+    { id: 'premium', label: 'Premium', count: 2 },
+    { id: 'creative', label: 'Creative', count: 1 },
     { id: 'decades', label: 'Decades', count: 4 },
-    { id: 'restore', label: 'Restore', count: 2 },
-    { id: 'all', label: 'All Tools', count: 6 },
   ]
 
   const aiSuites = [
+    // FEATURED HERO CARDS - Top Priority
+    {
+      id: 'restore',
+      icon: '✨',
+      name: 'Photo Restoration',
+      tagline: 'Repair, Enhance & Colorize',
+      cardImage: '/images/restore-before-after-combined.jpg',
+      credits: '1-40',
+      link: '/replicate/restore-premium',
+      accent: '#10b981',
+      category: 'premium',
+      popular: true,
+      premium: true,
+      featured: true,
+    },
+    {
+      id: 'avatar',
+      icon: '🎭',
+      name: 'History Avatar',
+      tagline: 'Premium AI Transformation',
+      cardImage: '/images/avatar-card.jpg',
+      credits: 50,
+      link: '/replicate/avatar',
+      accent: '#f59e0b',
+      category: 'premium',
+      popular: true,
+      premium: true,
+      featured: true,
+    },
+    // CREATIVE - Cartoon
+    {
+      id: 'cartoon',
+      icon: '🎨',
+      name: 'Cartoon Portrait',
+      tagline: 'Classic Cartoon Style',
+      cardImage: '/images/cartoon-card.jpg',
+      credits: 40,
+      link: '/replicate/cartoon',
+      accent: '#ec4899',
+      category: 'creative',
+      popular: true,
+      featured: false,
+    },
+    // DECADES
     {
       id: '70s',
       icon: '✌️',
@@ -43,7 +88,7 @@ const AISuitePage = () => {
       link: '/replicate/70s',
       accent: '#f59e0b',
       category: 'decades',
-      popular: true,
+      popular: false,
     },
     {
       id: '80s',
@@ -57,7 +102,7 @@ const AISuitePage = () => {
       category: 'decades',
       popular: false,
     },
-    {
+     {
       id: '90s',
       icon: '🎸',
       name: '90s Grunge Style',
@@ -67,7 +112,7 @@ const AISuitePage = () => {
       link: '/replicate/90s',
       accent: '#8b5cf6',
       category: 'decades',
-      popular: false,
+      popular: true,
     },
     {
       id: '2000s',
@@ -80,44 +125,20 @@ const AISuitePage = () => {
       accent: '#06b6d4',
       category: 'decades',
       popular: false,
-    },
-    {
-      id: 'restore-basic',
-      icon: '🔧',
-      name: 'Photo Restoration',
-      tagline: 'Repair & Restore',
-      cardImage: '/images/restore-card.png',
-      credits: 1,
-      link: '/replicate/restore-premium',
-      accent: '#10b981',
-      category: 'restore',
-      popular: true,
-    },
-    {
-      id: 'colorize',
-      icon: '🌈',
-      name: 'Photo Colorization',
-      tagline: 'Add Life & Color',
-      cardImage: '/images/colorizecardgrid.png',
-      credits: 40,
-      link: '/replicate/restore-premium',
-      accent: '#3b82f6',
-      category: 'restore',
-      popular: true,
     }
   ]
 
   const getFilteredTools = () => {
     if (activeFilter === 'all') {
-      return [
-        ...aiSuites.filter((tool) => tool.popular),
-        ...aiSuites.filter((tool) => !tool.popular),
-      ]
+      return aiSuites
     }
     return aiSuites.filter((tool) => tool.category === activeFilter)
   }
 
   const filteredTools = getFilteredTools()
+  const featuredTools = filteredTools.filter(tool => tool.featured)
+  const regularTools = filteredTools.filter(tool => !tool.featured)
+  const shouldShowFeatured = activeFilter === 'all' || activeFilter === 'premium'
 
   return (
     <div className={styles.suitePage}>
@@ -134,7 +155,7 @@ const AISuitePage = () => {
       >
         <header className={styles.header}>
           <h1 className={styles.title}>
-            Six Powerful AI Engines
+            Seven Powerful AI Engines
             <span className={styles.titleGradient}> One Amazing Platform</span>
           </h1>
           <p className={styles.subtitle}>
@@ -161,14 +182,72 @@ const AISuitePage = () => {
           </div>
         </div>
 
+        {/* Featured Premium Tools - Dual Hero Cards */}
+        {shouldShowFeatured && featuredTools.length > 0 && (
+          <div className={styles.featuredGrid}>
+            {featuredTools.map((tool) => (
+              <Link
+                key={tool.id}
+                href={tool.link}
+                className={styles.featuredCard}
+                style={{ '--accent': tool.accent }}
+              >
+                <div className={styles.featuredBadge}>
+                  <span className={styles.premiumStar}>⭐</span>
+                  PREMIUM
+                </div>
+                
+                <div className={styles.featuredContent}>
+                  <div className={styles.featuredTop}>
+                    <div className={styles.featuredIcon}>{tool.icon}</div>
+                    <h2 className={styles.featuredName}>{tool.name}</h2>
+                    <p className={styles.featuredTagline}>
+                      {tool.id === 'restore' 
+                        ? 'Repair, enhance, and colorize vintage photos with professional AI restoration.'
+                        : 'Transform into historical figures and styles across 6 unique categories.'}
+                    </p>
+                  </div>
+
+                  <div className={styles.featuredImageContainer}>
+                    <Image
+                      src={tool.cardImage}
+                      alt={`${tool.name} preview`}
+                      fill
+                      className={styles.featuredImage}
+                      sizes="(max-width: 768px) 100vw, 45vw"
+                    />
+                  </div>
+
+                  <div className={styles.featuredBottom}>
+                    <span className={styles.featuredCredits}>
+                      {tool.credits} Credits
+                    </span>
+                    <span className={styles.featuredArrow}>
+                      {tool.id === 'restore' ? 'Start Restoring →' : 'Create Avatar →'}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {/* Regular Tools Grid */}
         <div className={styles.cardGrid}>
-          {filteredTools.map((tool) => (
+          {regularTools.map((tool) => (
             <Link
               key={tool.id}
               href={tool.link}
               className={styles.suiteCard}
               style={{ '--accent': tool.accent }}
             >
+              {tool.premium && (
+                <div className={styles.premiumBadge}>
+                  <span className={styles.premiumStar}>⭐</span>
+                  Premium
+                </div>
+              )}
+              
               <div className={styles.cardImageContainer}>
                 <Image
                   src={tool.cardImage}
@@ -178,6 +257,7 @@ const AISuitePage = () => {
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 />
               </div>
+              
               <div className={styles.cardOverlay}>
                 <div className={styles.cardIcon}>{tool.icon}</div>
                 <h3 className={styles.cardName}>{tool.name}</h3>

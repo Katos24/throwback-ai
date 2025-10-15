@@ -157,9 +157,9 @@
 }
 
 .filterTab.active {
-  background-color: var(--accent);
-  border-color: var(--accent);
-  color: #000000;
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
 }
 
 .filterLabel {
@@ -170,6 +170,254 @@
   background: rgba(255, 255, 255, 0.3);
   padding: 0 0.4rem;
   border-radius: 9999px;
+}
+
+/* ===== DUAL FEATURED HERO GRID ===== */
+.featuredGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* ===== CONDENSED FEATURED CARD ===== */
+.featuredCard {
+  display: block;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(236, 72, 153, 0.08));
+  border: 2px solid var(--accent);
+  border-radius: 20px;
+  padding: 1.75rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.featuredCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.featuredCard:hover::before {
+  left: 100%;
+}
+
+.featuredCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  border-color: #f59e0b;
+}
+
+.featuredBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.premiumStar {
+  font-size: 0.9rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.featuredContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.featuredTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.featuredIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.featuredName {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.featuredTagline {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.featuredImageContainer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.featuredImage {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.featuredCard:hover .featuredImage {
+  transform: scale(1.05);
+}
+
+.featuredBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.featuredCredits {
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px solid #3b82f6;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #111827;
+  font-size: 0.9rem;
+}
+
+.featuredArrow {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.featuredCard:hover .featuredArrow {
+  transform: translateX(5px);
+}
+
+/* ===== PREMIUM BADGE FOR REGULAR CARDS ===== */
+.premiumBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: white;
+  padding: 0.4rem 0.85rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.3px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 968px) {
+  .featuredGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .featuredImageContainer {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .featuredCard {
+    padding: 1.5rem;
+  }
+
+  .featuredName {
+    font-size: 1.5rem;
+  }
+
+  .featuredTagline {
+    font-size: 0.875rem;
+  }
+
+  .featuredImageContainer {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featuredCard {
+    padding: 1.25rem;
+  }
+
+  .featuredName {
+    font-size: 1.35rem;
+  }
+
+  .featuredIcon {
+    font-size: 2rem;
+  }
+
+  .featuredImageContainer {
+    height: 200px;
+  }
+
+  .featuredBadge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  .featuredBottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+/* ===== PREMIUM BADGE FOR REGULAR CARDS ===== */
+.premiumBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: white;
+  padding: 0.4rem 0.85rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.3px;
 }
 
 /* Responsive card grid */
@@ -189,15 +437,16 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s, box-shadow 0.3s;
   text-decoration: none;
+  border: 2px solid transparent;
 }
 
 .suiteCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent);
 }
 
 /* Image container and overlay */
-
 .cardImageContainer {
   position: relative;
   width: 100%;
@@ -210,20 +459,20 @@
 
 /* Card overlay below image */
 .cardOverlay {
-  position: static; /* no longer absolute */
-  padding: 0.75rem 0; /* more spacing under image */
+  position: static;
+  padding: 0.75rem 0;
   background: transparent; 
-  color: #111827; /* dark text for readability */
+  color: #111827;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; /* nice clean font */
-  text-align: center; /* center text under image */
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  text-align: center;
 }
 
 /* Card icon */
 .cardIcon {
-  font-size: 2rem; /* slightly larger for impact */
+  font-size: 2rem;
   line-height: 1;
 }
 
@@ -257,20 +506,6 @@
   text-align: center;
 }
 
-
-/* Use the accent variable for highlights */
-.suiteCard {
-  border: 2px solid transparent;
-}
-
-.suiteCard:hover {
-  border-color: var(--accent);
-}
-
-.filterTab.active {
-  --accent: var(--accent);
-}
-
 /* Media queries for larger screens */
 @media (min-width: 768px) {
   .title {
@@ -292,6 +527,43 @@
   }
 }
 
+/* ===== MOBILE RESPONSIVE FOR FEATURED CARD ===== */
+@media (max-width: 768px) {
+  .featuredCard {
+    padding: 1.5rem;
+  }
+
+  .featuredContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .featuredImageContainer {
+    height: 300px;
+  }
+
+  .featuredName {
+    font-size: 1.75rem;
+  }
+
+  .featuredTagline {
+    font-size: 1rem;
+  }
+
+  .featuredFeatures li {
+    font-size: 0.875rem;
+  }
+
+  .featuredCta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .featuredIcon {
+    font-size: 2.5rem;
+  }
+}
 
 @media (max-width: 480px) {
   .cardIcon {
@@ -313,5 +585,23 @@
 
   .cardOverlay {
     padding: 0.5rem 0;
+  }
+
+  .featuredCard {
+    padding: 1.25rem;
+  }
+
+  .featuredName {
+    font-size: 1.5rem;
+  }
+
+  .featuredBadge {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.9rem;
+  }
+
+  .premiumBadge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.7rem;
   }
 }

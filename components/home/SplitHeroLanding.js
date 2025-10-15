@@ -8,125 +8,106 @@ const PRIMARY_HERO = {
   id: 'restore',
   type: 'restore',
   badge: '🏆 PROFESSIONAL QUALITY',
-  badgeClass: 'qualityBadge',
   title: 'Restore Your Family Memories',
   description: 'Repair damage, enhance clarity, and add color to vintage photos. Professional AI restoration that brings your family history back to life.',
   link: '/replicate/restore-premium',
   combinedImage: '/images/restore-before-after-combined.jpg',
   beforeLabel: 'Before',
   afterLabel: 'After',
-  tags: [
-    { emoji: '⚡', label: 'Quick Repair (1 credit)' },
-    { emoji: '🎨', label: 'Premium Colorization (40 credits)' },
-  ],
   features: [
     'Fix scratches, tears, and damage',
     'Enhance faded or blurry photos',
     'Add realistic color to black & white',
     'Choose your enhancement level'
-  ],
-  buttonText: 'Start Restoring Free →',
-  buttonClass: 'restoreButton',
+  ], 
+  buttonText: 'Start Restoring Free',
   credits: '1-40',
-  processingTime: '⚡ 10-90 seconds'
+  processingTime: '10-90 seconds'
 };
 
-// Secondary feature (decade transformations)
-const SECONDARY_FEATURE = {
-  id: 'decades',
-  type: 'viral',
-  badge: '🔥 TRENDING',
-  badgeClass: 'trendingBadge',
-  title: 'Or Travel Back in Time',
-  description: 'Transform your photo into authentic 70s, 80s, 90s, or 2000s yearbook styles. Perfect for social media and nostalgia.',
-  link: '/decades',
-  combinedImage: '/images/decades-before-after-combined.jpg',
-  beforeLabel: 'Today',
-  afterLabel: '1995',
-  tags: [
-    { emoji: '📼', label: '90s' },
-    { emoji: '🎸', label: '80s' },
-    { emoji: '✌️', label: '70s' },
-    { emoji: '💿', label: '2000s' }
-  ],
-  buttonText: 'Try 90s AI Free →',
-  buttonClass: 'viralButton',
-  credits: '50',
-  processingTime: '⚡ 45 seconds'
-};
+// Secondary features (side by side)
+const SECONDARY_FEATURES = [
+  {
+    id: 'avatar',
+    type: 'avatar',
+    badge: '✨ NEW',
+    title: 'AI Avatar Generator',
+    description: 'Transform into fantasy characters, historical figures, or sci-fi heroes. Create stunning AI avatars in seconds.',
+    link: '/replicate/avatar',
+    combinedImage: '/images/avatarcard.png',
+    beforeLabel: 'You',
+    afterLabel: 'Avatar',
+    tags: [
+      { emoji: '🧙', label: 'Fantasy' },
+      { emoji: '🚀', label: 'Sci-Fi' },
+      { emoji: '🏛️', label: 'Historical' }
+    ],
+    buttonText: 'Create Avatar',
+    credits: '50',
+    processingTime: '45 seconds'
+  },
+  {
+    id: 'decades',
+    type: 'decades',
+    badge: '🔥 TRENDING',
+    title: 'Decade Time Machine',
+    description: 'Transform your photo into authentic 70s, 80s, 90s, or 2000s yearbook styles. Perfect for social media.',
+    link: '/decades',
+    combinedImage: '/images/decades-before-after-combined.jpg',
+    beforeLabel: 'Today',
+    afterLabel: '1995',
+    tags: [
+      { emoji: '📼', label: '90s' },
+      { emoji: '🎸', label: '80s' },
+      { emoji: '✌️', label: '70s' },
+      { emoji: '💿', label: '2000s' }
+    ],
+    buttonText: 'Try Decades',
+    credits: '50',
+    processingTime: '45 seconds'
+  }
+];
 
-// Primary Hero Card Component (Full Width)
+// Primary Hero Card Component
 const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
   <div 
-    className={`${styles.primaryHeroCard} ${styles[card.type]}`}
+    className={styles.primaryCard}
+    data-type={card.type}
     onClick={() => onNavigate(card.link, card.id)}
     role="button"
     tabIndex={0}
-    onKeyDown={(e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        onNavigate(card.link, card.id);
-      }
-    }}
   >
-    <div className={styles.primaryHeroContent}>
-      {/* Left Side: Text Content */}
-      <div className={styles.primaryHeroText}>
-        <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
-          {card.badge}
-        </div>
+    <div className={styles.primaryContent}>
+      {/* Left: Text Content */}
+      <div className={styles.primaryText}>
+        <div className={styles.badge}>{card.badge}</div>
+        <h2 className={styles.primaryTitle}>{card.title}</h2>
+        <p className={styles.primaryDescription}>{card.description}</p>
         
-        <h2 className={styles.primaryHeroTitle}>{card.title}</h2>
-        <p className={styles.primaryHeroDescription}>{card.description}</p>
-        
-        {/* Features List */}
-        {card.features && (
-          <ul className={styles.primaryFeatureList}>
-            {card.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        )}
-        
-        {/* Tags */}
-        <div className={styles.tags}>
-          {card.tags.map((tag, index) => (
-            <span key={index} className={styles.tag}>
-              {tag.emoji} {tag.label}
-            </span>
+        <ul className={styles.featureList}>
+          {card.features.map((feature, index) => (
+            <li key={index}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              {feature}
+            </li>
           ))}
-        </div>
-        
-        {/* CTA Button */}
-        <div className={styles.primaryHeroCta}>
-          <button className={`${styles.btnPrimary} ${styles[card.buttonClass]}`}>
-            {card.buttonText}
-          </button>
-          
-          <div className={styles.primaryHeroMeta}>
-            <span className={styles.credits}>
-              <strong>{card.credits}</strong> credits
-            </span>
-            <span className={styles.processingTime}>{card.processingTime}</span>
-          </div>
-        </div>
+        </ul>
       </div>
       
-      {/* Right Side: Before/After Image */}
-      <div className={styles.primaryHeroImage}>
-        <div className={styles.combinedImageContainer}>
-          {card.combinedImage ? (
-            <Image
-              src={card.combinedImage}
-              alt={`${card.title} - Before and After comparison`}
-              fill
-              className={styles.combinedImage}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              quality={85}
-              priority={true}
-            />
-          ) : (
-            <div className={styles.placeholder}>Before/After Preview</div>
-          )}
+      {/* Right: Image + CTA */}
+      <div className={styles.primaryImage}>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={card.combinedImage}
+            alt={`${card.title} - Before and After`}
+            fill
+            className={styles.image}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={90}
+            priority
+          />
           <div className={styles.splitLine}></div>
           <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
             {card.beforeLabel}
@@ -134,6 +115,20 @@ const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
           <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
             {card.afterLabel}
           </span>
+        </div>
+        
+        {/* CTA Below Image */}
+        <div className={styles.primaryCta}>
+          <button className={styles.primaryButton}>
+            {card.buttonText}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <div className={styles.meta}>
+            <span className={styles.credits}>{card.credits} credits</span>
+            <span className={styles.time}>⚡ {card.processingTime}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -142,88 +137,69 @@ const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
 
 PrimaryHeroCard.displayName = 'PrimaryHeroCard';
 
-// Secondary Feature Card Component (Smaller, Less Prominent)
-const SecondaryFeatureCard = React.memo(({ card, onNavigate }) => (
-  <div className={styles.secondaryFeatureSection}>
-    <div className={styles.secondaryFeatureHeader}>
-      <h3 className={styles.secondaryFeatureTitle}>{card.title}</h3>
-      <div className={`${styles.badge} ${styles[card.badgeClass]}`}>
-        {card.badge}
+// Secondary Feature Card Component
+const SecondaryCard = React.memo(({ card, onNavigate }) => (
+  <div 
+    className={styles.secondaryCard}
+    data-type={card.type}
+    onClick={() => onNavigate(card.link, card.id)}
+    role="button"
+    tabIndex={0}
+  >
+    <div className={styles.badge}>{card.badge}</div>
+    
+    <div className={styles.secondaryImage}>
+      <div className={styles.imageWrapper}>
+        <Image
+          src={card.combinedImage}
+          alt={`${card.title} - Before and After`}
+          fill
+          className={styles.image}
+          sizes="(max-width: 768px) 100vw, 500px"
+          quality={85}
+        />
+        <div className={styles.splitLine}></div>
+        <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
+          {card.beforeLabel}
+        </span>
+        <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
+          {card.afterLabel}
+        </span>
       </div>
     </div>
     
-    <div 
-      className={`${styles.secondaryFeatureCard} ${styles[card.type]}`}
-      onClick={() => onNavigate(card.link, card.id)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          onNavigate(card.link, card.id);
-        }
-      }}
-    >
-      {/* Before/After Image */}
-      <div className={styles.secondaryFeatureImage}>
-        <div className={styles.combinedImageContainer}>
-          {card.combinedImage ? (
-            <Image
-              src={card.combinedImage}
-              alt={`${card.title} - Before and After comparison`}
-              fill
-              className={styles.combinedImage}
-              sizes="(max-width: 768px) 100vw, 600px"
-              quality={75}
-            />
-          ) : (
-            <div className={styles.placeholder}>Before/After Preview</div>
-          )}
-          <div className={styles.splitLine}></div>
-          <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
-            {card.beforeLabel}
-          </span>
-          <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
-            {card.afterLabel}
-          </span>
-        </div>
-      </div>
-      
-      <p className={styles.secondaryFeatureDescription}>{card.description}</p>
-      
-      {/* Tags */}
-      <div className={styles.secondaryTags}>
-        {card.tags.map((tag, index) => (
-          <span key={index} className={styles.tag}>
-            {tag.emoji} {tag.label}
-          </span>
-        ))}
-      </div>
-      
-      {/* CTA */}
-      <div className={styles.secondaryFeatureCta}>
-        <button className={`${styles.btnSecondary} ${styles[card.buttonClass]}`}>
-          {card.buttonText}
-        </button>
-        
-        <div className={styles.secondaryFeatureMeta}>
-          <span className={styles.credits}>
-            <strong>{card.credits}</strong> credits
-          </span>
-          <span className={styles.processingTime}>{card.processingTime}</span>
-        </div>
+    <h3 className={styles.secondaryTitle}>{card.title}</h3>
+    <p className={styles.secondaryDescription}>{card.description}</p>
+    
+    <div className={styles.tags}>
+      {card.tags.map((tag, index) => (
+        <span key={index} className={styles.tag}>
+          {tag.emoji} {tag.label}
+        </span>
+      ))}
+    </div>
+    
+    <div className={styles.secondaryCta}>
+      <button className={styles.secondaryButton}>
+        {card.buttonText}
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      <div className={styles.meta}>
+        <span className={styles.credits}>{card.credits} credits</span>
+        <span className={styles.time}>⚡ {card.processingTime}</span>
       </div>
     </div>
   </div>
 ));
 
-SecondaryFeatureCard.displayName = 'SecondaryFeatureCard';
+SecondaryCard.displayName = 'SecondaryCard';
 
-export default function SplitHeroLanding() {
+export default function ModernHeroLanding() {
   const router = useRouter();
 
-  // Optimized navigation with tracking
   const handleNavigation = useCallback((href, cardId) => {
-    // Track which card was clicked
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'hero_card_click', {
         card_type: cardId,
@@ -231,78 +207,69 @@ export default function SplitHeroLanding() {
       });
     }
     
-    console.log(`Hero card clicked: ${cardId} -> ${href}`);
-    
-    // Force scroll to top
     window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    
-    // Navigate
     router.push(href);
   }, [router]);
 
   return (
     <section className={styles.heroSection}>
+      {/* Animated Background */}
+      <div className={styles.backgroundGradient}>
+        <div className={styles.gradientOrb} style={{ top: '10%', left: '10%' }}></div>
+        <div className={styles.gradientOrb} style={{ top: '60%', right: '15%' }}></div>
+        <div className={styles.gradientOrb} style={{ bottom: '20%', left: '50%' }}></div>
+      </div>
+      
       <div className={styles.container}>
-        
-        {/* Floating Particles Background */}
-        <div className={styles.floatingParticles}>
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div 
-              key={i}
-              className={styles.particle} 
-              style={{
-                left: `${10 + i * 15}%`, 
-                animationDelay: `${i}s`
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Top Header */}
-        <div className={styles.topHeader}>
-          <h1 className={styles.mainTitle}>Bring Your Family History Back to Life</h1>
+        {/* Header */}
+        <div className={styles.header}>
+          <h1 className={styles.mainTitle}>
+            Bring Your Memories to Life with AI
+          </h1>
           <p className={styles.mainSubtitle}>
-            Professional AI restoration for damaged, faded, and black & white photos. Museum-quality results in seconds.
+            Professional photo restoration, AI avatars, and vintage transformations.
+            Museum-quality results in seconds.
           </p>
-                    
-          {/* Signup Banner */}
+          
           <div className={styles.signupBanner}>
+            <div className={styles.bannerIcon}>🎁</div>
             <div className={styles.bannerText}>
-              <strong>Sign up free - Get 50 credits</strong>
-              <span className={styles.bannerSubtext}>
-                Try restoration at no cost
-              </span>
+              <strong>Sign up free</strong>
+              <span>Get 50 credits to start</span>
             </div>
           </div>
         </div>
 
-        {/* Primary Hero Card - RESTORATION (Full Width, Prominent) */}
+        {/* Primary Hero Card */}
         <PrimaryHeroCard
           card={PRIMARY_HERO}
           onNavigate={handleNavigation}
         />
 
         {/* Divider */}
-        <div className={styles.featureDivider}>
+        <div className={styles.divider}>
           <span className={styles.dividerLine}></span>
           <span className={styles.dividerText}>Also Available</span>
           <span className={styles.dividerLine}></span>
         </div>
 
-        {/* Secondary Feature Card - DECADES (Smaller, Less Prominent) */}
-        <SecondaryFeatureCard
-          card={SECONDARY_FEATURE}
-          onNavigate={handleNavigation}
-        />
+        {/* Secondary Cards Grid */}
+        <div className={styles.secondaryGrid}>
+          {SECONDARY_FEATURES.map((card) => (
+            <SecondaryCard
+              key={card.id}
+              card={card}
+              onNavigate={handleNavigation}
+            />
+          ))}
+        </div>
 
         {/* Social Proof */}
         <div className={styles.socialProof}>
-          <div className={styles.socialProofStats}>
+          <div className={styles.stats}>
             <div className={styles.stat}>
-              <div className={styles.statNumber}>10-90 sec</div>
-              <div className={styles.statLabel}>Processing Time</div>
+              <div className={styles.statNumber}>50K+</div>
+              <div className={styles.statLabel}>Photos Transformed</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statNumber}>4.9★</div>
@@ -314,7 +281,6 @@ export default function SplitHeroLanding() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

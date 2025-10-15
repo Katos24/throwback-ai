@@ -258,7 +258,7 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 15px;
+  padding: 20px;
   position: relative;
   z-index: 2;
 }
@@ -283,20 +283,25 @@
   box-shadow: 0 0 30px rgba(255, 0, 128, 0.6);
 }
 
+/* Button Row - Enhanced visibility and text fitting */
 .buttonRow {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
   flex-wrap: wrap;
   margin-top: auto;
   width: 100%;
-  max-width: 350px;
+  max-width: 380px;
+  z-index: 10;
+  position: relative;
 }
 
+/* Main button styles - works with both old and new class names */
 .toggleButton,
 .changePhotoButton,
 .downloadButton,
-.filterToggleButton {
+.filterToggleButton,
+.actionButton {
   background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 128, 0.2));
   border: 2px solid var(--neon-cyan);
   padding: 8px 12px;
@@ -305,23 +310,90 @@
   font-family: inherit;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
   border-radius: 8px;
   backdrop-filter: blur(10px);
-  flex: 1;
-  min-width: 80px;
+  flex: 1 1 auto;
+  min-width: 70px;
+  max-width: 120px;
   text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: relative;
+  z-index: 10;
 }
 
 .toggleButton:hover,
 .changePhotoButton:hover,
 .downloadButton:hover,
-.filterToggleButton:hover {
+.filterToggleButton:hover,
+.actionButton:hover {
   background: linear-gradient(135deg, rgba(255, 0, 128, 0.3), rgba(0, 255, 255, 0.3));
   border-color: var(--neon-pink);
   color: var(--neon-pink);
   transform: translateY(-2px) scale(1.02);
+}
+
+.toggleButton:active,
+.changePhotoButton:active,
+.downloadButton:active,
+.filterToggleButton:active,
+.actionButton:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Mobile Responsive - Keep button styles */
+@media (max-width: 768px) {
+  .buttonRow {
+    max-width: 100%;
+    gap: 8px;
+    padding: 0 10px;
+  }
+  
+  .toggleButton,
+  .changePhotoButton,
+  .downloadButton,
+  .filterToggleButton,
+  .actionButton {
+    font-size: 0.7rem;
+    padding: 10px 12px;
+    min-width: 75px;
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttonRow { 
+    flex-direction: row;
+    gap: 5px;
+    padding: 0 8px;
+    max-width: 100%;
+  }
+  
+  .toggleButton,
+  .changePhotoButton,
+  .downloadButton,
+  .filterToggleButton,
+  .actionButton {
+    font-size: 0.6rem;
+    padding: 8px 8px;
+    min-width: 60px;
+    max-width: 90px;
+    letter-spacing: 0.3px;
+    line-height: 1.1;
+    /* Keep all original styles */
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 128, 0.2));
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
 }
 
 /* Configuration */

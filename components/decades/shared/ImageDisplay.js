@@ -46,7 +46,7 @@ export default function ImageDisplay({
             onClick={() => setShowingOriginal(!showingOriginal)}
             className={styles.actionButton} // <-- update here
           >
-            {showingOriginal ? `${getDecadeEmoji(decade)} View ${decade} Result` : '👀 View Original'}
+            {showingOriginal ? `${getDecadeEmoji(decade)} View ${decade} Result` : 'View Original'}
           </button>
         )}
 
@@ -63,7 +63,7 @@ export default function ImageDisplay({
           onClick={() => document.getElementById('photo-upload').click()}
           className={styles.actionButton} // <-- update here
         >
-          📷 Change Photo
+          Change Photo
         </button>
 
         {resultImageUrl && (
@@ -71,7 +71,7 @@ export default function ImageDisplay({
             onClick={handleDownload}
             className={styles.actionButton} // <-- update here
           >
-            💾 Save Photo
+            Save Photo
           </button>
         )}
       </div>

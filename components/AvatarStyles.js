@@ -7,12 +7,12 @@ const AVATAR_STYLES = {
   ],
   
   nineties: [
-    { label: "90s High School Yearbook", value: "90s high school yearbook photo, retro windbreaker jacket, big hair, bright neon colors, soft lighting, vintage Kodak film grain, centered school portrait, cheesy smile, plain background, 1990s fashion aesthetic" },
+    { label: "90s High School Yearbook", value: "90s high school yearbook photo, retro windbreaker jacket, big hair, bright neon colors, soft lighting, vintage Kodak film grain, centered school portrait, plain background, 1990s fashion aesthetic" },
     { label: "90s Mall Goth", value: "90s mall goth, black eyeliner, dark lipstick, fishnet sleeves, band t-shirt, chunky platform boots, Hot Topic aesthetic, moody lighting, alternative 1990s style" },
     { label: "90s Hip-Hop Style", value: "90s hip-hop fashion, baggy jeans, oversized jersey, backwards baseball cap, gold chain, boom box, urban street style, East Coast 90s vibe, grainy film photography" },
-    { label: "90s Grunge Kid", value: "90s grunge aesthetic, flannel shirt, ripped jeans, Doc Martens, messy hair, guitar in background, Seattle music scene vibe, authentic 1990s alternative style" },
-    { label: "90s Preppy Kid", value: "90s preppy style, polo shirt, khaki pants, letterman jacket, perfectly styled hair, country club background, clean-cut All-American 1990s look" },
-    { label: "90s Rave Kid", value: "90s rave culture, neon colors, glow sticks, bucket hat, oversized pants, smiley face accessories, club lighting, underground dance scene aesthetic" },
+    { label: "90s Grunge", value: "90s grunge aesthetic, flannel shirt, ripped jeans, Doc Martens, messy hair, guitar in background, Seattle music scene vibe, authentic 1990s alternative style" },
+    { label: "90s Preppy", value: "90s preppy style, polo shirt, khaki pants, letterman jacket, perfectly styled hair, country club background, clean-cut All-American 1990s look" },
+    { label: "90s Rave", value: "90s rave culture, neon colors, glow sticks, bucket hat, oversized pants, smiley face accessories, club lighting, underground dance scene aesthetic" },
     { label: "90s Skater", value: "90s skater style, baggy shorts, graphic t-shirt, backwards snapback, skateboard, half-pipe background, X-Games era aesthetic, rebellious 1990s youth culture" },
     { label: "90s Boy Band Member", value: "90s boy band style, frosted tips, leather jacket, chain necklace, dramatic pose, concert stage lighting, teen heartthrob aesthetic, NSYNC/Backstreet Boys era" },
     { label: "90s Girl Group Singer", value: "90s girl group style, crop top, low-rise jeans, platform shoes, butterfly hair clips, glossy lips, pop star pose, Spice Girls era aesthetic" },

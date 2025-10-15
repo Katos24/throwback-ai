@@ -1032,3 +1032,258 @@
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
+
+
+/* Examples Section with Carousel */
+.examplesSection {
+  margin-top: 0;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.examplesHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.examplesTitle {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.examplesSubtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.carouselContainer {
+  padding: 15px 0;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.carouselSlide {
+  padding: 0 12px;
+}
+
+.exampleCard {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.exampleCard:hover {
+  transform: scale(1.05);
+  border-color: rgba(240, 147, 251, 0.5);
+}
+
+.exampleImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.exampleOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.7), transparent);
+  padding: 15px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exampleCategory {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.exampleStyle {
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+.examplesCta {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.examplesCtaButton {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.examplesCtaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.examplesCtaButton:hover::before {
+  left: 100%;
+}
+
+.examplesCtaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.lightboxImage {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lightboxBtnPrev,
+.lightboxBtnNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 2.5rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 10001;
+  transition: background 0.2s ease;
+  color: #111;
+  font-weight: bold;
+}
+
+.lightboxBtnPrev:hover,
+.lightboxBtnNext:hover {
+  background: white;
+}
+
+.lightboxBtnPrev { left: 20px; }
+.lightboxBtnNext { right: 20px; }
+
+/* Mobile Responsive for Examples */
+@media (max-width: 768px) {
+  .examplesSection {
+    padding: 30px 0;
+  }
+
+  .examplesTitle {
+    padding: 0 15px;
+  }
+
+  .examplesSubtitle {
+    margin-bottom: 25px;
+    padding: 0 15px;
+    font-size: 1rem;
+  }
+
+  .carouselContainer {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 15px 0;
+  }
+
+  .carouselSlide {
+    padding: 0 8px;
+  }
+
+  .exampleCard {
+    border-radius: 12px;
+  }
+
+  .exampleOverlay {
+    padding: 12px;
+  }
+
+  .examplesCtaButton {
+    width: 90%;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    font-size: 2rem;
+    padding: 6px 12px;
+  }
+
+  .lightboxBtnPrev { left: 10px; }
+  .lightboxBtnNext { right: 10px; }
+}
+
+@media (max-width: 480px) {
+  .examplesSection {
+    padding: 25px 0;
+  }
+
+  .carouselSlide {
+    padding: 0 5px;
+  }
+
+  .exampleCard {
+    aspect-ratio: 4 / 5;
+    max-width: 90%;
+  }
+
+  .exampleOverlay {
+    padding: 10px;
+  }
+
+  .exampleCategory {
+    font-size: 0.7rem;
+  }
+
+  .exampleStyle {
+    font-size: 0.85rem;
+  }
+}

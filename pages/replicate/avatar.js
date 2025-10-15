@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { createPortal } from 'react-dom';
+import Slider from 'react-slick';
 import imageCompression from "browser-image-compression";
 import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
@@ -9,6 +11,8 @@ import toast from 'react-hot-toast';
 import styles from "../../styles/AvatarPage.module.css";
 import AVATAR_STYLES from "../../components/AvatarStyles";
 import SEOAvatar from "../../components/SEO/SEOAvatar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function AiAvatarsRedesigned() {
   const router = useRouter();
@@ -22,6 +26,8 @@ export default function AiAvatarsRedesigned() {
   const [progress, setProgress] = useState(0);
   const [progressStage, setProgressStage] = useState("");
   const [showingOriginal, setShowingOriginal] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentLightboxIndex, setCurrentLightboxIndex] = useState(0);
 
   // Configuration state
   const [userGender, setUserGender] = useState("");
@@ -35,6 +41,106 @@ export default function AiAvatarsRedesigned() {
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
+
+  // Debug log to check values
+  useEffect(() => {
+    console.log('Avatar Page - isLoggedIn:', isLoggedIn);
+    console.log('Avatar Page - credits:', credits);
+    console.log('Avatar Page - avatarCost:', avatarCost);
+  }, [isLoggedIn, credits]);
+
+  // Example transformations for carousel
+  const exampleTransformations = [
+    {
+      id: 1,
+      category: "Fantasy",
+      style: "Dragon Rider",
+      image: "/images/examples/avatar/dragon.png",
+    },
+    {
+      id: 2,
+      category: "Fantasy",
+      style: "Magical Wizard",
+      image: "/images/examples/avatar/wizard.png",
+    },
+    {
+      id: 3,
+      category: "Historical",
+      style: "Western Era",
+      image: "/images/examples/avatar/western.png",
+    },
+      {
+      id: 4,
+      category: "Sci-Fi",
+      style: "Cyberpunk",
+      image: "/images/examples/avatar/cyberpunk.png",
+    },
+    {
+      id: 5,
+      category: "Fantasy",
+      style: "Medieval Warrior",
+      image: "/images/examples/avatar/medieval.png",
+    },
+     {
+      id: 6,
+      category: "Historical",
+      style: "Western Era",
+      image: "/images/examples/avatar/western2.png",
+    },
+    {
+      id: 7,
+      category: "Medieval",
+      style: "Medieval Fantasy",
+      image: "/images/examples/avatar/medieval2.png",
+    }
+  ];
+
+  // Carousel settings
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '20px',
+          arrows: false
+        }
+      }
+    ]
+  };
+
+  // Lightbox handlers
+  const handleImageClick = (index) => {
+    if (window.innerWidth <= 768) {
+      setCurrentLightboxIndex(index);
+      setLightboxOpen(true);
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentLightboxIndex((prev) => (prev + 1) % exampleTransformations.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentLightboxIndex((prev) => (prev - 1 + exampleTransformations.length) % exampleTransformations.length);
+  };
 
   useEffect(() => {
     async function getSession() {
@@ -386,7 +492,7 @@ export default function AiAvatarsRedesigned() {
               {["male", "female", "non-binary"].map((gender) => (
                 <button
                   key={gender}
-                  className={`${styles.optionButton} ${userGender === gender ? styles.active : ''}`}
+                  className={`${styles.optionButton} ${userGender === gender ? styles.selected : ''}`}
                   onClick={() => setUserGender(gender)}
                 >
                   {gender.charAt(0).toUpperCase() + gender.slice(1)}
@@ -411,7 +517,7 @@ export default function AiAvatarsRedesigned() {
                 ].map((category) => (
                   <button
                     key={category.value}
-                    className={`${styles.categoryButton} ${styleCategory === category.value ? styles.active : ''}`}
+                    className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
                     onClick={() => {
                       setStyleCategory(category.value);
                       setSelectedStyle("");
@@ -431,7 +537,7 @@ export default function AiAvatarsRedesigned() {
                 {AVATAR_STYLES[styleCategory]?.map((style) => (
                   <button
                     key={style.value}
-                    className={`${styles.styleButton} ${selectedStyle === style.value ? styles.active : ''}`}
+                    className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
                     onClick={() => setSelectedStyle(style.value)}
                   >
                     {style.label}
@@ -465,7 +571,7 @@ export default function AiAvatarsRedesigned() {
                   ].map((workflow) => (
                     <button
                       key={workflow.value}
-                      className={`${styles.optionButton} ${workflowType === workflow.value ? styles.active : ''}`}
+                      className={`${styles.optionButton} ${workflowType === workflow.value ? styles.selected : ''}`}
                       onClick={() => setWorkflowType(workflow.value)}
                     >
                       {workflow.label}
@@ -528,7 +634,72 @@ export default function AiAvatarsRedesigned() {
             </div>
           )}
         </div>
+
+        {/* Examples Section with Carousel */}
+        <div className={styles.examplesSection}>
+          <div className={styles.examplesHeader}>
+            <h2 className={styles.examplesTitle}>✨ Example Transformations</h2>
+            <p className={styles.examplesSubtitle}>
+              See what's possible with avatar styles across 6 categories
+            </p>
+          </div>
+
+          <div className={styles.carouselContainer}>
+            <Slider {...carouselSettings}>
+              {exampleTransformations.map((example, index) => (
+                <div key={example.id} className={styles.carouselSlide}>
+                  <div 
+                    className={styles.exampleCard}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <img 
+                      src={example.image} 
+                      alt={`${example.style} transformation`}
+                      className={styles.exampleImage}
+                    />
+                    <div className={styles.exampleOverlay}>
+                      <span className={styles.exampleCategory}>{example.category}</span>
+                      <span className={styles.exampleStyle}>{example.style}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+
+          <div className={styles.examplesCta}>
+            <button 
+              onClick={() => {
+                if (!isLoggedIn) {
+                  router.push('/signup');
+                } else {
+                  router.push('/pricing');
+                }
+              }}
+              className={styles.examplesCtaButton}
+            >
+              {!isLoggedIn 
+                ? "Sign Up to Create Avatar →" 
+                : "Get Credits to Create Avatar →"
+              }
+            </button>
+          </div>
+        </div>
       </main>
+
+      {/* Lightbox rendered as Portal to document.body */}
+      {lightboxOpen && typeof document !== 'undefined' && createPortal(
+        <div className={styles.lightbox} onClick={closeLightbox}>
+          <button onClick={prevImage} className={styles.lightboxBtnPrev}>‹</button>
+          <img
+            src={exampleTransformations[currentLightboxIndex].image}
+            alt={exampleTransformations[currentLightboxIndex].style}
+            className={styles.lightboxImage}
+          />
+          <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
+        </div>,
+        document.body
+      )}
     </>
   );
 }

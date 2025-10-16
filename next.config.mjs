@@ -7,26 +7,36 @@ const nextConfig = {
       'files.smartsites.parentsquare.com'
     ],
   },
-  // Compiler optimizations to reduce bundle size
+  // Compiler optimizations
   compiler: {
     reactRemoveProperties: true,
   },
-  // Force modern target
+  // Experimental features
   experimental: {
     forceSwcTransforms: true,
     scrollRestoration: false,
+    optimizeCss: true, // ADD THIS - optimizes CSS loading
   },
   async headers() {
     return [
       {
-        source: '/_next/static/css/:file*',
+        source: '/_next/static/css/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store, must-revalidate'
-          }
-        ]
-      }
+            value: 'public, max-age=31536000, immutable', // CHANGED - allow aggressive caching
+          },
+        ],
+      },
+      {
+        source: '/_next/static/js/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ]
   }
 };

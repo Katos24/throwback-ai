@@ -11,7 +11,7 @@ const PRIMARY_HERO = {
   title: 'Restore Your Family Memories',
   description: 'Repair damage, enhance clarity, and add color to vintage photos. Professional AI restoration that brings your family history back to life.',
   link: '/replicate/restore-premium',
-  combinedImage: '/images/restore-before-after-combined.jpg',
+  combinedImage: '/images/restorehero.jpg',
   beforeLabel: 'Before',
   afterLabel: 'After',
   features: [

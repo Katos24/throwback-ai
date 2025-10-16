@@ -388,8 +388,8 @@ return (
         <h4>Company</h4>
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
-        <Link href="/privacy">Privacy Policy</Link>
-        <Link href="/terms">Terms of Service</Link>
+        <Link href="/library/privacy">Privacy Policy</Link>
+        <Link href="/library/terms">Terms of Service</Link>
       </div>
 
       <div className={styles.footerSection}>

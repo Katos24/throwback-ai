@@ -221,7 +221,6 @@ export default function DemoPortal() {
       {/* Demo Banner */}
       <div className={styles.demoBanner}>
         <div className={styles.demoBannerContent}>
-          <span className={styles.demoIcon}>🎯</span>
           <div>
             <strong>Interactive Demo</strong>
             <p>You have <strong>{DEMO_LIMIT - demoUsageCount} of {DEMO_LIMIT}</strong> free restorations remaining in this demo.</p>

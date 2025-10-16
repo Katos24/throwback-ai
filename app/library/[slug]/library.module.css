@@ -433,7 +433,9 @@
   border: 2px solid rgba(37, 99, 235, 0.3);
   border-radius: 12px;
   padding: 1.5rem;
-  margin: 2rem 0;
+  margin: 2rem auto; /* top/bottom: 2rem, left/right: auto centers it */
+  max-width: 500px;  /* optional: limit width so centering looks nicer */
+  text-align: center; /* optional: centers the text inside the banner */
 }
 
 .demoBannerContent {

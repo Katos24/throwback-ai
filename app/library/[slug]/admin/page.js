@@ -291,7 +291,7 @@ export default function LibraryAdminDashboard() {
       </div>
       <div className={styles.accountRow}>
         <strong>Portal URL:</strong>
-        <span>yoursite.com/library/{slug}</span>
+        <span>throwbackai.app/library/{slug}</span>
       </div>
     </div>
   </div>

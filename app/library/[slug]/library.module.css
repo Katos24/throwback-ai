@@ -1,9 +1,33 @@
 /* === LAYOUT === */
+/* Full-width container for Library Portal page */
 .container {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  position: relative;
 }
+
+/* Main content wrapper */
+.main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .main {
+    max-width: 800px;
+    margin: 0 auto; /* centers content */
+    padding: 3rem 2rem;
+  }
+}
+
+/* Optional: ensure html/body reset is global */
 
 .container::before {
   content: '';
@@ -17,21 +41,6 @@
   pointer-events: none;
 }
 
-.main {
-  max-width: 100%;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 768px) {
-  .main {
-    max-width: 800px;
-    padding: 3rem 2rem;
-  }
-}
 
 /* === HEADER === */
 .header {

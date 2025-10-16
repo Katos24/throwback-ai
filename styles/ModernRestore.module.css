@@ -1007,3 +1007,25 @@
     font-size: 12px;
   }
 }
+
+
+/* Mobile: Stack badges vertically with cost badges side by side */
+@media (max-width: 640px) {
+  .badgeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .costBadgesRow {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .freeCreditBadge {
+    width: 100%;
+    max-width: 280px;
+  }
+}

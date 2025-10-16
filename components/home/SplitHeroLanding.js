@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from '../../styles/SplitHeroLanding.module.css';
 
-// Primary hero card (full width)
+// Hero data
 const PRIMARY_HERO = {
   id: 'restore',
   type: 'restore',
@@ -25,7 +25,6 @@ const PRIMARY_HERO = {
   processingTime: '10-90 seconds'
 };
 
-// Secondary features (side by side)
 const SECONDARY_FEATURES = [
   {
     id: 'avatar',
@@ -68,25 +67,17 @@ const SECONDARY_FEATURES = [
   }
 ];
 
-// Primary Hero Card Component
-const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
-  <div 
-    className={styles.primaryCard}
-    data-type={card.type}
-    onClick={() => onNavigate(card.link, card.id)}
-    role="button"
-    tabIndex={0}
-  >
+// Primary Hero Component
+const PrimaryHeroCard = ({ card, onNavigate }) => (
+  <div className={styles.primaryCard} onClick={() => onNavigate(card.link, card.id)} role="button" tabIndex={0}>
     <div className={styles.primaryContent}>
-      {/* Left: Text Content */}
       <div className={styles.primaryText}>
         <div className={styles.badge}>{card.badge}</div>
         <h2 className={styles.primaryTitle}>{card.title}</h2>
         <p className={styles.primaryDescription}>{card.description}</p>
-        
         <ul className={styles.featureList}>
-          {card.features.map((feature, index) => (
-            <li key={index}>
+          {card.features.map((feature, idx) => (
+            <li key={idx}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -95,8 +86,7 @@ const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
           ))}
         </ul>
       </div>
-      
-      {/* Right: Image + CTA */}
+
       <div className={styles.primaryImage}>
         <div className={styles.imageWrapper}>
           <Image
@@ -109,22 +99,11 @@ const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
             priority
           />
           <div className={styles.splitLine}></div>
-          <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
-            {card.beforeLabel}
-          </span>
-          <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
-            {card.afterLabel}
-          </span>
+          <span className={`${styles.imageLabel} ${styles.labelBefore}`}>{card.beforeLabel}</span>
+          <span className={`${styles.imageLabel} ${styles.labelAfter}`}>{card.afterLabel}</span>
         </div>
-        
-        {/* CTA Below Image */}
         <div className={styles.primaryCta}>
-          <button className={styles.primaryButton}>
-            {card.buttonText}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+          <button className={styles.primaryButton}>{card.buttonText}</button>
           <div className={styles.meta}>
             <span className={styles.credits}>{card.credits} credits</span>
             <span className={styles.time}>⚡ {card.processingTime}</span>
@@ -133,21 +112,12 @@ const PrimaryHeroCard = React.memo(({ card, onNavigate }) => (
       </div>
     </div>
   </div>
-));
+);
 
-PrimaryHeroCard.displayName = 'PrimaryHeroCard';
-
-// Secondary Feature Card Component
-const SecondaryCard = React.memo(({ card, onNavigate }) => (
-  <div 
-    className={styles.secondaryCard}
-    data-type={card.type}
-    onClick={() => onNavigate(card.link, card.id)}
-    role="button"
-    tabIndex={0}
-  >
+// Secondary Card Component
+const SecondaryCard = ({ card, onNavigate }) => (
+  <div className={styles.secondaryCard} onClick={() => onNavigate(card.link, card.id)} role="button" tabIndex={0}>
     <div className={styles.badge}>{card.badge}</div>
-    
     <div className={styles.secondaryImage}>
       <div className={styles.imageWrapper}>
         <Image
@@ -157,119 +127,104 @@ const SecondaryCard = React.memo(({ card, onNavigate }) => (
           className={styles.image}
           sizes="(max-width: 768px) 100vw, 500px"
           quality={85}
+          loading="lazy"
         />
-        <div className={styles.splitLine}></div>
-        <span className={`${styles.imageLabel} ${styles.labelBefore}`}>
-          {card.beforeLabel}
-        </span>
-        <span className={`${styles.imageLabel} ${styles.labelAfter}`}>
-          {card.afterLabel}
-        </span>
+        {card.type === 'decades' && <div className={styles.splitLine}></div>}
+        {card.type === 'decades' && (
+          <>
+            <span className={`${styles.imageLabel} ${styles.labelBefore}`}>{card.beforeLabel}</span>
+            <span className={`${styles.imageLabel} ${styles.labelAfter}`}>{card.afterLabel}</span>
+          </>
+        )}
       </div>
     </div>
-    
     <h3 className={styles.secondaryTitle}>{card.title}</h3>
     <p className={styles.secondaryDescription}>{card.description}</p>
-    
-    <div className={styles.tags}>
-      {card.tags.map((tag, index) => (
-        <span key={index} className={styles.tag}>
-          {tag.emoji} {tag.label}
-        </span>
-      ))}
-    </div>
-    
+    {card.tags && (
+      <div className={styles.tags}>
+        {card.tags.map((tag, idx) => (
+          <span key={idx} className={styles.tag}>{tag.emoji} {tag.label}</span>
+        ))}
+      </div>
+    )}
     <div className={styles.secondaryCta}>
-      <button className={styles.secondaryButton}>
-        {card.buttonText}
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
+      <button className={styles.secondaryButton}>{card.buttonText}</button>
       <div className={styles.meta}>
         <span className={styles.credits}>{card.credits} credits</span>
         <span className={styles.time}>⚡ {card.processingTime}</span>
       </div>
     </div>
   </div>
-));
-
-SecondaryCard.displayName = 'SecondaryCard';
+);
 
 export default function ModernHeroLanding() {
   const router = useRouter();
-
-  const handleNavigation = useCallback((href, cardId) => {
+  const handleNavigation = useCallback((href) => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'hero_card_click', {
-        card_type: cardId,
-        destination: href
-      });
+      window.gtag('event', 'hero_card_click', { destination: href });
     }
-    
-    window.scrollTo(0, 0);
     router.push(href);
   }, [router]);
 
   return (
     <section className={styles.heroSection}>
-      {/* Animated Background */}
       <div className={styles.backgroundGradient}>
         <div className={styles.gradientOrb} style={{ top: '10%', left: '10%' }}></div>
         <div className={styles.gradientOrb} style={{ top: '60%', right: '15%' }}></div>
         <div className={styles.gradientOrb} style={{ bottom: '20%', left: '50%' }}></div>
       </div>
-      
+
       <div className={styles.container}>
-        {/* Header */}
-        <div className={styles.header}>
-          <h1 className={styles.mainTitle}>
-            Bring Your Memories to Life with AI
-          </h1>
-          <p className={styles.mainSubtitle}>
-            Professional photo restoration, AI avatars, and vintage transformations.
-            Museum-quality results in seconds.
-          </p>
-          
-          <div 
-            className={styles.signupBanner}
-            onClick={() => handleNavigation('/signup', 'signup_banner')}
-            role="button"
-            tabIndex={0}
-          >
-            <div className={styles.bannerIcon}>🎁</div>
-            <div className={styles.bannerText}>
-              <strong>Sign up free</strong>
-              <span>Get 50 credits to start</span>
-            </div>
-          </div>
-        </div>
+  {/* Header - only titles now */}
+  <div className={styles.header}>
+    <h1 className={styles.mainTitle}>
+      Bring Your Memories to Life with AI
+    </h1>
+    <p className={styles.mainSubtitle}>
+      Professional photo restoration, AI avatars, and vintage transformations.
+      Museum-quality results in seconds.
+    </p>
+  </div>
 
-        {/* Primary Hero Card */}
-        <PrimaryHeroCard
-          card={PRIMARY_HERO}
-          onNavigate={handleNavigation}
-        />
+  {/* Primary Hero Card */}
+  <PrimaryHeroCard
+    card={PRIMARY_HERO}
+    onNavigate={handleNavigation}
+  />
 
-        {/* Divider */}
-        <div className={styles.divider}>
-          <span className={styles.dividerLine}></span>
-          <span className={styles.dividerText}>Also Available</span>
-          <span className={styles.dividerLine}></span>
-        </div>
+  {/* Signup Banner moved here */}
+  <div 
+    className={styles.signupBanner}
+    onClick={() => handleNavigation('/signup', 'signup_banner')}
+    role="button"
+    tabIndex={0}
+  >
+    <div className={styles.bannerIcon}>🎁</div>
+    <div className={styles.bannerText}>
+      <strong>Sign up free</strong>
+      <span>Get 50 credits to start</span>
+    </div>
+  </div>
 
-        {/* Secondary Cards Grid */}
-        <div className={styles.secondaryGrid}>
-          {SECONDARY_FEATURES.map((card) => (
-            <SecondaryCard
-              key={card.id}
-              card={card}
-              onNavigate={handleNavigation}
-            />
-          ))}
-        </div>
+  {/* Divider */}
+  <div className={styles.divider}>
+    <span className={styles.dividerLine}></span>
+    <span className={styles.dividerText}>Also Available</span>
+    <span className={styles.dividerLine}></span>
+  </div>
 
-        {/* Social Proof */}
+  {/* Secondary Cards Grid */}
+  <div className={styles.secondaryGrid}>
+    {SECONDARY_FEATURES.map((card) => (
+      <SecondaryCard
+        key={card.id}
+        card={card}
+        onNavigate={handleNavigation}
+      />
+    ))}
+  </div>
+
+  {/* Social Proof */}
         <div className={styles.socialProof}>
           <div className={styles.stats}>
             <div className={styles.stat}>

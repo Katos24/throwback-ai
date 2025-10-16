@@ -137,7 +137,7 @@ export default function LibraryPricing() {
             Simple, Transparent Pricing
           </h1>
           <p style={{ fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '2rem' }}>
-            Choose the plan that fits your community's needs
+            Choose the plan that fits your community&apos;s needs
           </p>
           <div style={{
             display: 'inline-flex',
@@ -340,7 +340,7 @@ export default function LibraryPricing() {
                 Auto
               </div>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.95rem' }}>
-                Unused credits don't roll over - use them or lose them each month
+                Unused credits don&apos;t roll over - use them or lose them each month
               </p>
             </div>
           </div>

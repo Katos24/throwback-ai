@@ -231,7 +231,12 @@ export default function ModernHeroLanding() {
             Museum-quality results in seconds.
           </p>
           
-          <div className={styles.signupBanner}>
+          <div 
+            className={styles.signupBanner}
+            onClick={() => handleNavigation('/signup', 'signup_banner')}
+            role="button"
+            tabIndex={0}
+          >
             <div className={styles.bannerIcon}>🎁</div>
             <div className={styles.bannerText}>
               <strong>Sign up free</strong>

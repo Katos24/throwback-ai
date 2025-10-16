@@ -15,7 +15,7 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
     scrollRestoration: false,
-    optimizeCss: true, // ADD THIS - optimizes CSS loading
+    optimizeCss: true, // Now it will work!
   },
   async headers() {
     return [
@@ -24,7 +24,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable', // CHANGED - allow aggressive caching
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

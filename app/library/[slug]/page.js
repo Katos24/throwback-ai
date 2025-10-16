@@ -466,9 +466,9 @@ export default function LibraryPortal() {
                         role="radio"
                         aria-checked={restoreType === 'basic'}
                         >
-                      <div className={styles.badge}>💰 FREE</div>
+                      <div className={styles.badge}>✨ ENHANCE</div>
                       <h4>Basic Restoration</h4>
-                      <p>Great quality, instant results</p>
+                      <p>Fix damage, sharpen details</p>
                     </div>
 
                     <div 
@@ -485,9 +485,9 @@ export default function LibraryPortal() {
                     aria-checked={restoreType === 'premium'}
                     aria-disabled={outOfPremiumCredits}
                     >
-                    <div className={styles.badge}>⭐ PREMIUM</div>
-                    <h4>Enhanced Details</h4>
-                    <p>{outOfPremiumCredits ? 'Out of credits' : 'Studio quality'}</p>
+                    <div className={styles.badge}>🎨 COLORIZE</div>
+                    <h4>Premium Colorization</h4>
+                    <p>{outOfPremiumCredits ? 'Out of credits' : 'Add vibrant, realistic color'}</p>
                     </div>
                   </div>
 
@@ -498,7 +498,7 @@ export default function LibraryPortal() {
                         className={styles.primaryBtn}
                         aria-label={`Restore photo using ${restoreType} enhancement`}
                         >
-                        Restore Photo ({restoreType === 'basic' ? 'FREE' : '40 credits'})
+                        Restore Photo
                     </button>
                     <button 
                     onClick={handleReset} 

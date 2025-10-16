@@ -12,7 +12,7 @@ return (
 <Link href="/" className={styles.logo}>Throwback AI</Link>
 <nav className={styles.nav}>
 <Link href="/">Home</Link>
-<Link href="/pricing">Pricing</Link>
+<Link href="/library/pricing">Pricing</Link>
 <Link href="/library/demo" className={styles.ctaBtn}>Request Demo</Link>
 </nav>
 </header>
@@ -20,9 +20,9 @@ return (
 {/* Hero Section */}
   <section className={styles.hero}>
     <div className={styles.heroContent}>
-      <span className={styles.badge}>For Public Libraries</span>
-      <h1>Offer Professional Photo Restoration as a Library Service</h1>
-      <p>Transform your library into a digital preservation hub. Provide free AI-powered photo restoration to your community—fully branded with your library&apos;s identity.</p>
+      <span className={styles.badge}>For Organizations</span>
+      <h1>Offer Professional Photo Restoration to Your Community</h1>
+      <p>Transform your organization into a digital preservation hub. Provide AI-powered photo restoration to your community—fully branded with your organization&apos;s identity.</p>
       
       <div className={styles.heroButtons}>
         <Link href="/library/demo-portal" className={styles.primaryBtn}>
@@ -43,18 +43,41 @@ return (
           <span>Free Trial</span>
         </div>
         <div className={styles.proof}>
-          <strong>$300</strong>
+          <strong>From $199</strong>
           <span>Per Month</span>
         </div>
       </div>
     </div>
   </section>
 
-  {/* Restoration Counter - Live Social Proof */}
+  {/* Use Cases Section */}
   <section className={styles.statsSection}>
+    <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1.75rem' }}>Perfect For</h2>
+    <div className={styles.featureGrid} style={{ maxWidth: '1000px', margin: '0 auto 3rem' }}>
+      <div className={styles.feature}>
+        <div className={styles.featureIcon}>📚</div>
+        <h3>Public Libraries</h3>
+        <p>Offer digital preservation as a community service</p>
+      </div>
+      <div className={styles.feature}>
+        <div className={styles.featureIcon}>🏥</div>
+        <h3>Nursing Homes</h3>
+        <p>Create meaningful activities for residents and families</p>
+      </div>
+      <div className={styles.feature}>
+        <div className={styles.featureIcon}>🏛️</div>
+        <h3>Historical Societies</h3>
+        <p>Preserve and digitize community history</p>
+      </div>
+      <div className={styles.feature}>
+        <div className={styles.featureIcon}>🏢</div>
+        <h3>Senior Centers</h3>
+        <p>Run engaging workshops and memory programs</p>
+      </div>
+    </div>
     <RestorationCounter />
     <p className={styles.statsSubtext}>
-      Trusted by families and libraries nationwide
+      Trusted by organizations nationwide
     </p>
   </section>
 
@@ -65,7 +88,7 @@ return (
       <div className={styles.step}>
         <div className={styles.stepNumber}>1</div>
         <h3>Get Your Branded Portal</h3>
-        <p>Receive a custom URL (throwbackai.app/library/yourlibrary) with your logo, colors, and branding. No technical setup required.</p>
+        <p>Receive a custom URL (throwbackai.app/library/yourorganization) with your logo, colors, and branding. No technical setup required.</p>
       </div>
 
       <div className={styles.step}>
@@ -76,21 +99,21 @@ return (
 
       <div className={styles.step}>
         <div className={styles.stepNumber}>3</div>
-        <h3>Patrons Access Your Portal</h3>
-        <p>Community members upload photos and receive professional restorations—all under your library&apos;s name. No accounts required.</p>
+        <h3>Members Access Your Portal</h3>
+        <p>Community members upload photos and receive professional restorations—all under your organization&apos;s name. No accounts required.</p>
       </div>
 
       <div className={styles.step}>
         <div className={styles.stepNumber}>4</div>
         <h3>Track Engagement</h3>
-        <p>View usage analytics and showcase success stories to strengthen your library&apos;s role in digital preservation.</p>
+        <p>View usage analytics and showcase success stories to strengthen your organization&apos;s impact.</p>
       </div>
     </div>
   </section>
 
   {/* Why Choose Us */}
   <section className={styles.features}>
-    <h2>Why Libraries Choose Throwback AI</h2>
+    <h2>Why Organizations Choose Throwback AI</h2>
     <div className={styles.featureGrid}>
       <div className={styles.feature}>
         <div className={styles.featureIcon}>✓</div>
@@ -101,13 +124,13 @@ return (
       <div className={styles.feature}>
         <div className={styles.featureIcon}>🎨</div>
         <h3>True White-Label</h3>
-        <p>Your branding everywhere. Patrons never see Throwback AI—only your library&apos;s name and logo.</p>
+        <p>Your branding everywhere. Members never see Throwback AI—only your organization&apos;s name and logo.</p>
       </div>
 
       <div className={styles.feature}>
         <div className={styles.featureIcon}>🔒</div>
-        <h3>Zip Code Protection</h3>
-        <p>Access restricted to your service area. Only verified residents can use your portal.</p>
+        <h3>Access Control</h3>
+        <p>Restrict access to your service area with zip code verification or custom access methods.</p>
       </div>
 
       <div className={styles.feature}>
@@ -130,42 +153,125 @@ return (
     </div>
   </section>
 
-  {/* Pricing */}
+  {/* Pricing - Updated with Multiple Tiers */}
   <section className={styles.pricing}>
-    <h2>Simple, Transparent Pricing</h2>
-    <div className={styles.pricingCard}>
-      <div className={styles.price}>
-        <span className={styles.currency}>$</span>
-        <span className={styles.amount}>300</span>
-        <span className={styles.period}>/month</span>
+    <h2>Choose Your Plan</h2>
+    <p style={{ textAlign: 'center', color: '#666', marginBottom: '3rem' }}>
+      All plans include unlimited basic restorations and a 30-day free trial
+    </p>
+    
+    <div style={{ 
+      display: 'grid', 
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '2rem',
+      maxWidth: '1200px',
+      margin: '0 auto'
+    }}>
+      {/* Starter Plan */}
+      <div className={styles.pricingCard}>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Starter</h3>
+        <div className={styles.price}>
+          <span className={styles.currency}>$</span>
+          <span className={styles.amount}>199</span>
+          <span className={styles.period}>/month</span>
+        </div>
+        
+        <ul className={styles.pricingFeatures}>
+          <li>✓ 30-day free trial</li>
+          <li>✓ Custom branded portal</li>
+          <li>✓ Unlimited basic restorations</li>
+          <li>✓ 5,000 premium credits (~250 colorizations)</li>
+          <li>✓ Zip code access control</li>
+          <li>✓ Usage analytics</li>
+          <li>✓ Email support</li>
+        </ul>
+
+        <Link href="/library/demo" className={styles.pricingBtn}>
+          Start Free Trial
+        </Link>
       </div>
-      
-      <ul className={styles.pricingFeatures}>
-        <li>✓ 30-day free trial (no credit card)</li>
-        <li>✓ Custom branded portal</li>
-        <li>✓ Unlimited basic restorations</li>
-        <li>✓ 8,000 premium credits/month (~400 restorations)</li>
-        <li>✓ Zip code access control</li>
-        <li>✓ Usage analytics dashboard</li>
-        <li>✓ Marketing materials included</li>
-        <li>✓ Email support</li>
-        <li>✓ Cancel anytime</li>
-      </ul>
 
-      <Link href="/library/subscribe" className={styles.pricingBtn}>
-        Start Free Trial
-      </Link>
+      {/* Growth Plan - Most Popular */}
+      <div className={styles.pricingCard} style={{ 
+        border: '2px solid #2563eb',
+        position: 'relative'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: '-12px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#2563eb',
+          color: 'white',
+          padding: '0.25rem 1rem',
+          borderRadius: '20px',
+          fontSize: '0.75rem',
+          fontWeight: '600'
+        }}>
+          MOST POPULAR
+        </div>
+        
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Growth</h3>
+        <div className={styles.price}>
+          <span className={styles.currency}>$</span>
+          <span className={styles.amount}>299</span>
+          <span className={styles.period}>/month</span>
+        </div>
+        
+        <ul className={styles.pricingFeatures}>
+          <li>✓ 30-day free trial</li>
+          <li>✓ Custom branded portal</li>
+          <li>✓ Unlimited basic restorations</li>
+          <li>✓ 8,000 premium credits (~400 colorizations)</li>
+          <li>✓ Zip code access control</li>
+          <li>✓ Usage analytics</li>
+          <li>✓ Priority email support</li>
+          <li>✓ Marketing materials</li>
+        </ul>
 
-      <p className={styles.pricingNote}>
-        No setup fees. No hidden costs. No long-term contracts.
-      </p>
+        <Link href="/library/demo" className={styles.pricingBtn} style={{
+          background: '#2563eb'
+        }}>
+          Start Free Trial
+        </Link>
+      </div>
+
+      {/* Professional Plan */}
+      <div className={styles.pricingCard}>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Professional</h3>
+        <div className={styles.price}>
+          <span className={styles.currency}>$</span>
+          <span className={styles.amount}>499</span>
+          <span className={styles.period}>/month</span>
+        </div>
+        
+        <ul className={styles.pricingFeatures}>
+          <li>✓ 30-day free trial</li>
+          <li>✓ Custom branded portal</li>
+          <li>✓ Unlimited basic restorations</li>
+          <li>✓ 15,000 premium credits (~750 colorizations)</li>
+          <li>✓ Zip code access control</li>
+          <li>✓ Usage analytics</li>
+          <li>✓ Priority support</li>
+          <li>✓ Marketing materials</li>
+          <li>✓ Quarterly strategy call</li>
+        </ul>
+
+        <Link href="/library/demo" className={styles.pricingBtn}>
+          Start Free Trial
+        </Link>
+      </div>
     </div>
+
+    <p className={styles.pricingNote} style={{ textAlign: 'center', marginTop: '2rem' }}>
+      Need more? <Link href="mailto:hello@throwbackai.app" style={{ color: '#2563eb', textDecoration: 'underline' }}>Contact us</Link> for Enterprise pricing with custom credit allocations
+    </p>
   </section>
 
   {/* Demo Portal */}
   <section className={styles.demo} id="demo-portal">
     <h2>Try It Yourself</h2>
-    <p>Experience our library portal firsthand. Upload a real photo and see the restoration in action.</p>
+    <p>Experience our branded portal firsthand. Upload a real photo and see the restoration in action.</p>
 
     <div className={styles.demoFrame}>
       <div className={styles.browserBar}>
@@ -198,22 +304,27 @@ return (
     <div className={styles.faqGrid}>
       <details className={styles.faqItem}>
         <summary>How does the 30-day trial work?</summary>
-        <p>Full access for 30 days with no credit card required. After the trial, continue for $300/month or cancel anytime via email.</p>
+        <p>Full access for 30 days with no credit card required. After the trial, continue at your chosen plan level or cancel anytime via email.</p>
       </details>
 
       <details className={styles.faqItem}>
         <summary>What&apos;s the setup process?</summary>
-        <p>After you subscribe, you&apos;ll fill out a simple form with your library info (name, logo, zip codes, colors). We set up your portal within 24-48 hours and send you the link.</p>
+        <p>After you subscribe, you&apos;ll fill out a simple form with your organization info (name, logo, access requirements, colors). We set up your portal within 24-48 hours and send you the link.</p>
       </details>
 
       <details className={styles.faqItem}>
-        <summary>Do we need technical expertise?</summary>
-        <p>No. We handle all hosting, maintenance, and updates. You just share the portal link with your community.</p>
+        <summary>Can I change plans later?</summary>
+        <p>Yes! You can upgrade or downgrade anytime. Changes take effect at the start of your next billing cycle.</p>
       </details>
 
       <details className={styles.faqItem}>
-        <summary>How do we restrict access to our residents?</summary>
-        <p>You provide the zip codes for your service area, and patrons must verify their zip code before accessing the portal.</p>
+        <summary>What if we run out of credits?</summary>
+        <p>Basic restorations remain unlimited. For premium colorizations, you can purchase additional credit packs or upgrade to a higher tier.</p>
+      </details>
+
+      <details className={styles.faqItem}>
+        <summary>How do we control who can access the portal?</summary>
+        <p>You can restrict access by zip code, custom verification codes, or keep it open to anyone. We&apos;ll work with you to find the right approach for your organization.</p>
       </details>
 
       <details className={styles.faqItem}>
@@ -222,17 +333,12 @@ return (
       </details>
 
       <details className={styles.faqItem}>
-        <summary>What happens to patron photos?</summary>
+        <summary>What happens to uploaded photos?</summary>
         <p>All photos are processed securely via HTTPS and automatically deleted within 24 hours. We never store, sell, or reuse uploads.</p>
       </details>
 
       <details className={styles.faqItem}>
-        <summary>How many restorations are included?</summary>
-        <p>Unlimited basic restorations. You also get 8,000 premium credits per month (enough for ~400 advanced restorations). Credits reset monthly.</p>
-      </details>
-
-      <details className={styles.faqItem}>
-        <summary>Can patrons download their restored photos?</summary>
+        <summary>Can users download their restored photos?</summary>
         <p>Yes! Restored photos can be downloaded in high resolution and used freely—print, share, or publish.</p>
       </details>
 
@@ -243,7 +349,7 @@ return (
 
       <details className={styles.faqItem}>
         <summary>Is this grant-fundable?</summary>
-        <p>Yes! Many libraries use digital preservation or community engagement grants to fund this service. We can provide documentation if needed.</p>
+        <p>Yes! Many organizations use community engagement, digital preservation, or activities grants to fund this service. We can provide documentation if needed.</p>
       </details>
     </div>
   </section>
@@ -265,14 +371,14 @@ return (
     <div className={styles.footerContent}>
       <div className={styles.footerSection}>
         <h4>Throwback AI</h4>
-        <p>Professional photo restoration for libraries and individuals.</p>
+        <p>Professional photo restoration for organizations and individuals.</p>
       </div>
       
       <div className={styles.footerSection}>
         <h4>Product</h4>
         <Link href="/">For Individuals</Link>
-        <Link href="/library">For Libraries</Link>
-        <Link href="/pricing">Pricing</Link>
+        <Link href="/library">For Organizations</Link>
+        <Link href="/library/pricing">Pricing</Link>
       </div>
 
       <div className={styles.footerSection}>

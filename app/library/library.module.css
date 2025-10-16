@@ -152,9 +152,10 @@
 }
 
 /* How It Works */
+/* How It Works */
 .howItWorks {
   max-width: 1200px;
-  margin: 5rem auto;
+  margin: 3rem auto;
   padding: 0 2rem;
 }
 
@@ -167,7 +168,7 @@
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -176,6 +177,9 @@
   padding: 2rem;
   border-radius: 12px;
   border: 1px solid #e5e7eb;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .stepNumber {
@@ -189,17 +193,20 @@
   justify-content: center;
   font-weight: 700;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .step h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
   color: #1a1a1a;
+  line-height: 1.4;
 }
 
 .step p {
   color: #666;
   line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 /* Features */
@@ -245,7 +252,7 @@
 
 /* Pricing */
 .pricing {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 5rem auto;
   padding: 0 2rem;
   text-align: center;

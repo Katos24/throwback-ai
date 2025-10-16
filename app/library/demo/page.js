@@ -55,7 +55,7 @@ export default function LibraryDemo() {
           <div className={styles.successIcon}>✓</div>
           <h1>Request Received!</h1>
           <p>Thanks for your interest. We&apos;ll reach out within 24 hours to set up your free trial.</p>
-          <Link href="/" className={styles.homeLink}>← Back to Home</Link>
+          <Link href="/library" className={styles.homeLink}>← Back to Home</Link>
         </div>
       </div>
     );

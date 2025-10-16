@@ -20,6 +20,7 @@ export default function Footer() {
           <p className={styles.copyright}>
             © 2025 Throwback AI. All rights reserved.
           </p>
+
           {isMounted && (
             <div
               className="trustpilot-widget"
@@ -30,18 +31,19 @@ export default function Footer() {
               data-style-width="100%"
               data-theme="light"
               data-token="2fe1f850-5e45-401c-9ce9-15afd96f6f52"
-              style={{ marginTop: '1rem', marginBottom: '1rem' }}
+              style={{ marginTop: "1rem", marginBottom: "1rem" }}
             >
               <a
                 href="https://www.trustpilot.com/review/throwbackai.app"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 Trustpilot
               </a>
             </div>
           )}
         </div>
+
         <div className={styles.footerNav}>
           <div>
             <h4>Services</h4>
@@ -63,6 +65,25 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          <div>
+            <h4>For Business</h4>
+            <ul>
+              <li>
+                <Link href="/library">For Organizations</Link>
+              </li>
+              <li>
+                <Link href="/library/pricing">Pricing Plans</Link>
+              </li>
+              <li>
+                <Link href="/library/demo">Request Free Trial</Link>
+              </li>
+              <li>
+                <Link href="/library/demo-portal">Try Demo</Link>
+              </li>
+            </ul>
+          </div>
+
           <div>
             <h4>Resources</h4>
             <ul>
@@ -83,6 +104,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
           <div>
             <h4>Legal</h4>
             <ul>

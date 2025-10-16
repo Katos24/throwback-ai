@@ -26,11 +26,11 @@ export default function Home() {
   // Intersection Observers
   const [splitHeroRef, splitHeroInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [successRef, successInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
-  const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [topBannerRef, topBannerInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [decadesRef, decadesInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [featuresRef, featuresInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [demoSectionRef, demoSectionInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' }); 
+    const [carouselRef, carouselInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [howItWorksRef, howItWorksInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
   const [ctaRef, ctaInView] = useInView({ triggerOnce: true, rootMargin: '0px 0px -100px 0px' });
@@ -46,18 +46,15 @@ export default function Home() {
           {splitHeroInView && <Suspense fallback={<Loader />}><SplitHeroLanding /></Suspense>}
         </div>
 
-        {/* NEW - Restoration Counter - Immediate social proof */}
+        {/* 2 NEW - Restoration Counter - Immediate social proof */}
         <RestorationCounter />
 
-        {/* 2. Customer Success Stories - Immediate social proof with tabs */}
+        {/* 3. Customer Success Stories - Immediate social proof with tabs */}
         <div ref={successRef}>
           {successInView && <Suspense fallback={<Loader />}><CustomerSuccess /></Suspense>}
         </div>
 
-        {/* 3. Auto-Scrolling Photo Carousel - Visual showcase */}
-        <div ref={carouselRef}>
-          {carouselInView && <Suspense fallback={<Loader />}><AutoScrollCarousel /></Suspense>}
-        </div>
+       
 
         {/* 4. Top Banner - Technical restoration demo (how AI works) */}
         <div ref={topBannerRef}>
@@ -69,27 +66,35 @@ export default function Home() {
           {decadesInView && <Suspense fallback={<Loader />}><DecadesSection /></Suspense>}
         </div>
 
-        {/* 6. Features Section */}
-        <div ref={featuresRef} id="features">
-          {featuresInView && <Suspense fallback={<Loader />}><FeaturesSection /></Suspense>}
-        </div>
-
-        {/* 7. Demo Section */}
+      
+        {/* 6. Demo Section */}
         <div ref={demoSectionRef}>
           {demoSectionInView && <Suspense fallback={<Loader />}><DemoSection /></Suspense>}
         </div>
 
-        {/* 8. How It Works */}
+        {/* 7. Auto-Scrolling Photo Carousel - Visual showcase */}
+        <div ref={carouselRef}>
+          {carouselInView && <Suspense fallback={<Loader />}><AutoScrollCarousel /></Suspense>}
+        </div>
+
+        {/* 8. Features Section */}
+        <div ref={featuresRef} id="features">
+          {featuresInView && <Suspense fallback={<Loader />}><FeaturesSection /></Suspense>}
+        </div>
+
+
+       
+        {/* 9. How It Works */}
         <div ref={howItWorksRef}>
           {howItWorksInView && <Suspense fallback={<Loader />}><HowItWorks /></Suspense>}
         </div>
 
-        {/* 9. Pricing Section */}
+        {/* 10. Pricing Section */}
         <div ref={pricingRef}>
           {pricingInView && <Suspense fallback={<Loader />}><PricingSection /></Suspense>}
         </div>
 
-        {/* 10. CTA Section */}
+        {/* 11. CTA Section */}
         <div ref={ctaRef}>
           {ctaInView && <Suspense fallback={<Loader />}><CTASection /></Suspense>}
         </div>

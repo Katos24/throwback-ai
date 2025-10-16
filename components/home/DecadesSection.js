@@ -3,8 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from '../../styles/DecadesGridLanding.module.css';
 
-// Static decades data
-const DECADE_OPTIONS = [
+const TRANSFORM_OPTIONS = [
   {
     id: 'all-decades',
     title: 'All Decades',
@@ -65,42 +64,48 @@ const DECADE_OPTIONS = [
     afterImage: '/images/2000s-after.jpg',
     colorClass: 'blue',
     cardClass: 'twothousandsCard'
+  },
+  {
+    id: 'avatars',
+    title: 'AI Avatars',
+    description: 'Transform into fantasy, historical, or sci-fi characters.',
+    credits: 50,
+    era: 'Avatar Mode',
+    link: '/replicate/avatar',
+    beforeImage: '/images/avatar-before.jpg',
+    afterImage: '/images/avatar-after.jpg',
+    colorClass: 'rainbow',
+    cardClass: 'avatarCard'
+  },
+  {
+    id: 'cartoon',
+    title: 'Cartoon Portraits',
+    description: 'Turn your photo into Pixar-style or comic characters.',
+    credits: 40,
+    era: 'Toonify',
+    link: '/replicate/cartoon',
+    beforeImage: '/images/cartoon-before.jpg',
+    afterImage: '/images/cartoon-after.jpg',
+    colorClass: 'orange',
+    cardClass: 'cartoonCard'
   }
 ];
 
-// Memoized DecadeCard component
+// DecadeCard component
 const DecadeCard = React.memo(({ decade, onNavigate }) => (
   <div className={styles.decadeCardWrapper}>
     <button 
       className={styles.decadeCardLink}
       onClick={() => onNavigate(decade.link)}
-      style={{ 
-        all: 'unset', 
-        cursor: 'pointer', 
-        display: 'block', 
-        width: '100%',
-        maxWidth: '100%',
-        boxSizing: 'border-box'
-      }}
+      style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
       aria-label={`${decade.title} - ${decade.description}`}
     >
       <div className={`${styles.decadeCard} ${styles[decade.cardClass]}`}>
-        
-        {/* Badge */}
-        {decade.badge && (
-          <div className={`${styles.badge} ${styles[decade.badgeColor]}`}>
-            {decade.badge}
-          </div>
-        )}
-        
-        {/* Era Badge */}
         <div className={`${styles.eraBadge} ${styles[decade.colorClass]}`}>
           <div className={styles.eraText}>{decade.era}</div>
         </div>
-        
-        {/* Conditional rendering: Full Background vs Before/After Split */}
+
         {decade.isFullBackground ? (
-          // Full background image for All Decades card
           <div className={styles.fullBackgroundContainer}>
             <Image
               src={decade.fullBackgroundImage}
@@ -109,11 +114,10 @@ const DecadeCard = React.memo(({ decade, onNavigate }) => (
               className={styles.fullBackgroundImage}
               loading="lazy"
               quality={75}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
           </div>
         ) : (
-          // Regular before/after split for individual decade cards
           <div className={styles.decadeBeforeAfter}>
             <div style={{ position: 'relative', width: '50%', height: '100%' }}>
               <Image
@@ -142,12 +146,10 @@ const DecadeCard = React.memo(({ decade, onNavigate }) => (
             <div className={styles.afterLabel}>{decade.era}</div>
           </div>
         )}
-        
-        {/* Content */}
+
         <div className={styles.decadeContent}>
           <h3 className={styles.decadeTitle}>{decade.title}</h3>
           <p className={styles.decadeDescription}>{decade.description}</p>
-          
           <div className={styles.decadeFooter}>
             <div className={styles.decadeCredits}>
               <span className={styles.decadeCreditsNumber}>{decade.credits}</span> credits
@@ -164,43 +166,31 @@ const DecadeCard = React.memo(({ decade, onNavigate }) => (
 
 DecadeCard.displayName = 'DecadeCard';
 
-// Main DecadesSection component
-export default function DecadesSection() {
+export default function TransformationsSection() {
   const router = useRouter();
-
-  // Navigation handler
-  const handleNavigation = useCallback((href) => {
-    // Force scroll to top immediately
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    
-    // Navigate to the page
-    router.push(href);
-  }, [router]);
+  const handleNavigation = useCallback(
+    (href) => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      router.push(href);
+    },
+    [router]
+  );
 
   return (
-    <div className={styles.decadesSection}>
+    <section className={styles.decadesSection}>
       <div className={styles.container}>
-        <h2 className={styles.decadesTitle}>
-          Time Travel Through the Decades
-        </h2>
+        <h2 className={styles.decadesTitle}>AI Transformations</h2>
         <p className={styles.decadesDescription}>
-          Transform your selfies into viral social media content with authentic decade styling. 
-          Perfect for TikTok, Instagram, and standing out online.
+          Explore unique AI styles — from decade makeovers to avatars and cartoons.
+          Each transformation is crafted to go viral and stand out online.
         </p>
 
-        {/* Decades Grid */}
         <div className={styles.decadesGrid}>
-          {DECADE_OPTIONS.map((decade) => (
-            <DecadeCard 
-              key={decade.id} 
-              decade={decade} 
-              onNavigate={handleNavigation} 
-            />
+          {TRANSFORM_OPTIONS.map((decade) => (
+            <DecadeCard key={decade.id} decade={decade} onNavigate={handleNavigation} />
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

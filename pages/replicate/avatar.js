@@ -375,7 +375,7 @@ export default function AiAvatarsRedesigned() {
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
             <span className={styles.creditsIcon}>🎭</span>
-            <span className={styles.creditsText}>{credits} credits</span>
+            <span className={styles.creditsText}>{credits} {credits === 1 ? 'credit' : 'credits'}</span>
           </div>
           <button 
             onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}

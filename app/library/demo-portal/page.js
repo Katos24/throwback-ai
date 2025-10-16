@@ -286,7 +286,7 @@ export default function DemoPortal() {
 
               {demoUsageCount >= DEMO_LIMIT && (
                 <div className={styles.demoNote}>
-                  <strong>Demo Limit Reached!</strong> You've used all {DEMO_LIMIT} free restorations.
+                  <strong>Demo Limit Reached!</strong> You&apos;ve used all {DEMO_LIMIT} free restorations.
                   <Link href="/library/demo" style={{ marginLeft: '0.5rem', textDecoration: 'underline' }}>
                     Request a free trial for unlimited restorations
                   </Link>

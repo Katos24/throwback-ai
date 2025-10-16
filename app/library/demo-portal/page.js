@@ -4,16 +4,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageCompareSlider from '../../../components/ImageCompareSlider';
-import styles from '../[slug]/library.module.css'; // Use the same CSS as regular portal
+import styles from '../[slug]/library.module.css';
 import HowItWorks from '../[slug]/HowItWorks';
-import LibraryHeader from '../../../components/LibraryHeader';
-
 
 const DEMO_LIBRARY = {
   name: 'Demo Public Library',
   slug: 'demo-portal',
   primary_color: '#2563eb',
-  allowed_zip_codes: ['00000'],
   is_demo: true,
   logo_url: null,
   phone: '(555) 123-4567',
@@ -34,11 +31,6 @@ export default function DemoPortal() {
   
   const fileInputRef = useRef(null);
   
-  // Zip code gate
-  const [zipGranted, setZipGranted] = useState(false);
-  const [zipInput, setZipInput] = useState('');
-  const [zipError, setZipError] = useState('');
-  
   // Demo usage tracking
   const [demoUsageCount, setDemoUsageCount] = useState(0);
 
@@ -46,42 +38,7 @@ export default function DemoPortal() {
     // Check demo usage from sessionStorage
     const count = parseInt(sessionStorage.getItem('demo_usage') || '0');
     setDemoUsageCount(count);
-    
-    // Check if zip already validated
-    const savedZip = sessionStorage.getItem('demo_zip');
-    if (savedZip === '00000') {
-      setZipGranted(true);
-      setZipInput(savedZip);
-    }
   }, []);
-
-  const validateZipCode = (zip) => {
-    const cleanZip = zip.trim();
-    
-    if (!cleanZip) {
-      setZipError('Please enter your access code');
-      return;
-    }
-
-    if (!/^\d{5}$/.test(cleanZip)) {
-      setZipError('Please enter a valid 5-digit code');
-      return;
-    }
-
-    if (cleanZip === '00000') {
-      setZipGranted(true);
-      sessionStorage.setItem('demo_zip', cleanZip);
-      setZipError('✅ Access granted!');
-      setTimeout(() => setZipError(''), 2000);
-    } else {
-      setZipError('Invalid access code. Please check your email or request demo access.');
-    }
-  };
-
-  const handleZipSubmit = (e) => {
-    e.preventDefault();
-    validateZipCode(zipInput);
-  };
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -139,7 +96,7 @@ export default function DemoPortal() {
   const handleRestore = async () => {
     // Check demo limits
     if (demoUsageCount >= DEMO_LIMIT) {
-      setError(`Demo limit reached! You've used all ${DEMO_LIMIT} free restorations. Want unlimited restorations? Email hello@throwbackai.app`);
+      setError(`Demo limit reached! You've used all ${DEMO_LIMIT} free restorations. Want unlimited restorations for your organization?`);
       showToast('Demo limit reached', 'error');
       return;
     }
@@ -158,7 +115,7 @@ export default function DemoPortal() {
         body: JSON.stringify({
           image: base64Image,
           librarySlug: 'demo-portal',
-          restoreType: 'basic' // ALWAYS basic for demo
+          restoreType: 'basic'
         })
       });
 
@@ -241,71 +198,6 @@ export default function DemoPortal() {
     }
   };
 
-  // ZIP GATE
-  if (!zipGranted) {
-    return (
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <div className={styles.headerContent}>
-            <div>
-              <h1 className={styles.libraryName}>{DEMO_LIBRARY.name}</h1>
-              <p className={styles.tagline}>Free Photo Restoration Service - DEMO</p>
-            </div>
-          </div>
-        </header>
-
-        <main className={styles.main}>
-          <div className={styles.demoBanner}>
-            <div className={styles.demoBannerContent}>
-              <span className={styles.demoIcon}>🎯</span>
-              <div>
-                <strong>Demo Access Required</strong>
-                <p>To try our demo, you&apos;ll need a demo access code.</p>
-                <p className={styles.demoSubtext}>
-                Don&apos;t have a code? <Link href="/library/demo">Request demo access here</Link>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.zipGate}>
-            <h2>Enter Your Access Code</h2>
-            <p>Please enter the 5-digit access code you received via email.</p>
-
-            <form onSubmit={handleZipSubmit}>
-              <div className={styles.zipInputGroup}>
-                <input
-                  type="text"
-                  value={zipInput}
-                  onChange={(e) => setZipInput(e.target.value)}
-                  placeholder="Enter 5-digit code"
-                  maxLength="5"
-                  className={styles.zipInput}
-                />
-                <button type="submit" className={styles.zipButton}>
-                  Access Demo
-                </button>
-              </div>
-              {zipError && (
-                <p className={zipError.includes('✅') ? styles.zipSuccess : styles.zipError}>
-                  {zipError}
-                </p>
-              )}
-            </form>
-
-            <div className={styles.requestAccessBox}>
-              <p>Don&apos;t have an access code?</p>
-              <Link href="/library/demo" className={styles.requestAccessBtn}>
-                Request Demo Access
-              </Link>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  // MAIN PORTAL
   return (
     <div className={styles.container}>
       {toast && (
@@ -321,7 +213,7 @@ export default function DemoPortal() {
         <div className={styles.headerContent}>
           <div>
             <h1 className={styles.libraryName}>{DEMO_LIBRARY.name}</h1>
-            <p className={styles.tagline}>Free Photo Restoration - DEMO</p>
+            <p className={styles.tagline}>Try Photo Restoration - DEMO</p>
           </div>
         </div>
       </header>
@@ -331,11 +223,11 @@ export default function DemoPortal() {
         <div className={styles.demoBannerContent}>
           <span className={styles.demoIcon}>🎯</span>
           <div>
-            <strong>Demo Mode Active</strong>
-            <p>You have <strong>{DEMO_LIMIT - demoUsageCount} of {DEMO_LIMIT}</strong> free restorations remaining.</p>
+            <strong>Interactive Demo</strong>
+            <p>You have <strong>{DEMO_LIMIT - demoUsageCount} of {DEMO_LIMIT}</strong> free restorations remaining in this demo.</p>
             <p className={styles.demoCta}>
-              Want this for your library? 
-              <a href="mailto:hello@throwbackai.app"> Contact us →</a>
+              Want unlimited restorations for your organization? 
+              <Link href="/library/demo"> Request free trial →</Link>
             </p>
           </div>
         </div>
@@ -343,8 +235,8 @@ export default function DemoPortal() {
 
       <main className={styles.main}>
         <div className={styles.welcome}>
-          <h2>Restore Your Family Photos</h2>
-          <p>Upload old, damaged, or black & white photos - see how it works!</p>
+          <h2>See How It Works</h2>
+          <p>Upload a photo and experience our AI-powered restoration technology</p>
         </div>
 
         <div className={styles.uploadCard}>
@@ -360,7 +252,7 @@ export default function DemoPortal() {
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
-                onClick={() => !uploading && fileInputRef.current?.click()}
+                onClick={() => !uploading && demoUsageCount < DEMO_LIMIT && fileInputRef.current?.click()}
                 tabIndex={0}
                 role="button"
                 aria-label="Upload photo"
@@ -370,7 +262,7 @@ export default function DemoPortal() {
                   type="file"
                   accept="image/*"
                   onChange={handleFileInput}
-                  disabled={uploading}
+                  disabled={uploading || demoUsageCount >= DEMO_LIMIT}
                   className={styles.hiddenInput}
                 />
                 
@@ -392,17 +284,21 @@ export default function DemoPortal() {
                 )}
               </div>
 
-              {selectedImage && !uploading && (
+              {demoUsageCount >= DEMO_LIMIT && (
+                <div className={styles.demoNote}>
+                  <strong>Demo Limit Reached!</strong> You've used all {DEMO_LIMIT} free restorations.
+                  <Link href="/library/demo" style={{ marginLeft: '0.5rem', textDecoration: 'underline' }}>
+                    Request a free trial for unlimited restorations
+                  </Link>
+                </div>
+              )}
+
+              {selectedImage && !uploading && demoUsageCount < DEMO_LIMIT && (
                 <div className={styles.options}>
                   <h3>Demo: Basic Restoration Only</h3>
                   
-                  <div className={styles.demoPremiumUpsell}>
-                    <p>
-                      <strong>Want Premium Colorization?</strong> Full library portals include both basic restoration (free for patrons) and premium colorization (40 credits).
-                    </p>
-                    <Link href="/library/demo" className={styles.demoUpsellBtn}>
-                      Request Free Trial →
-                    </Link>
+                  <div className={styles.demoNote} style={{ background: 'rgba(37, 99, 235, 0.1)', borderColor: 'rgba(37, 99, 235, 0.3)' }}>
+                    <strong>💡 Full Version Includes:</strong> Basic restoration (shown here) + Premium colorization for black & white photos
                   </div>
 
                   <div className={styles.actions}>
@@ -412,7 +308,7 @@ export default function DemoPortal() {
                       className={styles.primaryBtn}
                       aria-label="Restore photo using basic enhancement"
                     >
-                      Restore Photo (Basic - FREE)
+                      Restore Photo
                     </button>
                     <button 
                       onClick={handleReset} 
@@ -450,16 +346,18 @@ export default function DemoPortal() {
                 </button>
               </div>
 
-              <div className={styles.enhanceAgain}>
-                <button 
-                  onClick={handleUseRestoredImage} 
-                  className={styles.enhanceBtn}
-                  aria-label="Use restored photo as input for another enhancement"
-                >
-                  🎨 Enhance This Result Again
-                </button>
-                <p>Use the restored photo as input for another enhancement</p>
-              </div>
+              {demoUsageCount < DEMO_LIMIT && (
+                <div className={styles.enhanceAgain}>
+                  <button 
+                    onClick={handleUseRestoredImage} 
+                    className={styles.enhanceBtn}
+                    aria-label="Use restored photo as input for another enhancement"
+                  >
+                    🎨 Enhance This Result Again
+                  </button>
+                  <p>Use the restored photo as input for another enhancement ({DEMO_LIMIT - demoUsageCount} left)</p>
+                </div>
+              )}
 
               <div className={styles.alert}>
                 <span>✅</span>
@@ -467,12 +365,25 @@ export default function DemoPortal() {
               </div>
 
               {/* Post-restoration CTA */}
-              <div className={styles.postRestoreCTA}>
-                <p className={styles.postRestoreCTAText}>
-                  ✨ Impressed? Your library can offer this service to your entire community!
+              <div className={styles.demoNote} style={{ 
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%)',
+                borderColor: 'rgba(168, 85, 247, 0.3)',
+                padding: '1.5rem',
+                textAlign: 'center'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: '600' }}>
+                  ✨ Impressed? Offer this to your entire community!
                 </p>
-                <Link href="/library" className={styles.postRestoreCTABtn}>
-                Learn More About Library Plans
+                <Link href="/library/demo" style={{
+                  display: 'inline-block',
+                  background: 'linear-gradient(135deg, #a78bfa 0%, #6366f1 100%)',
+                  color: 'white',
+                  padding: '0.75rem 2rem',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  fontWeight: '600'
+                }}>
+                  Request Free Trial
                 </Link>
               </div>
             </>
@@ -480,25 +391,25 @@ export default function DemoPortal() {
 
           <div className={styles.proTip}>
             <span>💡</span>
-            <span><strong>Demo Note:</strong> This demo shows basic restoration only. Full library portals include premium colorization.</span>
+            <span><strong>Demo Note:</strong> This shows basic restoration only. Full portals include premium colorization for B&W photos.</span>
           </div>
         </div>
 
         <HowItWorks />
 
         <div className={styles.faq}>
-          <h2>Frequently Asked Questions</h2>
+          <h2>Demo FAQ</h2>
           <details className={styles.faqItem}>
-            <summary>Is this really free for residents?</summary>
-            <p>Yes! Completely free thanks to your library. This demo shows how it works.</p>
+            <summary>What does the full version include?</summary>
+            <p>Unlimited basic restorations for your patrons + premium colorization credits. Your organization gets a fully branded portal with your logo and colors.</p>
           </details>
           <details className={styles.faqItem}>
-            <summary>What happens to my photos?</summary>
-            <p>Photos are processed securely and never stored permanently.</p>
+            <summary>How much does it cost?</summary>
+            <p>Plans start at $199/month. All plans include a 30-day free trial with no credit card required. <Link href="/library/pricing">View pricing →</Link></p>
           </details>
           <details className={styles.faqItem}>
-            <summary>Can I restore multiple photos?</summary>
-            <p>In the full version, yes! Unlimited restorations for library patrons.</p>
+            <summary>What types of organizations use this?</summary>
+            <p>Public libraries, nursing homes, senior centers, historical societies, and any organization serving communities interested in preserving family history.</p>
           </details>
         </div>
 
@@ -513,8 +424,8 @@ export default function DemoPortal() {
           <div className={styles.trustItem}>
             <span>💾</span>
             <div>
-              <strong>Free Forever</strong>
-              <p>No subscriptions</p>
+              <strong>No Installation</strong>
+              <p>Works in browser</p>
             </div>
           </div>
           <div className={styles.trustItem}>
@@ -531,17 +442,17 @@ export default function DemoPortal() {
           <div className={styles.demoFooterContent}>
             <h3>Ready to Offer This to Your Community?</h3>
             <p>
-              Get your own white-labeled photo restoration portal for just $300/month.
+              Get your own white-labeled photo restoration portal starting at $199/month.
               <br />
-              Unlimited basic restorations + 8,000 premium credits/month (~400 colorizations).
+              30-day free trial • No credit card required • Cancel anytime
             </p>
             <div className={styles.demoFooterButtons}>
-              <Link href="/library" className={styles.learnMoreButton}>
-                Learn More
-                </Link>
-              <a href="mailto:hello@throwbackai.app" className={styles.contactButton}>
-                Contact Us
-              </a>
+              <Link href="/library/pricing" className={styles.learnMoreButton}>
+                View Pricing
+              </Link>
+              <Link href="/library/demo" className={styles.contactButton}>
+                Request Free Trial
+              </Link>
             </div>
           </div>
         </footer>

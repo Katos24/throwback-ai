@@ -48,7 +48,10 @@ return (
         </div>
       </div>
     </div>
+        <RestorationCounter />
   </section>
+
+ 
 
   {/* Use Cases Section */}
   <section className={styles.statsSection}>
@@ -75,7 +78,7 @@ return (
         <p>Run engaging workshops and memory programs</p>
       </div>
     </div>
-    <RestorationCounter />
+ 
     <p className={styles.statsSubtext}>
       Trusted by organizations nationwide
     </p>

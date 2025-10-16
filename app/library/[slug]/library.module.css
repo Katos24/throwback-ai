@@ -1191,3 +1191,97 @@
     width: 100%;
   }
 }
+
+
+
+/* Demo-specific styles */
+.demoNote {
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.demoNote strong {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.demoNote a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.demoPremiumUpsell {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.demoPremiumUpsell p {
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.demoUpsellBtn {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.demoUpsellBtn:hover {
+  transform: translateY(-2px);
+}
+
+.backLink {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #2563eb;
+}
+
+.requestAccessBox {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.requestAccessBox p {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.requestAccessBtn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.requestAccessBtn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}

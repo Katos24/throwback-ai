@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '../../../../lib/supabaseClient';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+console.log('🔑 API Key loaded:', process.env.RESEND_API_KEY ? 'YES - ' + process.env.RESEND_API_KEY.substring(0, 20) : 'NO - MISSING!');
 
 export async function POST(req) {
   try {
@@ -13,47 +18,74 @@ export async function POST(req) {
       );
     }
 
-    // Save to database
-    const { data, error } = await supabase
-      .from('demo_requests')
-      .insert([
-        {
-          library_name: libraryName,
-          email: email,
-          phone: phone || null,
-          zip_codes: zipCodes,
-          message: message || null,
-          status: 'pending',
-          created_at: new Date().toISOString()
-        }
-      ])
-      .select()
-      .single();
+    let databaseSuccess = false;
+    let dbError = null;
 
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { error: 'Failed to save request' },
-        { status: 500 }
-      );
+    // Try to save to database, but don't fail if it's down
+    try {
+      const { data, error } = await supabase
+        .from('demo_requests')
+        .insert([
+          {
+            library_name: libraryName,
+            email: email,
+            phone: phone || null,
+            zip_codes: zipCodes,
+            message: message || null,
+            status: 'pending',
+            created_at: new Date().toISOString()
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('⚠️ Supabase error (continuing anyway):', error);
+        dbError = error;
+      } else {
+        console.log('✅ Saved to database:', data);
+        databaseSuccess = true;
+      }
+    } catch (dbException) {
+      console.error('⚠️ Database exception (continuing anyway):', dbException);
+      dbError = dbException;
     }
 
-    // Send email notification to you
-    await sendNotificationEmail({
+    // Send notification email to you (goes to your personal email)
+    const notificationSent = await sendNotificationEmail({
       libraryName,
       email,
       phone,
       zipCodes,
-      message
+      message,
+      databaseStatus: databaseSuccess ? 'saved' : 'failed'
     });
 
-    // Send confirmation email to library
-    await sendConfirmationEmail(email, libraryName);
+    // Skip auto-confirmation for now (you'll reply manually)
+    const confirmationSent = true;
 
-    return NextResponse.json(
-      { success: true, data },
-      { status: 200 }
-    );
+    // Return success if emails sent (even if database failed)
+    if (notificationSent && confirmationSent) {
+      return NextResponse.json(
+        { 
+          success: true,
+          databaseSaved: databaseSuccess,
+          emailsSent: true,
+          warning: !databaseSuccess ? 'Request saved via email but database temporarily unavailable' : null
+        },
+        { status: 200 }
+      );
+    } else {
+      // If emails also failed, return error
+      return NextResponse.json(
+        { 
+          error: 'Failed to process request',
+          databaseSaved: databaseSuccess,
+          emailsSent: false
+        },
+        { status: 500 }
+      );
+    }
 
   } catch (error) {
     console.error('API error:', error);
@@ -64,79 +96,62 @@ export async function POST(req) {
   }
 }
 
-// Email notification to you (the admin)
-async function sendNotificationEmail({ libraryName, email, phone, zipCodes, message }) {
+// Email notification using Resend SDK
+async function sendNotificationEmail({ libraryName, email, phone, zipCodes, message, databaseStatus }) {
   try {
-    // Option 1: Use Resend (recommended)
-    // const response = await fetch('https://api.resend.com/emails', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     from: 'Throwback AI <noreply@throwbackai.app>',
-    //     to: 'your-email@example.com',
-    //     subject: `🎉 New Library Demo Request: ${libraryName}`,
-    //     html: `
-    //       <h2>New Library Demo Request</h2>
-    //       <p><strong>Library:</strong> ${libraryName}</p>
-    //       <p><strong>Email:</strong> ${email}</p>
-    //       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-    //       <p><strong>Zip Codes:</strong> ${zipCodes}</p>
-    //       <p><strong>Message:</strong> ${message || 'None'}</p>
-    //       <hr>
-    //       <p>Respond within 24 hours!</p>
-    //     `
-    //   })
-    // });
-
-    // Option 2: Simple console log for now (we'll set up email next)
-    console.log('📧 New Demo Request:', {
-      libraryName,
-      email,
-      phone,
-      zipCodes,
-      message
+    console.log('📧 Sending notification email with Resend SDK...');
+    
+    const { data, error } = await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: ['delivered@resend.dev'],  // Resend's test address
+      replyTo: email,
+      subject: `🎉 New Library Demo Request: ${libraryName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">New Library Demo Request</h2>
+          
+          ${databaseStatus === 'failed' ? `
+          <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
+            <p style="margin: 0; color: #92400e;">⚠️ <strong>Note:</strong> Database temporarily unavailable. This request was not saved to Supabase.</p>
+          </div>
+          ` : ''}
+          
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>Library/Organization:</strong> ${libraryName}</p>
+            <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p style="margin: 10px 0;"><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            <p style="margin: 10px 0;"><strong>Zip Codes:</strong> ${zipCodes}</p>
+            ${message ? `<p style="margin: 10px 0;"><strong>Message:</strong></p><p style="background: white; padding: 15px; border-radius: 4px;">${message}</p>` : ''}
+          </div>
+          
+          <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <p style="margin: 0; color: #856404;"><strong>📧 Next Step:</strong> Reply to this email to respond to ${libraryName}. Your reply will go directly to ${email}.</p>
+            <p style="margin: 10px 0 0 0; color: #856404; font-size: 14px;">Or compose a new email from hello@throwbackai.app</p>
+          </div>
+          
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+          
+          <p style="color: #666; font-size: 14px;">
+            ⏰ Respond within 24 hours<br>
+            📅 Submitted at ${new Date().toLocaleString('en-US', { 
+              dateStyle: 'full', 
+              timeStyle: 'short' 
+            })}<br>
+            💾 Database Status: ${databaseStatus === 'saved' ? '✅ Saved' : '⚠️ Not saved (outage)'}
+          </p>
+        </div>
+      `
     });
 
+    if (error) {
+      console.error('❌ Resend error:', error);
+      return false;
+    }
+
+    console.log('✅ Notification email sent:', data);
     return true;
   } catch (error) {
-    console.error('Email error:', error);
-    return false;
-  }
-}
-
-// Confirmation email to library
-async function sendConfirmationEmail(email, libraryName) {
-  try {
-    // Option 1: Use Resend
-    // const response = await fetch('https://api.resend.com/emails', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     from: 'Throwback AI <hello@throwbackai.app>',
-    //     to: email,
-    //     subject: 'Thanks for Your Interest in Throwback AI',
-    //     html: `
-    //       <h2>Thanks for requesting a demo, ${libraryName}!</h2>
-    //       <p>We received your request and will reach out within 24 hours to set up your free trial.</p>
-    //       <p>In the meantime, feel free to reply with any questions.</p>
-    //       <br>
-    //       <p>Best,<br>Alex<br>Throwback AI</p>
-    //     `
-    //   })
-    // });
-
-    // Option 2: Console log for now
-    console.log('📧 Confirmation sent to:', email);
-
-    return true;
-  } catch (error) {
-    console.error('Confirmation email error:', error);
+    console.error('❌ Email exception:', error);
     return false;
   }
 }

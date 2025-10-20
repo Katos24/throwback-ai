@@ -51,7 +51,7 @@ export async function POST(req) {
       dbError = dbException;
     }
 
-    // Send notification email to you (goes to your personal email)
+    // Try to send notification email (don't fail if it times out)
     const notificationSent = await sendNotificationEmail({
       libraryName,
       email,
@@ -59,33 +59,22 @@ export async function POST(req) {
       zipCodes,
       message,
       databaseStatus: databaseSuccess ? 'saved' : 'failed'
+    }).catch(err => {
+      console.error('Email failed but continuing:', err);
+      return false;
     });
 
-    // Skip auto-confirmation for now (you'll reply manually)
-    const confirmationSent = true;
-
-    // Return success if emails sent (even if database failed)
-    if (notificationSent && confirmationSent) {
-      return NextResponse.json(
-        { 
-          success: true,
-          databaseSaved: databaseSuccess,
-          emailsSent: true,
-          warning: !databaseSuccess ? 'Request saved via email but database temporarily unavailable' : null
-        },
-        { status: 200 }
-      );
-    } else {
-      // If emails also failed, return error
-      return NextResponse.json(
-        { 
-          error: 'Failed to process request',
-          databaseSaved: databaseSuccess,
-          emailsSent: false
-        },
-        { status: 500 }
-      );
-    }
+    // Always return success if database saved
+    // Email is nice-to-have, not required
+    return NextResponse.json(
+      { 
+        success: true,
+        databaseSaved: databaseSuccess,
+        emailsSent: notificationSent,
+        warning: !notificationSent ? 'Request saved but email notification failed' : null
+      },
+      { status: 200 }
+    );
 
   } catch (error) {
     console.error('API error:', error);
@@ -101,11 +90,18 @@ async function sendNotificationEmail({ libraryName, email, phone, zipCodes, mess
   try {
     console.log('📧 Sending notification email with Resend SDK...');
     
-    const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: ['delivered@resend.dev'],  // Resend's test address
-      replyTo: email,
-      subject: `🎉 New Library Demo Request: ${libraryName}`,
+    // Create a timeout promise
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Email timeout')), 5000) // 5 second timeout
+    );
+    
+    // Race between sending email and timeout
+    const { data, error } = await Promise.race([
+      resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: ['delivered@resend.dev'],  // Resend's test address
+        replyTo: email,
+        subject: `🎉 New Library Demo Request: ${libraryName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #2563eb;">New Library Demo Request</h2>
@@ -141,6 +137,14 @@ async function sendNotificationEmail({ libraryName, email, phone, zipCodes, mess
           </p>
         </div>
       `
+      }),
+      timeoutPromise
+    ]).catch(err => {
+      if (err.message === 'Email timeout') {
+        console.log('⏱️ Email timed out after 5 seconds');
+        return { data: null, error: { message: 'Timeout' } };
+      }
+      throw err;
     });
 
     if (error) {

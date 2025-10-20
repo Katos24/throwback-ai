@@ -85,58 +85,58 @@ export async function POST(req) {
   }
 }
 
-// Email notification using Resend SDK
+// Email notification using Resend SDK with timeout
 async function sendNotificationEmail({ libraryName, email, phone, zipCodes, message, databaseStatus }) {
   try {
     console.log('📧 Sending notification email with Resend SDK...');
     
-    // Create a timeout promise
+    // Create a timeout promise (5 seconds)
     const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Email timeout')), 5000) // 5 second timeout
+      setTimeout(() => reject(new Error('Email timeout')), 5000)
     );
     
     // Race between sending email and timeout
-    const { data, error } = await Promise.race([
+    const result = await Promise.race([
       resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: ['delivered@resend.dev'],  // Resend's test address
+        from: 'Throwback AI <hello@throwbackai.app>',
+        to: ['alexkatos24@gmail.com'],
         replyTo: email,
         subject: `🎉 New Library Demo Request: ${libraryName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2563eb;">New Library Demo Request</h2>
-          
-          ${databaseStatus === 'failed' ? `
-          <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
-            <p style="margin: 0; color: #92400e;">⚠️ <strong>Note:</strong> Database temporarily unavailable. This request was not saved to Supabase.</p>
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2563eb;">New Library Demo Request</h2>
+            
+            ${databaseStatus === 'failed' ? `
+            <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
+              <p style="margin: 0; color: #92400e;">⚠️ <strong>Note:</strong> Database temporarily unavailable. This request was not saved to Supabase.</p>
+            </div>
+            ` : ''}
+            
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <p style="margin: 10px 0;"><strong>Library/Organization:</strong> ${libraryName}</p>
+              <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+              <p style="margin: 10px 0;"><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+              <p style="margin: 10px 0;"><strong>Zip Codes:</strong> ${zipCodes}</p>
+              ${message ? `<p style="margin: 10px 0;"><strong>Message:</strong></p><p style="background: white; padding: 15px; border-radius: 4px;">${message}</p>` : ''}
+            </div>
+            
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
+              <p style="margin: 0; color: #856404;"><strong>📧 Next Step:</strong> Reply to this email to respond to ${libraryName}. Your reply will go directly to ${email}.</p>
+              <p style="margin: 10px 0 0 0; color: #856404; font-size: 14px;">Or compose a new email from hello@throwbackai.app</p>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+            
+            <p style="color: #666; font-size: 14px;">
+              ⏰ Respond within 24 hours<br>
+              📅 Submitted at ${new Date().toLocaleString('en-US', { 
+                dateStyle: 'full', 
+                timeStyle: 'short' 
+              })}<br>
+              💾 Database Status: ${databaseStatus === 'saved' ? '✅ Saved' : '⚠️ Not saved (outage)'}
+            </p>
           </div>
-          ` : ''}
-          
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p style="margin: 10px 0;"><strong>Library/Organization:</strong> ${libraryName}</p>
-            <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <p style="margin: 10px 0;"><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-            <p style="margin: 10px 0;"><strong>Zip Codes:</strong> ${zipCodes}</p>
-            ${message ? `<p style="margin: 10px 0;"><strong>Message:</strong></p><p style="background: white; padding: 15px; border-radius: 4px;">${message}</p>` : ''}
-          </div>
-          
-          <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
-            <p style="margin: 0; color: #856404;"><strong>📧 Next Step:</strong> Reply to this email to respond to ${libraryName}. Your reply will go directly to ${email}.</p>
-            <p style="margin: 10px 0 0 0; color: #856404; font-size: 14px;">Or compose a new email from hello@throwbackai.app</p>
-          </div>
-          
-          <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
-          
-          <p style="color: #666; font-size: 14px;">
-            ⏰ Respond within 24 hours<br>
-            📅 Submitted at ${new Date().toLocaleString('en-US', { 
-              dateStyle: 'full', 
-              timeStyle: 'short' 
-            })}<br>
-            💾 Database Status: ${databaseStatus === 'saved' ? '✅ Saved' : '⚠️ Not saved (outage)'}
-          </p>
-        </div>
-      `
+        `
       }),
       timeoutPromise
     ]).catch(err => {
@@ -146,6 +146,8 @@ async function sendNotificationEmail({ libraryName, email, phone, zipCodes, mess
       }
       throw err;
     });
+
+    const { data, error } = result;
 
     if (error) {
       console.error('❌ Resend error:', error);

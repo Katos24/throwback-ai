@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '../../../../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+
+// Create admin client directly in this file (bypasses RLS)
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -23,7 +29,7 @@ export async function POST(req) {
 
     // Try to save to database, but don't fail if it's down
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('demo_requests')
         .insert([
           {

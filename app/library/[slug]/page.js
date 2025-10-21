@@ -27,7 +27,7 @@ export default function LibraryPortal() {
   
   const fileInputRef = useRef(null);
   
-  // ZIP CODE GATE
+  // ZIP CODE GATEe
   const [zipGranted, setZipGranted] = useState(false);
   const [zipInput, setZipInput] = useState('');
   const [zipError, setZipError] = useState('');

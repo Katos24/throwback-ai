@@ -27,7 +27,7 @@ export default function LibraryPortal() {
   
   const fileInputRef = useRef(null);
   
-  // ZIP CODE GATEe
+  // ZIP CODE GATE
   const [zipGranted, setZipGranted] = useState(false);
   const [zipInput, setZipInput] = useState('');
   const [zipError, setZipError] = useState('');
@@ -70,8 +70,6 @@ export default function LibraryPortal() {
     fetchShowcaseExamples();
   }, [library]);
 
-
-
   async function fetchLibraryData() {
     try {
       const { data, error } = await supabase
@@ -79,7 +77,7 @@ export default function LibraryPortal() {
         .select('*')
         .eq('slug', slug)
         .eq('active', true)
-        .maybeSingle();  // Changed from .single() to .maybeSingle()
+        .maybeSingle();
 
       if (error || !data) {
         setLibrary(null);
@@ -165,7 +163,7 @@ export default function LibraryPortal() {
     }
   };
 
-  const handleFile = (file) => {
+  const handleFile = async (file) => {
     if (file.size > 10 * 1024 * 1024) {
       showToast('File is too large. Please upload an image under 10MB.', 'error');
       return;
@@ -177,12 +175,31 @@ export default function LibraryPortal() {
     }
 
     setSelectedFile(file);
+    
+    // Read and correct orientation
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedImage(reader.result);
-      setError(null);
-      setRestoredImage(null);
-      showToast('Image uploaded successfully!', 'success');
+    reader.onload = (e) => {
+      const imgElement = new window.Image();
+      imgElement.onload = () => {
+        // Create canvas to fix orientation
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size to match image
+        canvas.width = imgElement.width;
+        canvas.height = imgElement.height;
+        
+        // Draw image (browser automatically handles EXIF orientation)
+        ctx.drawImage(imgElement, 0, 0);
+        
+        // Convert to data URL with corrected orientation
+        const correctedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+        setSelectedImage(correctedDataUrl);
+        setError(null);
+        setRestoredImage(null);
+        showToast('Image uploaded successfully!', 'success');
+      };
+      imgElement.src = e.target.result;
     };
     reader.readAsDataURL(file);
   };
@@ -251,33 +268,32 @@ export default function LibraryPortal() {
   };
 
   const handleDownload = async () => {
-  if (!restoredImage) return;
+    if (!restoredImage) return;
 
-  try {
-    const response = await fetch(restoredImage);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${library.name.replace(/\s+/g, '-')}-restored-${Date.now()}.jpg`;
-    
-    document.body.appendChild(link);
-    link.click();
-    
-    // Safe cleanup with timeout and parent check
-    setTimeout(() => {
-      if (link.parentNode) {
-        document.body.removeChild(link);
-      }
-      window.URL.revokeObjectURL(url);
-    }, 100);
-    
-    showToast('Photo downloaded successfully!', 'success');
-  } catch (error) {
-    console.error('Download error:', error);
-    showToast('Download failed. Please try again.', 'error');
-  }
-};
+    try {
+      const response = await fetch(restoredImage);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${library.name.replace(/\s+/g, '-')}-restored-${Date.now()}.jpg`;
+      
+      document.body.appendChild(link);
+      link.click();
+      
+      setTimeout(() => {
+        if (link.parentNode) {
+          document.body.removeChild(link);
+        }
+        window.URL.revokeObjectURL(url);
+      }, 100);
+      
+      showToast('Photo downloaded successfully!', 'success');
+    } catch (error) {
+      console.error('Download error:', error);
+      showToast('Download failed. Please try again.', 'error');
+    }
+  };
 
   const handleReset = () => {
     setSelectedImage(null);
@@ -312,7 +328,6 @@ export default function LibraryPortal() {
   const creditsRemaining = library.monthly_credits - library.credits_used;
   const outOfPremiumCredits = creditsRemaining < 40;
 
-  // ZIP GATE
   if (!zipGranted) {
     return (
       <div className={styles.container}>
@@ -367,7 +382,6 @@ export default function LibraryPortal() {
     );
   }
 
-  // MAIN PORTAL
   return (
     <div className={styles.container}>
       {toast && (
@@ -388,14 +402,11 @@ export default function LibraryPortal() {
         </div>
       </header>
 
-          {/* Welcome */}
       <main className={styles.main}>
-  <div className={styles.welcome}>
-    <h2>Restore Your Family Photos</h2>
-    <p>Upload old, damaged, or black & white photos - completely free for residents</p>
-  </div>
-
-
+        <div className={styles.welcome}>
+          <h2>Restore Your Family Photos</h2>
+          <p>Upload old, damaged, or black & white photos - completely free for residents</p>
+        </div>
 
         <div className={styles.uploadCard}>
           <h2 className={styles.sectionTitle}>
@@ -412,15 +423,15 @@ export default function LibraryPortal() {
                 onDrop={handleDrop}
                 onClick={() => !uploading && fileInputRef.current?.click()}
                 onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     !uploading && fileInputRef.current?.click();
-                    }
+                  }
                 }}
                 tabIndex={0}
                 role="button"
                 aria-label="Upload photo"
-                >
+              >
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -431,7 +442,7 @@ export default function LibraryPortal() {
                 />
                 
                 {selectedImage ? (
-                  <Image src={selectedImage} alt="Original" width={800} height={600} className={styles.preview} />
+                  <img src={selectedImage} alt="Original" className={styles.preview} />
                 ) : (
                   <div className={styles.placeholder}>
                     <div className={styles.uploadIcon}>📷</div>
@@ -454,58 +465,58 @@ export default function LibraryPortal() {
                   
                   <div className={styles.optionsGrid}>
                     <div 
-                        className={`${styles.option} ${restoreType === 'basic' ? styles.active : ''}`}
-                        onClick={() => setRestoreType('basic')}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            setRestoreType('basic');
-                            }
-                        }}
-                        tabIndex={0}
-                        role="radio"
-                        aria-checked={restoreType === 'basic'}
-                        >
+                      className={`${styles.option} ${restoreType === 'basic' ? styles.active : ''}`}
+                      onClick={() => setRestoreType('basic')}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setRestoreType('basic');
+                        }
+                      }}
+                      tabIndex={0}
+                      role="radio"
+                      aria-checked={restoreType === 'basic'}
+                    >
                       <div className={styles.badge}>✨ ENHANCE</div>
                       <h4>Basic Restoration</h4>
                       <p>Fix damage, sharpen details</p>
                     </div>
 
                     <div 
-                    className={`${styles.option} ${restoreType === 'premium' ? styles.active : ''} ${outOfPremiumCredits ? styles.disabled : ''}`}
-                    onClick={() => !outOfPremiumCredits && setRestoreType('premium')}
-                    onKeyDown={(e) => {
+                      className={`${styles.option} ${restoreType === 'premium' ? styles.active : ''} ${outOfPremiumCredits ? styles.disabled : ''}`}
+                      onClick={() => !outOfPremiumCredits && setRestoreType('premium')}
+                      onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        !outOfPremiumCredits && setRestoreType('premium');
+                          e.preventDefault();
+                          !outOfPremiumCredits && setRestoreType('premium');
                         }
-                    }}
-                    tabIndex={outOfPremiumCredits ? -1 : 0}
-                    role="radio"
-                    aria-checked={restoreType === 'premium'}
-                    aria-disabled={outOfPremiumCredits}
+                      }}
+                      tabIndex={outOfPremiumCredits ? -1 : 0}
+                      role="radio"
+                      aria-checked={restoreType === 'premium'}
+                      aria-disabled={outOfPremiumCredits}
                     >
-                    <div className={styles.badge}>🎨 COLORIZE</div>
-                    <h4>Premium Colorization</h4>
-                    <p>{outOfPremiumCredits ? 'Out of credits' : 'Add vibrant, realistic color'}</p>
+                      <div className={styles.badge}>🎨 COLORIZE</div>
+                      <h4>Premium Colorization</h4>
+                      <p>{outOfPremiumCredits ? 'Out of credits' : 'Add vibrant, realistic color'}</p>
                     </div>
                   </div>
 
                   <div className={styles.actions}>
                     <button 
-                        onClick={handleRestore} 
-                        disabled={uploading || (restoreType === 'premium' && outOfPremiumCredits)} 
-                        className={styles.primaryBtn}
-                        aria-label={`Restore photo using ${restoreType} enhancement`}
-                        >
-                        Restore Photo
+                      onClick={handleRestore} 
+                      disabled={uploading || (restoreType === 'premium' && outOfPremiumCredits)} 
+                      className={styles.primaryBtn}
+                      aria-label={`Restore photo using ${restoreType} enhancement`}
+                    >
+                      Restore Photo
                     </button>
                     <button 
-                    onClick={handleReset} 
-                    className={styles.secondaryBtn}
-                    aria-label="Reset and upload new photo"
+                      onClick={handleReset} 
+                      className={styles.secondaryBtn}
+                      aria-label="Reset and upload new photo"
                     >
-                    <span aria-hidden="true">🔄</span>
+                      <span aria-hidden="true">🔄</span>
                     </button>
                   </div>
                 </div>
@@ -519,26 +530,24 @@ export default function LibraryPortal() {
 
               <div className={styles.actions}>
                 <button 
-                onClick={handleDownload} 
-                className={styles.primaryBtn}
-                aria-label="Download restored photo"
+                  onClick={handleDownload} 
+                  className={styles.primaryBtn}
+                  aria-label="Download restored photo"
                 >
-                ⬇️ Download Result
+                  ⬇️ Download Result
                 </button>
                 <button onClick={handleReset} className={styles.secondaryBtn}>
                   <span>🔄</span>
                 </button>
               </div>
 
-              
-
               <div className={styles.enhanceAgain}>
                 <button 
-                    onClick={handleUseRestoredImage} 
-                    className={styles.enhanceBtn}
-                    aria-label="Use restored photo as input for another enhancement"
-                    >
-                    🎨 Enhance This Result Again
+                  onClick={handleUseRestoredImage} 
+                  className={styles.enhanceBtn}
+                  aria-label="Use restored photo as input for another enhancement"
+                >
+                  🎨 Enhance This Result Again
                 </button>
                 <p>Use the restored photo as input for another enhancement</p>
               </div>
@@ -556,8 +565,6 @@ export default function LibraryPortal() {
           </div>
         </div>
 
-
-    {/* How It Works */}
         <HowItWorks />
 
         {showcaseExamples.length > 0 && (
@@ -579,24 +586,22 @@ export default function LibraryPortal() {
           </div>
         )}
 
-          {/* FAQ */}
         <div className={styles.faq}>
-        <h2>Frequently Asked Questions</h2>
-        <details className={styles.faqItem}>
-          <summary>Is this really free for residents?</summary>
-          <p>Yes! Completely free thanks to {library.name}.</p>
-        </details>
-        <details className={styles.faqItem}>
-          <summary>What happens to my photos?</summary>
-          <p>Photos are processed securely and never stored permanently.</p>
-        </details>
-        <details className={styles.faqItem}>
-          <summary>Can I restore multiple photos?</summary>
-          <p>Yes! You can restore as many photos as you&apos;d like.</p>
-        </details>
-      </div>
+          <h2>Frequently Asked Questions</h2>
+          <details className={styles.faqItem}>
+            <summary>Is this really free for residents?</summary>
+            <p>Yes! Completely free thanks to {library.name}.</p>
+          </details>
+          <details className={styles.faqItem}>
+            <summary>What happens to my photos?</summary>
+            <p>Photos are processed securely and never stored permanently.</p>
+          </details>
+          <details className={styles.faqItem}>
+            <summary>Can I restore multiple photos?</summary>
+            <p>Yes! You can restore as many photos as you&apos;d like.</p>
+          </details>
+        </div>
 
-        {/* Trust Section */}
         <div className={styles.trust}>
           <div className={styles.trustItem}>
             <span>🔒</span>
@@ -621,23 +626,21 @@ export default function LibraryPortal() {
           </div>
         </div>
 
-        {/* Accessibility Info */}
-      <div className={styles.accessibility}>
-      <h3>♿ Accessibility</h3>
-      <p>Need help using this service? Visit the reference desk or call us at {library.phone}</p>
-    </div>
+        <div className={styles.accessibility}>
+          <h3>♿ Accessibility</h3>
+          <p>Need help using this service? Visit the reference desk or call us at {library.phone}</p>
+        </div>
 
-        {/* Footer */}
-       <footer className={styles.footer}>
-        <p>Provided by {library.name}</p>
-        <p>
+        <footer className={styles.footer}>
+          <p>Provided by {library.name}</p>
+          <p>
             Powered by <a href="https://throwbackai.app">Throwback AI</a>
-        </p>
-        <div className={styles.legalLinks}>
+          </p>
+          <div className={styles.legalLinks}>
             <Link href="/library/privacy">Privacy Policy</Link>
             <span>•</span>
             <Link href="/library/terms">Terms of Service</Link>
-        </div>
+          </div>
         </footer>
       </main>
     </div>

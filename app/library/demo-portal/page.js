@@ -71,7 +71,7 @@ export default function DemoPortal() {
     }
   };
 
-  const handleFile = (file) => {
+  const handleFile = async (file) => {
     if (file.size > 10 * 1024 * 1024) {
       showToast('File is too large. Please upload an image under 10MB.', 'error');
       return;
@@ -83,12 +83,31 @@ export default function DemoPortal() {
     }
 
     setSelectedFile(file);
+    
+    // Read and correct orientation
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setSelectedImage(reader.result);
-      setError(null);
-      setRestoredImage(null);
-      showToast('Image uploaded successfully!', 'success');
+    reader.onload = (e) => {
+      const imgElement = new window.Image();
+      imgElement.onload = () => {
+        // Create canvas to fix orientation
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size to match image
+        canvas.width = imgElement.width;
+        canvas.height = imgElement.height;
+        
+        // Draw image (browser automatically handles EXIF orientation)
+        ctx.drawImage(imgElement, 0, 0);
+        
+        // Convert to data URL with corrected orientation
+        const correctedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+        setSelectedImage(correctedDataUrl);
+        setError(null);
+        setRestoredImage(null);
+        showToast('Image uploaded successfully!', 'success');
+      };
+      imgElement.src = e.target.result;
     };
     reader.readAsDataURL(file);
   };
@@ -266,7 +285,7 @@ export default function DemoPortal() {
                 />
                 
                 {selectedImage ? (
-                  <Image src={selectedImage} alt="Original" width={800} height={600} className={styles.preview} />
+                  <img src={selectedImage} alt="Original" className={styles.preview} />
                 ) : (
                   <div className={styles.placeholder}>
                     <div className={styles.uploadIcon}>📷</div>

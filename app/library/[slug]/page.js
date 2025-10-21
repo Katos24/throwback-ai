@@ -79,7 +79,7 @@ export default function LibraryPortal() {
         .select('*')
         .eq('slug', slug)
         .eq('active', true)
-        .single();
+        .maybeSingle();  // Changed from .single() to .maybeSingle()
 
       if (error || !data) {
         setLibrary(null);

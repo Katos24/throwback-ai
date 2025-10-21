@@ -11,7 +11,7 @@ export default function LibraryLanding() {
       <header className={styles.header}>
         <Link href="/" className={styles.logo}>Throwback AI</Link>
         <nav className={styles.nav}>
-          <Link href="/">Home</Link>
+          <Link href="/library">Home</Link>
           <Link href="/library/pricing">Pricing</Link>
           <Link href="/library/demo" className={styles.ctaBtn}>Request Demo</Link>
         </nav>
@@ -111,6 +111,26 @@ export default function LibraryLanding() {
           </div>
         </div>
       </section>
+
+      {/* Results Gallery - Add after "How It Works" section */}
+<section className={styles.resultsGallery}>
+  <h2>See Real Results</h2>
+  <p style={{ textAlign: 'center', color: '#666', marginBottom: '2rem' }}>
+    Professional AI restoration in seconds
+  </p>
+  
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '2rem',
+    maxWidth: '1200px',
+    margin: '0 auto'
+  }}>
+    <img src="/images/examples/basic-example.jpg" alt="photo restoration" style={{ width: '100%', borderRadius: '12px' }} />
+    <img src="/images/gallery/restore3.jpg" alt="Museum photo restoration" style={{ width: '100%', borderRadius: '12px' }} />
+    <img src="/images/gallery/restore7.jpg" alt="Wedding Photo restoration" style={{ width: '100%', borderRadius: '12px' }} />
+  </div>
+</section>
 
       {/* Why Choose Us */}
       <section className={styles.features}>

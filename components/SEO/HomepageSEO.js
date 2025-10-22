@@ -15,7 +15,7 @@ const HomepageSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/throwback-ai.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/restore-preview.png";
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
   const facebookPageId = '61578072554521';
 

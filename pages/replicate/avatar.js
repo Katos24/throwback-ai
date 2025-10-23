@@ -397,6 +397,34 @@ export default function AiAvatarsRedesigned() {
           </p>
         </div>
 
+                {/* Examples Section with Carousell */}
+        <div className={styles.examplesSection}>
+          <div className={styles.examplesHeader}>
+          </div>
+
+          <div className={styles.carouselContainer}>
+            <Slider {...carouselSettings}>
+              {exampleTransformations.map((example, index) => (
+                <div key={example.id} className={styles.carouselSlide}>
+                  <div 
+                    className={styles.exampleCard}
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <img 
+                      src={example.image} 
+                      alt={`${example.style} transformation`}
+                      className={styles.exampleImage}
+                    />
+                    <div className={styles.exampleOverlay}>
+                      <span className={styles.exampleCategory}>{example.category}</span>
+                      <span className={styles.exampleStyle}>{example.style}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+
         {/* Single Photo Display Section */}
         <div className={styles.photoSection}>
           <div className={styles.singlePhotoCard}>
@@ -635,55 +663,6 @@ export default function AiAvatarsRedesigned() {
           )}
         </div>
 
-        {/* Examples Section with Carousell */}
-        <div className={styles.examplesSection}>
-          <div className={styles.examplesHeader}>
-            <h2 className={styles.examplesTitle}>✨ Example Transformations</h2>
-            <p className={styles.examplesSubtitle}>
-              See what&apos;s possible with avatar styles across 6 categories
-            </p>
-          </div>
-
-          <div className={styles.carouselContainer}>
-            <Slider {...carouselSettings}>
-              {exampleTransformations.map((example, index) => (
-                <div key={example.id} className={styles.carouselSlide}>
-                  <div 
-                    className={styles.exampleCard}
-                    onClick={() => handleImageClick(index)}
-                  >
-                    <img 
-                      src={example.image} 
-                      alt={`${example.style} transformation`}
-                      className={styles.exampleImage}
-                    />
-                    <div className={styles.exampleOverlay}>
-                      <span className={styles.exampleCategory}>{example.category}</span>
-                      <span className={styles.exampleStyle}>{example.style}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
-
-          <div className={styles.examplesCta}>
-            <button 
-              onClick={() => {
-                if (!isLoggedIn) {
-                  router.push('/signup');
-                } else {
-                  router.push('/pricing');
-                }
-              }}
-              className={styles.examplesCtaButton}
-            >
-              {!isLoggedIn 
-                ? "Sign Up to Create Avatar →" 
-                : "Get Credits to Create Avatar →"
-              }
-            </button>
-          </div>
         </div>
       </main>
 

@@ -8,7 +8,7 @@ const CustomerSuccessStories = () => {
   const restoreStories = [
     {
       combinedImage: "/images/testimonials/wedding.jpg",
-      story: "Our AI brought my grandmother's 1952 wedding photo back to life with stunning clarity and vibrant colors. The whole family was amazed!",
+      story: "Found my grandma's wedding photo in the attic, all faded and scratched up. This fixed it better than I expected - gonna frame it for her 90th birthday next month.",
       author: "Sarah M.",
       occasion: "Family Reunion",
       beforeLabel: "Before",
@@ -16,7 +16,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/babyphotos.jpg", 
-      story: "70-year-old baby photos transformed with incredible detail. The AI restoration revealed features we never knew existed in the original.",
+      story: "My dad had these old baby pictures from like 1953 that were pretty rough. Used this for Father's Day and he literally teared up. Worth every penny.",
       author: "Marcus T.",
       occasion: "Father's Day Gift",
       beforeLabel: "Damaged",
@@ -24,7 +24,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/genealogy.jpg",
-      story: "Perfect colorization for our genealogy project. The AI made our ancestors feel alive and present in our family history.",
+      story: "Working on our family tree and had a bunch of black and white photos from the 1800s. The colorization made them feel like real people, not just old photos. Really helped connect with my kids about their heritage.",
       author: "Linda K.", 
       occasion: "Genealogy Research",
       beforeLabel: "B&W",
@@ -32,7 +32,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/military.jpg",
-      story: "Damaged military photo from WWII restored to museum quality. The AI preserved every important detail of my grandfather's service.",
+      story: "My grandfather's WWII photo was stored badly and had water damage. Wanted to use it for his memorial service. Came out better than the original - the uniform details are crystal clear now.",
       author: "Robert H.",
       occasion: "Memorial Service",
       beforeLabel: "Faded",
@@ -43,7 +43,7 @@ const CustomerSuccessStories = () => {
   const decadesStories = [
     {
       combinedImage: "/images/testimonials/80s.jpg",
-      story: "Turned my LinkedIn headshot into a viral 80s masterpiece! Got 500+ likes on Instagram and multiple job offers from creative agencies.",
+      story: "Did my LinkedIn photo as an 80s headshot for fun and it got way more engagement than my regular one lol. Might actually keep it.",
       author: "Jessica R.",
       occasion: "Personal Branding",
       beforeLabel: "Now",
@@ -51,7 +51,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/70s.jpg",
-      story: "Created the perfect 70s engagement announcement. Our families loved seeing us as flower power hippies - it's our favorite photo now!",
+      story: "Made us into 70s hippies for our engagement announcement. My mom was dying laughing because we actually looked like her old photos from college. Everyone loved it.",
       author: "Alex & Sam",
       occasion: "Engagement Announcement",
       beforeLabel: "Modern",
@@ -59,7 +59,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/90s.jpg",
-      story: "Transformed our boring group photo into a 90s grunge band aesthetic. Used it for our reunion invitations - everyone wants copies!",
+      story: "Did our whole friend group in 90s style for the reunion invite. People kept asking where we found old photos of us lmao. Great icebreaker.",
       author: "Mike D.",
       occasion: "High School Reunion",
       beforeLabel: "Today",
@@ -67,7 +67,7 @@ const CustomerSuccessStories = () => {
     },
     {
       combinedImage: "/images/testimonials/2000s.jpg",
-      story: "My 2000s emo transformation went viral on TikTok! 2.3M views and counting. The AI captured the early 2000s vibe perfectly.",
+      story: "Posted my 2000s emo version on TikTok as a joke and it blew up way more than I thought. The eyeliner is scarily accurate for early 2000s haha.",
       author: "Taylor M.",
       occasion: "Social Media Content",
       beforeLabel: "Now",
@@ -80,10 +80,10 @@ const CustomerSuccessStories = () => {
   return (
     <section className={successStyles.successStoriesSection}>
       <h2 className={successStyles.successHeading}>
-        AI Photo Transformations
+        Real Results
       </h2>
       <p className={successStyles.successIntro}>
-        Witness the power of AI bringing your cherished memories back to life and creating viral social content
+        See how people are using these tools for family memories and fun projects
       </p>
       
       {/* Tab Navigation */}

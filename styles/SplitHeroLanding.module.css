@@ -687,3 +687,399 @@
     padding: 5px 12px;
   }
 }
+
+
+
+
+/* ADD THESE TO YOUR EXISTING SplitHeroLanding.module.css */
+
+/* ===================================
+   NEW: Trust Badges (right under header)
+   =================================== */
+.trustBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trustIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .trustBadges {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .trustBadge {
+    justify-content: center;
+  }
+}
+
+/* ===================================
+   NEW: Pricing Callout (in primary card)
+   =================================== */
+.pricingCallout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+}
+
+.pricingHighlight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pricingEmoji {
+  font-size: 1.5rem;
+}
+
+.pricingText {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.4;
+}
+
+.pricingText strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===================================
+   NEW: Card Pricing Badge (secondary cards)
+   =================================== */
+.cardPricing {
+  margin: 0.75rem 0;
+}
+
+.pricingBadge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ===================================
+   NEW: Use Cases Section
+   =================================== */
+.useCases {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.useCaseTitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.useCaseTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.useCaseTag {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.2s ease;
+}
+
+.useCaseTag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ===================================
+   NEW: Quick FAQ Section
+   =================================== */
+.quickFaq {
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.faqTitle {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+/* NEW: Pricing Tiers Visual */
+.pricingTiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricingTier {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.pricingTier:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.tierPopular {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.tierBadge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.tierPrice {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.tierFeature {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.5rem 0;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .pricingTiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.faqItem {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.faqItem h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.faqItem p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faqGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .quickFaq {
+    padding: 2rem 1rem;
+  }
+}
+
+/* ===================================
+   IMPROVEMENTS: Social Proof Stats
+   =================================== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem; /* Add space for use cases below */
+}
+
+.stat {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .statNumber {
+    font-size: 2rem;
+  }
+}
+
+/* ===================================
+   IMPROVEMENTS: Better Signup Banner
+   =================================== */
+.signupBanner {
+  cursor: pointer;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.15));
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* CENTERED */
+  gap: 1rem;
+  margin: 3rem auto; /* Auto margins for centering */
+  max-width: 600px; /* Constrain width */
+  transition: all 0.3s ease;
+}
+
+.signupBanner:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(147, 51, 234, 0.25));
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.bannerIcon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+}
+
+.bannerText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bannerText strong {
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.bannerText span {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .signupBanner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+}
+
+/* ===================================
+   IMPROVEMENTS: Header section
+   =================================== */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mainSubtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 1rem;
+}

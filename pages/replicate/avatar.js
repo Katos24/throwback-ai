@@ -392,10 +392,22 @@ export default function AiAvatarsRedesigned() {
             AI Avatar Generator
           </h1>
           <p className={styles.subtitle}>
-            Transform your photo into amazing AI avatars with our AI-powered transformation.
-            <span className={styles.creditPill}>Costs {avatarCost} credits</span>
-          </p>
+  Transform your photo into amazing AI avatars with our AI-powered transformation.
+  <span className={styles.creditPill}>Costs {avatarCost} credits</span>
+  {!isLoggedIn && (
+    <span className={styles.signupInline}>
+      🎉 <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
+      <button
+        onClick={() => router.push("/signup")}
+        className={styles.signupInlineButton}
+      >
+        Claim Credits
+      </button>
+    </span>
+  )}
+</p>
         </div>
+
 
                 {/* Examples Section with Carousell */}
         <div className={styles.examplesSection}>

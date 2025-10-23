@@ -409,7 +409,7 @@ export default function AiAvatarsRedesigned() {
         </div>
 
 
-                {/* Examples Section with Carousell */}
+                {/* Examples Section with Carouselll */}
         <div className={styles.examplesSection}>
           <div className={styles.examplesHeader}>
           </div>

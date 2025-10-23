@@ -1320,3 +1320,22 @@
   background: rgba(79, 70, 229, 0.9);
 }
 
+@media (max-width: 480px) {
+  .signupInline {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .signupInlineButton {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    text-align: center;
+  }
+}

@@ -1359,3 +1359,373 @@
 }
 
 
+/* ===========================
+   ACCORDION STYLE SELECTOR
+   =========================== */
+
+.configSection {
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+}
+
+.configPanel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.configTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Accordion Container */
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accordionSubtitle {
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+
+/* Accordion Item */
+.accordionItem {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.accordionItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.accordionItemOpen {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+/* Accordion Header (Clickable) */
+.accordionHeader {
+  width: 100%;
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 1rem;
+}
+
+.accordionHeader:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.accordionItemOpen .accordionHeader {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+/* Left Side of Header */
+.accordionHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.accordionEmoji {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.accordionHeaderText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.accordionLabel {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.accordionDescription {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* Right Side of Header */
+.accordionHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.accordionPopularBadge {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  white-space: nowrap;
+}
+
+.accordionCount {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.accordionChevron {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  line-height: 1;
+  width: 24px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.accordionItemOpen .accordionChevron {
+  transform: rotate(180deg);
+}
+
+/* Accordion Content (Expandable) */
+.accordionContent {
+  padding: 0 1.5rem 1.5rem;
+  animation: accordionSlideDown 0.3s ease-out;
+}
+
+@keyframes accordionSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style Grid Inside Accordion */
+.styleGrid {
+  display: grid;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.styleButton {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.styleButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.styleButton.selected {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: #f5576c;
+  color: white;
+  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Popular Badge on Style */
+.popularBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+  animation: pulse 2s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ===========================
+   MOBILE RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
+  .configPanel {
+    padding: 1.5rem;
+  }
+
+  .configTitle {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .accordionContainer {
+    gap: 0.75rem;
+  }
+
+  .accordionHeader {
+    padding: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .accordionHeaderLeft {
+    flex: 1 1 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .accordionEmoji {
+    font-size: 1.5rem;
+  }
+
+  .accordionLabel {
+    font-size: 1.1rem;
+  }
+
+  .accordionDescription {
+    font-size: 0.85rem;
+  }
+
+  .accordionHeaderRight {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .accordionPopularBadge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .accordionCount {
+    font-size: 0.85rem;
+  }
+
+  .accordionChevron {
+    font-size: 1.5rem;
+  }
+
+  .accordionContent {
+    padding: 0 1rem 1rem;
+  }
+
+  .styleGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .styleButton {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .popularBadge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordionHeaderLeft {
+    gap: 0.75rem;
+  }
+
+  .accordionEmoji {
+    font-size: 1.3rem;
+  }
+
+  .accordionLabel {
+    font-size: 1rem;
+  }
+
+  .styleGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .styleButton {
+    padding: 1rem;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+.accordionHeader:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.6);
+  outline-offset: 2px;
+}
+
+.styleButton:focus {
+  outline: 2px solid rgba(240, 147, 251, 0.6);
+  outline-offset: 2px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .accordionContent,
+  .accordionChevron,
+  .styleButton,
+  .accordionItem {
+    animation: none;
+    transition: none;
+  }
+}
+
+
+
+

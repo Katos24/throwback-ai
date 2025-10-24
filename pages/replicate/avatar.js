@@ -482,6 +482,7 @@ export default function AiAvatarsRedesigned() {
         </div>
 
      
+
         {/* Example Carousel */}
         <div className={styles.examplesSection}>
           <h2 className={styles.examplesTitle}>See What's Possible</h2>
@@ -511,7 +512,6 @@ export default function AiAvatarsRedesigned() {
 
            {/* Restoration Counter - Shows social proof */}
         <RestorationCounter label="AI Transformations Created" />
-
 
         {/* Photo Upload Section */}
         <div className={styles.uploadSection} id="photo-section">
@@ -626,49 +626,79 @@ export default function AiAvatarsRedesigned() {
             </div>
           </div>
 
-          {/* Style Category */}
-          <div className={styles.configPanel}>
-            <h3 className={styles.configTitle}>Choose Category</h3>
-            <div className={styles.categoryGrid}>
+          {/* Accordion Style Categories */}
+          <div className={styles.accordionSection}>
+            <h3 className={styles.accordionMainTitle}>Style Categories</h3>
+            <p className={styles.accordionSubtitle}>Click a category to explore available styles</p>
+            
+            <div className={styles.accordionContainer}>
               {[
-                { value: "nineties", label: "90s Vibes", emoji: "📼" },
-                { value: "portrait", label: "Portrait", emoji: "📸" },
-                { value: "fantasy", label: "Fantasy", emoji: "🧙" },
-                { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
-                { value: "historical", label: "Historical", emoji: "🏛️" },
-                { value: "anime", label: "Anime", emoji: "🎌" }
-              ].map((category) => (
-                <button
-                  key={category.value}
-                  className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
-                  onClick={() => {
-                    setStyleCategory(category.value);
-                    setSelectedStyle("");
-                  }}
-                >
-                  <span className={styles.categoryEmoji}>{category.emoji}</span>
-                  <span>{category.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Style Selection */}
-          <div className={styles.configPanel}>
-            <h3 className={styles.configTitle}>Select Style</h3>
-            <div className={styles.styleGrid}>
-              {AVATAR_STYLES[styleCategory]?.map((style) => (
-                <button
-                  key={style.value}
-                  className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
-                  onClick={() => setSelectedStyle(style.value)}
-                >
-                  {popularStyles.includes(style.value) && (
-                    <span className={styles.popularBadge}>⭐ Popular</span>
-                  )}
-                  {style.label}
-                </button>
-              ))}
+                { value: "nineties", label: "90s Vibes", emoji: "📼", description: "Retro yearbook styles" },
+                { value: "portrait", label: "Portrait", emoji: "📸", description: "Professional & artistic" },
+                { value: "fantasy", label: "Fantasy", emoji: "🧙", description: "Magical & mystical" },
+                { value: "scifi", label: "Sci-Fi", emoji: "🚀", description: "Futuristic & tech" },
+                { value: "historical", label: "Historical", emoji: "🏛️", description: "Period & vintage" },
+                { value: "anime", label: "Anime", emoji: "🎌", description: "Japanese animation style" }
+              ].map((category) => {
+                const isOpen = styleCategory === category.value;
+                const stylesInCategory = AVATAR_STYLES[category.value] || [];
+                const hasPopularStyles = stylesInCategory.some(style => popularStyles.includes(style.value));
+                
+                return (
+                  <div 
+                    key={category.value} 
+                    className={`${styles.accordionItem} ${isOpen ? styles.accordionItemOpen : ''}`}
+                  >
+                    <button
+                      className={styles.accordionHeader}
+                      onClick={() => {
+                        setStyleCategory(category.value);
+                        if (styleCategory !== category.value) {
+                          setSelectedStyle(""); // Clear style when switching categories
+                        }
+                      }}
+                    >
+                      <div className={styles.accordionHeaderLeft}>
+                        <span className={styles.accordionEmoji}>{category.emoji}</span>
+                        <div className={styles.accordionHeaderText}>
+                          <span className={styles.accordionLabel}>{category.label}</span>
+                          <span className={styles.accordionDescription}>{category.description}</span>
+                        </div>
+                      </div>
+                      <div className={styles.accordionHeaderRight}>
+                        {hasPopularStyles && (
+                          <span className={styles.accordionPopularBadge}>⭐ Popular</span>
+                        )}
+                        <span className={styles.accordionCount}>
+                          {stylesInCategory.length} {stylesInCategory.length === 1 ? 'style' : 'styles'}
+                        </span>
+                        <span className={styles.accordionChevron}>
+                          {isOpen ? '−' : '+'}
+                        </span>
+                      </div>
+                    </button>
+                    
+                    {isOpen && (
+                      <div className={styles.accordionContent}>
+                        <div className={styles.styleGrid}>
+                          {stylesInCategory.map((style) => (
+                            <button
+                              key={style.value}
+                              className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
+                              onClick={() => setSelectedStyle(style.value)}
+                            >
+                              {popularStyles.includes(style.value) && (
+                                <span className={styles.popularBadge}>⭐ Popular</span>
+                              )}
+                              {style.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

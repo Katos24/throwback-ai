@@ -233,10 +233,22 @@ export default function AiAvatarsRedesigned() {
     generateAvatar();
   };
 
-  const generateAvatar = async () => {
-    setIsLoading(true);
-    setProgress(0);
-    setProgressStage("Preparing your image...");
+ const generateAvatar = async () => {
+  // 🩹 FIX: clear old result so progress bar and overlay show again
+  setResultImageUrl(null);
+
+  setIsLoading(true);
+  setProgress(0);
+  setProgressStage("Preparing your image...");
+
+
+    // ✅ Scroll to photo on mobile when generation starts
+    if (window.innerWidth <= 768) {
+      const photoSection = document.getElementById('photo-section');
+      if (photoSection) {
+        photoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
 
     const processingToast = toast.loading('Creating your AI avatar...', {
       icon: '🎭',
@@ -273,7 +285,11 @@ export default function AiAvatarsRedesigned() {
       setProgress(50);
       setProgressStage("Sending to AI...");
 
-      const prompt = `${userGender} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure`;
+
+      // ✅ FIX: Handle non_binary gender in prompt
+      // For non_binary, use neutral "person" instead of "non_binary"
+      const genderForPrompt = userGender === "non_binary" ? "person" : userGender;
+      const prompt = `${genderForPrompt} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure`;
 
       const response = await fetch("/api/replicate/aiAvatars", {
         method: "POST",
@@ -438,7 +454,7 @@ export default function AiAvatarsRedesigned() {
           </div>
 
         {/* Single Photo Display Section */}
-        <div className={styles.photoSection}>
+        <div id="photo-section" className={styles.photoSection}>
           <div className={styles.singlePhotoCard}>
             <h3 className={styles.cardTitle}>
               {resultImageUrl ? 'Your AI Avatar' : 'Upload Your Photo'}
@@ -449,7 +465,7 @@ export default function AiAvatarsRedesigned() {
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
               onDrop={handleDrop}
-              onClick={() => !resultImageUrl && document.getElementById('photo-upload').click()}
+              onClick={() => !isLoading && document.getElementById('photo-upload').click()}
             >
               {!previewUrl && !resultImageUrl ? (
                 <div className={styles.uploadPrompt}>
@@ -460,14 +476,19 @@ export default function AiAvatarsRedesigned() {
                 </div>
               ) : resultImageUrl ? (
                 <div className={styles.resultContainer}>
-                  <Image
-                    src={showingOriginal ? previewUrl : resultImageUrl}
-                    alt={showingOriginal ? "Original photo" : "Generated Avatar"}
-                    width={400}
-                    height={400}
-                    unoptimized
-                    className={styles.displayImage}
-                  />
+                  <div className={styles.previewContainer}>
+                    <Image
+                      src={showingOriginal ? previewUrl : resultImageUrl}
+                      alt={showingOriginal ? "Original photo" : "Generated Avatar"}
+                      width={400}
+                      height={400}
+                      unoptimized
+                      className={styles.displayImage}
+                    />
+                    <div className={styles.changePhotoOverlay}>
+                      Click to change photo
+                    </div>
+                  </div>
                   <div className={styles.imageControls}>
                     <button 
                       onClick={(e) => {
@@ -498,6 +519,11 @@ export default function AiAvatarsRedesigned() {
                     height={400}
                     className={styles.displayImage}
                   />
+                  {!isLoading && (
+                    <div className={styles.changePhotoOverlay}>
+                      Click to change photo
+                    </div>
+                  )}
                   {isLoading && (
                     <div className={styles.loadingOverlay}>
                       <div className={styles.spinner}></div>
@@ -529,13 +555,13 @@ export default function AiAvatarsRedesigned() {
           <div className={styles.configPanel}>
             <h3 className={styles.configTitle}>GENDER</h3>
             <div className={styles.buttonGroup}>
-              {["male", "female", "non-binary"].map((gender) => (
+              {["male", "female", "non_binary"].map((gender) => (
                 <button
                   key={gender}
                   className={`${styles.optionButton} ${userGender === gender ? styles.selected : ''}`}
                   onClick={() => setUserGender(gender)}
                 >
-                  {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  {gender === "non_binary" ? "Non-Binary" : gender.charAt(0).toUpperCase() + gender.slice(1)}
                 </button>
               ))}
             </div>

@@ -1,5 +1,6 @@
 /* ===========================
    MODERN AVATAR PAGE REDESIGN
+   MOBILE-OPTIMIZED VERSION
    =========================== */
 
 /* Main Container */
@@ -443,924 +444,40 @@
 .imageControls {
   display: flex;
   gap: 1rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 0 0 24px 24px;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top: none;
+  margin-top: 1.5rem;
 }
 
-.toggleButton,
-.downloadBtn {
-  padding: 0.9rem 1.8rem;
-  border: none;
+.controlButton {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 12px 24px;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex: 1;
-  max-width: 200px;
 }
 
-.toggleButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.toggleButton:hover {
+.controlButton:hover {
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.downloadBtn {
+.controlButton.primary {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  border-color: #f5576c;
 }
 
-.downloadBtn:hover {
-  transform: translateY(-2px);
+.controlButton.primary:hover {
   box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
 }
 
 /* ===========================
    CONFIGURATION SECTION
-   =========================== */
-
-.configSection {
-  max-width: 1000px;
-  margin: 0 auto 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.configPanel {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.configTitle {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 1.5rem 0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Button Groups */
-.buttonGroup {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.optionButton {
-  flex: 1;
-  min-width: 120px;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.optionButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-.optionButton.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
-  color: white;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-/* Category Grid */
-.categoryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-}
-
-.categoryButton {
-  padding: 1.2rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  color: white;
-}
-
-.categoryButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.categoryButton.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
-  color: white;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-.categoryEmoji {
-  font-size: 2rem;
-}
-
-/* Style Grid */
-.styleGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-}
-
-.styleButton {
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.styleButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.styleButton.selected {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-color: #f5576c;
-  color: white;
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
-}
-
-.popularBadge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #000;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* ===========================
-   ADVANCED SETTINGS
-   =========================== */
-
-.advancedSection {
-  max-width: 1000px;
-  margin: 0 auto 3rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.advancedToggle {
-  width: 100%;
-  padding: 1.5rem 2rem;
-  background: transparent;
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  transition: background 0.3s ease;
-}
-
-.advancedToggle:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.toggleIcon {
-  font-size: 1.5rem;
-  color: #f093fb;
-}
-
-.advancedContent {
-  padding: 0 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  animation: slideDown 0.3s ease-out;
-}
-
-.advancedOption {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.advancedLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin: 0;
-}
-
-.strengthValue {
-  color: #f093fb;
-  font-weight: 700;
-}
-
-/* Slider */
-.sliderContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.slider {
-  width: 100%;
-  height: 8px;
-  border-radius: 10px;
-  background: #e8ecf1;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s ease;
-}
-
-.slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.slider::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s ease;
-}
-
-.slider::-moz-range-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.sliderLabels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* ===========================
-   GENERATE SECTION
-   =========================== */
-
-.generateSection {
-  max-width: 600px;
-  margin: 0 auto 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.generateButton {
-  width: 100%;
-  padding: 1.5rem 3rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 16px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.generateButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.generateButton:hover::before {
-  left: 100%;
-}
-
-.generateButton:hover:not(:disabled) {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5);
-}
-
-.generateButton:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.generateButton.ready {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
-}
-
-.generateButton.ready:hover:not(:disabled) {
-  box-shadow: 0 15px 50px rgba(245, 87, 108, 0.5);
-}
-
-.generateButton.loading {
-  pointer-events: none;
-}
-
-.buttonSpinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-/* Progress Container */
-.progressContainer {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.progressBar {
-  width: 100%;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  border-radius: 10px;
-  transition: width 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.progressFill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  animation: shimmer 2s infinite;
-}
-
-.progressText {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.95rem;
-  color: white;
-  font-weight: 600;
-}
-
-.progressPercent {
-  color: #f093fb;
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-/* ===========================
-   SPINNER
-   =========================== */
-
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 5px solid rgba(255, 255, 255, 0.2);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-/* ===========================
-   LIGHTBOX
-   =========================== */
-
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 2rem;
-  animation: fadeIn 0.3s ease-out;
-}
-
-.lightboxImage {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-}
-
-.lightboxBtnPrev,
-.lightboxBtnNext {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: none;
-  color: white;
-  font-size: 3rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lightboxBtnPrev {
-  left: 2rem;
-}
-
-.lightboxBtnNext {
-  right: 2rem;
-}
-
-.lightboxBtnPrev:hover,
-.lightboxBtnNext:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.lightboxInfo {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
-}
-
-.lightboxCategory {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.lightboxStyle {
-  font-size: 1.2rem;
-  color: white;
-  font-weight: 700;
-}
-
-/* ===========================
-   TESTIMONIALS SECTION
-   =========================== */
-
-.testimonialsSection {
-  max-width: 1200px;
-  margin: 4rem auto 3rem;
-  padding: 0 1rem;
-}
-
-.testimonialsTitle {
-  text-align: center;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 3rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.testimonialsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.testimonialCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.testimonialCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.testimonialHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.testimonialAvatar {
-  font-size: 2.5rem;
-  line-height: 1;
-}
-
-.testimonialName {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: white;
-}
-
-.testimonialStyle {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.testimonialRating {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  line-height: 1;
-}
-
-.testimonialText {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0;
-  font-style: italic;
-}
-
-/* ===========================
-   ANIMATIONS
-   =========================== */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
-
-@media (max-width: 768px) {
-  .contentWrapper {
-    padding: 1rem;
-  }
-
-  .creditsHeader {
-    top: 90px;
-    right: 10px;
-    padding: 10px 16px;
-    gap: 10px;
-  }
-
-  .creditsIcon {
-    font-size: 1.1rem;
-  }
-
-  .creditsText {
-    font-size: 0.9rem;
-  }
-
-  .creditsButton {
-    padding: 6px 16px;
-    font-size: 0.85rem;
-  }
-
-  .heroSection {
-    padding: 3rem 1rem 2rem;
-  }
-
-  .heroTitle {
-    font-size: 2rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1rem;
-  }
-
-  .examplesTitle {
-    font-size: 1.6rem;
-  }
-
-  .exampleImage {
-    height: 350px;
-  }
-
-  .sectionTitle {
-    font-size: 1.4rem;
-  }
-
-  .uploadZone {
-    padding: 2rem 1rem;
-    min-height: 350px;
-  }
-
-  .configPanel {
-    padding: 1.5rem;
-  }
-
-  .configTitle {
-    font-size: 1.1rem;
-  }
-
-  .buttonGroup {
-    flex-direction: column;
-  }
-
-  .optionButton {
-    min-width: 100%;
-  }
-
-  .categoryGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .styleGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .advancedToggle {
-    padding: 1.2rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .advancedContent {
-    padding: 0 1.5rem 1.5rem;
-  }
-
-  .generateButton {
-    padding: 1.2rem 2rem;
-    font-size: 1.1rem;
-  }
-
-  .imageControls {
-    flex-direction: column;
-  }
-
-  .toggleButton,
-  .downloadBtn {
-    max-width: 100%;
-  }
-
-  .lightboxBtnPrev,
-  .lightboxBtnNext {
-    width: 50px;
-    height: 50px;
-    font-size: 2rem;
-  }
-
-  .lightboxBtnPrev {
-    left: 1rem;
-  }
-
-  .lightboxBtnNext {
-    right: 1rem;
-  }
-
-  .lightboxInfo {
-    bottom: 1rem;
-    padding: 0.8rem 1.5rem;
-  }
-
-  .testimonialsSection {
-    margin: 3rem auto 2rem;
-  }
-
-  .testimonialsTitle {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-  }
-
-  .testimonialsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .testimonialCard {
-    padding: 1.5rem;
-  }
-
-  .testimonialAvatar {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .heroTitle {
-    font-size: 1.8rem;
-  }
-
-  .categoryGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .styleGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===========================
-   CAROUSEL CUSTOMIZATION
-   =========================== */
-
-.carousel :global(.slick-dots) {
-  bottom: -40px;
-}
-
-.carousel :global(.slick-dots li button:before) {
-  font-size: 12px;
-  color: white;
-  opacity: 0.5;
-}
-
-.carousel :global(.slick-dots li.slick-active button:before) {
-  color: white;
-  opacity: 1;
-}
-
-.carousel :global(.slick-prev),
-.carousel :global(.slick-next) {
-  width: 50px;
-  height: 50px;
-  z-index: 1;
-}
-
-.carousel :global(.slick-prev) {
-  left: -60px;
-}
-
-.carousel :global(.slick-next) {
-  right: -60px;
-}
-
-.carousel :global(.slick-prev:before),
-.carousel :global(.slick-next:before) {
-  font-size: 50px;
-  opacity: 0.7;
-}
-
-.carousel :global(.slick-prev:hover:before),
-.carousel :global(.slick-next:hover:before) {
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .carousel :global(.slick-prev),
-  .carousel :global(.slick-next) {
-    display: none !important;
-  }
-}
-
-
-/* ===========================
-   ACCORDION STYLE SELECTOR
    =========================== */
 
 .configSection {
@@ -1387,20 +504,80 @@
   letter-spacing: 0.05em;
 }
 
-/* Accordion Container */
+/* Gender Selection */
+.genderSection {
+  margin-bottom: 2rem;
+}
+
+.sectionLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.optionButton {
+  flex: 1;
+  min-width: 120px;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.optionButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.optionButton.selected {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: #f5576c;
+  color: white;
+  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+}
+
+/* ===========================
+   ACCORDION STYLE SELECTOR
+   =========================== */
+
+.accordionSection {
+  margin-top: 2rem;
+}
+
+.accordionMainTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+}
+
+.accordionSubtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 .accordionContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
-.accordionSubtitle {
-  color: white;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-
 
 /* Accordion Item */
 .accordionItem {
@@ -1539,7 +716,7 @@
 /* Style Grid Inside Accordion */
 .styleGrid {
   display: grid;
-  margin-top: 2rem;
+  margin-top: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
 }
@@ -1586,11 +763,11 @@
   padding: 3px 8px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-  animation: pulse 2s ease-in-out infinite;
+  animation: badgePulse 2s ease-in-out infinite;
   white-space: nowrap;
 }
 
-@keyframes pulse {
+@keyframes badgePulse {
   0%, 100% {
     transform: scale(1);
   }
@@ -1600,149 +777,890 @@
 }
 
 /* ===========================
-   MOBILE RESPONSIVE
+   ADVANCED SETTINGS
    =========================== */
 
+.advancedSection {
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+}
+
+.advancedToggle {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.advancedToggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.toggleIcon {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.advancedContent {
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.advancedOption {
+  margin-bottom: 2rem;
+}
+
+.advancedOption:last-child {
+  margin-bottom: 0;
+}
+
+.advancedLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.strengthValue {
+  color: #f093fb;
+  font-weight: 700;
+}
+
+.sliderContainer {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.4);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.4);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===========================
+   GENERATE BUTTON
+   =========================== */
+
+.generateSection {
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+.generateButton {
+  width: 100%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(245, 87, 108, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.generateButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(245, 87, 108, 0.4);
+}
+
+.generateButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonSpinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progressContainer {
+  margin-top: 1.5rem;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.progressPercent {
+  color: #f093fb;
+}
+
+/* ===========================
+   TESTIMONIALS SECTION
+   =========================== */
+
+.testimonialsSection {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
+}
+
+.testimonialsTitle {
+  text-align: center;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonialCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.testimonialCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.testimonialHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonialAvatar {
+  font-size: 2.5rem;
+}
+
+.testimonialName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.testimonialStyle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.testimonialRating {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.testimonialText {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ===========================
+   LIGHTBOX
+   =========================== */
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightboxImage {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.lightboxBtnPrev,
+.lightboxBtnNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxBtnPrev {
+  left: 2rem;
+}
+
+.lightboxBtnNext {
+  right: 2rem;
+}
+
+.lightboxBtnPrev:hover,
+.lightboxBtnNext:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightboxInfo {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lightboxCategory {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.lightboxStyle {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 700;
+}
+
+/* ===========================
+   CAROUSEL CUSTOM STYLING
+   =========================== */
+
+.carousel :global(.slick-dots) {
+  bottom: -45px;
+}
+
+.carousel :global(.slick-dots li button:before) {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.carousel :global(.slick-dots li.slick-active button:before) {
+  color: #f093fb;
+}
+
+.carousel :global(.slick-prev),
+.carousel :global(.slick-next) {
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+}
+
+.carousel :global(.slick-prev) {
+  left: -60px;
+}
+
+.carousel :global(.slick-next) {
+  right: -60px;
+}
+
+.carousel :global(.slick-prev:before),
+.carousel :global(.slick-next:before) {
+  font-size: 50px;
+  opacity: 0.7;
+}
+
+.carousel :global(.slick-prev:hover:before),
+.carousel :global(.slick-next:hover:before) {
+  opacity: 1;
+}
+
+/* ===========================
+   MOBILE RESPONSIVE - OPTIMIZED VERSION
+   =========================== */
+
+/* Tablet breakpoint */
 @media (max-width: 768px) {
-  .configPanel {
+  .contentWrapper {
     padding: 1.5rem;
   }
 
-  .configTitle {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+  .heroSection {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .examplesSection {
+    padding: 0 0.5rem;
+  }
+
+  .carousel :global(.slick-prev),
+  .carousel :global(.slick-next) {
+    display: none !important;
+  }
+
+  .configPanel {
+    padding: 1.5rem;
   }
 
   .accordionContainer {
     gap: 0.75rem;
   }
 
-  .accordionHeader {
-    padding: 1.2rem;
-    flex-wrap: wrap;
-  }
-
-  .accordionHeaderLeft {
-    flex: 1 1 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .accordionEmoji {
-    font-size: 1.5rem;
-  }
-
-  .accordionLabel {
-    font-size: 1.1rem;
-  }
-
-  .accordionDescription {
-    font-size: 0.85rem;
-  }
-
-  .accordionHeaderRight {
-    flex: 1 1 100%;
-    justify-content: space-between;
+  .styleGrid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
 
-  .accordionPopularBadge {
-    font-size: 0.7rem;
-    padding: 3px 8px;
+  .testimonialsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .accordionCount {
-    font-size: 0.85rem;
+  .creditsHeader {
+    top: 80px;
+    right: 15px;
+    padding: 10px 16px;
+    gap: 8px;
   }
 
-  .accordionChevron {
-    font-size: 1.5rem;
+  .creditsIcon {
+    font-size: 1.1rem;
   }
 
-  .accordionContent {
-    padding: 0 1rem 1rem;
-  }
-
-  .styleGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .styleButton {
-    padding: 0.9rem 1.2rem;
+  .creditsText {
     font-size: 0.9rem;
   }
 
-  .popularBadge {
-    font-size: 0.6rem;
-    padding: 2px 6px;
+  .creditsButton {
+    padding: 6px 16px;
+    font-size: 0.85rem;
   }
 }
 
+/* Mobile breakpoint - OPTIMIZED */
 @media (max-width: 480px) {
+  
+  /* ===========================
+     HERO SECTION - SLIMMER
+     =========================== */
+  .heroSection {
+    padding: 2rem 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    gap: 0.75rem;
+  }
+
+  .creditPill {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+  }
+
+  .signupInline {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .signupInlineButton {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+
+  /* ===========================
+     EXAMPLES CAROUSEL - SMALLER CARDS
+     =========================== */
+  .examplesSection {
+    margin-bottom: 3rem;
+  }
+
+  .examplesTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .exampleImage {
+    height: 320px; /* Reduced from 400px */
+  }
+
+  .exampleOverlay {
+    padding: 1rem;
+  }
+
+  .exampleCategory {
+    font-size: 0.75rem;
+  }
+
+  .exampleStyle {
+    font-size: 1rem;
+  }
+
+  /* ===========================
+     UPLOAD ZONE - MUCH SLIMMER
+     =========================== */
+  .uploadSection {
+    margin-bottom: 3rem;
+  }
+
+  .uploadZone {
+    min-height: 280px; /* Reduced from 400px */
+    padding: 2rem 1rem;
+    border-radius: 20px;
+  }
+
+  .previewContainer {
+    min-height: 280px; /* Match upload zone */
+  }
+
+  .uploadIcon {
+    font-size: 3rem; /* Smaller icon */
+    margin-bottom: 0.75rem;
+  }
+
+  .uploadText {
+    font-size: 1.1rem;
+  }
+
+  .uploadHint {
+    font-size: 0.85rem;
+  }
+
+  .imageControls {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .controlButton {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* ===========================
+     CONFIG PANEL
+     =========================== */
+  .configPanel {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .configTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .genderSection {
+    margin-bottom: 1.5rem;
+  }
+
+  .sectionLabel {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .buttonGroup {
+    gap: 0.75rem;
+  }
+
+  .optionButton {
+    min-width: 100px;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  /* ===========================
+     ACCORDION - ULTRA-SLIM VERSION
+     =========================== */
+  .accordionSection {
+    margin-top: 1.5rem;
+  }
+
+  .accordionMainTitle {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .accordionSubtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .accordionContainer {
+    gap: 0.75rem;
+  }
+
+  .accordionItem {
+    border-radius: 12px;
+  }
+
+  /* SLIMMER ACCORDION HEADER */
   .accordionHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem; /* Reduced from 1.5rem */
+    gap: 0.5rem;
+    min-height: 50px; /* Ensures easy tapping */
   }
 
   .accordionHeaderLeft {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex: 1;
+    min-width: 0;
   }
 
   .accordionEmoji {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Visible but not huge */
+    flex-shrink: 0;
   }
 
   .accordionHeaderText {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
   }
 
   .accordionLabel {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  /* HIDE DESCRIPTION for cleaner mobile look */
   .accordionDescription {
-    font-size: 0.75rem;
-    color: #999;
+    display: none;
   }
 
   .accordionHeaderRight {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    min-width: 70px;
-    justify-content: flex-end;
-    font-size: 0.85rem;
-    color: #ddd;
-    font-weight: 700;
-    white-space: nowrap;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* HIDE "Popular" badge on header (still shows on individual styles) */
+  .accordionPopularBadge {
+    display: none;
   }
 
   .accordionCount {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   .accordionChevron {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
   }
+
+  /* Accordion content */
+  .accordionContent {
+    padding: 0 0.75rem 0.75rem;
+  }
+
+  /* Style grid - 2 columns on mobile */
   .styleGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   .styleButton {
+    padding: 0.85rem 0.5rem;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .popularBadge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  /* ===========================
+     ADVANCED SETTINGS
+     =========================== */
+  .advancedToggle {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  .toggleIcon {
+    font-size: 1.3rem;
+  }
+
+  .advancedContent {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .advancedOption {
+    margin-bottom: 1.5rem;
+  }
+
+  .advancedLabel {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sliderLabels {
+    font-size: 0.75rem;
+  }
+
+  /* ===========================
+     GENERATE BUTTON
+     =========================== */
+  .generateSection {
+    margin-bottom: 3rem;
+  }
+
+  .generateButton {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 14px;
+  }
+
+  .buttonSpinner {
+    width: 18px;
+    height: 18px;
+  }
+
+  .progressContainer {
+    margin-top: 1.25rem;
+  }
+
+  .progressText {
+    font-size: 0.85rem;
+  }
+
+  /* ===========================
+     TESTIMONIALS
+     =========================== */
+  .testimonialsSection {
+    margin-bottom: 3rem;
+  }
+
+  .testimonialsTitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .testimonialCard {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .testimonialAvatar {
+    font-size: 2rem;
+  }
+
+  .testimonialName {
+    font-size: 1rem;
+  }
+
+  .testimonialStyle {
+    font-size: 0.85rem;
+  }
+
+  .testimonialRating {
+    font-size: 1.1rem;
+  }
+
+  .testimonialText {
+    font-size: 0.95rem;
+  }
+
+  /* ===========================
+     LIGHTBOX - MOBILE OPTIMIZED
+     =========================== */
+  .lightbox {
     padding: 1rem;
   }
+
+  .lightboxImage {
+    max-width: 95%;
+    max-height: 85vh;
+  }
+
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    font-size: 2rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .lightboxBtnPrev {
+    left: 1rem;
+  }
+
+  .lightboxBtnNext {
+    right: 1rem;
+  }
+
+  .lightboxInfo {
+    bottom: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .lightboxCategory {
+    font-size: 0.8rem;
+  }
+
+  .lightboxStyle {
+    font-size: 1rem;
+  }
+
+  /* ===========================
+     CREDITS HEADER - MOBILE
+     =========================== */
+  .creditsHeader {
+    top: 70px;
+    right: 10px;
+    padding: 8px 14px;
+    gap: 6px;
+  }
+
+  .creditsIcon {
+    font-size: 1rem;
+  }
+
+  .creditsText {
+    font-size: 0.85rem;
+  }
+
+  .creditsButton {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+
+  /* ===========================
+     CONTENT WRAPPER
+     =========================== */
+  .contentWrapper {
+    padding: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
 }
-
-
-
 
 /* ===========================
    ACCESSIBILITY
@@ -1758,17 +1676,46 @@
   outline-offset: 2px;
 }
 
+.generateButton:focus {
+  outline: 2px solid rgba(240, 147, 251, 0.6);
+  outline-offset: 2px;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .accordionContent,
   .accordionChevron,
   .styleButton,
-  .accordionItem {
-    animation: none;
-    transition: none;
+  .accordionItem,
+  .exampleCard,
+  .uploadZone,
+  .generateButton,
+  .heroTitle {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
+/* ===========================
+   UTILITY ANIMATIONS
+   =========================== */
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

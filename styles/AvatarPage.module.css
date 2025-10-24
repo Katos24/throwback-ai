@@ -1678,18 +1678,59 @@
 }
 
 @media (max-width: 480px) {
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+  }
+
   .accordionHeaderLeft {
-    gap: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
   }
 
   .accordionEmoji {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+  }
+
+  .accordionHeaderText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .accordionLabel {
     font-size: 1rem;
+    font-weight: 600;
   }
 
+  .accordionDescription {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
+  .accordionHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 70px;
+    justify-content: flex-end;
+    font-size: 0.85rem;
+    color: #ddd;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .accordionCount {
+    font-size: 0.85rem;
+  }
+
+  .accordionChevron {
+    font-size: 1rem;
+  }
   .styleGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
@@ -1699,6 +1740,9 @@
     padding: 1rem;
   }
 }
+
+
+
 
 /* ===========================
    ACCESSIBILITY

@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import styles from "../../styles/AvatarPage.module.css";
 import AVATAR_STYLES from "../../components/AvatarStyles";
 import SEOAvatar from "../../components/SEO/SEOAvatar";
+import RestorationCounter from "../../components/RestorationCounter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -92,6 +93,37 @@ export default function AiAvatarsRedesigned() {
       category: "Medieval",
       style: "Medieval Fantasy",
       image: "/images/examples/avatar/medieval2.png",
+    }
+  ];
+
+  // Popular styles (add "popular" badge to these)
+  const popularStyles = ["portrait_professional", "anime_style", "fantasy_wizard", "cyberpunk_hero", "medieval_warrior"];
+
+  // Testimonials
+  const testimonials = [
+    {
+      id: 1,
+      name: "Sarah M.",
+      avatar: "👩‍💼",
+      text: "The quality is incredible! Used it for my LinkedIn profile and got so many compliments.",
+      rating: 5,
+      style: "Portrait"
+    },
+    {
+      id: 2,
+      name: "Jake T.",
+      avatar: "🧙‍♂️",
+      text: "Perfect for my D&D character! Looked exactly like I imagined. Worth every credit.",
+      rating: 5,
+      style: "Fantasy"
+    },
+    {
+      id: 3,
+      name: "David R.",
+      avatar: "🚀",
+      text: "Fast generation and high quality. Been creating avatars for my whole team!",
+      rating: 5,
+      style: "Sci-Fi"
     }
   ];
 
@@ -234,160 +266,183 @@ export default function AiAvatarsRedesigned() {
   };
 
  const generateAvatar = async () => {
-  // 🩹 FIX: clear old result so progress bar and overlay show again
+  // Clear old result so progress bar and overlay show again
   setResultImageUrl(null);
 
   setIsLoading(true);
   setProgress(0);
   setProgressStage("Preparing your image...");
 
+  // Scroll to photo on both mobile and desktop when generation starts
+  const photoSection = document.getElementById('photo-section');
+  if (photoSection) {
+    photoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 
-    // ✅ Scroll to photo on mobile when generation starts
-    if (window.innerWidth <= 768) {
-      const photoSection = document.getElementById('photo-section');
-      if (photoSection) {
-        photoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+  const processingToast = toast.loading('Creating your AI avatar...', {
+    icon: '🎭',
+  });
+
+  try {
+    const { data: { session: freshSession } } = await supabase.auth.getSession();
+    if (!freshSession) {
+      throw new Error("Please log in again to continue");
     }
 
-    const processingToast = toast.loading('Creating your AI avatar...', {
-      icon: '🎭',
+    const headers = { "Content-Type": "application/json" };
+    if (freshSession?.access_token) {
+      headers.Authorization = `Bearer ${freshSession.access_token}`;
+    }
+
+    const compressedFile = await imageCompression(photo, {
+      maxSizeMB: 1.0,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+      maxIteration: 10,
+      initialQuality: 0.8,
     });
 
-    try {
-      const { data: { session: freshSession } } = await supabase.auth.getSession();
-      if (!freshSession) {
-        throw new Error("Please log in again to continue");
-      }
+    setProgress(25);
+    setProgressStage("Compressing image...");
 
-      const headers = { "Content-Type": "application/json" };
-      if (freshSession?.access_token) {
-        headers.Authorization = `Bearer ${freshSession.access_token}`;
-      }
+    const base64 = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(",")[1]);
+      reader.readAsDataURL(compressedFile);
+    });
 
-      const compressedFile = await imageCompression(photo, {
-        maxSizeMB: 1.0,
-        maxWidthOrHeight: 1024,
-        useWebWorker: true,
-        maxIteration: 10,
-        initialQuality: 0.8,
-      });
+    setProgress(50);
+    setProgressStage("Sending to AI...");
 
-      setProgress(25);
-      setProgressStage("Compressing image...");
+    // Handle non_binary gender in prompt
+    const genderForPrompt = userGender === "non_binary" ? "person" : userGender;
+    const prompt = `${genderForPrompt} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure`;
 
-      const base64 = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result.split(",")[1]);
-        reader.readAsDataURL(compressedFile);
-      });
+    const response = await fetch("/api/replicate/aiAvatars", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        imageBase64: base64,
+        prompt: prompt,
+        styleStrength: styleStrength,
+        user_gender: userGender,
+        workflow_type: workflowType
+      }),
+    });
 
-      setProgress(50);
-      setProgressStage("Sending to AI...");
+    setProgress(80);
+    setProgressStage("Generating avatar...");
 
+    if (!response.ok) {
+      throw new Error(`Failed to generate avatar: ${response.status}`);
+    }
 
-      // ✅ FIX: Handle non_binary gender in prompt
-      // For non_binary, use neutral "person" instead of "non_binary"
-      const genderForPrompt = userGender === "non_binary" ? "person" : userGender;
-      const prompt = `${genderForPrompt} ${selectedStyle}, IMPORTANT: preserve exact facial features, skin tone, ethnicity, and bone structure`;
-
-      const response = await fetch("/api/replicate/aiAvatars", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          imageBase64: base64,
-          prompt: prompt,
-          styleStrength: styleStrength,
-          user_gender: userGender,
-          workflow_type: workflowType
-        }),
-      });
-
-      setProgress(80);
-      setProgressStage("Generating avatar...");
-
-      if (!response.ok) {
-        throw new Error(`Failed to generate avatar: ${response.status}`);
-      }
-
-      const data = await response.json();
+    const data = await response.json();
+    
+    if (data.imageUrl) {
+      setProgress(100);
+      setProgressStage("Complete!");
+      setResultImageUrl(data.imageUrl);
       
-      if (data.imageUrl) {
-        setProgress(100);
-        setProgressStage("Complete!");
-        setResultImageUrl(data.imageUrl);
-        
-        toast.success('Avatar generation complete!', {
-          id: processingToast,
-          icon: '🎭',
-          duration: 5000,
-        });
-
-        await refreshCredits();
-      } else {
-        throw new Error("No image URL returned from server");
-      }
-    } catch (err) {
-      console.error("Error generating avatar:", err);
-      toast.error(err.message || "Avatar generation failed. Please try again.", {
+      toast.success('Avatar generation complete!', {
         id: processingToast,
-        icon: '❌',
+        icon: '🎭',
         duration: 5000,
       });
-    } finally {
-      setIsLoading(false);
+
+      await refreshCredits();
+    } else {
+      throw new Error("No image URL returned from server");
     }
-  };
+  } catch (err) {
+    console.error("Error generating avatar:", err);
+    
+    // Provide specific, helpful error messages
+    let errorMessage = "Avatar generation failed. Please try again.";
+    
+    if (err.message.includes("log in")) {
+      errorMessage = "Your session expired. Please log in again to continue.";
+    } else if (err.message.includes("413") || err.message.includes("too large")) {
+      errorMessage = "Image file is too large. Please try a smaller photo.";
+    } else if (err.message.includes("network") || err.message.includes("fetch")) {
+      errorMessage = "Connection error. Please check your internet and try again.";
+    } else if (err.message.includes("credits")) {
+      errorMessage = "Insufficient credits. Please purchase more credits to continue.";
+    } else if (err.message.includes("No image URL")) {
+      errorMessage = "Generation completed but image not returned. Please contact support.";
+    }
+    
+    toast.error(errorMessage, {
+      id: processingToast,
+      icon: '❌',
+      duration: 5000,
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleDownload = async () => {
-    if (!resultImageUrl) return;
-    
     try {
-      const resp = await fetch(resultImageUrl);
-      const blob = await resp.blob();
+      const response = await fetch(resultImageUrl);
+      const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const a = document.createElement('a');
       a.href = url;
-      a.download = `ai-avatar-${Date.now()}.png`;
+      a.download = `avatar-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
-      a.remove();
       window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
       
       toast.success('Avatar downloaded!', {
-        icon: '🎭',
-        duration: 3000,
+        icon: '📥',
+        duration: 2000,
       });
     } catch (error) {
-      toast.error('Download failed. Please try again.', {
+      console.error('Error downloading:', error);
+      toast.error('Failed to download avatar', {
         icon: '❌',
-        duration: 4000,
+        duration: 3000,
       });
     }
   };
 
   const getButtonText = () => {
-    if (isLoading) return "Creating your avatar...";
-    if (!photo) return "Upload a Photo First";
-    if (!userGender || !selectedStyle) return "Complete Setup First";
-    if (!isLoggedIn) return "Sign Up to Generate";
-    if (credits < avatarCost) return "Get More Credits";
-    return "Generate My AI Avatar!";
+    if (!isLoggedIn) {
+      return "Sign up to Generate";
+    }
+    if (credits < avatarCost) {
+      return "Buy Credits to Generate";
+    }
+    if (isLoading) {
+      return "Creating Your Avatar...";
+    }
+    return `Generate Avatar (${avatarCost} credits)`;
   };
 
-  const isComplete = photo && userGender && selectedStyle && isLoggedIn && credits >= avatarCost;
+  const isComplete = photo && userGender && selectedStyle;
 
   return (
     <>
+      <SEOAvatar />
       <Head>
-        <title>AI Avatar Generator | Throwback AI</title>
-        <meta name="description" content="Transform your photos into amazing AI avatars with custom styles" />
+        <title>AI Avatar Generator - Transform Your Photos</title>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+        />
       </Head>
 
-      <main className={styles.container}>
-        <SEOAvatar />
-        
-        {/* Fixed Credits Header */}
+      <main className={styles.mainContainer}>
+        {/* Floating Credit Header */}
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
             <span className={styles.creditsIcon}>🎭</span>
@@ -401,80 +456,76 @@ export default function AiAvatarsRedesigned() {
           </button>
         </div>
 
+        <div className={styles.contentWrapper}>
         {/* Hero Section */}
-        <div className={styles.hero}>
-          <h1 className={styles.title}>
-            <span className={styles.titleEmoji}>🎭</span>
-            AI Avatar Generator
-          </h1>
-          <p className={styles.subtitle}>
-  Transform your photo into amazing AI avatars with our AI-powered transformation.
-  <span className={styles.creditPill}>Costs {avatarCost} credits</span>
-  {!isLoggedIn && (
-    <span className={styles.signupInline}>
-      🎉 <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
-      <button
-        onClick={() => router.push("/signup")}
-        className={styles.signupInlineButton}
-      >
-        Claim Credits
-      </button>
-    </span>
-  )}
-</p>
+        <div className={styles.heroSection}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>
+              Transform Into Any Character
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Create stunning AI avatars in fantasy, sci-fi, historical themes and more
+              <span className={styles.creditPill}>Costs {avatarCost} credits</span>
+              {!isLoggedIn && (
+                <span className={styles.signupInline}>
+                  🎉 <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
+                  <button
+                    onClick={() => router.push("/signup")}
+                    className={styles.signupInlineButton}
+                  >
+                    Claim Credits
+                  </button>
+                </span>
+              )}
+            </p>
+          </div>
         </div>
 
-
-                {/* Examples Section with Carouselll */}
+     
+        {/* Example Carousel */}
         <div className={styles.examplesSection}>
-          <div className={styles.examplesHeader}>
-          </div>
-
-          <div className={styles.carouselContainer}>
-            <Slider {...carouselSettings}>
-              {exampleTransformations.map((example, index) => (
-                <div key={example.id} className={styles.carouselSlide}>
-                  <div 
-                    className={styles.exampleCard}
-                    onClick={() => handleImageClick(index)}
-                  >
-                    <img 
-                      src={example.image} 
-                      alt={`${example.style} transformation`}
-                      className={styles.exampleImage}
-                    />
-                    <div className={styles.exampleOverlay}>
-                      <span className={styles.exampleCategory}>{example.category}</span>
-                      <span className={styles.exampleStyle}>{example.style}</span>
-                    </div>
+          <h2 className={styles.examplesTitle}>See What's Possible</h2>
+          <Slider {...carouselSettings} className={styles.carousel}>
+            {exampleTransformations.map((example, index) => (
+              <div key={example.id} className={styles.carouselItem}>
+                <div 
+                  className={styles.exampleCard}
+                  onClick={() => handleImageClick(index)}
+                >
+                  <Image
+                    src={example.image}
+                    alt={example.style}
+                    width={300}
+                    height={400}
+                    className={styles.exampleImage}
+                  />
+                  <div className={styles.exampleOverlay}>
+                    <span className={styles.exampleCategory}>{example.category}</span>
+                    <span className={styles.exampleStyle}>{example.style}</span>
                   </div>
                 </div>
-              ))}
-            </Slider>
-          </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
 
-        {/* Single Photo Display Section */}
-        <div id="photo-section" className={styles.photoSection}>
-          <div className={styles.singlePhotoCard}>
-            <h3 className={styles.cardTitle}>
-              {resultImageUrl ? 'Your AI Avatar' : 'Upload Your Photo'}
-            </h3>
+           {/* Restoration Counter - Shows social proof */}
+        <RestorationCounter label="AI Transformations Created" />
+
+
+        {/* Photo Upload Section */}
+        <div className={styles.uploadSection} id="photo-section">
+          <h2 className={styles.sectionTitle}>Step 1: Upload Your Photo</h2>
+          <div className={styles.uploadWrapper}>
             <div
-              className={`${styles.photoDisplay} ${dragActive ? styles.dragActive : ''}`}
+              className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''} ${previewUrl ? styles.hasPreview : ''}`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
               onDrop={handleDrop}
               onClick={() => !isLoading && document.getElementById('photo-upload').click()}
             >
-              {!previewUrl && !resultImageUrl ? (
-                <div className={styles.uploadPrompt}>
-                  <div className={styles.uploadIcon}>📷</div>
-                  <h4>Drop your photo here</h4>
-                  <p>Drag & drop or click to select</p>
-                  <small>Best results with clear face photos • PNG, JPG, HEIC up to 10MB</small>
-                </div>
-              ) : resultImageUrl ? (
+              {resultImageUrl ? (
                 <div className={styles.resultContainer}>
                   <div className={styles.previewContainer}>
                     <Image
@@ -510,7 +561,7 @@ export default function AiAvatarsRedesigned() {
                     </button>
                   </div>
                 </div>
-              ) : (
+              ) : previewUrl ? (
                 <div className={styles.previewContainer}>
                   <Image
                     src={previewUrl}
@@ -537,6 +588,12 @@ export default function AiAvatarsRedesigned() {
                     </div>
                   )}
                 </div>
+              ) : (
+                <div className={styles.uploadPrompt}>
+                  <div className={styles.uploadIcon}>📸</div>
+                  <p className={styles.uploadText}>Click or drag to upload</p>
+                  <p className={styles.uploadHint}>PNG, JPG, HEIC up to 10MB</p>
+                </div>
               )}
             </div>
             <input
@@ -551,9 +608,11 @@ export default function AiAvatarsRedesigned() {
 
         {/* Configuration Options */}
         <div className={styles.configSection}>
+          <h2 className={styles.sectionTitle}>Step 2: Customize Your Avatar</h2>
+          
           {/* Gender Selection */}
           <div className={styles.configPanel}>
-            <h3 className={styles.configTitle}>GENDER</h3>
+            <h3 className={styles.configTitle}>Select Gender</h3>
             <div className={styles.buttonGroup}>
               {["male", "female", "non_binary"].map((gender) => (
                 <button
@@ -567,49 +626,49 @@ export default function AiAvatarsRedesigned() {
             </div>
           </div>
 
-          {/* Style Category and Choose Style - Same Row */}
-          <div className={styles.styleRow}>
-            {/* Style Category */}
-            <div className={styles.configPanel}>
-              <h3 className={styles.configTitle}>STYLE CATEGORY</h3>
-              <div className={styles.categoryGrid}>
-                {[
-                  { value: "nineties", label: "90s Vibes", emoji: "📼" },
-                  { value: "portrait", label: "Portrait", emoji: "📸" },
-                  { value: "fantasy", label: "Fantasy", emoji: "🧙" },
-                  { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
-                  { value: "historical", label: "Historical", emoji: "🏛️" },
-                  { value: "anime", label: "Anime", emoji: "🎌" }
-                ].map((category) => (
-                  <button
-                    key={category.value}
-                    className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
-                    onClick={() => {
-                      setStyleCategory(category.value);
-                      setSelectedStyle("");
-                    }}
-                  >
-                    <span className={styles.categoryEmoji}>{category.emoji}</span>
-                    <span>{category.label}</span>
-                  </button>
-                ))}
-              </div>
+          {/* Style Category */}
+          <div className={styles.configPanel}>
+            <h3 className={styles.configTitle}>Choose Category</h3>
+            <div className={styles.categoryGrid}>
+              {[
+                { value: "nineties", label: "90s Vibes", emoji: "📼" },
+                { value: "portrait", label: "Portrait", emoji: "📸" },
+                { value: "fantasy", label: "Fantasy", emoji: "🧙" },
+                { value: "scifi", label: "Sci-Fi", emoji: "🚀" },
+                { value: "historical", label: "Historical", emoji: "🏛️" },
+                { value: "anime", label: "Anime", emoji: "🎌" }
+              ].map((category) => (
+                <button
+                  key={category.value}
+                  className={`${styles.categoryButton} ${styleCategory === category.value ? styles.selected : ''}`}
+                  onClick={() => {
+                    setStyleCategory(category.value);
+                    setSelectedStyle("");
+                  }}
+                >
+                  <span className={styles.categoryEmoji}>{category.emoji}</span>
+                  <span>{category.label}</span>
+                </button>
+              ))}
             </div>
+          </div>
 
-            {/* Style Selection */}
-            <div className={styles.configPanel}>
-              <h3 className={styles.configTitle}>CHOOSE STYLE</h3>
-              <div className={styles.styleGrid}>
-                {AVATAR_STYLES[styleCategory]?.map((style) => (
-                  <button
-                    key={style.value}
-                    className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
-                    onClick={() => setSelectedStyle(style.value)}
-                  >
-                    {style.label}
-                  </button>
-                ))}
-              </div>
+          {/* Style Selection */}
+          <div className={styles.configPanel}>
+            <h3 className={styles.configTitle}>Select Style</h3>
+            <div className={styles.styleGrid}>
+              {AVATAR_STYLES[styleCategory]?.map((style) => (
+                <button
+                  key={style.value}
+                  className={`${styles.styleButton} ${selectedStyle === style.value ? styles.selected : ''}`}
+                  onClick={() => setSelectedStyle(style.value)}
+                >
+                  {popularStyles.includes(style.value) && (
+                    <span className={styles.popularBadge}>⭐ Popular</span>
+                  )}
+                  {style.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -621,14 +680,14 @@ export default function AiAvatarsRedesigned() {
             onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
           >
             <span>⚙️ Advanced Settings</span>
-            <span>{showAdvancedSettings ? '−' : '+'}</span>
+            <span className={styles.toggleIcon}>{showAdvancedSettings ? '−' : '+'}</span>
           </button>
           
           {showAdvancedSettings && (
             <div className={styles.advancedContent}>
               {/* Workflow Type */}
               <div className={styles.advancedOption}>
-                <h4>Workflow Type</h4>
+                <h4 className={styles.advancedLabel}>Workflow Type</h4>
                 <div className={styles.buttonGroup}>
                   {[
                     { value: "HyperRealistic-likeness", label: "HyperRealistic" },
@@ -648,7 +707,7 @@ export default function AiAvatarsRedesigned() {
 
               {/* Style Strength */}
               <div className={styles.advancedOption}>
-                <h4>Style Strength: {styleStrength}%</h4>
+                <h4 className={styles.advancedLabel}>Style Strength: <span className={styles.strengthValue}>{styleStrength}%</span></h4>
                 <div className={styles.sliderContainer}>
                   <input
                     type="range"
@@ -673,11 +732,11 @@ export default function AiAvatarsRedesigned() {
           <button
             onClick={handleGenerateOrRedirect}
             disabled={isLoading}
-            className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+            className={`${styles.generateButton} ${isComplete ? styles.ready : ''} ${isLoading ? styles.loading : ''}`}
           >
             {isLoading ? (
               <>
-                <div className={styles.spinner}></div>
+                <div className={styles.buttonSpinner}></div>
                 {getButtonText()}
               </>
             ) : (
@@ -695,11 +754,33 @@ export default function AiAvatarsRedesigned() {
               </div>
               <div className={styles.progressText}>
                 <span>{progressStage}</span>
-                <span>{progress}%</span>
+                <span className={styles.progressPercent}>{progress}%</span>
               </div>
             </div>
           )}
         </div>
+
+        {/* Testimonials Section */}
+        <section className={styles.testimonialsSection}>
+          <h2 className={styles.testimonialsTitle}>What Our Users Say</h2>
+          <div className={styles.testimonialsGrid}>
+            {testimonials.map((testimonial) => (
+              <div key={testimonial.id} className={styles.testimonialCard}>
+                <div className={styles.testimonialHeader}>
+                  <span className={styles.testimonialAvatar}>{testimonial.avatar}</span>
+                  <div>
+                    <div className={styles.testimonialName}>{testimonial.name}</div>
+                    <div className={styles.testimonialStyle}>{testimonial.style}</div>
+                  </div>
+                </div>
+                <div className={styles.testimonialRating}>
+                  {'⭐'.repeat(testimonial.rating)}
+                </div>
+                <p className={styles.testimonialText}>"{testimonial.text}"</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         </div>
       </main>
@@ -714,6 +795,10 @@ export default function AiAvatarsRedesigned() {
             className={styles.lightboxImage}
           />
           <button onClick={nextImage} className={styles.lightboxBtnNext}>›</button>
+          <div className={styles.lightboxInfo}>
+            <span className={styles.lightboxCategory}>{exampleTransformations[currentLightboxIndex].category}</span>
+            <span className={styles.lightboxStyle}>{exampleTransformations[currentLightboxIndex].style}</span>
+          </div>
         </div>,
         document.body
       )}

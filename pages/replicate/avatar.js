@@ -633,11 +633,11 @@ export default function AiAvatarsRedesigned() {
             
             <div className={styles.accordionContainer}>
               {[
-                { value: "nineties", label: "90s Vibes", emoji: "📼", description: "Retro yearbook styles" },
-                { value: "portrait", label: "Portrait", emoji: "📸", description: "Professional & artistic" },
                 { value: "fantasy", label: "Fantasy", emoji: "🧙", description: "Magical & mystical" },
                 { value: "scifi", label: "Sci-Fi", emoji: "🚀", description: "Futuristic & tech" },
                 { value: "historical", label: "Historical", emoji: "🏛️", description: "Period & vintage" },
+                { value: "nineties", label: "90s Vibes", emoji: "📼", description: "Retro yearbook styles" },
+                { value: "portrait", label: "Portrait", emoji: "📸", description: "Professional & artistic" },
                 { value: "anime", label: "Anime", emoji: "🎌", description: "Japanese animation style" }
               ].map((category) => {
                 const isOpen = styleCategory === category.value;
@@ -652,11 +652,14 @@ export default function AiAvatarsRedesigned() {
                     <button
                       className={styles.accordionHeader}
                       onClick={() => {
+                      if (styleCategory === category.value) {
+                        // If already open, collapse it
+                        setStyleCategory("");
+                      } else {
                         setStyleCategory(category.value);
-                        if (styleCategory !== category.value) {
-                          setSelectedStyle(""); // Clear style when switching categories
-                        }
-                      }}
+                        setSelectedStyle("");
+                      }
+                    }}
                     >
                       <div className={styles.accordionHeaderLeft}>
                         <span className={styles.accordionEmoji}>{category.emoji}</span>

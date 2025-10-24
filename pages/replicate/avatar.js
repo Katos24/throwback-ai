@@ -468,7 +468,7 @@ export default function AiAvatarsRedesigned() {
               <span className={styles.creditPill}>Costs {avatarCost} credits</span>
               {!isLoggedIn && (
                 <span className={styles.signupInline}>
-                  🎉 <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
+                  <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
                   <button
                     onClick={() => router.push("/signup")}
                     className={styles.signupInlineButton}

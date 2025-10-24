@@ -485,7 +485,7 @@ export default function AiAvatarsRedesigned() {
 
         {/* Example Carousel */}
         <div className={styles.examplesSection}>
-          <h2 className={styles.examplesTitle}>See What's Possible</h2>
+          <h2 className={styles.examplesTitle}>See What&apos;s Possible</h2>
           <Slider {...carouselSettings} className={styles.carousel}>
             {exampleTransformations.map((example, index) => (
               <div key={example.id} className={styles.carouselItem}>
@@ -806,7 +806,9 @@ export default function AiAvatarsRedesigned() {
                 <div className={styles.testimonialRating}>
                   {'⭐'.repeat(testimonial.rating)}
                 </div>
-                <p className={styles.testimonialText}>"{testimonial.text}"</p>
+                <p className={styles.testimonialText}>
+                  {"\"" + testimonial.text + "\""}
+                </p>
               </div>
             ))}
           </div>

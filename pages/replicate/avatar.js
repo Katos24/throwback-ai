@@ -795,6 +795,8 @@ export default function AiAvatarsRedesigned() {
           )}
         </div>
 
+
+
         {/* Testimonials Section */}
         <section className={styles.testimonialsSection}>
           <h2 className={styles.testimonialsTitle}>What Our Users Say</h2>

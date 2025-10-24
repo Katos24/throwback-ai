@@ -1927,3 +1927,270 @@
     transform: translateY(-10px);
   }
 }
+/* ===========================
+   ADDITIONAL RESULT IMAGE CONTROLS
+   ADD THIS TO YOUR CSS IF BUTTONS DON'T SHOW PROPERLY
+   =========================== */
+
+/* Result Container After Generation */
+.resultContainer {
+  width: 100%;
+  position: relative;
+}
+
+/* Image Controls Container */
+.imageControls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Control Buttons (Change Photo, Download, etc.) */
+.controlButton {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.controlButton:active {
+  transform: translateY(0);
+}
+
+/* Primary Button Variant (for main actions like Download) */
+.controlButton.primary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: #f5576c;
+}
+
+.controlButton.primary:hover {
+  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+  transform: translateY(-3px);
+}
+
+/* Secondary Button (for Change Photo, etc.) */
+.controlButton.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Download Button Specific */
+.downloadButton {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  color: white;
+}
+
+.downloadButton:hover {
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+/* Change Photo Button */
+.changePhotoButton {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Try Another Style Button */
+.tryAnotherButton {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.tryAnotherButton:hover {
+  background: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Show Original Toggle Button */
+.showOriginalButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.showOriginalButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.showOriginalButton.active {
+  background: rgba(102, 126, 234, 0.3);
+  border-color: rgba(102, 126, 234, 0.6);
+}
+
+/* Button Icons (if using icons) */
+.buttonIcon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Disabled Button State */
+.controlButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.controlButton:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+/* ===========================
+   MOBILE RESPONSIVE FOR BUTTONS
+   =========================== */
+
+@media (max-width: 768px) {
+  .imageControls {
+    gap: 0.75rem;
+  }
+
+  .controlButton {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageControls {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .controlButton {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+
+  .buttonIcon {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===========================
+   RESULT IMAGE DISPLAY
+   =========================== */
+
+.resultImage {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  display: block;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Comparison View (if showing before/after) */
+.comparisonContainer {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.beforeImage,
+.afterImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Side by Side View */
+.sideBySide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sideBySide img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .sideBySide {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ===========================
+   BUTTON LOADING STATE
+   =========================== */
+
+.controlButton.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.controlButton.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: buttonSpin 0.6s linear infinite;
+}
+
+@keyframes buttonSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+.toggleButton,
+.downloadBtn {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggleButton:hover,
+.downloadBtn:hover {
+  background-color: #666;
+}

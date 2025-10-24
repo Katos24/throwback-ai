@@ -708,60 +708,7 @@ export default function AiAvatarsRedesigned() {
           </div>
         </div>
 
-        {/* Advanced Settings */}
-        <div className={styles.advancedSection}>
-          <button 
-            className={styles.advancedToggle}
-            onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
-          >
-            <span>⚙️ Advanced Settings</span>
-            <span className={styles.toggleIcon}>{showAdvancedSettings ? '−' : '+'}</span>
-          </button>
-          
-          {showAdvancedSettings && (
-            <div className={styles.advancedContent}>
-              {/* Workflow Type */}
-              <div className={styles.advancedOption}>
-                <h4 className={styles.advancedLabel}>Workflow Type</h4>
-                <div className={styles.buttonGroup}>
-                  {[
-                    { value: "HyperRealistic-likeness", label: "HyperRealistic" },
-                    { value: "Realistic", label: "Realistic" },
-                    { value: "Stylistic", label: "Stylistic" }
-                  ].map((workflow) => (
-                    <button
-                      key={workflow.value}
-                      className={`${styles.optionButton} ${workflowType === workflow.value ? styles.selected : ''}`}
-                      onClick={() => setWorkflowType(workflow.value)}
-                    >
-                      {workflow.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Style Strength */}
-              <div className={styles.advancedOption}>
-                <h4 className={styles.advancedLabel}>Style Strength: <span className={styles.strengthValue}>{styleStrength}%</span></h4>
-                <div className={styles.sliderContainer}>
-                  <input
-                    type="range"
-                    min="5"
-                    max="35"
-                    value={styleStrength}
-                    onChange={(e) => setStyleStrength(Number(e.target.value))}
-                    className={styles.slider}
-                  />
-                  <div className={styles.sliderLabels}>
-                    <span>Preserve Face</span>
-                    <span>Strong Style</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
+      
         {/* Generate Button */}
         <div className={styles.generateSection}>
           <button

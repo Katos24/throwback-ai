@@ -632,23 +632,25 @@ export default function AiAvatarsRedesigned() {
             <p className={styles.accordionSubtitle}>Click a category to explore available styles</p>
             
             <div className={styles.accordionContainer}>
-              {[
-                { value: "fantasy", label: "Fantasy", emoji: "🧙", description: "Magical & mystical" },
-                { value: "scifi", label: "Sci-Fi", emoji: "🚀", description: "Futuristic & tech" },
-                { value: "historical", label: "Historical", emoji: "🏛️", description: "Period & vintage" },
-                { value: "nineties", label: "90s Vibes", emoji: "📼", description: "Retro yearbook styles" },
-                { value: "portrait", label: "Portrait", emoji: "📸", description: "Professional & artistic" },
-                { value: "anime", label: "Anime", emoji: "🎌", description: "Japanese animation style" }
-              ].map((category) => {
+{[
+  { value: "fantasy", label: "Fantasy", emoji: "🧙", description: "Magical & mystical", color: "fantasy" },
+  { value: "scifi", label: "Sci-Fi", emoji: "🚀", description: "Futuristic & tech", color: "scifi" },
+  { value: "historical", label: "Historical", emoji: "🏛️", description: "Period & vintage", color: "historical" },
+  { value: "nineties", label: "90s Vibes", emoji: "📼", description: "Retro yearbook styles", color: "nineties" },
+  { value: "portrait", label: "Portrait", emoji: "📸", description: "Professional & artistic", color: "portrait" },
+  { value: "anime", label: "Anime", emoji: "🎌", description: "Japanese animation style", color: "anime" }
+].map((category) => {
+
                 const isOpen = styleCategory === category.value;
                 const stylesInCategory = AVATAR_STYLES[category.value] || [];
                 const hasPopularStyles = stylesInCategory.some(style => popularStyles.includes(style.value));
                 
                 return (
                   <div 
-                    key={category.value} 
-                    className={`${styles.accordionItem} ${isOpen ? styles.accordionItemOpen : ''}`}
-                  >
+                  key={category.value} 
+                  className={`${styles.accordionItem} ${styles[category.color]} ${isOpen ? styles.accordionItemOpen : ''}`}
+                >
+
                     <button
                       className={styles.accordionHeader}
                       onClick={() => {

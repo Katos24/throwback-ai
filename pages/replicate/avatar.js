@@ -608,11 +608,10 @@ export default function AiAvatarsRedesigned() {
 
         {/* Configuration Options */}
         <div className={styles.configSection}>
-          <h2 className={styles.sectionTitle}>Step 2: Customize Your Avatar</h2>
+          <h2 className={styles.sectionTitle}>Step 2: Select Gender</h2>
           
           {/* Gender Selection */}
           <div className={styles.configPanel}>
-            <h3 className={styles.configTitle}>Select Gender</h3>
             <div className={styles.buttonGroup}>
               {["male", "female", "non_binary"].map((gender) => (
                 <button
@@ -628,7 +627,7 @@ export default function AiAvatarsRedesigned() {
 
           {/* Accordion Style Categories */}
           <div className={styles.accordionSection}>
-            <h3 className={styles.accordionMainTitle}>Style Categories</h3>
+                      <h2 className={styles.sectionTitle}>Step 3: Select Style</h2>
             <p className={styles.accordionSubtitle}>Click a category to explore available styles</p>
             
             <div className={styles.accordionContainer}>

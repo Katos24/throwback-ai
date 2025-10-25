@@ -15,9 +15,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Eager load critical above-the-fold components
-import ExampleCarousel from '../../components/avatar/ExampleCarousel';
-import GenderSelector from '../../components/avatar/GenderSelector';
-import StyleSelector from '../../components/avatar/StyleSelector';
+import ExampleCarousel from '../../components/avatar/Examplecarousel';
+import GenderSelector from '../../components/avatar/Genderselector';
+import StyleSelector from '../../components/avatar/Styleselector';
 
 // Lazy load below-the-fold and on-demand components
 const Testimonials = dynamic(() => import('../../components/avatar/Testimonials'), { 
@@ -25,7 +25,7 @@ const Testimonials = dynamic(() => import('../../components/avatar/Testimonials'
   loading: () => <div style={{ minHeight: '300px' }} />
 });
 
-const ImageLightbox = dynamic(() => import('../../components/avatar/ImageLightbox'), { 
+const ImageLightbox = dynamic(() => import('../../components/avatar/Imagelightbox'), { 
   ssr: false 
 });
 

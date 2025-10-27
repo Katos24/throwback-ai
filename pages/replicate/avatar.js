@@ -267,19 +267,31 @@ export default function AiAvatarsRedesigned() {
 
         <div className={styles.contentWrapper}>
           {/* Modern Slideshow - Shows immediately */}
-          <ModernSlideshow examples={exampleTransformations} />
+          {/* Modern Slideshow - Shows immediately */}
+<ModernSlideshow examples={exampleTransformations} />
 
-          
+{/* Free Credits Text */}
+{!isLoggedIn && (
+  <div className={styles.freeCreditsText}>
+    🎁 <strong>New users get 50 free credits when you sign up!</strong>{' '}
+    <span 
+      className={styles.freeCreditsLink}
+      onClick={() => router.push('/signup')}
+    >
+      Sign up free
+    </span>
+  </div>
+)}
 
-          {/* Category Tab Gallery - Browse and select styles */}
-          <CategoryTabGallery
-            onStyleSelect={(category, styleValue) => {
-              setStyleCategory(category);
-              setSelectedStyle(styleValue);
-            }}
-            onGenderChange={setUserGender}
-            selectedGender={userGender}
-          />
+{/* Category Tab Gallery - Browse and select styles */}
+<CategoryTabGallery
+  onStyleSelect={(category, styleValue) => {
+    setStyleCategory(category);
+    setSelectedStyle(styleValue);
+  }}
+  onGenderChange={setUserGender}
+  selectedGender={userGender}
+/>
 
           <RestorationCounter label="AI Transformations Created" />
 

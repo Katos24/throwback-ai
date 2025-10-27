@@ -269,6 +269,8 @@ export default function AiAvatarsRedesigned() {
           {/* Modern Slideshow - Shows immediately */}
           <ModernSlideshow examples={exampleTransformations} />
 
+          
+
           {/* Category Tab Gallery - Browse and select styles */}
           <CategoryTabGallery
             onStyleSelect={(category, styleValue) => {

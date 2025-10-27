@@ -1,228 +1,306 @@
-/* ExampleCarousel - Sleek Modern Design */
+/* === ExampleCarousel.module.css (background section) === */
 
-.section {
-  max-width: 1400px;
-  margin: 3rem auto;
-  padding: 0 2rem;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.title {
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 800;
-  color: white;
-  margin: 0 0 0.75rem 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-}
-
-.carousel {
-  margin: 0 -10px;
-}
-
-.slideWrapper {
-  padding: 10px;
-}
-
-.card {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-}
-
-.imageContainer {
+.container {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-
-.card:hover .imageContainer {
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.image {
   width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.3s ease;
+  padding: 4rem 1.5rem;
+  background: linear-gradient(135deg, #0f172a, #1e293b); /* navy-gray gradient */
+  overflow: hidden;
+  color: #fff;
 }
 
-.card:hover .image {
-  transform: scale(1.05);
-}
-
-.overlay {
+/* floating gradient shapes for depth */
+.container::before,
+.container::after {
+  content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    transparent 100%
-  );
-  padding: 1.5rem 1rem;
-  transform: translateY(10px);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.card:hover .overlay {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
-}
-
-.styleName {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* === SLICK CAROUSEL OVERRIDES === */
-.carousel :global(.slick-dots) {
-  bottom: -45px;
-}
-
-.carousel :global(.slick-dots li) {
-  margin: 0 4px;
-}
-
-.carousel :global(.slick-dots li button:before) {
-  font-size: 10px;
-  color: white;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(120px);
   opacity: 0.4;
-  transition: all 0.2s ease;
+  animation: float 12s ease-in-out infinite alternate;
 }
 
-.carousel :global(.slick-dots li.slick-active button:before) {
-  opacity: 1;
-  color: white;
+.container::before {
+  background: #6366f1; /* soft indigo */
+  top: -100px;
+  left: -150px;
 }
 
-.carousel :global(.slick-dots li button:hover:before) {
-  opacity: 0.7;
+.container::after {
+  background: #22d3ee; /* cyan accent */
+  bottom: -100px;
+  right: -150px;
 }
 
-.carousel :global(.slick-prev),
-.carousel :global(.slick-next) {
-  width: 50px;
-  height: 50px;
+@keyframes float {
+  from {
+    transform: translateY(0) translateX(0);
+  }
+  to {
+    transform: translateY(-30px) translateX(20px);
+  }
+}
+
+/* optional subtle grid overlay */
+.container::after {
+  background: radial-gradient(circle at 20% 20%, #22d3ee55, transparent 60%),
+              radial-gradient(circle at 80% 80%, #6366f155, transparent 60%);
+}
+
+/* carousel section styles */
+.examplesSection {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
   z-index: 2;
+  text-align: center;
 }
 
-.carousel :global(.slick-prev) {
-  left: -20px;
+.examplesTitle {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.carousel :global(.slick-next) {
-  right: -20px;
+.examplesSubtitle {
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
-.carousel :global(.slick-prev:before),
-.carousel :global(.slick-next:before) {
-  font-size: 50px;
-  color: white;
-  opacity: 0.6;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: opacity 0.2s ease;
+
+/* Carousel Wrapper */
+.carouselContainer {
+width: 100%;
+max-width: 1300px;
+margin: 0 auto;
+position: relative;
 }
 
-.carousel :global(.slick-prev:hover:before),
-.carousel :global(.slick-next:hover:before) {
-  opacity: 1;
+.carouselSlide {
+padding: 0 15px;
 }
 
-/* === MOBILE === */
+.exampleCard {
+position: relative;
+border-radius: 18px;
+overflow: hidden;
+cursor: pointer;
+transition: transform 0.3s ease;
+background: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.2);
+aspect-ratio: 3 / 4;
+}
+
+.exampleCard:hover {
+transform: scale(1.05);
+border-color: rgba(255, 255, 255, 0.4);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.exampleImage {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+
+/* Overlay text */
+.exampleOverlay {
+position: absolute;
+bottom: 0;
+right: 0;
+background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+padding: 16px;
+width: 100%;
+color: white;
+transition: opacity 0.3s ease;
+}
+
+.exampleCard:hover .exampleOverlay {
+opacity: 1;
+}
+
+.exampleDecade {
+font-weight: 600;
+font-size: 0.95rem;
+text-transform: uppercase;
+letter-spacing: 0.8px;
+}
+
+/* === Lightbox === */
+.lightbox {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.95);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 10000;
+cursor: pointer;
+}
+
+.lightboxImage {
+max-width: 90%;
+max-height: 90vh;
+object-fit: contain;
+border-radius: 12px;
+}
+
+.lightboxBtnPrev,
+.lightboxBtnNext {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(255, 255, 255, 0.85);
+border: none;
+font-size: 2.5rem;
+padding: 8px 16px;
+cursor: pointer;
+border-radius: 10px;
+z-index: 10001;
+transition: background 0.2s ease;
+}
+
+.lightboxBtnPrev:hover,
+.lightboxBtnNext:hover {
+background: white;
+}
+
+.lightboxBtnPrev { left: 20px; }
+.lightboxBtnNext { right: 20px; }
+
+/* === Slick Carousel Overrides === */
+.carouselContainer :global(.slick-dots) {
+bottom: -40px;
+}
+
+.carouselContainer :global(.slick-dots li button:before) {
+font-size: 10px;
+color: white;
+opacity: 0.5;
+transition: all 0.2s ease;
+}
+
+.carouselContainer :global(.slick-dots li.slick-active button:before) {
+opacity: 1;
+color: white;
+}
+
+.carouselContainer :global(.slick-prev),
+.carouselContainer :global(.slick-next) {
+width: 45px;
+height: 45px;
+z-index: 3;
+}
+
+.carouselContainer :global(.slick-prev) {
+left: -25px;
+}
+
+.carouselContainer :global(.slick-next) {
+right: -25px;
+}
+
+.carouselContainer :global(.slick-prev:before),
+.carouselContainer :global(.slick-next:before) {
+font-size: 45px;
+color: white;
+opacity: 0.7;
+text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+transition: opacity 0.2s ease;
+}
+
+.carouselContainer :global(.slick-prev:hover:before),
+.carouselContainer :global(.slick-next:hover:before) {
+opacity: 1;
+}
+
+/* === Mobile & Tablet === */
 @media (max-width: 768px) {
-  .section {
-    padding: 0;
-    margin: 2rem 0;
-  }
-
-  .header {
-    padding: 0 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .title {
-    font-size: 1.75rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .carousel {
-    margin: 0;
-  }
-
-  .slideWrapper {
-    padding: 0 5px;
-  }
-
-  .carousel :global(.slick-prev),
-  .carousel :global(.slick-next) {
-    display: none !important;
-  }
-
-  .carousel :global(.slick-dots) {
-    bottom: -35px;
-  }
-
-  /* Always show overlay on mobile */
-  .overlay {
-    transform: translateY(0);
-    opacity: 1;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.7) 60%,
-      transparent 100%
-    );
-  }
+.container {
+padding: 40px 0;
 }
 
-/* === TABLET === */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .section {
-    padding: 0 1rem;
-  }
+.examplesTitle {
+font-size: 1.8rem;
+}
 
-  .carousel :global(.slick-prev) {
-    left: -10px;
-  }
+.examplesSubtitle {
+font-size: 0.95rem;
+}
 
-  .carousel :global(.slick-next) {
-    right: -10px;
-  }
+.carouselContainer {
+width: 100vw;
+margin-left: calc(-50vw + 50%);
+padding: 0;
+}
+
+.carouselSlide {
+padding: 0 8px;
+}
+
+.exampleCard {
+border-radius: 14px;
+aspect-ratio: 4 / 5;
+}
+
+.exampleOverlay {
+padding: 12px;
+}
+
+.exampleDecade {
+font-size: 0.9rem;
+}
+
+.carouselContainer :global(.slick-prev),
+.carouselContainer :global(.slick-next) {
+display: none !important;
+}
+
+.carouselContainer :global(.slick-dots) {
+bottom: -25px;
+}
+
+.lightboxBtnPrev,
+.lightboxBtnNext {
+font-size: 2rem;
+padding: 6px 12px;
+}
+
+.lightboxBtnPrev { left: 10px; }
+.lightboxBtnNext { right: 10px; }
+}
+
+@media (max-width: 480px) {
+.examplesTitle {
+font-size: 1.6rem;
+}
+
+.examplesSubtitle {
+font-size: 0.9rem;
+}
+
+.carouselSlide {
+padding: 0 5px;
+}
+
+.exampleCard {
+aspect-ratio: 4 / 5;
+max-width: 90%;
+margin: 0 auto;
+}
+
+.exampleOverlay {
+padding: 10px;
+}
+
+.exampleDecade {
+font-size: 0.85rem;
+}
 }

@@ -52,6 +52,48 @@
   animation: fadeInDown 0.6s ease-out;
 }
 
+/* Mobile: Bottom banner */
+@media (max-width: 768px) {
+  .creditsHeader {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 16px 20px;
+    justify-content: space-between;
+    background: rgba(10, 11, 30, 0.95);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .creditsInfo {
+    flex: 1;
+  }
+
+  .creditsButton {
+    flex-shrink: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .creditsInfo {
   display: flex;
   align-items: center;
@@ -419,10 +461,32 @@
 /* ==================== MOBILE RESPONSIVE ==================== */
 @media (max-width: 768px) {
   .creditsHeader {
-    top: 80px;
-    right: 10px;
-    padding: 10px 16px;
-    gap: 8px;
+    /* Bottom banner on mobile */
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 16px 20px;
+    justify-content: space-between;
+    background: rgba(10, 11, 30, 0.95);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .creditsInfo {
+    flex: 1;
+  }
+
+  .creditsButton {
+    flex-shrink: 0;
   }
 
   .creditsText {
@@ -430,8 +494,8 @@
   }
 
   .creditsButton {
-    padding: 6px 16px;
-    font-size: 0.85rem;
+    padding: 8px 20px;
+    font-size: 0.9rem;
   }
 
   .freeCreditsText {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -8,31 +8,22 @@ import { supabase } from "../../lib/supabaseClient";
 import useCredits from "../../hooks/useCredits";
 import toast from 'react-hot-toast';
 import styles from "../../styles/AvatarPage.module.css";
-import AVATAR_STYLES from "../../components/AvatarStyles";
 import SEOAvatar from "../../components/SEO/SEOAvatar";
 import RestorationCounter from "../../components/RestorationCounter";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Eager load critical above-the-fold components
-import ExampleCarousel from '../../components/avatar/Examplecarousel';
-import GenderSelector from '../../components/avatar/Genderselector';
-import StyleSelector from '../../components/avatar/Styleselector';
+// Components
+import ExampleCarousel from '../../components/avatar/ExampleCarousel';
+import ModernSlideshow from '../../components/avatar/ModernSlideshow';
+import CategoryTabGallery from '../../components/avatar/CategoryTabGallery';
 
-// Lazy load below-the-fold and on-demand components
-const Testimonials = dynamic(() => import('../../components/avatar/Testimonials'), { 
-  ssr: false,
-  loading: () => <div style={{ minHeight: '300px' }} />
-});
-
-const ImageLightbox = dynamic(() => import('../../components/avatar/Imagelightbox'), { 
-  ssr: false 
-});
+// Lazy load
+const Testimonials = dynamic(() => import('../../components/avatar/Testimonials'), { ssr: false });
+const ImageLightbox = dynamic(() => import('../../components/avatar/ImageLightbox'), { ssr: false });
 
 export default function AiAvatarsRedesigned() {
   const router = useRouter();
-  
-  // State management
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [resultImageUrl, setResultImageUrl] = useState(null);
@@ -45,17 +36,14 @@ export default function AiAvatarsRedesigned() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentLightboxIndex, setCurrentLightboxIndex] = useState(0);
   const [userGender, setUserGender] = useState("");
-  const [styleCategory, setStyleCategory] = useState("portrait");
+  const [styleCategory, setStyleCategory] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("");
-  const [styleStrength, setStyleStrength] = useState(20);
-  const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");
   const [isMobile, setIsMobile] = useState(false);
 
   const avatarCost = 50;
   const { credits, isLoggedIn, refreshCredits } = useCredits();
 
-  // Memoize static data to prevent re-creation on every render
-  const exampleTransformations = useMemo(() => [
+  const exampleTransformations = [
     { id: 1, category: "Fantasy", style: "Dragon Rider", image: "/images/examples/avatar/dragon.png" },
     { id: 2, category: "Fantasy", style: "Magical Wizard", image: "/images/examples/avatar/wizard.png" },
     { id: 3, category: "Historical", style: "Western Era", image: "/images/examples/avatar/western.png" },
@@ -63,51 +51,36 @@ export default function AiAvatarsRedesigned() {
     { id: 5, category: "Fantasy", style: "Medieval Warrior", image: "/images/examples/avatar/medieval.png" },
     { id: 6, category: "Historical", style: "Western Era", image: "/images/examples/avatar/western2.png" },
     { id: 7, category: "Medieval", style: "Medieval Fantasy", image: "/images/examples/avatar/medieval2.png" }
-  ], []);
+  ];
 
-  const popularStyles = useMemo(() => [
+  const popularStyles = [
     "portrait_professional", 
     "anime_style", 
     "fantasy_wizard", 
     "cyberpunk_hero", 
     "medieval_warrior"
-  ], []);
+  ];
 
-  const testimonials = useMemo(() => [
+  const testimonials = [
     { id: 1, name: "Sarah M.", avatar: "👩‍💼", text: "The quality is incredible! Used it for my LinkedIn profile and got so many compliments.", rating: 5, style: "Portrait" },
     { id: 2, name: "Jake T.", avatar: "🧙‍♂️", text: "Perfect for my D&D character! Looked exactly like I imagined. Worth every credit.", rating: 5, style: "Fantasy" },
     { id: 3, name: "David R.", avatar: "🚀", text: "Fast generation and high quality. Been creating avatars for my whole team!", rating: 5, style: "Sci-Fi" }
-  ], []);
+  ];
 
-  // Get session on mount
   useEffect(() => {
     async function getSession() {
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
     }
     getSession();
-  }, []);
 
-  // Detect mobile on client side only (avoid hydration mismatch)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Memoized computed value
-  const isComplete = useMemo(() => 
-    photo && userGender && selectedStyle, 
-    [photo, userGender, selectedStyle]
-  );
-
-  // Optimized event handlers with useCallback
-  const handleDrag = useCallback((e) => {
+  const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragenter" || e.type === "dragover") {
@@ -115,76 +88,42 @@ export default function AiAvatarsRedesigned() {
     } else if (e.type === "dragleave") {
       setDragActive(false);
     }
-  }, []);
+  };
 
-  const handleDrop = useCallback((e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
-    if (e.dataTransfer.files?.[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
-  }, []);
+    if (e.dataTransfer.files?.[0]) handleFile(e.dataTransfer.files[0]);
+  };
 
-  const handlePhotoUpload = useCallback((e) => {
-    if (e.target.files?.[0]) {
-      handleFile(e.target.files[0]);
-    }
-  }, []);
+  const handlePhotoUpload = (e) => {
+    if (e.target.files?.[0]) handleFile(e.target.files[0]);
+  };
 
-  const handleFile = useCallback((file) => {
+  const handleFile = (file) => {
     if (!file.type.startsWith('image/')) {
-      toast.error('Please upload a valid image file (PNG, JPG, HEIC)', {
-        icon: '🖼️',
-        duration: 4000,
-      });
+      toast.error('Please upload a valid image file (PNG, JPG, HEIC)', { icon: '🖼️', duration: 4000 });
       return;
     }
-    
     if (file.size > 10 * 1024 * 1024) {
-      toast.error('File size must be under 10MB', {
-        icon: '📏',
-        duration: 4000,
-      });
+      toast.error('File size must be under 10MB', { icon: '📏', duration: 4000 });
       return;
     }
-
-    // Show preview immediately - no compression needed for display
     setPhoto(file);
     setPreviewUrl(URL.createObjectURL(file));
     setResultImageUrl(null);
-    
-    toast.success('Photo uploaded! Now configure your avatar settings.', {
-      icon: '🎭',
-      duration: 2000,
-    });
-  }, []);
+    toast.success('Photo uploaded! Now configure your avatar settings.', { icon: '🎭', duration: 2000 });
+  };
 
-  const handleImageClick = useCallback((index) => {
+  const handleImageClick = (index) => {
     if (isMobile) {
       setCurrentLightboxIndex(index);
       setLightboxOpen(true);
     }
-  }, [isMobile]);
+  };
 
-  const closeLightbox = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
-
-  const nextImage = useCallback((e) => {
-    e.stopPropagation();
-    setCurrentLightboxIndex((prev) => (prev + 1) % exampleTransformations.length);
-  }, [exampleTransformations.length]);
-
-  const prevImage = useCallback((e) => {
-    e.stopPropagation();
-    setCurrentLightboxIndex((prev) => 
-      (prev - 1 + exampleTransformations.length) % exampleTransformations.length
-    );
-  }, [exampleTransformations.length]);
-
-  const handleGenerateOrRedirect = useCallback(() => {
+  const handleGenerateOrRedirect = () => {
     if (!photo) {
       toast.error('Please upload an image first', { icon: '📤', duration: 3000 });
       return;
@@ -202,20 +141,17 @@ export default function AiAvatarsRedesigned() {
       return;
     }
     generateAvatar();
-  }, [photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, router]);
+  };
 
-  const generateAvatar = useCallback(async () => {
+  const generateAvatar = async () => {
     setResultImageUrl(null);
     setIsLoading(true);
     setProgress(0);
     setProgressStage("Preparing your image...");
 
-    // Scroll to photo on mobile only
     if (isMobile) {
       const photoSection = document.getElementById('photo-section');
-      if (photoSection) {
-        photoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+      if (photoSection) photoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     const processingToast = toast.loading('Creating your AI avatar...', { icon: '🎭' });
@@ -225,9 +161,7 @@ export default function AiAvatarsRedesigned() {
       if (!freshSession) throw new Error("Please log in again to continue");
 
       const headers = { "Content-Type": "application/json" };
-      if (freshSession?.access_token) {
-        headers.Authorization = `Bearer ${freshSession.access_token}`;
-      }
+      if (freshSession?.access_token) headers.Authorization = `Bearer ${freshSession.access_token}`;
 
       const compressedFile = await imageCompression(photo, {
         maxSizeMB: 1.0,
@@ -258,9 +192,9 @@ export default function AiAvatarsRedesigned() {
         body: JSON.stringify({
           imageBase64: base64,
           prompt: prompt,
-          styleStrength: styleStrength,
+          styleStrength: 20,
           user_gender: userGender,
-          workflow_type: workflowType
+          workflow_type: "HyperRealistic-likeness"
         }),
       });
 
@@ -288,9 +222,9 @@ export default function AiAvatarsRedesigned() {
     } finally {
       setIsLoading(false);
     }
-  }, [photo, userGender, selectedStyle, styleStrength, workflowType, refreshCredits, isMobile]);
+  };
 
-  const handleDownload = useCallback(async () => {
+  const handleDownload = async () => {
     try {
       const response = await fetch(resultImageUrl);
       const blob = await response.blob();
@@ -307,64 +241,62 @@ export default function AiAvatarsRedesigned() {
       console.error('Error downloading:', error);
       toast.error('Failed to download avatar', { icon: '❌', duration: 3000 });
     }
-  }, [resultImageUrl]);
+  };
 
-  const getButtonText = useCallback(() => {
-    if (!isLoggedIn) return "Sign up to Generate";
-    if (credits < avatarCost) return "Buy Credits to Generate";
-    if (isLoading) return "Creating Your Avatar...";
-    return `Generate Avatar (${avatarCost} credits)`;
-  }, [isLoggedIn, credits, avatarCost, isLoading]);
+  const isComplete = photo && userGender && selectedStyle;
 
   return (
     <>
       <SEOAvatar />
       <Head>
         <title>AI Avatar Generator - Transform Your Photos</title>
-        <meta name="description" content="Create stunning AI avatars in fantasy, sci-fi, and historical themes" />
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
       </Head>
 
       <main className={styles.mainContainer}>
         <div className={styles.creditsHeader}>
           <div className={styles.creditsInfo}>
             <span className={styles.creditsIcon}>🎭</span>
-            <span className={styles.creditsText}>{credits} {credits === 1 ? 'credit' : 'credits'}</span>
+            <span className={styles.creditsText}>
+              {credits} credits {credits >= avatarCost ? `(${Math.floor(credits / avatarCost)} avatars)` : ''}
+            </span>
           </div>
           <button onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")} className={styles.creditsButton}>
-            {isLoggedIn ? "+" : "Sign Up"}
+            {isLoggedIn ? "Buy More" : "Sign Up Free"}
           </button>
         </div>
 
         <div className={styles.contentWrapper}>
-          <div className={styles.heroSection}>
-            <div className={styles.heroContent}>
-              <h1 className={styles.heroTitle}>Transform Into Any Character</h1>
-              <p className={styles.heroSubtitle}>
-                Create stunning AI avatars in fantasy, sci-fi, historical themes and more
-                <span className={styles.creditPill}>Costs {avatarCost} credits</span>
-                {!isLoggedIn && (
-                  <span className={styles.signupInline}>
-                    <strong>Sign up now</strong> and get <strong>50 free credits</strong> to try!
-                    <button
-                      onClick={() => router.push("/signup")}
-                      className={styles.signupInlineButton}
-                    >
-                      Claim Credits
-                    </button>
-                  </span>
-                )}
-              </p>
-            </div>
-          </div>
+          {/* Modern Slideshow - Shows immediately */}
+          <ModernSlideshow examples={exampleTransformations} />
 
-          <ExampleCarousel examples={exampleTransformations} onImageClick={handleImageClick} />
+          {/* Category Tab Gallery - Browse and select styles */}
+          <CategoryTabGallery
+            onStyleSelect={(category, styleValue) => {
+              setStyleCategory(category);
+              setSelectedStyle(styleValue);
+            }}
+            onGenderChange={setUserGender}
+            selectedGender={userGender}
+          />
 
           <RestorationCounter label="AI Transformations Created" />
 
-          {/* Photo Upload Section */}
-          <div className={styles.uploadSection} id="photo-section">
-            <h2 className={styles.sectionTitle}>Step 1: Upload Your Photo</h2>
+
+{/* STEP 3: Photo Upload with Selected Style Display */}
+          <div className={styles.uploadSection} id="upload-section">
+            <h2 className={styles.sectionTitle}>Step 3: Upload Your Photo</h2>
+            
+            {/* Selected Style Display */}
+            {selectedStyle && (
+              <div className={styles.selectedStyleDisplay}>
+                <div className={styles.selectedStyleBadge}>
+                  <span className={styles.selectedStyleLabel}>
+                    Selected Style: <strong>{styleCategory} - {selectedStyle.split(',')[0]}</strong>
+                  </span>
+                </div>
+              </div>
+            )}
+            
             <div className={styles.uploadWrapper}>
               <div
                 className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''} ${previewUrl ? styles.hasPreview : ''}`}
@@ -379,7 +311,7 @@ export default function AiAvatarsRedesigned() {
                     <div className={styles.previewContainer}>
                       <Image
                         src={showingOriginal ? previewUrl : resultImageUrl}
-                        alt={showingOriginal ? "Original photo" : "Generated Avatar"}
+                        alt={showingOriginal ? "Original" : "Generated"}
                         width={400}
                         height={400}
                         unoptimized
@@ -388,22 +320,16 @@ export default function AiAvatarsRedesigned() {
                     </div>
                     <div className={styles.imageControls}>
                       <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowingOriginal(!showingOriginal);
-                        }}
+                        onClick={(e) => { e.stopPropagation(); setShowingOriginal(!showingOriginal); }}
                         className={styles.toggleButton}
                       >
                         {showingOriginal ? "Show Result" : "Show Original"}
                       </button>
                       <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDownload();
-                        }}
+                        onClick={(e) => { e.stopPropagation(); handleDownload(); }}
                         className={styles.downloadBtn}
                       >
-                        📥 Download
+                        📥 Download Avatar
                       </button>
                     </div>
                   </div>
@@ -417,19 +343,14 @@ export default function AiAvatarsRedesigned() {
                       className={styles.displayImage}
                     />
                     {!isLoading && (
-                      <div className={styles.changePhotoOverlay}>
-                        Click to change photo
-                      </div>
+                      <div className={styles.changePhotoOverlay}>Click to change photo</div>
                     )}
                     {isLoading && (
                       <div className={styles.loadingOverlay}>
                         <div className={styles.spinner}></div>
                         <p>{progressStage}</p>
                         <div className={styles.progressBar}>
-                          <div 
-                            className={styles.progressFill}
-                            style={{ width: `${progress}%` }}
-                          ></div>
+                          <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
                         </div>
                       </div>
                     )}
@@ -437,7 +358,11 @@ export default function AiAvatarsRedesigned() {
                 ) : (
                   <div className={styles.uploadPrompt}>
                     <div className={styles.uploadIcon}>📸</div>
-                    <p className={styles.uploadText}>Click or drag to upload</p>
+                    <p className={styles.uploadText}>
+                      {selectedStyle 
+                        ? 'Click or drag to upload your photo'
+                        : 'Select a style above to get started'}
+                    </p>
                     <p className={styles.uploadHint}>PNG, JPG, HEIC up to 10MB</p>
                   </div>
                 )}
@@ -452,30 +377,24 @@ export default function AiAvatarsRedesigned() {
             </div>
           </div>
 
-          <GenderSelector selectedGender={userGender} onGenderChange={setUserGender} />
+          
 
-          <StyleSelector
-            AVATAR_STYLES={AVATAR_STYLES}
-            popularStyles={popularStyles}
-            selectedCategory={styleCategory}
-            selectedStyle={selectedStyle}
-            onCategoryChange={setStyleCategory}
-            onStyleChange={setSelectedStyle}
-          />
-
+          {/* STEP 3: Generate */}
           <div className={styles.generateSection}>
             <button
               onClick={handleGenerateOrRedirect}
               disabled={isLoading}
-              className={`${styles.generateButton} ${isComplete ? styles.ready : ''} ${isLoading ? styles.loading : ''}`}
+              className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
             >
               {isLoading ? (
                 <>
                   <div className={styles.buttonSpinner}></div>
-                  {getButtonText()}
+                  Creating Your Avatar...
                 </>
               ) : (
-                getButtonText()
+                !isLoggedIn ? "Sign Up & Get 50 Free Credits" :
+                credits < avatarCost ? "Get Credits ($4.99 for 400 credits)" :
+                `Create Avatar (50 credits)`
               )}
             </button>
 
@@ -486,10 +405,53 @@ export default function AiAvatarsRedesigned() {
                 </div>
                 <div className={styles.progressText}>
                   <span>{progressStage}</span>
-                  <span className={styles.progressPercent}>{progress}%</span>
+                  <span>{progress}%</span>
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Pricing Info Section */}
+          <div className={styles.pricingInfoSection}>
+            <h2 className={styles.pricingTitle}>Simple, Transparent Pricing</h2>
+            <div className={styles.pricingBadges}>
+              <div className={styles.pricingBadge}>
+                <span className={styles.badgeIcon}>💰</span>
+                <div>
+                  <div className={styles.badgeTitle}>50 credits per avatar</div>
+                  <div className={styles.badgeDesc}>Clear, upfront pricing</div>
+                </div>
+              </div>
+              <div className={styles.pricingBadge}>
+                <span className={styles.badgeIcon}>🎁</span>
+                <div>
+                  <div className={styles.badgeTitle}>$4.99 = 8 avatars</div>
+                  <div className={styles.badgeDesc}>Best value starter pack</div>
+                </div>
+              </div>
+              <div className={styles.pricingBadge}>
+                <span className={styles.badgeIcon}>⭐</span>
+                <div>
+                  <div className={styles.badgeTitle}>$9.99 = 20 avatars</div>
+                  <div className={styles.badgeDesc}>Most popular pack</div>
+                </div>
+              </div>
+            </div>
+            {!isLoggedIn && (
+              <div className={styles.freeTrialBanner}>
+                <strong>New users get 50 free credits (1 avatar)</strong> to try it out!
+                <button onClick={() => router.push("/signup")} className={styles.freeTrialButton}>
+                  Sign Up Free
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* More Examples Carousel */}
+          <div className={styles.moreExamplesSection}>
+            <h2 className={styles.sectionTitle}>Explore More Styles</h2>
+            <p className={styles.sectionSubtitle}>Browse through our collection of avatar transformations</p>
+            <ExampleCarousel examples={exampleTransformations} onImageClick={handleImageClick} />
           </div>
 
           <Testimonials testimonials={testimonials} />
@@ -500,9 +462,9 @@ export default function AiAvatarsRedesigned() {
         isOpen={lightboxOpen}
         images={exampleTransformations}
         currentIndex={currentLightboxIndex}
-        onClose={closeLightbox}
-        onNext={nextImage}
-        onPrev={prevImage}
+        onClose={() => setLightboxOpen(false)}
+        onNext={(e) => { e.stopPropagation(); setCurrentLightboxIndex((prev) => (prev + 1) % exampleTransformations.length); }}
+        onPrev={(e) => { e.stopPropagation(); setCurrentLightboxIndex((prev) => (prev - 1 + exampleTransformations.length) % exampleTransformations.length); }}
       />
     </>
   );

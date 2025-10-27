@@ -1,4 +1,4 @@
-// pages/pricing.js - Restoration Focused
+// pages/pricing.js - Updated with Avatar Support
 import Head from 'next/head';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
@@ -47,7 +47,8 @@ const CREDIT_PACKS = [
     popular: false,
     tagline: "Perfect starter pack",
     restores: 400,
-    colorizations: 10
+    colorizations: 10,
+    avatars: 8
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
@@ -58,7 +59,8 @@ const CREDIT_PACKS = [
     popular: false,
     tagline: "Great for families",
     restores: 1000,
-    colorizations: 25
+    colorizations: 25,
+    avatars: 20
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
@@ -69,7 +71,8 @@ const CREDIT_PACKS = [
     popular: true,
     tagline: "Best value pack",
     restores: 1600,
-    colorizations: 40
+    colorizations: 40,
+    avatars: 32
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
@@ -80,7 +83,8 @@ const CREDIT_PACKS = [
     popular: false,
     tagline: "Professional package",
     restores: 3500,
-    colorizations: 87
+    colorizations: 87,
+    avatars: 70
   },
 ];
 
@@ -259,7 +263,7 @@ export default function PricingPage() {
           </p>
 
           <div className={styles.packGrid}>
-            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, gradient, popular, restores, colorizations }) => {
+            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, gradient, popular, restores, colorizations, avatars }) => {
               const priceNumber = parseFloat(price.slice(1));
               const costPerCredit = (priceNumber / credits).toFixed(3);
 
@@ -295,7 +299,7 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  {/* Simplified includes - focus on main restoration services */}
+                  {/* Updated includes - now with avatars */}
                   <div className={styles.cardContent}>
                     <div className={styles.includesGrid}>
                       <div className={styles.includeItem}>
@@ -305,6 +309,10 @@ export default function PricingPage() {
                       <div className={styles.includeItem}>
                         <span className={styles.includeIcon}>🎨</span>
                         <span>{colorizations} Full Colorizations</span>
+                      </div>
+                      <div className={styles.includeItem}>
+                        <span className={styles.includeIcon}>✨</span>
+                        <span>{avatars} AI Avatars</span>
                       </div>
                     </div>
                   </div>
@@ -331,7 +339,7 @@ export default function PricingPage() {
             })}
           </div>
 
-          {/* Service Overview - Now positioned after cards */}
+          {/* Service Overview - Updated with avatar pricing */}
           <div className={styles.serviceOverview}>
             <div className={styles.serviceItem}>
               <span className={styles.serviceIcon}>🔧</span>
@@ -345,6 +353,13 @@ export default function PricingPage() {
               <div>
                 <strong>Full Colorization</strong>
                 <span className={styles.serviceCost}>Costs 40 credits</span>
+              </div>
+            </div>
+            <div className={styles.serviceItem}>
+              <span className={styles.serviceIcon}>✨</span>
+              <div>
+                <strong>AI Avatar</strong>
+                <span className={styles.serviceCost}>Costs 50 credits</span>
               </div>
             </div>
             <div className={styles.serviceItem}>

@@ -1,4 +1,4 @@
-import styles from '../../styles/AvatarPage.module.css';
+import styles from './Testimonials.module.css';
 
 /**
  * Testimonials Component

@@ -2,17 +2,19 @@ import Image from 'next/image';
 import styles from '../../styles/AvatarPage.module.css';
 
 /**
- * PhotoUploader Component - Presentational Only
- * All logic is handled by parent component
+ * PhotoUploader Component - Step 3 with Style Display
+ * Shows selected style and handles photo upload
  */
-const PhotoUploader = ({ 
+const PhotoUploader = ({
   dragActive,
-  previewUrl, 
+  previewUrl,
   resultImageUrl,
   showingOriginal,
-  isLoading, 
-  progress, 
+  isLoading,
+  progress,
   progressStage,
+  selectedStyleLabel,
+  selectedCategoryLabel,
   onDragEnter,
   onDragLeave,
   onDragOver,
@@ -23,8 +25,20 @@ const PhotoUploader = ({
   onDownload
 }) => {
   return (
-    <div className={styles.uploadSection} id="photo-section">
-      <h2 className={styles.sectionTitle}>Step 1: Upload Your Photo</h2>
+    <div className={styles.uploadSection} id="upload-section">
+      <h2 className={styles.sectionTitle}>Step 3: Upload Your Photo</h2>
+      
+      {/* Selected Style Display */}
+      {selectedStyleLabel && (
+        <div className={styles.selectedStyleDisplay}>
+          <div className={styles.selectedStyleBadge}>
+            <span className={styles.selectedStyleLabel}>
+              Selected Style: <strong>{selectedCategoryLabel} - {selectedStyleLabel}</strong>
+            </span>
+          </div>
+        </div>
+      )}
+      
       <div className={styles.uploadWrapper}>
         <div
           className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''} ${previewUrl ? styles.hasPreview : ''}`}
@@ -50,7 +64,7 @@ const PhotoUploader = ({
                 </div>
               </div>
               <div className={styles.imageControls}>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onToggleOriginal();
@@ -59,14 +73,14 @@ const PhotoUploader = ({
                 >
                   {showingOriginal ? "Show Result" : "Show Original"}
                 </button>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onDownload();
                   }}
                   className={styles.downloadBtn}
                 >
-                  📥 Download
+                  📥 Download Avatar
                 </button>
               </div>
             </div>
@@ -89,7 +103,7 @@ const PhotoUploader = ({
                   <div className={styles.spinner}></div>
                   <p>{progressStage}</p>
                   <div className={styles.progressBar}>
-                    <div 
+                    <div
                       className={styles.progressFill}
                       style={{ width: `${progress}%` }}
                     ></div>
@@ -100,7 +114,11 @@ const PhotoUploader = ({
           ) : (
             <div className={styles.uploadPrompt}>
               <div className={styles.uploadIcon}>📸</div>
-              <p className={styles.uploadText}>Click or drag to upload</p>
+              <p className={styles.uploadText}>
+                {selectedStyleLabel 
+                  ? 'Click or drag to upload your photo'
+                  : 'Select a style above to get started'}
+              </p>
               <p className={styles.uploadHint}>PNG, JPG, HEIC up to 10MB</p>
             </div>
           )}

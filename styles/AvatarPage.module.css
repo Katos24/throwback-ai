@@ -1,22 +1,24 @@
 /* ===========================
-   MODERN AVATAR PAGE REDESIGN
-   MOBILE-OPTIMIZED + COLOR-CODED CATEGORIES
-   COMPLETE VERSION - READY TO USE
+   AVATAR PAGE - CLEAN & MODERN
+   Consolidated, no duplicates
    =========================== */
 
-/* Main Container */
+/* ==================== MAIN CONTAINER ==================== */
 .mainContainer {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #f8f9fa;
   padding: 0;
   position: relative;
   overflow-x: hidden;
 }
 
-/* ===========================
-   CREDITS HEADER (FIXED)
-   =========================== */
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
 
+/* ==================== CREDITS HEADER ==================== */
 .creditsHeader {
   position: fixed;
   top: 100px;
@@ -25,13 +27,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: white;
   padding: 12px 20px;
   border-radius: 50px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   animation: fadeInDown 0.6s ease-out;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .creditsInfo {
@@ -42,17 +42,22 @@
 
 .creditsIcon {
   font-size: 1.3rem;
-  animation: pulse 2s ease-in-out infinite;
 }
 
 .creditsText {
   font-size: 1rem;
   font-weight: 700;
-  color: white;
+  color: #667eea;
+}
+
+.creditsCount {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-left: 4px;
 }
 
 .creditsButton {
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   padding: 8px 20px;
@@ -64,380 +69,163 @@
 }
 
 .creditsButton:hover {
-  background: rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ==================== UPLOAD SECTION ==================== */
+.uploadSection {
+  margin: 3rem auto;
+  max-width: 800px;
 }
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-/* Main Container */
-.mainContainer {
-  min-height: 100vh;
-  background: #0f0f23;
-  padding: 0;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.mainContainer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 135, 135, 0.3) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.contentWrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  position: relative;
-  z-index: 1;
-}
-
-/* ===========================
-   HERO SECTION
-   =========================== */
-
-.heroSection {
-  text-align: center;
-  padding: 4rem 2rem 3rem;
-  margin-bottom: 2rem;
-}
-
-.heroContent {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.heroTitle {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 1rem 0;
-  letter-spacing: -0.02em;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 4s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.heroSubtitle {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  font-weight: 400;
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-}
-
-.creditPill {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-top: 0.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.signupInline {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 1.5rem 2rem;
-  border-radius: 20px;
-  color: white;
-  font-size: 1rem;
-  margin-top: 0.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.signupInlineButton {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-}
-
-.signupInlineButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-}
-
-/* ===========================
-   EXAMPLES CAROUSEL SECTION
-   =========================== */
-
-.examplesSection {
-  margin-bottom: 4rem;
-  padding: 0 1rem;
-}
-
-.examplesTitle {
-  text-align: center;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2.5rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.carousel {
-  margin: 0 -10px;
-}
-
-.carouselItem {
-  padding: 0 10px;
-}
-
-.exampleCard {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
-
-.exampleCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-.exampleImage {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  display: block;
-}
-
-.exampleOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  transform: translateY(0);
-  transition: transform 0.3s ease;
-}
-
-.exampleCard:hover .exampleOverlay {
-  transform: translateY(-5px);
-}
-
-.exampleCategory {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-}
-
-.exampleStyle {
-  font-size: 1.2rem;
-  color: #ffffff;
-  font-weight: 700;
-}
-
-/* ===========================
-   SECTION TITLES
-   =========================== */
 
 .sectionTitle {
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
   text-align: center;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ===========================
-   UPLOAD SECTION
-   =========================== */
-
-.uploadSection {
-  margin-bottom: 4rem;
 }
 
 .uploadWrapper {
-  max-width: 600px;
-  margin: 0 auto;
+  position: relative;
 }
 
 .uploadZone {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 3px dashed rgba(255, 255, 255, 0.4);
-  border-radius: 24px;
-  padding: 3rem;
+  background: white;
+  border: 3px dashed #d1d5db;
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
   min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .uploadZone:hover {
-  border-color: #f093fb;
-  background: rgba(240, 147, 251, 0.1);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+  background: #f0f4ff;
 }
 
-.uploadZone.dragActive {
-  border-color: #f093fb;
-  background: rgba(240, 147, 251, 0.15);
+.dragActive {
+  border-color: #667eea;
+  background: #f0f4ff;
   transform: scale(1.02);
 }
 
-.uploadZone.hasPreview {
-  padding: 0;
-  border: none;
-}
-
 .uploadPrompt {
-  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .uploadIcon {
   font-size: 4rem;
   margin-bottom: 1rem;
-  animation: float 3s ease-in-out infinite;
+  opacity: 0.7;
 }
 
 .uploadText {
   font-size: 1.3rem;
-  color: white;
   font-weight: 600;
-  margin: 0 0 0.5rem 0;
+  color: #374151;
+  margin-bottom: 0.5rem;
 }
 
 .uploadHint {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
+  color: #9ca3af;
 }
 
-/* Preview Container */
+/* Preview Image Display */
 .previewContainer {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 400px;
-  border-radius: 24px;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .displayImage {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-  border-radius: 24px;
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .changePhotoOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: white;
-  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none;
 }
 
 .uploadZone:hover .changePhotoOverlay {
   opacity: 1;
 }
 
-/* Loading Overlay */
+/* Loading State */
 .loadingOverlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 24px;
-  gap: 1.5rem;
-  padding: 2rem;
+  border-radius: 12px;
 }
 
-.loadingOverlay p {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
 }
 
-/* Result Container */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Progress Bar */
+.progressBar {
+  width: 100%;
+  max-width: 300px;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+/* Result Display */
 .resultContainer {
   width: 100%;
 }
@@ -449,690 +237,53 @@
   margin-top: 1.5rem;
 }
 
-.controlButton {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.controlButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.controlButton.primary {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-color: #f5576c;
-}
-
-.controlButton.primary:hover {
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-}
-
-/* ===========================
-   CONFIGURATION SECTION
-   =========================== */
-
-.configSection {
-  max-width: 1000px;
-  margin: 0 auto 4rem;
-}
-
-.configPanel {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.configTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 2rem 0;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Gender Selection */
-.genderSection {
-  margin-bottom: 2rem;
-}
-
-.sectionLabel {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.buttonGroup {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.optionButton {
-  flex: 1;
-  min-width: 120px;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.optionButton:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.optionButton.selected {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-color: #f5576c;
-  color: white;
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-}
-
-/* ===========================
-   ACCORDION STYLE SELECTOR
-   =========================== */
-
-.accordionSection {
-  margin-top: 2rem;
-}
-
-.accordionMainTitle {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 0.5rem 0;
-  text-align: center;
-}
-
-.accordionSubtitle {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.accordionContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Accordion Item - BASE STYLES */
-.accordionItem {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.accordionItem:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.accordionItemOpen {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(102, 126, 234, 0.4);
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
-}
-
-/* ===========================
-   COLOR-CODED CATEGORIES
-   =========================== */
-
-/* Fantasy - Purple/Mystical */
-.accordionItem.fantasy {
-  border-color: rgba(147, 51, 234, 0.3);
-}
-
-.accordionItem.fantasy.accordionItemOpen {
-  background: rgba(147, 51, 234, 0.15);
-  border-color: rgba(147, 51, 234, 0.5);
-  box-shadow: 0 4px 20px rgba(147, 51, 234, 0.3);
-}
-
-.accordionItem.fantasy .accordionHeader:hover {
-  background: rgba(147, 51, 234, 0.1);
-}
-
-.accordionItem.fantasy.accordionItemOpen .accordionHeader {
-  background: rgba(147, 51, 234, 0.2);
-}
-
-.accordionItem.fantasy .accordionEmoji {
-  text-shadow: 0 0 20px rgba(147, 51, 234, 0.6);
-}
-
-.accordionItem.fantasy.accordionItemOpen .accordionChevron {
-  color: rgb(147, 51, 234);
-}
-
-/* Sci-Fi - Cyan/Tech Blue */
-.accordionItem.scifi {
-  border-color: rgba(6, 182, 212, 0.3);
-}
-
-.accordionItem.scifi.accordionItemOpen {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: rgba(6, 182, 212, 0.5);
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
-}
-
-.accordionItem.scifi .accordionHeader:hover {
-  background: rgba(6, 182, 212, 0.1);
-}
-
-.accordionItem.scifi.accordionItemOpen .accordionHeader {
-  background: rgba(6, 182, 212, 0.2);
-}
-
-.accordionItem.scifi .accordionEmoji {
-  text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
-}
-
-.accordionItem.scifi.accordionItemOpen .accordionChevron {
-  color: rgb(6, 182, 212);
-}
-
-/* Historical - Amber/Gold */
-.accordionItem.historical {
-  border-color: rgba(217, 119, 6, 0.3);
-}
-
-.accordionItem.historical.accordionItemOpen {
-  background: rgba(217, 119, 6, 0.15);
-  border-color: rgba(217, 119, 6, 0.5);
-  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
-}
-
-.accordionItem.historical .accordionHeader:hover {
-  background: rgba(217, 119, 6, 0.1);
-}
-
-.accordionItem.historical.accordionItemOpen .accordionHeader {
-  background: rgba(217, 119, 6, 0.2);
-}
-
-.accordionItem.historical .accordionEmoji {
-  text-shadow: 0 0 20px rgba(217, 119, 6, 0.6);
-}
-
-.accordionItem.historical.accordionItemOpen .accordionChevron {
-  color: rgb(217, 119, 6);
-}
-
-/* 90s Vibes - Pink/Retro */
-.accordionItem.nineties {
-  border-color: rgba(236, 72, 153, 0.3);
-}
-
-.accordionItem.nineties.accordionItemOpen {
-  background: rgba(236, 72, 153, 0.15);
-  border-color: rgba(236, 72, 153, 0.5);
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
-}
-
-.accordionItem.nineties .accordionHeader:hover {
-  background: rgba(236, 72, 153, 0.1);
-}
-
-.accordionItem.nineties.accordionItemOpen .accordionHeader {
-  background: rgba(236, 72, 153, 0.2);
-}
-
-.accordionItem.nineties .accordionEmoji {
-  text-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
-}
-
-.accordionItem.nineties.accordionItemOpen .accordionChevron {
-  color: rgb(236, 72, 153);
-}
-
-/* Portrait - Emerald/Professional */
-.accordionItem.portrait {
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-.accordionItem.portrait.accordionItemOpen {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.5);
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-}
-
-.accordionItem.portrait .accordionHeader:hover {
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.accordionItem.portrait.accordionItemOpen .accordionHeader {
-  background: rgba(16, 185, 129, 0.2);
-}
-
-.accordionItem.portrait .accordionEmoji {
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
-}
-
-.accordionItem.portrait.accordionItemOpen .accordionChevron {
-  color: rgb(16, 185, 129);
-}
-
-/* Anime - Rose/Japanese */
-.accordionItem.anime {
-  border-color: rgba(244, 63, 94, 0.3);
-}
-
-.accordionItem.anime.accordionItemOpen {
-  background: rgba(244, 63, 94, 0.15);
-  border-color: rgba(244, 63, 94, 0.5);
-  box-shadow: 0 4px 20px rgba(244, 63, 94, 0.3);
-}
-
-.accordionItem.anime .accordionHeader:hover {
-  background: rgba(244, 63, 94, 0.1);
-}
-
-.accordionItem.anime.accordionItemOpen .accordionHeader {
-  background: rgba(244, 63, 94, 0.2);
-}
-
-.accordionItem.anime .accordionEmoji {
-  text-shadow: 0 0 20px rgba(244, 63, 94, 0.6);
-}
-
-.accordionItem.anime.accordionItemOpen .accordionChevron {
-  color: rgb(244, 63, 94);
-}
-
-/* Left Border Accent for Categories */
-.accordionItem::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.accordionItem.fantasy::before {
-  background: linear-gradient(180deg, rgba(147, 51, 234, 0.8), rgba(147, 51, 234, 0.3));
-}
-
-.accordionItem.scifi::before {
-  background: linear-gradient(180deg, rgba(6, 182, 212, 0.8), rgba(6, 182, 212, 0.3));
-}
-
-.accordionItem.historical::before {
-  background: linear-gradient(180deg, rgba(217, 119, 6, 0.8), rgba(217, 119, 6, 0.3));
-}
-
-.accordionItem.nineties::before {
-  background: linear-gradient(180deg, rgba(236, 72, 153, 0.8), rgba(236, 72, 153, 0.3));
-}
-
-.accordionItem.portrait::before {
-  background: linear-gradient(180deg, rgba(16, 185, 129, 0.8), rgba(16, 185, 129, 0.3));
-}
-
-.accordionItem.anime::before {
-  background: linear-gradient(180deg, rgba(244, 63, 94, 0.8), rgba(244, 63, 94, 0.3));
-}
-
-.accordionItemOpen::before {
-  width: 6px;
-}
-
-/* ===========================
-   ACCORDION HEADER & CONTENT
-   =========================== */
-
-/* Accordion Header (Clickable) */
-.accordionHeader {
-  width: 100%;
-  padding: 1.5rem;
-  background: transparent;
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  gap: 1rem;
-}
-
-.accordionHeader:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Left Side of Header */
-.accordionHeaderLeft {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-}
-
-.accordionEmoji {
-  font-size: 2rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.accordionHeaderText {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  text-align: left;
-}
-
-.accordionLabel {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: white;
-  line-height: 1.2;
-}
-
-.accordionDescription {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
-}
-
-/* Right Side of Header */
-.accordionHeaderRight {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-shrink: 0;
-}
-
-.accordionPopularBadge {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #000;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
-  white-space: nowrap;
-}
-
-.accordionCount {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.accordionChevron {
-  font-size: 1.8rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 300;
-  line-height: 1;
-  width: 24px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.accordionItemOpen .accordionChevron {
-  transform: rotate(180deg);
-}
-
-/* Accordion Content (Expandable) */
-.accordionContent {
-  padding: 0 1.5rem 1.5rem;
-  animation: accordionSlideDown 0.3s ease-out;
-}
-
-@keyframes accordionSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Style Grid Inside Accordion */
-.styleGrid {
-  display: grid;
-  margin-top: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-}
-
-.styleButton {
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.styleButton:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.styleButton.selected {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-color: #f5576c;
-  color: white;
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-  transform: translateY(-2px);
-}
-
-/* Popular Badge on Style */
-.popularBadge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #000;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 3px 8px;
+.toggleButton,
+.downloadBtn {
+  background: white;
+  border: 2px solid #e5e7eb;
+  padding: 0.75rem 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-  animation: badgePulse 2s ease-in-out infinite;
-  white-space: nowrap;
-}
-
-@keyframes badgePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* ===========================
-   ADVANCED SETTINGS
-   =========================== */
-
-.advancedSection {
-  max-width: 1000px;
-  margin: 0 auto 2rem;
-}
-
-.advancedToggle {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  padding: 1.25rem 1.5rem;
-  color: white;
-  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.advancedToggle:hover {
-  background: rgba(255, 255, 255, 0.15);
+.toggleButton:hover,
+.downloadBtn:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
   transform: translateY(-2px);
 }
 
-.toggleIcon {
-  font-size: 1.5rem;
-  font-weight: 300;
-}
-
-.advancedContent {
-  margin-top: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.advancedOption {
-  margin-bottom: 2rem;
-}
-
-.advancedOption:last-child {
-  margin-bottom: 0;
-}
-
-.advancedLabel {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.strengthValue {
-  color: #f093fb;
-  font-weight: 700;
-}
-
-.sliderContainer {
-  width: 100%;
-}
-
-.slider {
-  width: 100%;
-  height: 6px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.2);
-  outline: none;
-  -webkit-appearance: none;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.4);
-}
-
-.slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.4);
-}
-
-.sliderLabels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* ===========================
-   GENERATE BUTTON
-   =========================== */
-
+/* ==================== GENERATE BUTTON ==================== */
 .generateSection {
+  margin: 3rem auto;
   max-width: 600px;
-  margin: 0 auto 4rem;
+  text-align: center;
 }
 
 .generateButton {
-  width: 100%;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 1.5rem 2rem;
-  border-radius: 16px;
+  border: none;
+  padding: 1.25rem 3rem;
+  border-radius: 35px;
   font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
-  box-shadow: 0 8px 30px rgba(245, 87, 108, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+  margin: 0 auto;
+  min-width: 280px;
 }
 
 .generateButton:hover:not(:disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(245, 87, 108, 0.4);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
 }
 
 .generateButton:disabled {
@@ -1144,299 +295,164 @@
   width: 20px;
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  border-top: 3px solid white;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .progressContainer {
   margin-top: 1.5rem;
 }
 
-.progressBar {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
-  transition: width 0.3s ease;
-  border-radius: 10px;
-}
-
 .progressText {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.75rem;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
+  color: #6b7280;
+  margin-top: 0.5rem;
 }
 
-.progressPercent {
-  color: #f093fb;
-}
-
-/* ===========================
-   TESTIMONIALS SECTION
-   =========================== */
-
-.testimonialsSection {
+/* ==================== PRICING INFO SECTION ==================== */
+.pricingInfoSection {
   max-width: 1200px;
-  margin: 0 auto 4rem;
-  padding: 0 1rem;
-}
-
-.testimonialsTitle {
-  text-align: center;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 3rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.testimonialsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.testimonialCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  margin: 4rem auto;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
   border-radius: 20px;
+  text-align: center;
+}
+
+.pricingTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricingBadges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pricingBadge {
+  background: white;
   padding: 2rem;
-  transition: all 0.3s ease;
-}
-
-.testimonialCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.testimonialHeader {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  text-align: left;
+  transition: transform 0.3s ease;
 }
 
-.testimonialAvatar {
+.pricingBadge:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.badgeIcon {
   font-size: 2.5rem;
+  flex-shrink: 0;
 }
 
-.testimonialName {
-  font-size: 1.1rem;
+.badgeTitle {
+  font-size: 1.3rem;
   font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.badgeDesc {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.freeTrialBanner {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-}
-
-.testimonialStyle {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.testimonialRating {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.testimonialText {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
-  font-style: italic;
-}
-
-/* ===========================
-   LIGHTBOX
-   =========================== */
-
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 10000;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
-.lightboxImage {
-  max-width: 90%;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.lightboxBtnPrev,
-.lightboxBtnNext {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.2);
+.freeTrialButton {
+  background: white;
+  color: #059669;
   border: none;
-  color: white;
-  font-size: 3rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.lightboxBtnPrev {
-  left: 2rem;
+.freeTrialButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.lightboxBtnNext {
-  right: 2rem;
+/* ==================== MORE EXAMPLES SECTION ==================== */
+.moreExamplesSection {
+  margin: 4rem auto;
+  padding: 0 1rem;
 }
 
-.lightboxBtnPrev:hover,
-.lightboxBtnNext:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.lightboxInfo {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.lightboxCategory {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.lightboxStyle {
-  font-size: 1.2rem;
-  color: white;
+.moreExamplesSection .sectionTitle {
+  text-align: center;
+  font-size: 2rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
 }
 
-/* ===========================
-   CAROUSEL CUSTOM STYLING
-   =========================== */
-
-.carousel :global(.slick-dots) {
-  bottom: -45px;
+.sectionSubtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
 }
 
-.carousel :global(.slick-dots li button:before) {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.carousel :global(.slick-dots li.slick-active button:before) {
-  color: #f093fb;
-}
-
-.carousel :global(.slick-prev),
-.carousel :global(.slick-next) {
-  width: 50px;
-  height: 50px;
-  z-index: 1;
-}
-
-.carousel :global(.slick-prev) {
-  left: -60px;
-}
-
-.carousel :global(.slick-next) {
-  right: -60px;
-}
-
-.carousel :global(.slick-prev:before),
-.carousel :global(.slick-next:before) {
-  font-size: 50px;
-  opacity: 0.7;
-}
-
-.carousel :global(.slick-prev:hover:before),
-.carousel :global(.slick-next:hover:before) {
-  opacity: 1;
-}
-
-/* ===========================
-   MOBILE RESPONSIVE - OPTIMIZED VERSION
-   =========================== */
-
-/* Tablet breakpoint */
-@media (max-width: 768px) {
-  .contentWrapper {
-    padding: 1.5rem;
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-
-  .heroSection {
-    padding: 3rem 1.5rem 2rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .examplesSection {
-    padding: 0 0.5rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  .carousel :global(.slick-prev),
-  .carousel :global(.slick-next) {
-    display: none !important;
+  to {
+    opacity: 1;
   }
+}
 
-  .configPanel {
-    padding: 1.5rem;
-  }
-
-  .accordionContainer {
-    gap: 0.75rem;
-  }
-
-  .styleGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-
-  .testimonialsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
   .creditsHeader {
     top: 80px;
     right: 15px;
     padding: 10px 16px;
-    gap: 8px;
-  }
-
-  .creditsIcon {
-    font-size: 1.1rem;
   }
 
   .creditsText {
@@ -1449,98 +465,115 @@
   }
 }
 
-/* Mobile breakpoint - OPTIMIZED */
-@media (max-width: 480px) {
-  
-  /* ===========================
-     HERO SECTION - SLIMMER
-     =========================== */
-  .heroSection {
-    padding: 2rem 1rem 1.5rem;
-    margin-bottom: 1.5rem;
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 1rem 0.5rem;
   }
 
-  .heroTitle {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1rem;
-    gap: 0.75rem;
-  }
-
-  .creditPill {
-    padding: 6px 16px;
-    font-size: 0.85rem;
-  }
-
-  .signupInline {
-    padding: 1.25rem 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .signupInlineButton {
-    padding: 10px 24px;
-    font-size: 0.95rem;
-  }
-
-  /* ===========================
-     EXAMPLES CAROUSEL - SMALLER CARDS
-     =========================== */
-  .examplesSection {
-    margin-bottom: 3rem;
-  }
-
-  .examplesTitle {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .exampleImage {
-    height: 320px; /* Reduced from 400px */
-  }
-
-  .exampleOverlay {
-    padding: 1rem;
-  }
-
-  .exampleCategory {
-    font-size: 0.75rem;
-  }
-
-  .exampleStyle {
-    font-size: 1rem;
-  }
-
-  /* ===========================
-     UPLOAD ZONE - MUCH SLIMMER
-     =========================== */
-  .uploadSection {
-    margin-bottom: 3rem;
+  .sectionTitle {
+    font-size: 1.6rem;
   }
 
   .uploadZone {
-    min-height: 280px; /* Reduced from 400px */
-    padding: 2rem 1rem;
-    border-radius: 20px;
-  }
-
-  .previewContainer {
-    min-height: 280px; /* Match upload zone */
+    padding: 3rem 1.5rem;
+    min-height: 350px;
   }
 
   .uploadIcon {
-    font-size: 3rem; /* Smaller icon */
-    margin-bottom: 0.75rem;
+    font-size: 3rem;
   }
 
   .uploadText {
     font-size: 1.1rem;
   }
 
+  .generateButton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-width: 240px;
+  }
+
+  .pricingInfoSection {
+    padding: 2rem 1rem;
+    margin: 3rem 1rem;
+  }
+
+  .pricingTitle {
+    font-size: 2rem;
+  }
+
+  .pricingBadges {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .pricingBadge {
+    padding: 1.5rem;
+  }
+
+  .badgeTitle {
+    font-size: 1.1rem;
+  }
+
+  .freeTrialBanner {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  .creditsHeader {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    border-radius: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+
+  .uploadZone {
+    padding: 2rem 1rem;
+    min-height: 300px;
+  }
+
+  .uploadIcon {
+    font-size: 2.5rem;
+  }
+
+  .uploadText {
+    font-size: 1rem;
+  }
+
   .uploadHint {
     font-size: 0.85rem;
+  }
+
+  .displayImage {
+    max-height: 300px;
+  }
+
+  .generateButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    min-width: 200px;
+  }
+
+  .pricingTitle {
+    font-size: 1.6rem;
+  }
+
+  .badgeIcon {
+    font-size: 2rem;
+  }
+
+  .freeTrialBanner {
+    padding: 1rem;
   }
 
   .imageControls {
@@ -1548,370 +581,331 @@
     gap: 0.75rem;
   }
 
-  .controlButton {
+  .toggleButton,
+  .downloadBtn {
     width: 100%;
-    padding: 10px 20px;
-    font-size: 0.95rem;
-  }
-
-  /* ===========================
-     CONFIG PANEL
-     =========================== */
-  .configPanel {
-    padding: 1.25rem;
-    border-radius: 16px;
-  }
-
-  .configTitle {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .genderSection {
-    margin-bottom: 1.5rem;
-  }
-
-  .sectionLabel {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .buttonGroup {
-    gap: 0.75rem;
-  }
-
-  .optionButton {
-    min-width: 100px;
-    padding: 0.85rem 1.25rem;
-    font-size: 0.95rem;
-  }
-
-  /* ===========================
-     ACCORDION - ULTRA-SLIM VERSION
-     =========================== */
-  .accordionSection {
-    margin-top: 1.5rem;
-  }
-
-  .accordionMainTitle {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .accordionSubtitle {
-    font-size: 0.85rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .accordionContainer {
-    gap: 0.75rem;
-  }
-
-  .accordionItem {
-    border-radius: 12px;
-  }
-
-  /* SLIMMER ACCORDION HEADER */
-  .accordionHeader {
-    padding: 0.75rem 1rem; /* Reduced from 1.5rem */
-    gap: 0.5rem;
-    min-height: 50px; /* Ensures easy tapping */
-  }
-
-  .accordionHeaderLeft {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .accordionEmoji {
-    font-size: 1.3rem; /* Visible but not huge */
-    flex-shrink: 0;
-  }
-
-  .accordionHeaderText {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-  }
-
-  .accordionLabel {
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* HIDE DESCRIPTION for cleaner mobile look */
-  .accordionDescription {
-    display: none;
-  }
-
-  .accordionHeaderRight {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  /* HIDE "Popular" badge on header (still shows on individual styles) */
-  .accordionPopularBadge {
-    display: none;
-  }
-
-  .accordionCount {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .accordionChevron {
-    font-size: 1.2rem;
-    width: 20px;
-    text-align: center;
-  }
-
-  /* Accordion content */
-  .accordionContent {
-    padding: 0 0.75rem 0.75rem;
-  }
-
-  /* Style grid - 2 columns on mobile */
-  .styleGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-
-  .styleButton {
-    padding: 0.85rem 0.5rem;
-    font-size: 0.85rem;
-    border-radius: 10px;
-  }
-
-  .popularBadge {
-    font-size: 0.6rem;
-    padding: 2px 6px;
-  }
-
-  /* ===========================
-     ADVANCED SETTINGS
-     =========================== */
-  .advancedToggle {
-    padding: 1rem 1.25rem;
-    font-size: 1rem;
-    border-radius: 12px;
-  }
-
-  .toggleIcon {
-    font-size: 1.3rem;
-  }
-
-  .advancedContent {
-    padding: 1.5rem;
-    border-radius: 12px;
-  }
-
-  .advancedOption {
-    margin-bottom: 1.5rem;
-  }
-
-  .advancedLabel {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .sliderLabels {
-    font-size: 0.75rem;
-  }
-
-  /* ===========================
-     GENERATE BUTTON
-     =========================== */
-  .generateSection {
-    margin-bottom: 3rem;
-  }
-
-  .generateButton {
-    padding: 1.25rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 14px;
-  }
-
-  .buttonSpinner {
-    width: 18px;
-    height: 18px;
-  }
-
-  .progressContainer {
-    margin-top: 1.25rem;
-  }
-
-  .progressText {
-    font-size: 0.85rem;
-  }
-
-  /* ===========================
-     TESTIMONIALS
-     =========================== */
-  .testimonialsSection {
-    margin-bottom: 3rem;
-  }
-
-  .testimonialsTitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .testimonialCard {
-    padding: 1.5rem;
-    border-radius: 16px;
-  }
-
-  .testimonialAvatar {
-    font-size: 2rem;
-  }
-
-  .testimonialName {
-    font-size: 1rem;
-  }
-
-  .testimonialStyle {
-    font-size: 0.85rem;
-  }
-
-  .testimonialRating {
-    font-size: 1.1rem;
-  }
-
-  .testimonialText {
-    font-size: 0.95rem;
-  }
-
-  /* ===========================
-     LIGHTBOX - MOBILE OPTIMIZED
-     =========================== */
-  .lightbox {
-    padding: 1rem;
-  }
-
-  .lightboxImage {
-    max-width: 95%;
-    max-height: 85vh;
-  }
-
-  .lightboxBtnPrev,
-  .lightboxBtnNext {
-    font-size: 2rem;
-    width: 45px;
-    height: 45px;
-  }
-
-  .lightboxBtnPrev {
-    left: 1rem;
-  }
-
-  .lightboxBtnNext {
-    right: 1rem;
-  }
-
-  .lightboxInfo {
-    bottom: 1rem;
-    padding: 0.75rem 1.5rem;
-  }
-
-  .lightboxCategory {
-    font-size: 0.8rem;
-  }
-
-  .lightboxStyle {
-    font-size: 1rem;
-  }
-
-  /* ===========================
-     CREDITS HEADER - MOBILE
-     =========================== */
-  .creditsHeader {
-    top: 70px;
-    right: 10px;
-    padding: 8px 14px;
-    gap: 6px;
-  }
-
-  .creditsIcon {
-    font-size: 1rem;
-  }
-
-  .creditsText {
-    font-size: 0.85rem;
-  }
-
-  .creditsButton {
-    padding: 6px 14px;
-    font-size: 0.8rem;
-  }
-
-  /* ===========================
-     CONTENT WRAPPER
-     =========================== */
-  .contentWrapper {
-    padding: 1rem;
-  }
-
-  .sectionTitle {
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
   }
 }
 
-/* ===========================
-   ACCESSIBILITY
-   =========================== */
-
-.accordionHeader:focus {
-  outline: 2px solid rgba(102, 126, 234, 0.6);
-  outline-offset: 2px;
+/* ==================== UTILITY CLASSES ==================== */
+.textCenter {
+  text-align: center;
 }
 
-.styleButton:focus {
-  outline: 2px solid rgba(240, 147, 251, 0.6);
-  outline-offset: 2px;
+.mb1 {
+  margin-bottom: 1rem;
 }
 
-.generateButton:focus {
-  outline: 2px solid rgba(240, 147, 251, 0.6);
-  outline-offset: 2px;
+.mb2 {
+  margin-bottom: 2rem;
 }
 
-/* Reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .accordionContent,
-  .accordionChevron,
-  .styleButton,
-  .accordionItem,
-  .exampleCard,
-  .uploadZone,
-  .generateButton,
-  .heroTitle {
-    animation: none !important;
-    transition: none !important;
+.mb3 {
+  margin-bottom: 3rem;
+}
+
+.mt3 {
+  margin-top: 3rem;
+}
+
+.ready {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
   }
 }
 
-/* ===========================
-   UTILITY ANIMATIONS
-   =========================== */
 
-@keyframes fadeInUp {
+
+/* MODERN LOADING OVERLAY - Add to AvatarPage.module.css */
+
+/* ==================== LOADING OVERLAY ==================== */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Circular Progress Spinner */
+.spinnerContainer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+}
+
+.circularProgress {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+
+.progressCircleBg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 8;
+}
+
+.progressCircle {
+  fill: none;
+  stroke: white;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+/* Animated spinner ring */
+.spinnerRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  margin-top: -70px;
+  margin-left: -70px;
+  border: 3px solid transparent;
+  border-top: 3px solid rgba(255, 255, 255, 0.8);
+  border-right: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+/* Center percentage text */
+.percentageText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Stage text below spinner */
+.loadingStage {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Fun loading messages */
+.loadingMessage {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 300px;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Animated particles in background */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 40%; left: 80%; animation-delay: 0.5s; }
+.particle:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
+.particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; }
+.particle:nth-child(5) { top: 30%; left: 50%; animation-delay: 2s; }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Progress bar at bottom (optional secondary indicator) */
+.progressBarBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.8) 0%, 
+    white 50%, 
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Success animation (when done) */
+.loadingSuccess {
+  animation: successPulse 0.6s ease;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.successCheckmark {
+  font-size: 4rem;
+  color: white;
+  animation: checkmarkPop 0.5s ease;
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .spinnerContainer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .circularProgress {
+    width: 100px;
+    height: 100px;
+  }
+
+  .spinnerRing {
+    width: 120px;
+    height: 120px;
+    margin-top: -60px;
+    margin-left: -60px;
+  }
+
+  .percentageText {
+    font-size: 1.6rem;
+  }
+
+  .loadingStage {
+    font-size: 1rem;
+  }
+
+  .loadingMessage {
+    font-size: 0.85rem;
+  }
+}
+
+
+
+/* Add this to your AvatarPage.module.css */
+
+/* ==================== SELECTED STYLE BADGE ==================== */
+.selectedStyleDisplay {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.selectedStyleBadge {
+  background: white;
+  border: 2px solid #667eea;
+  padding: 0.875rem 1.75rem 0.875rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.15);
+  animation: slideIn 0.4s ease-out;
+  position: relative;
+  display: inline-block;
+}
+
+.selectedStyleBadge::before {
+  content: "✓";
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: #667eea;
+  font-weight: 700;
+}
+
+.selectedStyleLabel {
+  color: #4b5563;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.selectedStyleLabel strong {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #667eea;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -1919,278 +913,159 @@
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .selectedStyleBadge {
+    padding: 0.75rem 1.5rem 0.75rem 2.75rem;
   }
-  50% {
-    transform: translateY(-10px);
+
+  .selectedStyleBadge::before {
+    left: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .selectedStyleLabel {
+    font-size: 0.875rem;
+  }
+
+  .selectedStyleLabel strong {
+    font-size: 0.925rem;
   }
 }
-/* ===========================
-   ADDITIONAL RESULT IMAGE CONTROLS
-   ADD THIS TO YOUR CSS IF BUTTONS DON'T SHOW PROPERLY
-   =========================== */
 
-/* Result Container After Generation */
-.resultContainer {
-  width: 100%;
-  position: relative;
+@media (max-width: 480px) {
+  .selectedStyleBadge {
+    padding: 0.625rem 1.25rem 0.625rem 2.5rem;
+    max-width: 90%;
+  }
+
+  .selectedStyleLabel {
+    font-size: 0.8rem;
+  }
+
+  .selectedStyleLabel strong {
+    font-size: 0.875rem;
+  }
 }
 
-/* Image Controls Container */
+
+
+
+/* Add this to your AvatarPage.module.css */
+
+/* ==================== IMAGE CONTROLS (DOWNLOAD & TOGGLE) ==================== */
+
 .imageControls {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
-  flex-wrap: wrap;
 }
 
-/* Control Buttons (Change Photo, Download, etc.) */
-.controlButton {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 12px 24px;
+.toggleButton,
+.downloadBtn {
+  padding: 0.875rem 2rem;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
-.controlButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+/* Toggle Button (Show Original / Show Result) */
+.toggleButton {
+  background: white;
+  border: 2px solid #e5e7eb;
+  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.toggleButton:hover {
+  border-color: #667eea;
+  color: #667eea;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
 }
 
-.controlButton:active {
+.toggleButton:active {
   transform: translateY(0);
 }
 
-/* Primary Button Variant (for main actions like Download) */
-.controlButton.primary {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-color: #f5576c;
-}
-
-.controlButton.primary:hover {
-  box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-  transform: translateY(-3px);
-}
-
-/* Secondary Button (for Change Photo, etc.) */
-.controlButton.secondary {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Download Button Specific */
-.downloadButton {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-color: #10b981;
+/* Download Button */
+.downloadBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-}
-
-.downloadButton:hover {
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-}
-
-/* Change Photo Button */
-.changePhotoButton {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Try Another Style Button */
-.tryAnotherButton {
-  background: rgba(102, 126, 234, 0.2);
-  border-color: rgba(102, 126, 234, 0.5);
-}
-
-.tryAnotherButton:hover {
-  background: rgba(102, 126, 234, 0.3);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-/* Show Original Toggle Button */
-.showOriginalButton {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.downloadBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.showOriginalButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+.downloadBtn:active {
+  transform: translateY(0);
 }
 
-.showOriginalButton.active {
-  background: rgba(102, 126, 234, 0.3);
-  border-color: rgba(102, 126, 234, 0.6);
-}
-
-/* Button Icons (if using icons) */
-.buttonIcon {
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-/* Disabled Button State */
-.controlButton:disabled {
+/* Disabled state */
+.toggleButton:disabled,
+.downloadBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
 }
 
-.controlButton:disabled:hover {
-  box-shadow: none;
-  transform: none;
+/* ==================== RESULT CONTAINER ==================== */
+
+.resultContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 2rem;
 }
 
-/* ===========================
-   MOBILE RESPONSIVE FOR BUTTONS
-   =========================== */
+.previewContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.displayImage {
+  border-radius: 16px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
 
 @media (max-width: 768px) {
   .imageControls {
+    flex-direction: column;
     gap: 0.75rem;
   }
 
-  .controlButton {
-    padding: 10px 20px;
-    font-size: 0.95rem;
+  .toggleButton,
+  .downloadBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .imageControls {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-  }
-
-  .controlButton {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
+  .toggleButton,
+  .downloadBtn {
     font-size: 0.95rem;
+    padding: 0.875rem 1.25rem;
   }
-
-  .buttonIcon {
-    font-size: 1.1rem;
-  }
-}
-
-/* ===========================
-   RESULT IMAGE DISPLAY
-   =========================== */
-
-.resultImage {
-  width: 100%;
-  height: auto;
-  border-radius: 24px;
-  display: block;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-/* Comparison View (if showing before/after) */
-.comparisonContainer {
-  position: relative;
-  width: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-.beforeImage,
-.afterImage {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Side by Side View */
-.sideBySide {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.sideBySide img {
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 768px) {
-  .sideBySide {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-/* ===========================
-   BUTTON LOADING STATE
-   =========================== */
-
-.controlButton.loading {
-  position: relative;
-  color: transparent;
-  pointer-events: none;
-}
-
-.controlButton.loading::after {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 50%;
-  left: 50%;
-  margin-left: -8px;
-  margin-top: -8px;
-  border: 2px solid transparent;
-  border-top-color: white;
-  border-radius: 50%;
-  animation: buttonSpin 0.6s linear infinite;
-}
-
-@keyframes buttonSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-
-
-.toggleButton,
-.downloadBtn {
-  background-color: #444;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.toggleButton:hover,
-.downloadBtn:hover {
-  background-color: #666;
 }

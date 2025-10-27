@@ -268,7 +268,7 @@ export default function AiAvatarsRedesigned() {
             {!isLoggedIn && (
               <div className={styles.freeTrialBanner}>
                 <strong>🎉 New users get 50 free credits to try it out!</strong>
-                <p className={styles.freeTrialSubtext}>That's one complete avatar transformation, absolutely free</p>
+                <p className={styles.freeTrialSubtext}>That&apos;s one complete avatar transformation, absolutely free</p>
                 <button 
                   onClick={() => router.push(isLoggedIn ? '/pricing' : '/signup')} 
                   className={styles.freeTrialButton}

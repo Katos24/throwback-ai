@@ -1,0 +1,188 @@
+.ctaSection {
+  padding: 120px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveGrid 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes moveGrid {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.ctaContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ctaContent {
+  text-align: center;
+  color: white;
+}
+
+.ctaTitle {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: -1px;
+}
+
+.ctaSubtitle {
+  font-size: 22px;
+  margin-bottom: 50px;
+  opacity: 0.95;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ctaFeatures {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.ctaFeature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px 24px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.ctaFeature:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.checkmark {
+  font-size: 20px;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.3);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.ctaButton {
+  background: white;
+  color: #667eea;
+  padding: 22px 60px;
+  font-size: 20px;
+  font-weight: 800;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 0 rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.ctaButton:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.ctaButton:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.ctaButton:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.ctaDisclaimer {
+  margin-top: 24px;
+  font-size: 15px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .ctaSection {
+    padding: 80px 16px;
+  }
+
+  .ctaTitle {
+    font-size: 40px;
+  }
+
+  .ctaSubtitle {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+  .ctaFeatures {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .ctaFeature {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    padding: 20px 40px;
+    font-size: 18px;
+  }
+
+  .ctaDisclaimer {
+    font-size: 14px;
+  }
+}

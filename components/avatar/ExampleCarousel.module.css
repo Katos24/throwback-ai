@@ -1,306 +1,457 @@
-/* === ExampleCarousel.module.css (background section) === */
+/* ExampleCarousel.module.css - Clean Dark Theme with Smooth Mobile */
 
+/* ==================== CONTAINER ==================== */
 .container {
   position: relative;
   width: 100%;
-  padding: 4rem 1.5rem;
-  background: linear-gradient(135deg, #0f172a, #1e293b); /* navy-gray gradient */
+  padding: 5rem 1.5rem;
+  background: linear-gradient(180deg, #0a0b1e 0%, #1a1b3a 100%);
   overflow: hidden;
-  color: #fff;
 }
 
-/* floating gradient shapes for depth */
-.container::before,
+/* Animated gradient orbs */
+.container::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+  top: -150px;
+  left: -200px;
+  animation: floatOrb 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
 .container::after {
   content: '';
   position: absolute;
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.4;
-  animation: float 12s ease-in-out infinite alternate;
-}
-
-.container::before {
-  background: #6366f1; /* soft indigo */
-  top: -100px;
-  left: -150px;
-}
-
-.container::after {
-  background: #22d3ee; /* cyan accent */
-  bottom: -100px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.15) 0%, transparent 70%);
+  bottom: -150px;
   right: -150px;
+  animation: floatOrb 25s ease-in-out infinite reverse;
+  pointer-events: none;
 }
 
-@keyframes float {
-  from {
-    transform: translateY(0) translateX(0);
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
   }
-  to {
-    transform: translateY(-30px) translateX(20px);
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
   }
 }
 
-/* optional subtle grid overlay */
-.container::after {
-  background: radial-gradient(circle at 20% 20%, #22d3ee55, transparent 60%),
-              radial-gradient(circle at 80% 80%, #6366f155, transparent 60%);
-}
-
-/* carousel section styles */
+/* ==================== CAROUSEL SECTION ==================== */
 .examplesSection {
   position: relative;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   z-index: 2;
   text-align: center;
 }
 
 .examplesTitle {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(to right, #38bdf8, #818cf8);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
 }
 
 .examplesSubtitle {
-  color: #94a3b8;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
+  font-size: 1.15rem;
+  font-weight: 400;
 }
 
-
-/* Carousel Wrapper */
+/* ==================== CAROUSEL CONTAINER ==================== */
 .carouselContainer {
-width: 100%;
-max-width: 1300px;
-margin: 0 auto;
-position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 50px;
 }
 
 .carouselSlide {
-padding: 0 15px;
+  padding: 0 12px;
+  outline: none;
 }
 
+/* ==================== EXAMPLE CARD ==================== */
 .exampleCard {
-position: relative;
-border-radius: 18px;
-overflow: hidden;
-cursor: pointer;
-transition: transform 0.3s ease;
-background: rgba(255, 255, 255, 0.08);
-border: 1px solid rgba(255, 255, 255, 0.2);
-aspect-ratio: 3 / 4;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  aspect-ratio: 3 / 4;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 .exampleCard:hover {
-transform: scale(1.05);
-border-color: rgba(255, 255, 255, 0.4);
-box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(102, 126, 234, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
 .exampleImage {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+  filter: brightness(0.95);
 }
 
-/* Overlay text */
+.exampleCard:hover .exampleImage {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+/* ==================== OVERLAY ==================== */
 .exampleOverlay {
-position: absolute;
-bottom: 0;
-right: 0;
-background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-padding: 16px;
-width: 100%;
-color: white;
-transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+  padding: 1.5rem;
+  color: white;
+  transition: all 0.3s ease;
 }
 
 .exampleCard:hover .exampleOverlay {
-opacity: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+  padding-bottom: 2rem;
 }
 
 .exampleDecade {
-font-weight: 600;
-font-size: 0.95rem;
-text-transform: uppercase;
-letter-spacing: 0.8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin: 0;
 }
 
-/* === Lightbox === */
+/* ==================== LIGHTBOX ==================== */
 .lightbox {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.95);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 10000;
-cursor: pointer;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .lightboxImage {
-max-width: 90%;
-max-height: 90vh;
-object-fit: contain;
-border-radius: 12px;
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .lightboxBtnPrev,
 .lightboxBtnNext {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-background: rgba(255, 255, 255, 0.85);
-border: none;
-font-size: 2.5rem;
-padding: 8px 16px;
-cursor: pointer;
-border-radius: 10px;
-z-index: 10001;
-transition: background 0.2s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 2rem;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border-radius: 12px;
+  z-index: 10001;
+  transition: all 0.3s ease;
 }
 
 .lightboxBtnPrev:hover,
 .lightboxBtnNext:hover {
-background: white;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.lightboxBtnPrev { left: 20px; }
-.lightboxBtnNext { right: 20px; }
+.lightboxBtnPrev {
+  left: 20px;
+}
 
-/* === Slick Carousel Overrides === */
+.lightboxBtnNext {
+  right: 20px;
+}
+
+/* ==================== SLICK CAROUSEL OVERRIDES ==================== */
 .carouselContainer :global(.slick-dots) {
-bottom: -40px;
+  bottom: -45px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.carouselContainer :global(.slick-dots li) {
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+.carouselContainer :global(.slick-dots li button) {
+  width: 10px;
+  height: 10px;
+  padding: 0;
 }
 
 .carouselContainer :global(.slick-dots li button:before) {
-font-size: 10px;
-color: white;
-opacity: 0.5;
-transition: all 0.2s ease;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  transition: all 0.3s ease;
+  width: 10px;
+  height: 10px;
+  line-height: 10px;
 }
 
 .carouselContainer :global(.slick-dots li.slick-active button:before) {
-opacity: 1;
-color: white;
+  color: #a8b3ff;
+  transform: scale(1.3);
 }
 
 .carouselContainer :global(.slick-prev),
 .carouselContainer :global(.slick-next) {
-width: 45px;
-height: 45px;
-z-index: 3;
+  width: 50px;
+  height: 50px;
+  z-index: 3;
+  transition: all 0.3s ease;
 }
 
 .carouselContainer :global(.slick-prev) {
-left: -25px;
+  left: 0;
 }
 
 .carouselContainer :global(.slick-next) {
-right: -25px;
+  right: 0;
 }
 
 .carouselContainer :global(.slick-prev:before),
 .carouselContainer :global(.slick-next:before) {
-font-size: 45px;
-color: white;
-opacity: 0.7;
-text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-transition: opacity 0.2s ease;
+  font-size: 50px;
+  color: rgba(255, 255, 255, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
 .carouselContainer :global(.slick-prev:hover:before),
 .carouselContainer :global(.slick-next:hover:before) {
-opacity: 1;
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
 }
 
-/* === Mobile & Tablet === */
+.carouselContainer :global(.slick-prev:hover),
+.carouselContainer :global(.slick-next:hover) {
+  transform: scale(1.1);
+}
+
+/* ==================== TABLET RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .carouselContainer {
+    padding: 0 40px;
+  }
+
+  .carouselContainer :global(.slick-prev) {
+    left: -5px;
+  }
+
+  .carouselContainer :global(.slick-next) {
+    right: -5px;
+  }
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
 @media (max-width: 768px) {
-.container {
-padding: 40px 0;
+  .container {
+    padding: 3.5rem 0;
+  }
+
+  .examplesTitle {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+
+  .examplesSubtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Full width on mobile */
+  .carouselContainer {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .carouselSlide {
+    padding: 0 8px;
+  }
+
+  .exampleCard {
+    border-radius: 16px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .exampleCard:hover {
+    transform: translateY(-5px);
+  }
+
+  .exampleOverlay {
+    padding: 1.25rem;
+  }
+
+  .exampleDecade {
+    font-size: 1rem;
+  }
+
+  /* Hide desktop arrows, show dots */
+  .carouselContainer :global(.slick-prev),
+  .carouselContainer :global(.slick-next) {
+    display: none !important;
+  }
+
+  .carouselContainer :global(.slick-dots) {
+    bottom: -35px;
+  }
+
+  /* Lightbox buttons */
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    font-size: 1.75rem;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .lightboxBtnPrev {
+    left: 15px;
+  }
+
+  .lightboxBtnNext {
+    right: 15px;
+  }
+
+  .lightboxImage {
+    max-width: 95%;
+    max-height: 85vh;
+  }
 }
 
-.examplesTitle {
-font-size: 1.8rem;
-}
-
-.examplesSubtitle {
-font-size: 0.95rem;
-}
-
-.carouselContainer {
-width: 100vw;
-margin-left: calc(-50vw + 50%);
-padding: 0;
-}
-
-.carouselSlide {
-padding: 0 8px;
-}
-
-.exampleCard {
-border-radius: 14px;
-aspect-ratio: 4 / 5;
-}
-
-.exampleOverlay {
-padding: 12px;
-}
-
-.exampleDecade {
-font-size: 0.9rem;
-}
-
-.carouselContainer :global(.slick-prev),
-.carouselContainer :global(.slick-next) {
-display: none !important;
-}
-
-.carouselContainer :global(.slick-dots) {
-bottom: -25px;
-}
-
-.lightboxBtnPrev,
-.lightboxBtnNext {
-font-size: 2rem;
-padding: 6px 12px;
-}
-
-.lightboxBtnPrev { left: 10px; }
-.lightboxBtnNext { right: 10px; }
-}
-
+/* ==================== SMALL MOBILE ==================== */
 @media (max-width: 480px) {
-.examplesTitle {
-font-size: 1.6rem;
+  .container {
+    padding: 3rem 0;
+  }
+
+  .examplesTitle {
+    font-size: 1.75rem;
+  }
+
+  .examplesSubtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .carouselSlide {
+    padding: 0 6px;
+  }
+
+  .exampleCard {
+    border-radius: 14px;
+  }
+
+  .exampleOverlay {
+    padding: 1rem;
+  }
+
+  .exampleDecade {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+  }
+
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    font-size: 1.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .lightboxBtnPrev {
+    left: 10px;
+  }
+
+  .lightboxBtnNext {
+    right: 10px;
+  }
 }
 
-.examplesSubtitle {
-font-size: 0.9rem;
-}
+/* ==================== TOUCH IMPROVEMENTS ==================== */
+@media (hover: none) and (pointer: coarse) {
+  /* Better touch targets on mobile */
+  .exampleCard {
+    -webkit-tap-highlight-color: transparent;
+  }
 
-.carouselSlide {
-padding: 0 5px;
-}
+  .lightboxBtnPrev,
+  .lightboxBtnNext {
+    padding: 1.25rem 1.5rem;
+  }
 
-.exampleCard {
-aspect-ratio: 4 / 5;
-max-width: 90%;
-margin: 0 auto;
-}
+  /* Disable hover effects on touch devices */
+  .exampleCard:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
 
-.exampleOverlay {
-padding: 10px;
-}
+  .exampleCard:hover .exampleImage {
+    transform: none;
+    filter: brightness(0.95);
+  }
 
-.exampleDecade {
-font-size: 0.85rem;
-}
+  .exampleCard:hover .exampleOverlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+    padding: 1.5rem;
+  }
 }

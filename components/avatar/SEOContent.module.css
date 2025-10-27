@@ -1,0 +1,120 @@
+.seoSection {
+  padding: 100px 20px;
+  background: #0a0b1e;
+  position: relative;
+}
+
+.seoSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.seoContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.seoTitle {
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 50px;
+  background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.seoContent {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  padding: 60px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.seoContent p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 28px;
+}
+
+.seoContent h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+  position: relative;
+}
+
+.seoContent h3::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.seoContent strong {
+  color: #a8b3ff;
+  font-weight: 600;
+}
+
+.finalParagraph {
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(102, 126, 234, 0.05);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+@media (max-width: 768px) {
+  .seoSection {
+    padding: 60px 16px;
+  }
+
+  .seoTitle {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  .seoContent {
+    padding: 40px 28px;
+  }
+
+  .seoContent p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .seoContent h3 {
+    font-size: 22px;
+    margin-top: 40px;
+  }
+
+  .finalParagraph {
+    padding: 28px;
+    font-size: 16px;
+  }
+}

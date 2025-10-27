@@ -1,21 +1,37 @@
 /* ===========================
-   AVATAR PAGE - CLEAN & MODERN
-   Consolidated, no duplicates
+   AVATAR PAGE - MODERN DARK THEME
+   Updated for component-based structure
    =========================== */
 
 /* ==================== MAIN CONTAINER ==================== */
 .mainContainer {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: linear-gradient(180deg, #0a0b1e 0%, #1a1b3a 50%, #0a0b1e 100%);
   padding: 0;
   position: relative;
   overflow-x: hidden;
+}
+
+.mainContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .contentWrapper {
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* ==================== CREDITS HEADER ==================== */
@@ -27,10 +43,12 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
   padding: 12px 20px;
   border-radius: 50px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   animation: fadeInDown 0.6s ease-out;
 }
 
@@ -42,18 +60,13 @@
 
 .creditsIcon {
   font-size: 1.3rem;
+  filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
 }
 
 .creditsText {
   font-size: 1rem;
   font-weight: 700;
-  color: #667eea;
-}
-
-.creditsCount {
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-left: 4px;
+  color: #a8b3ff;
 }
 
 .creditsButton {
@@ -66,198 +79,66 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .creditsButton:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
-/* ==================== UPLOAD SECTION ==================== */
-.uploadSection {
-  margin: 3rem auto;
-  max-width: 800px;
+/* ==================== FREE CREDITS & COST INFO ==================== */
+.freeCreditsText {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(102, 126, 234, 0.1);
+  padding: 20px 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-.sectionTitle {
-  font-size: 2rem;
+.freeCreditsText strong {
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
-  text-align: center;
+  color: #fff;
 }
 
-.uploadWrapper {
-  position: relative;
-}
-
-.uploadZone {
-  background: white;
-  border: 3px dashed #d1d5db;
-  border-radius: 20px;
-  padding: 4rem 2rem;
-  text-align: center;
+.freeCreditsLink {
+  color: #a8b3ff;
+  text-decoration: underline;
   cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.uploadZone:hover {
-  border-color: #667eea;
-  background: #f0f4ff;
-}
-
-.dragActive {
-  border-color: #667eea;
-  background: #f0f4ff;
-  transform: scale(1.02);
-}
-
-.uploadPrompt {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.uploadIcon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0.7;
-}
-
-.uploadText {
-  font-size: 1.3rem;
   font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
 }
 
-.uploadHint {
-  font-size: 0.95rem;
-  color: #9ca3af;
+.freeCreditsLink:hover {
+  color: #fff;
 }
 
-/* Preview Image Display */
-.previewContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.displayImage {
-  max-width: 100%;
-  max-height: 400px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.changePhotoOverlay {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
+.costInfo {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  backdrop-filter: blur(10px);
   font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-.uploadZone:hover .changePhotoOverlay {
-  opacity: 1;
-}
-
-/* Loading State */
-.loadingOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #f3f4f6;
-  border-top: 4px solid #667eea;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Progress Bar */
-.progressBar {
-  width: 100%;
-  max-width: 300px;
-  height: 8px;
-  background: #f3f4f6;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transition: width 0.3s ease;
-  border-radius: 10px;
-}
-
-/* Result Display */
-.resultContainer {
-  width: 100%;
-}
-
-.imageControls {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.toggleButton,
-.downloadBtn {
-  background: white;
-  border: 2px solid #e5e7eb;
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.toggleButton:hover,
-.downloadBtn:hover {
-  border-color: #667eea;
-  background: #f0f4ff;
-  transform: translateY(-2px);
+.costInfo strong {
+  font-weight: 700;
+  color: #a8b3ff;
+  font-size: 22px;
 }
 
 /* ==================== GENERATE BUTTON ==================== */
 .generateSection {
-  margin: 3rem auto;
+  margin: 4rem auto;
   max-width: 600px;
   text-align: center;
 }
@@ -266,29 +147,67 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 1.25rem 3rem;
-  border-radius: 35px;
+  padding: 1.5rem 3.5rem;
+  border-radius: 50px;
   font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 40px rgba(102, 126, 234, 0.4),
+    0 0 0 0 rgba(102, 126, 234, 0.5);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
   margin: 0 auto;
-  min-width: 280px;
+  min-width: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+.generateButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.generateButton:hover::before {
+  width: 400px;
+  height: 400px;
 }
 
 .generateButton:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 15px 50px rgba(102, 126, 234, 0.6),
+    0 0 0 8px rgba(102, 126, 234, 0.2);
 }
 
 .generateButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
+}
+
+.generateButton.ready {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 50px rgba(102, 126, 234, 0.6);
+  }
 }
 
 .buttonSpinner {
@@ -301,32 +220,67 @@
 }
 
 .progressContainer {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
 .progressText {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
 }
 
 /* ==================== PRICING INFO SECTION ==================== */
 .pricingInfoSection {
   max-width: 1200px;
-  margin: 4rem auto;
-  padding: 3rem 2rem;
-  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-  border-radius: 20px;
+  margin: 5rem auto;
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border-radius: 32px;
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricingInfoSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
 }
 
 .pricingTitle {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -334,96 +288,115 @@
 
 .pricingBadges {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .pricingBadge {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   text-align: left;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .pricingBadge:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  border-color: rgba(102, 126, 234, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
 }
 
 .badgeIcon {
-  font-size: 2.5rem;
+  font-size: 3rem;
   flex-shrink: 0;
+  filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.4));
 }
 
 .badgeTitle {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
 }
 
 .badgeDesc {
-  font-size: 0.95rem;
-  color: #6b7280;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .freeTrialBanner {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 1.5rem 2rem;
-  border-radius: 16px;
-  font-size: 1.1rem;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  font-size: 1.15rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+  gap: 1rem;
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.freeTrialBanner strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.freeTrialSubtext {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin: 0;
 }
 
 .freeTrialButton {
   background: white;
-  color: #059669;
+  color: #667eea;
   border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 25px;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-top: 0.5rem;
 }
 
 .freeTrialButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* ==================== MORE EXAMPLES SECTION ==================== */
 .moreExamplesSection {
-  margin: 4rem auto;
+  margin: 5rem auto;
   padding: 0 1rem;
 }
 
 .moreExamplesSection .sectionTitle {
   text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sectionSubtitle {
   text-align: center;
-  font-size: 1.1rem;
-  color: #6b7280;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
 }
 
 /* ==================== ANIMATIONS ==================== */
@@ -438,21 +411,18 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
-@media (max-width: 1024px) {
+/* ==================== MOBILE RESPONSIVE ==================== */
+@media (max-width: 768px) {
   .creditsHeader {
     top: 80px;
-    right: 15px;
+    right: 10px;
     padding: 10px 16px;
+    gap: 8px;
   }
 
   .creditsText {
@@ -463,39 +433,23 @@
     padding: 6px 16px;
     font-size: 0.85rem;
   }
-}
 
-@media (max-width: 768px) {
-  .contentWrapper {
-    padding: 1rem 0.5rem;
+  .freeCreditsText {
+    font-size: 16px;
+    padding: 16px 20px;
+    margin: 32px 0;
   }
 
-  .sectionTitle {
-    font-size: 1.6rem;
-  }
-
-  .uploadZone {
-    padding: 3rem 1.5rem;
-    min-height: 350px;
-  }
-
-  .uploadIcon {
-    font-size: 3rem;
-  }
-
-  .uploadText {
-    font-size: 1.1rem;
+  .costInfo {
+    font-size: 14px;
+    padding: 12px 20px;
   }
 
   .generateButton {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    min-width: 240px;
-  }
-
-  .pricingInfoSection {
-    padding: 2rem 1rem;
-    margin: 3rem 1rem;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    min-width: auto;
   }
 
   .pricingTitle {
@@ -504,605 +458,44 @@
 
   .pricingBadges {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .pricingBadge {
+    padding: 2rem;
+  }
+
+  .freeTrialBanner {
     padding: 1.5rem;
   }
 
-  .badgeTitle {
+  .freeTrialBanner strong {
     font-size: 1.1rem;
   }
 
-  .freeTrialBanner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-    font-size: 1rem;
-  }
-
-  .creditsHeader {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 100%;
-    border-radius: 0;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .sectionTitle {
-    font-size: 1.4rem;
-  }
-
-  .uploadZone {
-    padding: 2rem 1rem;
-    min-height: 300px;
-  }
-
-  .uploadIcon {
-    font-size: 2.5rem;
-  }
-
-  .uploadText {
-    font-size: 1rem;
-  }
-
-  .uploadHint {
-    font-size: 0.85rem;
-  }
-
-  .displayImage {
-    max-height: 300px;
-  }
-
-  .generateButton {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.95rem;
-    min-width: 200px;
-  }
-
-  .pricingTitle {
-    font-size: 1.6rem;
-  }
-
-  .badgeIcon {
+  .moreExamplesSection .sectionTitle {
     font-size: 2rem;
   }
 
-  .freeTrialBanner {
-    padding: 1rem;
-  }
-
-  .imageControls {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .toggleButton,
-  .downloadBtn {
-    width: 100%;
-  }
-}
-
-/* ==================== UTILITY CLASSES ==================== */
-.textCenter {
-  text-align: center;
-}
-
-.mb1 {
-  margin-bottom: 1rem;
-}
-
-.mb2 {
-  margin-bottom: 2rem;
-}
-
-.mb3 {
-  margin-bottom: 3rem;
-}
-
-.mt3 {
-  margin-top: 3rem;
-}
-
-.ready {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.02);
-  }
-}
-
-
-
-/* MODERN LOADING OVERLAY - Add to AvatarPage.module.css */
-
-/* ==================== LOADING OVERLAY ==================== */
-.loadingOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  z-index: 10;
-  animation: fadeIn 0.3s ease;
-}
-
-/* Circular Progress Spinner */
-.spinnerContainer {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin-bottom: 2rem;
-}
-
-.circularProgress {
-  width: 120px;
-  height: 120px;
-  transform: rotate(-90deg);
-}
-
-.progressCircleBg {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 8;
-}
-
-.progressCircle {
-  fill: none;
-  stroke: white;
-  stroke-width: 8;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.3s ease;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-}
-
-/* Animated spinner ring */
-.spinnerRing {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 140px;
-  height: 140px;
-  margin-top: -70px;
-  margin-left: -70px;
-  border: 3px solid transparent;
-  border-top: 3px solid rgba(255, 255, 255, 0.8);
-  border-right: 3px solid rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  animation: spin 1.5s linear infinite;
-}
-
-/* Center percentage text */
-.percentageText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  font-weight: 800;
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Stage text below spinner */
-.loadingStage {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Fun loading messages */
-.loadingMessage {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
-  text-align: center;
-  max-width: 300px;
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-/* Animated particles in background */
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: float 3s ease-in-out infinite;
-}
-
-.particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { top: 40%; left: 80%; animation-delay: 0.5s; }
-.particle:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
-.particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; }
-.particle:nth-child(5) { top: 30%; left: 50%; animation-delay: 2s; }
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.2);
-    opacity: 1;
-  }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Progress bar at bottom (optional secondary indicator) */
-.progressBarBottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  overflow: hidden;
-  border-radius: 0 0 20px 20px;
-}
-
-.progressBarFill {
-  height: 100%;
-  background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.8) 0%, 
-    white 50%, 
-    rgba(255, 255, 255, 0.8) 100%
-  );
-  transition: width 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-/* Success animation (when done) */
-.loadingSuccess {
-  animation: successPulse 0.6s ease;
-}
-
-@keyframes successPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.successCheckmark {
-  font-size: 4rem;
-  color: white;
-  animation: checkmarkPop 0.5s ease;
-}
-
-@keyframes checkmarkPop {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .spinnerContainer {
-    width: 100px;
-    height: 100px;
-  }
-
-  .circularProgress {
-    width: 100px;
-    height: 100px;
-  }
-
-  .spinnerRing {
-    width: 120px;
-    height: 120px;
-    margin-top: -60px;
-    margin-left: -60px;
-  }
-
-  .percentageText {
-    font-size: 1.6rem;
-  }
-
-  .loadingStage {
+  .sectionSubtitle {
     font-size: 1rem;
   }
-
-  .loadingMessage {
-    font-size: 0.85rem;
-  }
-}
-
-
-
-/* Add this to your AvatarPage.module.css */
-
-/* ==================== SELECTED STYLE BADGE ==================== */
-.selectedStyleDisplay {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: center;
-}
-
-.selectedStyleBadge {
-  background: white;
-  border: 2px solid #667eea;
-  padding: 0.875rem 1.75rem 0.875rem 3rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.15);
-  animation: slideIn 0.4s ease-out;
-  position: relative;
-  display: inline-block;
-}
-
-.selectedStyleBadge::before {
-  content: "✓";
-  position: absolute;
-  left: 1.25rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.25rem;
-  color: #667eea;
-  font-weight: 700;
-}
-
-.selectedStyleLabel {
-  color: #4b5563;
-  font-size: 0.95rem;
-  font-weight: 500;
-  display: inline-block;
-}
-
-.selectedStyleLabel strong {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #667eea;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .selectedStyleBadge {
-    padding: 0.75rem 1.5rem 0.75rem 2.75rem;
-  }
-
-  .selectedStyleBadge::before {
-    left: 1rem;
-    font-size: 1.1rem;
-  }
-
-  .selectedStyleLabel {
-    font-size: 0.875rem;
-  }
-
-  .selectedStyleLabel strong {
-    font-size: 0.925rem;
-  }
 }
 
 @media (max-width: 480px) {
-  .selectedStyleBadge {
-    padding: 0.625rem 1.25rem 0.625rem 2.5rem;
-    max-width: 90%;
+  .contentWrapper {
+    padding: 1rem 0.5rem;
   }
 
-  .selectedStyleLabel {
-    font-size: 0.8rem;
+  .pricingInfoSection {
+    padding: 2.5rem 1.5rem;
   }
 
-  .selectedStyleLabel strong {
-    font-size: 0.875rem;
-  }
-}
-
-
-
-
-/* Add this to your AvatarPage.module.css */
-
-/* ==================== IMAGE CONTROLS (DOWNLOAD & TOGGLE) ==================== */
-
-.imageControls {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.toggleButton,
-.downloadBtn {
-  padding: 0.875rem 2rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-}
-
-/* Toggle Button (Show Original / Show Result) */
-.toggleButton {
-  background: white;
-  border: 2px solid #e5e7eb;
-  color: #374151;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.toggleButton:hover {
-  border-color: #667eea;
-  color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-}
-
-.toggleButton:active {
-  transform: translateY(0);
-}
-
-/* Download Button */
-.downloadBtn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.downloadBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.downloadBtn:active {
-  transform: translateY(0);
-}
-
-/* Disabled state */
-.toggleButton:disabled,
-.downloadBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-/* ==================== RESULT CONTAINER ==================== */
-
-.resultContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 2rem;
-}
-
-.previewContainer {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.displayImage {
-  border-radius: 16px;
-  max-width: 100%;
-  height: auto;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-/* ==================== MOBILE RESPONSIVE ==================== */
-
-@media (max-width: 768px) {
-  .imageControls {
-    flex-direction: column;
-    gap: 0.75rem;
+  .badgeIcon {
+    font-size: 2.5rem;
   }
 
-  .toggleButton,
-  .downloadBtn {
-    width: 100%;
-    justify-content: center;
-    padding: 1rem 1.5rem;
+  .badgeTitle {
+    font-size: 1.2rem;
   }
-}
-
-@media (max-width: 480px) {
-  .toggleButton,
-  .downloadBtn {
-    font-size: 0.95rem;
-    padding: 0.875rem 1.25rem;
-  }
-}
-
-
-.freeCreditsText {
-  text-align: center;
-  margin: 32px 0;
-  font-size: 18px;
-  color: #333;
-}
-
-.freeCreditsText strong {
-  font-weight: 700;
-}
-
-.freeCreditsLink {
-  color: #667eea;
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.freeCreditsLink:hover {
-  color: #764ba2;
-}
-
-
-.costInfo {
-  text-align: center;
-  margin-bottom: 16px;
-  font-size: 16px;
-  color: #555;
-}
-
-.costInfo strong {
-  font-weight: 600;
-  color: #333;
 }

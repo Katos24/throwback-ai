@@ -254,12 +254,12 @@ export default function AiAvatarsRedesigned() {
 
       <main className={styles.mainContainer}>
         <div className={styles.creditsHeader}>
-          <div className={styles.creditsInfo}>
-            <span className={styles.creditsIcon}>🎭</span>
-            <span className={styles.creditsText}>
-              {credits} credits {credits >= avatarCost ? `(${Math.floor(credits / avatarCost)} avatars)` : ''}
-            </span>
-          </div>
+         <div className={styles.creditsInfo}>
+        <span className={styles.creditsIcon}>🎭</span>
+        <span className={styles.creditsText}>
+          {credits} {credits === 1 ? 'credit' : 'credits'} {credits >= avatarCost ? `(${Math.floor(credits / avatarCost)} ${Math.floor(credits / avatarCost) === 1 ? 'avatar' : 'avatars'})` : ''}
+        </span>
+      </div>
           <button onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")} className={styles.creditsButton}>
             {isLoggedIn ? "Buy More" : "Sign Up Free"}
           </button>

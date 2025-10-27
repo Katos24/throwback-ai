@@ -283,6 +283,12 @@ export default function AiAvatarsRedesigned() {
   </div>
 )}
 
+{/* Cost Info - Always visible */}
+<div className={styles.costInfo}>
+  💰 Each avatar costs <strong>50 credits</strong>
+</div>
+
+
 {/* Category Tab Gallery - Browse and select styles */}
 <CategoryTabGallery
   onStyleSelect={(category, styleValue) => {

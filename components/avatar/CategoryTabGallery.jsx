@@ -117,9 +117,19 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
 
       {/* Only show styles if gender is selected */}
       {!selectedGender ? (
-        <div className={styles.selectGenderPrompt}>
-          <p>👆 Please select your gender to see avatar styles</p>
-        </div>
+
+<div className={styles.selectGenderPrompt}>
+  <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>👆</div>
+  <p>
+    <strong style={{ fontSize: '1.2em', color: '#a8b3ff' }}>
+      Choose Your Gender First
+    </strong>
+    <br />
+    <span style={{ fontSize: '0.95em', opacity: 0.85, marginTop: '0.75rem', display: 'inline-block' }}>
+      Then you'll see all available avatar styles
+    </span>
+  </p>
+</div>
       ) : (
         <>
           {/* Category Tabs */}

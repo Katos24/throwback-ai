@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import styles from "../../styles/decades/TwothousandsPage.module.css";
 import { TWOTHOUSANDS_STYLES, buildTwothousandsPrompt } from "../../components/TwothousandsPrompts";
-import DecadeBottomSection from "../../components/DecadeBottomSection";
+import DecadeShowcase from "../../components/decades/shared/DecadeShowcase";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
@@ -420,7 +420,7 @@ export default function TwothousandsPage() {
           </div>
         </div>
 
-        <DecadeBottomSection currentDecade="2000s" />
+      <DecadeShowcase currentDecade="2000s" />
       </main>
     </>
   );

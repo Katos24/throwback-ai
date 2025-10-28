@@ -1,0 +1,446 @@
+/* ========================================
+   DECADE SHOWCASE - Alternating Layout
+   ======================================== */
+
+.showcaseSection {
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+  min-height: 100vh;
+  border-radius: 26px;
+}
+
+.showcaseHeader {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 0%, #999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mainSubtitle {
+  font-size: 1.2rem;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ========================================
+   DECADE CARDS - Alternating Layout
+   ======================================== */
+
+.decadesList {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.decadeCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 600px;
+}
+
+/* Reversed layout for alternating effect */
+.decadeCard.reversed {
+  grid-template-columns: 1fr 1fr;
+}
+
+.decadeCard.reversed .imageContainer {
+  order: 2;
+}
+
+.decadeCard.reversed .contentContainer {
+  order: 1;
+}
+
+/* ========================================
+   IMAGE SIDE
+   ======================================== */
+
+.imageContainer {
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.showcaseImage {
+  transition: transform 0.5s ease;
+}
+
+.imageWrapper:hover .showcaseImage {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.decadeEmoji {
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* ========================================
+   CONTENT SIDE
+   ======================================== */
+
+.contentContainer {
+  padding: 40px;
+}
+
+.content {
+  max-width: 560px;
+}
+
+.decadeLabel {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.decadeTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.decadeTagline {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.decadeDescription {
+  font-size: 1.1rem;
+  color: #999;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* ========================================
+   STYLES LIST
+   ======================================== */
+
+.stylesList {
+  margin-bottom: 32px;
+}
+
+.stylesLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.styleTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.styleTag {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #ccc;
+  transition: all 0.3s ease;
+}
+
+.styleTag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   STATS
+   ======================================== */
+
+.decadeStats {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========================================
+   TRY BUTTON
+   ======================================== */
+
+.tryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.tryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3) !important;
+}
+
+.tryButton .arrow {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.tryButton:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ========================================
+   BOTTOM CTA
+   ======================================== */
+
+.bottomCTA {
+  margin-top: 100px;
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.ctaText {
+  font-size: 1.2rem;
+  color: #999;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .decadeCard {
+    gap: 40px;
+  }
+
+  .imageContainer {
+    min-height: 500px;
+  }
+
+  .decadeTitle {
+    font-size: 2.5rem;
+  }
+
+  .contentContainer {
+    padding: 20px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .showcaseSection {
+    padding: 60px 16px;
+  }
+
+  .mainTitle {
+    font-size: 2rem;
+  }
+
+  .mainSubtitle {
+    font-size: 1rem;
+  }
+
+  .decadesList {
+    gap: 60px;
+  }
+
+  .decadeCard,
+  .decadeCard.reversed {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    min-height: auto;
+  }
+
+  .decadeCard.reversed .imageContainer,
+  .decadeCard.reversed .contentContainer {
+    order: initial;
+  }
+
+  .imageContainer {
+    min-height: 400px;
+  }
+
+  .contentContainer {
+    padding: 0;
+  }
+
+  .decadeTitle {
+    font-size: 2rem;
+  }
+
+  .decadeTagline {
+    font-size: 1.1rem;
+  }
+
+  .decadeDescription {
+    font-size: 1rem;
+  }
+
+  .decadeStats {
+    gap: 24px;
+  }
+
+  .statNumber {
+    font-size: 1.5rem;
+  }
+
+  .tryButton {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 28px;
+  }
+
+  .ctaTitle {
+    font-size: 2rem;
+  }
+
+  .ctaText {
+    font-size: 1rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    padding: 16px 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 1.75rem;
+  }
+
+  .decadeTitle {
+    font-size: 1.75rem;
+  }
+
+  .imageContainer {
+    min-height: 300px;
+  }
+
+  .decadeEmoji {
+    font-size: 3rem;
+  }
+
+  .decadeStats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stat {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .statNumber {
+    font-size: 1.8rem;
+  }
+
+  .bottomCTA {
+    padding: 40px 24px;
+  }
+}

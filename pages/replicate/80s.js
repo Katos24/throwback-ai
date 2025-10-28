@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import styles from "../../styles/decades/EightiesPage.module.css";
 import { EIGHTIES_STYLES, buildEightiesPrompt } from "../../components/EightiesPrompts";
-import DecadeBottomSection from "../../components/DecadeBottomSection";
+import DecadeShowcase from "../../components/decades/shared/DecadeShowcase";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
@@ -229,7 +229,7 @@ export default function EightiesPage() {
           />
         </section>
         
-        <DecadeBottomSection currentDecade="80s" />
+      <DecadeShowcase currentDecade="80s" />
       </main>
     </>
   );

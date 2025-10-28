@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import styles from "../../styles/decades/SeventiesPage.module.css";
 import { SEVENTIES_STYLES, buildSeventiesPrompt } from "../../components/SeventiesPrompts";
-import DecadeBottomSection from "../../components/DecadeBottomSection";
+import DecadeShowcase from "../../components/decades/shared/DecadeShowcase";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
@@ -240,7 +240,7 @@ const scrollSelectors = [
           />
         </section>
         
-        <DecadeBottomSection currentDecade="70s" />
+      <DecadeShowcase currentDecade="70s" />
       </main>
     </>
   );

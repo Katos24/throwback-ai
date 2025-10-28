@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import styles from "../../styles/decades/NinetiesPage.module.css";
 import { NINETIES_STYLES, buildNinetiesPrompt } from "../../components/NinetiesPrompts";
-import DecadeBottomSection from "../../components/DecadeBottomSection";
+import DecadeShowcase from "../../components/decades/shared/DecadeShowcase";
 import PhotoUpload from "../../components/decades/shared/PhotoUpload";
 import ImageDisplay from "../../components/decades/shared/ImageDisplay";
 import GenerateButton from "../../components/decades/shared/GenerateButton";
@@ -231,7 +231,7 @@ export default function NinetiesPage() {
           />
         </section>
         
-        <DecadeBottomSection currentDecade="90s" />
+      <DecadeShowcase currentDecade="90s" />
       </main>
     </>
   );

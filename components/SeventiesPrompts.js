@@ -6,7 +6,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "campus-haze",
     label: "Campus Haze",
-    emoji: "🎓",
     value:
       "long relaxed hair, vintage denim jacket or corduroy blazer, loose collared shirt, mellow sun-faded tones, cigarette-in-hand pose optional, dreamy laid-back expression",
     description: "College-town haze, hazy afternoons, retro roadtrip & campus nostalgia"
@@ -14,7 +13,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "disco-glam",
     label: "Disco Glam",
-    emoji: "🕺",
     value:
       "feathered voluminous hair, glossy high-shine blouse or halter, statement jewelry, confident nightclub pose, studio gloss and sparkle, saturated color highlight",
     description: "Nightclub lights, sequins, glamour and movement"
@@ -22,7 +20,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "punk-rebel",
     label: "Punk Rebel",
-    emoji: "🤘",
     value:
       "choppy or bleached hair, worn leather jacket with DIY patches, distressed denim, safety-pin or torn details, direct defiant stare, gritty texture and contrast",
     description: "Raw DIY rebellion, underground edge and attitude"
@@ -30,7 +27,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "glam-performer",
     label: "Glam Performer",
-    emoji: "⭐",
     value:
       "androgynous glam styling, exaggerated makeup and glitter accents, theatrical costume elements, dramatic pose, high-contrast studio lighting, bold colors",
     description: "Stage-ready, theatrical and gender-fluid glam"
@@ -38,7 +34,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "boho-folk",
     label: "Boho Folk",
-    emoji: "🌻",
     value:
       "long flowing hair, layered vintage fabrics, embroidered tops, acoustic instrument or open-road props, warm earth-tone palette, honest relaxed smile",
     description: "Singer-songwriter, natural textures, festival & road-trip warmth"
@@ -46,7 +41,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "preppy-collegiate",
     label: "Preppy Collegiate",
-    emoji: "👔",
     value:
       "neat flip or side-part hairstyle, collared shirt or sweater-vest, tidy smile, muted classic palette, poised tidy yearbook composition",
     description: "Collegiate neatness and classic portrait polish"
@@ -54,7 +48,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "mod-graphic",
     label: "Mod Graphic",
-    emoji: "🎯",
     value:
       "precise geometric haircut or sharp bob, bold graphic patterns, limited high-contrast palette, editorial makeup (winged liner), confident editorial pose",
     description: "Sharp geometry, bold contrasts, editorial 70s fashion"
@@ -62,7 +55,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "farrah-feathered",
     label: "Farrah Feathered",
-    emoji: "💇",
     value:
       "iconic feathered layered hair with perfect volume, athletic tan, casual chic outfit, confident all-American smile, soft glamour lighting, Charlie's Angels aesthetic",
     description: "Feathered hair icon, TV heartthrob, all-American charm"
@@ -70,7 +62,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "soul-style",
     label: "Soul Style",
-    emoji: "🎬",
     value:
       "big Afro or cornrows, platform boots, wide-collar shirt, bell-bottom pants, leather coat or jumpsuit, gold chains, confident powerful expression, Blaxploitation aesthetic",
     description: "Afro power, platforms, Shaft and Super Fly vibes"
@@ -78,7 +69,6 @@ export const SEVENTIES_STYLES = [
   {
     id: "roller-disco",
     label: "Roller Disco",
-    emoji: "🛼",
     value:
       "feathered or crimped hair, satin shorts or sparkly outfit, platform roller skates, athletic build, fun energetic smile, colorful disco lighting, Xanadu aesthetic",
     description: "Platform skates, disco fun, roller rink vibes"

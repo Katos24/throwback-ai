@@ -1,4 +1,3 @@
-
 /* Base Styles */
 .container {
   --neon-pink: #ff0080;
@@ -398,10 +397,11 @@
 
 /* Configuration */
 .configSection {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .configPanel {
@@ -857,4 +857,463 @@
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ========================================
+   DECADE STYLE GALLERY STYLES
+   Used by all decades: 70s, 80s, 90s, 00s
+   ======================================== */
+
+/* Gallery Grid */
+.styleGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .styleGallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Gallery Card */
+.galleryCard {
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  aspect-ratio: 3/4;
+  padding: 0;
+}
+
+.galleryCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
+}
+
+.galleryCard.active {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+}
+
+/* Image Wrapper */
+.galleryImageWrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: hidden;
+}
+
+.galleryImage {
+  transition: transform 0.3s ease;
+}
+
+.galleryCard:hover .galleryImage {
+  transform: scale(1.05);
+}
+
+/* Emoji Badge */
+.galleryEmoji {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.5rem;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+/* Selected Badge */
+.selectedBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--neon-pink);
+  color: #000;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(255, 0, 128, 0.6);
+  animation: checkPulse 0.3s ease;
+}
+
+@keyframes checkPulse {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Label */
+.galleryLabel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 12px 8px 8px;
+  text-align: center;
+}
+
+.galleryLabelText {
+  color: var(--neon-cyan);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* Show More/Less Card */
+.showMoreCard {
+  border-style: dashed;
+  border-color: rgba(0, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.showMoreCard:hover {
+  opacity: 1;
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+.showMoreContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.showMoreEmoji {
+  font-size: 2rem;
+}
+
+.showMoreText {
+  color: var(--neon-cyan);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* Text-Only Version (for non-binary) */
+.galleryCard.textOnly {
+  aspect-ratio: auto;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.textOnlyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.styleEmoji {
+  font-size: 2rem;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+}
+
+.textOnlyLabel {
+  color: var(--neon-cyan);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+.textOnlyDescription {
+  color: rgba(0, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.75rem;
+  max-width: 150px;
+  line-height: 1.4;
+}
+
+.galleryCard.textOnly:hover .textOnlyLabel {
+  text-shadow: 0 0 20px rgba(0, 255, 255, 1);
+}
+
+.galleryCard.textOnly.active {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+/* Accessibility */
+.galleryCard:focus {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+.galleryCard:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+
+/* ========================================
+   DECADE NAVIGATION STYLES - MOBILE OPTIMIZED
+   Add to your decade CSS files (80s, 90s, etc.)
+   ======================================== */
+
+/* Decade Navigation Container */
+.decadeNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Current Decade (center) */
+.currentDecade {
+  flex: 1;
+  text-align: center;
+}
+
+/* Navigation Buttons (left/right) */
+.decadeNavButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid var(--neon-cyan);
+  padding: 0.75rem 1.25rem;
+  color: var(--neon-cyan);
+  font-family: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  min-width: 100px;
+  min-height: 48px; /* Better touch target */
+}
+
+.decadeNavButton:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+.decadeNavButton:active {
+  transform: translateY(0);
+}
+
+/* Arrow Styling */
+.navArrow {
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+/* Label Styling */
+.navLabel {
+  font-size: 0.9rem;
+}
+
+/* Spacer for alignment when no prev/next */
+.decadeNavSpacer {
+  width: 100px;
+  min-width: 100px;
+}
+
+/* ========================================
+   TABLET RESPONSIVE (768px - 1024px)
+   ======================================== */
+@media (max-width: 1024px) {
+  .decadeNav {
+    gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  .decadeNavButton {
+    padding: 0.7rem 1rem;
+    min-width: 90px;
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE (481px - 768px)
+   ======================================== */
+@media (max-width: 768px) {
+  .decadeNav {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .decadeNavButton {
+    padding: 0.6rem 0.8rem;
+    min-width: 70px;
+    min-height: 48px; /* Maintain touch target */
+    font-size: 0.85rem;
+  }
+
+  .navArrow {
+    font-size: 1.3rem; /* Bigger arrow on mobile */
+  }
+
+  .navLabel {
+    font-size: 0.75rem;
+  }
+
+  .decadeNavSpacer {
+    width: 70px;
+    min-width: 70px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE (max 480px)
+   ARROW-ONLY MODE for small screens
+   ======================================== */
+@media (max-width: 480px) {
+  .decadeNav {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .decadeNavButton {
+    /* Bigger touch target, compact size */
+    min-width: 52px;
+    min-height: 52px;
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.15rem;
+    border-radius: 12px;
+    justify-content: center;
+  }
+
+  .navArrow {
+    font-size: 1.5rem; /* Big arrow */
+    line-height: 1;
+  }
+
+  .navLabel {
+    font-size: 0.65rem;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .decadeNavSpacer {
+    width: 52px;
+    min-width: 52px;
+  }
+
+  /* Slightly smaller title on tiny screens */
+  .currentDecade {
+    padding: 0 0.5rem;
+  }
+}
+
+/* ========================================
+   EXTRA SMALL (max 375px)
+   Ultra compact for iPhone SE, etc.
+   ======================================== */
+@media (max-width: 375px) {
+  .decadeNav {
+    gap: 0.5rem;
+  }
+
+  .decadeNavButton {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0.6rem;
+  }
+
+  .navArrow {
+    font-size: 1.4rem;
+  }
+
+  .navLabel {
+    font-size: 0.6rem;
+  }
+
+  .decadeNavSpacer {
+    width: 48px;
+    min-width: 48px;
+  }
+}
+
+/* ========================================
+   90s ALTERNATIVE STYLING
+   (for 90s page - more bold/playful)
+   ======================================== */
+
+/* For 90s pages, override with bolder styling */
+.container.nineties .decadeNavButton {
+  background: var(--hot-yellow);
+  border: 4px solid #000;
+  color: #000;
+  box-shadow: 4px 4px 0 #000;
+  transform: rotate(0deg);
+}
+
+.container.nineties .decadeNavButton:hover {
+  background: var(--neon-pink);
+  color: #FFF;
+  transform: rotate(-2deg) translateY(-2px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+@media (max-width: 480px) {
+  .container.nineties .decadeNavButton {
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus state for keyboard navigation */
+.decadeNavButton:focus {
+  outline: 3px solid var(--neon-pink);
+  outline-offset: 2px;
+}
+
+.decadeNavButton:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Active/pressed state */
+.decadeNavButton:active {
+  transform: translateY(1px) scale(0.98);
 }

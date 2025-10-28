@@ -8,7 +8,7 @@ import GenerateButton from "../../components/decades/shared/GenerateButton";
 import CreditsHeader from "../../components/decades/shared/CreditsHeader";
 import DecadeHero from "../../components/decades/shared/DecadeHero";
 import GenderSelector from "../../components/decades/shared/GenderSelector";
-import StyleSelector from "../../components/decades/shared/StyleSelector";
+import DecadeStyleGallery from "../../components/decades/shared/DecadeStyleGallery";
 import AdvancedSettings from "../../components/decades/shared/AdvancedSettings";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
@@ -126,6 +126,8 @@ const scrollSelectors = [
           title="70S YEARBOOK"
           avatarCost={avatarCost}
           styles={styles}
+            currentDecade="70s"  // ← Make sure this says "70s"
+
         />
 
         {/* TV Set Section */}
@@ -202,13 +204,15 @@ const scrollSelectors = [
             styles={styles}
           />
 
-          <StyleSelector
-            styles={styles}
-            styleOptions={SEVENTIES_STYLES}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
-            decade="70"
-          />
+          <DecadeStyleGallery
+          styles={styles}
+          styleOptions={SEVENTIES_STYLES}
+          selectedStyle={selectedStyle}
+          setSelectedStyle={setSelectedStyle}
+          userGender={userGender}
+          decade="70"
+          visibleCount={6}
+        />
         </section>
 
         {/* Advanced Settings */}

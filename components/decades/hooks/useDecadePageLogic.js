@@ -18,7 +18,7 @@ export function useDecadePageLogic(decade, avatarCost = 50) {
   const [session, setSession] = useState(null);
 
   // Configuration state
-  const [userGender, setUserGender] = useState("");
+const [userGender, setUserGender] = useState('male');
   const [selectedStyle, setSelectedStyle] = useState("");
   const [styleStrength, setStyleStrength] = useState(20);
   const [workflowType, setWorkflowType] = useState("HyperRealistic-likeness");

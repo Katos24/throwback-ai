@@ -8,7 +8,7 @@ import GenerateButton from "../../components/decades/shared/GenerateButton";
 import CreditsHeader from "../../components/decades/shared/CreditsHeader";
 import DecadeHero from "../../components/decades/shared/DecadeHero";
 import GenderSelector from "../../components/decades/shared/GenderSelector";
-import StyleSelector from "../../components/decades/shared/StyleSelector";
+import DecadeStyleGallery from "../../components/decades/shared/DecadeStyleGallery";
 import AdvancedSettings from "../../components/decades/shared/AdvancedSettings";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
@@ -122,6 +122,7 @@ export default function NinetiesPage() {
           title="90S YEARBOOK"
           avatarCost={avatarCost}
           styles={styles}
+          currentDecade="90s"  // ← Make sure this says "90s"
         />
 
         {/* CRT Monitor Section */}
@@ -194,12 +195,14 @@ export default function NinetiesPage() {
             styles={styles}
           />
 
-          <StyleSelector
+           <DecadeStyleGallery
             styles={styles}
             styleOptions={NINETIES_STYLES}
             selectedStyle={selectedStyle}
             setSelectedStyle={setSelectedStyle}
+            userGender={userGender}
             decade="90"
+            visibleCount={6}
           />
         </section>
 

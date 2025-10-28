@@ -8,7 +8,7 @@ import GenerateButton from "../../components/decades/shared/GenerateButton";
 import CreditsHeader from "../../components/decades/shared/CreditsHeader";
 import DecadeHero from "../../components/decades/shared/DecadeHero";
 import GenderSelector from "../../components/decades/shared/GenderSelector";
-import StyleSelector from "../../components/decades/shared/StyleSelector";
+import DecadeStyleGallery from "../../components/decades/shared/DecadeStyleGallery";
 import AdvancedSettings from "../../components/decades/shared/AdvancedSettings";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
@@ -124,6 +124,8 @@ export default function EightiesPage() {
           title="80S YEARBOOK"
           avatarCost={avatarCost}
           styles={styles}
+           currentDecade="80s"  // ← Make sure this says "80s"
+
         />
 
         {/* Computer Monitor Section */}
@@ -191,13 +193,15 @@ export default function EightiesPage() {
             styles={styles}
           />
 
-          <StyleSelector
-            styles={styles}
-            styleOptions={EIGHTIES_STYLES}
-            selectedStyle={selectedStyle}
-            setSelectedStyle={setSelectedStyle}
-            decade="80"
-          />
+         <DecadeStyleGallery
+          styles={styles}
+          styleOptions={EIGHTIES_STYLES}
+          selectedStyle={selectedStyle}
+          setSelectedStyle={setSelectedStyle}
+          userGender={userGender}
+          decade="80"
+          visibleCount={6}
+        />
         </section>
 
         {/* Advanced Settings */}

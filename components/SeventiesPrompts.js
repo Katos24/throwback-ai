@@ -1,19 +1,10 @@
 // ==============================
 // SeventiesPrompts.js (Dazed-and-Confused Vibe — Trademark-safe)
 // ==============================
-//
-// Curated 1970s presets with gender-aware snippets,
-// scene vs portrait support, photography notes,
-// negative prompt, and share captions for social sharing.
-//
-// Use buildSeventiesPrompt({ gender, styleId, workflowType, intensity, sceneMode, preserveFacialFeatures })
-// to produce a generation-ready prompt for your image model.
-//
-// ==============================
 
 export const SEVENTIES_STYLES = [
   {
-    id: "campus_haze",
+    id: "campus-haze",
     label: "Campus Haze",
     emoji: "🎓",
     value:
@@ -21,7 +12,7 @@ export const SEVENTIES_STYLES = [
     description: "College-town haze, hazy afternoons, retro roadtrip & campus nostalgia"
   },
   {
-    id: "disco_glam",
+    id: "disco-glam",
     label: "Disco Glam",
     emoji: "🕺",
     value:
@@ -29,7 +20,7 @@ export const SEVENTIES_STYLES = [
     description: "Nightclub lights, sequins, glamour and movement"
   },
   {
-    id: "punk_rebel",
+    id: "punk-rebel",
     label: "Punk Rebel",
     emoji: "🤘",
     value:
@@ -37,7 +28,7 @@ export const SEVENTIES_STYLES = [
     description: "Raw DIY rebellion, underground edge and attitude"
   },
   {
-    id: "glam_performer",
+    id: "glam-performer",
     label: "Glam Performer",
     emoji: "⭐",
     value:
@@ -45,7 +36,7 @@ export const SEVENTIES_STYLES = [
     description: "Stage-ready, theatrical and gender-fluid glam"
   },
   {
-    id: "boho_folk",
+    id: "boho-folk",
     label: "Boho Folk",
     emoji: "🌻",
     value:
@@ -53,7 +44,7 @@ export const SEVENTIES_STYLES = [
     description: "Singer-songwriter, natural textures, festival & road-trip warmth"
   },
   {
-    id: "preppy_collegiate",
+    id: "preppy-collegiate",
     label: "Preppy Collegiate",
     emoji: "👔",
     value:
@@ -61,12 +52,36 @@ export const SEVENTIES_STYLES = [
     description: "Collegiate neatness and classic portrait polish"
   },
   {
-    id: "mod_graphic",
+    id: "mod-graphic",
     label: "Mod Graphic",
     emoji: "🎯",
     value:
       "precise geometric haircut or sharp bob, bold graphic patterns, limited high-contrast palette, editorial makeup (winged liner), confident editorial pose",
     description: "Sharp geometry, bold contrasts, editorial 70s fashion"
+  },
+  {
+    id: "farrah-feathered",
+    label: "Farrah Feathered",
+    emoji: "💇",
+    value:
+      "iconic feathered layered hair with perfect volume, athletic tan, casual chic outfit, confident all-American smile, soft glamour lighting, Charlie's Angels aesthetic",
+    description: "Feathered hair icon, TV heartthrob, all-American charm"
+  },
+  {
+    id: "soul-style",
+    label: "Soul Style",
+    emoji: "🎬",
+    value:
+      "big Afro or cornrows, platform boots, wide-collar shirt, bell-bottom pants, leather coat or jumpsuit, gold chains, confident powerful expression, Blaxploitation aesthetic",
+    description: "Afro power, platforms, Shaft and Super Fly vibes"
+  },
+  {
+    id: "roller-disco",
+    label: "Roller Disco",
+    emoji: "🛼",
+    value:
+      "feathered or crimped hair, satin shorts or sparkly outfit, platform roller skates, athletic build, fun energetic smile, colorful disco lighting, Xanadu aesthetic",
+    description: "Platform skates, disco fun, roller rink vibes"
   }
 ];
 
@@ -127,6 +142,30 @@ export const STYLE_PROMPTS = {
       "female with sharp bob or geometric haircut, bold patterned dress, dramatic winged liner, editorial confident gaze",
     "non-binary":
       "person with striking geometric styling, monochrome or limited palette clothing, poised editorial expression"
+  },
+  "farrah-feathered": {
+    male:
+      "male with perfectly feathered layered hair (Shaun Cassidy style), open-collar shirt, athletic tan, confident teen heartthrob smile",
+    female:
+      "female with iconic feathered layered hair with volume, athletic sun-kissed tan, casual athletic top, radiant all-American smile",
+    "non-binary":
+      "person with feathered layered hair, casual chic sporty outfit, confident healthy glow"
+  },
+  "soul-style": {
+    male:
+      "male with big natural Afro, platform boots, wide-collar patterned shirt, bell-bottom pants, leather coat, gold chain necklace, powerful confident stance",
+    female:
+      "female with voluminous Afro or cornrows, bell-bottom jumpsuit, platform heels, large hoop earrings, bold makeup, strong powerful expression",
+    "non-binary":
+      "person with natural Afro styling, platform footwear, wide-collar outfit, bold confident presence"
+  },
+  "roller-disco": {
+    male:
+      "male with feathered hair, satin athletic shorts, platform roller skates, shirtless or tank top, athletic build, fun energetic smile",
+    female:
+      "female with feathered or crimped hair, sparkly crop top or leotard, short athletic shorts, platform roller skates, playful energetic expression",
+    "non-binary":
+      "person with feathered hair, colorful athletic outfit, platform roller skates, joyful energetic pose"
   }
 };
 
@@ -138,7 +177,10 @@ export const SEVENTIES_BACKGROUNDS = {
   glam_performer: "theatrical stage with colored gels, risers, and glossy floor, dramatic rim lighting",
   boho_folk: "outdoor festival field or cozy coffeehouse stage with acoustic setup, woven tapestries and warm lantern light",
   preppy_collegiate: "school portrait studio or brick quad with tidy hedges and classic campus banners",
-  mod_graphic: "minimal editorial studio with bold patterned backdrop or high-contrast graphic paneling"
+  mod_graphic: "minimal editorial studio with bold patterned backdrop or high-contrast graphic paneling",
+  "farrah-feathered": "sun-drenched California beach or bright studio with soft glamour lighting",
+  "soul-style": "urban street corner with vintage cars, disco club entrance with neon signs",
+  "roller-disco": "colorful roller rink with mirror ball, neon lights, and wooden floor"
 };
 
 // Authentic 1970s photo look + photography options
@@ -171,13 +213,12 @@ export const NEGATIVE_PROMPT = [
 ].join(", ");
 
 // Build function: accepts an options object and returns { prompt, negative_prompt }
-// options: { gender, styleId, workflowType, intensity, sceneMode, preserveFacialFeatures }
 export function buildSeventiesPrompt({
   gender = "non-binary",
-  styleId = "campus_haze",
+  styleId = "campus-haze",
   workflowType = "Realistic",
-  intensity = "medium", // 'subtle' | 'medium' | 'strong'
-  sceneMode = "portrait", // 'portrait' or 'scene'
+  intensity = "medium",
+  sceneMode = "portrait",
   preserveFacialFeatures = true
 } = {}) {
   const style = SEVENTIES_STYLES.find((s) => s.id === styleId) || SEVENTIES_STYLES[0];
@@ -228,42 +269,47 @@ export function buildSeventiesPrompt({
   };
 }
 
-// Short helper for quick experiments
-export function buildShortPrompt(gender, styleId) {
-  const style = SEVENTIES_STYLES.find((s) => s.id === styleId) || SEVENTIES_STYLES[0];
-  const genderSnippet = (STYLE_PROMPTS[styleId] && STYLE_PROMPTS[styleId][gender]) || style.value;
-  return `${genderSnippet}, 1970s vibe, warm film grain, head-and-shoulders portrait`;
-}
-
-// Share captions + hashtag bundles to help users post
+// Share captions + hashtag bundles
 export const SHARE_DATA = {
-  campus_haze: {
+  "campus-haze": {
     caption: "Took a detour back to college days — which 70s vibe should I try next?",
     hashtags: ["#70sVibe", "#ThrowbackAI", "#CampusHaze", "#Retro"]
   },
-  disco_glam: {
+  "disco-glam": {
     caption: "Disco lights and mirror floors — bring the glam back!",
     hashtags: ["#Disco", "#70sGlam", "#ThrowbackAI", "#RetroParty"]
   },
-  punk_rebel: {
+  "punk-rebel": {
     caption: "Channeling that raw underground energy — tag your rebel friend.",
     hashtags: ["#Punk", "#70sStyle", "#ThrowbackAI", "#Rebel"]
   },
-  glam_performer: {
+  "glam-performer": {
     caption: "Stage-ready glam — which era should I perform next?",
     hashtags: ["#Glam", "#StageStyle", "#ThrowbackAI", "#70s"]
   },
-  boho_folk: {
+  "boho-folk": {
     caption: "Roadtrip folk vibes — acoustic afternoons and sun-faded denim.",
     hashtags: ["#Boho", "#Folk", "#ThrowbackAI", "#Roadtrip"]
   },
-  preppy_collegiate: {
+  "preppy-collegiate": {
     caption: "Classic campus portrait — who rocked the sweater-vest?",
     hashtags: ["#Yearbook", "#70sYearbook", "#ThrowbackAI", "#Preppy"]
   },
-  mod_graphic: {
+  "mod-graphic": {
     caption: "Sharp lines and bold graphics — vintage editorial energy.",
     hashtags: ["#Mod", "#GraphicStyle", "#ThrowbackAI", "#70sFashion"]
+  },
+  "farrah-feathered": {
+    caption: "Channeling that iconic feathered hair — Charlie's Angels vibes!",
+    hashtags: ["#FarrahHair", "#70sIcon", "#ThrowbackAI", "#Feathered"]
+  },
+  "soul-style": {
+    caption: "Afro power and platform boots — bringing the soul!",
+    hashtags: ["#SoulStyle", "#70sAfro", "#ThrowbackAI", "#BlackExcellence"]
+  },
+  "roller-disco": {
+    caption: "Rolling into the weekend like it's 1979!",
+    hashtags: ["#RollerDisco", "#70sFun", "#ThrowbackAI", "#Xanadu"]
   }
 };
 
@@ -271,7 +317,6 @@ export function getShareData(styleId) {
   return SHARE_DATA[styleId] || { caption: "Which 70s vibe are you?", hashtags: ["#ThrowbackAI", "#70s"] };
 }
 
-// UI helpers
 export const AVAILABLE_GENDERS = ["male", "female", "non-binary"];
 export const WORKFLOW_TYPES = [
   { value: "HyperRealistic-likeness", label: "HyperRealistic" },

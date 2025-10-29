@@ -166,64 +166,66 @@
 /* Hero */
 .hero {
   background: var(--slime-green);
-  border: 6px solid #000;
-  padding: 40px 30px;
+  border: 3px solid #000;
+  padding: 25px 20px;
   text-align: center;
-  margin-bottom: 40px;
-  box-shadow: 12px 12px 0 #000;
+  margin-bottom: 25px;
+  box-shadow: 6px 6px 0 #000;
   position: relative;
   z-index: 10;
-  transform: rotate(1deg);
+  transform: rotate(0.5deg);
 }
 
 .hero::before {
   content: '';
   position: absolute;
-  top: -15px;
-  left: -15px;
-  right: 15px;
-  bottom: 15px;
+  top: -8px;
+  left: -8px;
+  right: 8px;
+  bottom: 8px;
   background: var(--neon-pink);
+    border: 5px solid #000;
+
   z-index: -1;
-  transform: rotate(-2deg);
+  transform: rotate(-1deg);
 }
 
 .title {
   font-family: Impact, 'Arial Black', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-size: clamp(2rem, 6vw, 4.5rem);
   font-weight: 900;
   color: #FFF;
   text-transform: uppercase;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
   text-shadow: 
-    4px 4px 0 var(--electric-cyan),
-    8px 8px 0 #000,
-    -2px -2px 0 #000;
-  margin-bottom: 15px;
-  transform: scaleY(1.3);
-  -webkit-text-stroke: 2px #000;
+    2px 2px 0 var(--electric-cyan),
+    4px 4px 0 #000;
+  margin-bottom: 10px;
+  transform: scaleY(1.1);
+  -webkit-text-stroke: 1px #000;
 }
 
 .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #000;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
 }
 
 .costPill {
   display: inline-block;
   background: var(--neon-pink);
   color: #FFF;
-  border: 4px solid #000;
-  padding: 12px 30px;
+  border: 3px solid #000;
+  padding: 8px 20px;
   font-weight: 900;
-  font-size: 1.2rem;
-  box-shadow: 5px 5px 0 #000;
-  transform: rotate(-3deg);
+  font-size: 1rem;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-1deg);
 }
+
 
 /* TV Monitor Section */
 .monitorSection {
@@ -1428,3 +1430,50 @@
 }
 
 
+/* ==================== MOBILE CREDITS HEADER ==================== */
+@media (max-width: 768px) {
+  .creditsHeader {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-top: 4px solid #000;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 16px 20px;
+    justify-content: space-between;
+    background: var(--sunny-orange);
+    box-shadow: 0 -6px 0 #000;
+    z-index: 1000;
+    animation: slideUp90s 0.4s ease-out;
+    transform: rotate(0deg);
+  }
+
+  .creditsInfo {
+    flex: 1;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+  }
+
+  .creditsButton {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+
+  @keyframes slideUp90s {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

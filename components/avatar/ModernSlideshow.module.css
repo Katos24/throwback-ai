@@ -11,8 +11,8 @@
 .slideshowContainer {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 700px;
+  aspect-ratio: 16 / 18;
+  max-height: 600px;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -107,7 +107,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 .slideTitle {

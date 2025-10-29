@@ -61,7 +61,7 @@ const AVATAR_STYLES = {
     { label: "Medieval Knight", value: "medieval knight, full plate armor, castle background, coat of arms, chivalric honor, crusader warrior" },
     { label: "Spartan Warrior", value: "spartan warrior, bronze helmet, red cape, spear and shield, 300 movie aesthetic, ancient Greek soldier" },
     { label: "Pirate Captain", value: "pirate captain, tricorn hat, cutlass sword, ship deck, treasure chest, Caribbean seas, swashbuckling adventure" },
-    { label: "Wild West Outlaw", value: "Wild West outlaw, cowboy hat, leather duster coat, revolver, dusty frontier town, gunslinger aesthetic" },
+    { label: "Wild West Outlaw", value: "Wild West Outlaw, cowboy/cowgirl attire, dusty frontier town, western aesthetic" },
     { label: "Roman Gladiator", value: "roman gladiator, arena warrior, leather armor, sword and shield, Colosseum background, ancient Rome fighter" },
     { label: "Egyptian Pharaoh", value: "ancient Egyptian pharaoh, gold headdress, royal regalia, throne room, ancient power, god-king aesthetic" },
     { label: "Ninja Assassin", value: "ninja assassin, black outfit, katana and shuriken, rooftop shadows, feudal Japan, stealth warrior aesthetic" },

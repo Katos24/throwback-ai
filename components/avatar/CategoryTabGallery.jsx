@@ -101,7 +101,7 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
     <div className={styles.galleryContainer}>
       
       {/* Gender Selection - FIRST */}
-      <div className={styles.genderSection}>
+      <div className={styles.genderSection} id="gender-section">
         <h3 className={styles.genderTitle}>Step 1: Choose Your Gender</h3>
         <p className={styles.genderSubtitle}>This helps us show you the right style examples</p>
         <div className={styles.genderButtons}>

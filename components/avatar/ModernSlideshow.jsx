@@ -49,7 +49,6 @@ const ModernSlideshow = memo(({ examples }) => {
             <div className={styles.slideOverlay}>
               <div className={styles.slideContent}>
                 <span className={styles.slideCategory}>{currentSlide.category}</span>
-                <h3 className={styles.slideTitle}>{currentSlide.style}</h3>
               </div>
             </div>
           </div>

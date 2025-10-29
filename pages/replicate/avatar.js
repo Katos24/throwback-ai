@@ -89,7 +89,7 @@ export default function AiAvatarsRedesigned() {
   } = useAvatarGenerator(refreshCredits);
 
   const exampleTransformations = [
-    { id: 1, category: "Fantasy", style: "Dragon Rider", image: "/images/examples/avatar/dragon.png" },
+    { id: 1, category: "Fantasy", style: "Elf Warrior", image: "/images/examples/avatar/elf.png" },
     { id: 2, category: "Fantasy", style: "Magical Wizard", image: "/images/examples/avatar/wizard.png" },
     { id: 3, category: "Historical", style: "Western Era", image: "/images/examples/avatar/western.png" },
     { id: 4, category: "Sci-Fi", style: "Cyberpunk", image: "/images/examples/avatar/cyberpunk.png" },
@@ -157,8 +157,26 @@ export default function AiAvatarsRedesigned() {
         </div>
 
         <div className={styles.contentWrapper}>
-          {/* CRITICAL: Modern Slideshow - Load immediately */}
-          <ModernSlideshow examples={exampleTransformations} />
+        {/* Hero Section with Title + Slideshow */}
+<section className={styles.heroGrid}>
+  <div className={styles.heroText}>
+    <h1 className={styles.heroTitle}>Enter Your Own Universe</h1>
+<p className={styles.heroSubtitle}>
+  Become a fantasy hero, sci-fi explorer, or historical legend. Upload your photo and let AI craft your story-ready avatar.
+</p>
+
+    <button
+      className={styles.heroCTA}
+      onClick={() => document.getElementById('gender-section')?.scrollIntoView({ behavior: 'smooth' })}
+    >
+      Get Started →
+    </button>
+  </div>
+
+  <div className={styles.heroSlideshow}>
+    <ModernSlideshow examples={exampleTransformations} />
+  </div>
+</section>
 
           {/* Free Credits Notice - Inline (small) */}
           {!isLoggedIn && (
@@ -173,10 +191,7 @@ export default function AiAvatarsRedesigned() {
             </div>
           )}
 
-          {/* Cost Info - Inline (small) */}
-          <div className={styles.costInfo}>
-            💰 Each avatar costs <strong>50 credits</strong>
-          </div>
+   
 
           {/* LAZY: Category Selection - Loads when visible */}
           <CategoryTabGallery
@@ -187,9 +202,6 @@ export default function AiAvatarsRedesigned() {
             onGenderChange={setUserGender}
             selectedGender={userGender}
           />
-
-          {/* LAZY: Counter - Not critical */}
-          <RestorationCounter label="AI Transformations Created" />
 
           {/* CRITICAL: Photo Upload Zone - Load immediately (core functionality) */}
           <PhotoUploadZone
@@ -239,6 +251,11 @@ export default function AiAvatarsRedesigned() {
             )}
           </div>
 
+      {/* LAZY: Counter - Not critical */}
+          <RestorationCounter label="AI Transformations Created" />
+
+
+
           {/* Pricing Info - Inline */}
           <div className={styles.pricingInfoSection}>
             <h2 className={styles.pricingTitle}>Simple, Transparent Pricing</h2>
@@ -276,14 +293,22 @@ export default function AiAvatarsRedesigned() {
                   {isLoggedIn ? 'View Pricing' : 'Get Free Credits'}
                 </button>
               </div>
+              
             )}
           </div>
 
+
+          
+
           {/* LAZY: More Examples - Remove carousel, loads when visible */}
           <div className={styles.moreExamplesSection}>
-            <h2 className={styles.sectionTitle}>Explore More Styles</h2>
-            <p className={styles.sectionSubtitle}>Browse through our collection of avatar transformations</p>
+
             <ExampleCarousel examples={exampleTransformations} onImageClick={handleImageClick} />
+          </div>
+
+                 {/* Cost Info - Inline (small) */}
+          <div className={styles.costInfo}>
+            💰 Each avatar costs <strong>50 credits</strong>
           </div>
 
           {/* LAZY: Testimonials - Loads when scrolled to */}

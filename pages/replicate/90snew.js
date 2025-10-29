@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import styles from "../../styles/decades/NinetiesNew.module.css";
 import { NINETIES_STYLES, buildNinetiesPrompt } from "../../components/NinetiesPrompts";
-import DecadeBottomSection from "../../components/DecadeBottomSection";
+import DecadeShowcase from "../../components/decades/shared/DecadeShowcase";
 import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGeneration";
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
 import { useDecadeGenerationHandler } from "../../components/decades/hooks/useDecadeGenerationHandler";
@@ -251,7 +251,7 @@ export default function NinetiesPage() {
           style={{ display: 'none' }}
         />
 
-        <DecadeBottomSection currentDecade="90s" />
+      <DecadeShowcase currentDecade="90s" />
       </main>
     </>
   );

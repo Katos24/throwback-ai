@@ -10,6 +10,13 @@ export const SEVENTIES_STYLES = [
       "long relaxed hair, vintage denim jacket or corduroy blazer, loose collared shirt, mellow sun-faded tones, cigarette-in-hand pose optional, dreamy laid-back expression",
     description: "College-town haze, hazy afternoons, retro roadtrip & campus nostalgia"
   },
+   {
+    id: "boho-folk",
+    label: "Boho Folk",
+    value:
+      "long flowing hair, layered vintage fabrics, embroidered tops, acoustic instrument or open-road props, warm earth-tone palette, honest relaxed smile",
+    description: "Singer-songwriter, natural textures, festival & road-trip warmth"
+  },
   {
     id: "disco-glam",
     label: "Disco Glam",
@@ -31,13 +38,7 @@ export const SEVENTIES_STYLES = [
       "androgynous glam styling, exaggerated makeup and glitter accents, theatrical costume elements, dramatic pose, high-contrast studio lighting, bold colors",
     description: "Stage-ready, theatrical and gender-fluid glam"
   },
-  {
-    id: "boho-folk",
-    label: "Boho Folk",
-    value:
-      "long flowing hair, layered vintage fabrics, embroidered tops, acoustic instrument or open-road props, warm earth-tone palette, honest relaxed smile",
-    description: "Singer-songwriter, natural textures, festival & road-trip warmth"
-  },
+ 
   {
     id: "preppy-collegiate",
     label: "Preppy Collegiate",

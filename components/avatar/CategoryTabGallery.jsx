@@ -8,10 +8,15 @@ import AVATAR_STYLES from '../AvatarStyles';
  * Gender first approach - select gender, then browse styles with matching images
  */
 const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender }) => {
-  const [activeCategory, setActiveCategory] = useState('portrait');
+  const [activeCategory, setActiveCategory] = useState('fantasy');
   const [expandedCategories, setExpandedCategories] = useState({});
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [imageKey, setImageKey] = useState(0);
+  useEffect(() => {
+  if (!selectedGender) {
+    handleGenderChange('male');
+  }
+}, []);
 
   // Force image reload when page becomes visible again
   useEffect(() => {
@@ -27,11 +32,11 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
 
   // Category configuration
   const categories = [
-    { value: 'portrait', label: 'Portrait', emoji: '📸', color: '#8b5cf6' },
-    { value: 'holiday', label: 'Holiday', emoji: '🎄', color: '#10b981' },
     { value: 'fantasy', label: 'Fantasy', emoji: '🧙', color: '#3b82f6' },
     { value: 'scifi', label: 'Sci-Fi', emoji: '🚀', color: '#06b6d4' },
     { value: 'historical', label: 'Historical', emoji: '🏛️', color: '#f97316' },
+    { value: 'portrait', label: 'Portrait', emoji: '📸', color: '#8b5cf6' },
+    { value: 'holiday', label: 'Holiday', emoji: '🎄', color: '#10b981' },
    // { value: 'anime', label: 'Anime', emoji: '🎌', color: '#ef4444' }, // DISABLED - Uncomment to re-enable
   ];
 

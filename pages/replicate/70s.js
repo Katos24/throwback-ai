@@ -14,6 +14,8 @@ import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGen
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
 import { useDecadeGenerationHandler } from "../../components/decades/hooks/useDecadeGenerationHandler";
 import SeventiesSEO from "../../components/SEO/SeventiesSEO";
+import RestorationCounter from '../../components/RestorationCounter';
+
 
 export default function SeventiesPage() {
   // Use the page logic hook for all state and basic handlers
@@ -239,6 +241,10 @@ const scrollSelectors = [
             styles={styles}
           />
         </section>
+
+         {/* Restoration Counter */}
+                          <RestorationCounter />
+                
         
       <DecadeShowcase currentDecade="70s" />
       </main>

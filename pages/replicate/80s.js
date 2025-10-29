@@ -14,6 +14,8 @@ import { useDecadeGeneration } from "../../components/decades/hooks/useDecadeGen
 import { useDecadePageLogic } from "../../components/decades/hooks/useDecadePageLogic";
 import { useDecadeGenerationHandler } from "../../components/decades/hooks/useDecadeGenerationHandler";
 import EightiesSEO from "../../components/SEO/EightiesSEO";
+import RestorationCounter from '../../components/RestorationCounter';
+
 
 export default function EightiesPage() {
   // Use the page logic hook for all state and basic handlers
@@ -228,6 +230,10 @@ export default function EightiesPage() {
             styles={styles}
           />
         </section>
+
+
+                  {/* Restoration Counter */}
+                  <RestorationCounter />
         
       <DecadeShowcase currentDecade="80s" />
       </main>

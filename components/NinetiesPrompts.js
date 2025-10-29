@@ -4,13 +4,13 @@ const NINETIES_STYLES = [
   {
     id: 'classic',
     value: "1990s yearbook photo, neat sweater vest, perfectly parted hair, polite smile, laser gradient backdrop, soft studio lighting, Olan Mills aesthetic",
-    label: "Classic Yearbook",
+    label: "Yearbook",
     description: "Neat hair, sweater vest, classic laser backdrop",
   },
   {
     id: 'grunge',
     value: "1990s grunge yearbook photo, flannel shirt over band tee, messy layered hair, subtle smirk, laser gradient backdrop, Seattle alternative style",
-    label: "Grunge Kid",
+    label: "Grunge",
     description: "Flannel, messy hair, alternative Seattle vibe",
   },
   {

@@ -1431,7 +1431,6 @@
 
 
 /* mobile credits */
-
 @media (max-width: 768px) {
   .creditsHeader {
     position: fixed;
@@ -1445,20 +1444,20 @@
     border-left: none;
     border-right: none;
     border-bottom: none;
-    padding: 16px 20px;
+    padding: 10px 16px; /* reduced from 16px 20px */
     background: var(--sunny-orange);
-    box-shadow: 0 -6px 0 #000;
+    box-shadow: 0 -5px 0 #000;
     z-index: 1000;
     transform: rotate(0deg);
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     animation: slideUp90s 0.4s ease-out;
   }
 
   .creditsInfo {
-    font-size: 0.95rem;
+    font-size: 0.85rem; /* slightly smaller */
     font-weight: 700;
     color: #000;
     text-align: left;
@@ -1466,12 +1465,12 @@
 
   .creditsButton {
     justify-self: end;
-    padding: 10px 18px;
-    font-size: 0.9rem;
+    padding: 8px 14px; /* reduced from 10px 18px */
+    font-size: 0.85rem;
     font-weight: 900;
     background: var(--neon-pink);
     border: 3px solid #000;
-    box-shadow: 3px 3px 0 #000;
+    box-shadow: 2px 2px 0 #000;
     transform: rotate(-2deg);
   }
 

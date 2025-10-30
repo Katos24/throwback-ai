@@ -74,3 +74,44 @@
   align-items: center;
   padding: 2rem;
 }
+
+
+
+@media (max-width: 768px) {
+  .creditDisplay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 1rem 1.25rem;
+    background: rgba(10, 11, 30, 0.95);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    justify-content: space-between;
+    z-index: 999;
+    animation: slideUp 0.4s ease-out;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .creditInfo {
+    flex: 1;
+    font-size: 0.95rem;
+  }
+
+  .creditButton {
+    flex-shrink: 0;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .creditText {
+    font-size: 0.95rem;
+  }
+}

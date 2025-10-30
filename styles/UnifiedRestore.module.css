@@ -39,50 +39,6 @@
   position: relative;
 }
 
-.compactCredits {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
-}
-
-.compactCreditsInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.creditsIcon {
-  font-size: 1.25rem;
-}
-
-.creditsText {
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.compactCreditsButton {
-  padding: 0.5rem 1rem;
-  background: rgba(59, 130, 246, 0.2);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 8px;
-  color: white;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.compactCreditsButton:hover {
-  background: rgba(59, 130, 246, 0.3);
-  transform: translateY(-1px);
-}
 
 .titleWrapper {
   margin-bottom: 1rem;
@@ -713,3 +669,6 @@
     padding: 2rem 1rem;
   }
 }
+
+
+

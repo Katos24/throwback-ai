@@ -7,6 +7,11 @@ import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection
 import RestoreBasicSEO from "../../components/SEO/RestoreBasicSEO";
 import styles from "../../styles/UnifiedRestore.module.css";
 import RestorationCounter from '../../components/RestorationCounter';
+import RestoreHero from '../../components/restore/RestoreHero';
+import CreditDisplay from '../../components/restore/CreditDisplay';
+
+
+
 
 export default function RestorePage() {
   const [restoreMode, setRestoreMode] = useState('basic');
@@ -107,30 +112,20 @@ export default function RestorePage() {
   return (
     <>
       <RestoreBasicSEO />
+        {/* HERO SECTION */}
+
+        
+  <RestoreHero />
+
       
       <div className={styles.container}>
         <div className={`${styles.backgroundParticles} ${getBackgroundClass()}`}></div>
 
         <div className={styles.content}>
+
           {/* Header */}
           <div className={`${styles.header} ${restoreMode === 'premiumColor' ? styles.premiumHeader : ''}`}>
-            {/* Compact Credits */}
-            <div className={styles.compactCredits}>
-              <div className={styles.compactCreditsInfo}>
-                <span className={styles.creditsIcon}>
-                  {restoreMode === 'premiumColor' ? '💎' : '⚡'}
-                </span>
-                <span className={styles.creditsText}>
-                  {credits} {credits === 1 ? 'credit' : 'credits'}
-                </span>
-              </div>
-              <button 
-                onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")}
-                className={styles.compactCreditsButton}
-              >
-                {isLoggedIn ? "+" : "Sign Up"}
-              </button>
-            </div>
+
 
             {/* Centered Title */}
             <div className={styles.titleWrapper}>
@@ -139,11 +134,17 @@ export default function RestorePage() {
                   AI Photo Enhancement
                 </span>
               </h1>
-              <span className={styles.subtitle}>
-                Choose Your Enhancement Level
-              </span>
+          
             </div>
 
+    {/* Compact Credits */}
+<div className={styles.compactCredits}>
+  <CreditDisplay 
+    credits={credits} 
+    isLoggedIn={isLoggedIn} 
+    restoreMode={restoreMode} 
+  />
+</div>
             {/* Badge Pills */}
             <div style={{
               display: 'flex',
@@ -202,8 +203,6 @@ export default function RestorePage() {
             </div>
           </div>
 
-          {/* Restoration Counter */}
-          <RestorationCounter />
 
           {/* Main Content */}
           <div className={styles.mainContent}>
@@ -447,6 +446,10 @@ export default function RestorePage() {
 
             </div>
           </div>
+
+             {/* Restoration Counter */}
+          <RestorationCounter />
+
 
           {/* Before/After Gallery */}
           {restoredUrl && selectedPreviewUrl && (

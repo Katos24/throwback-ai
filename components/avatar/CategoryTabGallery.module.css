@@ -16,14 +16,14 @@
 
 /* ==================== GENDER SECTION - STEP 1 ==================== */
 .genderSection {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
-  padding: 3rem 2rem;
-  background: rgba(255, 255, 255, 0.109);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -63,20 +63,21 @@
 
 .genderButton {
   display: flex;
+  margin-top: 2rem;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 2.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 160px;
   justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  min-width: 120px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .genderButton:hover {
@@ -609,4 +610,12 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+
+.genderInline {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
 }

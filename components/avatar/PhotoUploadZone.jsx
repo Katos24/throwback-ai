@@ -61,7 +61,7 @@ const PhotoUploadZone = ({
 
   return (
     <div className={styles.uploadSection} id="upload-section">
-      <h2 className={styles.sectionTitle}>Step 3: Upload Your Photo</h2>
+      <h2 className={styles.sectionTitle}>Step 2: Upload Your Photo</h2>
       
       {/* Selected Style Display */}
       {selectedStyle && (
@@ -141,6 +141,9 @@ const PhotoUploadZone = ({
                   : 'Select a style above to get started'}
               </p>
               <p className={styles.uploadHint}>PNG, JPG, HEIC up to 10MB</p>
+            <span className={styles.selectedStyleLabelToo}>
+              Selected Style: <strong>{styleCategory} - {selectedStyle.split(',')[0]}</strong>
+            </span>
             </div>
           )}
         </div>

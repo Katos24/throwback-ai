@@ -159,37 +159,30 @@ export default function AiAvatarsRedesigned() {
         <div className={styles.contentWrapper}>
         {/* Hero Section with Title + Slideshow */}
 <section className={styles.heroGrid}>
-  <div className={styles.heroText}>
-    <h1 className={styles.heroTitle}>Enter Your Own Universe</h1>
-<p className={styles.heroSubtitle}>
-  Become a fantasy hero, sci-fi explorer, or historical legend. Upload your photo and let AI craft your story-ready avatar.
-</p>
-
-    <button
-      className={styles.heroCTA}
-      onClick={() => document.getElementById('gender-section')?.scrollIntoView({ behavior: 'smooth' })}
-    >
-      Get Started →
-    </button>
-  </div>
-
   <div className={styles.heroSlideshow}>
     <ModernSlideshow examples={exampleTransformations} />
   </div>
+
+  <div className={styles.heroText}>
+    <h1 className={styles.heroTitle}>Enter Your Own Universe</h1>
+    <p className={styles.heroSubtitle}>
+  Become a fantasy hero, sci-fi explorer, or historical legend. Upload your photo and let AI craft your story-ready avatar.
+</p>
+
+<div className={styles.heroSubtitleContainer}>
+  <p className={styles.creditCost}>Each avatar costs 50 credits.</p>
+  <button
+    className={styles.signupBadge}
+    onClick={() => router.push('/signup')}
+  >
+    Sign Up today to claim 50 credits and try now
+  </button>
+</div>
+
+
+  </div>
 </section>
 
-          {/* Free Credits Notice - Inline (small) */}
-          {!isLoggedIn && (
-            <div className={styles.freeCreditsText}>
-              🎁 <strong>New users get 50 free credits when you sign up!</strong>{' '}
-              <span 
-                className={styles.freeCreditsLink}
-                onClick={() => router.push('/signup')}
-              >
-                Sign up free
-              </span>
-            </div>
-          )}
 
    
 
@@ -219,41 +212,60 @@ export default function AiAvatarsRedesigned() {
             onDownload={() => handleDownload(resultImageUrl)}
           />
 
-          {/* Generate Button - Inline (critical) */}
-          <div className={styles.generateSection}>
-            <button
-              onClick={() => handleGenerateOrRedirect(photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, isMobile)}
-              disabled={isLoading}
-              className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
-            >
-              {isLoading ? (
-                <>
-                  <div className={styles.buttonSpinner}></div>
-                  Creating Your Avatar...
-                </>
-              ) : (
-                !isLoggedIn ? "Sign Up & Get 50 Free Credits" :
-                credits < avatarCost ? "Get Credits ($4.99 for 400 credits)" :
-                `Create Avatar (50 credits)`
-              )}
-            </button>
+          {/* CGneerate Button */}
+<div className={styles.generateSection}>
+  <h2 className={styles.sectionTitle}>Step 3: Generate Avatar</h2>
 
-            {isLoading && (
-              <div className={styles.progressContainer}>
-                <div className={styles.progressBar}>
-                  <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
-                </div>
-                <div className={styles.progressText}>
-                  <span>{progressStage}</span>
-                  <span>{progress}%</span>
-                </div>
-              </div>
-            )}
-          </div>
+  <button
+    onClick={() => handleGenerateOrRedirect(photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, isMobile)}
+    disabled={isLoading}
+    className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
+  >
+    {isLoading ? (
+      <>
+        <div className={styles.buttonSpinner}></div>
+        Creating Your Avatar...
+      </>
+    ) : !isLoggedIn ? (
+      "Sign Up & Get 50 Free Credits"
+    ) : credits < avatarCost ? (
+      <>
+        Insufficient Credits — <span className={styles.buyCreditsText}>Buy 400 for $4.99</span>
+      </>
+    ) : (
+      `Create Avatar (50 credits)`
+    )}
+  </button>
+
+  {isLoading && (
+    <div className={styles.progressContainer}>
+      <div className={styles.progressBar}>
+        <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
+      </div>
+      <div className={styles.progressText}>
+        <span>{progressStage}</span>
+        <span>{progress}%</span>
+      </div>
+    </div>
+  )}
+</div>
+
 
       {/* LAZY: Counter - Not critical */}
           <RestorationCounter label="AI Transformations Created" />
 
+          {/* Free Credits Notice - Inline (small) */}
+          {!isLoggedIn && (
+            <div className={styles.freeCreditsText}>
+              🎁 <strong>New users get 50 free credits when you sign up!</strong>{' '}
+              <span 
+                className={styles.freeCreditsLink}
+                onClick={() => router.push('/signup')}
+              >
+                Sign up free
+              </span>
+            </div>
+          )}
 
 
           {/* Pricing Info - Inline */}

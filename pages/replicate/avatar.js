@@ -259,9 +259,14 @@ export default function AiAvatarsRedesigned() {
 </div>
 
 
+
+
       {/* LAZY: Counter - Not critical */}
           <RestorationCounter label="AI Transformations Created" />
-
+  <div className={styles.heroSlideshow}>
+      
+    <ModernSlideshow examples={exampleTransformations} />
+  </div>
           {/* Free Credits Notice - Inline (small) */}
           {!isLoggedIn && (
             <div className={styles.freeCreditsText}>
@@ -320,11 +325,6 @@ export default function AiAvatarsRedesigned() {
 
           
 
-          {/* LAZY: More Examples - Remove carousel, loads when visible */}
-          <div className={styles.moreExamplesSection}>
-
-            <ExampleCarousel examples={exampleTransformations} onImageClick={handleImageClick} />
-          </div>
 
                  {/* Cost Info - Inline (small) */}
           <div className={styles.costInfo}>
@@ -339,6 +339,13 @@ export default function AiAvatarsRedesigned() {
         <UseCases />
         <FAQ />
         <SEOContent />
+
+
+          {/* LAZY: More Examples - Remove carousel, loads when visible */}
+          <div className={styles.moreExamplesSection}>
+
+            <ExampleCarousel examples={exampleTransformations} onImageClick={handleImageClick} />
+          </div>
         <FinalCTA isLoggedIn={isLoggedIn} />
       </main>
 

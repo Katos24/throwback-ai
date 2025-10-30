@@ -734,3 +734,40 @@
   display: block;
 }
 
+.counterAndSlideshowGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* counter smaller, slideshow bigger */
+  gap: 2rem;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+/* Optional wrappers for styling */
+.counterWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.slideshowWrapper {
+  width: 100%;
+  height: 400px; /* adjust as needed */
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.slideshowWrapper .slick-slider {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .counterAndSlideshowGrid {
+    grid-template-columns: 1fr; /* stack vertically on mobile */
+    gap: 1.5rem;
+  }
+
+  .slideshowWrapper {
+    height: 300px;
+  }
+}

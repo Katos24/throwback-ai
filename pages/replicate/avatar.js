@@ -158,22 +158,16 @@ export default function AiAvatarsRedesigned() {
           {isLoggedIn ? "Buy More" : "Sign Up & Get 50 Free Credits"}
           </button>
         </div>
-
         <div className={styles.contentWrapper}>
-        {/* Hero Section with Title + Slideshow */}
 
 
-        
+        {/* Hero Section with Title + Slideshow */}  
 <section className={styles.heroGrid}>
-  
-
-
   <div className={styles.heroText}>
     <h1 className={styles.heroTitle}>Enter Your Own Universe</h1>
     <p className={styles.heroSubtitle}>
   Become a fantasy hero, sci-fi explorer, or historical legend. Upload your photo and let AI craft your story-ready avatar.
 </p>
-
 <div className={styles.heroSubtitleContainer}>
   <p className={styles.creditCost}>Each avatar costs 50 credits.</p>
   <button
@@ -183,11 +177,8 @@ export default function AiAvatarsRedesigned() {
     Sign Up today to claim 50 credits and try now
   </button>
 </div>
-
-
   </div>
     <div className={styles.heroSlideshow}>
-      
 <TransformVideo src="/videos/transformations.mp4" />
   </div>
 </section>
@@ -220,12 +211,23 @@ export default function AiAvatarsRedesigned() {
             onToggleOriginal={() => setShowingOriginal(!showingOriginal)}
             onDownload={() => handleDownload(resultImageUrl)}
           />
-
-          {/* CGneerate Button */}
 <div className={styles.generateSection}>
-
   <button
-    onClick={() => handleGenerateOrRedirect(photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, isMobile)}
+    onClick={() => {
+      if (!isLoggedIn) {
+        window.location.href = "/signup"; // redirects to your signup page
+      } else {
+        handleGenerateOrRedirect(
+          photo,
+          userGender,
+          selectedStyle,
+          isLoggedIn,
+          credits,
+          avatarCost,
+          isMobile
+        );
+      }
+    }}
     disabled={isLoading}
     className={`${styles.generateButton} ${isComplete ? styles.ready : ''}`}
   >
@@ -238,7 +240,8 @@ export default function AiAvatarsRedesigned() {
       "Sign Up & Get 50 Free Credits"
     ) : credits < avatarCost ? (
       <>
-        Insufficient Credits — <span className={styles.buyCreditsText}>Buy 400 for $4.99</span>
+        Insufficient Credits —{" "}
+        <span className={styles.buyCreditsText}>Buy 400 for $4.99</span>
       </>
     ) : (
       `Create Avatar (50 credits)`
@@ -248,7 +251,10 @@ export default function AiAvatarsRedesigned() {
   {isLoading && (
     <div className={styles.progressContainer}>
       <div className={styles.progressBar}>
-        <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
+        <div
+          className={styles.progressFill}
+          style={{ width: `${progress}%` }}
+        ></div>
       </div>
       <div className={styles.progressText}>
         <span>{progressStage}</span>

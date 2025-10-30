@@ -616,7 +616,7 @@
   width: 100%;
 }
 
-/* Stack on mobile */
+/* Stack on mobilee */
 @media (max-width: 900px) {
   .heroGrid {
     grid-template-columns: 1fr;

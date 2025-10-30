@@ -12,8 +12,63 @@ export default function RestoreHero() {
         <p className={styles.heroSubtitle}>
           Restore old photos, remove scratches, and colorize your memories in seconds.
         </p>
+         {/* Badge Pills */}
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '0.75rem',
+                      justifyContent: 'center',
+                      marginTop: '1.5rem'
+                    }}>
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        background: 'rgba(8, 18, 35, 0.1)',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                        borderRadius: '999px',
+                        fontSize: '0.875rem',
+                        fontWeight: '500',
+                        color: '#0664d7ff'
+                      }}>
+                        <span>⚡</span>
+                        Basic: 1 Credit
+                      </div>
+                      
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        background: 'rgba(57, 22, 90, 0.1)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        borderRadius: '999px',
+                        fontSize: '0.875rem',
+                        fontWeight: '500',
+                        color: '#953fecff'
+                      }}>
+                        <span>💎</span>
+                        Premium: 40 Credits
+                      </div>
+                      
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        background: 'rgba(4, 22, 10, 0.1)',
+                        border: '1px solid rgba(34, 197, 94, 0.3)',
+                        borderRadius: '999px',
+                        fontSize: '0.875rem',
+                        fontWeight: '500',
+                        color: '#075e27ff'
+                      }}>
+                        <span>🎁</span>
+                        50 Free Credits on Signup
+                      </div>
+                    </div>
         <div className={styles.heroSubtitleContainer}>
-          <p className={styles.creditCost}>Basic restore: 1 credit • Premium color: 40 credits</p>
           <button
             className={styles.signupBadge}
             onClick={() => router.push('/signup')}

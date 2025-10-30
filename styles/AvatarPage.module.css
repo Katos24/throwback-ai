@@ -569,8 +569,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 3rem;
-  margin: 4rem 0 3rem;
+  gap: 1.5rem;
+  margin: 2rem 0 3rem;
   padding: 0 1.5rem;
 }
 
@@ -621,7 +621,7 @@
   .heroGrid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .heroTitle {
@@ -715,5 +715,22 @@
 .signupBadge:hover {
   background: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
+}
+
+
+
+
+/* AvatarPage.module.css */
+.heroVideoContainer {
+  position: relative;
+  overflow: hidden;
+  height: 60vh;       /* adjust as needed */
+}
+
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* fills container while cropping if needed */
+  display: block;
 }
 

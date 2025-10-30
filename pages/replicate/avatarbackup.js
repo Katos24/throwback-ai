@@ -162,6 +162,7 @@ export default function AiAvatarsRedesigned() {
         <div className={styles.contentWrapper}>
         {/* Hero Section with Title + Slideshow */}
 
+<TransformVideo src="/videos/transformations.mp4" />
 
         
 <section className={styles.heroGrid}>
@@ -188,7 +189,7 @@ export default function AiAvatarsRedesigned() {
   </div>
     <div className={styles.heroSlideshow}>
       
-<TransformVideo src="/videos/transformations.mp4" />
+    <ModernSlideshow examples={exampleTransformations} />
   </div>
 </section>
 

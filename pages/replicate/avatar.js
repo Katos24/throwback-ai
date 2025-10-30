@@ -152,16 +152,14 @@ export default function AiAvatarsRedesigned() {
             onClick={() => router.push(isLoggedIn ? "/pricing" : "/signup")} 
             className={styles.creditsButton}
           >
-            {isLoggedIn ? "Buy More" : "Sign Up Free"}
+          {isLoggedIn ? "Buy More" : "Sign Up & Get 50 Free Credits"}
           </button>
         </div>
 
         <div className={styles.contentWrapper}>
         {/* Hero Section with Title + Slideshow */}
 <section className={styles.heroGrid}>
-  <div className={styles.heroSlideshow}>
-    <ModernSlideshow examples={exampleTransformations} />
-  </div>
+
 
   <div className={styles.heroText}>
     <h1 className={styles.heroTitle}>Enter Your Own Universe</h1>
@@ -180,6 +178,9 @@ export default function AiAvatarsRedesigned() {
 </div>
 
 
+  </div>
+    <div className={styles.heroSlideshow}>
+    <ModernSlideshow examples={exampleTransformations} />
   </div>
 </section>
 
@@ -214,7 +215,6 @@ export default function AiAvatarsRedesigned() {
 
           {/* CGneerate Button */}
 <div className={styles.generateSection}>
-  <h2 className={styles.sectionTitle}>Step 3: Generate Avatar</h2>
 
   <button
     onClick={() => handleGenerateOrRedirect(photo, userGender, selectedStyle, isLoggedIn, credits, avatarCost, isMobile)}

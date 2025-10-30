@@ -30,7 +30,6 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, []);
 
-  // Category data
   const categories = [
     { value: 'fantasy', label: 'Fantasy', emoji: '🧙', color: '#3b82f6' },
     { value: 'scifi', label: 'Sci-Fi', emoji: '🚀', color: '#06b6d4' },
@@ -43,6 +42,7 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
   const initialShowCount = 6;
   const isExpanded = expandedCategories[activeCategory];
   const displayedStyles = isExpanded ? categoryStyles : categoryStyles.slice(0, initialShowCount);
+  const remainingCount = categoryStyles.length - displayedStyles.length;
 
   const handleStyleClick = (style) => {
     setSelectedStyle(style.value);
@@ -81,7 +81,7 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
 
   return (
     <div className={styles.galleryContainer}>
-      {/* Tabs + Gender combined */}
+      {/* Tabs + Gender */}
       <div className={styles.tabsWrapper}>
         <h3 className={styles.stylesTitle}>Step 1: Select Your Style</h3>
         <div className={styles.tabsContainer}>
@@ -98,7 +98,6 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
           ))}
         </div>
 
-        {/* Gender under the tabs */}
         <div className={styles.genderInline}>
           <button
             className={`${styles.genderButton} ${selectedGender === 'male' ? styles.activeGender : ''}`}
@@ -151,19 +150,32 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
               </div>
             );
           })}
-        </div>
 
-        {categoryStyles.length > initialShowCount && (
-          <div className={styles.expandButtonContainer}>
-            <button className={styles.expandButton} onClick={toggleExpanded}>
-              {isExpanded ? (
-                <>Show Less ↑</>
-              ) : (
-                <>Show All {categoryStyles.length} {categories.find(c => c.value === activeCategory).label} Styles ↓</>
-              )}
-            </button>
-          </div>
-        )}
+          {/* Dynamic "More Styles / Show Less" card */}
+          {categoryStyles.length > initialShowCount && (
+            <div
+              className={styles.moreStylesCard}
+              onClick={toggleExpanded}
+              style={{
+                background: `linear-gradient(135deg, #f97316dd 0%, #f9731666 100%)`,
+              }}
+            >
+              <div className={styles.moreStylesContent}>
+                {isExpanded ? (
+                  <>
+                    <h3>Show Less ↑</h3>
+                    <p>Collapse to see fewer styles</p>
+                  </>
+                ) : (
+                  <>
+                    <h3>+{remainingCount} More Styles</h3>
+                    <p>Click to explore all {categories.find(c => c.value === activeCategory).label} options</p>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -171,4 +183,3 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
 
 CategoryTabGallery.displayName = 'CategoryTabGallery';
 export default CategoryTabGallery;
-

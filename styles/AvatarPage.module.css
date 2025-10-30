@@ -180,13 +180,13 @@
 
 /* ==================== GENERATE BUTTON ==================== */
 .generateSection {
-  margin: 4rem auto;
+  margin: 1.5rem auto;
   max-width: 600px;
   text-align: center;
 }
 
 .generateButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #18ad4a 0%, #027a64 100%); /* green gradient */
   color: white;
   border: none;
   padding: 1.5rem 3.5rem;

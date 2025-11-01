@@ -7,7 +7,7 @@
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
   border-radius: 12px;
   max-width: 1200px;
-margin: 3rem auto 0 auto; /* 6rem top margin */
+  margin: 3rem auto 3rem auto; /* 3rem top and bottom */
 }
 
 .heroText {

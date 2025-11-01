@@ -12,10 +12,10 @@ import BeforeAfterGallery from '../../components/restore/BeforeAfterGallery';
 import FeaturesGrid from '../../components/restore/FeaturesGrid';
 import BadgePills from '../../components/restore/BadgePills';
 import ProTip from '../../components/restore/ProTip';
-import styles from '../../components/restore/RestorePage.module.css';
+import styles from './RestorePage.module.css';
 
-export default function RestorePremiumPage() {
-  const [restoreMode, setRestoreMode] = useState('premiumColor'); // Start with premium mode
+export default function RestorePage() {
+  const [restoreMode, setRestoreMode] = useState('basic');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function RestorePremiumPage() {
       case 'premiumColor':
         return { cost: 40, endpoint: "/api/replicate/restorePremium", isPremium: true };
       default:
-        return { cost: 40, endpoint: "/api/replicate/restorePremium", isPremium: true };
+        return { cost: 1, endpoint: "/api/replicate/restore", isPremium: false };
     }
   };
 
@@ -108,20 +108,21 @@ export default function RestorePremiumPage() {
         <div className={styles.backgroundParticles}></div>
 
         <div className={styles.content}>
-                 <div className={styles.creditsWrapper}>
+          <header className={styles.header}>
+            <div className={styles.titleWrapper}>
+              <h1 className={styles.title}>
+                <span className={styles.titleGradient}>
+                  AI Photo Enhancement
+                </span>
+              </h1>
+            </div>
+
+            <div className={styles.creditsWrapper}>
               <CreditDisplay 
                 credits={credits} 
                 isLoggedIn={isLoggedIn} 
                 restoreMode={restoreMode} 
               />
-            </div>
-          <header className={styles.header}>
-            <div className={styles.titleWrapper}>
-              <h1 className={styles.title}>
-                <span className={styles.titleGradient}>
-                  Premium AI Photo Colorization
-                </span>
-              </h1>
             </div>
           </header>
 

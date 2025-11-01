@@ -85,8 +85,8 @@ export default function BasicFeaturesSection() {
           }}>
             <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
             <ImageCompareSlider
-              beforeImage="/images/photofixbefore.jpg"
-              afterImage="/images/photofixafter.jpg"
+              beforeImage="/images/restore-before-faded.jpg"
+              afterImage="/images/restore-after-completed.jpg"
             />
             <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
               Scratch removal + clarity boost for B&W and color photos.

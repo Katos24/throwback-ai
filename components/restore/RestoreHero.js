@@ -12,7 +12,7 @@ export default function RestoreHero() {
         <p className={styles.heroSubtitle}>
           Restore old photos, remove scratches, and colorize your memories in seconds.
         </p>
-         {/* Badge Pills */}
+         {/* Badge Pillss */}
                     <div style={{
                       display: 'flex',
                       flexWrap: 'wrap',

@@ -10,6 +10,8 @@ import SEOAvatar from "../../components/SEO/SEOAvatar";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import TransformVideo from '../../components/avatar/TransformVideo';
+import VideoAnimator from '../../components/avatar/VideoAnimator';
+
 
 
 // CRITICAL: Load immediately (above fold)
@@ -211,6 +213,22 @@ export default function AiAvatarsRedesigned() {
             onToggleOriginal={() => setShowingOriginal(!showingOriginal)}
             onDownload={() => handleDownload(resultImageUrl)}
           />
+
+  {/* NEW: Video Animator - Shows after avatar generation */}
+          {resultImageUrl && !isLoading && (
+            <VideoAnimator
+              imageUrl={resultImageUrl}
+              styleCategory={styleCategory}
+              credits={credits}
+              onVideoGenerated={(videoUrl) => {
+                console.log('Video generated:', videoUrl);
+              }}
+              onCreditsUpdate={refreshCredits}
+            />
+          )}
+
+          <div className={styles.generateSection}></div>
+
 <div className={styles.generateSection}>
   <button
     onClick={() => {

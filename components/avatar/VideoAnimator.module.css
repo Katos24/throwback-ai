@@ -1,0 +1,195 @@
+/* styles/VideoAnimator.module.css */
+
+.videoAnimator {
+  margin-top: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  border-radius: 20px;
+  border: 2px solid rgba(99, 102, 241, 0.3);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.stylesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.styleCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.styleCard:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: #6366f1;
+  transform: translateY(-2px);
+}
+
+.styleCard:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.styleCard.active {
+  background: rgba(99, 102, 241, 0.3);
+  border-color: #6366f1;
+}
+
+.styleLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.styleCredits {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.progressContainer {
+  margin-top: 24px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.progressNote {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+}
+
+.error {
+  padding: 16px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 2px solid #ef4444;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.creditWarning {
+  padding: 16px;
+  background: rgba(251, 191, 36, 0.2);
+  border: 2px solid #fbbf24;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.creditWarning button {
+  margin-left: 12px;
+  padding: 8px 16px;
+  background: #fbbf24;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.videoResult {
+  text-align: center;
+}
+
+.video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.videoActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.downloadButton,
+.createAnotherButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.downloadButton {
+  background: #10b981;
+  color: #fff;
+}
+
+.downloadButton:hover {
+  background: #059669;
+}
+
+.createAnotherButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.createAnotherButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .stylesGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .videoAnimator {
+    padding: 20px;
+  }
+}

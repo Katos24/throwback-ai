@@ -302,7 +302,7 @@ export default function LibraryAdminDashboard() {
     <p>To cancel your subscription, adjust your plan, or discuss your service, please contact us:</p>
     <div className={styles.cancelActions}>
       <a 
-        href={`mailto:support@yourservice.com?subject=Subscription Changes - ${library.name}&body=Library: ${library.name}%0ARequest: [Please describe your request]`}
+        href={`mailto:hello@throwbackai.app?subject=Subscription Changes - ${library.name}&body=Library: ${library.name}%0ARequest: [Please describe your request]`}
         className={styles.contactButton}
       >
         📧 Contact Us About Subscription

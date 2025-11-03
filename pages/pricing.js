@@ -239,7 +239,7 @@ export default function PricingPage() {
 
           {/* What's Included Section */}
           <div className={styles.detailsSection}>
-            <h2 className={styles.detailsTitle}>What's included</h2>
+            <h2 className={styles.detailsTitle}>What&apos;s included</h2>
             <div className={styles.detailsGrid}>
               <div className={styles.detailItem}>
                 <div className={styles.detailIcon}>🔧</div>
@@ -273,8 +273,8 @@ export default function PricingPage() {
                 <p>Never. Buy once, use whenever you need.</p>
               </div>
               <div className={styles.faqItem}>
-                <h3>What's your refund policy?</h3>
-                <p>If unsatisfied with a result, we'll refund the credits to your account.</p>
+                <h3>What&apos;s your refund policy?</h3>
+                <p>If unsatisfied with a result, we&apos;ll refund the credits to your account.</p>
               </div>
               <div className={styles.faqItem}>
                 <h3>How are photos stored?</h3>

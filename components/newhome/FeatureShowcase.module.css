@@ -231,9 +231,29 @@ background-image: radial-gradient(ellipse 50% 100% at 50% -10%, #7889df50, #778a
     font-size: 1rem;
   }
 
-  .imageContent {
-    height: 300px;
+    .imageContent {
+    height: auto;
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .imageStack {
     max-width: 100%;
+    height: auto;
+  }
+
+  .stackedImage {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4; /* keeps portrait proportion */
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* prevents cropping */
   }
 
   .ctaButton {

@@ -41,7 +41,7 @@ export default function FinalCTA() {
                 className={styles.secondaryButton}
                 onClick={() => router.push('/replicate/avatar')}
               >
-                View Examples
+                Try Avatar
               </button>
             </div>
           </div>

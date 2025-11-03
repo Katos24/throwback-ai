@@ -49,124 +49,118 @@ export default function Header({ showMenu, setShowMenu }) {
   };
 
   const navigationItems = [
-    { href: "/", label: "Home", icon: "🏠" },
-    { 
-      href: "/replicate/restore-premium", 
-      label: "Restore", 
-      icon: "✨",
-      highlight: true
-    },
-    { 
-      href: "/replicate/avatar", 
-      label: "Avatar", 
-      highlight: false
-    },
-    { 
-      href: "/decades", 
-      label: "Decades", 
-    },
-     
-    { href: "/pricing", label: "Pricing"},
-    { href: "/gallery", label: "Gallery" },
-    { href: "/about", label: "About" }
+    { href: "/replicate/restore-premium", label: "Restore" },
+    { href: "/replicate/avatar", label: "Avatar" },
+    { href: "/decades", label: "Decades" },
+    { href: "/pricing", label: "Pricing" }
   ];
 
   if (isLoading) {
     return (
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        height: '60px',
-        background: 'linear-gradient(135deg, #1a1a1a, #2a2a2a)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <div style={{
-          background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          fontSize: '1.5rem',
-          fontWeight: 800,
-          fontFamily: 'Inter, sans-serif'
-        }}>
-          Throwback AI
-        </div>
+      <header className={styles.headerLoading}>
+        <div className={styles.logoText}>Throwback AI</div>
       </header>
     );
   }
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
-      <button
-        className={styles.hamburger}
-        onClick={() => setShowMenu((prev) => !prev)}
-        aria-label="Toggle menu"
-        type="button"
-      >
-        <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
-        <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
-        <span className={`${styles.bar} ${showMenu ? styles.barActive : ""}`} />
-      </button>
-
-      <Link href="/" prefetch className={styles.logoWrapper} onClick={() => setShowMenu(false)}>
-        <div className={styles.logoContainer}>
-          <div className={styles.logoText}>
-            <div className={styles.logoMain}>Throwback AI</div>
-          </div>
-        </div>
-      </Link>
-
-      <nav ref={navRef} className={`${styles.nav} ${showMenu ? styles.showMenu : ""}`}>
+      <div className={styles.container}>
         
-        {/* Navigation Items */}
-        {navigationItems.map((item) => (
-          <Link 
-            key={item.href}
-            href={item.href} 
-            prefetch 
-            className={`${styles.navLink} ${router.pathname === item.href ? styles.active : ""} ${item.highlight ? styles.highlight : ""}`}
-            onClick={() => setShowMenu(false)}
-          >
-            {item.icon && <span className={styles.navIcon}>{item.icon}</span>}
-            <span>{item.label}</span>
-          </Link>
-        ))}
+        {/* Logo */}
+        <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
+          <div className={styles.logoText}>Throwback AI</div>
+        </Link>
 
-        {user ? (
-          <div className={styles.userSection}>
-            <Link href="/profile" prefetch className={styles.profileBtn} onClick={() => setShowMenu(false)}>
-              <span className={styles.profileIcon}>👤</span>
-              Profile
-            </Link>
-            <button onClick={handleSignOut} className={styles.signOutBtn} type="button">
-              Sign Out
-            </button>
-          </div>
-        ) : (
-          <div className={styles.authSection}>
+        {/* Desktop Navigation */}
+        <nav className={styles.desktopNav}>
+          {navigationItems.map((item) => (
             <Link 
-              href="/login" 
-              prefetch 
-              className={styles.loginBtn} 
-              onClick={() => setShowMenu(false)}
+              key={item.href}
+              href={item.href}
+              className={`${styles.navLink} ${router.pathname === item.href ? styles.active : ""}`}
             >
-              Login
+              {item.label}
             </Link>
-            <Link 
-              href="/signup" 
-              prefetch 
-              className={styles.signupBtn} 
-              onClick={() => setShowMenu(false)}
-            >
-              Sign Up
-            </Link>
-          </div>
-        )}
-      </nav>
+          ))}
+        </nav>
+
+        {/* Auth Buttons */}
+        <div className={styles.authButtons}>
+          {user ? (
+            <>
+              <Link href="/profile" className={styles.profileBtn}>
+                Profile
+              </Link>
+              <button onClick={handleSignOut} className={styles.signOutBtn}>
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={styles.loginBtn}>
+                Login
+              </Link>
+              <Link href="/signup" className={styles.signupBtn}>
+                Get Started
+              </Link>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className={styles.mobileMenuBtn}
+          onClick={() => setShowMenu((prev) => !prev)}
+          aria-label="Toggle menu"
+        >
+          <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
+          <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
+          <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
+        </button>
+
+      </div>
+
+      {/* Mobile Menu */}
+      {showMenu && (
+        <>
+          <div className={styles.mobileMenuOverlay} onClick={() => setShowMenu(false)} />
+          <nav ref={navRef} className={styles.mobileMenu}>
+            {navigationItems.map((item) => (
+              <Link 
+                key={item.href}
+                href={item.href}
+                className={`${styles.mobileNavLink} ${router.pathname === item.href ? styles.active : ""}`}
+                onClick={() => setShowMenu(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            
+            <div className={styles.mobileAuthSection}>
+              {user ? (
+                <>
+                  <Link href="/profile" className={styles.mobileProfileBtn} onClick={() => setShowMenu(false)}>
+                    Profile
+                  </Link>
+                  <button onClick={handleSignOut} className={styles.mobileSignOutBtn}>
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className={styles.mobileLoginBtn} onClick={() => setShowMenu(false)}>
+                    Login
+                  </Link>
+                  <Link href="/signup" className={styles.mobileSignupBtn} onClick={() => setShowMenu(false)}>
+                    Get Started
+                  </Link>
+                </>
+              )}
+            </div>
+          </nav>
+        </>
+      )}
     </header>
   );
 }

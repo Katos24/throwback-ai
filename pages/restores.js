@@ -11,7 +11,6 @@ import RestoresSEO from '../components/SEO/RestoresSEO';
 
 // Lazy-load components
 const CustomerSuccessStories = dynamic(() => import('../components/home/SuccessStories'));
-const TopBanner = dynamic(() => import('../components/home/TopBanner'));
 
 // Loader fallback
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
@@ -307,15 +306,7 @@ export default function RestoresLanding() {
             </div>
           </div>
 
-          {/* AI RESTORATION DEMO - NEW */}
-          <div ref={topBannerRef}>
-            {topBannerInView && (
-              <Suspense fallback={<Loader />}>
-                <TopBanner />
-              </Suspense>
-            )}
-          </div>
-
+   
           {/* SUCCESS STORIES - NEW */}
           <div ref={successRef}>
             {successInView && (

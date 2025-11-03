@@ -165,7 +165,7 @@ const AIDemoShowcase = () => {
                 <p>Turn your photo into a stunning AI-generated avatar in seconds.</p>
               </div>
               <div className={styles.ctaButtons}>
-                <Link href="/avatars" className={styles.primaryCta}>
+                <Link href="/replicate/avatar" className={styles.primaryCta}>
                   Try Avatars (50 credits)
                 </Link>
               </div>

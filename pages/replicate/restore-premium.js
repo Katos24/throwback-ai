@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useRestoreLogic from "../../hooks/useRestoreLogic";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
-import RestoreBasicSEO from "../../components/SEO/RestoreBasicSEO";
+import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";
 import RestorationCounter from '../../components/RestorationCounter';
 import RestoreHero from '../../components/restore/RestoreHero';
 import CreditDisplay from '../../components/restore/CreditDisplay';
@@ -101,7 +101,7 @@ export default function RestorePremiumPage() {
 
   return (
     <>
-      <RestoreBasicSEO />
+<RestorePremiumSEO />
       <RestoreHero />
       
       <div className={`${styles.container} ${config.isPremium ? styles.premiumMode : ''}`}>

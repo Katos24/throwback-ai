@@ -1,0 +1,572 @@
+/* ========================================
+   PRICING TEASER SECTION
+   ======================================== */
+.pricingSection {
+  padding: 100px 20px;
+  background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.sectionSubtitle {
+  font-size: 1.2rem;
+  color: #888;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Pricing Grid */
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.pricingCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 32px 24px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricingCard:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+}
+
+.pricingCard.popular {
+  background: rgba(102, 126, 234, 0.08);
+  border: 2px solid #667eea;
+  transform: scale(1.05);
+}
+
+.pricingCard.popular:hover {
+  transform: scale(1.05) translateY(-4px);
+}
+
+/* Badges */
+.popularBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.starIcon {
+  font-size: 0.875rem;
+}
+
+.savingsBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4ade80 0%, #10b981 100%);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+/* Card Header */
+.cardHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.tierName {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tierDescription {
+  font-size: 0.875rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Price Section */
+.priceContainer {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #888;
+  margin-right: 4px;
+  margin-top: 8px;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.creditsDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.creditsNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.creditsLabel {
+  font-size: 0.875rem;
+  color: #888;
+  font-weight: 600;
+}
+
+.valueMetric {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Features Section */
+.featuresSection {
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.featuresLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.feature svg {
+  flex-shrink: 0;
+  color: #4ade80;
+  margin-top: 2px;
+}
+
+/* Use Cases Section */
+.useCasesSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.useCasesLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.useCasesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.useCase {
+  font-size: 0.875rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Trust Section */
+.trustSection {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.trustIcon {
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Comparison Section */
+.comparisonSection {
+  margin: 3rem 0;
+}
+
+.comparisonTitle {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.comparisonTable {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.comparisonRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.comparisonRow:last-child {
+  border-bottom: none;
+}
+
+.serviceName {
+  font-weight: 500;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.serviceCost {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 1rem;
+}
+
+/* FAQ Section */
+.faqSection {
+  margin: 3rem 0;
+}
+
+.faqTitle {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.faqItem {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.faqQuestion {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.faqAnswer {
+  font-size: 0.875rem;
+  color: #888;
+  line-height: 1.5;
+}
+
+/* CTA */
+.ctaContainer {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.viewAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 16px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.viewAllButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.ctaArrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.viewAllButton:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+.ctaNote {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.signupLink {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.signupLink:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+@media (max-width: 1024px) {
+  .pricingSection {
+    padding: 80px 20px;
+  }
+
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+
+  .pricingGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .pricingCard {
+    padding: 28px 20px;
+  }
+
+  .pricingCard.popular {
+    transform: scale(1);
+  }
+
+  .price {
+    font-size: 3rem;
+  }
+
+  .trustSection {
+    gap: 1.5rem;
+  }
+
+  .faqGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  .pricingSection {
+    padding: 60px 16px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+
+  .pricingGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .pricingCard {
+    padding: 24px 20px;
+  }
+
+  .pricingCard.popular {
+    transform: scale(1);
+  }
+
+  .pricingCard.popular:hover {
+    transform: translateY(-4px);
+  }
+
+  .price {
+    font-size: 2.5rem;
+  }
+
+  .creditsNumber {
+    font-size: 1.25rem;
+  }
+
+  .trustSection {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .trustItem {
+    justify-content: center;
+  }
+
+  .comparisonTitle,
+  .faqTitle {
+    font-size: 1.5rem;
+  }
+
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .viewAllButton {
+    width: 100%;
+    padding: 16px 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tierName {
+    font-size: 1.1rem;
+  }
+
+  .price {
+    font-size: 2rem;
+  }
+
+  .creditsNumber {
+    font-size: 1rem;
+  }
+
+  .feature {
+    font-size: 0.85rem;
+  }
+
+  .useCase {
+    font-size: 0.8rem;
+  }
+}

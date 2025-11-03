@@ -1,5 +1,5 @@
 import React from 'react';
-import howItWorksStyles from '../../styles/HowItWorks.module.css';
+import howItWorksStyles from './HowItWorks.module.css';
 
 const HowItWorksSection = () => {
   const steps = [

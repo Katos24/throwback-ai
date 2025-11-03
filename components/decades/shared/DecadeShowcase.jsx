@@ -55,7 +55,7 @@ const DecadeShowcase = ({ currentDecade = '90s' }) => {
   return (
     <section className={styles.showcaseSection}>
       <div className={styles.showcaseHeader}>
-        <h2 className={styles.mainTitle}>Explore Other Decades</h2>
+        <h2 className={styles.mainTitle}>Explore Decades</h2>
         <p className={styles.mainSubtitle}>
           Time travel through the eras and discover your perfect retro look
         </p>

@@ -1,4 +1,4 @@
-// pages/pricing.js - Updated with Avatar Support
+// pages/pricing.js - Modern Sleek Design
 import Head from 'next/head';
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
@@ -40,51 +40,43 @@ const Toast = ({ message, type = 'info', onClose, isVisible }) => {
 const CREDIT_PACKS = [
   {
     id: process.env.NEXT_PUBLIC_PRICE_DAWN_PACK,
-    name: "Dawn Pack",
+    name: "Dawn",
     credits: 400,
     price: "$4.99",
-    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%)",
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     popular: false,
-    tagline: "Perfect starter pack",
-    restores: 400,
-    colorizations: 10,
-    avatars: 8
+    tagline: "Try it out",
+    perCredit: "$0.012"
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_REVIVAL_PACK,
-    name: "Revival Pack",
+    name: "Revival",
     credits: 1000,
     price: "$9.99",
-    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    popular: false,
-    tagline: "Great for families",
-    restores: 1000,
-    colorizations: 25,
-    avatars: 20
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    popular: true,
+    tagline: "Most popular",
+    perCredit: "$0.010"
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_RESURGENCE_PACK,
-    name: "Resurgence Pack",
+    name: "Resurgence",
     credits: 1600,
     price: "$14.99",
-    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    popular: true,
-    tagline: "Best value pack",
-    restores: 1600,
-    colorizations: 40,
-    avatars: 32
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    popular: false,
+    tagline: "Best value",
+    perCredit: "$0.009"
   },
   {
     id: process.env.NEXT_PUBLIC_PRICE_ETERNAL_PACK,
-    name: "Eternal Pack",
+    name: "Eternal",
     credits: 3500,
     price: "$29.99",
-    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
     popular: false,
-    tagline: "Professional package",
-    restores: 3500,
-    colorizations: 87,
-    avatars: 70
+    tagline: "Go big",
+    perCredit: "$0.008"
   },
 ];
 
@@ -92,7 +84,6 @@ export default function PricingPage() {
   const [loadingId, setLoadingId] = useState(null);
   const [user, setUser] = useState(null);
   
-  // Toast state
   const [toast, setToast] = useState({
     isVisible: false,
     message: '',
@@ -105,13 +96,8 @@ export default function PricingPage() {
     });
   }, []);
 
-  // Toast helper functions
   const showToast = (message, type = 'info') => {
-    setToast({
-      isVisible: true,
-      message,
-      type
-    });
+    setToast({ isVisible: true, message, type });
   };
 
   const hideToast = () => {
@@ -156,280 +142,162 @@ export default function PricingPage() {
     }
   };
 
-  // SEO-related values
   const siteUrl = 'https://throwbackai.app';
   const pageUrl = `${siteUrl}/pricing`;
-  const ogImage = `${siteUrl}/images/pricing-og.png`;
-  const twitterImage = ogImage;
-  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61578072554521';
-  const facebookPageId = '61578072554521';
-
-  // Build structured data (OfferCatalog) from CREDIT_PACKS
-  const offers = CREDIT_PACKS.map(pack => {
-    const numericPrice = parseFloat(String(pack.price).replace(/[^0-9.]/g, '')) || null;
-    return {
-      "@type": "Offer",
-      "name": pack.name,
-      "description": pack.tagline,
-      "price": numericPrice !== null ? numericPrice.toFixed(2) : pack.price,
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "url": pageUrl,
-      "eligibleQuantity": {
-        "@type": "QuantitativeValue",
-        "value": pack.credits
-      },
-      "sku": pack.id || pack.name
-    };
-  });
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": `${pageUrl}#webpage`,
-        "url": pageUrl,
-        "name": "Pricing — Throwback AI",
-        "description": "Purchase Throwback AI credit packs to restore and colorize vintage photos. Affordable pricing for photo restoration services.",
-        "isPartOf": { "@id": `${siteUrl}#website` }
-      },
-      {
-        "@type": "OfferCatalog",
-        "@id": `${pageUrl}#offers`,
-        "name": "Throwback AI Credit Packs",
-        "itemListElement": offers.map((offer, i) => ({
-          "@type": "OfferCatalog",
-          "position": i + 1,
-          "item": offer
-        }))
-      }
-    ]
-  };
 
   return (
     <>
       <Head>
-        <title>Pricing — Throwback AI Photo Restoration Credits</title>
+        <title>Pricing — Throwback AI</title>
         <meta
           name="description"
-          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life with AI-powered technology."
+          content="Simple pay-as-you-go pricing for AI photo restoration. No subscriptions, credits never expire."
         />
-        <meta name="keywords" content="photo restoration pricing, vintage photo repair, AI colorization cost, family photo restoration" />
         <link rel="canonical" href={pageUrl} />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Throwback AI" />
-        <meta property="og:title" content="Pricing — Throwback AI Photo Restoration Credits" />
-        <meta
-          property="og:description"
-          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life."
-        />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:alt" content="Photo restoration pricing and credit packs" />
-
-        {/* Facebook-specific */}
-        <meta property="fb:pages" content={facebookPageId} />
-        <meta property="article:publisher" content={facebookPageUrl} />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pricing — Throwback AI Photo Restoration Credits" />
-        <meta
-          name="twitter:description"
-          content="Affordable photo restoration and colorization credits. Restore vintage family photos and bring memories back to life."
-        />
-        <meta name="twitter:image" content={twitterImage} />
-
-        {/* Structured Data JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </Head>
 
-      <section className={styles.throwbackPricing}>
-        <div className={styles.heroSection}>
-          <div className={styles.backgroundPattern}></div>
-          <h1 className={styles.mainTitle}>
-            <span className={styles.titleMain}>Restore Your Photos</span>
-            <span className={styles.titleSub}>Bring Vintage Memories Back to Life</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Transform old, damaged, and faded family photos with our AI-powered restoration technology. 
-            <strong> Choose the credit pack</strong> that fits your restoration needs.
-          </p>
-
-          <div className={styles.packGrid}>
-            {CREDIT_PACKS.map(({ id, name, credits, price, tagline, gradient, popular, restores, colorizations, avatars }) => {
-              const priceNumber = parseFloat(price.slice(1));
-              const costPerCredit = (priceNumber / credits).toFixed(3);
-
-              return (
-                <div 
-                  key={id} 
-                  className={`${styles.creditCard} ${popular ? styles.featured : ''}`}
-                  style={{ '--card-gradient': gradient }}
-                >
-                  {popular && (
-                    <div className={styles.popularBadge}>
-                      <span className={styles.crown}>⭐</span>
-                      Most Popular
-                    </div>
-                  )}
-                  
-                  <div className={styles.cardHeader}>
-                    <h2 className={styles.packName}>{name}</h2>
-                    <p className={styles.tagline}>{tagline}</p>
-                  </div>
-
-                  <div className={styles.priceSection}>
-                    <div className={styles.mainPrice}>
-                      <span className={styles.currency}>$</span>
-                      <span className={styles.amount}>{price.slice(1)}</span>
-                    </div>
-                    <div className={styles.creditsInfo}>
-                      <span className={styles.creditCount}>{credits.toLocaleString()}</span>
-                      <span className={styles.creditLabel}>credits</span>
-                    </div>
-                    <div className={styles.valueInfo}>
-                      ${costPerCredit} per credit
-                    </div>
-                  </div>
-
-                  {/* Updated includes - now with avatars */}
-                  <div className={styles.cardContent}>
-                    <div className={styles.includesGrid}>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>🔧</span>
-                        <span>{restores} Photo Restorations</span>
-                      </div>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>🎨</span>
-                        <span>{colorizations} Full Colorizations</span>
-                      </div>
-                      <div className={styles.includeItem}>
-                        <span className={styles.includeIcon}>✨</span>
-                        <span>{avatars} AI Avatars</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button
-                    className={`${styles.buyBtn} ${loadingId === id ? styles.loading : ''}`}
-                    onClick={() => handlePurchase(id)}
-                    disabled={loadingId === id}
-                  >
-                    {loadingId === id ? (
-                      <>
-                        <span className={styles.spinner}>⚡</span>
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <span className={styles.buttonIcon}>🚀</span>
-                        Get Credits
-                      </>
-                    )}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Service Overview - Updated with avatar pricing */}
-          <div className={styles.serviceOverview}>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>🔧</span>
-              <div>
-                <strong>Photo Restoration</strong>
-                <span className={styles.serviceCost}>Costs 1 credit</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>🎨</span>
-              <div>
-                <strong>Full Colorization</strong>
-                <span className={styles.serviceCost}>Costs 40 credits</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>✨</span>
-              <div>
-                <strong>AI Avatar</strong>
-                <span className={styles.serviceCost}>Costs 50 credits</span>
-              </div>
-            </div>
-            <div className={styles.serviceItem}>
-              <span className={styles.serviceIcon}>📸</span>
-              <div>
-                <strong>Creative Styles</strong>
-                <span className={styles.serviceCost}>Costs 40-50 credits</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Simplified Features Section */}
-          <div className={styles.featuresSection}>
-            <h3 className={styles.featuresTitle}>Why Choose Throwback AI</h3>
-            <div className={styles.featuresList}>
-              <div className={styles.globalFeature}>
-                <span className={styles.globalFeatureIcon}>🔒</span>
-                <div>
-                  <strong>100% Private</strong>
-                  <span>Photos deleted after processing</span>
-                </div>
-              </div>
-              <div className={styles.globalFeature}>
-                <span className={styles.globalFeatureIcon}>⚡</span>
-                <div>
-                  <strong>Lightning Fast</strong>
-                  <span>Results in under 30 seconds</span>
-                </div>
-              </div>
-              <div className={styles.globalFeature}>
-                <span className={styles.globalFeatureIcon}>🎯</span>
-                <div>
-                  <strong>AI-Powered</strong>
-                  <span>Professional quality results</span>
-                </div>
-              </div>
-              <div className={styles.globalFeature}>
-                <span className={styles.globalFeatureIcon}>💝</span>
-                <div>
-                  <strong>Never Expire</strong>
-                  <span>Use credits anytime</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Small Creative Options Section */}
-          <div className={styles.additionalServices}>
-            <h4 className={styles.additionalTitle}>Also Available</h4>
-            <div className={styles.additionalGrid}>
-              <Link href="/replicate/80s" className={styles.additionalLink}>
-                <span>📼 Decade Styles</span>
-              </Link>
-              <Link href="/replicate/cartoon" className={styles.additionalLink}>
-                <span>🎭 Cartoon Art</span>
-              </Link>
-              <Link href="/replicate/avatar" className={styles.additionalLink}>
-                <span>👔 Pro Avatars</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className={styles.poweredBy}>
-            <span className={styles.aiLabel}>Powered by</span>
-            <span className={styles.throwbackAi}>Throwback AI</span>
+      <div className={styles.pricingPage}>
+        {/* Hero Section */}
+        <div className={styles.hero}>
+          <div className={styles.heroContent}>
+            <div className={styles.badge}>Pricing</div>
+            <h1 className={styles.title}>
+              Pay for what you use.<br/>
+              <span className={styles.titleGradient}>Nothing more.</span>
+            </h1>
+            <p className={styles.subtitle}>
+              No subscriptions. No hidden fees. Credits never expire.
+            </p>
           </div>
         </div>
-      </section>
 
-      {/* Toast Notification */}
+        {/* Pricing Cards */}
+        <div className={styles.container}>
+          <div className={styles.pricingGrid}>
+            {CREDIT_PACKS.map((pack) => (
+              <div 
+                key={pack.id}
+                className={`${styles.card} ${pack.popular ? styles.popular : ''}`}
+              >
+                {pack.popular && (
+                  <div className={styles.popularLabel}>Most Popular</div>
+                )}
+
+                <div className={styles.cardHeader}>
+                  <h3 className={styles.packName}>{pack.name}</h3>
+                  <p className={styles.tagline}>{pack.tagline}</p>
+                </div>
+
+                <div className={styles.priceBlock}>
+                  <div className={styles.price}>
+                    <span className={styles.currency}>$</span>
+                    <span className={styles.amount}>{pack.price.slice(1)}</span>
+                  </div>
+                  <div className={styles.creditsLine}>
+                    {pack.credits.toLocaleString()} credits
+                  </div>
+                  <div className={styles.perCredit}>
+                    {pack.perCredit} per credit
+                  </div>
+                </div>
+
+                <button
+                  className={styles.buyButton}
+                  onClick={() => handlePurchase(pack.id)}
+                  disabled={loadingId === pack.id}
+                >
+                  {loadingId === pack.id ? (
+                    <span>Processing...</span>
+                  ) : (
+                    <span>Get Started</span>
+                  )}
+                </button>
+
+                <div className={styles.includes}>
+                  <div className={styles.includeItem}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {pack.credits} photo restorations
+                  </div>
+                  <div className={styles.includeItem}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {Math.floor(pack.credits / 40)} colorizations
+                  </div>
+                  <div className={styles.includeItem}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {Math.floor(pack.credits / 50)} avatars or styles
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* What's Included Section */}
+          <div className={styles.detailsSection}>
+            <h2 className={styles.detailsTitle}>What's included</h2>
+            <div className={styles.detailsGrid}>
+              <div className={styles.detailItem}>
+                <div className={styles.detailIcon}>🔧</div>
+                <h3>Photo Restoration</h3>
+                <p>Remove scratches, tears, and damage. 1 credit per photo.</p>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.detailIcon}>🎨</div>
+                <h3>Colorization</h3>
+                <p>Add historically accurate colors. 40 credits per photo.</p>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.detailIcon}>✨</div>
+                <h3>AI Avatars</h3>
+                <p>Transform into any character. 50 credits per avatar.</p>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.detailIcon}>📸</div>
+                <h3>Vintage Styles</h3>
+                <p>70s, 80s, 90s transformations. 50 credits per style.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <div className={styles.faqSection}>
+            <h2 className={styles.faqTitle}>Frequently asked questions</h2>
+            <div className={styles.faqGrid}>
+              <div className={styles.faqItem}>
+                <h3>Do credits expire?</h3>
+                <p>Never. Buy once, use whenever you need.</p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3>What's your refund policy?</h3>
+                <p>If unsatisfied with a result, we'll refund the credits to your account.</p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3>How are photos stored?</h3>
+                <p>All photos are automatically deleted after 1 hour for your privacy.</p>
+              </div>
+              <div className={styles.faqItem}>
+                <h3>Is there a subscription?</h3>
+                <p>No subscriptions ever. Pay only for what you use.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Final CTA */}
+          <div className={styles.finalCta}>
+            <h2>Ready to restore your memories?</h2>
+            <p>Start with 50 free credits when you sign up.</p>
+            <Link href="/signup" className={styles.ctaButton}>
+              Get Started Free
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <Toast 
         message={toast.message}
         type={toast.type}

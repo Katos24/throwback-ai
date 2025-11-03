@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import styles from '../../styles/SplitHeroLanding.module.css';
+import styles from './SplitHeroLanding.module.css';
 
 // Hero data with CLEAR messaging
 const PRIMARY_HERO = {
@@ -43,7 +43,7 @@ const SECONDARY_FEATURES = [
     // AFTER: Simple benefit
     description: 'Transform yourself into fantasy characters, historical figures, or sci-fi heroes in seconds.',
     link: '/replicate/avatar',
-    combinedImage: '/images/avatarcard.png',
+    combinedImage: '/images/home/avatar_bounty_hunter.png',
     beforeLabel: 'Your Photo',
     afterLabel: 'AI Avatar',
     tags: [
@@ -64,7 +64,7 @@ const SECONDARY_FEATURES = [
     // More specific era callout
     description: 'Transform into authentic 70s disco, 80s neon, 90s grunge, or Y2K styles. Perfect for throwback posts.',
     link: '/decades',
-    combinedImage: '/images/decades-before-after-combined.jpg',
+    combinedImage: '/images/home/decade_70s.png',
     beforeLabel: '2024',
     afterLabel: '1990s',
     tags: [

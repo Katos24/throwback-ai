@@ -1,0 +1,217 @@
+/* ========================================
+   FINAL CTA SECTION
+   ======================================== */
+.ctaSection {
+  padding: 120px 20px;
+  background: #000;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.ctaCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  padding: 80px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+}
+
+.ctaTitle {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.ctaDescription {
+  font-size: 1.3rem;
+  color: #aaa;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Features */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: #ccc;
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #4ade80;
+  color: #000;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  padding: 20px 48px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000;
+  background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+.secondaryButton {
+  padding: 20px 48px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Decorative Elements */
+.decorativeOrb1,
+.decorativeOrb2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.decorativeOrb1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+}
+
+.decorativeOrb2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.15) 0%, transparent 70%);
+  bottom: -250px;
+  right: -250px;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+@media (max-width: 1024px) {
+  .ctaSection {
+    padding: 100px 20px;
+  }
+
+  .ctaCard {
+    padding: 60px 40px;
+  }
+
+  .ctaTitle {
+    font-size: 2.8rem;
+  }
+
+  .ctaDescription {
+    font-size: 1.15rem;
+  }
+
+  .features {
+    gap: 24px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 768px) {
+  .ctaSection {
+    padding: 80px 16px;
+  }
+
+  .ctaCard {
+    padding: 48px 28px;
+    border-radius: 24px;
+  }
+
+  .ctaTitle {
+    font-size: 2.2rem;
+  }
+
+  .ctaDescription {
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ctaTitle {
+    font-size: 1.9rem;
+  }
+}

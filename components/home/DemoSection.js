@@ -2,47 +2,46 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageCompareSlider from "../ImageCompareSlider";
-import demoStyles from '../../styles/DemoSection.module.css';
+import demoStyles from './DemoSection.module.css';
 
 export default function DemoSection() {
   const [activeDemo, setActiveDemo] = useState(null);
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [isLoading, setIsLoading] = useState(false);
 
-  // Memoize demos to fix useEffect dependency warning
-const demos = useMemo(() => [
-  {
-    id: 'colorize',
-    title: "Historical Colorization",
-    description: "Add historically accurate, vibrant colors to black and white family photos.",
-    icon: "🎨",
-    buttonText: "Try Colorize",
-    beforeAfter: {
-      before: "/images/beforepremium2.jpg",
-      after: "/images/afterpremium2.jpg"
+  // Two restoration examples with SLIDERS
+  const demos = useMemo(() => [
+    {
+      id: 'colorize',
+      title: "Historical Colorization",
+      description: "Add historically accurate, vibrant colors to black and white family photos. Perfect for bringing old memories to life.",
+      icon: "🎨",
+      buttonText: "Try Colorization",
+      beforeAfter: {
+        before: "/images/before6.jpg",
+        after: "/images/after6.jpg"
+      },
+      link: "/replicate/restore-premium",
+      credits: 40,
+      category: "restore",
+      color: "#8b5cf6"
     },
-    link: "/replicate/restore-premium",
-    credits: 40,
-    category: "restore",
-    color: "#8b5cf6"
-  },
-  {
-    id: 'eighties',
-    title: "1980s Style Transformation",
-    description: "Transform your photos with bold colors, VHS textures, and retro 80s vibes.",
-    icon: "📼",
-    buttonText: "Try 80s Look",
-    beforeAfter: {
-      before: "/images/80sbeforecard.jpg",
-      after: "/images/80sbeforeafter.jpg"
-    },
-    link: "/replicate/style-80s",
-    credits: 50,
-    category: "style",
-    color: "#ec4899"
-  }
-], []);
-
+    {
+      id: 'repair',
+      title: "Photo Repair & Enhancement",
+      description: "Remove scratches, tears, and water damage. Enhance faded areas and restore clarity to damaged family photos.",
+      icon: "✨",
+      buttonText: "Try Photo Repair",
+      beforeAfter: {
+        before: "/images/basicpage-before.jpg",
+        after: "/images/basicpage-after.jpg"
+      },
+      link: "/replicate/restore-premium",
+      credits: 1,
+      category: "restore",
+      color: "#10b981"
+    }
+  ], []);
 
   // Preload images when component mounts
   useEffect(() => {
@@ -64,7 +63,7 @@ const demos = useMemo(() => [
     };
 
     preloadImages();
-  }, []);
+  }, [demos]);
 
   // Helper function to preload individual images
   const preloadImage = (src) => {
@@ -85,7 +84,6 @@ const demos = useMemo(() => [
     const demo = demos.find(d => d.id === demoId);
     const imagesToLoad = [demo.beforeAfter.before, demo.beforeAfter.after];
     
-    // Check if images are already loaded
     const allImagesLoaded = imagesToLoad.every(img => loadedImages.has(img));
     
     if (!allImagesLoaded) {
@@ -104,14 +102,13 @@ const demos = useMemo(() => [
   };
 
   const handleDemoAction = (demo) => {
-    // Use Next.js router instead of window.location.href
     window.location.href = demo.link;
   };
 
   return (
     <section className={demoStyles.demoSection}>
       <div className={demoStyles.container}>
-        {/* Hidden preload images - improves caching */}
+        {/* Hidden preload images */}
         <div style={{ display: 'none' }}>
           {demos.map(demo => (
             <React.Fragment key={demo.id}>
@@ -135,19 +132,19 @@ const demos = useMemo(() => [
 
         {/* Section Header */}
         <div className={demoStyles.header}>
-          <div className={demoStyles.badge}>AI RESTORATION TECHNOLOGY</div>
+          <div className={demoStyles.badge}>INTERACTIVE RESTORATION DEMOS</div>
           <h2 className={demoStyles.title}>
-            Bring Your Family Photos Back to Life
+            See the Difference for Yourself
           </h2>
           <p className={demoStyles.subtitle}>
-            Advanced neural networks trained on millions of historical images deliver professional restoration results in seconds. 
-            Click any transformation to see our AI preservation technology at work.
+            Drag the slider to compare original and restored photos. Our AI reveals hidden details, 
+            removes damage, and brings faded memories back to life with stunning clarity.
           </p>
         </div>
 
-        {/* Demo Grid - Two cards side by side with landscape orientation */}
+        {/* Demo Grid - Two restoration cards */}
         <div className={`${demoStyles.demoGrid} ${demoStyles.landscapeGrid}`}>
-          {demos.map((demo, index) => (
+          {demos.map((demo) => (
             <div 
               key={demo.id} 
               className={`${demoStyles.demoCard} ${demoStyles.landscapeCard} ${activeDemo === demo.id ? demoStyles.active : ''}`}
@@ -162,7 +159,7 @@ const demos = useMemo(() => [
                 <h3 className={demoStyles.cardTitle}>{demo.title}</h3>
               </div>
               
-              {/* Default Card Content - Hidden when slider is active */}
+              {/* Default Card Content */}
               {activeDemo !== demo.id && (
                 <>
                   <div className={demoStyles.cardContent}>
@@ -171,14 +168,14 @@ const demos = useMemo(() => [
 
                   <div className={demoStyles.cardFooter}>
                     <div className={demoStyles.demoButton}>
-                      <span>{isLoading ? 'Loading...' : 'View Demo'}</span>
+                      <span>{isLoading ? 'Loading...' : 'View Interactive Demo'}</span>
                       <div className={demoStyles.arrow}>→</div>
                     </div>
                   </div>
                 </>
               )}
 
-              {/* Inline Slider - Replaces card content when active */}
+              {/* Interactive Slider */}
               {activeDemo === demo.id && (
                 <div className={`${demoStyles.inlineSliderContent} ${demoStyles.landscapeSlider}`}>
                   <div className={demoStyles.sliderWrapper}>
@@ -208,7 +205,6 @@ const demos = useMemo(() => [
                     </div>
                   </div>
 
-                  {/* Action Button - Added above Hide Demo */}
                   <div className={demoStyles.actionButtonWrapper}>
                     <button 
                       className={demoStyles.actionButton}
@@ -238,7 +234,7 @@ const demos = useMemo(() => [
           ))}
         </div>
 
-        {/* Processing Stats - Updated for restoration focus */}
+        {/* Stats */}
         <div className={demoStyles.techStats}>
           <div className={demoStyles.techStat}>
             <div className={demoStyles.statValue}>45s</div>
@@ -254,12 +250,12 @@ const demos = useMemo(() => [
           </div>
         </div>
 
-        {/* Add CTA for other services */}
+        {/* CTA for other services */}
         <div className={demoStyles.additionalServices}>
           <p className={demoStyles.additionalText}>
             Looking for creative transformations?{' '}
             <Link href="/decades" className={demoStyles.additionalLink}>
-              Explore our decade style generators →
+              Explore our vintage yearbook styles →
             </Link>
           </p>
         </div>

@@ -1,7 +1,11 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import styles from './SplitHeroLanding.module.css';
+
+// Lazy-load heavy components (like Slick slider) if used later
+// const Slider = dynamic(() => import('slick-carousel'), { ssr: false });
 
 const TOOLS = [
   {
@@ -39,7 +43,7 @@ const TOOLS = [
   }
 ];
 
-const SimpleToolCard = ({ tool, onNavigate }) => (
+const SimpleToolCard = React.memo(({ tool, onNavigate }) => (
   <div className={styles.simpleCard} onClick={() => onNavigate(tool.link, tool.id)}>
     <div className={styles.badge}>{tool.badge}</div>
 
@@ -50,6 +54,7 @@ const SimpleToolCard = ({ tool, onNavigate }) => (
         fill
         className={styles.image}
         sizes="(max-width: 768px) 100vw, 400px"
+        priority={tool.id === 'restore'} // Only main hero image is high priority
       />
     </div>
 
@@ -71,9 +76,9 @@ const SimpleToolCard = ({ tool, onNavigate }) => (
       <button className={styles.cardButton}>Try Now →</button>
     </div>
   </div>
-);
+));
 
-const MetricCard = ({ label, ourValue, ourLabel, gptLabel, icon }) => (
+const MetricCard = React.memo(({ label, ourLabel, gptLabel, icon }) => (
   <div className={styles.metricCard}>
     <div className={styles.metricHeader}>
       <span className={styles.metricIcon}>{icon}</span>
@@ -91,7 +96,7 @@ const MetricCard = ({ label, ourValue, ourLabel, gptLabel, icon }) => (
       </div>
     </div>
   </div>
-);
+));
 
 export default function SplitHeroLanding() {
   const router = useRouter();
@@ -106,20 +111,18 @@ export default function SplitHeroLanding() {
     router.push(href);
   }, [router]);
 
-  // Fetch restoration stats
   useEffect(() => {
     fetchStats();
   }, []);
 
-  // Count-up animation
   useEffect(() => {
     if (isLoaded && displayCount < stats.total) {
-      const timer = setTimeout(() => {
+      const timer = requestAnimationFrame(() => {
         setDisplayCount(prev =>
           Math.min(prev + Math.ceil((stats.total - prev) / 10), stats.total)
         );
-      }, 30);
-      return () => clearTimeout(timer);
+      });
+      return () => cancelAnimationFrame(timer);
     }
   }, [displayCount, stats.total, isLoaded]);
 
@@ -138,26 +141,22 @@ export default function SplitHeroLanding() {
   return (
     <section className={styles.toolsSection}>
       <div className={styles.container}>
-
-        {/* 🎯 HERO - Lead with Differentiator */}
         <div className={styles.heroSection}>
           <div className={styles.heroContent}>
-            
-            {/* Problem Statement */}
+
             <div className={styles.problemStatement}>
               <span className={styles.problemBadge}>❌ Stop Using ChatGPT</span>
             </div>
 
-            {/* Main Headline - Differentiator */}
             <h1 className={styles.heroTitle}>
               Get <span className={styles.heroAccent}>10x Better Results</span> in Seconds
             </h1>
-            
+
             <p className={styles.heroSubtitle}>
               Purpose-built AI for photos. Faster than ChatGPT. Better quality. No subscription required.
             </p>
-            
-            {/* BEFORE/AFTER PROOF - Show restoration example */}
+
+            {/* LCP image - high priority */}
             <div className={styles.heroProof}>
               <div className={styles.proofImageWrapper}>
                 <Image
@@ -166,7 +165,8 @@ export default function SplitHeroLanding() {
                   width={900}
                   height={500}
                   className={styles.proofImage}
-                  priority
+                  priority // ensures fast LCP
+                  fetchPriority="high" // explicitly sets fetch priority
                 />
                 <div className={styles.proofBadge}>
                   <span className={styles.proofIcon}>⚡</span>
@@ -175,7 +175,6 @@ export default function SplitHeroLanding() {
               </div>
             </div>
 
-            {/* Primary CTA - Guide to starting point */}
             <div className={styles.heroCTA}>
               <button 
                 className={styles.primaryButton}
@@ -190,57 +189,33 @@ export default function SplitHeroLanding() {
           </div>
         </div>
 
-        {/* 📊 Why We're Better */}
         <div className={styles.comparisonSection}>
           <h3 className={styles.comparisonTitle}>
             Why <span className={styles.titleAccent}>We Beat ChatGPT</span>
           </h3>
-          
+
           <div className={styles.metricsGrid}>
-            <MetricCard 
-              label="Processing Speed"
-              ourLabel="5-60s"
-              gptLabel="2-5m"
-              icon="⚡"
-            />
-            <MetricCard 
-              label="Quality Score"
-              ourLabel="9.2/10"
-              gptLabel="6/10"
-              icon="✨"
-            />
+            <MetricCard label="Processing Speed" ourLabel="5-60s" gptLabel="2-5m" icon="⚡" />
+            <MetricCard label="Quality Score" ourLabel="9.2/10" gptLabel="6/10" icon="✨" />
           </div>
 
           <div className={styles.comparisonFooter}>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>💰</span>
-              <span className={styles.footerText}>Pay-per-use vs $20/mo</span>
-            </div>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>🎯</span>
-              <span className={styles.footerText}>Purpose-built vs general</span>
-            </div>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>🔒</span>
-              <span className={styles.footerText}>Auto-delete in 1 hour</span>
-            </div>
+            <div className={styles.footerItem}><span className={styles.footerIcon}>💰</span><span>Pay-per-use vs $20/mo</span></div>
+            <div className={styles.footerItem}><span className={styles.footerIcon}>🎯</span><span>Purpose-built vs general</span></div>
+            <div className={styles.footerItem}><span className={styles.footerIcon}>🔒</span><span>Auto-delete in 1 hour</span></div>
           </div>
         </div>
 
-        {/* 🧰 All Tools */}
         <div className={styles.allToolsSection}>
           <h2 className={styles.sectionTitle}>Choose Your Transformation</h2>
-          <p className={styles.sectionSubtitle}>
-            Premium AI tools purpose-built for photo editing
-          </p>
-          
+          <p className={styles.sectionSubtitle}>Premium AI tools purpose-built for photo editing</p>
+
           <div className={styles.cardsGrid}>
             {TOOLS.map((tool) => (
               <SimpleToolCard key={tool.id} tool={tool} onNavigate={handleNavigation} />
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

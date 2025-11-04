@@ -13,7 +13,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  // Fetch session on mount
+  // Supabase session
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
@@ -27,7 +27,7 @@ export default function Header() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Close mobile menu on click outside
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -35,10 +35,7 @@ export default function Header() {
       }
     };
 
-    if (showMenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+    if (showMenu) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu]);
 
@@ -114,11 +111,11 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Hamburger / X Button */}
         <button
           className={styles.mobileMenuBtn}
           onClick={() => setShowMenu((prev) => !prev)}
-          aria-label="Toggle menu"
+          aria-label={showMenu ? "Close menu" : "Open menu"}
         >
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
@@ -131,14 +128,6 @@ export default function Header() {
         <>
           <div className={styles.mobileMenuOverlay} onClick={() => setShowMenu(false)} />
           <nav ref={navRef} className={styles.mobileMenu}>
-            <button
-              className={styles.mobileCloseBtn}
-              onClick={() => setShowMenu(false)}
-              aria-label="Close menu"
-            >
-              ×
-            </button>
-
             {navigationItems.map((item) => (
               <Link
                 key={item.href}

@@ -13,82 +13,86 @@ import ScrollToTop from "../components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 
-// Configure Inter font with Next.js optimization
+// Configure Inter font - critical font loaded in _document
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   display: 'swap',
   preload: true,
+  variable: '--font-inter',
 });
 
 export default function MyApp({ Component, pageProps }) {
   const [showMenu, setShowMenu] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  // Disable scroll restoration - we handle it manually
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = "manual";
-      const originalPushState = window.history.pushState;
-      const originalReplaceState = window.history.replaceState;
-      window.history.pushState = function (...args) {
-        originalPushState.apply(window.history, args);
-        setTimeout(() => window.scrollTo(0, 0), 0);
-      };
-      window.history.replaceState = function (...args) {
-        originalReplaceState.apply(window.history, args);
-        setTimeout(() => window.scrollTo(0, 0), 0);
-      };
     }
   }, []);
 
+  // Handle route changes - aggressive scroll to top
   useEffect(() => {
-    const handleRouteChangeStart = (url) => {
+    const scrollToTop = () => {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, 0);
+    };
+
+    const handleRouteChangeStart = (url) => {
+      setIsLoading(true);
+      setShowMenu(false);
+      
+      // Immediate scroll
+      scrollToTop();
     };
 
     const handleRouteChangeComplete = () => {
-      setShowMenu(false);
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, 0);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, 100);
+      setIsLoading(false);
+      
+      // Multiple scroll attempts to ensure it works
+      scrollToTop();
+      
+      setTimeout(() => scrollToTop(), 0);
+      setTimeout(() => scrollToTop(), 10);
+      setTimeout(() => scrollToTop(), 50);
+      setTimeout(() => scrollToTop(), 100);
+      
+      // Use requestAnimationFrame for smooth guarantee
+      requestAnimationFrame(() => scrollToTop());
+    };
+
+    const handleRouteChangeError = () => {
+      setIsLoading(false);
+      scrollToTop();
     };
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    router.events.on("routeChangeError", handleRouteChangeError);
 
     return () => {
       router.events.off("routeChangeStart", handleRouteChangeStart);
       router.events.off("routeChangeComplete", handleRouteChangeComplete);
+      router.events.off("routeChangeError", handleRouteChangeError);
     };
   }, [router.events]);
 
   return (
-    <SessionContextProvider
-      supabaseClient={supabase}
-      initialSession={pageProps.initialSession}
-    >
+    <>
       <Head>
+        {/* Viewport meta - critical for mobile */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        
+        {/* Facebook domain verification */}
         <meta
           name="facebook-domain-verification"
           content="a8g2fjbwbuha4i98c0jotplpn54k01"
         />
+        
         {/* Meta Pixel Code */}
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -105,31 +109,61 @@ export default function MyApp({ Component, pageProps }) {
           `
         }} />
         <noscript>
-          <img height="1" width="1" style={{display:'none'}}
-            src="https://www.facebook.com/tr?id=1459115708620119&ev=PageView&noscript=1" />
+          <img 
+            height="1" 
+            width="1" 
+            style={{display:'none'}}
+            src="https://www.facebook.com/tr?id=1459115708620119&ev=PageView&noscript=1" 
+            alt=""
+          />
         </noscript>
-        {/* End Meta Pixel Code */}
       </Head>
-      <div className={`app-container ${inter.className}`}>
-        <Header showMenu={showMenu} setShowMenu={setShowMenu} />
-        <main className="main-content">
-          <Component {...pageProps} />
+
+      <SessionContextProvider
+        supabaseClient={supabase}
+        initialSession={pageProps.initialSession}
+      >
+        <div className={`app-container ${inter.className}`}>
+          <Header showMenu={showMenu} setShowMenu={setShowMenu} />
+          
+          <main className="main-content">
+            <Component {...pageProps} />
+          </main>
+
+          <Footer />
+          <CookieBanner />
+          <ScrollToTop />
+          
+          {/* Toast notifications */}
           <Toaster
             position="top-center"
             toastOptions={{
               duration: 4000,
               style: {
-                background: "#1a1a1a",
+                background: "#1a1a2e",
                 color: "#fff",
-                border: "1px solid #333",
+                border: "1px solid rgba(168, 85, 247, 0.3)",
+                borderRadius: "12px",
+                padding: "16px",
+                fontSize: "14px",
+                fontWeight: "600",
+              },
+              success: {
+                iconTheme: {
+                  primary: '#10b981',
+                  secondary: '#fff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#fff',
+                },
               },
             }}
           />
-        </main>
-        <Footer />
-        <CookieBanner />
-        <ScrollToTop />
-      </div>
-    </SessionContextProvider>
+        </div>
+      </SessionContextProvider>
+    </>
   );
 }

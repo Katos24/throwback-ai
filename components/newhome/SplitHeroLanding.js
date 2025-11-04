@@ -4,17 +4,7 @@ import Image from 'next/image';
 import styles from './SplitHeroLanding.module.css';
 
 const TOOLS = [
-  {
-    id: 'restore',
-    badge: '🔥 Most Popular',
-    title: 'Photo Restoration',
-    tagline: 'Fix damaged & faded photos',
-    link: '/replicate/restore-premium',
-    image: '/images/restorehero.jpg',
-    price: 'From 1 credit',
-    time: '5-60 sec',
-    features: ['Remove damage', 'Add color', 'Enhance clarity'],
-  },
+
   {
     id: 'avatar',
     badge: '✨ Creative',

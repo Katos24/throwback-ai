@@ -14,12 +14,7 @@ export default function Document() {
         <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="//widget.trustpilot.com" />
 
-        {/* Load critical fonts immediately - prevents flash */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-
+     
         {/* Social Sharing Meta Tags */}
         <meta property="og:title" content="ThrowbackAI – Restore Your Memories" />
         <meta property="og:description" content="Bring your old photos back to life with AI-powered restoration." />

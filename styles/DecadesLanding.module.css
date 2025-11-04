@@ -342,7 +342,7 @@
 /* Mobile responsive - tighter */
 @media (max-width: 768px) {
   .mainContent {
-    padding: 30px 15px 15px;
+    padding: 10px 15px 15px;
   }
   
   .header {

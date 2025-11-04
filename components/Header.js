@@ -19,11 +19,9 @@ export default function Header() {
       setUser(session?.user || null);
       setIsLoading(false);
     });
-
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
 
@@ -33,17 +31,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Close menu when clicking outside nav or overlay
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (navRef.current && !navRef.current.contains(e.target) && showMenu) {
-        setShowMenu(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -65,6 +52,17 @@ export default function Header() {
       </header>
     );
   }
+
+  // Close menu when clicking outside nav OR overlay
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showMenu && navRef.current && !navRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showMenu]);
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
@@ -113,7 +111,7 @@ export default function Header() {
         {/* Mobile Hamburger / X */}
         <button
           className={styles.mobileMenuBtn}
-          onClick={() => setShowMenu((prev) => !prev)}
+          onClick={() => setShowMenu(!showMenu)}
           aria-label={showMenu ? "Close menu" : "Open menu"}
         >
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />

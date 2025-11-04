@@ -6,18 +6,17 @@ import HomepageSEO from '../components/SEO/HomepageSEO';
 
 // Critical - Load immediately
 
-import ResultsGallery from 'components/newhome/ResultsGallery';
-import FeatureShowcase from 'components/newhome/FeatureShowcase';
-import SignupBanner from '../components/home/SignupBanner';
 import SplitHeroLanding from '../components/newhome/SplitHeroLanding';
-import StatsBar from '../components/home/StatsBar';
+import AIDemoShowcase from '../components/newhome/AIDemoShowcase';
+import SimplePricingTeaser from '../components/newhome/SimplePricingTeaser';
+import SignupBanner from '../components/home/SignupBanner';
+import FeatureShowcase from 'components/newhome/FeatureShowcase';
 
 // Below fold - Lazy load
 const HowItWorksSection = dynamic(() => import('../components/home/HowItWorksSection'));
 const TestimonialsSection = dynamic(() => import('../components/home/TestimonialsSection'));
 const PricingTeaser = dynamic(() => import('../components/home/PricingTeaser'));
 const FinalCTA = dynamic(() => import('../components/home/FinalCTA'));
-const RestorationCounter = dynamic(() => import('../components/RestorationCounter'));
 
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 
@@ -28,28 +27,26 @@ export default function Home() {
   const [pricingRef, pricingInView] = useInView({ triggerOnce: true, rootMargin: '200px' });
   const [ctaRef, ctaInView] = useInView({ triggerOnce: true, rootMargin: '200px' });
 
-  return (
+ return (
     <>
       <HomepageSEO />
-
-  {/* 4. TOOL SELECTOR - Choose your tool (KEEP - simplified version) */}
-        <SplitHeroLanding />
-
       
+      {/* Hero with ChatGPT comparison */}
+      <SplitHeroLanding />
+
       <main>
-        {/* 1. HERO - Interactive slider demo (KEEP) */}
-        <ResultsGallery />
-        
-        {/* 2. SIGNUP BANNER - Capture interest immediately (NEW) */}
+        {/* Animated demo showcase */}
+        <AIDemoShowcase />
+
+        {/* 🆕 SIMPLE PRICING - Show costs early! */}
+        <SimplePricingTeaser />
+
+        {/* Signup banner */}
         <SignupBanner />
-        
-        {/* 3. STATS BAR - Build credibility early (MOVED UP) */}
-        <StatsBar />
 
-        
-      
 
-       <FeatureShowcase />
+        {/* Feature showcase */}
+        <FeatureShowcase />
         
     {/* 5. HOW IT WORKS - 3 simple steps (MOVED UP)
 <div ref={howItWorksRef}>

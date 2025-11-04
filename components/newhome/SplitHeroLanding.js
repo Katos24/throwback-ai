@@ -4,7 +4,17 @@ import Image from 'next/image';
 import styles from './SplitHeroLanding.module.css';
 
 const TOOLS = [
-
+  {
+    id: 'restore',
+    badge: '🔥 Most Popular',
+    title: 'Photo Restoration',
+    tagline: 'Fix damaged & faded photos',
+    link: '/replicate/restore-premium',
+    image: '/images/restorehero.jpg',
+    price: 'From 1 credit',
+    time: '5-60 sec',
+    features: ['Remove damage', 'Add color', 'Enhance clarity'],
+  },
   {
     id: 'avatar',
     badge: '✨ Creative',
@@ -171,41 +181,11 @@ export default function SplitHeroLanding() {
                 className={styles.primaryButton}
                 onClick={() => handleNavigation('/replicate/restore-premium', 'hero-cta')}
               >
-                Try Photo Restoration
+                Try Photo Restoration — 1 Credit
               </button>
               <p className={styles.ctaSubtext}>
                 <span className={styles.alsoAvailable}>Also available:</span> AI Avatars • Vintage Yearbook
               </p>
-            </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className={styles.heroStats}>
-            {isLoaded && displayCount > 0 ? (
-              <div className={styles.statItem}>
-                <span className={styles.statNumber}>{displayCount.toLocaleString()}+</span>
-                <span className={styles.statLabel}>Photos Restored</span>
-              </div>
-            ) : (
-              <div className={styles.statItem}>
-                <span className={styles.statNumber}>✨</span>
-                <span className={styles.statLabel}>Daily Restorations</span>
-              </div>
-            )}
-            <div className={styles.statDivider}></div>
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>4.8★</span>
-              <span className={styles.statLabel}>User Rating</span>
-            </div>
-            <div className={styles.statDivider}></div>
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>5-60s</span>
-              <span className={styles.statLabel}>Fast Results</span>
-            </div>
-            <div className={styles.statDivider}></div>
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>$0</span>
-              <span className={styles.statLabel}>Subscriptions</span>
             </div>
           </div>
         </div>

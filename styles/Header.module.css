@@ -29,6 +29,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  position: relative;
+  z-index: 1002;
 }
 
 /* ========================================
@@ -194,7 +196,7 @@
   cursor: pointer;
   padding: 0;
   position: relative;
-  z-index: 1001;
+  z-index: 1002;
 }
 
 .hamburgerLine {
@@ -234,7 +236,6 @@
 ======================================== */
 
 .mobileMenuOverlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -242,12 +243,18 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
-  z-index: 998;
-  animation: fadeIn 0.3s ease-out;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+
+.mobileMenuOverlay.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobileMenu {
-  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -256,10 +263,15 @@
   height: 100vh;
   background: linear-gradient(135deg, #1a1f36 0%, #0f1419 100%);
   box-shadow: -4px 0 40px rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000;
   padding: 6rem 2rem 2rem;
   overflow-y: auto;
-  animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileMenu.show {
+  transform: translateX(0);
 }
 
 /* Scrollbar Styling */
@@ -421,6 +433,13 @@
    RESPONSIVE
 ======================================== */
 
+@media (min-width: 969px) {
+  .mobileMenuOverlay,
+  .mobileMenu {
+    display: none !important;
+  }
+}
+
 @media (max-width: 968px) {
   .desktopNav,
   .authButtons {
@@ -429,21 +448,6 @@
 
   .mobileMenuBtn {
     display: flex;
-    z-index: 2001; /* ensure clickable above overlay/menu */
-  }
-
-  .mobileMenuOverlay {
-    display: block;
-    z-index: 1000; /* below button but above other content */
-  }
-
-  .mobileMenu {
-    display: block;
-    z-index: 1500; /* below button, above overlay */
-  }
-
-  .header {
-    z-index: 2000; /* header above overlay + menu */
   }
 }
 

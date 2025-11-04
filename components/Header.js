@@ -5,39 +5,25 @@ import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/Header.module.css";
 
 export default function Header() {
-  const navRef = useRef(null);
   const router = useRouter();
+  const navRef = useRef(null);
 
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  // Supabase session
+  // Auth session
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
       setIsLoading(false);
     });
-
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (navRef.current && !navRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    if (showMenu) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu]);
 
   // Scroll effect
   useEffect(() => {
@@ -66,6 +52,17 @@ export default function Header() {
       </header>
     );
   }
+
+  // Close menu when clicking outside nav OR overlay
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showMenu && navRef.current && !navRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showMenu]);
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
@@ -111,10 +108,10 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile Hamburger / X Button */}
+        {/* Mobile Hamburger / X */}
         <button
           className={styles.mobileMenuBtn}
-          onClick={() => setShowMenu((prev) => !prev)}
+          onClick={() => setShowMenu(!showMenu)}
           aria-label={showMenu ? "Close menu" : "Open menu"}
         >
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
@@ -126,7 +123,10 @@ export default function Header() {
       {/* Mobile Menu */}
       {showMenu && (
         <>
-          <div className={styles.mobileMenuOverlay} onClick={() => setShowMenu(false)} />
+          <div
+            className={styles.mobileMenuOverlay}
+            onClick={() => setShowMenu(false)}
+          />
           <nav ref={navRef} className={styles.mobileMenu}>
             {navigationItems.map((item) => (
               <Link
@@ -138,7 +138,6 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-
             <div className={styles.mobileAuthSection}>
               {user ? (
                 <>

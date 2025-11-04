@@ -4,40 +4,47 @@ import Link from "next/link";
 import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/Header.module.css";
 
-export default function Header({ showMenu, setShowMenu }) {
+export default function Header() {
   const navRef = useRef(null);
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  // Fetch session on mount
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);
       setIsLoading(false);
     });
+
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user || null);
     });
+
     return () => listener.subscription.unsubscribe();
   }, []);
 
+  // Close mobile menu on click outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };
+
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu, setShowMenu]);
 
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showMenu]);
+
+  // Scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -52,7 +59,7 @@ export default function Header({ showMenu, setShowMenu }) {
     { href: "/replicate/restore-premium", label: "Restore" },
     { href: "/replicate/avatar", label: "Avatar" },
     { href: "/decades", label: "Decades" },
-    { href: "/pricing", label: "Pricing" }
+    { href: "/pricing", label: "Pricing" },
   ];
 
   if (isLoading) {
@@ -66,16 +73,15 @@ export default function Header({ showMenu, setShowMenu }) {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
       <div className={styles.container}>
-        
         {/* Logo */}
         <Link href="/" className={styles.logo} onClick={() => setShowMenu(false)}>
           <div className={styles.logoText}>Throwback AI</div>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className={styles.desktopNav}>
           {navigationItems.map((item) => (
-            <Link 
+            <Link
               key={item.href}
               href={item.href}
               className={`${styles.navLink} ${router.pathname === item.href ? styles.active : ""}`}
@@ -118,7 +124,6 @@ export default function Header({ showMenu, setShowMenu }) {
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
         </button>
-
       </div>
 
       {/* Mobile Menu */}
@@ -126,8 +131,16 @@ export default function Header({ showMenu, setShowMenu }) {
         <>
           <div className={styles.mobileMenuOverlay} onClick={() => setShowMenu(false)} />
           <nav ref={navRef} className={styles.mobileMenu}>
+            <button
+              className={styles.mobileCloseBtn}
+              onClick={() => setShowMenu(false)}
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+
             {navigationItems.map((item) => (
-              <Link 
+              <Link
                 key={item.href}
                 href={item.href}
                 className={`${styles.mobileNavLink} ${router.pathname === item.href ? styles.active : ""}`}
@@ -136,7 +149,7 @@ export default function Header({ showMenu, setShowMenu }) {
                 {item.label}
               </Link>
             ))}
-            
+
             <div className={styles.mobileAuthSection}>
               {user ? (
                 <>

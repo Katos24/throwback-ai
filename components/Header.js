@@ -126,8 +126,15 @@ export default function Header() {
       {/* Mobile Menu */}
       {showMenu && (
         <>
-          <div className={styles.mobileMenuOverlay} onClick={() => setShowMenu(false)} />
-          <nav ref={navRef} className={styles.mobileMenu}>
+          <div
+  className={`${styles.mobileMenuOverlay} ${showMenu ? styles.show : ""}`}
+  onClick={() => setShowMenu(false)}
+/>
+<nav
+  ref={navRef}
+  className={`${styles.mobileMenu} ${showMenu ? styles.show : ""}`}
+>
+
             {navigationItems.map((item) => (
               <Link
                 key={item.href}

@@ -171,7 +171,7 @@ export default function SplitHeroLanding() {
                 className={styles.primaryButton}
                 onClick={() => handleNavigation('/replicate/restore-premium', 'hero-cta')}
               >
-                Try Photo Restoration — 1 Credit
+                Try Photo Restoration
               </button>
               <p className={styles.ctaSubtext}>
                 <span className={styles.alsoAvailable}>Also available:</span> AI Avatars • Vintage Yearbook

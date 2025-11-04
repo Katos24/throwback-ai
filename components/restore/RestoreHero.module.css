@@ -1,109 +1,366 @@
+/* ========================================
+   RESTORE HERO - MODERN & SLICK
+======================================== */
+
 .heroGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 4rem 2rem;
+  grid-template-columns: 1fr;
+  gap: 4rem;
   align-items: center;
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  border-radius: 12px;
-  max-width: 1200px;
-  margin: 3rem auto 3rem auto; /* 3rem top and bottom */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 2rem 6rem;
+  background: linear-gradient(180deg, #0a0f20 0%, #040815 100%);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Subtle background effect */
+.heroGrid::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(168, 85, 247, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* ========================================
+   TEXT CONTENT
+======================================== */
+
 .heroText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .heroTitle {
-  font-size: 2.75rem;
-  font-weight: 700;
-  color: #212529;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
-  color: #495057;
-  margin-bottom: 1.5rem;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: #9ca3af;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+/* ========================================
+   BADGE PILLS
+======================================== */
+
+.badgePills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem auto 2.5rem;
+}
+
+.badgeBasic,
+.badgePremium {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  backdrop-filter: blur(10px);
+}
+
+.badgeBasic {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+.badgeBasic:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.badgePremium {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #c084fc;
+}
+
+.badgePremium:hover {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+}
+
+.badgeBasic span,
+.badgePremium span {
+  font-size: 1.125rem;
+}
+
+/* ========================================
+   SIGNUP BADGE/CTA
+======================================== */
 
 .heroSubtitleContainer {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #dee2e6;
-  margin-top: 1.5rem;
-}
-
-.creditCost {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #343a40;
-  background-color: #f1f3f5;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  letter-spacing: 0.3px;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .signupBadge {
-  background-color: #28a745;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.75rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
-  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.signupBadge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.signupBadge:hover::before {
+  left: 100%;
 }
 
 .signupBadge:hover {
-  background-color: #218838;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+}
+
+.signupBadge:active {
   transform: translateY(-1px);
 }
 
+/* ========================================
+   VIDEO/SLIDESHOW
+======================================== */
+
 .heroSlideshow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(168, 85, 247, 0.2);
+  background: linear-gradient(135deg, #1a1f36 0%, #0f1419 100%);
 }
 
 .heroVideo {
   width: 100%;
-  max-width: 500px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  height: auto;
+  display: block;
+  aspect-ratio: 16/9;
+  object-fit: cover;
 }
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
+/* Optional: Add glow effect on hover */
+.heroSlideshow:hover {
+  box-shadow: 
+    0 25px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(168, 85, 247, 0.4),
+    0 0 40px rgba(168, 85, 247, 0.3);
+  transition: box-shadow 0.3s;
+}
+
+/* ========================================
+   DESKTOP LAYOUT (2 COLUMNS)
+======================================== */
+
+@media (min-width: 1024px) {
   .heroGrid {
-    grid-template-columns: 1fr;
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    padding: 10rem 4rem 8rem;
   }
 
   .heroText {
-    align-items: center;
+    text-align: left;
+    margin: 0;
+  }
+
+  .heroSubtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .badgePills {
+    justify-content: flex-start;
+  }
+
+  .heroSubtitleContainer {
+    justify-content: flex-start;
+  }
+
+  .heroSlideshow {
+    margin: 0;
+  }
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .heroGrid {
+    padding: 6rem 2rem 5rem;
+    gap: 3rem;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.25rem;
+  }
+
+  .heroSlideshow {
+    max-width: 700px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 767px) {
+  .heroGrid {
+    padding: 5rem 1.5rem 4rem;
+    gap: 2.5rem;
   }
 
   .heroTitle {
     font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
   .heroSubtitle {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
   }
 
-  .heroVideo {
-    max-width: 100%;
+  .badgePills {
+    gap: 0.75rem;
+    margin: 1.5rem auto 2rem;
   }
+
+  .badgeBasic,
+  .badgePremium {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+  }
+
+  .badgeBasic span,
+  .badgePremium span {
+    font-size: 1rem;
+  }
+
+  .signupBadge {
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .heroSlideshow {
+    border-radius: 16px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .heroGrid {
+    padding: 4rem 1rem 3rem;
+    gap: 2rem;
+  }
+
+  .heroTitle {
+    font-size: 1.75rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .badgePills {
+    gap: 0.5rem;
+  }
+
+  .badgeBasic,
+  .badgePremium {
+    font-size: 0.8125rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .signupBadge {
+    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroGrid::before,
+  .badgeBasic,
+  .badgePremium,
+  .signupBadge,
+  .heroSlideshow {
+    animation: none;
+    transition: none;
+  }
+}
+
+.signupBadge:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 4px;
 }

@@ -1,4 +1,7 @@
-/* Header - Clean & Modern */
+/* ========================================
+   HEADER - SUPER SLICK (LIGHT)
+======================================== */
+
 .header {
   position: fixed;
   top: 0;
@@ -7,13 +10,14 @@
   z-index: 1000;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 0.3s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .scrolled {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border-bottom-color: rgba(168, 85, 247, 0.15);
 }
 
 /* Container */
@@ -27,29 +31,39 @@
   gap: 2rem;
 }
 
-/* Logo - Keep Your Gradient */
+/* ========================================
+   LOGO
+======================================== */
+
 .logo {
   text-decoration: none;
   display: flex;
   align-items: center;
+  transition: transform 0.2s;
+}
+
+.logo:hover {
+  transform: scale(1.02);
 }
 
 .logoText {
   font-size: 1.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.02em;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Desktop Navigation */
+/* ========================================
+   DESKTOP NAVIGATION
+======================================== */
+
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .navLink {
@@ -58,22 +72,47 @@
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 600;
-  border-radius: 10px;
-  transition: all 0.2s;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 2px;
+  background: linear-gradient(90deg, #a855f7, #ec4899);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.2s;
 }
 
 .navLink:hover {
   color: #1a1a2e;
-  background: rgba(139, 92, 246, 0.08);
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
 }
 
 .navLink.active {
   color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(168, 85, 247, 0.12);
 }
 
-/* Auth Buttons */
+.navLink.active::after {
+  transform: scaleX(1);
+}
+
+/* ========================================
+   AUTH BUTTONS
+======================================== */
+
 .authButtons {
   display: flex;
   align-items: center;
@@ -87,7 +126,7 @@
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 12px;
   transition: all 0.2s;
   white-space: nowrap;
 }
@@ -95,35 +134,39 @@
 .loginBtn:hover,
 .profileBtn:hover {
   color: #1a1a2e;
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .signupBtn {
   padding: 0.625rem 1.5rem;
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
   color: #ffffff;
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 12px;
   transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
   white-space: nowrap;
 }
 
 .signupBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+}
+
+.signupBtn:active {
+  transform: translateY(0);
 }
 
 .signOutBtn {
   padding: 0.625rem 1.25rem;
   background: transparent;
   color: #ef4444;
-  border: 1px solid #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.5);
   font-size: 0.9375rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
@@ -132,32 +175,48 @@
 .signOutBtn:hover {
   background: #ef4444;
   color: #ffffff;
+  border-color: #ef4444;
 }
 
-/* Mobile Menu Button */
+/* ========================================
+   MOBILE MENU BUTTON
+======================================== */
+
 .mobileMenuBtn {
   display: none;
   flex-direction: column;
-  justify-content: space-around;
-  width: 28px;
-  height: 24px;
+  justify-content: center;
+  align-items: flex-end;
+  width: 32px;
+  height: 32px;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
+  position: relative;
+  z-index: 1001;
 }
 
 .hamburgerLine {
-  width: 28px;
-  height: 3px;
+  width: 100%;
+  height: 2px;
   background: #1a1a2e;
-  border-radius: 10px;
-  transition: all 0.3s;
-  transform-origin: 1px;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 3px 0;
+}
+
+.hamburgerLine:nth-child(2) {
+  width: 75%;
+}
+
+.mobileMenuBtn:hover .hamburgerLine {
+  background: #a855f7;
 }
 
 .hamburgerLine:first-child.open {
-  transform: rotate(45deg);
+  transform: rotate(45deg) translate(7px, 7px);
+  width: 100%;
 }
 
 .hamburgerLine:nth-child(2).open {
@@ -166,10 +225,14 @@
 }
 
 .hamburgerLine:last-child.open {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(7px, -7px);
+  width: 100%;
 }
 
-/* Mobile Menu */
+/* ========================================
+   MOBILE MENU - SUPER SLICK
+======================================== */
+
 .mobileMenuOverlay {
   display: none;
   position: fixed;
@@ -177,8 +240,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   z-index: 998;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .mobileMenu {
@@ -186,42 +251,65 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
-  max-width: 85vw;
+  width: 100%;
+  max-width: 400px;
   height: 100vh;
-  background: #ffffff;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #1a1f36 0%, #0f1419 100%);
+  box-shadow: -4px 0 40px rgba(0, 0, 0, 0.5);
   z-index: 999;
   padding: 6rem 2rem 2rem;
   overflow-y: auto;
+  animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar Styling */
+.mobileMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobileMenu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobileMenu::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 10px;
+}
+
+.mobileMenu::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.5);
 }
 
 .mobileNavLink {
   display: block;
-  padding: 1rem 1.25rem;
-  color: #4b5563;
+  padding: 1rem 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 0.5rem;
   transition: all 0.2s;
+  border-left: 3px solid transparent;
 }
 
 .mobileNavLink:hover {
-  color: #1a1a2e;
-  background: rgba(139, 92, 246, 0.08);
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.1);
+  border-left-color: #a855f7;
+  transform: translateX(4px);
 }
 
 .mobileNavLink.active {
-  color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.1);
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.15);
+  border-left-color: #a855f7;
 }
 
 .mobileAuthSection {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -231,47 +319,50 @@
 .mobileProfileBtn {
   display: block;
   padding: 1rem 1.5rem;
-  color: #4b5563;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.2s;
 }
 
 .mobileLoginBtn:hover,
 .mobileProfileBtn:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .mobileSignupBtn {
   display: block;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
   color: #ffffff;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
   transition: all 0.2s;
 }
 
 .mobileSignupBtn:hover {
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+  transform: translateY(-2px);
 }
 
 .mobileSignOutBtn {
   padding: 1rem 1.5rem;
   background: transparent;
   color: #ef4444;
-  border: 1px solid #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.5);
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   text-align: center;
   transition: all 0.2s;
@@ -280,9 +371,13 @@
 .mobileSignOutBtn:hover {
   background: #ef4444;
   color: #ffffff;
+  border-color: #ef4444;
 }
 
-/* Loading State */
+/* ========================================
+   LOADING STATE
+======================================== */
+
 .headerLoading {
   position: fixed;
   top: 0;
@@ -292,13 +387,40 @@
   height: 60px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Tablet & Mobile */
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
 @media (max-width: 968px) {
   .desktopNav,
   .authButtons {
@@ -321,6 +443,55 @@
   }
 
   .logoText {
+    font-size: 1.35rem;
+  }
+
+  .mobileMenu {
+    max-width: 320px;
+    padding: 5rem 1.5rem 1.5rem;
+  }
+
+  .mobileNavLink {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.875rem 1rem;
+  }
+
+  .logoText {
     font-size: 1.25rem;
   }
+
+  .mobileMenu {
+    max-width: 100%;
+    padding: 5rem 1.25rem 1.25rem;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .navLink,
+  .signupBtn,
+  .hamburgerLine,
+  .mobileMenuOverlay,
+  .mobileMenu,
+  .mobileNavLink {
+    animation: none;
+    transition: none;
+  }
+}
+
+.navLink:focus-visible,
+.signupBtn:focus-visible,
+.mobileMenuBtn:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 4px;
 }

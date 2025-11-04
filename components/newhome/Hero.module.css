@@ -1,0 +1,332 @@
+/* Hero Section - Light & Bright like Pixlr */
+.hero {
+background-color: #0a0f20;
+    background-image: radial-gradient(ellipse 50% 100% at 50% -10%, #7889df50, #778ae800);  padding: 5rem 2rem 6rem;
+  position: relative;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header - Centered & Big */
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: #6b7280;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Tools Grid - 3 Cards */
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 5rem;
+}
+
+/* Tool Card - Clean & White */
+.toolCard {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.toolCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Image */
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+
+.cardImage {
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.toolCard:hover .cardImage {
+  transform: scale(1.05);
+}
+
+/* Badge */
+.cardBadge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.badgeCreative {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.badgeTrending {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+}
+
+/* Card Content */
+.cardContent {
+  padding: 2rem;
+}
+
+.cardTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.2;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Card Features */
+.cardFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cardFeature {
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* Card Footer */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.cardPrice {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* Card Button - Colorful gradients */
+.cardButton {
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.cardButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.buttonPurple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+.buttonPurple:hover {
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.35);
+}
+
+.buttonPink {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+}
+
+.buttonPink:hover {
+  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+}
+
+/* Trust Bar */
+.trustBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 3rem;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+}
+
+.trustItem {
+  text-align: center;
+}
+
+.trustNumber {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.trustLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .toolsGrid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+  }
+
+  .toolsGrid {
+    gap: 2rem;
+  }
+
+  .cardContent {
+    padding: 1.5rem;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .cardButton {
+    width: 100%;
+  }
+
+  .trustBar {
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .trustNumber {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* Trust Number - Animated Counter */
+.trustNumber {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  /* ADD THIS: */
+  transition: all 0.3s ease-out;
+  animation: countUp 0.5s ease-out;
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Add subtle pulse to draw attention */
+.trustNumber::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0.3;
+  z-index: -1;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}

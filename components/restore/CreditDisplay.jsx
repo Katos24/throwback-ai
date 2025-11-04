@@ -1,6 +1,5 @@
-import React from 'react';
-import styles from './CreditDisplay.module.css'; // optional for custom styles
 import { useRouter } from 'next/router';
+import styles from './CreditDisplay.module.css';
 
 export default function CreditDisplay({ credits, isLoggedIn, restoreMode }) {
   const router = useRouter();

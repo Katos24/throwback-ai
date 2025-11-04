@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useRestoreLogic from "../../hooks/useRestoreLogic";
 import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
 import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";

@@ -10,15 +10,15 @@ export default function FeatureShowcase() {
   const features = [
     {
       id: 'restore',
-      badge: 'Most Popular',
-      title: 'Photo Restoration',
-      subtitle: 'Bring old memories back to life',
-      description: 'Fix damaged, faded, or torn family photos with AI. Remove scratches, enhance clarity, and add realistic color to black & white memories.',
+      badge: 'For Families',
+      title: 'Preserve Family Memories',
+      subtitle: 'Bring old photos back to life',
+      description: 'Restore precious family photos damaged over decades. Perfect for creating memorial displays, family history books, or surprising relatives with renewed memories.',
       features: [
         'Remove scratches & tears',
         'Fix faded colors',
         'Colorize black & white',
-        'Enhance blurry photos'
+        'Enhance faces & details'
       ],
       images: [
         '/images/home/restore_left.jpg',
@@ -31,10 +31,10 @@ export default function FeatureShowcase() {
     },
     {
       id: 'avatar',
-      badge: 'Creative',
-      title: 'AI Avatar Generator',
-      subtitle: 'Transform into any character',
-      description: 'Create stunning AI avatars in 50+ styles. From fantasy warriors to professional headshots, sci-fi heroes to anime characters.',
+      badge: 'For Creators',
+      title: 'Stand Out Online',
+      subtitle: 'Profile pics that get noticed',
+      description: 'Create unique AI avatars for LinkedIn, Discord, Twitter, or gaming. Transform into fantasy characters, professional headshots, or sci-fi heroes that reflect your personality.',
       features: [
         'Fantasy & mythology',
         'Sci-fi & futuristic',
@@ -52,10 +52,10 @@ export default function FeatureShowcase() {
     },
     {
       id: 'decades',
-      badge: 'Trending',
-      title: 'Vintage Yearbook',
-      subtitle: 'Travel back in time',
-      description: 'Get authentic 70s disco, 80s neon, 90s grunge, or Y2K yearbook photos. Perfect for throwback posts and nostalgia.',
+      badge: 'For Influencers',
+      title: 'Nostalgia Content',
+      subtitle: 'Viral throwback posts',
+      description: 'Create authentic 70s, 80s, 90s, or Y2K yearbook photos for Instagram and TikTok. Perfect for themed parties, nostalgia marketing, or just having fun with friends.',
       features: [
         '70s disco vibes',
         '80s neon dreams',

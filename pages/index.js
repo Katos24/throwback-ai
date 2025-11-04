@@ -5,9 +5,9 @@ import { Suspense } from 'react';
 import HomepageSEO from '../components/SEO/HomepageSEO';
 
 // Critical - Load immediately
-import FeatureShowcase from 'components/newhome/FeatureShowcase';
 
-import HeroWithSlider from '../components/home/HeroWithSlider';
+import ResultsGallery from 'components/newhome/ResultsGallery';
+import FeatureShowcase from 'components/newhome/FeatureShowcase';
 import SignupBanner from '../components/home/SignupBanner';
 import SplitHeroLanding from '../components/newhome/SplitHeroLanding';
 import StatsBar from '../components/home/StatsBar';
@@ -38,13 +38,14 @@ export default function Home() {
       
       <main>
         {/* 1. HERO - Interactive slider demo (KEEP) */}
-        <HeroWithSlider />
+        <ResultsGallery />
         
         {/* 2. SIGNUP BANNER - Capture interest immediately (NEW) */}
         <SignupBanner />
         
         {/* 3. STATS BAR - Build credibility early (MOVED UP) */}
         <StatsBar />
+
         
       
 

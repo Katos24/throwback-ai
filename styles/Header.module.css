@@ -429,11 +429,21 @@
 
   .mobileMenuBtn {
     display: flex;
+    z-index: 2001; /* ensure clickable above overlay/menu */
   }
 
-  .mobileMenuOverlay,
+  .mobileMenuOverlay {
+    display: block;
+    z-index: 1000; /* below button but above other content */
+  }
+
   .mobileMenu {
     display: block;
+    z-index: 1500; /* below button, above overlay */
+  }
+
+  .header {
+    z-index: 2000; /* header above overlay + menu */
   }
 }
 

@@ -73,92 +73,25 @@ const SimpleToolCard = ({ tool, onNavigate }) => (
   </div>
 );
 
-const CircularMetric = ({ label, ourValue, ourLabel, gptValue, gptLabel, icon }) => {
-  const radius = 70;
-  const circumference = 2 * Math.PI * radius;
-  const ourOffset = circumference - (ourValue / 100) * circumference;
-  const gptOffset = circumference - (gptValue / 100) * circumference;
-
-  return (
-    <div className={styles.circularMetric}>
-      <div className={styles.circularLabel}>
-        <span className={styles.circularIcon}>{icon}</span>
-        <span>{label}</span>
+const MetricCard = ({ label, ourValue, ourLabel, gptLabel, icon }) => (
+  <div className={styles.metricCard}>
+    <div className={styles.metricHeader}>
+      <span className={styles.metricIcon}>{icon}</span>
+      <span className={styles.metricLabel}>{label}</span>
+    </div>
+    <div className={styles.metricComparison}>
+      <div className={styles.metricOurs}>
+        <div className={styles.metricTitle}>Our App</div>
+        <div className={styles.metricValue}>{ourLabel}</div>
       </div>
-      <div className={styles.circlesWrapper}>
-        <div className={styles.circleItem}>
-          <div className={styles.circleOuter}>
-            <svg width="160" height="160" className={styles.circleSvg}>
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.1)"
-                strokeWidth="12"
-              />
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="url(#gradientOurs)"
-                strokeWidth="12"
-                strokeLinecap="round"
-                strokeDasharray={circumference}
-                strokeDashoffset={ourOffset}
-                transform="rotate(-90 80 80)"
-                className={styles.circleProgress}
-              />
-              <defs>
-                <linearGradient id="gradientOurs" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#667eea" />
-                  <stop offset="100%" stopColor="#764ba2" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div className={styles.circleContent}>
-              <div className={styles.circleValue}>{ourLabel}</div>
-              <div className={styles.circleName}>Our App</div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.vsText}>vs</div>
-        <div className={styles.circleItem}>
-          <div className={styles.circleOuter}>
-            <svg width="160" height="160" className={styles.circleSvg}>
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.1)"
-                strokeWidth="12"
-              />
-              <circle
-                cx="80"
-                cy="80"
-                r={radius}
-                fill="none"
-                stroke="#4a5568"
-                strokeWidth="12"
-                strokeLinecap="round"
-                strokeDasharray={circumference}
-                strokeDashoffset={gptOffset}
-                transform="rotate(-90 80 80)"
-                className={styles.circleProgress}
-              />
-            </svg>
-            <div className={styles.circleContent}>
-              <div className={styles.circleValue}>{gptLabel}</div>
-              <div className={styles.circleName}>ChatGPT</div>
-            </div>
-          </div>
-        </div>
+      <div className={styles.metricVs}>vs</div>
+      <div className={styles.metricTheirs}>
+        <div className={styles.metricTitle}>ChatGPT</div>
+        <div className={styles.metricValue}>{gptLabel}</div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default function SplitHeroLanding() {
   const router = useRouter();
@@ -294,19 +227,15 @@ export default function SplitHeroLanding() {
           </h3>
           
           <div className={styles.metricsGrid}>
-            <CircularMetric 
+            <MetricCard 
               label="Processing Speed"
-              ourValue={95}
               ourLabel="5-60s"
-              gptValue={35}
               gptLabel="2-5m"
               icon="⚡"
             />
-            <CircularMetric 
+            <MetricCard 
               label="Quality Score"
-              ourValue={92}
               ourLabel="9.2/10"
-              gptValue={60}
               gptLabel="6/10"
               icon="✨"
             />

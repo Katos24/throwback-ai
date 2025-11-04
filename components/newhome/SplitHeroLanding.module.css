@@ -293,85 +293,83 @@
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
+  gap: 2rem;
   margin-bottom: 2.5rem;
 }
 
-.circularMetric {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+/* Metric Cards - Clean & Simple */
+.metricCard {
+  background: rgba(26, 27, 46, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s;
 }
 
-.circularLabel {
+.metricCard:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+}
+
+.metricHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.metricIcon {
+  font-size: 2rem;
+}
+
+.metricLabel {
+  font-size: 1.125rem;
+  font-weight: 700;
   color: #e2e8f0;
 }
 
-.circularIcon {
-  font-size: 1.5rem;
-}
-
-.circlesWrapper {
+.metricComparison {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
 }
 
-.circleItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.circleOuter {
-  position: relative;
-  width: 160px;
-  height: 160px;
-}
-
-.circleSvg {
-  transform: rotate(0deg);
-}
-
-.circleProgress {
-  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.circleContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.metricOurs,
+.metricTheirs {
   text-align: center;
+  flex: 1;
 }
 
-.circleValue {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
-}
-
-.circleName {
-  font-size: 0.85rem;
-  color: #cbd5e0;
-  font-weight: 500;
-}
-
-.vsText {
-  font-size: 1rem;
+.metricTitle {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
+}
+
+.metricOurs .metricValue {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metricTheirs .metricValue {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #6b7280;
+}
+
+.metricVs {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .comparisonFooter {
@@ -620,16 +618,32 @@
 
   .metricsGrid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .circlesWrapper {
     gap: 1.5rem;
   }
 
-  .circleOuter {
-    width: 140px;
-    height: 140px;
+  .metricCard {
+    padding: 1.5rem;
+  }
+
+  .metricHeader {
+    margin-bottom: 1.25rem;
+  }
+
+  .metricIcon {
+    font-size: 1.75rem;
+  }
+
+  .metricLabel {
+    font-size: 1rem;
+  }
+
+  .metricOurs .metricValue,
+  .metricTheirs .metricValue {
+    font-size: 1.75rem;
+  }
+
+  .metricTitle {
+    font-size: 0.8125rem;
   }
 
   .comparisonFooter {

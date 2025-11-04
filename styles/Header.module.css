@@ -433,13 +433,6 @@
    RESPONSIVE
 ======================================== */
 
-@media (min-width: 969px) {
-  .mobileMenuOverlay,
-  .mobileMenu {
-    display: none !important;
-  }
-}
-
 @media (max-width: 968px) {
   .desktopNav,
   .authButtons {
@@ -448,6 +441,14 @@
 
   .mobileMenuBtn {
     display: flex;
+  }
+
+  .mobileMenuOverlay.show {
+    display: block;
+  }
+
+  .mobileMenu.show {
+    display: block;
   }
 }
 

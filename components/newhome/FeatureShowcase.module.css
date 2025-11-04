@@ -211,17 +211,17 @@
 ======================================== */
 @media (max-width: 768px) {
   .section {
-    padding: 4rem 1.5rem;
+    padding: 5rem 1.5rem;
   }
 
   .container {
-    gap: 8rem;
+    gap: 12rem; /* More space between sections */
   }
 
   /* Stack vertically */
   .featureRow {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 4rem; /* More space between text and images */
   }
 
   .featureRow.reverse {
@@ -245,60 +245,63 @@
     font-size: 0.9375rem;
   }
 
-  /* Image Content - Mobile Portrait Friendly */
+  /* Image Content - Bigger section, smaller images */
   .imageContent {
-    height: auto;
+    height: 500px; /* Bigger section */
     max-width: 100%;
-    margin: 0;
+    margin: 0 auto;
   }
 
   .imageStack {
-    max-width: 100%;
-    height: 450px; /* Fixed height for portrait images */
+    max-width: 280px; /* Centered container for images */
+    height: 100%;
     perspective: 1000px;
+    margin: 0 auto;
   }
 
-  /* Portrait images - Keep stacked effect but smaller offsets */
+  /* Portrait images - MUCH smaller to show overlap */
   .stackedImage {
     position: absolute;
-    width: 70%; /* Narrower for portrait */
-    height: 100%;
+    width: 55%; /* Way smaller - was 70% */
+    height: 70%; /* Smaller height too */
     left: 50%;
+    top: 50%;
     border-radius: 12px;
+    transform-origin: center center;
   }
 
   .imageLeft {
-    transform: translateX(-90%) translateY(4%) rotate(-3deg) scale(0.9);
+    transform: translate(-120%, -50%) translateY(8%) rotate(-8deg) scale(0.85);
     z-index: 1;
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   .imageCenter {
-    transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
     z-index: 3;
     opacity: 1;
   }
 
   .imageRight {
-    transform: translateX(-10%) translateY(4%) rotate(3deg) scale(0.9);
+    transform: translate(20%, -50%) translateY(8%) rotate(8deg) scale(0.85);
     z-index: 1;
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   /* Simplified hover on mobile */
   .animateLeft {
-    transform: translateX(-95%) translateY(6%) rotate(-5deg) scale(0.85) !important;
-    opacity: 0.4 !important;
+    transform: translate(-130%, -50%) translateY(12%) rotate(-10deg) scale(0.8) !important;
+    opacity: 0.5 !important;
   }
 
   .animateCenter {
-    transform: translateX(-50%) translateY(-10px) rotate(0deg) scale(1.02) !important;
+    transform: translate(-50%, -50%) translateY(-15px) rotate(0deg) scale(1.05) !important;
     z-index: 4 !important;
   }
 
   .animateRight {
-    transform: translateX(-5%) translateY(6%) rotate(5deg) scale(0.85) !important;
-    opacity: 0.4 !important;
+    transform: translate(30%, -50%) translateY(12%) rotate(10deg) scale(0.8) !important;
+    opacity: 0.5 !important;
   }
 
   /* Button full width */
@@ -316,15 +319,15 @@
 ======================================== */
 @media (max-width: 480px) {
   .section {
-    padding: 3rem 1rem;
+    padding: 4rem 1rem;
   }
 
   .container {
-    gap: 4rem;
+    gap: 8rem; /* Even more space between sections */
   }
 
   .featureRow {
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .featureTitle {
@@ -343,21 +346,28 @@
     font-size: 0.875rem;
   }
 
-  /* Taller stack for small screens */
+  /* Bigger section for images */
+  .imageContent {
+    height: 450px;
+  }
+
   .imageStack {
-    height: 400px;
+    max-width: 240px;
+    height: 100%;
   }
 
+  /* Even smaller images */
   .stackedImage {
-    width: 75%;
+    width: 50%; /* Smaller - was 75% */
+    height: 65%; /* Smaller height */
   }
 
-  /* Even tighter stacking */
+  /* More dramatic rotation/offset */
   .imageLeft {
-    transform: translateX(-85%) translateY(3%) rotate(-2deg) scale(0.92);
+    transform: translate(-125%, -50%) translateY(10%) rotate(-10deg) scale(0.82);
   }
 
   .imageRight {
-    transform: translateX(-15%) translateY(3%) rotate(2deg) scale(0.92);
+    transform: translate(25%, -50%) translateY(10%) rotate(10deg) scale(0.82);
   }
 }

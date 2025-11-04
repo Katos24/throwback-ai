@@ -1,13 +1,17 @@
 import { useRouter } from 'next/router';
+import useRestoreLogic from "../../hooks/useRestoreLogic";
 import styles from './SimplePricingTeaser.module.css';
 
 export default function SimplePricingTeaser() {
-  const router = useRouter();
+  const { isLoggedIn, router } = useRestoreLogic(0, "", false); // no cost or endpoint needed
+
+  const handleClick = () => {
+    router.push(isLoggedIn ? '/pricing' : '/signup');
+  };
 
   return (
     <section className={styles.pricing}>
       <div className={styles.container}>
-        
         <div className={styles.header}>
           <h2 className={styles.title}>Simple, Pay-As-You-Go Pricing</h2>
           <p className={styles.subtitle}>
@@ -16,7 +20,6 @@ export default function SimplePricingTeaser() {
         </div>
 
         <div className={styles.cards}>
-          
           {/* Dawn Pack */}
           <div className={styles.card}>
             <div className={styles.cardHeader}>
@@ -32,15 +35,12 @@ export default function SimplePricingTeaser() {
               <li>✓ 8 avatars or decade photos</li>
               <li>✓ Credits never expire</li>
             </ul>
-            <button 
-              className={styles.button}
-              onClick={() => router.push('/signup')}
-            >
+            <button className={styles.button} onClick={handleClick}>
               Get Started
             </button>
           </div>
 
-          {/* Revival Pack - Popular */}
+          {/* Revival Pack */}
           <div className={`${styles.card} ${styles.popular}`}>
             <div className={styles.popularBadge}>Most Popular</div>
             <div className={styles.cardHeader}>
@@ -56,9 +56,9 @@ export default function SimplePricingTeaser() {
               <li>✓ 20 avatars or decade photos</li>
               <li>✓ Credits never expire</li>
             </ul>
-            <button 
+            <button
               className={`${styles.button} ${styles.buttonPrimary}`}
-              onClick={() => router.push('/signup')}
+              onClick={handleClick}
             >
               Best Value
             </button>
@@ -79,25 +79,20 @@ export default function SimplePricingTeaser() {
               <li>✓ 32 avatars or decade photos</li>
               <li>✓ Credits never expire</li>
             </ul>
-            <button 
-              className={styles.button}
-              onClick={() => router.push('/signup')}
-            >
+            <button className={styles.button} onClick={handleClick}>
               Get Started
             </button>
           </div>
-
         </div>
 
         <div className={styles.footer}>
-          <button 
+          <button
             className={styles.linkButton}
             onClick={() => router.push('/pricing')}
           >
             View all pricing options (including $29.99 pack) →
           </button>
         </div>
-
       </div>
     </section>
   );

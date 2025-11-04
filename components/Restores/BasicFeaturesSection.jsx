@@ -112,7 +112,7 @@ export default function BasicFeaturesSection() {
           </div>
           <div className={styles.featurePromoVisual}>
             <img
-              src="/images/restore-preview.png"
+              src="/images/restore-preview.webp"
               alt="Basic restored photo example"
               className={`${styles.featurePromoImage} ${styles.tiltImage}`}
             />

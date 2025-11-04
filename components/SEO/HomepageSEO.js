@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const siteUrl = "https://throwbackai.app";
 const canonicalUrl = siteUrl;
-const defaultOgImage = `${siteUrl}/images/restore-preview.png`;
+const defaultOgImage = `${siteUrl}/images/restore-preview.webp`;
 const facebookPageUrl = "https://www.facebook.com/profile.php?id=61578072554521";
 const facebookPageId = "61578072554521";
 
@@ -353,7 +353,7 @@ const HomepageUltraMaxSEO = ({
       // ImageObject examples for social previews (multiple)
       {
         "@type": "ImageObject",
-        "contentUrl": `${siteUrl}/images/restore-preview.png`,
+        "contentUrl": `${siteUrl}/images/restore-preview.webp`,
         "description": "Before and after example: restored family portrait"
       },
       {
@@ -426,7 +426,7 @@ const HomepageUltraMaxSEO = ({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
       {/* Helpful preloads (hero images / fonts) */}
-      <link rel="preload" as="image" href={`${siteUrl}/images/restore-preview.png`} />
+      <link rel="preload" as="image" href={`${siteUrl}/images/restore-preview.webp`} />
       <link rel="preload" as="image" href={`${siteUrl}/images/decades/80s-sample.jpg`} />
       <link rel="preload" as="image" href={`${siteUrl}/images/avatars/fantasy-sample.jpg`} />
       <link rel="dns-prefetch" href="//replicate.com" />

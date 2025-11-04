@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const siteUrl = "https://throwbackai.app";
 const pageUrl = `${siteUrl}/replicate/restore-premium`;
-const ogImage = `${siteUrl}/images/restore-preview.png`;
+const ogImage = `${siteUrl}/images/restore-preview.webp`;
 const twitterImage = ogImage;
 const facebookPageUrl = "https://www.facebook.com/profile.php?id=61578072554521";
 const facebookPageId = "61578072554521";

@@ -633,13 +633,10 @@
     font-size: 1rem;
   }
 
-   .heroSlideshow {
-    order: 1; /* video goes on top */
-  }
+ 
 
   .heroText {
     margin: 0 auto;
-    order: 2;
   }
 
   .heroCTA {

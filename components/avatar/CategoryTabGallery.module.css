@@ -1,132 +1,26 @@
-/* CategoryTabGallery.module.css - Modern Dark Theme */
-
-/* ==================== CONTAINER ==================== */
+/* ==================== CONTAINER - LIGHT ISLAND ==================== */
 .galleryContainer {
   max-width: 1400px;
-  margin: 3rem auto;
-  padding: clamp(1rem, 3vw, 2rem);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255,255,255,0));
-  border-radius: 1.5rem;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
 }
 
-
-
-/* ==================== GENDER SECTION - STEP 1 ==================== */
-.genderSection {
-  margin-bottom: 2rem;
-  text-align: center;
-  padding: 1.5rem 1rem;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.genderSection::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
-}
-
-
-
-
-.genderButtons {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.genderButton {
-  display: flex;
-  margin-top: 2rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.25rem;
-  min-width: 120px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.genderButton:hover {
-  border-color: rgba(102, 126, 234, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.genderButton.activeGender {
-  border-color: #667eea;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-  transform: translateY(-3px);
-}
-
-.genderIcon {
-  font-size: 1.6rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-}
-
-.genderLabel {
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-
-/* ==================== SELECT GENDER PROMPT ==================== */
-.selectGenderPrompt {
-  text-align: center;
-  padding: 5rem 2rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.125rem;
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  border: 2px dashed rgba(255, 255, 255, 0.1);
-  margin-top: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.selectGenderPrompt p {
-  margin: 0;
-  line-height: 1.6;
-}
-
-/* ==================== STYLES SECTION - STEP 2 ==================== */
+/* ==================== STYLES TITLE ==================== */
 .stylesTitle {
-  font-size: 2rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 2rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 900;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
   text-align: center;
+  line-height: 1.2;
 }
 
-/* ==================== CATEGORY TABS ==================== */
+/* ==================== TABS WRAPPER ==================== */
 .tabsWrapper {
-  margin-bottom: 3rem;
-  position: relative;
+  margin-bottom: 4rem;
 }
 
 .tabsContainer {
@@ -134,65 +28,104 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.109);
-  backdrop-filter: blur(10px);
+  padding: 1.25rem;
+  background: #ffffff;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
 }
 
 .tab {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.75rem;
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 100px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  color: #64748b;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
 }
 
 .tab:hover {
   border-color: var(--tab-color);
   color: var(--tab-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
 }
 
 .activeTab {
-  background: linear-gradient(135deg, var(--tab-color)25 0%, var(--tab-color)15 100%);
+  background: linear-gradient(135deg, var(--tab-color)15, var(--tab-color)08);
   border-color: var(--tab-color);
   color: var(--tab-color);
-  box-shadow: 0 4px 20px var(--tab-color)40;
+  box-shadow: 0 4px 20px var(--tab-color)30;
   transform: translateY(-2px);
 }
 
 .tabEmoji {
-  font-size: 1.3rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  font-size: 1.5rem;
 }
 
 .tabLabel {
   font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ==================== GENDER INLINE ==================== */
+.genderInline {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.genderButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  min-width: 140px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 100px;
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.genderButton:hover {
+  border-color: #8b5cf6;
+  color: #8b5cf6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.15);
+}
+
+.genderButton.activeGender {
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
 }
 
 /* ==================== STYLES SECTION ==================== */
 .stylesSection {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .stylesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 /* ==================== STYLE CARD ==================== */
@@ -203,14 +136,15 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
 }
 
 .styleCard:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  border-color: var(--tab-color, #8b5cf6);
 }
 
 .styleImage {
@@ -219,7 +153,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
 }
 
 .styleImage img {
@@ -227,12 +160,10 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: brightness(0.9);
 }
 
 .styleCard:hover .styleImage img {
-  transform: scale(1.1);
-  filter: brightness(1);
+  transform: scale(1.08);
 }
 
 /* Overlay */
@@ -242,7 +173,7 @@
   left: 0;
   right: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.5rem;
   transform: translateY(0);
   transition: all 0.3s ease;
   z-index: 2;
@@ -250,31 +181,26 @@
 
 .styleCard:hover .styleOverlay {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
-  padding-bottom: 1.25rem;
+  padding-bottom: 1.5rem;
 }
 
 .styleName {
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: white;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.02em;
   line-height: 1.3;
 }
 
 .styleCTA {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.9375rem;
   font-weight: 600;
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  margin-top: 0.5rem;
 }
 
 .styleCard:hover .styleCTA {
@@ -297,25 +223,22 @@
 }
 
 .styleCard:hover .styleBorder {
-  border-color: rgba(102, 126, 234, 0.6);
-  box-shadow: inset 0 0 30px rgba(102, 126, 234, 0.1);
+  border-color: rgba(139, 92, 246, 0.5);
 }
 
 /* Selected state */
 .selectedCard {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+  border-color: #8b5cf6;
 }
 
 .selectedCard .styleBorder {
-  border-color: #667eea;
-  box-shadow: 
-    inset 0 0 30px rgba(102, 126, 234, 0.2),
-    0 0 40px rgba(102, 126, 234, 0.4);
+  border-color: #8b5cf6;
 }
 
 .selectedCard .styleOverlay {
-  background: linear-gradient(to top, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.7) 70%, transparent 100%);
+  background: linear-gradient(to top, rgba(139, 92, 246, 0.95) 0%, rgba(124, 58, 237, 0.7) 70%, transparent 100%);
 }
 
 .selectedCard .styleCTA {
@@ -326,81 +249,69 @@
 .selectedCard .styleCTA::before {
   content: "✓ ";
   font-weight: 700;
-  font-size: 1.2rem;
 }
 
-/* ==================== EXPAND BUTTON ==================== */
-.expandButtonContainer {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.expandButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 1.25rem 3.5rem;
-  border-radius: 50px;
-  font-size: 1.15rem;
-  font-weight: 700;
+/* ==================== MORE STYLES CARD ==================== */
+.moreStylesCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  min-height: 280px;
+  transition: all 0.3s ease;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  padding: 2rem;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.expandButton:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+.moreStylesCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
 }
 
-.expandButton:active {
-  transform: translateY(-2px);
+.moreStylesContent h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 800;
 }
 
-/* ==================== MOBILE RESPONSIVE ==================== */
+.moreStylesContent p {
+  font-size: 1rem;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+/* ==================== TABLET ==================== */
 @media (max-width: 1024px) {
+  .galleryContainer {
+    padding: 5rem 2rem;
+  }
+
   .stylesGrid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
   }
 }
 
+/* ==================== MOBILE ==================== */
 @media (max-width: 768px) {
-  .genderSection {
-    padding: 2.5rem 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .genderTitle {
-    font-size: 1.75rem;
-  }
-
-  .genderSubtitle {
-    font-size: 1rem;
-  }
-
-  .genderButtons {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-  
-  .genderButton {
-    min-width: unset;
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-    padding: 1.125rem 2rem;
+  .galleryContainer {
+    padding: 4rem 1.5rem;
   }
 
   .stylesTitle {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* Horizontal scrolling tabs on mobile */
+  /* Horizontal scrolling tabs */
   .tabsWrapper {
-    margin: 0 -1rem 2rem;
-    padding: 0;
+    margin: 0 -1.5rem 3rem;
   }
 
   .tabsContainer {
@@ -408,14 +319,15 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     gap: 0.75rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
     
     /* Smooth scrolling */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    
-    /* Hide scrollbar but keep functionality */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -425,120 +337,124 @@
   }
 
   .tab {
-    padding: 0.875rem 1.75rem;
+    padding: 0.875rem 1.5rem;
     flex-shrink: 0;
+    font-size: 0.9375rem;
   }
 
   .tabEmoji {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   .tabLabel {
-    font-size: 0.95rem;
+    font-size: 0.9375rem;
   }
 
-  .stylesGrid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Gender buttons stack on mobile */
+  .genderInline {
+    flex-direction: column;
     gap: 1rem;
-  }
-
-  /* Mobile: Smaller overlay, more image visible */
-  .styleOverlay {
-    padding: 0.875rem 1rem;
-  }
-
-  .styleName {
-    font-size: 0.95rem;
-    margin-bottom: 0;
-  }
-
-  .styleCTA {
-    font-size: 0.75rem;
-    margin-top: 0.35rem;
-  }
-
-  .selectGenderPrompt {
-    padding: 3rem 1.5rem;
-    font-size: 1.1rem;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-    border: 2px dashed rgba(102, 126, 234, 0.4);
-    color: rgba(255, 255, 255, 0.95);
-    font-weight: 600;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  .selectGenderPrompt p::before {
-    content: "👆";
-    display: block;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: bounce 1.5s ease-in-out infinite;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    border-color: rgba(102, 126, 234, 0.4);
-  }
-  50% {
-    border-color: rgba(102, 126, 234, 0.7);
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@media (max-width: 480px) {
-  .galleryContainer {
-    margin: 1rem auto 2rem;
-  }
-
-  .genderSection {
-    padding: 2rem 1rem;
-  }
-
-  .genderTitle {
-    font-size: 1.5rem;
+    max-width: 300px;
+    margin: 0 auto;
   }
 
   .genderButton {
+    width: 100%;
+    min-width: unset;
     padding: 1rem 1.5rem;
   }
 
-  .genderIcon {
-    font-size: 1.4rem;
-  }
-
-  .stylesTitle {
-    font-size: 1.5rem;
-  }
-
-  .tab {
-    padding: 0.75rem 1.5rem;
-  }
-
+  /* Grid: 2 columns on mobile with more space */
   .stylesGrid {
-    gap: 0.875rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .styleCard {
+    border-width: 1px;
+  }
+
+  .styleOverlay {
+    padding: 1rem 1.25rem;
   }
 
   .styleName {
     font-size: 1rem;
   }
 
-  .expandButton {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
+  .styleCTA {
+    font-size: 0.875rem;
   }
 
-  .selectGenderPrompt {
-    padding: 2.5rem 1rem;
-    font-size: 0.95rem;
+  .moreStylesCard {
+    min-height: 200px;
+    padding: 1.5rem;
+  }
+
+  .moreStylesContent h3 {
+    font-size: 1.25rem;
+  }
+
+  .moreStylesContent p {
+    font-size: 0.9375rem;
+  }
+}
+
+/* ==================== SMALL MOBILE ==================== */
+@media (max-width: 480px) {
+  .galleryContainer {
+    padding: 3rem 1rem;
+  }
+
+  .stylesTitle {
+    font-size: 1.75rem;
+  }
+
+  .tabsWrapper {
+    margin: 0 -1rem 2.5rem;
+  }
+
+  .tabsContainer {
+    padding: 1rem;
+  }
+
+  .tab {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .tabEmoji {
+    font-size: 1.125rem;
+  }
+
+  .genderButton {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .stylesGrid {
+    gap: 1.25rem;
+  }
+
+  .styleName {
+    font-size: 0.9375rem;
+  }
+
+  .styleCTA {
+    font-size: 0.8125rem;
+  }
+
+  .moreStylesCard {
+    min-height: 180px;
+    padding: 1.25rem;
+  }
+
+  .moreStylesContent h3 {
+    font-size: 1.125rem;
+  }
+
+  .moreStylesContent p {
+    font-size: 0.875rem;
   }
 }
 
@@ -569,7 +485,6 @@
   animation: fadeIn 0.5s ease-out backwards;
 }
 
-/* Stagger animation */
 .styleCard:nth-child(1) { animation-delay: 0.05s; }
 .styleCard:nth-child(2) { animation-delay: 0.1s; }
 .styleCard:nth-child(3) { animation-delay: 0.15s; }
@@ -586,55 +501,20 @@
 .tab:nth-child(3) { animation-delay: 0.15s; }
 .tab:nth-child(4) { animation-delay: 0.2s; }
 .tab:nth-child(5) { animation-delay: 0.25s; }
-.tab:nth-child(6) { animation-delay: 0.3s; }
 
-/* Smooth transitions for interactive elements */
-.genderButton,
-.tab,
-.styleCard,
-.expandButton {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+/* ==================== ACCESSIBILITY ==================== */
+@media (prefers-reduced-motion: reduce) {
+  .styleCard,
+  .tab,
+  .genderButton {
+    animation: none;
+    transition: none;
+  }
 }
 
-
-.genderInline {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-
-
-.moreStylesCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 20px;
-  min-height: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-  color: #fff;
-  font-weight: 600;
-  padding: 1rem;
-}
-
-.moreStylesCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.moreStylesContent h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.moreStylesContent p {
-  font-size: 0.9rem;
-  opacity: 0.9;
+.tab:focus-visible,
+.genderButton:focus-visible,
+.styleCard:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 4px;
 }

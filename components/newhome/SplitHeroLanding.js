@@ -230,6 +230,35 @@ export default function SplitHeroLanding() {
           </div>
         </div>
 
+                {/* Trust Bar - Only show if stats loaded */}
+        <div className={styles.trustBar}>
+          {isLoaded && displayCount > 0 ? (
+            <div className={styles.trustItem}>
+              <span className={styles.trustNumber}>
+                {displayCount.toLocaleString()}+
+              </span>
+              <span className={styles.trustLabel}>Photos Transformed</span>
+            </div>
+          ) : (
+            <div className={styles.trustItem}>
+              <span className={styles.trustNumber}>✨</span>
+              <span className={styles.trustLabel}>Transforming Photos Daily</span>
+            </div>
+          )}
+          <div className={styles.trustItem}>
+            <span className={styles.trustNumber}>4.8★</span>
+            <span className={styles.trustLabel}>User Rating</span>
+          </div>
+          <div className={styles.trustItem}>
+            <span className={styles.trustNumber}>No</span>
+            <span className={styles.trustLabel}>Subscriptions</span>
+          </div>
+          <div className={styles.trustItem}>
+            <span className={styles.trustNumber}>1 Hour</span>
+            <span className={styles.trustLabel}>Auto-Delete</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );

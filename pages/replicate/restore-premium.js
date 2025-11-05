@@ -175,19 +175,22 @@ export default function RestorePremiumPage() {
                 />
               )}
 
-              <ProTip isPremium={config.isPremium} />
-            </div>
-          </main>
-
-          <BadgePills />
-          <RestorationCounter />
-          
-          <BeforeAfterGallery
+   <BeforeAfterGallery
             selectedPreviewUrl={selectedPreviewUrl}
             restoredUrl={restoredUrl}
             restoreMode={restoreMode}
           />
+              <ProTip isPremium={config.isPremium} />
+            </div>
+          </main>
 
+         
+
+          <RestorationCounter />
+
+          <BadgePills />
+          
+        
           <FeaturesGrid restoreMode={restoreMode} />
         </div>
 

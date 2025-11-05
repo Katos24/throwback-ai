@@ -14,6 +14,7 @@ import BadgePills from '../../components/restore/BadgePills';
 import ProTip from '../../components/restore/ProTip';
 import styles from '../../components/restore/RestorePage.module.css';
 
+
 export default function RestorePremiumPage() {
   const [restoreMode, setRestoreMode] = useState('premiumColor'); // Start with premium mode
   const [mounted, setMounted] = useState(false);

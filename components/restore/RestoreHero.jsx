@@ -1,8 +1,20 @@
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import RestoreTransformationDemo from '../restore/RestoreTransformationDemo';
 import styles from './RestoreHero.module.css';
 
 export default function RestoreHero() {
   const router = useRouter();
+  const [restoreType, setRestoreType] = useState('premium');
+
+  // Cycle between restore types every 6 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRestoreType(prev => prev === 'premium' ? 'basic' : 'premium');
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className={styles.heroGrid}>
@@ -11,19 +23,25 @@ export default function RestoreHero() {
         <p className={styles.heroSubtitle}>
           Restore old photos, remove scratches, and colorize your memories in seconds.
         </p>
-
-        {/* Badge Pills */}
+        
+        {/* Badge Pills - Now interactive */}
         <div className={styles.badgePills}>
-          <div className={styles.badgeBasic}>
+          <button
+            className={`${styles.badgeBasic} ${restoreType === 'basic' ? styles.badgeActive : ''}`}
+            onClick={() => setRestoreType('basic')}
+          >
             <span>⚡</span>
             Basic: Costs 1 Credit
-          </div>
-          <div className={styles.badgePremium}>
+          </button>
+          <button
+            className={`${styles.badgePremium} ${restoreType === 'premium' ? styles.badgeActive : ''}`}
+            onClick={() => setRestoreType('premium')}
+          >
             <span>💎</span>
             Premium: Costs 40 Credits
-          </div>
+          </button>
         </div>
-
+        
         <div className={styles.heroSubtitleContainer}>
           <button
             className={styles.signupBadge}
@@ -34,14 +52,11 @@ export default function RestoreHero() {
         </div>
       </div>
 
+      {/* Transformation demo with dynamic type */}
       <div className={styles.heroSlideshow}>
-        <video
-          src="/videos/restore-demo.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className={styles.heroVideo}
+        <RestoreTransformationDemo 
+          restoreType={restoreType}
+          duration={5000}
         />
       </div>
     </section>

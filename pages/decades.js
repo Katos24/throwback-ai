@@ -70,7 +70,7 @@ export default function DecadesPage() {
           <div className={styles.finalCtaCard}>
             <h2 className={styles.finalCtaTitle}>Ready to Time Travel?</h2>
             <p className={styles.finalCtaText}>
-              Get 50 free credits when you sign up. That's your first yearbook photo on us!
+              Get 50 free credits when you sign up. Thats your first yearbook photo on us!
             </p>
             <button 
               className={styles.finalCtaBtn}

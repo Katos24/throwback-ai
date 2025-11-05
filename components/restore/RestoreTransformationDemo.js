@@ -5,20 +5,20 @@ import styles from './RestoreTransformationDemo.module.css';
 
 const DEMO_IMAGES = {
   'basic': {
-    before: '/images/demos/restore-damaged.jpg',
-    after: '/images/demos/restore-repaired.jpg',
+    before: '/images/demos/example-before.jpg',
+    after: '/images/demos/example-premium.png',
     label: 'Photo Restoration',
     description: 'Repair scratches & damage'
   },
   'premium': {
-    before: '/images/demos/restore-bw.jpg',
-    after: '/images/demos/restore-colorized.jpg',
+    before: '/images/demos/before4.jpg',
+    after: '/images/demos/after4.png',
     label: 'Photo Colorization',
     description: 'Add beautiful, realistic colors'
   },
   'enhance': {
-    before: '/images/demos/restore-blurry.jpg',
-    after: '/images/demos/restore-enhanced.jpg',
+    before: '/images/demos/before1.jpg',
+    after: '/images/demos/after1.png',
     label: 'Photo Enhancement',
     description: 'Sharpen & enhance details'
   }

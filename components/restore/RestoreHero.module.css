@@ -364,3 +364,89 @@
   outline: 2px solid #a855f7;
   outline-offset: 4px;
 }
+
+
+/* Add these styles to your RestoreHero.module.css */
+
+/* Make badges clickable buttons (for interactive version) */
+.badgeBasic,
+.badgePremium {
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add hover effects */
+.badgeBasic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+.badgePremium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+}
+
+/* Active state for selected badge */
+.badgeActive {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(78, 205, 196, 0.6);
+}
+
+.badgePremium.badgeActive {
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+}
+
+/* Add ring indicator for active badge */
+.badgeActive::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.5;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Make hero slideshow container responsive */
+.heroSlideshow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Remove old video styles if they exist */
+.heroVideo {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+  .heroSlideshow {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .badgePills {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .badgeBasic,
+  .badgePremium {
+    width: 100%;
+  }
+}

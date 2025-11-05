@@ -9,14 +9,14 @@ import HomepageSEO from '../components/SEO/HomepageSEO';
 import SplitHeroLanding from '../components/newhome/SplitHeroLanding';
 import AIDemoShowcase from '../components/newhome/AIDemoShowcase';
 import SimplePricingTeaser from '../components/newhome/SimplePricingTeaser';
-import SignupBanner from '../components/home/SignupBanner';
+import SignupBanner from '../components/newhome/SignupBanner';
 import FeatureShowcase from 'components/newhome/FeatureShowcase';
 
 // Below fold - Lazy load
-const HowItWorksSection = dynamic(() => import('../components/home/HowItWorksSection'));
-const TestimonialsSection = dynamic(() => import('../components/home/TestimonialsSection'));
-const PricingTeaser = dynamic(() => import('../components/home/PricingTeaser'));
-const FinalCTA = dynamic(() => import('../components/home/FinalCTA'));
+const HowItWorksSection = dynamic(() => import('../components/newhome/HowItWorksSection'));
+const TestimonialsSection = dynamic(() => import('../components/newhome/TestimonialsSection'));
+const PricingTeaser = dynamic(() => import('../components/newhome/PricingTeaser'));
+const FinalCTA = dynamic(() => import('../components/newhome/FinalCTA'));
 
 const Loader = () => <div className="my-32 text-center text-gray-500">Loading...</div>;
 

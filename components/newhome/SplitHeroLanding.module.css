@@ -148,37 +148,46 @@
 
 .primaryButton {
   padding: 1.25rem 3rem;
-  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.15);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #fff;
+  border-radius: 16px;
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
   position: relative;
   overflow: hidden;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(168, 85, 247, 0.6);
 }
 
 .primaryButton::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(102, 126, 234, 0.4));
+  opacity: 0;
+  transition: opacity 0.5s;
+  border-radius: inherit;
+  z-index: 0;
 }
 
 .primaryButton:hover::before {
-  left: 100%;
+  opacity: 1;
 }
 
-.primaryButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
+.primaryButton span {
+  position: relative;
+  z-index: 1;
 }
 
 .primaryButton:active {
@@ -480,19 +489,47 @@
 .cardButton {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  color: #fff;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .cardButton:hover {
-  opacity: 0.9;
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
 }
+
+.cardButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.6s;
+}
+
+.cardButton:hover::after {
+  left: 100%;
+}
+
 
 /* ========================================
    ANIMATIONS

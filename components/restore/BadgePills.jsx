@@ -35,7 +35,7 @@ export default function BadgePills() {
         }}
       >
         <span>⚡</span>
-        Basic: Costs 1 Credit
+        Basic: 1 Credit
       </div>
 
       <div
@@ -47,7 +47,7 @@ export default function BadgePills() {
         }}
       >
         <span>💎</span>
-        Premium: Costs 40 Credits
+        Premium: 40 Credits
       </div>
 
       <div

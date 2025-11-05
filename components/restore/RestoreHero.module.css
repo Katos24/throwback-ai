@@ -339,7 +339,7 @@
 
 @media (max-width: 767px) {
   .heroGrid {
-    padding: 8rem 1.5rem 4rem;
+    padding: 4rem 1.5rem 3rem; /* reduce top padding from 8rem → 4rem */
     gap: 2.5rem;
     min-height: auto;
   }

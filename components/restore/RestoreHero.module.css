@@ -155,8 +155,8 @@
   }
   .badgeBasic,
   .badgePremium {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8125rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
   }
   .badgeBasic span,
   .badgePremium span {

@@ -1,7 +1,7 @@
-// components/EightiesPrompts.js - UPDATED with 3 new styles
+// components/EightiesPrompts.js
 
 const EIGHTIES_STYLES = [
-    {
+  {
     id: 'aerobics',
     value: "1980s aerobics portrait, bright neon headband, crimped voluminous hair, colorful athletic wear, leg warmers, energetic expression, fitness craze aesthetic",
     label: "Aerobics Instructor",
@@ -9,11 +9,10 @@ const EIGHTIES_STYLES = [
   },
   {
     id: 'miami-vice',
-    value: "1980s Miami Vice portrait, pastel suit jacket, t-shirt underneath,  rolled sleeves, styled hair with gel, cool confident expression, sunglesses, Florida detective aesthetic",
+    value: "1980s Miami Vice portrait, pastel suit jacket, t-shirt underneath, rolled sleeves, styled hair with gel, cool confident expression, sunglasses, Florida detective aesthetic",
     label: "Miami Vice",
     description: "Pastel suits, Ray-Bans, cool detective styling",
   },
-  
   {
     id: 'rock-metal',
     value: "1980s rock portrait, big teased hair, leather jacket, smoky eye makeup, rebellious expression, moody studio lighting, metal aesthetic",
@@ -38,13 +37,13 @@ const EIGHTIES_STYLES = [
     label: "New Wave",
     description: "Dramatic asymmetrical cuts, geometric makeup, avant-garde fashion",
   },
-   {
+  {
     id: 'synthwave',
     value: "1980s synthwave portrait, retro-futuristic styling, neon purple and cyan tones, sleek geometric haircut, dramatic backlighting, Blade Runner aesthetic",
     label: "Synthwave",
     description: "Retro-futuristic styling, neon colors, tech-inspired look",
   },
-   {
+  {
     id: 'preppy',
     value: "1980s preppy portrait, perfectly coiffed hair, polo shirt or sweater vest, natural makeup, subtle pink tones, clean studio lighting, collegiate American aesthetic",
     label: "Preppy Style",
@@ -68,8 +67,6 @@ const EIGHTIES_STYLES = [
     label: "Glam Rock",
     description: "Theatrical makeup, androgynous styling, glitter and sequins",
   },
- 
-  // 🆕 NEW ADDITIONS
   {
     id: 'wedding-singer',
     value: "1980s wedding singer portrait, powder blue tuxedo with ruffled shirt, feathered mullet hairstyle, oversized bow tie, holding microphone, cheesy lounge singer smile",
@@ -90,8 +87,17 @@ const buildEightiesPrompt = ({
   if (!style) return null;
 
   let prompt = `${gender} ${style.value}`;
-  
-  // Wedding Singer gender-specific details
+
+  // Aerobics gender-specific version
+  if (styleId === 'aerobics') {
+    if (gender === 'male') {
+      prompt = `male 1980s aerobics portrait, neon sweatband, feathered short hair, colorful tank top, running shorts, white sneakers, upbeat expression, retro gym aesthetic, 80s fitness craze vibe`;
+    } else if (gender === 'female') {
+      prompt = `female 1980s aerobics portrait, bright neon headband, crimped voluminous hair, colorful leotard with leg warmers, energetic expression, 80s fitness craze aesthetic`;
+    }
+  }
+
+  // Wedding Singer gender-specific version
   if (styleId === 'wedding-singer') {
     if (gender === 'male') {
       prompt = `male 1980s wedding singer portrait, powder blue tuxedo with ruffled shirt, feathered mullet hairstyle, oversized bow tie, holding microphone, cheesy lounge singer smile, Adam Sandler Wedding Singer aesthetic`;
@@ -99,11 +105,11 @@ const buildEightiesPrompt = ({
       prompt = `female 1980s waitress portrait, big teased permed hair, bright patterned dress, bold makeup with frosted eyeshadow, hoop earrings, fun confident smile, Holly from Wedding Singer aesthetic`;
     }
   }
-  
+
   if (preserveFacialFeatures) {
     prompt += ", preserve exact facial features, skin tone, ethnicity, and bone structure";
   }
-  
+
   // Add intensity modifiers
   switch (intensity) {
     case 'subtle':
@@ -115,7 +121,7 @@ const buildEightiesPrompt = ({
     default: // medium
       prompt += ", balanced vintage styling with authentic 1980s elements";
   }
-  
+
   return prompt;
 };
 

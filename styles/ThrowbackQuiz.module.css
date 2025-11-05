@@ -463,16 +463,18 @@
 /* Responsive - Enhanced Mobile */
 @media (max-width: 640px) {
   .overlay {
-    padding: 0;
+    padding: 0.25rem;
     align-items: flex-end;
   }
 
   .modal {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
     border-radius: 20px 20px 0 0;
-    max-height: 95vh;
-    width: 100%;
+    max-height: 90vh;
+    width: 95%;
     animation: slideUpMobile 0.4s ease-out;
+    touch-action: none;
+    overscroll-behavior: contain;
   }
 
   @keyframes slideUpMobile {
@@ -487,147 +489,149 @@
   }
 
   .closeBtn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     top: 1rem;
     right: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .progress {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .progressBar {
-    height: 6px;
+    height: 5px;
   }
 
   .progressText {
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
   }
 
   .decadeBadge {
-    font-size: 0.8125rem;
-    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
   }
 
   .question {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     line-height: 1.3;
   }
 
   .options {
-    gap: 0.875rem;
+    gap: 0.75rem;
   }
 
   .option {
-    padding: 1rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.9rem;
   }
 
   .optionLetter {
-    width: 28px;
-    height: 28px;
-    font-size: 0.8125rem;
+    width: 26px;
+    height: 26px;
+    font-size: 0.8rem;
   }
 
   .funFact {
-    padding: 1.25rem;
-    gap: 0.875rem;
-    margin-bottom: 1.25rem;
+    padding: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .funFactIcon {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
 
   .funFactTitle {
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
   }
 
   .funFactText {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
   }
 
   .nextBtn {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
   }
 
   .resultsEmoji {
-    font-size: 4rem;
-    margin-bottom: 1.25rem;
+    font-size: 3.75rem;
+    margin-bottom: 1rem;
   }
 
   .resultsTitle {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   .scoreNumber {
-    font-size: 3rem;
+    font-size: 2.75rem;
   }
 
   .resultsMessage {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
   }
 
   .resultsActions {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
   .restartBtn,
   .doneBtn {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.9375rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
 
   .sharePrompt {
-    padding: 0.875rem;
+    padding: 0.75rem;
   }
 
   .sharePrompt p {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
   }
 }
 
 /* Extra Small Mobile */
 @media (max-width: 380px) {
   .modal {
-    padding: 1.75rem 1.25rem;
+    padding: 1.25rem;
+    width: 94%;
+    border-radius: 18px 18px 0 0;
   }
 
   .closeBtn {
-    width: 36px;
-    height: 36px;
-    font-size: 1.25rem;
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
   }
 
   .question {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   .option {
-    padding: 0.875rem 1rem;
-    font-size: 0.875rem;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
   }
 
   .optionLetter {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 
   .resultsEmoji {
-    font-size: 3.5rem;
+    font-size: 3.25rem;
   }
 
   .resultsTitle {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .scoreNumber {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
 }
 

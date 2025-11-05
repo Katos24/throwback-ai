@@ -141,3 +141,17 @@
 .buttonIcon {
   font-size: 1.2rem;
 }
+
+
+
+/* Force 2 columns on small screens */
+@media (max-width: 480px) {
+  .optionsGrid {
+    grid-template-columns: 1fr 1fr; /* two columns */
+    gap: 0.5rem;
+  }
+  
+  .optionCard {
+    padding: 1rem;
+  }
+}

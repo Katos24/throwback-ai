@@ -65,107 +65,105 @@
 }
 
 /* ========================================
-   BADGE PILLS - IMPROVED MOBILE
+   BADGE PILLS - THIN & SIDE-BY-SIDE
 ======================================== */
 
 .badgePills {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  flex-wrap: nowrap; /* always side by side */
+  gap: 0.5rem;
   justify-content: center;
-  margin: 1.5rem auto 1.5rem;
+  margin: 2rem auto;
   width: 100%;
   max-width: 500px;
 }
 
 .badgeBasic,
 .badgePremium {
+  flex: 1 1 0; /* take equal space */
+  min-width: 120px;
+  padding: 0.5rem 1rem;
+  border-radius: 999px; /* fully rounded */
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.625rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: 12px;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  width: 100%;
-  position: relative;
-  border: 2px solid transparent;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
+/* Accent colors */
 .badgeBasic {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.3);
-  color: #60a5fa;
-}
-
-.badgeBasic:hover {
-  background: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.25);
 }
 
 .badgePremium {
-  background: rgba(168, 85, 247, 0.15);
-  border-color: rgba(168, 85, 247, 0.3);
-  color: #c084fc;
+  color: #a855f7;
+  border-color: rgba(168, 85, 247, 0.25);
 }
 
+/* Hover effect */
+.badgeBasic:hover,
 .badgePremium:hover {
-  background: rgba(168, 85, 247, 0.2);
-  border-color: rgba(168, 85, 247, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Active state for selected badge */
+/* Active state */
 .badgeActive {
-  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
 }
 
-.badgeBasic.badgeActive {
-  background: rgba(59, 130, 246, 0.25);
-  border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
-}
-
-.badgePremium.badgeActive {
-  background: rgba(168, 85, 247, 0.25);
-  border-color: rgba(168, 85, 247, 0.6);
-  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
-}
-
-/* Add ring indicator for active badge */
+/* Optional pulse ring for selected */
 .badgeActive::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -2px;
+  border-radius: 999px;
   border: 2px solid currentColor;
-  border-radius: inherit;
-  opacity: 0.4;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  opacity: 0.25;
+  animation: pulseThin 1.8s infinite ease-in-out;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.03);
-  }
+@keyframes pulseThin {
+  0%,100% { transform: scale(1); opacity: 0.25; }
+  50% { transform: scale(1.05); opacity: 0.5; }
 }
 
+/* Icon sizing */
 .badgeBasic span,
 .badgePremium span {
-  font-size: 1.125rem;
-  flex-shrink: 0;
+  font-size: 1rem;
 }
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 480px) {
+  .badgePills {
+    gap: 0.4rem;
+  }
+  .badgeBasic,
+  .badgePremium {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+  }
+  .badgeBasic span,
+  .badgePremium span {
+    font-size: 0.9rem;
+  }
+}
+
 
 /* ========================================
    SIGNUP BADGE/CTA

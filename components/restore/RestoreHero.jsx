@@ -25,6 +25,16 @@ export default function RestoreHero() {
         </p>
         
         {/* Badge Pills - Now interactive */}
+        
+          <div className={styles.heroSubtitleContainer}>
+          <button
+            className={styles.signupBadge}
+            onClick={() => router.push('/signup')}
+          >
+            Sign Up today and get 50 free credits
+          </button>
+        </div>
+
         <div className={styles.badgePills}>
           <button
             className={`${styles.badgeBasic} ${restoreType === 'basic' ? styles.badgeActive : ''}`}
@@ -41,15 +51,7 @@ export default function RestoreHero() {
             Premium: Costs 40 Credits
           </button>
         </div>
-        
-        <div className={styles.heroSubtitleContainer}>
-          <button
-            className={styles.signupBadge}
-            onClick={() => router.push('/signup')}
-          >
-            Sign Up today and get 50 free credits
-          </button>
-        </div>
+      
       </div>
 
       {/* Transformation demo with dynamic type */}

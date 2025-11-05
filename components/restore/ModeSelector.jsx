@@ -33,7 +33,6 @@ export default function ModeSelector({
           onClick={() => credits >= 40 && setRestoreMode('premiumColor')}
         >
           <div className={`${styles.badge} ${styles.premiumBadge}`}>💎 40 CREDITS</div>
-          <h4 className={styles.optionTitle}>Premium Colorization</h4>
           <p className={styles.optionDesc}>
             {credits < 40 
               ? 'Not enough credits - need 40 credits' 

@@ -42,16 +42,28 @@
 }
 
 .heroTitle {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
   font-weight: 900;
-  color: #ffffff;
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 1rem;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e0 100%);
+  letter-spacing: -0.035em;
+  background: linear-gradient(135deg, #ffffff 0%, #a1b5ff 30%, #8ddcff 70%, #ffffff 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shimmer 6s ease-in-out infinite alternate;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle animated gradient for a futuristic feel */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .heroSubtitle {

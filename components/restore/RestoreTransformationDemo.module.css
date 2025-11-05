@@ -2,10 +2,10 @@
 
 .demoContainer {
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   margin: 0 auto;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(10px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -17,7 +17,7 @@
 .imageFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5; /* shorter than 3/4 */
+  aspect-ratio: 3 / 4;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);

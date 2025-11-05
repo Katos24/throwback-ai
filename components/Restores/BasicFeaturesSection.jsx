@@ -67,8 +67,8 @@ export default function BasicFeaturesSection() {
           }}>
             <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>🌈 Full Color Restore</h3>
             <ImageCompareSlider
-              beforeImage="/images/basic-before.jpg"
-              afterImage="/images/afterpremium2.jpg"
+              beforeImage="/images/before3.jpg"
+              afterImage="/images/after3.png"
             />
             <p style={{ fontSize: "0.95rem", marginTop: "1rem", textAlign: "center", opacity: 0.8 }}>
               Includes colorization, facial repair, and deep reconstruction.

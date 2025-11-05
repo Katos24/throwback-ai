@@ -5,14 +5,15 @@
 .heroGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
+  gap: 3rem;
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 8rem 2rem 6rem;
+  padding: 6rem 2rem 4rem;
   background: linear-gradient(180deg, #0a0f20 0%, #040815 100%);
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 /* Subtle background effect */
@@ -41,11 +42,11 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
   color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+  line-height: 1.15;
+  margin-bottom: 1rem;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e0 100%);
   -webkit-background-clip: text;
@@ -54,70 +55,116 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 2vw, 1.375rem);
   color: #9ca3af;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* ========================================
-   BADGE PILLS
+   BADGE PILLS - IMPROVED MOBILE
 ======================================== */
 
 .badgePills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   justify-content: center;
-  margin: 2rem auto 2.5rem;
+  margin: 1.5rem auto 1.5rem;
+  width: 100%;
+  max-width: 500px;
 }
 
 .badgeBasic,
 .badgePremium {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.625rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 100px;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
   font-size: 0.9375rem;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
+  cursor: pointer;
   backdrop-filter: blur(10px);
+  width: 100%;
+  position: relative;
+  border: 2px solid transparent;
 }
 
 .badgeBasic {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
   color: #60a5fa;
 }
 
 .badgeBasic:hover {
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(59, 130, 246, 0.2);
   border-color: rgba(59, 130, 246, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
 }
 
 .badgePremium {
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.3);
   color: #c084fc;
 }
 
 .badgePremium:hover {
-  background: rgba(168, 85, 247, 0.15);
+  background: rgba(168, 85, 247, 0.2);
   border-color: rgba(168, 85, 247, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
+}
+
+/* Active state for selected badge */
+.badgeActive {
+  transform: scale(1.02);
+}
+
+.badgeBasic.badgeActive {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+}
+
+.badgePremium.badgeActive {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+}
+
+/* Add ring indicator for active badge */
+.badgeActive::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.4;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.03);
+  }
 }
 
 .badgeBasic span,
 .badgePremium span {
   font-size: 1.125rem;
+  flex-shrink: 0;
 }
 
 /* ========================================
@@ -127,12 +174,14 @@
 .heroSubtitleContainer {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
 .signupBadge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 1rem 2rem;
   background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
   color: #ffffff;
@@ -145,6 +194,8 @@
   box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 500px;
 }
 
 .signupBadge::before {
@@ -172,37 +223,18 @@
 }
 
 /* ========================================
-   VIDEO/SLIDESHOW
+   SLIDESHOW - IMPROVED MOBILE
 ======================================== */
 
 .heroSlideshow {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(168, 85, 247, 0.2);
-  background: linear-gradient(135deg, #1a1f36 0%, #0f1419 100%);
-}
-
-.heroVideo {
-  width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-}
-
-/* Optional: Add glow effect on hover */
-.heroSlideshow:hover {
-  box-shadow: 
-    0 25px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(168, 85, 247, 0.4),
-    0 0 40px rgba(168, 85, 247, 0.3);
-  transition: box-shadow 0.3s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ========================================
@@ -214,6 +246,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
     padding: 10rem 4rem 8rem;
+    min-height: auto;
   }
 
   .heroText {
@@ -221,20 +254,41 @@
     margin: 0;
   }
 
+  .heroTitle {
+    font-size: 4rem;
+  }
+
   .heroSubtitle {
+    font-size: 1.5rem;
     margin-left: 0;
     margin-right: 0;
   }
 
   .badgePills {
+    flex-direction: row;
     justify-content: flex-start;
+    max-width: none;
+    gap: 1rem;
+  }
+
+  .badgeBasic,
+  .badgePremium {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 0.875rem 1.75rem;
   }
 
   .heroSubtitleContainer {
     justify-content: flex-start;
   }
 
+  .signupBadge {
+    width: auto;
+    max-width: none;
+  }
+
   .heroSlideshow {
+    max-width: 700px;
     margin: 0;
   }
 }
@@ -245,7 +299,7 @@
 
 @media (max-width: 1023px) and (min-width: 768px) {
   .heroGrid {
-    padding: 6rem 2rem 5rem;
+    padding: 8rem 2rem 6rem;
     gap: 3rem;
   }
 
@@ -257,8 +311,25 @@
     font-size: 1.25rem;
   }
 
+  .badgePills {
+    flex-direction: row;
+    max-width: none;
+    gap: 1rem;
+  }
+
+  .badgeBasic,
+  .badgePremium {
+    width: auto;
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .signupBadge {
+    max-width: 450px;
+  }
+
   .heroSlideshow {
-    max-width: 700px;
+    max-width: 550px;
   }
 }
 
@@ -268,29 +339,31 @@
 
 @media (max-width: 767px) {
   .heroGrid {
-    padding: 5rem 1.5rem 4rem;
+    padding: 8rem 1.5rem 4rem;
     gap: 2.5rem;
+    min-height: auto;
   }
 
   .heroTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
+    line-height: 1.2;
   }
 
   .heroSubtitle {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     margin-bottom: 1.5rem;
   }
 
   .badgePills {
     gap: 0.75rem;
-    margin: 1.5rem auto 2rem;
+    margin: 1.5rem auto;
   }
 
   .badgeBasic,
   .badgePremium {
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+    padding: 0.875rem 1.25rem;
   }
 
   .badgeBasic span,
@@ -299,15 +372,12 @@
   }
 
   .signupBadge {
-    width: 100%;
-    max-width: 400px;
-    justify-content: center;
-    padding: 0.875rem 1.5rem;
+    padding: 0.9375rem 1.5rem;
     font-size: 0.9375rem;
   }
 
   .heroSlideshow {
-    border-radius: 16px;
+    max-width: 100%;
   }
 }
 
@@ -317,31 +387,69 @@
 
 @media (max-width: 480px) {
   .heroGrid {
-    padding: 4rem 1rem 3rem;
+    padding: 7rem 1rem 3rem;
     gap: 2rem;
   }
 
   .heroTitle {
     font-size: 1.75rem;
+    margin-bottom: 0.875rem;
   }
 
   .heroSubtitle {
     font-size: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   .badgePills {
-    gap: 0.5rem;
+    gap: 0.625rem;
+    margin: 1.25rem auto;
+  }
+
+  .badgeBasic,
+  .badgePremium {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+  }
+
+  .badgeBasic span,
+  .badgePremium span {
+    font-size: 0.9375rem;
+  }
+
+  .signupBadge {
+    font-size: 0.875rem;
+    padding: 0.875rem 1.25rem;
+  }
+}
+
+/* ========================================
+   EXTRA SMALL SCREENS
+======================================== */
+
+@media (max-width: 360px) {
+  .heroGrid {
+    padding: 6rem 0.875rem 2.5rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9375rem;
   }
 
   .badgeBasic,
   .badgePremium {
     font-size: 0.8125rem;
-    padding: 0.5rem 1rem;
+    padding: 0.625rem 0.875rem;
   }
 
   .signupBadge {
-    font-size: 0.875rem;
-    padding: 0.75rem 1.25rem;
+    font-size: 0.8125rem;
+    padding: 0.75rem 1rem;
   }
 }
 
@@ -354,99 +462,15 @@
   .badgeBasic,
   .badgePremium,
   .signupBadge,
-  .heroSlideshow {
-    animation: none;
-    transition: none;
+  .badgeActive::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
-.signupBadge:focus-visible {
+.signupBadge:focus-visible,
+.badgeBasic:focus-visible,
+.badgePremium:focus-visible {
   outline: 2px solid #a855f7;
   outline-offset: 4px;
-}
-
-
-/* Add these styles to your RestoreHero.module.css */
-
-/* Make badges clickable buttons (for interactive version) */
-.badgeBasic,
-.badgePremium {
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Add hover effects */
-.badgeBasic:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
-}
-
-.badgePremium:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
-}
-
-/* Active state for selected badge */
-.badgeActive {
-  transform: scale(1.05);
-  box-shadow: 0 8px 30px rgba(78, 205, 196, 0.6);
-}
-
-.badgePremium.badgeActive {
-  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
-}
-
-/* Add ring indicator for active badge */
-.badgeActive::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border: 2px solid currentColor;
-  border-radius: inherit;
-  opacity: 0.5;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-/* Make hero slideshow container responsive */
-.heroSlideshow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-/* Remove old video styles if they exist */
-.heroVideo {
-  display: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 968px) {
-  .heroSlideshow {
-    padding: 2rem 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .badgePills {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .badgeBasic,
-  .badgePremium {
-    width: 100%;
-  }
 }

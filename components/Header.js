@@ -6,6 +6,7 @@ import styles from "../styles/Header.module.css";
 
 export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
+  const buttonRef = useRef(null);
   const router = useRouter();
 
   const [user, setUser] = useState(null);
@@ -26,15 +27,23 @@ export default function Header({ showMenu, setShowMenu }) {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Close menu when clicking outside
+  // Close menu when clicking outside (but not the button)
   useEffect(() => {
     const handleClickOutside = (e) => {
+      // Don't close if clicking the button itself
+      if (buttonRef.current && buttonRef.current.contains(e.target)) {
+        return;
+      }
+      
+      // Close if clicking outside the menu
       if (navRef.current && !navRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };
 
-    if (showMenu) document.addEventListener("mousedown", handleClickOutside);
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMenu, setShowMenu]);
 
@@ -49,6 +58,11 @@ export default function Header({ showMenu, setShowMenu }) {
     await supabase.auth.signOut();
     setShowMenu(false);
     router.replace("/");
+  };
+
+  const handleMenuToggle = (e) => {
+    e.stopPropagation();
+    setShowMenu((prev) => !prev);
   };
 
   const navigationItems = [
@@ -112,9 +126,11 @@ export default function Header({ showMenu, setShowMenu }) {
 
         {/* Mobile Hamburger / X Button */}
         <button
+          ref={buttonRef}
           className={styles.mobileMenuBtn}
-          onClick={() => setShowMenu((prev) => !prev)}
+          onClick={handleMenuToggle}
           aria-label={showMenu ? "Close menu" : "Open menu"}
+          type="button"
         >
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
           <span className={`${styles.hamburgerLine} ${showMenu ? styles.open : ""}`} />
@@ -126,12 +142,12 @@ export default function Header({ showMenu, setShowMenu }) {
       {showMenu && (
         <>
           <div
-            className={`${styles.mobileMenuOverlay} ${showMenu ? styles.show : ""}`}
+            className={`${styles.mobileMenuOverlay} ${styles.show}`}
             onClick={() => setShowMenu(false)}
           />
           <nav
             ref={navRef}
-            className={`${styles.mobileMenu} ${showMenu ? styles.show : ""}`}
+            className={`${styles.mobileMenu} ${styles.show}`}
           >
             {navigationItems.map((item) => (
               <Link

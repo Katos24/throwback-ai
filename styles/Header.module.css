@@ -29,6 +29,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  position: relative;
+  z-index: 1003;
 }
 
 /* ========================================
@@ -194,7 +196,9 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1002;
+  position: relative;
+  z-index: 1003;
+  pointer-events: auto;
 }
 
 .hamburgerLine {
@@ -218,6 +222,7 @@
 .hamburgerLine.open:first-child {
   transform: rotate(45deg) translate(7px, 7px);
   width: 24px;
+  background: #ffffff;
 }
 
 .hamburgerLine.open:nth-child(2) {
@@ -228,6 +233,7 @@
 .hamburgerLine.open:last-child {
   transform: rotate(-45deg) translate(7px, -7px);
   width: 24px;
+  background: #ffffff;
 }
 
 /* ========================================
@@ -465,7 +471,7 @@
 }
 
 /* ========================================
-   ACCESSIBILITYy
+   ACCESSIBILITY
 ======================================== */
 
 @media (prefers-reduced-motion: reduce) {

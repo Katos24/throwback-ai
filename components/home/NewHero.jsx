@@ -4,15 +4,7 @@ import Image from 'next/image';
 import styles from './NewHero.module.css';
 
 const FEATURES = [
-  {
-    id: 'avatar',
-    title: 'AI Avatars',
-    subtitle: 'Fantasy & Sci-Fi',
-    description: 'Transform into any character',
-    image: '/images/home/elf-warrior.jpg',
-    link: '/replicate/avatar',
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  },
+
   {
     id: 'decades',
     title: 'Time Machine',

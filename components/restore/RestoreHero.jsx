@@ -40,14 +40,12 @@ export default function RestoreHero() {
             className={`${styles.badgeBasic} ${restoreType === 'basic' ? styles.badgeActive : ''}`}
             onClick={() => setRestoreType('basic')}
           >
-            <span>⚡</span>
             Basic: Costs 1 Credit
           </button>
           <button
             className={`${styles.badgePremium} ${restoreType === 'premium' ? styles.badgeActive : ''}`}
             onClick={() => setRestoreType('premium')}
           >
-            <span>💎</span>
             Premium: Costs 40 Credits
           </button>
         </div>

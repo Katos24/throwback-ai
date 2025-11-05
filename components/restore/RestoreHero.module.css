@@ -162,8 +162,10 @@
   .badgePremium span {
     font-size: 0.9rem;
   }
+  .badgeActive::after {
+    display: none;
+  }
 }
-
 
 /* ========================================
    SIGNUP BADGE/CTA

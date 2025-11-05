@@ -7,19 +7,16 @@ const DEMO_IMAGES = {
   'basic': {
     before: '/images/demos/example-before.jpg',
     after: '/images/demos/example-premium.png',
-    label: 'Photo Restoration',
     description: 'Repair scratches & damage'
   },
   'premium': {
     before: '/images/demos/before4.jpg',
     after: '/images/demos/after4.png',
-    label: 'Photo Colorization',
     description: 'Add beautiful, realistic colors'
   },
   'enhance': {
     before: '/images/demos/before1.jpg',
     after: '/images/demos/after1.png',
-    label: 'Photo Enhancement',
     description: 'Sharpen & enhance details'
   }
 };
@@ -154,15 +151,7 @@ export default function RestoreTransformationDemo({
         </div>
       </div>
 
-      {/* Info Badge */}
-      <div className={styles.infoBadge}>
-        <span className={styles.badgeIcon}>
-          {restoreType === 'premium' && '🌈'}
-          {restoreType === 'basic' && '⚡'}
-          {restoreType === 'enhance' && '💎'}
-        </span>
-        <span className={styles.badgeText}>{images.label}</span>
-      </div>
+      
     </div>
   );
 }

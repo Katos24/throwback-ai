@@ -200,20 +200,6 @@ export default function SplitHeroLanding() {
             />
           </div>
 
-          <div className={styles.comparisonFooter}>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>💰</span>
-              <span className={styles.footerText}>Pay-per-use vs $20/mo</span>
-            </div>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>🎯</span>
-              <span className={styles.footerText}>Purpose-built vs general</span>
-            </div>
-            <div className={styles.footerItem}>
-              <span className={styles.footerIcon}>🔒</span>
-              <span className={styles.footerText}>Auto-delete in 1 hour</span>
-            </div>
-          </div>
         </div>
 
         {/* 🧰 All Tools */}

@@ -51,7 +51,7 @@ export default function DecadesPage() {
                   className={styles.primaryBtn}
                   onClick={() => handleDecadeClick(decade.id)}
                 >
-                  ✨ Try {decade.title} Style
+                  Try {decade.title} Style
                 </button>
               </div>
               <div className={styles.cardGlow}></div>

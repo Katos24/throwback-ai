@@ -14,9 +14,7 @@ export default function ModeSelector({
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Choose Your Enhancement</h3>
-      <p className={styles.subtitle}>
-        Select the enhancement level that&apos;s right for your photo
-      </p>
+      
       
       <div className={styles.optionsGrid}>
         <div 

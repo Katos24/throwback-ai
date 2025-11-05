@@ -591,3 +591,194 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Add these styles to your DecadesLanding.module.css */
+
+/* Showcase Section */
+.showcaseSection {
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+.showcaseHeader {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.showcaseSubheader {
+  font-size: 1.125rem;
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Final CTA */
+.finalCta {
+  margin: 5rem 0;
+  padding: 0 1rem;
+}
+
+.finalCtaCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 24px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.finalCtaTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.finalCtaText {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.finalCtaBtn {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 1.25rem 3rem;
+  border-radius: 50px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.finalCtaBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Quiz Footer Link */
+.quizFooter {
+  text-align: center;
+  padding: 3rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.quizFooterText {
+  font-size: 1rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.quizFooterLink {
+  background: none;
+  border: none;
+  color: #a855f7;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.quizFooterLink:hover {
+  text-decoration-color: #a855f7;
+  color: #8b5cf6;
+}
+
+/* Update Primary Button to be full width on card */
+.primaryBtn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(168, 85, 247, 0.4);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+}
+
+/* Remove old cardActions and quizBtn styles if they exist */
+.cardActions {
+  display: none;
+}
+
+.quizBtn {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .finalCtaCard {
+    padding: 3rem 1.5rem;
+  }
+
+  .finalCtaTitle {
+    font-size: 2rem;
+  }
+
+  .finalCtaText {
+    font-size: 1.125rem;
+  }
+
+  .showcaseHeader {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .finalCtaCard {
+    padding: 2rem 1.25rem;
+  }
+
+  .finalCtaTitle {
+    font-size: 1.75rem;
+  }
+
+  .finalCtaText {
+    font-size: 1rem;
+  }
+
+  .finalCtaBtn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .showcaseHeader {
+    font-size: 1.75rem;
+  }
+
+  .quizFooterText {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

@@ -1,14 +1,10 @@
-// pages/throwback.js
+// pages/decades.js (formerly throwback.js)
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import styles from '../styles/DecadesLanding.module.css';
 import DecadeShowcase from "../components/decades/shared/DecadeShowcase";
-import ThrowbackQuiz from "../components/ThrowbackQuiz";
 
-export default function ThrowbackPage() {
+export default function DecadesPage() {
   const router = useRouter();
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [selectedDecade, setSelectedDecade] = useState('80s');
 
   const decades = [
     { id: '70s', title: '1970s', subtitle: 'Disco Fever', emoji: '🕺', description: 'Funky beats & bell-bottoms', className: 'decade-70s' },
@@ -19,11 +15,6 @@ export default function ThrowbackPage() {
 
   const handleDecadeClick = (decadeId) => {
     router.push(`/replicate/${decadeId}`);
-  };
-
-  const handleQuizClick = (decadeId) => {
-    setSelectedDecade(decadeId);
-    setQuizOpen(true);
   };
 
   return (
@@ -41,6 +32,7 @@ export default function ThrowbackPage() {
           <p className={styles.tagline}>Choose Your Era</p>
         </header>
 
+        {/* Decades Grid - Now with single CTA per card */}
         <div className={styles.decadesGrid}>
           {decades.map((decade, index) => (
             <div
@@ -54,21 +46,13 @@ export default function ThrowbackPage() {
                 <p className={styles.decadeSubtitle}>{decade.subtitle}</p>
                 <p className={styles.decadeDescription}>{decade.description}</p>
                 
-                {/* Action Buttons */}
-                <div className={styles.cardActions}>
-                  <button 
-                    className={styles.primaryBtn}
-                    onClick={() => handleDecadeClick(decade.id)}
-                  >
-                    ✨ Transform Photos
-                  </button>
-                  <button 
-                    className={styles.quizBtn}
-                    onClick={() => handleQuizClick(decade.id)}
-                  >
-                    🎯 Test Your Knowledge
-                  </button>
-                </div>
+                {/* Single Primary CTA */}
+                <button 
+                  className={styles.primaryBtn}
+                  onClick={() => handleDecadeClick(decade.id)}
+                >
+                  ✨ Try {decade.title} Style
+                </button>
               </div>
               <div className={styles.cardGlow}></div>
               <div className={styles.cardBorder}></div>
@@ -76,28 +60,40 @@ export default function ThrowbackPage() {
           ))}
         </div>
 
-        {/* Fun CTA Section */}
-        <div className={styles.ctaSection}>
-          <div className={styles.ctaCard}>
-            <div className={styles.ctaIcon}>🎓</div>
-            <div className={styles.ctaContent}>
-              <h3 className={styles.ctaTitle}>Think You Know These Decades?</h3>
-              <p className={styles.ctaText}>
-                Test your throwback knowledge with fun trivia from each era!
-              </p>
-            </div>
+        {/* Decade Showcases */}
+ 
+
+          <DecadeShowcase currentDecade="90s" />
+
+        {/* Final CTA */}
+        <div className={styles.finalCta}>
+          <div className={styles.finalCtaCard}>
+            <h2 className={styles.finalCtaTitle}>Ready to Time Travel?</h2>
+            <p className={styles.finalCtaText}>
+              Get 50 free credits when you sign up. That's your first yearbook photo on us!
+            </p>
+            <button 
+              className={styles.finalCtaBtn}
+              onClick={() => router.push('/pricing')}
+            >
+              Get Started Free
+            </button>
           </div>
         </div>
+
+        {/* Quiz Link - Small and non-intrusive at bottom */}
+        <div className={styles.quizFooter}>
+          <p className={styles.quizFooterText}>
+            Think you know these decades? 
+            <button 
+              className={styles.quizFooterLink}
+              onClick={() => router.push('/decades/quiz')}
+            >
+              Test your knowledge →
+            </button>
+          </p>
+        </div>
       </div>
-
-      <DecadeShowcase currentDecade="2000s" />
-
-      {/* Quiz Modal */}
-      <ThrowbackQuiz 
-        isOpen={quizOpen}
-        onClose={() => setQuizOpen(false)}
-        currentDecade={selectedDecade}
-      />
     </div>
   );
 }

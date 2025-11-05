@@ -4,14 +4,13 @@ import Link from "next/link";
 import { supabase } from "../lib/supabaseClient";
 import styles from "../styles/Header.module.css";
 
-export default function Header() {
+export default function Header({ showMenu, setShowMenu }) {
   const navRef = useRef(null);
   const router = useRouter();
 
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
 
   // Supabase session
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function Header() {
 
     if (showMenu) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu]);
+  }, [showMenu, setShowMenu]);
 
   // Scroll effect
   useEffect(() => {
@@ -127,14 +126,13 @@ export default function Header() {
       {showMenu && (
         <>
           <div
-  className={`${styles.mobileMenuOverlay} ${showMenu ? styles.show : ""}`}
-  onClick={() => setShowMenu(false)}
-/>
-<nav
-  ref={navRef}
-  className={`${styles.mobileMenu} ${showMenu ? styles.show : ""}`}
->
-
+            className={`${styles.mobileMenuOverlay} ${showMenu ? styles.show : ""}`}
+            onClick={() => setShowMenu(false)}
+          />
+          <nav
+            ref={navRef}
+            className={`${styles.mobileMenu} ${showMenu ? styles.show : ""}`}
+          >
             {navigationItems.map((item) => (
               <Link
                 key={item.href}

@@ -1,0 +1,329 @@
+/* QuizPage.module.css */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+/* Background Animation */
+.bgAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floatingShape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 20s infinite ease-in-out;
+}
+
+.shape1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.shape2 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: -50px;
+  animation-delay: 5s;
+}
+
+.shape3 {
+  width: 150px;
+  height: 150px;
+  bottom: 10%;
+  left: 20%;
+  animation-delay: 10s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+  }
+}
+
+/* Content */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.backBtn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-5px);
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Decade Selector */
+.decadeSelector {
+  margin-bottom: 4rem;
+}
+
+.selectorTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.decadeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.decadeCard {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.decadeCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--decade-color, #667eea);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.decadeCard:hover::before {
+  transform: scaleX(1);
+}
+
+.decadeCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.decadeEmoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.decadeTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.5rem;
+}
+
+.decadeSubtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.decadeAction {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--decade-color, #667eea);
+  margin-top: 1rem;
+}
+
+/* How It Works */
+.howItWorks {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.howTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 200px;
+}
+
+.stepNumber {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.stepText {
+  font-size: 1rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* Transform CTA */
+.transformCta {
+  margin-top: 4rem;
+}
+
+.ctaCard {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.ctaBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .decadeGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .steps {
+    flex-direction: column;
+  }
+
+  .ctaCard {
+    padding: 2rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .howItWorks {
+    padding: 1.5rem;
+  }
+}

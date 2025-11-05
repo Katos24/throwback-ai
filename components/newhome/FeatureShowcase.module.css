@@ -133,7 +133,7 @@
 /* Image Stack - 3D Effect */
 .imageStack {
   position: relative;
-  max-width: 320px;
+  max-width: 420px;
   height: 100%;
   perspective: 1200px;
 }
@@ -352,7 +352,7 @@
   }
 
   .imageStack {
-    max-width: 240px;
+    max-width: 260px;
     height: 100%;
   }
 

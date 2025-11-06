@@ -20,9 +20,9 @@ export default function RestoreHero() {
   return (
     <section className={styles.heroGrid}>
       <div className={styles.heroText}>
-        <h1 className={styles.heroTitle}>Enhance Your Photos with AI</h1>
+        <h1 className={styles.heroTitle}>Bring Your Family Photos Back to Life in Seconds.</h1>
         <p className={styles.heroSubtitle}>
-          Restore old photos, remove scratches, and colorize your memories in seconds.
+          Upload a photo and see the transformation instantly.
         </p>
 
         <div className={styles.heroSubtitleContainer}>

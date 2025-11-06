@@ -13,6 +13,9 @@ import FeaturesGrid from '../../components/restore/FeaturesGrid';
 import BadgePills from '../../components/restore/BadgePills';
 import ProTip from '../../components/restore/ProTip';
 import styles from '../../components/restore/RestorePage.module.css';
+import Image from "next/image";
+import BlendPhoto from "/public/images/BlendPhoto.png";
+
 
 
 export default function RestorePremiumPage() {
@@ -188,7 +191,19 @@ export default function RestorePremiumPage() {
 
           <RestorationCounter />
 
-          <BadgePills />
+<div className={styles.squareImageWrapper}>
+  <Image
+    src={BlendPhoto}
+    alt="Blend of restored photos"
+    width={300}
+    height={300}
+    className={styles.squareImage}
+    priority
+  />
+</div>
+
+<BadgePills />
+
           
         
           <FeaturesGrid restoreMode={restoreMode} />

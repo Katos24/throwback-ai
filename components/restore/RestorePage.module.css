@@ -23,7 +23,7 @@
 }
 
 .content {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -118,5 +118,29 @@
 
   .sectionTitle {
     font-size: 1.25rem;
+  }
+}
+
+
+.squareImageWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.squareImage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Optional: responsive scaling */
+@media (max-width: 768px) {
+  .squareImage {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
 }

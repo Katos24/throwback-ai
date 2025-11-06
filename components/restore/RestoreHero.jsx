@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import RestoreTransformationDemo from '../restore/RestoreTransformationDemo';
-import BadgePills from './BadgePills';
 import styles from './RestoreHero.module.css';
 
 export default function RestoreHero() {
@@ -25,11 +24,7 @@ export default function RestoreHero() {
           Upload a photo and see the transformation instantly.
         </p>
 
-        <div className={styles.heroSubtitleContainer}>
-        {/* Pull in your BadgePills component */}
-        <BadgePills />
-        </div>
-
+     
         
       </div>
 

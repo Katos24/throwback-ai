@@ -187,7 +187,7 @@ export default function RestorePremiumPage() {
             </div>
           </main>
 
-         
+         <BadgePills />
 
           <RestorationCounter />
 
@@ -202,7 +202,7 @@ export default function RestorePremiumPage() {
   />
 </div>
 
-<BadgePills />
+
 
           
         

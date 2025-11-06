@@ -10,8 +10,8 @@ const DEMO_IMAGES = {
     description: 'Repair scratches & damage'
   },
   'premium': {
-    before: '/images/demos/before4.jpg',
-    after: '/images/demos/after4.png',
+    before: '/images/demos/newyorkbefore.jpg',
+    after: '/images/demos/newyorkafter.jpg',
     description: 'Add beautiful, realistic colors'
   },
   'enhance': {

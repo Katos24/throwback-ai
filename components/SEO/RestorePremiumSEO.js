@@ -208,7 +208,7 @@ const RestorePremiumSEO = ({
         "name": "Can you restore photos from different cultural events and weddings?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely! We restore photos from all cultural and religious events including Christian baptisms, Jewish bar/bat mitzvahs, quinceañeras, Indian weddings, nikah ceremonies, Hindu and Sikh weddings, Chinese traditional weddings, and cultural celebrations from around the world."
+          "text": "Absolutely! We restore photos from all cultural and religious events including Christian baptisms, Jewish bar/bat mitzvahs, Greek Easter, quinceañeras, Indian weddings, nikah ceremonies, Hindu and Sikh weddings, Chinese traditional weddings, and cultural celebrations from around the world."
         }
       }
     ]

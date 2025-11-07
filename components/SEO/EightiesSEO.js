@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const siteUrl = "https://throwbackai.app";
 const pageUrl = `${siteUrl}/replicate/80s`;
-const ogImage = `${siteUrl}/images/80sCard.jpg`;
+const ogImage = `${siteUrl}/images/decades/80sSEO.png`;
 const twitterImage = ogImage;
 const facebookPageUrl = "https://www.facebook.com/profile.php?id=61578072554521";
 const facebookPageId = "61578072554521";

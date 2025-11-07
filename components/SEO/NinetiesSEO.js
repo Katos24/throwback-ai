@@ -20,7 +20,7 @@ const NinetiesSEO = ({
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
   const keywords = customKeywords || defaultKeywords;
-  const imageUrl = ogImage || "https://throwbackai.app/images/90sCard.jpg";
+  const imageUrl = ogImage || "https://throwbackai.app/images/decades/90sCardSEO.png";
 
   // UPDATED: Structured data emphasizes AI generator capabilities
   const structuredData = {

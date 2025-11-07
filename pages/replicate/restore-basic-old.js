@@ -7,7 +7,7 @@ import useCredits from "../../hooks/useCredits";
 
 import HeroSection from "../../components/Restores/HeroSection.jsx";
 import ImagePreview from "../../components/Restores/ImagePreview.jsx";
-import CompareSection from "../../components/Restores/CompareSection.jsx";
+import CompareSection from "../../components/Restores/CompareSection.jsx.bak/index.js";
 import ProgressBar from "../../components/Restores/ProgressBar.jsx";
 
 import styles from "../../styles/RestoreBasic.module.css";

@@ -1,5 +1,5 @@
 import ImageCompareSlider from "../ImageCompareSlider";
-import styles from "../../styles/BasicFeatures.module.css";
+import styles from "./BasicFeatures.module.css";
 
 export default function BasicFeaturesSection() {
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useRestoreLogic from "../../hooks/useRestoreLogic";
-import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import BasicFeaturesSection from "../../components/restore/BasicFeaturesSection";
 import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";
 import RestorationCounter from '../../components/RestorationCounter';
 import RestoreHero from '../../components/restore/RestoreHero';

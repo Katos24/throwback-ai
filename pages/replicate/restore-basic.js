@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useRestoreLogic from "../../hooks/useRestoreLogic";
 import RestoreUploadCard from "../../components/Restores/RestoreUploadCard";
 import ProgressBar from "../../components/Restores/ProgressBar";
-import BasicFeaturesSection from "../../components/Restores/BasicFeaturesSection";
+import BasicFeaturesSection from "../../components/restore/BasicFeaturesSection";
 import RestoreBasicSEO from "../../components/SEO/RestoreBasicSEO";
 import styles from "../../styles/ModernRestore.module.css";
 import RestorationCounter from '../../components/RestorationCounter';

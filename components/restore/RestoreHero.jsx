@@ -16,16 +16,28 @@ export default function RestoreHero() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleRestoreClick = () => {
+    const el = document.getElementById('upload-zone');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // fallback if UploadZone is on another page
+      router.push('/upload');
+    }
+  };
+
   return (
     <section className={styles.heroGrid}>
       <div className={styles.heroText}>
-        <h1 className={styles.heroTitle}>Bring Your Family Photos Back to Life in Seconds.</h1>
+        <h1 className={styles.heroTitle}>
+          Bring Your Memories Back to Life in Seconds.
+        </h1>
         <p className={styles.heroSubtitle}>
-          Upload a photo and see the transformation instantly.
+          Turn faded photos into vivid memories restored instantly with AI
         </p>
-
-     
-        
+        <button className={styles.heroButton} onClick={handleRestoreClick}>
+          Restore Now
+        </button>
       </div>
 
       {/* Transformation demo with dynamic type */}

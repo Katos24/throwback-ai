@@ -18,6 +18,7 @@ export default function UploadZone({
 }) {
   return (
     <div
+      id="upload-zone"
       className={`${styles.uploadZone} ${dragActive ? styles.dragActive : ''}`}
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}

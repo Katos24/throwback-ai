@@ -491,3 +491,22 @@
   outline: 2px solid #a855f7;
   outline-offset: 4px;
 }
+
+
+
+.heroButton {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #0070f3;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.heroButton:hover {
+  background-color: #005bb5;
+}

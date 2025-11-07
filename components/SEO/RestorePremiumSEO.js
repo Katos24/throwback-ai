@@ -22,9 +22,9 @@ const RestorePremiumSEO = ({
   const defaultDescription =
     "Free AI photo restoration tool - Restore old photos, enhance blurry pictures, fix damaged images, and colorize black & white photos online. Repair scratches, tears, and fading. Best free photo enhancer and restoration service. Basic restoration 1 credit, premium colorization 40 credits.";
   
-  // UPDATED: MASSIVE keyword list covering all variations
+  // UPDATED: Natural human searches - question-based and conversational + INTERNATIONAL
   const defaultKeywords =
-    "restore old photos, restore photos, photo restoration, AI photo restoration, restore old photos free, enhance photo, enhance photos online, fix blurry photos, repair old photos, damaged photo repair, restore damaged photos, colorize photos, colorize black and white photos, photo colorization, vintage photo restoration, old photo restoration, restore faded photos, fix scratched photos, enhance old photos, photo enhancer, image restoration, picture restoration, restore pictures, fix old photos, repair vintage photos, restore family photos, enhance image quality, improve photo quality, upscale photos, denoise photos, remove scratches from photos, fix torn photos, restore torn pictures, black and white to color, AI photo enhancer, photo repair tool, restore photo online, enhance photo free, fix photo quality, old picture restoration, antique photo restoration, restore historical photos, enhance blurry images, sharpen photos, restore photo clarity, fix photo damage, photo restoration service, free photo restoration, online photo restoration, AI image enhancement, photo restoration software, restore scanned photos, enhance photo resolution, fix old family photos, genealogy photo restoration, memorial photo restoration";
+    "how to restore old photos free, fix my old photos, can AI restore damaged photos, restore grandparents photos, make old photos look new, fix blurry photo online free, how do I colorize old photos, restore faded family photos, fix scratched photo free, my photo is damaged how to fix, bring old photos back to life, make black and white photo color, restore photos from the 80s, fix torn picture, enhance grainy photos, restore old wedding photos, fix photo damage online, how to improve photo quality, restore scanned photos, make blurry picture clear, repair vintage family photos, restore ancestors photos, fix old Polaroid photos, how to sharpen old photos, restore photos for free online, what's the best photo restoration tool, enhance low quality photos, fix water damaged photos, restore photo from negative, improve old photo resolution, remove scratches from old photos, restore cracked photos, fix discolored photos, bring faded photos back to life, restore 1960s photos, 1970s photos, 1980s photos, fix wrinkled photo, enhance old digital photos, restore photo for obituary, fix photo for funeral, restore military photos, fix yellowed photos, restore newspaper clippings, enhance old Kodak photos, fix old disposable camera photos, restore photos from slide scanner, memorial photo restoration service, genealogy photo repair, ancestry photo enhancement, restore historical family photos, fix heritage photos, restore photos of deceased loved ones, fix childhood photos, restore parents wedding photos, enhance old graduation photos, restore baby photos, fix vacation photos from the past, restore holiday family photos, photo restoration UK, photo restoration Australia, photo restoration Canada, restore photos online free UK, fix old photos British, repair vintage photographs England, restore family photos Australia, enhance old photos Canada, photo restoration service London, restore pictures online free, photo repair tool free, fix damaged photographs, restore old pictures free, photo enhancement online, vintage photo restoration service, old photo repair near me, professional photo restoration online, restore sepia photos, fix antique photographs, photo colorization service, black and white photo coloring, add color to vintage photos, colorize historical photos, restore Victorian photos, Edwardian photo restoration, restore WW1 photos, WW2 photo restoration, restore 1920s photos, 1930s photos, 1940s photos, 1950s photos, fix old family portraits, restore daguerreotype, restore tintype photos, glass plate negative restoration, restore cabinet card photos, fix carte de visite, restore immigrant ancestor photos, Ellis Island photo restoration, restore passport photos old, fix ID photos vintage, restore driver license photo old, enhance yearbook photos, restore prom photos, fix graduation pictures, restore christening photos, baptism photo repair, restore first communion photos, confirmation photo restoration, restore bar mitzvah photos, bat mitzvah photo repair, quinceañera photo restoration, wedding photo restoration Indian, restore nikah photos, fix walima pictures, restore Hindu wedding photos, Sikh wedding photo repair, restore Chinese wedding photos, Japanese wedding photo restoration, restore photos Philippines, restore photos India, restore photos Mexico, fix fotos viejas, restaurar fotos antiguas, reparar fotos dañadas, colorear fotos blanco y negro, mejorar calidad de fotos, restauration de photos anciennes, réparer des photos abîmées, coloriser photos noir et blanc, alte Fotos wiederherstellen, beschädigte Fotos reparieren, Schwarz-Weiß-Fotos kolorieren, ripristinare vecchie foto, riparare foto danneggiate, colorare foto bianco e nero, restaurar fotos antigas, reparar fotos danificadas, colorir fotos preto e branco, 古い写真を復元, 写真修復, 白黒写真カラー化, 오래된 사진 복원, 사진 복구, 흑백 사진 컬러화, 修复老照片, 修复损坏照片, 黑白照片上色, restore photos Ireland, restore photos Scotland, restore photos Wales, restore photos New Zealand, restore photos South Africa, restore photos Singapore, restore photos Malaysia, restore photos Indonesia, restore photos Thailand, restore photos Vietnam, restore photos Brazil, restore photos Argentina, restore photos Colombia, restore photos Chile, restore photos Europe, restore photos Asia, restore photos Africa, restore photos Middle East, free photo restoration worldwide, international photo repair service, global photo enhancement";
 
   const title = customTitle || defaultTitle;
   const description = customDescription || defaultDescription;
@@ -68,19 +68,46 @@ const RestorePremiumSEO = ({
     "softwareVersion": "1.0",
     "featureList": [
       "Restore old and damaged photos with AI",
-      "Enhance blurry and faded photos",
-      "Fix scratches, tears, and damage",
-      "Colorize black and white photos",
+      "Fix scratched photos and remove damage",
+      "Repair torn and ripped family pictures",
+      "Remove water stains and water damage from photos",
+      "Fix faded and yellowed old photos",
+      "Restore cracked and wrinkled pictures",
+      "Enhance blurry and out-of-focus photos",
+      "Fix dark and underexposed pictures",
+      "Remove scratches from scanned photos",
+      "Repair photos with missing pieces",
+      "Colorize black and white photos naturally",
+      "Add realistic colors to vintage photos",
+      "Restore old wedding and anniversary photos",
+      "Fix grandparents and family heirloom photos",
+      "Restore photos of deceased loved ones",
+      "Repair photos for obituaries and memorials",
+      "Fix military and historical photographs",
+      "Restore old baby and childhood photos",
+      "Repair vintage yearbook pictures",
+      "Fix old Polaroid and Kodak photos",
+      "Restore photos from film negatives",
+      "Enhance scanned family album photos",
+      "Remove dust spots and stains",
+      "Fix sepia-toned photographs",
+      "Restore newspaper clipping photos",
       "Improve photo quality and resolution",
-      "Remove noise and grain",
-      "Sharpen and enhance clarity",
-      "Repair vintage family photos",
+      "Upscale low-resolution images",
+      "Remove noise and grain from old photos",
+      "Sharpen and enhance photo clarity",
+      "Make old photos look new again",
+      "Bring old photos back to life",
+      "Restore family history and genealogy photos",
       "Professional-grade AI restoration",
       "Free basic photo restoration (1 credit)",
       "Premium colorization service (40 credits)",
-      "Fast photo enhancement processing",
-      "High-resolution output",
-      "Preserve family memories and genealogy"
+      "Fast processing in 30-60 seconds",
+      "High-resolution printable output",
+      "Preserve precious family memories",
+      "Perfect for family reunions",
+      "Ready for printing and framing",
+      "Secure and private photo processing"
     ],
     "potentialAction": {
       "@type": "UseAction",
@@ -142,6 +169,46 @@ const RestorePremiumSEO = ({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Basic photo restoration takes 30-60 seconds. Premium restoration with full colorization takes 60-90 seconds. Our AI processes photos instantly with professional-quality results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you restore photos of deceased loved ones?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we can restore photos of deceased family members for obituaries, memorials, or preserving cherished memories. Our AI respectfully enhances and repairs old photos while maintaining the authenticity of your loved ones' images."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make my grandparents' old photos look new?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply upload your grandparents' photos to our AI restoration tool. We'll automatically fix damage, enhance clarity, remove scratches and fading, and can even add color to black and white photos. The restored photos will look vibrant and clear while preserving the original moment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work for photos from other countries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Our service works worldwide for photos from any country including UK, Australia, Canada, India, Philippines, Europe, Asia, Africa, and Latin America. We can restore Victorian photos from England, colonial photos from India, immigrant ancestor photos, Ellis Island documentation, and historical photos from any region."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you restore very old historical photos like Victorian or daguerreotypes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! We can restore Victorian photos, Edwardian portraits, daguerreotypes, tintypes, cabinet cards, carte de visite, glass plate negatives, and photos from the 1800s through modern times. Our AI handles antique photograph formats and historical damage patterns."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you restore photos from different cultural events and weddings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely! We restore photos from all cultural and religious events including Christian baptisms, Jewish bar/bat mitzvahs, quinceañeras, Indian weddings, nikah ceremonies, Hindu and Sikh weddings, Chinese traditional weddings, and cultural celebrations from around the world."
         }
       }
     ]
@@ -244,6 +311,16 @@ const RestorePremiumSEO = ({
       <meta name="restoration-features" content="colorization,damage-repair,enhancement,AI-powered,scratch-removal,clarity-improvement,denoise,upscale" />
       <meta name="tool-capabilities" content="restore,enhance,fix,repair,colorize,sharpen,improve,upscale,denoise" />
       <meta name="use-cases" content="genealogy,family-history,memorial,vintage-restoration,historical-preservation" />
+      
+      {/* ADDED: International and multilingual tags */}
+      <meta name="geo.position" content="global" />
+      <meta name="geo.placename" content="Worldwide" />
+      <meta name="geo.region" content="US;GB;CA;AU;NZ;IE;IN;PH;SG;MY;ZA;BR;MX;AR;CO;CL;ES;FR;DE;IT;PT;JP;KR;CN;TH;VN;ID" />
+      <meta name="available-countries" content="United States, United Kingdom, Canada, Australia, New Zealand, Ireland, India, Philippines, Singapore, Malaysia, South Africa, Brazil, Mexico, Argentina, Colombia, Chile, Spain, France, Germany, Italy, Portugal, Japan, South Korea, China, Thailand, Vietnam, Indonesia, Europe, Asia, Africa, Middle East, Latin America, worldwide" />
+      <meta name="language-support" content="English, Spanish, French, German, Italian, Portuguese, Japanese, Korean, Chinese, Thai, Vietnamese, Indonesian, Tagalog, Hindi, multilingual" />
+      <meta name="cultural-use-cases" content="immigration-photos,passport-restoration,heritage-preservation,ancestor-photos,Ellis-Island,Victorian-photos,Edwardian-photos,WW1-WW2-photos,colonial-photos,diaspora-photos,family-immigration-history" />
+      <meta name="religious-events" content="christening,baptism,communion,confirmation,bar-mitzvah,bat-mitzvah,quinceañera,nikah,walima,Hindu-wedding,Sikh-wedding,Buddhist-ceremony" />
+      <meta name="historical-eras" content="Victorian,Edwardian,1920s,1930s,1940s,1950s,1960s,1970s,1980s,daguerreotype,tintype,cabinet-card,carte-de-visite,glass-plate" />
 
       {/* Rich Snippets - Structured Data */}
       <script

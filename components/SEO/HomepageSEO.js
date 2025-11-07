@@ -1,4 +1,4 @@
-// components/seo/HomepageUltraMaxSEO.js
+// components/seo/HomepageUltraMaxSEO.js - OPTIMIZED FOR NATURAL HUMAN SEARCHES
 import Head from "next/head";
 
 const siteUrl = "https://throwbackai.app";
@@ -15,55 +15,62 @@ const HomepageUltraMaxSEO = ({
   customCanonicalUrl = null
 }) => {
 
-  // Title & descriptions (packed, long-tail heavy)
-  const title = customTitle || "AI Photo Restoration, Retro Decades, Colorization & Game/Fantasy Avatars | Throwback AI - Restore, Transform & Create";
+  // UPDATED: Natural, comprehensive title covering all features
+  const title = customTitle || "Free AI Photo Restoration & Vintage Style Creator | Fix Old Photos, Create 70s-2000s Looks & Fantasy Gaming Avatars";
+  
+  // UPDATED: Emotional, benefit-focused description
   const description = customDescription || (
-    "Throwback AI: industry-leading AI photo restoration, colorization, decade-specific retro transformations and avatar generation. " +
-    "Restore old family and wedding photos, repair scratches, tears, stains, and faded colors. Colorize black & white images with period-accurate palettes. " +
-    "Create authentic 70s, 80s, 90s and 2000s styles (think disco, neon, grunge, Y2K), generate Dungeons & Dragons, Game of Thrones-inspired, Halo-like, Cyberpunk, steampunk, and other gaming/fantasy avatars. " +
-    "Fast, secure, high-resolution results for genealogy, memorials, historical archives, creative projects, cosplay, and social media."
+    "Transform your photos with AI! Restore damaged family photos for free, fix scratches and tears, colorize black & white pictures. " +
+    "Make yourself look like the 70s, 80s, 90s, or 2000s with authentic disco, neon, grunge, and emo styles. " +
+    "Create epic D&D characters, Game of Thrones warriors, cyberpunk hackers, and professional LinkedIn headshots. " +
+    "Perfect for genealogy, social media throwbacks, gaming profiles, and themed parties. Try free with 50 credits!"
   );
 
-  // Ultra long-tail keywords covering everything the user asked for
+  // UPDATED: MASSIVE natural search keywords - how people actually search
   const keywords = customKeywords || [
-    // core restoration
-    "restore old photos", "restore damaged photos", "repair torn photos", "fix scratched photos", "remove water stains from photos",
-    "restore faded photos", "fix faded pictures", "restore scanned photos", "photo restoration online", "AI photo restoration",
-    "colorize black and white photos", "photo colorization", "colorize old photos online",
-    "enhance blurry photos", "denoise photos", "sharpen photos", "upscale photos", "increase photo resolution",
-    // damage types
-    "remove creases from photos", "fix creased photos", "remove dust from scanned photos", "remove fold lines", "repair torn edges",
-    "repair split photos", "fix sepia tone", "remove yellowing from old photos", "water damage photo repair",
-    // use cases
-    "family photo restoration", "wedding photo restoration", "historical photo restoration", "genealogy photo restoration",
-    "memorial photo restoration", "old picture restoration", "antique photo restoration",
-    // decades & substyles
-    "70s photo style", "1970s disco photo", "70s hippie photo", "70s funk photo",
-    "80s photo style", "1980s neon photo", "80s new wave photo", "80s rock photo", "Saved By The Bell photo style",
-    "90s photo style", "1990s grunge photo", "90s yearbook photo", "Buffy the Vampire Slayer photo style", "Dazed and Confused photo vibe",
-    "2000s photo style", "Y2K photo edit", "early 2000s emo photo", "Back to the Future inspired photo",
-    // pop culture references (presented as inspiration - not affiliated)
-    "Saved by the Bell style photo", "Buffy inspired portrait", "Back to the Future retro look", "Dazed and Confused nostalgic photo",
-    // avatars - fantasy & gaming
-    "Dungeons & Dragons avatars", "D&D avatar generator", "fantasy avatar creator", "wizard avatar", "rogue avatar", "paladin avatar",
-    "cleric avatar", "elf avatar", "orc avatar", "dragon avatar", "Game of Thrones style avatar", "GoT inspired portrait",
-    "Halo avatar generator", "Spartan avatar", "ODST avatar", "sci-fi soldier avatar",
-    "Cyberpunk avatar", "neon samurai avatar", "hacker avatar", "cyborg avatar", "streetpunk avatar",
-    "steampunk avatar", "mech pilot avatar", "retro gaming avatar", "video game style avatar", "avatar for Twitch, Discord, Twitter",
-    // technical & transactional
-    "1 credit photo restore", "premium colorization 40 credits", "AI restoration free credits", "buy credits photo restore",
-    "fast AI photo processing", "high resolution output", "secure photo processing", "photos deleted after processing",
-    // extra long-tail queries
-    "how to restore old photos online", "best online photo restoration", "colorize old family photos historically accurate",
-    "how to make photo look 90s", "how to make photo look 80s", "how to make photo look 70s", "how to make photo look Y2K",
-    "create D&D character portrait from photo", "make a Game of Thrones style avatar from photo", "create Halo style game avatar",
-    "make cyberpunk portrait from photo", "best AI avatar generator for fantasy characters"
+    // Photo Restoration - Natural Searches
+    "how to restore old photos free", "fix my damaged photos", "restore grandparents photos", "repair torn family pictures",
+    "fix scratched photo online", "restore faded wedding photos", "make old photos look new", "bring old photos back to life",
+    "fix blurry photo free", "enhance old family photos", "restore photos for obituary", "fix photo for funeral",
+    "colorize black and white photos", "make black and white photo color", "add color to old photos",
+    "restore photos of deceased loved ones", "fix water damaged photos", "remove scratches from old photos",
+    
+    // Decades - Natural Searches
+    "make me look like the 70s", "turn my photo into 70s style", "disco photo generator", "hippie aesthetic photo",
+    "Studio 54 style photo", "bell bottoms photo", "afro hair generator", "farrah fawcett hair",
+    "make me look like the 80s", "turn my photo into 80s style", "neon 80s aesthetic", "Miami Vice style photo",
+    "synthwave photo creator", "big 80s hair", "mullet generator", "Stranger Things 80s aesthetic",
+    "make me look like the 90s", "turn my photo into 90s style", "grunge aesthetic photo", "Friends TV show style",
+    "Fresh Prince aesthetic", "Rachel haircut generator", "frosted tips creator", "90s yearbook photo",
+    "make me look like the 2000s", "turn my photo into 2000s style", "emo scene aesthetic", "MySpace profile picture",
+    "side swept bangs photo", "Y2K style generator", "scene hair generator", "pop punk aesthetic",
+    
+    // Gaming & Fantasy Avatars - Natural Searches
+    "create D&D character from photo", "turn myself into fantasy character", "make me look like elf",
+    "Game of Thrones avatar maker", "Lord of the Rings character generator", "medieval knight avatar",
+    "make gaming avatar", "Discord profile picture generator", "Twitch avatar maker",
+    "create professional LinkedIn headshot", "AI headshot free", "make me look professional",
+    "cyberpunk avatar generator", "Halo Spartan avatar", "sci-fi character creator",
+    "samurai avatar maker", "viking warrior generator", "wizard portrait generator",
+    "create avatar for Xbox", "PlayStation profile pic", "gaming character creator",
+    
+    // Use Cases - Natural Searches
+    "what's the best photo restoration tool", "how do I fix old family photos", "restore photos for family reunion",
+    "create 80s costume photo", "make 90s themed party picture", "Halloween costume photo generator",
+    "spirit week decade day photo", "throwback Thursday photo creator", "vintage photo for social media",
+    "improve dating profile photo", "Tinder profile picture AI", "enhance profile photo",
+    
+    // Technical & Long-tail
+    "AI photo restoration online free", "best free photo enhancer", "photo repair tool online",
+    "vintage photo filter", "retro photo maker", "decades photo generator", "yearbook photo creator",
+    "fantasy character portrait generator", "RPG character art creator", "tabletop gaming avatar",
+    "professional headshot generator", "business photo AI", "avatar creator for gamers"
   ].join(", ");
 
   const imageUrl = customOgImage || defaultOgImage;
   const canonical = customCanonicalUrl || canonicalUrl;
 
-  // Build very large structuredData graph with decades, avatar types, offers, FAQ, HowTo, LocalBusiness
+  // COMPREHENSIVE structured data with natural language
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -72,7 +79,7 @@ const HomepageUltraMaxSEO = ({
         "@id": `${canonical}#website`,
         "url": canonical,
         "name": "Throwback AI",
-        "description": description,
+        "description": "AI-powered photo restoration, vintage decade transformations, and fantasy gaming avatar generator",
         "publisher": {
           "@type": "Organization",
           "name": "Throwback AI",
@@ -88,297 +95,270 @@ const HomepageUltraMaxSEO = ({
         "isPartOf": { "@id": `${canonical}#website` },
         "description": description
       },
-      // WebApplication entry
       {
         "@type": "WebApplication",
-        "name": "Throwback AI - Photo Restoration, Colorization & Avatar Generator",
+        "name": "Throwback AI - Photo Restoration, Vintage Transformations & Avatar Generator",
         "url": canonical,
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Web",
         "description": description,
         "creator": { "@type": "Organization", "name": "Throwback AI", "url": canonical },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "description": "Free trial with 50 credits - restore photos, create vintage looks, generate avatars"
+        },
         "featureList": [
-          "Restore scratches, tears, water damage, creases, and dust",
-          "Colorize black & white photos with period-accurate palettes",
-          "Transform photos into 70s, 80s, 90s, and 2000s styles",
-          "Generate fantasy and game-inspired avatars (D&D, Game of Thrones, Halo, Cyberpunk, Steampunk)",
-          "Upscale, denoise, sharpen, and improve resolution",
-          "Fast processing and secure deletion of user uploads"
+          "Restore old damaged photos - fix scratches, tears, fading, water damage",
+          "Colorize black and white photos with authentic period colors",
+          "Transform photos into 70s disco, hippie, and funk styles",
+          "Create 80s neon, synthwave, and Miami Vice looks",
+          "Generate 90s grunge, hip hop, and Friends-era aesthetics",
+          "Make 2000s emo, scene, MySpace, and Y2K transformations",
+          "Create D&D fantasy characters and RPG avatars",
+          "Generate Game of Thrones inspired medieval warriors",
+          "Make professional LinkedIn headshots and business photos",
+          "Create gaming avatars for Discord, Twitch, Xbox, PlayStation",
+          "Generate cyberpunk, sci-fi, and futuristic characters",
+          "Make historical warrior avatars - samurai, vikings, knights",
+          "Free trial with 50 credits included",
+          "Fast processing (30-60 seconds)",
+          "High-resolution downloads",
+          "Secure and private - photos deleted after processing"
         ]
       },
-      // Services and OfferCatalog - extremely detailed
       {
         "@type": "Service",
-        "name": "AI Photo Restoration & Retro/Avatar Transformations",
+        "name": "AI Photo Restoration, Vintage Transformations & Avatar Generation",
         "provider": { "@type": "Organization", "name": "Throwback AI", "url": canonical },
-        "description": "Comprehensive AI-powered photo restoration, colorization, retro transformations, and avatar generation services.",
+        "description": "Complete AI-powered photo transformation service for restoration, vintage styles, and character creation",
         "hasOfferCatalog": {
-          "@type": "OfferingCatalog",
-          "name": "Throwback AI Offerings",
+          "@type": "OfferCatalog",
+          "name": "Throwback AI Services",
           "itemListElement": [
-            // Restoration Offers
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Basic Photo Restoration",
-                "description": "Quick repair of scratches, minor tears, fading and contrast issues. 1 credit."
+                "name": "Photo Restoration & Repair",
+                "description": "Fix damaged, torn, scratched, faded family photos. Remove water damage, restore clarity, enhance quality. Basic (1 credit) or Premium with colorization (40 credits)."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Premium Photo Restoration & Colorization",
-                "description": "Full damage repair, advanced reconstruction, and historically accurate colorization of black & white photos. 40 credits."
+                "name": "70s Style Transformations",
+                "description": "Transform into authentic 1970s looks: disco fever, hippie flower power, funk & soul, Studio 54 vibes, bell bottoms, afros, and groovy aesthetics."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Vintage Photo Repair (Deep Restore)",
-                "description": "Extensive repair for water stains, creases, torn edges, missing regions, and heavy discoloration."
-              }
-            },
-            // Decades Offers (detailed)
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "70s Transformations",
-                "description": "70s disco, hippie, funk, analog film grain, warm tones, and era-correct color palettes."
+                "name": "80s Style Transformations",
+                "description": "Create 1980s neon synthwave, Miami Vice, new wave, big hair, mullets, and totally tubular looks inspired by Stranger Things and classic 80s culture."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "80s Transformations",
-                "description": "1980s neon, synthwave, new wave, pop, high-saturation color grading and classic yearbook looks."
+                "name": "90s Style Transformations",
+                "description": "Generate 1990s grunge, hip hop, alternative rock, Friends-era fashion, Fresh Prince style, frosted tips, and totally rad 90s yearbook photos."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "90s Transformations",
-                "description": "1990s grunge, alternative, hip hop and authentic 90s school/yearbook aesthetics (Buffy, Dazed and Confused vibes)."
+                "name": "2000s/Y2K Style Transformations",
+                "description": "Create early 2000s emo scene, MySpace profile pics, Y2K millennium fashion, pop punk looks, side-swept bangs, and digital camera aesthetics."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "2000s / Y2K Transformations",
-                "description": "Early 2000s digital effects, emo, scene, glossy edits, and Y2K pop-culture photo styles (Back to the Future nostalgia included as inspiration)."
-              }
-            },
-            // Avatar & gaming style offers
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Dungeons & Dragons Avatars",
-                "description": "Generate RPG fantasy avatars: wizard, paladin, rogue, cleric, ranger, druid with armor, spells, and epic lighting."
+                "name": "D&D & Fantasy Avatars",
+                "description": "Generate Dungeons & Dragons characters, wizards, warriors, elves, dwarves, and epic fantasy RPG portraits for tabletop gaming and Roll20."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Game of Thrones-Inspired Portraits",
-                "description": "GOT-inspired medieval/fantasy royalty portraits, fur, leather, armor, and cinematic moody lighting. (Inspired-by styling; not affiliated.)"
+                "name": "Gaming Avatars",
+                "description": "Create Game of Thrones inspired warriors, Lord of the Rings characters, Halo Spartans, cyberpunk hackers, and sci-fi soldiers for Discord, Twitch, Xbox, PlayStation."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Halo-Style Sci-Fi Avatars",
-                "description": "Spartan/armored sci-fi soldier portraits, high-detail helmet and armor renders, cinematic lighting (inspired-by)."
+                "name": "Professional Headshots",
+                "description": "Generate LinkedIn professional photos, business headshots, corporate portraits, and polished profile pictures for careers and dating apps."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Cyberpunk & Neon Avatars",
-                "description": "Futuristic cyberpunk portraits: neon signs, chrome implants, holograms, cybernetic enhancements."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Steampunk & Victorian Fantasy Avatars",
-                "description": "Gears, goggles, brass, and Victorian sci-fi steampunk character portraits."
+                "name": "Historical Warriors",
+                "description": "Create samurai, viking, medieval knight, spartan, pirate captain, and ninja assassin avatars for gaming and cosplay."
               }
             }
           ]
         }
       },
-      // FAQ (extended)
       {
         "@type": "FAQPage",
         "@id": `${canonical}#faq`,
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How do I restore old photos online?",
+            "name": "How can I restore my old family photos for free?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Upload your photo (JPG, PNG, HEIC), pick Basic or Premium restoration, let our AI process it, then preview and download. Basic repairs minor damage; Premium includes advanced reconstruction and colorization."
+              "text": "Sign up for Throwback AI and get 50 free credits. Upload your damaged, faded, or scratched photo and choose Basic Restoration (1 credit). Our AI automatically fixes scratches, tears, fading, and damage in 30-60 seconds. Download your restored photo in high resolution."
             }
           },
           {
             "@type": "Question",
-            "name": "What photo problems can AI fix?",
+            "name": "Can I make my photo look like the 80s or 90s?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AI can fix scratches, tears, staining, water damage, yellowing, creases, dust, fading, blur, low resolution, and missing small regions by reconstructing content using learned image priors."
+              "text": "Yes! Choose from 70s (disco, hippie), 80s (neon, Miami Vice, synthwave), 90s (grunge, hip hop, Friends-era), or 2000s (emo, MySpace, Y2K) styles. Upload your photo, select your decade and specific style, and our AI transforms it with authentic fashion, hairstyles, and photo effects from that era."
             }
           },
           {
             "@type": "Question",
-            "name": "Can you colorize black and white photos accurately?",
+            "name": "Can I create a D&D character or gaming avatar?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, our premium colorization uses reference palettes and historical color profiles to produce natural, period-accurate colors while preserving skin tones and materials."
+              "text": "Absolutely! Upload your photo and choose from 50+ styles including D&D fantasy characters (wizards, warriors, elves), Game of Thrones inspired warriors, cyberpunk hackers, Halo-style soldiers, samurai, vikings, and more. Perfect for Discord, Twitch, tabletop RPG games like Roll20, and gaming profiles."
             }
           },
           {
             "@type": "Question",
-            "name": "How fast is processing?",
+            "name": "How much does it cost?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Typical processing times: Basic restoration 30–60 seconds; Premium colorization 60–120 seconds depending on image complexity and queue."
+              "text": "Get 50 free credits when you sign up (no credit card required). Basic photo restoration costs 1 credit, premium colorization costs 40 credits, and avatars cost 50 credits. Credit packages start at $4.99 for 400 credits."
             }
           },
           {
             "@type": "Question",
-            "name": "Are restored photos private?",
+            "name": "Can AI really fix badly damaged photos?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Uploaded photos are processed on secure servers and deleted after a short retention period. We do not publish or sell user images."
+              "text": "Yes! Our AI can repair scratches, tears, water damage, fading, yellowing, cracks, wrinkles, and missing pieces. It works on old wedding photos, family portraits, military photos, and historical images. For severe damage, use Premium Restoration (40 credits) for advanced repair and colorization."
             }
           },
           {
             "@type": "Question",
-            "name": "Can I create avatars based on games or TV shows?",
+            "name": "Is this good for themed parties and Halloween?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes — we generate avatars inspired by popular genres and aesthetics such as fantasy, medieval, sci-fi, and cyberpunk. We do not claim affiliation with trademarked IP; styles are 'inspired-by' and custom generated."
+              "text": "Perfect for it! Create authentic 70s, 80s, 90s, or 2000s looks for themed parties, spirit week decade day, Halloween costumes, throwback birthdays, and social media. Also great for cosplay with fantasy warrior and gaming character avatars."
             }
           },
           {
             "@type": "Question",
-            "name": "Do I own the images and avatars I create?",
+            "name": "Can I create a professional LinkedIn headshot?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes — once you download your restored or generated image, it's yours to use commercially or personally as allowed by our terms of service."
+              "text": "Yes! Our Professional Headshot and LinkedIn Professional styles create high-quality business photos with clean backgrounds and professional attire. Perfect for LinkedIn, resumes, company websites, and dating apps like Tinder, Bumble, and Hinge."
             }
           },
           {
             "@type": "Question",
-            "name": "What file formats do you support?",
+            "name": "How long does processing take?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We support JPG, JPEG, PNG, HEIC and common image formats. Output can be downloaded as high-quality JPG or PNG."
+              "text": "Basic restoration takes 30-60 seconds. Premium colorization takes 60-90 seconds. Vintage decade transformations take 30-60 seconds. Avatar generation takes 30-60 seconds. All with real-time progress updates."
             }
           },
           {
             "@type": "Question",
-            "name": "Does it cost money?",
+            "name": "Are my photos private and secure?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We offer a free trial credit and pay-per-use credits for Basic and Premium operations. Pricing is clearly displayed on the pricing page."
+              "text": "Yes! Your photos are processed on secure servers and automatically deleted after a short retention period. We never publish, share, or sell your images. Your privacy is our priority."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can I use these photos for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use restored photos for: family reunions, genealogy, memorials, obituaries, printing, framing. Use vintage transformations for: social media throwbacks, themed parties, Halloween, spirit week. Use avatars for: Discord, Twitch, gaming profiles, D&D campaigns, LinkedIn, dating apps, cosplay."
             }
           }
         ]
       },
-      // HowTo (expanded)
       {
         "@type": "HowTo",
         "@id": `${canonical}#howto`,
-        "name": "How to use Throwback AI for photo restoration, decade transformations and avatar generation",
-        "description": "Complete step-by-step guide for restoring photos, transforming styles, and generating avatars.",
+        "name": "How to Use Throwback AI for Photo Restoration, Vintage Styles & Avatars",
+        "description": "Complete guide for restoring photos, creating retro looks, and generating gaming avatars",
+        "totalTime": "PT2M",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Choose your photo or reference",
-            "text": "Pick a high-resolution scan or photo and upload it to Throwback AI. For avatars, attach reference images or choose a style (fantasy, cyberpunk, Halo, GOT-inspired)."
+            "name": "Sign Up & Get Free Credits",
+            "text": "Create your free Throwback AI account and receive 50 free credits instantly. No credit card required."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select restoration or transformation type",
-            "text": "Choose Basic, Premium, or Deep Restore for repairs; select 'Decade' to apply 70s/80s/90s/2000s looks; choose 'Avatar' and pick a style or genre for character generation."
+            "name": "Upload Your Photo",
+            "text": "Upload the photo you want to restore, transform, or turn into an avatar. Supports JPG, PNG, HEIC formats up to 10MB."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Customize and preview",
-            "text": "Use available sliders to tune strength (repair, colorization, grain, vignette) and preview before finalizing."
+            "name": "Choose Your Transformation",
+            "text": "Select Photo Restoration (fix damage, colorize), Vintage Decades (70s, 80s, 90s, 2000s styles), or Avatar Generator (D&D, gaming, professional). Pick your specific style."
           },
           {
             "@type": "HowToStep",
             "position": 4,
-            "name": "Process and download",
-            "text": "Process the image. When finished, download your high-resolution result. Use it for prints, social media, genealogy, gaming avatars, cosplay or creative projects."
+            "name": "AI Processes Your Photo",
+            "text": "Watch real-time progress as our AI transforms your photo. Takes 30-90 seconds depending on the service."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Download & Share",
+            "text": "Download your restored, transformed, or avatar image in high resolution. Use for printing, social media, gaming profiles, or keep as a digital memory!"
           }
-        ],
-        "totalTime": "PT3M"
+        ]
       },
-      // LocalBusiness & contact-ish data
       {
         "@type": "LocalBusiness",
-        "name": "Throwback AI Photo Restoration & Avatar Generator",
-        "description": "AI-powered online photo restoration, colorization, retro transformations and avatar generation service.",
+        "name": "Throwback AI - Photo Restoration & Avatar Generator",
+        "description": "AI-powered photo restoration, vintage decade transformations, and fantasy gaming avatar creation service",
         "url": canonical,
         "sameAs": [facebookPageUrl],
         "serviceArea": { "@type": "Place", "name": "Worldwide" },
         "priceRange": "Free - $$$",
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Throwback AI Services",
+          "name": "Throwback AI Complete Services",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Basic Restoration (1 credit)" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Photo Restoration (1 credit)" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Premium Colorization (40 credits)" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Avatar Generation (varies)" } }
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vintage Decade Transformations" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Avatar Generation (50 credits)" } }
           ]
         }
-      },
-      // ImageObject examples for social previews (multiple)
-      {
-        "@type": "ImageObject",
-        "contentUrl": `${siteUrl}/images/restore-preview.webp`,
-        "description": "Before and after example: restored family portrait"
-      },
-      {
-        "@type": "ImageObject",
-        "contentUrl": `${siteUrl}/images/decades/80s-sample.jpg`,
-        "description": "80s neon sample transformation"
-      },
-      {
-        "@type": "ImageObject",
-        "contentUrl": `${siteUrl}/images/avatars/fantasy-sample.jpg`,
-        "description": "Fantasy avatar sample"
       }
     ]
   };
-
-  // Additional micro-FAQ entries and long-tail snippets as meta (helps some crawlers)
-  const additionalSnippets = [
-    "Fix torn old photos online, remove water damage, restore family heirlooms",
-    "Make a photo look 80s neon, 90s grunge, or Y2K glossy",
-    "Generate a D&D character portrait from a selfie",
-    "Create Game of Thrones inspired royalty portraits (style inspired, not affiliated)",
-    "Make a Halo-like armored soldier avatar",
-    "Generate cyberpunk neon avatars for streaming, social, and gaming profiles",
-    "Restore wedding album photos and print-ready high resolution files"
-  ];
 
   return (
     <Head>
@@ -386,52 +366,92 @@ const HomepageUltraMaxSEO = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="robots" content="index, follow" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="googlebot" content="index, follow" />
+      <meta name="bingbot" content="index, follow" />
       <link rel="canonical" href={canonical} />
 
-      {/* Open Graph / Social */}
+      {/* Language & Region */}
+      <meta name="language" content="English" />
+      <meta httpEquiv="content-language" content="en-US" />
+      <link rel="alternate" hrefLang="en" href={canonical} />
+
+      {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Throwback AI" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:image:alt" content="Restore old photos, colorize black & white, and create retro & fantasy avatars with Throwback AI" />
+      <meta property="og:image:secure_url" content={imageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="Restore old photos, create vintage 70s-2000s styles, and generate fantasy gaming avatars with AI" />
+      <meta property="og:locale" content="en_US" />
       <meta property="fb:pages" content={facebookPageId} />
+      <meta property="article:publisher" content={facebookPageUrl} />
 
-      {/* Twitter */}
+      {/* Twitter / X */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@throwbackai" />
+      <meta name="twitter:creator" content="@throwbackai" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:image:alt" content="AI photo restoration, vintage decade transformations, and gaming avatar generator" />
 
-      {/* Additional meta for devices and indexing */}
+      {/* Additional Meta Tags */}
       <meta name="theme-color" content="#a855f7" />
       <meta name="msapplication-TileColor" content="#a855f7" />
-      <meta name="application-name" content="Throwback AI" />
+      <meta name="application-name" content="Throwback AI - Photo Restoration & Avatar Generator" />
       <meta name="apple-mobile-web-app-title" content="Throwback AI" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="language" content="English" />
-      <meta httpEquiv="content-language" content="en-US" />
+      <meta name="author" content="Throwback AI" />
+      <meta name="publisher" content="Throwback AI" />
+      <meta name="copyright" content="© 2025 Throwback AI" />
 
-      {/* Extra micro-snippets */}
-      {additionalSnippets.map((s, i) => (
-        <meta key={`snippet-${i}`} name={`og:extra:${i}`} content={s} />
-      ))}
+      {/* Content Classification */}
+      <meta name="rating" content="general" />
+      <meta name="content-type" content="text/html; charset=UTF-8" />
+
+      {/* ADDED: Service-specific meta tags */}
+      <meta name="service-categories" content="photo-restoration,vintage-transformations,avatar-generation,ai-photo-editing" />
+      <meta name="restoration-features" content="fix-damage,colorization,enhancement,scratch-removal,tear-repair,water-damage,fading" />
+      <meta name="decades-available" content="1970s,1980s,1990s,2000s,disco,neon,grunge,emo,y2k" />
+      <meta name="avatar-categories" content="fantasy,gaming,professional,dnd,medieval,sci-fi,cyberpunk,historical" />
+      <meta name="use-cases" content="family-photos,genealogy,social-media,gaming-profiles,themed-parties,cosplay,linkedin,dating-apps" />
+      <meta name="target-audience" content="families,genealogists,gamers,millennials,gen-x,gen-z,professionals,content-creators" />
 
       {/* Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} 
+      />
 
-      {/* Helpful preloads (hero images / fonts) */}
-      <link rel="preload" as="image" href={`${siteUrl}/images/restore-preview.webp`} />
-      <link rel="preload" as="image" href={`${siteUrl}/images/decades/80s-sample.jpg`} />
-      <link rel="preload" as="image" href={`${siteUrl}/images/avatars/fantasy-sample.jpg`} />
+      {/* Preload Critical Resources */}
+      <link rel="preload" href={`${siteUrl}/images/restore-preview.webp`} as="image" />
+      <link rel="preload" href="/fonts/modern-font.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
+      {/* DNS Prefetch */}
       <link rel="dns-prefetch" href="//replicate.com" />
       <link rel="dns-prefetch" href="//supabase.co" />
       <link rel="dns-prefetch" href="//stripe.com" />
+
+      {/* Favicon */}
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+
+      {/* Additional SEO Tags */}
+      <meta name="revisit-after" content="3 days" />
+      <meta name="distribution" content="global" />
+      <meta name="target" content="all" />
+      <meta name="HandheldFriendly" content="True" />
+      <meta name="MobileOptimized" content="320" />
     </Head>
   );
 };

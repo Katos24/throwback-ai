@@ -199,7 +199,7 @@
   padding: 1.25rem 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.207);
+  background: rgba(90, 39, 39, 0.207);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
@@ -230,6 +230,7 @@
 }
 
 /* Active state - solid with gradient */
+/* Active state - solid with gradient */
 .optionCard.active {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: linear-gradient(135deg, rgba(24, 24, 27, 0.95) 0%, rgba(39, 39, 42, 0.95) 100%);
@@ -239,6 +240,14 @@
     0 12px 24px rgba(0, 0, 0, 0.12),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   transform: translateY(-2px);
+}
+
+.optionCard.active:has(.premiumBadge) {
+  background: linear-gradient(135deg, rgba(89, 28, 135, 0.719) 0%, rgba(107, 33, 168, 0.686) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 
+    0 12px 24px rgba(168, 85, 247, 0.15),
+    0 0 0 1px rgba(168, 85, 247, 0.2) inset;
 }
 
 .optionCard.active::before {
@@ -336,7 +345,7 @@
 .optionTitle {
   font-size: 1rem;
   font-weight: 600;
-  color: #18181b;
+  color: #a4a4ac;
   margin: 0 0 0.375rem 0;
   letter-spacing: -0.01em;
   transition: color 0.3s ease;

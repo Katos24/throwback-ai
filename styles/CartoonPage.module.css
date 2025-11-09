@@ -892,3 +892,116 @@
     font-size: 0.9rem;
   }
 }
+
+
+/* Example Section */
+.exampleSection {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+  border-radius: 24px;
+  border: 2px solid rgba(168, 85, 247, 0.2);
+}
+
+.exampleTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+.exampleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exampleContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(168, 85, 247, 0.2);
+}
+
+.exampleBefore,
+.exampleAfter {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.exampleImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #e5e7eb;
+  transition: border-color 0.3s ease;
+}
+
+.exampleAfter .exampleImage {
+  border-color: #a855f7;
+}
+
+.exampleLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.exampleArrow {
+  font-size: 3rem;
+  color: #a855f7;
+  font-weight: bold;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .exampleContainer {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .exampleArrow {
+    transform: rotate(90deg);
+    font-size: 2rem;
+  }
+  
+  .exampleBefore,
+  .exampleAfter {
+    width: 100%;
+  }
+  
+  .exampleImage {
+    height: 250px;
+  }
+}

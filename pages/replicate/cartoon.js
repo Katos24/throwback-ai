@@ -552,6 +552,31 @@ export default function CartoonPage() {
           </div>
         </div>
 
+
+{/* Example Section - Add this after the hero section and before mainContent */}
+<div className={styles.exampleSection}>
+  <h2 className={styles.exampleTitle}>See the Magic ✨</h2>
+  <div className={styles.exampleContainer}>
+    <div className={styles.exampleBefore}>
+      <img 
+        src="/images/cartoon/cartoon_before1.jpg" 
+        alt="Original photo example" 
+        className={styles.exampleImage}
+      />
+      <span className={styles.exampleLabel}>Before</span>
+    </div>
+    <div className={styles.exampleArrow}>→</div>
+    <div className={styles.exampleAfter}>
+      <img 
+        src="/images/cartoon/cartoon_after1.png" 
+        alt="90s cartoon transformation" 
+        className={styles.exampleImage}
+      />
+      <span className={styles.exampleLabel}>After</span>
+    </div>
+  </div>
+</div>
+
         <div className={styles.tipsSection}>
           <h3 className={styles.tipsTitle}>💡 Tips for Best Results</h3>
           <ul className={styles.tipsList}>

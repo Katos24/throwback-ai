@@ -69,6 +69,7 @@ export default function Header({ showMenu, setShowMenu }) {
     { href: "/replicate/restore-premium", label: "Restore" },
     { href: "/replicate/avatar", label: "Avatar" },
     { href: "/decades", label: "Decades" },
+    { href: "/replicate/cartoon", label: "Re-Imagine" },
     { href: "/pricing", label: "Pricing" },
   ];
 

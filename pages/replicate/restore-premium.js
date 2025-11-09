@@ -120,9 +120,7 @@ export default function RestorePremiumPage() {
           <header className={styles.header}>
             <div className={styles.titleWrapper}>
               <h1 className={styles.title}>
-                <span className={styles.titleGradient}>
-                  Start Restoring Your Photo Below
-                </span>
+        
               </h1>
             </div>
           </header>

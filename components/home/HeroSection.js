@@ -11,7 +11,6 @@ export default function HeroSection() {
       id: 'restore',
       title: "Photo Restoration",
       description: "Repair scratches, tears, water damage, and fading from irreplaceable family photos.",
-      icon: "✨",
       buttonText: "Try Restore",
       beforeAfter: {
         before: "/images/basicpage-before.jpg",

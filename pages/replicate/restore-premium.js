@@ -5,8 +5,7 @@ import RestorePremiumSEO from "../../components/SEO/RestorePremiumSEO";
 import RestorationCounter from '../../components/RestorationCounter';
 import RestoreHero from '../../components/restore/RestoreHero';
 import CreditDisplay from '../../components/restore/CreditDisplay';
-import UploadZone from '../../components/restore/UploadZone';
-import ModeSelector from '../../components/restore/ModeSelector';
+import UploadAndModeSelector from '../../components/restore/UploadAndModeSelector';
 import ResultsView from '../../components/restore/ResultsView';
 import BeforeAfterGallery from '../../components/restore/BeforeAfterGallery';
 import FeaturesGrid from '../../components/restore/FeaturesGrid';
@@ -15,8 +14,6 @@ import ProTip from '../../components/restore/ProTip';
 import styles from '../../components/restore/RestorePage.module.css';
 import Image from "next/image";
 import BlendPhoto from "/public/images/BlendPhoto.png";
-
-
 
 export default function RestorePremiumPage() {
   const [restoreMode, setRestoreMode] = useState('premiumColor'); // Start with premium mode
@@ -67,7 +64,7 @@ export default function RestorePremiumPage() {
     if (credits < config.cost) {
       return isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Continue';
     }
-    return `✨ ${getModeActionText()} (${config.cost} ${config.cost === 1 ? 'credit' : 'credits'})`;
+    return `${getModeActionText()} (${config.cost} ${config.cost === 1 ? 'credit' : 'credits'})`;
   };
 
   const getModeActionText = () => {
@@ -105,20 +102,21 @@ export default function RestorePremiumPage() {
 
   return (
     <>
-<RestorePremiumSEO />
+      <RestorePremiumSEO />
       <RestoreHero />
       
       <div className={`${styles.container} ${config.isPremium ? styles.premiumMode : ''}`}>
         <div className={styles.backgroundParticles}></div>
 
         <div className={styles.content}>
-                 <div className={styles.creditsWrapper}>
-              <CreditDisplay 
-                credits={credits} 
-                isLoggedIn={isLoggedIn} 
-                restoreMode={restoreMode} 
-              />
-            </div>
+          <div className={styles.creditsWrapper}>
+            <CreditDisplay 
+              credits={credits} 
+              isLoggedIn={isLoggedIn} 
+              restoreMode={restoreMode} 
+            />
+          </div>
+
           <header className={styles.header}>
             <div className={styles.titleWrapper}>
               <h1 className={styles.title}>
@@ -137,35 +135,26 @@ export default function RestorePremiumPage() {
               </h2>
 
               {!restoredUrl ? (
-                <>
-                  <UploadZone
-                    selectedPreviewUrl={selectedPreviewUrl}
-                    dragActive={dragActive}
-                    loading={loading}
-                    processing={processing}
-                    progressStatus={progressStatus}
-                    progressPercent={progressPercent}
-                    restoreMode={restoreMode}
-                    isPremium={config.isPremium}
-                    fileInputRef={fileInputRef}
-                    handleDrag={handleDrag}
-                    handleDrop={handleDrop}
-                    handleFileInput={handleFileInput}
-                  />
-
-                  {selectedFile && !loading && (
-                    <ModeSelector
-                      restoreMode={restoreMode}
-                      setRestoreMode={setRestoreMode}
-                      credits={credits}
-                      loading={loading}
-                      processing={processing}
-                      handleRestoreClick={handleRestoreClick}
-                      handleReset={handleReset}
-                      getFixedButtonText={getFixedButtonText}
-                    />
-                  )}
-                </>
+                <UploadAndModeSelector
+                  selectedPreviewUrl={selectedPreviewUrl}
+                  dragActive={dragActive}
+                  loading={loading}
+                  processing={processing}
+                  progressStatus={progressStatus}
+                  progressPercent={progressPercent}
+                  restoreMode={restoreMode}
+                  isPremium={config.isPremium}
+                  fileInputRef={fileInputRef}
+                  handleDrag={handleDrag}
+                  handleDrop={handleDrop}
+                  handleFileInput={handleFileInput}
+                  selectedFile={selectedFile}
+                  setRestoreMode={setRestoreMode}
+                  credits={credits}
+                  handleRestoreClick={handleRestoreClick}
+                  handleReset={handleReset}
+                  getFixedButtonText={getFixedButtonText}
+                />
               ) : (
                 <ResultsView
                   selectedPreviewUrl={selectedPreviewUrl}
@@ -178,34 +167,31 @@ export default function RestorePremiumPage() {
                 />
               )}
 
-   <BeforeAfterGallery
-            selectedPreviewUrl={selectedPreviewUrl}
-            restoredUrl={restoredUrl}
-            restoreMode={restoreMode}
-          />
+              <BeforeAfterGallery
+                selectedPreviewUrl={selectedPreviewUrl}
+                restoredUrl={restoredUrl}
+                restoreMode={restoreMode}
+              />
+
               <ProTip isPremium={config.isPremium} />
             </div>
           </main>
 
-         <BadgePills />
+          <BadgePills />
 
           <RestorationCounter />
 
-<div className={styles.squareImageWrapper}>
-  <Image
-    src={BlendPhoto}
-    alt="Blend of restored photos"
-    width={300}
-    height={300}
-    className={styles.squareImage}
-    priority
-  />
-</div>
+          <div className={styles.squareImageWrapper}>
+            <Image
+              src={BlendPhoto}
+              alt="Blend of restored photos"
+              width={300}
+              height={300}
+              className={styles.squareImage}
+              priority
+            />
+          </div>
 
-
-
-          
-        
           <FeaturesGrid restoreMode={restoreMode} />
         </div>
 

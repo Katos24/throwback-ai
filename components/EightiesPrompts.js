@@ -91,7 +91,7 @@ const buildEightiesPrompt = ({
   // Aerobics gender-specific version
   if (styleId === 'aerobics') {
     if (gender === 'male') {
-      prompt = `male 1980s aerobics portrait, neon sweatband, feathered short hair, colorful tank top, running shorts, white sneakers, upbeat expression, retro gym aesthetic, 80s fitness craze vibe`;
+      prompt = `male 1980s aerobics portrait, neon sweatband,  colorful tank top, running shorts, white sneakers, upbeat expression, retro gym aesthetic, 80s fitness craze vibe`;
     } else if (gender === 'female') {
       prompt = `female 1980s aerobics portrait, bright neon headband, crimped voluminous hair, colorful leotard with leg warmers, energetic expression, 80s fitness craze aesthetic`;
     }

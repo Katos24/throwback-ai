@@ -53,7 +53,7 @@ export default function RestoreBasic() {
     if (credits < restoreCost) {
       return isLoggedIn ? '💳 Buy More Credits' : '🔒 Sign Up to Restore';
     }
-    return '✨ Restore Photo';
+    return 'Restore Photo';
   };
 
   // Debug: log credits to console

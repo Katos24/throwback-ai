@@ -30,6 +30,14 @@ export default function ResultsView({
         </button>
         
         <button
+          onClick={handleUseRestoredImage}
+          className={styles.enhanceButton}
+        >
+          <span>🎨</span>
+          Enhance Again
+        </button>
+        
+        <button
           onClick={handleReset}
           className={styles.secondaryButton}
         >
@@ -38,21 +46,9 @@ export default function ResultsView({
         </button>
       </div>
 
-      <div className={styles.enhanceAgainSection}>
-        <button
-          onClick={handleUseRestoredImage}
-          className={styles.enhanceButton}
-        >
-          🎨 Enhance This Result Again
-        </button>
-        <p className={styles.enhanceHint}>
-          Use the {restoreMode === 'basic' ? 'restored' : 'colorized'} photo as input to apply another enhancement
-        </p>
-      </div>
-
       <div className={`${styles.alert} ${isPremium ? styles.premiumAlert : ''}`}>
         <span>{isPremium ? '🌈' : '✅'}</span>
-        <p>Photo successfully processed! Use the slider to compare.</p>
+        <p>Photo successfully processed! Use the slider to compare before and after.</p>
       </div>
     </div>
   );

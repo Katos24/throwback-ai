@@ -31,11 +31,11 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
   }, []);
 
   const categories = [
-    { value: 'fantasy', label: 'Fantasy', emoji: '🧙', color: '#3b82f6' },
-    { value: 'scifi', label: 'Sci-Fi', emoji: '🚀', color: '#06b6d4' },
-    { value: 'historical', label: 'Historical', emoji: '🏛️', color: '#f97316' },
-    { value: 'portrait', label: 'Portrait', emoji: '📸', color: '#8b5cf6' },
-    { value: 'holiday', label: 'Holiday', emoji: '🎄', color: '#10b981' },
+    { value: 'fantasy', label: 'Fantasy', color: '#3b82f6' },
+    { value: 'scifi', label: 'Sci-Fi',  color: '#06b6d4' },
+    { value: 'historical', label: 'Historical', color: '#f97316' },
+    { value: 'portrait', label: 'Portrait',  color: '#8b5cf6' },
+    { value: 'holiday', label: 'Holiday', color: '#10b981' },
   ];
 
   const categoryStyles = AVATAR_STYLES[activeCategory] || [];
@@ -92,7 +92,6 @@ const CategoryTabGallery = memo(({ onStyleSelect, onGenderChange, selectedGender
               onClick={() => handleCategoryChange(cat.value)}
               style={{ '--tab-color': cat.color }}
             >
-              <span className={styles.tabEmoji}>{cat.emoji}</span>
               <span className={styles.tabLabel}>{cat.label}</span>
             </button>
           ))}

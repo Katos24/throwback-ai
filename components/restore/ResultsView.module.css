@@ -5,26 +5,27 @@
 }
 
 .comparisonWrapper {
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* Button Row - All buttons in one row on desktop */
 .buttonRow {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
 }
 
+/* Primary Download Button */
 .primaryButton {
-  flex: 1;
-  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
-  font-size: 1.05rem;
+  gap: 0.625rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
@@ -32,11 +33,12 @@
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
 }
 
 .primaryButton.premiumButton {
@@ -44,91 +46,195 @@
 }
 
 .primaryButton.premiumButton:hover {
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35);
 }
 
-.secondaryButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #9ca3af;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.secondaryButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #f3f4f6;
-}
-
-.buttonIcon {
-  font-size: 1.2rem;
-}
-
-.enhanceAgainSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.5rem;
-  background: rgba(139, 92, 246, 0.05);
-  border: 1px dashed rgba(139, 92, 246, 0.3);
-  border-radius: 12px;
-}
-
+/* Enhance Again Button */
 .enhanceButton {
-  padding: 0.875rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: white;
   background: linear-gradient(135deg, #8b5cf6, #a855f7);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .enhanceButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
 }
 
-.enhanceHint {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  text-align: center;
-  max-width: 500px;
-  line-height: 1.5;
+/* Secondary Button */
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.buttonIcon {
+  font-size: 1.125rem;
+}
+
+/* Alert Section */
 .alert {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  border-radius: 10px;
+  background: rgba(34, 197, 94, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 12px;
 }
 
 .alert.premiumAlert {
-  background: rgba(168, 85, 247, 0.1);
-  border-color: rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.25);
 }
 
 .alert span {
   font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 .alert p {
   margin: 0;
   color: #e5e7eb;
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* Tablet Layout */
+@media (max-width: 1024px) {
+  .buttonRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.625rem;
+  }
+  
+  .secondaryButton {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .container {
+    gap: 1.25rem;
+  }
+  
+  .buttonRow {
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+  }
+  
+  .primaryButton,
+  .enhanceButton,
+  .secondaryButton {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+  
+  .secondaryButton {
+    grid-column: auto;
+  }
+  
+  .alert {
+    padding: 0.875rem 1rem;
+  }
+  
+  .alert p {
+    font-size: 0.875rem;
+  }
+  
+  .alert span {
+    font-size: 1.25rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .container {
+    gap: 1rem;
+  }
+  
+  .comparisonWrapper {
+    border-radius: 12px;
+  }
+  
+  .buttonRow {
+    gap: 0.5rem;
+  }
+  
+  .primaryButton,
+  .enhanceButton,
+  .secondaryButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    gap: 0.5rem;
+  }
+  
+  .buttonIcon {
+    font-size: 1rem;
+  }
+  
+  .alert {
+    padding: 0.75rem 0.875rem;
+    gap: 0.625rem;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  .primaryButton,
+  .enhanceButton,
+  .secondaryButton {
+    min-height: 48px;
+    touch-action: manipulation;
+  }
+  
+  .primaryButton:hover,
+  .enhanceButton:hover,
+  .secondaryButton:hover {
+    transform: none;
+  }
+  
+  .primaryButton:active {
+    transform: scale(0.98);
+  }
+  
+  .enhanceButton:active {
+    transform: scale(0.98);
+  }
+  
+  .secondaryButton:active {
+    transform: scale(0.98);
+  }
 }

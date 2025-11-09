@@ -83,7 +83,7 @@ export default function BasicFeaturesSection() {
             padding: "1rem",
             borderRadius: "8px"
           }}>
-            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>✨ Photo Fix</h3>
+            <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>Photo Fix</h3>
             <ImageCompareSlider
               beforeImage="/images/restore-before-faded.jpg"
               afterImage="/images/restore-after-completed.jpg"

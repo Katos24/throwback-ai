@@ -14,8 +14,7 @@ export default function DecadeHero({
       <div className={styles.heroContent}>
         <h1 className={styles.title}>{title}</h1>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-        <div className={styles.costPill}>COSTS {avatarCost} CREDITS</div>
-        <p className={styles.freeCreditsNote}>Sign up & get 50 FREE credits to try!</p>
+        <div className={styles.costPill}>Sign up & get 50 FREE credits to try!</div>
       </div>
 
       {/* Right: Transformation Demo */}

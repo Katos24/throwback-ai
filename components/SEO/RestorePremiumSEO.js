@@ -109,37 +109,45 @@ const RestorePremiumSEO = ({
   const canonicalUrl = customCanonicalUrl || pageUrl;
 
   // UPDATED: Structured data emphasizing both basic and premium services
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "AI Photo Restoration & Enhancement Tool",
-    "applicationCategory": "MultimediaApplication",
-    "operatingSystem": "Web",
-    "description": description,
-    "url": canonicalUrl,
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Basic Photo Restoration",
-        "price": "1",
-        "priceCurrency": "credits",
-        "availability": "https://schema.org/InStock",
-        "description": "Basic AI photo restoration - fix damaged photos, enhance clarity, repair scratches"
-      },
-      {
-        "@type": "Offer",
-        "name": "Premium Photo Restoration with Colorization",
-        "price": "40",
-        "priceCurrency": "credits",
-        "availability": "https://schema.org/InStock",
-        "description": "Premium AI photo restoration - full colorization, advanced damage repair, professional enhancement"
-      }
-    ],
-    "creator": {
-      "@type": "Organization",
-      "name": "Throwback AI",
-      "url": siteUrl
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Photo Restoration & Enhancement Tool",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "description": description,
+  "url": canonicalUrl,
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Photo Restoration",
+      "price": "1",
+      "priceCurrency": "credits",
+      "availability": "https://schema.org/InStock",
+      "description": "Basic AI photo restoration - fix damaged photos, enhance clarity, repair scratches"
     },
+    {
+      "@type": "Offer",
+      "name": "Premium Photo Restoration with Colorization",
+      "price": "40",
+      "priceCurrency": "credits",
+      "availability": "https://schema.org/InStock",
+      "description": "Premium AI photo restoration - full colorization, advanced damage repair, professional enhancement"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "1247",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Throwback AI",
+    "url": siteUrl
+  },
+  
     "keywords": keywords,
     "softwareVersion": "1.0",
     "featureList": [

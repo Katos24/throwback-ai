@@ -330,6 +330,8 @@ const EightiesSEO = ({
       
       // NEW: Technical Features
       "Instant 30-60 second generation",
+      "80s generator",
+      "80s  AI generator",
       "High-resolution printable output up to poster size",
       "Authentic period-accurate 1980-1989 details",
       "Natural-looking not costume-y unless desired",

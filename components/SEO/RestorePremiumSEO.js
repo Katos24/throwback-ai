@@ -22,20 +22,20 @@ const RestorePremiumSEO = ({
   const defaultDescription =
     "Free AI photo restoration tool - Restore old photos, enhance blurry pictures, fix damaged images, and colorize black & white photos online. Repair scratches, tears, and fading. Best free photo enhancer and restoration service. Basic restoration 1 credit, premium colorization 40 credits.";
   
-  // MASSIVELY EXPANDED: Original technical keywords + Real human searches
-  const defaultKeywords =
-    // ORIGINAL TECHNICAL/INTERNATIONAL KEYWORDS (KEEPING ALL)
-    "how to restore old photos free, fix my old photos, can AI restore damaged photos, restore grandparents photos, make old photos look new, fix blurry photo online free, how do I colorize old photos, restore faded family photos, fix scratched photo free, my photo is damaged how to fix, bring old photos back to life, make black and white photo color, restore photos from the 80s, fix torn picture, enhance grainy photos, restore old wedding photos, fix photo damage online, how to improve photo quality, restore scanned photos, make blurry picture clear, repair vintage family photos, restore ancestors photos, fix old Polaroid photos, how to sharpen old photos, restore photos for free online, what's the best photo restoration tool, enhance low quality photos, fix water damaged photos, restore photo from negative, improve old photo resolution, remove scratches from old photos, restore cracked photos, fix discolored photos, bring faded photos back to life, restore 1960s photos, 1970s photos, 1980s photos, fix wrinkled photo, enhance old digital photos, restore photo for obituary, fix photo for funeral, restore military photos, fix yellowed photos, restore newspaper clippings, enhance old Kodak photos, fix old disposable camera photos, restore photos from slide scanner, memorial photo restoration service, genealogy photo repair, ancestry photo enhancement, restore historical family photos, fix heritage photos, restore photos of deceased loved ones, fix childhood photos, restore parents wedding photos, enhance old graduation photos, restore baby photos, fix vacation photos from the past, restore holiday family photos, photo restoration UK, photo restoration Australia, photo restoration Canada, restore photos online free UK, fix old photos British, repair vintage photographs England, restore family photos Australia, enhance old photos Canada, photo restoration service London, restore pictures online free, photo repair tool free, fix damaged photographs, restore old pictures free, photo enhancement online, vintage photo restoration service, old photo repair near me, professional photo restoration online, restore sepia photos, fix antique photographs, photo colorization service, black and white photo coloring, add color to vintage photos, colorize historical photos, restore Victorian photos, Edwardian photo restoration, restore WW1 photos, WW2 photo restoration, restore 1920s photos, 1930s photos, 1940s photos, 1950s photos, fix old family portraits, restore daguerreotype, restore tintype photos, glass plate negative restoration, restore cabinet card photos, fix carte de visite, restore immigrant ancestor photos, Ellis Island photo restoration, restore passport photos old, fix ID photos vintage, restore driver license photo old, enhance yearbook photos, restore prom photos, fix graduation pictures, restore christening photos, baptism photo repair, restore first communion photos, confirmation photo restoration, restore bar mitzvah photos, bat mitzvah photo repair, quinceañera photo restoration, wedding photo restoration Indian, restore nikah photos, fix walima pictures, restore Hindu wedding photos, Sikh wedding photo repair, restore Chinese wedding photos, Japanese wedding photo restoration, restore photos Philippines, restore photos India, restore photos Mexico, fix fotos viejas, restaurar fotos antiguas, reparar fotos dañadas, colorear fotos blanco y negro, mejorar calidad de fotos, restauration de photos anciennes, réparer des photos abîmées, coloriser photos noir et blanc, alte Fotos wiederherstellen, beschädigte Fotos reparieren, Schwarz-Weiß-Fotos kolorieren, ripristinare vecchie foto, riparare foto danneggiate, colorare foto bianco e nero, restaurar fotos antigas, reparar fotos danificadas, colorir fotos preto e branco, 古い写真を復元, 写真修復, 白黒写真カラー化, 오래된 사진 복원, 사진 복구, 흑백 사진 컬러화, 修复老照片, 修复损坏照片, 黑白照片上色, restore photos Ireland, restore photos Scotland, restore photos Wales, restore photos New Zealand, restore photos South Africa, restore photos Singapore, restore photos Malaysia, restore photos Indonesia, restore photos Thailand, restore photos Vietnam, restore photos Brazil, restore photos Argentina, restore photos Colombia, restore photos Chile, restore photos Europe, restore photos Asia, restore photos Africa, restore photos Middle East, free photo restoration worldwide, international photo repair service, global photo enhancement, " +
-    
+// MASSIVELY EXPANDED: Original technical keywords + Real human searches
+const defaultKeywords = `
+how to restore old photos free, fix my old photos, can AI restore damaged photos, restore grandparents photos, make old photos look new, fix blurry photo online free, how do I colorize old photos, restore faded family photos, fix scratched photo free, my photo is damaged how to fix, bring old photos back to life, make black and white photo color, restore photos from the 80s, fix torn picture, enhance grainy photos, restore old wedding photos, fix photo damage online, how to improve photo quality, restore scanned photos, make blurry picture clear, repair vintage family photos, restore ancestors photos, fix old Polaroid photos, how to sharpen old photos, restore photos for free online, what is the best photo restoration tool, enhance low quality photos, fix water damaged photos, restore photo from negative, improve old photo resolution, remove scratches from old photos, restore cracked photos, fix discolored photos, bring faded photos back to life, restore 1960s photos, 1970s photos, 1980s photos, fix wrinkled photo, enhance old digital photos, restore photo for obituary, fix photo for funeral, restore military photos, fix yellowed photos, restore newspaper clippings, enhance old Kodak photos, fix old disposable camera photos, restore photos from slide scanner, memorial photo restoration service, genealogy photo repair, ancestry photo enhancement, restore historical family photos, fix heritage photos, restore photos of deceased loved ones, fix childhood photos, restore parents wedding photos, enhance old graduation photos, restore baby photos, fix vacation photos from the past, restore holiday family photos, photo restoration UK, photo restoration Australia, photo restoration Canada, restore photos online free UK, fix old photos British, repair vintage photographs England, restore family families Australia, enhance old photos Canada, photo restoration service London, restore pictures online free, photo repair tool free, fix damaged photographs, restore old pictures free, photo enhancement online, vintage photo restoration service, old photo repair near me, professional photo restoration online, restore sepia photos, fix antique photographs, photo colorization service, black and white photo coloring, add color to vintage photos, colorize historical photos, restore Victorian photos, Edwardian photo restoration, restore WW1 photos, WW2 photo restoration, restore 1920s photos, 1930s photos, 1940s photos, 1950s photos, fix old family portraits, restore daguerreotype, restore tintype photos, glass plate negative restoration, restore cabinet card photos, fix carte de visite, restore immigrant ancestor photos, Ellis Island photo restoration, restore passport photos old, fix ID photos vintage, restore driver license photo old, enhance yearbook photos, restore prom photos, fix graduation pictures, restore christening photos, baptism photo repair, restore first communion photos, confirmation photo restoration, restore bar mitzvah photos, bat mitzvah photo repair, quinceañera photo restoration, wedding photo restoration Indian, restore nikah photos, fix walima pictures, restore Hindu wedding photos, Sikh wedding photo repair, restore Chinese wedding photos, Japanese wedding photo restoration, restore photos Philippines, restore photos India, restore photos Mexico, fix fotos viejas, restaurar fotos antiguas, reparar fotos dañadas, colorear fotos blanco y negro, mejorar calidad de fotos, restauration de photos anciennes, réparer des photos abîmées, coloriser photos noir et blanc, alte Fotos wiederherstellen, beschädigte Fotos reparieren, Schwarz-Weiß-Fotos kolorieren, ripristinare vecchie foto, riparare foto danneggiate, colorare foto bianco e nero, restaurar fotos antigas, reparar fotos danificadas, colorir fotos preto e branco, 古い写真を復元, 写真修復, 白黒写真カラー化, 오래된 사진 복원, 사진 복구, 흑백 사진 컬러화, 修复老照片, 修复损坏照片, 黑白照片上色, restore photos Ireland, restore photos Scotland, restore photos Wales, restore photos New Zealand, restore photos South Africa, restore photos Singapore, restore photos Malaysia, restore photos Indonesia, restore photos Thailand, restore photos Vietnam, restore photos Brazil, restore photos Argentina, restore photos Colombia, restore photos Chile, restore photos Europe, restore photos Asia, restore photos Africa, restore photos Middle East, free photo restoration worldwide, international photo repair service, global photo enhancement
+`;
+
     // NEW: Desperate/Emotional Searches (Real human pain points)
-    "help my photo is ruined, my only photo of grandma is damaged, fix my dead relatives photo, restore photo of my mom who passed away, only picture I have of my dad, bring back memories of deceased loved ones, fix the only photo I have, save my damaged wedding album, rescue my faded family photos, photo of grandpa needs fixing, restore picture before its too late, last photo of my grandmother, precious family photo damaged, sentimental photo restoration, restore irreplaceable photos, save cherished memories, family heirloom photo repair, photo means everything to me, cant lose this photo, photo of loved one who died, memorial photo needs help, " +
-    
+    `, help my photo is ruined, my only photo of grandma is damaged, fix my dead relatives photo, restore photo of my mom who passed away, only picture I have of my dad, bring back memories of deceased loved ones, fix the only photo I have, save my damaged wedding album, rescue my faded family photos, photo of grandpa needs fixing, restore picture before it is too late, last photo of my grandmother, precious family photo damaged, sentimental photo restoration, restore irreplaceable photos, save cherished memories, family heirloom photo repair, photo means everything to me, cannot lose this photo, photo of loved one who died, memorial photo needs help` +
+
     // NEW: Question-Based Searches (How people actually ask Google)
-    "how do I fix an old picture, what can restore old photos, where can I restore photos for free, is there a free photo fixer, can I fix a blurry photo, how to make old photos clearer, what app restores old photos, best way to fix damaged pictures, how to colorize grandmas photos, can AI fix torn photos, how do you restore faded pictures, what fixes scratched photos, where to get photos restored, who can restore old photos, what program fixes old photos, how much does photo restoration cost, can you fix severely damaged photos, is photo restoration expensive, what removes scratches from photos, how to enhance photo quality free, " +
-    
+    `, how do I fix an old picture, what can restore old photos, where can I restore photos for free, is there a free photo fixer, can I fix a blurry photo, how to make old photos clearer, what app restores old photos, best way to fix damaged pictures, how to colorize grandmas photos, can AI fix torn photos, how do you restore faded pictures, what fixes scratched photos, where to get photos restored, who can restore old photos, what program fixes old photos, how much does photo restoration cost, can you fix severely damaged photos, is photo restoration expensive, what removes scratches from photos, how to enhance photo quality free` +
+
     // NEW: Problem-First Searches (Specific damage types)
-    "photo too blurry to see faces, picture is torn how to fix, my photo has water damage, scratches all over old photo, faded colors in family photos, yellowed photo restoration, wrinkled photo needs fixing, cracked photo repair, photo has missing pieces, picture quality is terrible, grainy photo fix, dark photo needs lightening, photo stuck to glass, sunlight damaged photo, fire damaged pictures, mold on old photos, brown spots on pictures, foxing on photographs, photo fading to white, discolored photo fix, bent photo restoration, folded photo repair, ripped photograph help, " +
-    
+    `, photo too blurry to see faces, picture is torn how to fix, my photo has water damage, scratches all over old photo, faded colors in family photos, yellowed photo restoration, wrinkled photo needs fixing, cracked photo repair, photo has missing pieces, picture quality is terrible, grainy photo fix, dark photo needs lightening, photo stuck to glass, sunlight damaged photo, fire damaged pictures, mold on old photos, brown spots on pictures, foxing on photographs, photo fading to white, discolored photo fix, bent photo restoration, folded photo repair, ripped photograph help`;
+
     // NEW: Shopping/Comparison Searches (Competitor research)
     "best free photo restoration tool 2025, remini alternative free, myheritage photo enhancer vs, photoshop alternative for photos, free photo fixer better than remini, photo restoration app reviews, cheapest photo restoration service, photo repair tool comparison, best AI photo enhancer, top rated photo restoration, is remini free, photoshop too expensive alternatives, better than photoshop elements, luminar alternative, topaz photo ai free, gigapixel ai alternative, photoroom vs photo restoration, picsart photo enhancer, snapseed photo restoration, lightroom vs photo fixer, VSCO photo enhancement alternative, facetune old photo restoration, " +
     
@@ -109,45 +109,37 @@ const RestorePremiumSEO = ({
   const canonicalUrl = customCanonicalUrl || pageUrl;
 
   // UPDATED: Structured data emphasizing both basic and premium services
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "AI Photo Restoration & Enhancement Tool",
-  "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Web",
-  "description": description,
-  "url": canonicalUrl,
-  "offers": [
-    {
-      "@type": "Offer",
-      "name": "Basic Photo Restoration",
-      "price": "1",
-      "priceCurrency": "credits",
-      "availability": "https://schema.org/InStock",
-      "description": "Basic AI photo restoration - fix damaged photos, enhance clarity, repair scratches"
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Photo Restoration & Enhancement Tool",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "description": description,
+    "url": canonicalUrl,
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic Photo Restoration",
+        "price": "1",
+        "priceCurrency": "credits",
+        "availability": "https://schema.org/InStock",
+        "description": "Basic AI photo restoration - fix damaged photos, enhance clarity, repair scratches"
+      },
+      {
+        "@type": "Offer",
+        "name": "Premium Photo Restoration with Colorization",
+        "price": "40",
+        "priceCurrency": "credits",
+        "availability": "https://schema.org/InStock",
+        "description": "Premium AI photo restoration - full colorization, advanced damage repair, professional enhancement"
+      }
+    ],
+    "creator": {
+      "@type": "Organization",
+      "name": "Throwback AI",
+      "url": siteUrl
     },
-    {
-      "@type": "Offer",
-      "name": "Premium Photo Restoration with Colorization",
-      "price": "40",
-      "priceCurrency": "credits",
-      "availability": "https://schema.org/InStock",
-      "description": "Premium AI photo restoration - full colorization, advanced damage repair, professional enhancement"
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "1247",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "creator": {
-    "@type": "Organization",
-    "name": "Throwback AI",
-    "url": siteUrl
-  },
-  
     "keywords": keywords,
     "softwareVersion": "1.0",
     "featureList": [
